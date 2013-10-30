@@ -1,0 +1,17 @@
+C:\tfs\mozu\Integrations\Main\Main-branch\SDKs\DotNet\Mozu.Api\Mozu.Api.Sample\bin\Debug\Mozu.Api.Sample.exe.config
+C:\tfs\mozu\Integrations\Main\Main-branch\SDKs\DotNet\Mozu.Api\Mozu.Api.Sample\bin\Debug\Mozu.Api.Sample.exe
+C:\tfs\mozu\Integrations\Main\Main-branch\SDKs\DotNet\Mozu.Api\Mozu.Api.Sample\bin\Debug\Mozu.Api.Sample.pdb
+C:\tfs\mozu\Integrations\Main\Main-branch\SDKs\DotNet\Mozu.Api\Mozu.Api.Sample\bin\Debug\Mozu.Api.dll
+C:\tfs\mozu\Integrations\Main\Main-branch\SDKs\DotNet\Mozu.Api\Mozu.Api.Sample\bin\Debug\Newtonsoft.Json.dll
+C:\tfs\mozu\Integrations\Main\Main-branch\SDKs\DotNet\Mozu.Api\Mozu.Api.Sample\bin\Debug\System.Net.Http.Formatting.dll
+C:\tfs\mozu\Integrations\Main\Main-branch\SDKs\DotNet\Mozu.Api\Mozu.Api.Sample\bin\Debug\Mozu.Api.pdb
+C:\tfs\mozu\Integrations\Main\Main-branch\SDKs\DotNet\Mozu.Api\Mozu.Api.Sample\bin\Debug\Mozu.Api.xml
+C:\tfs\mozu\Integrations\Main\Main-branch\SDKs\DotNet\Mozu.Api\Mozu.Api.Sample\bin\Debug\Newtonsoft.Json.xml
+C:\tfs\mozu\Integrations\Main\Main-branch\SDKs\DotNet\Mozu.Api\Mozu.Api.Sample\bin\Debug\System.Net.Http.Formatting.xml
+C:\tfs\mozu\Integrations\Main\Main-branch\SDKs\DotNet\Mozu.Api\Mozu.Api.Sample\obj\Debug\Mozu.Api.Sample.csprojResolveAssemblyReference.cache
+C:\tfs\mozu\Integrations\Main\Main-branch\SDKs\DotNet\Mozu.Api\Mozu.Api.Sample\obj\Debug\Mozu.Api.Sample.Properties.Resources.resources
+C:\tfs\mozu\Integrations\Main\Main-branch\SDKs\DotNet\Mozu.Api\Mozu.Api.Sample\obj\Debug\Mozu.Api.Sample.csproj.GenerateResource.Cache
+C:\tfs\mozu\Integrations\Main\Main-branch\SDKs\DotNet\Mozu.Api\Mozu.Api.Sample\obj\Debug\Mozu.Api.Sample.exe
+C:\tfs\mozu\Integrations\Main\Main-branch\SDKs\DotNet\Mozu.Api\Mozu.Api.Sample\obj\Debug\Mozu.Api.Sample.pdb
+C:\tfs\mozu\Integrations\Main\Main-branch\SDKs\DotNet\Mozu.Api\Mozu.Api.Sample\obj\Debug\Mozu.Api.Sample.Home.resources
+C:\tfs\mozu\Integrations\Main\Main-branch\SDKs\DotNet\Mozu.Api\Mozu.Api.Sample\obj\Debug\Mozu.Api.Sample.Orders.Home.resources
