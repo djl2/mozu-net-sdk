@@ -14,4 +14,5 @@ C:\tfs\mozu\Integrations\Main\Main-branch\SDKs\DotNet\Mozu.Api\Mozu.Api.Sample\o
 C:\tfs\mozu\Integrations\Main\Main-branch\SDKs\DotNet\Mozu.Api\Mozu.Api.Sample\obj\Debug\Mozu.Api.Sample.exe
 C:\tfs\mozu\Integrations\Main\Main-branch\SDKs\DotNet\Mozu.Api\Mozu.Api.Sample\obj\Debug\Mozu.Api.Sample.pdb
 C:\tfs\mozu\Integrations\Main\Main-branch\SDKs\DotNet\Mozu.Api\Mozu.Api.Sample\obj\Debug\Mozu.Api.Sample.Home.resources
-C:\tfs\mozu\Integrations\Main\Main-branch\SDKs\DotNet\Mozu.Api\Mozu.Api.Sample\obj\Debug\Mozu.Api.Sample.Orders.Home.resources
+C:\tfs\mozu\Integrations\Main\Main-branch\SDKs\DotNet\Mozu.Api\Mozu.Api.Sample\obj\Debug\Mozu.Api.Sample.OrderHandler.Orders.resources
+C:\tfs\mozu\Integrations\Main\Main-branch\SDKs\DotNet\Mozu.Api\Mozu.Api.Sample\obj\Debug\Mozu.Api.Sample.ProductHandler.Home.resources

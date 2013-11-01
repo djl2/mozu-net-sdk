@@ -1,20 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-
-using Mozu.Api;
 using Mozu.Api.Contracts.ProductAdmin;
 using Mozu.Api.Resources.Commerce.Catalog.Admin;
-using Mozu.Api.Resources.Commerce.Catalog.Admin.Attributedefinition;
-using Mozu.Api.Resources.Commerce.Catalog.Admin.Attributedefinition.Attributes;
-using Mozu.Api.Resources.Commerce.Catalog.Admin.Attributedefinition.Producttypes;
-using Mozu.Api.Resources.Platform;
 
 namespace Mozu.Api.Sample.ProductHandler
 {
@@ -31,12 +18,19 @@ namespace Mozu.Api.Sample.ProductHandler
         private void getProductsBtn_Click(object sender, EventArgs e)
         {
 
-
-            var productResource = new ProductResource(_apiContext);
-            ProductCollection products = productResource.GetProducts();
-            foreach (Product product in products.Items)
+            try
             {
-                productList.Items.Add(product.ProductCode);
+                var productResource = new ProductResource(_apiContext);
+                ProductCollection products = productResource.GetProducts();
+                foreach (Product product in products.Items)
+                {
+                    productList.Items.Add(product.ProductCode);
+                }
+
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message);
             }
             
             

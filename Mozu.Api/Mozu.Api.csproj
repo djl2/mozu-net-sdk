@@ -64,6 +64,7 @@
     <Compile Include="Events\HttpHandler.cs" />
     <Compile Include="Events\IProductEvents.cs" />
     <Compile Include="Security\UserAuthentication.cs" />
+    <Compile Include="Utilities\ResponseHelper.cs" />
     <Compile Include="Version.cs" />
     <Compile Include="Cache\CacheItem.cs" />
     <Compile Include="Cache\CacheManager.cs" />

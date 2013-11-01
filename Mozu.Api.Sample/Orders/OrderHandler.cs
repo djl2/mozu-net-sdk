@@ -1,22 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-
-using Mozu.Api.Clients.Commerce.Orders;
 using Mozu.Api.Contracts.CommerceRuntime.Orders;
-using Mozu.Api.Contracts.CommerceRuntime.Payments;
-using Mozu.Api.Contracts.CommerceRuntime.Products;
-using Mozu.Api;
-using Mozu.Api.Contracts.CommerceRuntime.Shipping;
 using Mozu.Api.Resources.Commerce;
-using Mozu.Api.Resources.Commerce.Orders;
-using Mozu.Api.Resources.Platform;
 
 namespace Mozu.Api.Sample.OrderHandler
 {
@@ -31,15 +16,22 @@ namespace Mozu.Api.Sample.OrderHandler
 
         private void button1_Click(object sender, EventArgs e)
         {
-            var orderResource = new OrderResource(_apiContext);
-            OrderCollection orders = orderResource.GetOrders();
-
-            string orderInfo;
-
-            foreach (Order order in orders.Items)
+            try
             {
-                orderInfo = "Order ID: " + order.Id + " - Order Total: " + order.Total;
-                ordersList.Items.Add(orderInfo);
+                var orderResource = new OrderResource(_apiContext);
+                OrderCollection orders = orderResource.GetOrders();
+
+                string orderInfo;
+
+                foreach (Order order in orders.Items)
+                {
+                    orderInfo = "Order ID: " + order.Id + " - Order Total: " + order.Total;
+                    ordersList.Items.Add(orderInfo);
+                }
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message);
             }
         }
 
