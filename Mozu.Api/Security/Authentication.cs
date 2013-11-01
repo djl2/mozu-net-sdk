@@ -4,6 +4,7 @@ using System.Text;
 using Mozu.Api.Contracts.AppDev;
 using Mozu.Api.Resources.Platform.Applications;
 using Mozu.Api.Urls.Platform.Applications;
+using Mozu.Api.Utilities;
 using Newtonsoft.Json;
 using AuthTicket = Mozu.Api.Contracts.AppDev.AuthTicket;
 using UserAuthTicket = Mozu.Api.Contracts.Core.UserAuthTicket;
@@ -89,7 +90,7 @@ namespace Mozu.Api.Security
                 client.PostAsync(resourceUrl, new StringContent(stringContent, Encoding.UTF8, "application/json"))
                         .Result;
 
-            MozuClient.EnsureSuccess(response);
+            ResponseHelper.EnsureSuccess(response);
 
             _appAuthTicket = response.Content.ReadAsAsync<AuthTicket>().Result;
 
@@ -122,7 +123,7 @@ namespace Mozu.Api.Security
             var response =
                 client.PutAsync(resourceUrl, new StringContent(stringContent, Encoding.UTF8, "application/json"))
                         .Result;
-            MozuClient.EnsureSuccess(response);
+            ResponseHelper.EnsureSuccess(response);
 
             _appAuthTicket = response.Content.ReadAsAsync<AuthTicket>().Result;
 

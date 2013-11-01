@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Text;
 using Mozu.Api.Contracts;
 using Mozu.Api.Security;
+using Mozu.Api.Utilities;
 using Newtonsoft.Json;
 
 namespace Mozu.Api
@@ -236,17 +237,7 @@ namespace Mozu.Api
                 throw new ApplicationException("Base address is not provided");
         }
 
-        public static void EnsureSuccess(HttpResponseMessage response)
-        {
-            if (!response.IsSuccessStatusCode)
-            {
-                var content = response.Content.ReadAsStringAsync().Result;
-                var exception = JsonConvert.DeserializeObject<ApiException>(content);
-                exception.HttpStatusCode = response.StatusCode;
-                throw exception;
-                //throw new ApplicationException(Exception.ExceptionDetail.Message, new Exception(Exception.ExceptionDetail.StackTrace));
-            }
-        }
+       
 
 		public virtual HttpResponseMessage HttpResponse
         {
@@ -294,7 +285,7 @@ namespace Mozu.Api
         {
             var client = GetHttpClient();
             _httpResponseMessage = client.SendAsync(GetRequestMessage(), HttpCompletionOption.ResponseContentRead).Result;
-            EnsureSuccess(_httpResponseMessage);
+            ResponseHelper.EnsureSuccess(_httpResponseMessage);
         }
         
         private HttpRequestMessage GetRequestMessage()

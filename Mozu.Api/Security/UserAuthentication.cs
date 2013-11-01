@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Mozu.Api.Contracts.AdminUser;
 using Mozu.Api.Contracts.Core;
 using Mozu.Api.Urls.Platform.Adminuser;
+using Mozu.Api.Utilities;
 using Newtonsoft.Json;
 
 namespace Mozu.Api.Security
@@ -104,7 +105,7 @@ namespace Mozu.Api.Security
             Authentication.AddAuthHeader(client);
 
             var response = client.PostAsync(resourceUrl, new StringContent(stringContent, Encoding.UTF8, "application/json")).Result;
-            MozuClient.EnsureSuccess(response);
+            ResponseHelper.EnsureSuccess(response);
 
             _tanantAuthTicket = response.Content.ReadAsAsync<TenantAdminUserAuthTicket>().Result;
 
@@ -134,7 +135,7 @@ namespace Mozu.Api.Security
             var stringContent = JsonConvert.SerializeObject(_tanantAuthTicket);
 
             var response = client.PutAsync(resourceUrl, new StringContent(stringContent, Encoding.UTF8, "application/json")).Result;
-            MozuClient.EnsureSuccess(response);
+            ResponseHelper.EnsureSuccess(response);
             //response.EnsureSuccessStatusCode();
 
             _tanantAuthTicket = response.Content.ReadAsAsync<TenantAdminUserAuthTicket>().Result;
