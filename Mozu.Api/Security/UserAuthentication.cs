@@ -67,8 +67,16 @@ namespace Mozu.Api.Security
             {
                 lock (_lockObj)
                 {
-                    _userAuth = new UserAuthentication(userAuthInfo, baseAppAuthUrl, refreshInterval);
-                    _userAuth.AuthenticateUser();
+                    try
+                    {
+                        _userAuth = new UserAuthentication(userAuthInfo, baseAppAuthUrl, refreshInterval);
+                        _userAuth.AuthenticateUser();
+                    }
+                    catch (ApiException exc)
+                    {
+                        _userAuth = null;
+                        throw exc;
+                    }
                 }
             }
 
@@ -96,7 +104,7 @@ namespace Mozu.Api.Security
             Authentication.AddAuthHeader(client);
 
             var response = client.PostAsync(resourceUrl, new StringContent(stringContent, Encoding.UTF8, "application/json")).Result;
-            response.EnsureSuccessStatusCode();
+            MozuClient.EnsureSuccess(response);
 
             _tanantAuthTicket = response.Content.ReadAsAsync<TenantAdminUserAuthTicket>().Result;
 
@@ -126,7 +134,8 @@ namespace Mozu.Api.Security
             var stringContent = JsonConvert.SerializeObject(_tanantAuthTicket);
 
             var response = client.PutAsync(resourceUrl, new StringContent(stringContent, Encoding.UTF8, "application/json")).Result;
-            response.EnsureSuccessStatusCode();
+            MozuClient.EnsureSuccess(response);
+            //response.EnsureSuccessStatusCode();
 
             _tanantAuthTicket = response.Content.ReadAsAsync<TenantAdminUserAuthTicket>().Result;
 

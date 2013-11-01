@@ -42,6 +42,12 @@ namespace Mozu.Api.Sample
 
                 panelTenant.Visible = true;
 
+                if (UserAuthentication.Instance.UserAuthTicket.AvailableTenants == null)
+                {
+                    UserAuthentication.Instance.UserAuthTicket.AvailableTenants = new List<Tenant>();
+                    UserAuthentication.Instance.UserAuthTicket.AvailableTenants.Add(UserAuthentication.Instance.UserAuthTicket.Tenant);
+                }
+                    
                 cbTenant.DataSource = UserAuthentication.Instance.UserAuthTicket.AvailableTenants;
             }
             catch (ApiException exc)

@@ -236,14 +236,14 @@ namespace Mozu.Api
                 throw new ApplicationException("Base address is not provided");
         }
 
-        protected void EnsureSuccess()
+        public static void EnsureSuccess(HttpResponseMessage response)
         {
-            if (!_httpResponseMessage.IsSuccessStatusCode)
+            if (!response.IsSuccessStatusCode)
             {
-                var content = _httpResponseMessage.Content.ReadAsStringAsync().Result;
-                ApiException = JsonConvert.DeserializeObject<ApiException>(content);
-                ApiException.HttpStatusCode = _httpResponseMessage.StatusCode;
-                throw ApiException;
+                var content = response.Content.ReadAsStringAsync().Result;
+                var exception = JsonConvert.DeserializeObject<ApiException>(content);
+                exception.HttpStatusCode = response.StatusCode;
+                throw exception;
                 //throw new ApplicationException(Exception.ExceptionDetail.Message, new Exception(Exception.ExceptionDetail.StackTrace));
             }
         }
@@ -294,7 +294,7 @@ namespace Mozu.Api
         {
             var client = GetHttpClient();
             _httpResponseMessage = client.SendAsync(GetRequestMessage(), HttpCompletionOption.ResponseContentRead).Result;
-            EnsureSuccess();
+            EnsureSuccess(_httpResponseMessage);
         }
         
         private HttpRequestMessage GetRequestMessage()

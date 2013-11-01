@@ -59,8 +59,18 @@ namespace Mozu.Api.Security
             {
                 lock (_lockObj)
                 {
-                    _auth = new Authentication(appAuthInfo, baseAppAuthUrl, refreshInterval);
-                    _auth.AuthenticateApp();
+                    try
+                    {
+                        _auth = new Authentication(appAuthInfo, baseAppAuthUrl, refreshInterval);
+                        _auth.AuthenticateApp();
+                    }
+                    catch (ApiException exc)
+                    {
+                        _auth = null;
+                        throw exc;
+                    }
+
+
                 }
             }
 
@@ -73,10 +83,13 @@ namespace Mozu.Api.Security
         public void AuthenticateApp()
         {
             var resourceUrl = AuthTicketUrl.AuthenticateAppUrl();
-            var client = new HttpClient { BaseAddress = new Uri(_apiContext.BaseUrl) };
+            var client = new HttpClient {BaseAddress = new Uri(_apiContext.BaseUrl)};
             var stringContent = JsonConvert.SerializeObject(_appAuthInfo);
-            var response = client.PostAsync(resourceUrl, new StringContent(stringContent, Encoding.UTF8, "application/json")).Result;
-            response.EnsureSuccessStatusCode();
+            var response =
+                client.PostAsync(resourceUrl, new StringContent(stringContent, Encoding.UTF8, "application/json"))
+                        .Result;
+
+            MozuClient.EnsureSuccess(response);
 
             _appAuthTicket = response.Content.ReadAsAsync<AuthTicket>().Result;
 
@@ -84,24 +97,37 @@ namespace Mozu.Api.Security
         }
 
 
+       /* private void EnsureSuccess(HttpResponseMessage response)
+        {
+            if (!response.IsSuccessStatusCode)
+            {
+                var content = response.Content.ReadAsStringAsync().Result;
+                var exception = JsonConvert.DeserializeObject<ApiException>(content);
+                exception.HttpStatusCode = response.StatusCode;
+                throw exception;
+                //throw new ApplicationException(Exception.ExceptionDetail.Message, new Exception(Exception.ExceptionDetail.StackTrace));
+            }
+        }*/
+
         /// <summary>
         /// Refresh the application auth ticket using the refresh token
         /// </summary>
         public void RefreshAppAuthTicket()
         {
-
             var resourceUrl = AuthTicketUrl.RefreshAppAuthTicketUrl();
-            var client = new HttpClient { BaseAddress = new Uri(_apiContext.BaseUrl) };
-            var authTicketRequest = new AuthTicketRequest { RefreshToken = _appAuthTicket.RefreshToken };
+            var client = new HttpClient {BaseAddress = new Uri(_apiContext.BaseUrl)};
+            var authTicketRequest = new AuthTicketRequest {RefreshToken = _appAuthTicket.RefreshToken};
             var stringContent = JsonConvert.SerializeObject(authTicketRequest);
 
-            var response = client.PutAsync(resourceUrl, new StringContent(stringContent, Encoding.UTF8, "application/json")).Result;
-            response.EnsureSuccessStatusCode();
+            var response =
+                client.PutAsync(resourceUrl, new StringContent(stringContent, Encoding.UTF8, "application/json"))
+                        .Result;
+            MozuClient.EnsureSuccess(response);
 
             _appAuthTicket = response.Content.ReadAsAsync<AuthTicket>().Result;
 
             SetRefreshIntervals(false);
-
+ 
         }
 
         private void SetRefreshIntervals(bool updateRefreshTokenInterval)
