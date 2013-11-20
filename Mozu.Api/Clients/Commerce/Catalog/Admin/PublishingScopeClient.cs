@@ -10,6 +10,8 @@
 
 using System;
 using System.Collections.Generic;
+using Mozu.Api.Security;
+
 
 namespace Mozu.Api.Clients.Commerce.Catalog.Admin
 {
@@ -21,44 +23,52 @@ namespace Mozu.Api.Clients.Commerce.Catalog.Admin
 				/// <summary>
 		/// 
 		/// </summary>
+		/// <param name="dataViewMode">{<see cref="Mozu.Api.DataViewMode"/>}</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <param name="publishScope"></param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=DiscardDrafts( publishScope);
+		///   var mozuClient=DiscardDrafts(dataViewMode,  publishScope, authTicket);
 		///mozuClient.WithBaseAddress(url).Execute();
 		/// </code>
 		/// </example>
-		public static MozuClient DiscardDraftsClient(Mozu.Api.Contracts.ProductAdmin.PublishingScope publishScope)
+		public static MozuClient DiscardDraftsClient(DataViewMode dataViewMode, Mozu.Api.Contracts.ProductAdmin.PublishingScope publishScope, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Catalog.Admin.PublishingScopeUrl.DiscardDraftsUrl();
 			const string verb = "POST";
-			var mozuClient = new MozuClient().WithVerb(verb).WithResourceUrl(url).WithBody<Mozu.Api.Contracts.ProductAdmin.PublishingScope>(publishScope);
-		return mozuClient;
+			var mozuClient = new MozuClient().WithVerb(verb).WithResourceUrl(url).WithBody<Mozu.Api.Contracts.ProductAdmin.PublishingScope>(publishScope).WithHeader(Headers.X_VOL_DATAVIEW_MODE ,dataViewMode.ToString());
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 
 		/// <summary>
 		/// 
 		/// </summary>
+		/// <param name="dataViewMode">{<see cref="Mozu.Api.DataViewMode"/>}</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <param name="publishScope"></param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=PublishDrafts( publishScope);
+		///   var mozuClient=PublishDrafts(dataViewMode,  publishScope, authTicket);
 		///mozuClient.WithBaseAddress(url).Execute();
 		/// </code>
 		/// </example>
-		public static MozuClient PublishDraftsClient(Mozu.Api.Contracts.ProductAdmin.PublishingScope publishScope)
+		public static MozuClient PublishDraftsClient(DataViewMode dataViewMode, Mozu.Api.Contracts.ProductAdmin.PublishingScope publishScope, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Catalog.Admin.PublishingScopeUrl.PublishDraftsUrl();
 			const string verb = "POST";
-			var mozuClient = new MozuClient().WithVerb(verb).WithResourceUrl(url).WithBody<Mozu.Api.Contracts.ProductAdmin.PublishingScope>(publishScope);
-		return mozuClient;
+			var mozuClient = new MozuClient().WithVerb(verb).WithResourceUrl(url).WithBody<Mozu.Api.Contracts.ProductAdmin.PublishingScope>(publishScope).WithHeader(Headers.X_VOL_DATAVIEW_MODE ,dataViewMode.ToString());
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 

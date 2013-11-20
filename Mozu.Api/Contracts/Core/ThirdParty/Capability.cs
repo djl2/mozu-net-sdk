@@ -16,11 +16,17 @@ namespace Mozu.Api.Contracts.Core.ThirdParty
 {
 		public class Capability
 		{
+			public List<string> ActiveCreditTypes { get; set; }
+
+			public List<string> ActiveShoppingCountries { get; set; }
+
 			public string CapabilityMode { get; set; }
 
 			public string CapabilityType { get; set; }
 
 			public bool? Enabled { get; set; }
+
+			public string Id { get; set; }
 
 			public bool? Initialized { get; set; }
 
@@ -28,11 +34,17 @@ namespace Mozu.Api.Contracts.Core.ThirdParty
 
 			public string ScopeType { get; set; }
 
+			public List<ActiveShippingCountry> ActiveShippingCountries { get; set; }
+
 			public AuditInfo AuditInfo { get; set; }
 
 			public List<OperationUrl> OperationUrls { get; set; }
 
-			public List<Property> Properties { get; set; }
+			public List<InitializablePropertyValue> SupportedCreditTypes { get; set; }
+
+			public List<InitializableShippingCountryPropertyValue> SupportedShippingCountries { get; set; }
+
+			public List<InitializablePropertyValue> SupportedShoppingCountries { get; set; }
 
 		}
 

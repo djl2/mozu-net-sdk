@@ -10,6 +10,8 @@
 
 using System;
 using System.Collections.Generic;
+using Mozu.Api.Security;
+
 
 namespace Mozu.Api.Clients.Commerce.Customer.Accounts
 {
@@ -23,21 +25,24 @@ namespace Mozu.Api.Clients.Commerce.Customer.Accounts
 		/// </summary>
 		/// <param name="accountId">Unique identifier of the customer account that contains the note being retrieved.</param>
 		/// <param name="noteId">Unique identifier of a particular note to retrieve.</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Customer.CustomerNote"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=GetAccountNote( accountId,  noteId);
+		///   var mozuClient=GetAccountNote( accountId,  noteId, authTicket);
 		///   var customerNoteClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.Customer.CustomerNote> GetAccountNoteClient(int accountId, int noteId)
+		public static MozuClient<Mozu.Api.Contracts.Customer.CustomerNote> GetAccountNoteClient(int accountId, int noteId, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Customer.Accounts.CustomerNoteUrl.GetAccountNoteUrl(accountId, noteId);
 			const string verb = "GET";
 			var mozuClient = new MozuClient<Mozu.Api.Contracts.Customer.CustomerNote>().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 
@@ -56,32 +61,35 @@ namespace Mozu.Api.Clients.Commerce.Customer.Accounts
 		/// </example>
 		public static MozuClient<Mozu.Api.Contracts.Customer.CustomerNoteCollection> GetAccountNotesClient(int accountId)
 		{
-			return GetAccountNotesClient( accountId,  null,  null,  null,  null);
+			return GetAccountNotesClient( accountId,  null,  null,  null,  null, null);
 		}
 
 		/// <summary>
 		/// Retrieves a list of notes added to a customer account according to any specified filter criteria and sort options.
 		/// </summary>
 		/// <param name="accountId">Unique identifier of the customer account.</param>
-		/// <param name="filter">A set of expressions that consist of a field, operator, and value and represent search parameter syntax when filtering results of a query. Valid operators include equals (eq), does not equal (ne), greater than (gt), less than (lt), greater than or equal to (ge), less than or equal to (le), starts with (sw), or contains (cont). For example - "filter=IsDisplayed+eq+true"</param>
-		/// <param name="pageSize">Specifies the number of results to display on each page when creating paged results from a query. The maximum value is 200.</param>
-		/// <param name="sortBy">The property by which to sort results and whether the results appear in ascending (a-z) order, represented by ASC or in descending (z-a) order, represented by DESC. The sortBy parameter follows an available property. For example: "sortBy=productCode+asc"</param>
-		/// <param name="startIndex">Indicates the zero-based offset in the complete result set where the returned entities begin, when creating paged results from a query. For example, with a PageSize of 25, to get the 51st through the 75th items, use startIndex=3.</param>
+		/// <param name="filter">"A set of expressions that consist of a field, operator, and value and represent search parameter syntax when filtering results of a query. Valid operators include equals (eq), does not equal (ne), greater than (gt), less than (lt), greater than or equal to (ge), less than or equal to (le), starts with (sw), or contains (cont). For example - ""filter=IsDisplayed+eq+true"""</param>
+		/// <param name="pageSize">Used to create paged results from a query. Specifies the number of results to display on each page. Maximum: 200.</param>
+		/// <param name="sortBy">"The property by which to sort results and whether the results appear in ascending (a-z) order, represented by 'ASC' or in descending (z-a) order, represented by 'DESC'. The sortBy parameter follows an available property. <b>For example: sortBy=productCode+asc</b>"</param>
+		/// <param name="startIndex">"Used to create paged results from a query. Indicates the zero-based offset in the complete result set where the returned entities begin. For example, with a PageSize of 25, to get the 51st through the 75th items, use startIndex=3."</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Customer.CustomerNoteCollection"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=GetAccountNotes( accountId,  filter,  pageSize,  sortBy,  startIndex);
+		///   var mozuClient=GetAccountNotes( accountId,  filter,  pageSize,  sortBy,  startIndex, authTicket);
 		///   var customerNoteCollectionClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.Customer.CustomerNoteCollection> GetAccountNotesClient(int accountId, string filter, int? pageSize, string sortBy, int? startIndex)
+		public static MozuClient<Mozu.Api.Contracts.Customer.CustomerNoteCollection> GetAccountNotesClient(int accountId, string filter =  null, int? pageSize =  null, string sortBy =  null, int? startIndex =  null, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Customer.Accounts.CustomerNoteUrl.GetAccountNotesUrl(accountId, filter, pageSize, sortBy, startIndex);
 			const string verb = "GET";
 			var mozuClient = new MozuClient<Mozu.Api.Contracts.Customer.CustomerNoteCollection>().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 
@@ -89,22 +97,25 @@ namespace Mozu.Api.Clients.Commerce.Customer.Accounts
 		/// Adds a new note to the specified customer account.
 		/// </summary>
 		/// <param name="accountId">Unique identifier of the customer account for which to create the note.</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <param name="note"></param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Customer.CustomerNote"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=AddAccountNote( accountId,  note);
+		///   var mozuClient=AddAccountNote( note,  accountId, authTicket);
 		///   var customerNoteClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.Customer.CustomerNote> AddAccountNoteClient(int accountId, Mozu.Api.Contracts.Customer.CustomerNote note)
+		public static MozuClient<Mozu.Api.Contracts.Customer.CustomerNote> AddAccountNoteClient(Mozu.Api.Contracts.Customer.CustomerNote note, int accountId, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Customer.Accounts.CustomerNoteUrl.AddAccountNoteUrl(accountId);
 			const string verb = "POST";
 			var mozuClient = new MozuClient<Mozu.Api.Contracts.Customer.CustomerNote>().WithVerb(verb).WithResourceUrl(url).WithBody<Mozu.Api.Contracts.Customer.CustomerNote>(note);
-		return mozuClient;
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 
@@ -113,22 +124,25 @@ namespace Mozu.Api.Clients.Commerce.Customer.Accounts
 		/// </summary>
 		/// <param name="accountId">Unique identifier of the customer account note to modify.</param>
 		/// <param name="noteId">Unique identifier of the note to update.</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <param name="note">The new content to replace the existing note.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Customer.CustomerNote"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=UpdateAccountNote( accountId,  noteId,  note);
+		///   var mozuClient=UpdateAccountNote( note,  accountId,  noteId, authTicket);
 		///   var customerNoteClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.Customer.CustomerNote> UpdateAccountNoteClient(int accountId, int noteId, Mozu.Api.Contracts.Customer.CustomerNote note)
+		public static MozuClient<Mozu.Api.Contracts.Customer.CustomerNote> UpdateAccountNoteClient(Mozu.Api.Contracts.Customer.CustomerNote note, int accountId, int noteId, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Customer.Accounts.CustomerNoteUrl.UpdateAccountNoteUrl(accountId, noteId);
 			const string verb = "PUT";
 			var mozuClient = new MozuClient<Mozu.Api.Contracts.Customer.CustomerNote>().WithVerb(verb).WithResourceUrl(url).WithBody<Mozu.Api.Contracts.Customer.CustomerNote>(note);
-		return mozuClient;
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 
@@ -137,21 +151,24 @@ namespace Mozu.Api.Clients.Commerce.Customer.Accounts
 		/// </summary>
 		/// <param name="accountId">Unique identifier of the customer account that contains the note being deleted.</param>
 		/// <param name="noteId">Unique identifier of the customer account note being deleted.</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=DeleteAccountNote( accountId,  noteId);
+		///   var mozuClient=DeleteAccountNote( accountId,  noteId, authTicket);
 		///mozuClient.WithBaseAddress(url).Execute();
 		/// </code>
 		/// </example>
-		public static MozuClient DeleteAccountNoteClient(int accountId, int noteId)
+		public static MozuClient DeleteAccountNoteClient(int accountId, int noteId, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Customer.Accounts.CustomerNoteUrl.DeleteAccountNoteUrl(accountId, noteId);
 			const string verb = "DELETE";
 			var mozuClient = new MozuClient().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 

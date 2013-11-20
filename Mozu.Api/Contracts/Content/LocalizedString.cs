@@ -18,7 +18,7 @@ namespace Mozu.Api.Contracts.Content
 		public class LocalizedString
 		{
 			///
-			///Language used for the entity. Currently, only "en-US" is supported.
+			///"Language used for the entity. Currently, only ""en-US"" is supported."
 			///
 			public string Locale { get; set; }
 

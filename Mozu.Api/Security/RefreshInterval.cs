@@ -8,9 +8,25 @@ namespace Mozu.Api.Security
 {
     public class RefreshInterval
     {
-        public long AccessTokenExpirationInterval { get; set; }
-        public long RefreshTokenExpirationInterval { get; set; }
-        public DateTime AccessTokenExpiration { get; internal set; }
-        public DateTime RefreshTokenExpiration { get; internal set; }
+
+        public RefreshInterval(long accessTokenExpirationInterval, long refreshTokenExpirationInterval)
+        {
+            AccessTokenExpirationInterval = accessTokenExpirationInterval;
+            RefreshTokenExpirationInterval = refreshTokenExpirationInterval;
+            UpdateExpirationDates(true);
+        }
+
+        public long AccessTokenExpirationInterval { get; protected set; }
+        public long RefreshTokenExpirationInterval { get; protected set; }
+        public DateTime AccessTokenExpiration { get; protected set; }
+        public DateTime RefreshTokenExpiration { get;  set; }
+
+
+        public void UpdateExpirationDates(bool updateRefreshTokenInterval)
+        {
+           AccessTokenExpiration = DateTime.Now.AddSeconds(AccessTokenExpirationInterval);
+           if (updateRefreshTokenInterval)
+               RefreshTokenExpiration = DateTime.Now.AddSeconds(RefreshTokenExpirationInterval);
+        }
     }
 }

@@ -10,6 +10,8 @@
 
 using System;
 using System.Collections.Generic;
+using Mozu.Api.Security;
+
 
 namespace Mozu.Api.Clients.Commerce.Orders
 {
@@ -23,21 +25,50 @@ namespace Mozu.Api.Clients.Commerce.Orders
 		/// </summary>
 		/// <param name="orderId">Unique identifier of the order associated with the package to retrieve.</param>
 		/// <param name="packageId">Unique identifier of the package to retrieve.</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
-		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.CommerceRuntime.Shipping.Package"/>}
+		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.CommerceRuntime.Fulfillment.Package"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=GetPackage( orderId,  packageId);
+		///   var mozuClient=GetPackage( orderId,  packageId, authTicket);
 		///   var packageClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.CommerceRuntime.Shipping.Package> GetPackageClient(string orderId, string packageId)
+		public static MozuClient<Mozu.Api.Contracts.CommerceRuntime.Fulfillment.Package> GetPackageClient(string orderId, string packageId, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Orders.PackageUrl.GetPackageUrl(orderId, packageId);
 			const string verb = "GET";
-			var mozuClient = new MozuClient<Mozu.Api.Contracts.CommerceRuntime.Shipping.Package>().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			var mozuClient = new MozuClient<Mozu.Api.Contracts.CommerceRuntime.Fulfillment.Package>().WithVerb(verb).WithResourceUrl(url);
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
+
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="orderId"></param>
+		/// <param name="packageId"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
+		/// <returns>
+		///  <see cref="Mozu.Api.MozuClient" />{List{string}}
+		/// </returns>
+		/// <example>
+		/// <code>
+		///   var mozuClient=GetAvailablePackageFulfillmentActions( orderId,  packageId, authTicket);
+		///   var stringClient = mozuClient.WithBaseAddress(url).Execute().Result();
+		/// </code>
+		/// </example>
+		public static MozuClient<List<string>> GetAvailablePackageFulfillmentActionsClient(string orderId, string packageId, AuthTicket authTicket= null)
+		{
+			var url = Mozu.Api.Urls.Commerce.Orders.PackageUrl.GetAvailablePackageFulfillmentActionsUrl(orderId, packageId);
+			const string verb = "GET";
+			var mozuClient = new MozuClient<List<string>>().WithVerb(verb).WithResourceUrl(url);
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 
@@ -46,21 +77,24 @@ namespace Mozu.Api.Clients.Commerce.Orders
 		/// </summary>
 		/// <param name="orderId">Unique identifier of the order associated with the package label to retrieve.</param>
 		/// <param name="packageId">Unique identifier of the package for which to retrieve the label.</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=GetPackageLabel( orderId,  packageId);
+		///   var mozuClient=GetPackageLabel( orderId,  packageId, authTicket);
 		///mozuClient.WithBaseAddress(url).Execute();
 		/// </code>
 		/// </example>
-		public static MozuClient GetPackageLabelClient(string orderId, string packageId)
+		public static MozuClient GetPackageLabelClient(string orderId, string packageId, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Orders.PackageUrl.GetPackageLabelUrl(orderId, packageId);
 			const string verb = "GET";
 			var mozuClient = new MozuClient().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 
@@ -68,22 +102,25 @@ namespace Mozu.Api.Clients.Commerce.Orders
 		/// Creates a new physical package of order items.
 		/// </summary>
 		/// <param name="orderId">Unique identifier of the order associated with this package.</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <param name="package">Properties of the physical package of order items.</param>
 		/// <returns>
-		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.CommerceRuntime.Shipping.Package"/>}
+		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.CommerceRuntime.Fulfillment.Package"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=CreatePackage( orderId,  pkg);
+		///   var mozuClient=CreatePackage( pkg,  orderId, authTicket);
 		///   var packageClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.CommerceRuntime.Shipping.Package> CreatePackageClient(string orderId, Mozu.Api.Contracts.CommerceRuntime.Shipping.Package pkg)
+		public static MozuClient<Mozu.Api.Contracts.CommerceRuntime.Fulfillment.Package> CreatePackageClient(Mozu.Api.Contracts.CommerceRuntime.Fulfillment.Package pkg, string orderId, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Orders.PackageUrl.CreatePackageUrl(orderId);
 			const string verb = "POST";
-			var mozuClient = new MozuClient<Mozu.Api.Contracts.CommerceRuntime.Shipping.Package>().WithVerb(verb).WithResourceUrl(url).WithBody<Mozu.Api.Contracts.CommerceRuntime.Shipping.Package>(pkg);
-		return mozuClient;
+			var mozuClient = new MozuClient<Mozu.Api.Contracts.CommerceRuntime.Fulfillment.Package>().WithVerb(verb).WithResourceUrl(url).WithBody<Mozu.Api.Contracts.CommerceRuntime.Fulfillment.Package>(pkg);
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 
@@ -92,22 +129,25 @@ namespace Mozu.Api.Clients.Commerce.Orders
 		/// </summary>
 		/// <param name="orderId">Unique identifier of the order associated with the package to update.</param>
 		/// <param name="packageId">Unique identifier of the package of order items to update.</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <param name="package">Wrapper of properties for the package of order items to update.</param>
 		/// <returns>
-		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.CommerceRuntime.Shipping.Package"/>}
+		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.CommerceRuntime.Fulfillment.Package"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=UpdatePackage( orderId,  packageId,  pkg);
+		///   var mozuClient=UpdatePackage( pkg,  orderId,  packageId, authTicket);
 		///   var packageClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.CommerceRuntime.Shipping.Package> UpdatePackageClient(string orderId, string packageId, Mozu.Api.Contracts.CommerceRuntime.Shipping.Package pkg)
+		public static MozuClient<Mozu.Api.Contracts.CommerceRuntime.Fulfillment.Package> UpdatePackageClient(Mozu.Api.Contracts.CommerceRuntime.Fulfillment.Package pkg, string orderId, string packageId, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Orders.PackageUrl.UpdatePackageUrl(orderId, packageId);
 			const string verb = "PUT";
-			var mozuClient = new MozuClient<Mozu.Api.Contracts.CommerceRuntime.Shipping.Package>().WithVerb(verb).WithResourceUrl(url).WithBody<Mozu.Api.Contracts.CommerceRuntime.Shipping.Package>(pkg);
-		return mozuClient;
+			var mozuClient = new MozuClient<Mozu.Api.Contracts.CommerceRuntime.Fulfillment.Package>().WithVerb(verb).WithResourceUrl(url).WithBody<Mozu.Api.Contracts.CommerceRuntime.Fulfillment.Package>(pkg);
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 
@@ -116,21 +156,24 @@ namespace Mozu.Api.Clients.Commerce.Orders
 		/// </summary>
 		/// <param name="orderId">Unique identifier of the order associated with the package to delete.</param>
 		/// <param name="packageId">Unique identifier of the package to delete.</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=DeletePackage( orderId,  packageId);
+		///   var mozuClient=DeletePackage( orderId,  packageId, authTicket);
 		///mozuClient.WithBaseAddress(url).Execute();
 		/// </code>
 		/// </example>
-		public static MozuClient DeletePackageClient(string orderId, string packageId)
+		public static MozuClient DeletePackageClient(string orderId, string packageId, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Orders.PackageUrl.DeletePackageUrl(orderId, packageId);
 			const string verb = "DELETE";
 			var mozuClient = new MozuClient().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 

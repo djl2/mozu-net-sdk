@@ -38,7 +38,12 @@ namespace Mozu.Api.Contracts.Core
 			public string Address4 { get; set; }
 
 			///
-			///City or town for the physical or mailing address. The maximum character length is 100.
+			///The type of address, which is commercial or residential.
+			///
+			public string AddressType { get; set; }
+
+			///
+			///City or town for the physical or mailing address. Max length: 100.
 			///
 			public string CityOrTown { get; set; }
 
@@ -53,19 +58,14 @@ namespace Mozu.Api.Contracts.Core
 			public bool? IsValidated { get; set; }
 
 			///
-			///The postal or zip code for the address. For example, a USPS-approved ZIP code standard is ZIP+4: 12345-6789. The maximum character length is 100.
+			///"For example, a USPS-approved ZIP code standard is ZIP+4: 12345-6789. Max length: 100."
 			///
 			public string PostalOrZipCode { get; set; }
 
 			///
-			///The two-letter geographic code representing the state for the physical or mailing address. This is currently limited to the US.
+			///2 letter geographic code representing the state for the physical or mailing address. Currently limited to the US.
 			///
 			public string StateOrProvince { get; set; }
-
-			///
-			///The type of address, which is commercial or residential.
-			///
-			public String AddressType { get; set; }
 
 		}
 

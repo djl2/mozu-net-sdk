@@ -35,7 +35,7 @@ namespace Mozu.Api.Contracts.Tenant
 			public int ApplicationVersionId { get; set; }
 
 			///
-			///Date and time when the entity was created, represented in UTC Date/Time.
+			///Date and time when the entity was created. UTC Date/Time.
 			///
 			public DateTime CreateDate { get; set; }
 
@@ -69,7 +69,7 @@ namespace Mozu.Api.Contracts.Tenant
 			public int TenantId { get; set; }
 
 			///
-			///Date and time when the entity was last updated, represented in UTC Date/Time.
+			///Date and time when the entity was last updated. UTC Date/Time.
 			///
 			public DateTime UpdateDate { get; set; }
 

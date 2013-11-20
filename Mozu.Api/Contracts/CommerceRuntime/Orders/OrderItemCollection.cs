@@ -19,9 +19,9 @@ namespace Mozu.Api.Contracts.CommerceRuntime.Orders
 		public class OrderItemCollection
 		{
 			///
-			///The number of results listed in the query collection, represented by a signed 64-bit (8-byte) integer. This value is system-supplied and read-only.
+			///The number of the resource entity items listed in the query collection. Signed 64-bit (8-byte) integer. System-supplied and read-only.
 			///
-			public int TotalCount { get; set; }
+			public long TotalCount { get; set; }
 
 			///
 			///An array list of objects in the returned collection.

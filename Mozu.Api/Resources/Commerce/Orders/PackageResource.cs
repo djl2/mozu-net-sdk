@@ -10,18 +10,20 @@
 
 using System;
 using System.Collections.Generic;
+using Mozu.Api.Security;
+
 
 namespace Mozu.Api.Resources.Commerce.Orders
 {
 	/// <summary>
 	/// Use the packages subresource to manage the physical packages to ship for an order.
 	/// </summary>
-	public partial class PackageResource : BaseResource 	{
+	public partial class PackageResource  	{
 				///
 		/// <see cref="Mozu.Api.ApiContext"/>
 		///
-		private readonly ApiContext _apiContext;
-		public PackageResource(ApiContext apiContext) 
+		private readonly IApiContext _apiContext;
+		public PackageResource(IApiContext apiContext) 
 		{
 			_apiContext = apiContext;
 		}
@@ -32,20 +34,46 @@ namespace Mozu.Api.Resources.Commerce.Orders
 		/// </summary>
 		/// <param name="orderId">Unique identifier of the order associated with the package to retrieve.</param>
 		/// <param name="packageId">Unique identifier of the package to retrieve.</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
-		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Shipping.Package"/>
+		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Fulfillment.Package"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var package = new Package();
-		///   var package = package.GetPackage( orderId,  packageId);
+		///   var package = package.GetPackage( orderId,  packageId, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.CommerceRuntime.Shipping.Package GetPackage(string orderId, string packageId)
+		public virtual Mozu.Api.Contracts.CommerceRuntime.Fulfillment.Package GetPackage(string orderId, string packageId, AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.CommerceRuntime.Shipping.Package> response;
-			var client = Mozu.Api.Clients.Commerce.Orders.PackageClient.GetPackageClient( orderId,  packageId);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.CommerceRuntime.Fulfillment.Package> response;
+			var client = Mozu.Api.Clients.Commerce.Orders.PackageClient.GetPackageClient( orderId,  packageId, authTicket);
+			client.WithContext(_apiContext);
+			response= client.Execute();
+			return response.Result();
+
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="orderId"></param>
+		/// <param name="packageId"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
+		/// <returns>
+		/// List{string}
+		/// </returns>
+		/// <example>
+		/// <code>
+		///   var package = new Package();
+		///   var string = package.GetAvailablePackageFulfillmentActions( orderId,  packageId, authTicket);
+		/// </code>
+		/// </example>
+		public virtual List<string> GetAvailablePackageFulfillmentActions(string orderId, string packageId, AuthTicket authTicket= null)
+		{
+			MozuClient<List<string>> response;
+			var client = Mozu.Api.Clients.Commerce.Orders.PackageClient.GetAvailablePackageFulfillmentActionsClient( orderId,  packageId, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
@@ -56,20 +84,21 @@ namespace Mozu.Api.Resources.Commerce.Orders
 		/// </summary>
 		/// <param name="orderId">Unique identifier of the order associated with the package label to retrieve.</param>
 		/// <param name="packageId">Unique identifier of the package for which to retrieve the label.</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// 
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var package = new Package();
-		///   package.GetPackageLabel( orderId,  packageId);
+		///   package.GetPackageLabel( orderId,  packageId, authTicket);
 		/// </code>
 		/// </example>
-		public virtual void GetPackageLabel(string orderId, string packageId)
+		public virtual void GetPackageLabel(string orderId, string packageId, AuthTicket authTicket= null)
 		{
-						MozuClient response;
-			var client = Mozu.Api.Clients.Commerce.Orders.PackageClient.GetPackageLabelClient( orderId,  packageId);
-			SetContext(_apiContext, ref client,true);
+			MozuClient response;
+			var client = Mozu.Api.Clients.Commerce.Orders.PackageClient.GetPackageLabelClient( orderId,  packageId, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 
 		}
@@ -78,21 +107,22 @@ namespace Mozu.Api.Resources.Commerce.Orders
 		/// Creates a new physical package of order items.
 		/// </summary>
 		/// <param name="orderId">Unique identifier of the order associated with this package.</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <param name="package">Properties of the physical package of order items.</param>
 		/// <returns>
-		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Shipping.Package"/>
+		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Fulfillment.Package"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var package = new Package();
-		///   var package = package.CreatePackage( orderId,  pkg);
+		///   var package = package.CreatePackage( pkg,  orderId, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.CommerceRuntime.Shipping.Package CreatePackage(string orderId, Mozu.Api.Contracts.CommerceRuntime.Shipping.Package pkg)
+		public virtual Mozu.Api.Contracts.CommerceRuntime.Fulfillment.Package CreatePackage(Mozu.Api.Contracts.CommerceRuntime.Fulfillment.Package pkg, string orderId, AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.CommerceRuntime.Shipping.Package> response;
-			var client = Mozu.Api.Clients.Commerce.Orders.PackageClient.CreatePackageClient( orderId,  pkg);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.CommerceRuntime.Fulfillment.Package> response;
+			var client = Mozu.Api.Clients.Commerce.Orders.PackageClient.CreatePackageClient( pkg,  orderId, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
@@ -103,21 +133,22 @@ namespace Mozu.Api.Resources.Commerce.Orders
 		/// </summary>
 		/// <param name="orderId">Unique identifier of the order associated with the package to update.</param>
 		/// <param name="packageId">Unique identifier of the package of order items to update.</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <param name="package">Wrapper of properties for the package of order items to update.</param>
 		/// <returns>
-		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Shipping.Package"/>
+		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Fulfillment.Package"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var package = new Package();
-		///   var package = package.UpdatePackage( orderId,  packageId,  pkg);
+		///   var package = package.UpdatePackage( pkg,  orderId,  packageId, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.CommerceRuntime.Shipping.Package UpdatePackage(string orderId, string packageId, Mozu.Api.Contracts.CommerceRuntime.Shipping.Package pkg)
+		public virtual Mozu.Api.Contracts.CommerceRuntime.Fulfillment.Package UpdatePackage(Mozu.Api.Contracts.CommerceRuntime.Fulfillment.Package pkg, string orderId, string packageId, AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.CommerceRuntime.Shipping.Package> response;
-			var client = Mozu.Api.Clients.Commerce.Orders.PackageClient.UpdatePackageClient( orderId,  packageId,  pkg);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.CommerceRuntime.Fulfillment.Package> response;
+			var client = Mozu.Api.Clients.Commerce.Orders.PackageClient.UpdatePackageClient( pkg,  orderId,  packageId, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
@@ -128,20 +159,21 @@ namespace Mozu.Api.Resources.Commerce.Orders
 		/// </summary>
 		/// <param name="orderId">Unique identifier of the order associated with the package to delete.</param>
 		/// <param name="packageId">Unique identifier of the package to delete.</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// 
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var package = new Package();
-		///   package.DeletePackage( orderId,  packageId);
+		///   package.DeletePackage( orderId,  packageId, authTicket);
 		/// </code>
 		/// </example>
-		public virtual void DeletePackage(string orderId, string packageId)
+		public virtual void DeletePackage(string orderId, string packageId, AuthTicket authTicket= null)
 		{
-						MozuClient response;
-			var client = Mozu.Api.Clients.Commerce.Orders.PackageClient.DeletePackageClient( orderId,  packageId);
-			SetContext(_apiContext, ref client,true);
+			MozuClient response;
+			var client = Mozu.Api.Clients.Commerce.Orders.PackageClient.DeletePackageClient( orderId,  packageId, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 
 		}

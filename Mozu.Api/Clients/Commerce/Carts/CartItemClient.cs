@@ -10,6 +10,8 @@
 
 using System;
 using System.Collections.Generic;
+using Mozu.Api.Security;
+
 
 namespace Mozu.Api.Clients.Commerce.Carts
 {
@@ -21,21 +23,24 @@ namespace Mozu.Api.Clients.Commerce.Carts
 		/// <summary>
 		/// Retrieves a list of cart items including the total number of items in the cart.
 		/// </summary>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.CommerceRuntime.Carts.CartItemCollection"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=GetCartItems();
+		///   var mozuClient=GetCartItems(authTicket);
 		///   var cartItemCollectionClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.CommerceRuntime.Carts.CartItemCollection> GetCartItemsClient()
+		public static MozuClient<Mozu.Api.Contracts.CommerceRuntime.Carts.CartItemCollection> GetCartItemsClient(AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Carts.CartItemUrl.GetCartItemsUrl();
 			const string verb = "GET";
 			var mozuClient = new MozuClient<Mozu.Api.Contracts.CommerceRuntime.Carts.CartItemCollection>().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 
@@ -43,43 +48,49 @@ namespace Mozu.Api.Clients.Commerce.Carts
 		/// Retrieves a particular cart item by providing the cart item ID.
 		/// </summary>
 		/// <param name="cartItemId">Identifier of the cart item to retrieve.</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.CommerceRuntime.Carts.CartItem"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=GetCartItem( cartItemId);
+		///   var mozuClient=GetCartItem( cartItemId, authTicket);
 		///   var cartItemClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.CommerceRuntime.Carts.CartItem> GetCartItemClient(string cartItemId)
+		public static MozuClient<Mozu.Api.Contracts.CommerceRuntime.Carts.CartItem> GetCartItemClient(string cartItemId, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Carts.CartItemUrl.GetCartItemUrl(cartItemId);
 			const string verb = "GET";
 			var mozuClient = new MozuClient<Mozu.Api.Contracts.CommerceRuntime.Carts.CartItem>().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 
 				/// <summary>
 		/// Adds an item such as product to the current shopper's cart.
 		/// </summary>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <param name="cartItem">All properties of the new cart item. The product code is required.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.CommerceRuntime.Carts.CartItem"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=AddItemToCart( cartItem);
+		///   var mozuClient=AddItemToCart( cartItem, authTicket);
 		///   var cartItemClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.CommerceRuntime.Carts.CartItem> AddItemToCartClient(Mozu.Api.Contracts.CommerceRuntime.Carts.CartItem cartItem)
+		public static MozuClient<Mozu.Api.Contracts.CommerceRuntime.Carts.CartItem> AddItemToCartClient(Mozu.Api.Contracts.CommerceRuntime.Carts.CartItem cartItem, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Carts.CartItemUrl.AddItemToCartUrl();
 			const string verb = "POST";
 			var mozuClient = new MozuClient<Mozu.Api.Contracts.CommerceRuntime.Carts.CartItem>().WithVerb(verb).WithResourceUrl(url).WithBody<Mozu.Api.Contracts.CommerceRuntime.Carts.CartItem>(cartItem);
-		return mozuClient;
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 
@@ -87,22 +98,25 @@ namespace Mozu.Api.Clients.Commerce.Carts
 		/// Update properties of a specific cart item.
 		/// </summary>
 		/// <param name="cartItemId">Identifier of the cart item to update.</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <param name="cartItem">The properties of the cart item to update.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.CommerceRuntime.Carts.CartItem"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=UpdateCartItem( cartItemId,  cartItem);
+		///   var mozuClient=UpdateCartItem( cartItem,  cartItemId, authTicket);
 		///   var cartItemClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.CommerceRuntime.Carts.CartItem> UpdateCartItemClient(string cartItemId, Mozu.Api.Contracts.CommerceRuntime.Carts.CartItem cartItem)
+		public static MozuClient<Mozu.Api.Contracts.CommerceRuntime.Carts.CartItem> UpdateCartItemClient(Mozu.Api.Contracts.CommerceRuntime.Carts.CartItem cartItem, string cartItemId, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Carts.CartItemUrl.UpdateCartItemUrl(cartItemId);
 			const string verb = "PUT";
 			var mozuClient = new MozuClient<Mozu.Api.Contracts.CommerceRuntime.Carts.CartItem>().WithVerb(verb).WithResourceUrl(url).WithBody<Mozu.Api.Contracts.CommerceRuntime.Carts.CartItem>(cartItem);
-		return mozuClient;
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 
@@ -111,42 +125,48 @@ namespace Mozu.Api.Clients.Commerce.Carts
 		/// </summary>
 		/// <param name="cartItemId">Identifier of the cart item to update quantity.</param>
 		/// <param name="quantity">The number of cart items in the shopper's active cart.</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.CommerceRuntime.Carts.CartItem"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=UpdateCartItemQuantity( cartItemId,  quantity);
+		///   var mozuClient=UpdateCartItemQuantity( cartItemId,  quantity, authTicket);
 		///   var cartItemClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.CommerceRuntime.Carts.CartItem> UpdateCartItemQuantityClient(string cartItemId, int quantity)
+		public static MozuClient<Mozu.Api.Contracts.CommerceRuntime.Carts.CartItem> UpdateCartItemQuantityClient(string cartItemId, int quantity, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Carts.CartItemUrl.UpdateCartItemQuantityUrl(cartItemId, quantity);
 			const string verb = "PUT";
 			var mozuClient = new MozuClient<Mozu.Api.Contracts.CommerceRuntime.Carts.CartItem>().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 
 				/// <summary>
 		/// Removes all cart items in the shopper's active cart.
 		/// </summary>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.CommerceRuntime.Carts.Cart"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=RemoveAllCartItems();
+		///   var mozuClient=RemoveAllCartItems(authTicket);
 		///   var cartClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.CommerceRuntime.Carts.Cart> RemoveAllCartItemsClient()
+		public static MozuClient<Mozu.Api.Contracts.CommerceRuntime.Carts.Cart> RemoveAllCartItemsClient(AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Carts.CartItemUrl.RemoveAllCartItemsUrl();
 			const string verb = "DELETE";
 			var mozuClient = new MozuClient<Mozu.Api.Contracts.CommerceRuntime.Carts.Cart>().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 
@@ -154,21 +174,24 @@ namespace Mozu.Api.Clients.Commerce.Carts
 		/// Delete a specific cart item by providing the cart item ID.
 		/// </summary>
 		/// <param name="cartItemId">Identifier of the cart item to delete.</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=DeleteCartItem( cartItemId);
+		///   var mozuClient=DeleteCartItem( cartItemId, authTicket);
 		///mozuClient.WithBaseAddress(url).Execute();
 		/// </code>
 		/// </example>
-		public static MozuClient DeleteCartItemClient(string cartItemId)
+		public static MozuClient DeleteCartItemClient(string cartItemId, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Carts.CartItemUrl.DeleteCartItemUrl(cartItemId);
 			const string verb = "DELETE";
 			var mozuClient = new MozuClient().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 

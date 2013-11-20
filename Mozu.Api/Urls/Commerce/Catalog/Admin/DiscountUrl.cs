@@ -13,27 +13,27 @@ using System;
 
 namespace Mozu.Api.Urls.Commerce.Catalog.Admin
 {
-	public partial class DiscountUrl : BaseUrl
+	public partial class DiscountUrl : MozuUrl
 	{
 
 		/// <summary>
         /// Get Resource Url for GetDiscounts
         /// </summary>
-        /// <param name="filter">A set of expressions that consist of a field, operator, and value and represent search parameter syntax when filtering results of a query. Valid operators include equals (eq), does not equal (ne), greater than (gt), less than (lt), greater than or equal to (ge), less than or equal to (le), starts with (sw), or contains (cont). For example - "filter=IsDisplayed+eq+true"</param>
-        /// <param name="pageSize">Specifies the number of results to display on each page when creating paged results from a query. The maximum value is 200.</param>
+        /// <param name="filter">"A set of expressions that consist of a field, operator, and value and represent search parameter syntax when filtering results of a query. Valid operators include equals (eq), does not equal (ne), greater than (gt), less than (lt), greater than or equal to (ge), less than or equal to (le), starts with (sw), or contains (cont). For example - ""filter=IsDisplayed+eq+true"""</param>
+        /// <param name="pageSize">Used to create paged results from a query. Specifies the number of results to display on each page. Maximum: 200.</param>
         /// <param name="sortBy"></param>
         /// <param name="startIndex"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string GetDiscountsUrl(string filter, int? pageSize, string sortBy, int? startIndex)
+        public static MozuUrl GetDiscountsUrl(string filter, int? pageSize, string sortBy, int? startIndex)
 		{
-			var url = "/api/commerce/catalog/admin/discounts/?startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&filter={filter}&";
+			var url = "/api/commerce/catalog/admin/discounts/?startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&filter={filter}";
 			FormatUrl( ref url, "filter", filter);
 			FormatUrl( ref url, "pageSize", pageSize);
 			FormatUrl( ref url, "sortBy", sortBy);
 			FormatUrl( ref url, "startIndex", startIndex);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		/// <summary>
@@ -43,11 +43,11 @@ namespace Mozu.Api.Urls.Commerce.Catalog.Admin
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string GetDiscountUrl(int discountId)
+        public static MozuUrl GetDiscountUrl(int discountId)
 		{
 			var url = "/api/commerce/catalog/admin/discounts/{discountId}";
 			FormatUrl( ref url, "discountId", discountId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		/// <summary>
@@ -57,11 +57,11 @@ namespace Mozu.Api.Urls.Commerce.Catalog.Admin
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string GetDiscountContentUrl(int discountId)
+        public static MozuUrl GetDiscountContentUrl(int discountId)
 		{
 			var url = "/api/commerce/catalog/admin/discounts/{discountId}/content";
 			FormatUrl( ref url, "discountId", discountId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		/// <summary>
@@ -70,10 +70,10 @@ namespace Mozu.Api.Urls.Commerce.Catalog.Admin
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string GenerateRandomCouponUrl()
+        public static MozuUrl GenerateRandomCouponUrl()
 		{
 			var url = "/api/commerce/catalog/admin/discounts/generate-random-coupon";
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				/// <summary>
@@ -82,10 +82,10 @@ namespace Mozu.Api.Urls.Commerce.Catalog.Admin
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string CreateDiscountUrl()
+        public static MozuUrl CreateDiscountUrl()
 		{
 			var url = "/api/commerce/catalog/admin/discounts/";
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		/// <summary>
@@ -94,10 +94,10 @@ namespace Mozu.Api.Urls.Commerce.Catalog.Admin
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string RedeemDiscountUrl()
+        public static MozuUrl RedeemDiscountUrl()
 		{
 			var url = "/api/commerce/catalog/admin/discounts/Redeem";
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				/// <summary>
@@ -107,11 +107,11 @@ namespace Mozu.Api.Urls.Commerce.Catalog.Admin
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string UpdateDiscountUrl(int discountId)
+        public static MozuUrl UpdateDiscountUrl(int discountId)
 		{
 			var url = "/api/commerce/catalog/admin/discounts/{discountId}";
 			FormatUrl( ref url, "discountId", discountId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		/// <summary>
@@ -121,11 +121,11 @@ namespace Mozu.Api.Urls.Commerce.Catalog.Admin
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string UpdateDiscountContentUrl(int discountId)
+        public static MozuUrl UpdateDiscountContentUrl(int discountId)
 		{
 			var url = "/api/commerce/catalog/admin/discounts/{discountId}/content";
 			FormatUrl( ref url, "discountId", discountId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				/// <summary>
@@ -135,11 +135,11 @@ namespace Mozu.Api.Urls.Commerce.Catalog.Admin
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string DeleteDiscountUrl(int discountId)
+        public static MozuUrl DeleteDiscountUrl(int discountId)
 		{
 			var url = "/api/commerce/catalog/admin/discounts/{discountId}";
 			FormatUrl( ref url, "discountId", discountId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		/// <summary>
@@ -150,12 +150,12 @@ namespace Mozu.Api.Urls.Commerce.Catalog.Admin
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string UnRedeemDiscountUrl(int? discountId, int? orderNumber)
+        public static MozuUrl UnRedeemDiscountUrl(int? discountId, int? orderNumber)
 		{
 			var url = "/api/commerce/catalog/admin/discounts/{discountId}/Unredeem/{orderNumber}";
 			FormatUrl( ref url, "discountId", discountId);
 			FormatUrl( ref url, "orderNumber", orderNumber);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		

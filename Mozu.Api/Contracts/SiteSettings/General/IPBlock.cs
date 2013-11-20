@@ -44,7 +44,7 @@ namespace Mozu.Api.Contracts.SiteSettings.General
 			public bool StoreFrontBlock { get; set; }
 
 			///
-			///Identifier and datetime stamp information recorded when creating or updating a resource entity. This value is system-supplied and read-only.
+			///Identifier and datetime stamp information recorded when creating or updating a resource entity. System-supplied and read-only.
 			///
 			public AuditInfo AuditInfo { get; set; }
 

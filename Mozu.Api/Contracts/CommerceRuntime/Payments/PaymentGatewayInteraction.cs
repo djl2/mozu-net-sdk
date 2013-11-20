@@ -32,9 +32,6 @@ namespace Mozu.Api.Contracts.CommerceRuntime.Payments
 			///
 			public string GatewayCVV2Codes { get; set; }
 
-			///
-			///Unique identifier of the payment interaction from the payment gateway.
-			///
 			public int? GatewayInteractionId { get; set; }
 
 			///

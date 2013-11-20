@@ -10,6 +10,8 @@
 
 using System;
 using System.Collections.Generic;
+using Mozu.Api.Security;
+
 
 namespace Mozu.Api.Clients.Commerce.Settings.General
 {
@@ -21,21 +23,24 @@ namespace Mozu.Api.Clients.Commerce.Settings.General
 		/// <summary>
 		/// Retrieves a list of IP blocks.
 		/// </summary>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.SiteSettings.General.IPBlockCollection"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=GetIPBlocks();
+		///   var mozuClient=GetIPBlocks(authTicket);
 		///   var iPBlockCollectionClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.SiteSettings.General.IPBlockCollection> GetIPBlocksClient()
+		public static MozuClient<Mozu.Api.Contracts.SiteSettings.General.IPBlockCollection> GetIPBlocksClient(AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Settings.General.IPBlockUrl.GetIPBlocksUrl();
 			const string verb = "GET";
 			var mozuClient = new MozuClient<Mozu.Api.Contracts.SiteSettings.General.IPBlockCollection>().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 
@@ -43,43 +48,49 @@ namespace Mozu.Api.Clients.Commerce.Settings.General
 		/// Retrieve the details of a single IP block by providing the IP block ID.
 		/// </summary>
 		/// <param name="ipBlockId">Unique identifier of the IP block.</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.SiteSettings.General.IPBlock"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=GetIPBlock( ipBlockId);
+		///   var mozuClient=GetIPBlock( ipBlockId, authTicket);
 		///   var iPBlockClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.SiteSettings.General.IPBlock> GetIPBlockClient(int ipBlockId)
+		public static MozuClient<Mozu.Api.Contracts.SiteSettings.General.IPBlock> GetIPBlockClient(int ipBlockId, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Settings.General.IPBlockUrl.GetIPBlockUrl(ipBlockId);
 			const string verb = "GET";
 			var mozuClient = new MozuClient<Mozu.Api.Contracts.SiteSettings.General.IPBlock>().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 
 				/// <summary>
 		/// Create a new IP block to deny server access. Prevents undesirable connections such as brute force attacks. Block access to the storefront, admin area, or both.
 		/// </summary>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <param name="ipBlock">Properties of the IP block.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.SiteSettings.General.IPBlock"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=CreateIPBlock( ipBlock);
+		///   var mozuClient=CreateIPBlock( ipBlock, authTicket);
 		///   var iPBlockClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.SiteSettings.General.IPBlock> CreateIPBlockClient(Mozu.Api.Contracts.SiteSettings.General.IPBlock ipBlock)
+		public static MozuClient<Mozu.Api.Contracts.SiteSettings.General.IPBlock> CreateIPBlockClient(Mozu.Api.Contracts.SiteSettings.General.IPBlock ipBlock, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Settings.General.IPBlockUrl.CreateIPBlockUrl();
 			const string verb = "POST";
 			var mozuClient = new MozuClient<Mozu.Api.Contracts.SiteSettings.General.IPBlock>().WithVerb(verb).WithResourceUrl(url).WithBody<Mozu.Api.Contracts.SiteSettings.General.IPBlock>(ipBlock);
-		return mozuClient;
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 
@@ -87,22 +98,25 @@ namespace Mozu.Api.Clients.Commerce.Settings.General
 		/// Modifies an IP block.
 		/// </summary>
 		/// <param name="ipBlockId">Identifier of the IP block.</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <param name="ipBlock">Properties of the IP block.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.SiteSettings.General.IPBlock"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=UpdateIPBlock( ipBlockId,  ipBlock);
+		///   var mozuClient=UpdateIPBlock( ipBlock,  ipBlockId, authTicket);
 		///   var iPBlockClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.SiteSettings.General.IPBlock> UpdateIPBlockClient(int ipBlockId, Mozu.Api.Contracts.SiteSettings.General.IPBlock ipBlock)
+		public static MozuClient<Mozu.Api.Contracts.SiteSettings.General.IPBlock> UpdateIPBlockClient(Mozu.Api.Contracts.SiteSettings.General.IPBlock ipBlock, int ipBlockId, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Settings.General.IPBlockUrl.UpdateIPBlockUrl(ipBlockId);
 			const string verb = "PUT";
 			var mozuClient = new MozuClient<Mozu.Api.Contracts.SiteSettings.General.IPBlock>().WithVerb(verb).WithResourceUrl(url).WithBody<Mozu.Api.Contracts.SiteSettings.General.IPBlock>(ipBlock);
-		return mozuClient;
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 
@@ -110,21 +124,24 @@ namespace Mozu.Api.Clients.Commerce.Settings.General
 		/// Delete the IP block specified by the IP block ID.
 		/// </summary>
 		/// <param name="ipBlockId">Unique identifier of the IP block.</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=DeleteIPBlock( ipBlockId);
+		///   var mozuClient=DeleteIPBlock( ipBlockId, authTicket);
 		///mozuClient.WithBaseAddress(url).Execute();
 		/// </code>
 		/// </example>
-		public static MozuClient DeleteIPBlockClient(int ipBlockId)
+		public static MozuClient DeleteIPBlockClient(int ipBlockId, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Settings.General.IPBlockUrl.DeleteIPBlockUrl(ipBlockId);
 			const string verb = "DELETE";
 			var mozuClient = new MozuClient().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 

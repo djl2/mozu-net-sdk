@@ -35,10 +35,14 @@ namespace Mozu.Api.Contracts.PricingRuntime
 
 			public string ProductCode { get; set; }
 
+			public string ProductName { get; set; }
+
 			///
 			///The quantity of the line item in the order.
 			///
 			public int Quantity { get; set; }
+
+			public string Reason { get; set; }
 
 			///
 			///The amount of shipping calculated for a line item in an order.

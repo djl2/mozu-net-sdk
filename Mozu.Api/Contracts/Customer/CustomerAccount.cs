@@ -25,7 +25,7 @@ namespace Mozu.Api.Contracts.Customer
 			public bool AcceptsMarketing { get; set; }
 
 			///
-			///The legal or doing business as (DBA) or tradestyle name of the business or organization. The maximum character length is 200.
+			///The legal or doing business as (DBA) or tradestyle name of the business or organization. Max length: 200.
 			///
 			public string CompanyOrOrganization { get; set; }
 
@@ -33,11 +33,6 @@ namespace Mozu.Api.Contracts.Customer
 			///Identifier of the entity.
 			///
 			public int Id { get; set; }
-
-			///
-			///Unique identifier of the site.
-			///
-			public int SiteId { get; set; }
 
 			///
 			///If true, this customer account has tax exempt status.
@@ -60,9 +55,11 @@ namespace Mozu.Api.Contracts.Customer
 			public List<CustomerAttribute> Attributes { get; set; }
 
 			///
-			///Identifier and datetime stamp information recorded when creating or updating a resource entity. This value is system-supplied and read-only.
+			///Identifier and datetime stamp information recorded when creating or updating a resource entity. System-supplied and read-only.
 			///
 			public AuditInfo AuditInfo { get; set; }
+
+			public CommerceSummary CommerceSummary { get; set; }
 
 			///
 			///Contact information, including the contact's name, address, phone numbers, email addresses, and company (if supplied). Also indicates whether this is a billing, shipping, or billing and shipping contact.
@@ -70,19 +67,16 @@ namespace Mozu.Api.Contracts.Customer
 			public List<CustomerContact> Contacts { get; set; }
 
 			///
-			///List of groups associated with this customer account.
+			///List of groups of customer account groups.
 			///
 			public List<CustomerGroup> Groups { get; set; }
+
+			public List<CustomerInStockNotificationSubscription> InStockNotificationSubscriptions { get; set; }
 
 			///
 			///List of customer account notes.
 			///
 			public List<CustomerNote> Notes { get; set; }
-
-			///
-			///The order summary includes the date of the most recent order, a list of the number of orders made, and the total monetary sum of all orders including cancellations and refunds associated with the customer account.
-			///
-			public OrderSummary OrderSummary { get; set; }
 
 		}
 

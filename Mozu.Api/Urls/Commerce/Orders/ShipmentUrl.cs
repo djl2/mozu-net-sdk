@@ -13,39 +13,23 @@ using System;
 
 namespace Mozu.Api.Urls.Commerce.Orders
 {
-	public partial class ShipmentUrl : BaseUrl
+	public partial class ShipmentUrl : MozuUrl
 	{
-
-		/// <summary>
-        /// Get Resource Url for GetAvailableShipmentActions
-        /// </summary>
-        /// <param name="orderId">Unique identifier of the order for which to get a list of available actions.</param>
-        /// <param name="packageId">Unique identifier for the physical package associated with the order for which to get a list of available actions.</param>
-        /// <returns>
-        /// String - Resource Url
-        /// </returns>
-        public static string GetAvailableShipmentActionsUrl(string orderId, string packageId)
-		{
-			var url = "/api/commerce/orders/{orderId}/shipments/{packageId}/actions";
-			FormatUrl( ref url, "orderId", orderId);
-			FormatUrl( ref url, "packageId", packageId);
-			return url;
-		}
 
 		/// <summary>
         /// Get Resource Url for GetShipment
         /// </summary>
-        /// <param name="orderId">Unique identifier of the order associated with the shipment to retrieve.</param>
-        /// <param name="shipmentId">Unique identifier of the shipment to retrieve.</param>
+        /// <param name="orderId"></param>
+        /// <param name="shipmentId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string GetShipmentUrl(string orderId, string shipmentId)
+        public static MozuUrl GetShipmentUrl(string orderId, string shipmentId)
 		{
 			var url = "/api/commerce/orders/{orderId}/shipments/{shipmentId}";
 			FormatUrl( ref url, "orderId", orderId);
 			FormatUrl( ref url, "shipmentId", shipmentId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		/// <summary>
@@ -55,11 +39,11 @@ namespace Mozu.Api.Urls.Commerce.Orders
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string GetAvailableShipmentMethodsUrl(string orderId)
+        public static MozuUrl GetAvailableShipmentMethodsUrl(string orderId)
 		{
 			var url = "/api/commerce/orders/{orderId}/shipments/methods";
 			FormatUrl( ref url, "orderId", orderId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				/// <summary>
@@ -69,25 +53,11 @@ namespace Mozu.Api.Urls.Commerce.Orders
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string CreatePackageShipmentsUrl(string orderId)
+        public static MozuUrl CreatePackageShipmentsUrl(string orderId)
 		{
 			var url = "/api/commerce/orders/{orderId}/shipments";
 			FormatUrl( ref url, "orderId", orderId);
-			return url;
-		}
-
-		/// <summary>
-        /// Get Resource Url for PerformShipmentAction
-        /// </summary>
-        /// <param name="orderId">Unique identifier of the order associated with the shipment for which to perform the action.</param>
-        /// <returns>
-        /// String - Resource Url
-        /// </returns>
-        public static string PerformShipmentActionUrl(string orderId)
-		{
-			var url = "/api/commerce/orders/{orderId}/shipments/actions/";
-			FormatUrl( ref url, "orderId", orderId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 						/// <summary>
@@ -98,12 +68,12 @@ namespace Mozu.Api.Urls.Commerce.Orders
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string DeleteShipmentUrl(string orderId, string shipmentId)
+        public static MozuUrl DeleteShipmentUrl(string orderId, string shipmentId)
 		{
 			var url = "/api/commerce/orders/{orderId}/shipments/{shipmentId}";
 			FormatUrl( ref url, "orderId", orderId);
 			FormatUrl( ref url, "shipmentId", shipmentId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		

@@ -10,6 +10,8 @@
 
 using System;
 using System.Collections.Generic;
+using Mozu.Api.Security;
+
 
 namespace Mozu.Api.Clients.Platform
 {
@@ -48,12 +50,12 @@ namespace Mozu.Api.Clients.Platform
 		///   var addressSchemaClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.Reference.AddressSchema> GetAddressSchemaClient(string countryCode)
+		public static MozuClient<Mozu.Api.Contracts.Reference.AddressSchema> GetAddressSchemaClient(string countryCode =  null)
 		{
 			var url = Mozu.Api.Urls.Platform.ReferenceDataUrl.GetAddressSchemaUrl(countryCode);
 			const string verb = "GET";
 			var mozuClient = new MozuClient<Mozu.Api.Contracts.Reference.AddressSchema>().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			return mozuClient;
 
 		}
 
@@ -74,7 +76,7 @@ namespace Mozu.Api.Clients.Platform
 			var url = Mozu.Api.Urls.Platform.ReferenceDataUrl.GetAddressSchemasUrl();
 			const string verb = "GET";
 			var mozuClient = new MozuClient<Mozu.Api.Contracts.Reference.AddressSchemaCollection>().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			return mozuClient;
 
 		}
 
@@ -91,12 +93,12 @@ namespace Mozu.Api.Clients.Platform
 		///   var behaviorClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.Core.Behavior> GetBehaviorClient(long behaviorId)
+		public static MozuClient<Mozu.Api.Contracts.Core.Behavior> GetBehaviorClient(int behaviorId)
 		{
 			var url = Mozu.Api.Urls.Platform.ReferenceDataUrl.GetBehaviorUrl(behaviorId);
 			const string verb = "GET";
 			var mozuClient = new MozuClient<Mozu.Api.Contracts.Core.Behavior>().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			return mozuClient;
 
 		}
 
@@ -117,7 +119,7 @@ namespace Mozu.Api.Clients.Platform
 			var url = Mozu.Api.Urls.Platform.ReferenceDataUrl.GetBehaviorCategoriesUrl();
 			const string verb = "GET";
 			var mozuClient = new MozuClient<Mozu.Api.Contracts.Core.BehaviorCategoryCollection>().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			return mozuClient;
 
 		}
 
@@ -134,12 +136,12 @@ namespace Mozu.Api.Clients.Platform
 		///   var behaviorCategoryClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.Core.BehaviorCategory> GetBehaviorCategoryClient(long categoryId)
+		public static MozuClient<Mozu.Api.Contracts.Core.BehaviorCategory> GetBehaviorCategoryClient(int categoryId)
 		{
 			var url = Mozu.Api.Urls.Platform.ReferenceDataUrl.GetBehaviorCategoryUrl(categoryId);
 			const string verb = "GET";
 			var mozuClient = new MozuClient<Mozu.Api.Contracts.Core.BehaviorCategory>().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			return mozuClient;
 
 		}
 
@@ -173,12 +175,12 @@ namespace Mozu.Api.Clients.Platform
 		///   var behaviorCollectionClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.Core.BehaviorCollection> GetBehaviorsClient(string userType)
+		public static MozuClient<Mozu.Api.Contracts.Core.BehaviorCollection> GetBehaviorsClient(string userType =  null)
 		{
 			var url = Mozu.Api.Urls.Platform.ReferenceDataUrl.GetBehaviorsUrl(userType);
 			const string verb = "GET";
 			var mozuClient = new MozuClient<Mozu.Api.Contracts.Core.BehaviorCollection>().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			return mozuClient;
 
 		}
 
@@ -199,7 +201,7 @@ namespace Mozu.Api.Clients.Platform
 			var url = Mozu.Api.Urls.Platform.ReferenceDataUrl.GetContentLocalesUrl();
 			const string verb = "GET";
 			var mozuClient = new MozuClient<Mozu.Api.Contracts.Reference.ContentLocaleCollection>().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			return mozuClient;
 
 		}
 
@@ -220,7 +222,7 @@ namespace Mozu.Api.Clients.Platform
 			var url = Mozu.Api.Urls.Platform.ReferenceDataUrl.GetCountriesUrl();
 			const string verb = "GET";
 			var mozuClient = new MozuClient<Mozu.Api.Contracts.Reference.CountryCollection>().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			return mozuClient;
 
 		}
 
@@ -241,7 +243,7 @@ namespace Mozu.Api.Clients.Platform
 			var url = Mozu.Api.Urls.Platform.ReferenceDataUrl.GetCurrenciesUrl();
 			const string verb = "GET";
 			var mozuClient = new MozuClient<Mozu.Api.Contracts.Reference.CurrencyCollection>().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			return mozuClient;
 
 		}
 
@@ -262,7 +264,7 @@ namespace Mozu.Api.Clients.Platform
 			var url = Mozu.Api.Urls.Platform.ReferenceDataUrl.GetTimeZonesUrl();
 			const string verb = "GET";
 			var mozuClient = new MozuClient<Mozu.Api.Contracts.Reference.TimeZoneCollection>().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			return mozuClient;
 
 		}
 
@@ -283,7 +285,7 @@ namespace Mozu.Api.Clients.Platform
 			var url = Mozu.Api.Urls.Platform.ReferenceDataUrl.GetTopLevelDomainsUrl();
 			const string verb = "GET";
 			var mozuClient = new MozuClient<Mozu.Api.Contracts.Reference.TopLevelDomainCollection>().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			return mozuClient;
 
 		}
 
@@ -307,7 +309,7 @@ namespace Mozu.Api.Clients.Platform
 		/// <summary>
 		/// Retrieves the entire list of units of measure that the system supports.
 		/// </summary>
-		/// <param name="filter">A set of expressions that consist of a field, operator, and value and represent search parameter syntax when filtering results of a query. Valid operators include equals (eq), does not equal (ne), greater than (gt), less than (lt), greater than or equal to (ge), less than or equal to (le), starts with (sw), or contains (cont). For example - "filter=IsDisplayed+eq+true"</param>
+		/// <param name="filter">"A set of expressions that consist of a field, operator, and value and represent search parameter syntax when filtering results of a query. Valid operators include equals (eq), does not equal (ne), greater than (gt), less than (lt), greater than or equal to (ge), less than or equal to (le), starts with (sw), or contains (cont). For example - ""filter=IsDisplayed+eq+true"""</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Reference.UnitOfMeasureCollection"/>}
 		/// </returns>
@@ -317,12 +319,12 @@ namespace Mozu.Api.Clients.Platform
 		///   var unitOfMeasureCollectionClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.Reference.UnitOfMeasureCollection> GetUnitsOfMeasureClient(string filter)
+		public static MozuClient<Mozu.Api.Contracts.Reference.UnitOfMeasureCollection> GetUnitsOfMeasureClient(string filter =  null)
 		{
 			var url = Mozu.Api.Urls.Platform.ReferenceDataUrl.GetUnitsOfMeasureUrl(filter);
 			const string verb = "GET";
 			var mozuClient = new MozuClient<Mozu.Api.Contracts.Reference.UnitOfMeasureCollection>().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			return mozuClient;
 
 		}
 

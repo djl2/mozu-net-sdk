@@ -18,7 +18,7 @@ namespace Mozu.Api.Contracts.Customer
 		///
 		public class CardCollection
 		{
-			public int TotalCount { get; set; }
+			public long TotalCount { get; set; }
 
 			///
 			///An array list of objects in the returned collection.

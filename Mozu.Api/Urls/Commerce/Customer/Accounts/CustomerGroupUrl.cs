@@ -13,21 +13,21 @@ using System;
 
 namespace Mozu.Api.Urls.Commerce.Customer.Accounts
 {
-	public partial class CustomerGroupUrl : BaseUrl
+	public partial class CustomerGroupUrl : MozuUrl
 	{
 
 		/// <summary>
         /// Get Resource Url for GetAccountGroups
         /// </summary>
         /// <param name="accountId">Unique identifier of the customer account.</param>
-        /// <param name="filter">A set of expressions that consist of a field, operator, and value and represent search parameter syntax when filtering results of a query. Valid operators include equals (eq), does not equal (ne), greater than (gt), less than (lt), greater than or equal to (ge), less than or equal to (le), starts with (sw), or contains (cont). For example - "filter=IsDisplayed+eq+true"</param>
-        /// <param name="pageSize">Specifies the number of results to display on each page when creating paged results from a query. The maximum value is 200.</param>
+        /// <param name="filter">"A set of expressions that consist of a field, operator, and value and represent search parameter syntax when filtering results of a query. Valid operators include equals (eq), does not equal (ne), greater than (gt), less than (lt), greater than or equal to (ge), less than or equal to (le), starts with (sw), or contains (cont). For example - ""filter=IsDisplayed+eq+true"""</param>
+        /// <param name="pageSize">Used to create paged results from a query. Specifies the number of results to display on each page. Maximum: 200.</param>
         /// <param name="sortBy"></param>
         /// <param name="startIndex"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string GetAccountGroupsUrl(int accountId, string filter, int? pageSize, string sortBy, int? startIndex)
+        public static MozuUrl GetAccountGroupsUrl(int accountId, string filter, int? pageSize, string sortBy, int? startIndex)
 		{
 			var url = "/api/commerce/customer/accounts/{accountId}/groups/?startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&filter={filter}";
 			FormatUrl( ref url, "accountId", accountId);
@@ -35,7 +35,7 @@ namespace Mozu.Api.Urls.Commerce.Customer.Accounts
 			FormatUrl( ref url, "pageSize", pageSize);
 			FormatUrl( ref url, "sortBy", sortBy);
 			FormatUrl( ref url, "startIndex", startIndex);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		/// <summary>
@@ -46,12 +46,12 @@ namespace Mozu.Api.Urls.Commerce.Customer.Accounts
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string GetAccountGroupUrl(int accountId, int groupId)
+        public static MozuUrl GetAccountGroupUrl(int accountId, int groupId)
 		{
 			var url = "/api/commerce/customer/accounts/{accountId}/groups/{groupId}";
 			FormatUrl( ref url, "accountId", accountId);
 			FormatUrl( ref url, "groupId", groupId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				/// <summary>
@@ -62,12 +62,12 @@ namespace Mozu.Api.Urls.Commerce.Customer.Accounts
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string AddAccountGroupUrl(int accountId, int groupId)
+        public static MozuUrl AddAccountGroupUrl(int accountId, int groupId)
 		{
 			var url = "/api/commerce/customer/accounts/{accountId}/groups/{groupId}";
 			FormatUrl( ref url, "accountId", accountId);
 			FormatUrl( ref url, "groupId", groupId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 						/// <summary>
@@ -78,12 +78,12 @@ namespace Mozu.Api.Urls.Commerce.Customer.Accounts
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string DeleteAccountGroupUrl(int accountId, int groupId)
+        public static MozuUrl DeleteAccountGroupUrl(int accountId, int groupId)
 		{
 			var url = "/api/commerce/customer/accounts/{accountId}/groups/{groupId}";
 			FormatUrl( ref url, "accountId", accountId);
 			FormatUrl( ref url, "groupId", groupId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		

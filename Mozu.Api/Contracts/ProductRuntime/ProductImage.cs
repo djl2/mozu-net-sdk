@@ -37,6 +37,8 @@ namespace Mozu.Api.Contracts.ProductRuntime
 			///
 			public string ImageUrl { get; set; }
 
+			public string MediaType { get; set; }
+
 			///
 			///The numeric value that denotes the place this entity occupies in the order of the entity list.
 			///

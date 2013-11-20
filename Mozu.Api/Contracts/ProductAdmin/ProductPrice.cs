@@ -18,9 +18,9 @@ namespace Mozu.Api.Contracts.ProductAdmin
 		public class ProductPrice
 		{
 			///
-			///3-letter ISO 4217 standard global currency code. Currently, only "USD" (US Dollar) is supported.
+			///"3-letter ISO 4217 standard global currency code. Currently, only ""USD"" (US Dollar) is supported."
 			///
-			public string ISOCurrencyCode { get; set; }
+			public string IsocurrencyCode { get; set; }
 
 			///
 			///Price that the merchant intends to sell the product which is not necessarily the list price. This is the price the merchant intends to sell the product if no sale price is present.

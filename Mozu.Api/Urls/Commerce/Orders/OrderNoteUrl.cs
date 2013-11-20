@@ -13,7 +13,7 @@ using System;
 
 namespace Mozu.Api.Urls.Commerce.Orders
 {
-	public partial class OrderNoteUrl : BaseUrl
+	public partial class OrderNoteUrl : MozuUrl
 	{
 
 		/// <summary>
@@ -23,11 +23,11 @@ namespace Mozu.Api.Urls.Commerce.Orders
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string GetOrderNotesUrl(string orderId)
+        public static MozuUrl GetOrderNotesUrl(string orderId)
 		{
 			var url = "/api/commerce/orders/{orderId}/notes";
 			FormatUrl( ref url, "orderId", orderId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		/// <summary>
@@ -38,12 +38,12 @@ namespace Mozu.Api.Urls.Commerce.Orders
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string GetOrderNoteUrl(string noteId, string orderId)
+        public static MozuUrl GetOrderNoteUrl(string noteId, string orderId)
 		{
 			var url = "/api/commerce/orders/{orderId}/notes/{noteId}";
 			FormatUrl( ref url, "noteId", noteId);
 			FormatUrl( ref url, "orderId", orderId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				/// <summary>
@@ -53,11 +53,11 @@ namespace Mozu.Api.Urls.Commerce.Orders
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string CreateOrderNoteUrl(string orderId)
+        public static MozuUrl CreateOrderNoteUrl(string orderId)
 		{
 			var url = "/api/commerce/orders/{orderId}/notes";
 			FormatUrl( ref url, "orderId", orderId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				/// <summary>
@@ -68,12 +68,12 @@ namespace Mozu.Api.Urls.Commerce.Orders
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string UpdateOrderNoteUrl(string noteId, string orderId)
+        public static MozuUrl UpdateOrderNoteUrl(string noteId, string orderId)
 		{
 			var url = "/api/commerce/orders/{orderId}/notes/{noteId}";
 			FormatUrl( ref url, "noteId", noteId);
 			FormatUrl( ref url, "orderId", orderId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				/// <summary>
@@ -84,12 +84,12 @@ namespace Mozu.Api.Urls.Commerce.Orders
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string DeleteOrderNoteUrl(string noteId, string orderId)
+        public static MozuUrl DeleteOrderNoteUrl(string noteId, string orderId)
 		{
 			var url = "/api/commerce/orders/{orderId}/notes/{noteId}";
 			FormatUrl( ref url, "noteId", noteId);
 			FormatUrl( ref url, "orderId", orderId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		

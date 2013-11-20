@@ -14,11 +14,11 @@ namespace Mozu.Api.Contracts.ProductAdmin
 {
 		public class ProductPublishingInfo
 		{
+			public string LastPublishedBy { get; set; }
+
 			public DateTime? LastPublishedDate { get; set; }
 
 			public string PublishedState { get; set; }
-
-			public string LastPublishedBy { get; set; }
 
 		}
 

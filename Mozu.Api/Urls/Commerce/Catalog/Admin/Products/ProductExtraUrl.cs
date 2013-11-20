@@ -13,83 +13,83 @@ using System;
 
 namespace Mozu.Api.Urls.Commerce.Catalog.Admin.Products
 {
-	public partial class ProductExtraUrl : BaseUrl
+	public partial class ProductExtraUrl : MozuUrl
 	{
 
 		/// <summary>
         /// Get Resource Url for GetExtras
         /// </summary>
-        /// <param name="productCode">Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only.</param>
+        /// <param name="productCode">"Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only."</param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string GetExtrasUrl(string productCode)
+        public static MozuUrl GetExtrasUrl(string productCode)
 		{
 			var url = "/api/commerce/catalog/admin/products/{productCode}/Extras";
 			FormatUrl( ref url, "productCode", productCode);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		/// <summary>
         /// Get Resource Url for GetExtra
         /// </summary>
-        /// <param name="attributeFQN">The fully qualified name of the attribute, which is a user defined attribute identifier.</param>
-        /// <param name="productCode">Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only.</param>
+        /// <param name="attributeFQN">"The fully qualified name of the attribute, which is a user defined attribute identifier."</param>
+        /// <param name="productCode">"Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only."</param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string GetExtraUrl(string attributeFQN, string productCode)
+        public static MozuUrl GetExtraUrl(string attributeFQN, string productCode)
 		{
 			var url = "/api/commerce/catalog/admin/products/{productCode}/Extras/{attributeFQN}";
 			FormatUrl( ref url, "attributeFQN", attributeFQN);
 			FormatUrl( ref url, "productCode", productCode);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				/// <summary>
         /// Get Resource Url for AddExtra
         /// </summary>
-        /// <param name="productCode">Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only.</param>
+        /// <param name="productCode">"Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only."</param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string AddExtraUrl(string productCode)
+        public static MozuUrl AddExtraUrl(string productCode)
 		{
 			var url = "/api/commerce/catalog/admin/products/{productCode}/Extras";
 			FormatUrl( ref url, "productCode", productCode);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				/// <summary>
         /// Get Resource Url for UpdateExtra
         /// </summary>
-        /// <param name="attributeFQN">The fully qualified name of the attribute, which is a user defined attribute identifier.</param>
-        /// <param name="productCode">Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only.</param>
+        /// <param name="attributeFQN">"The fully qualified name of the attribute, which is a user defined attribute identifier."</param>
+        /// <param name="productCode">"Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only."</param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string UpdateExtraUrl(string attributeFQN, string productCode)
+        public static MozuUrl UpdateExtraUrl(string attributeFQN, string productCode)
 		{
 			var url = "/api/commerce/catalog/admin/products/{productCode}/Extras/{attributeFQN}";
 			FormatUrl( ref url, "attributeFQN", attributeFQN);
 			FormatUrl( ref url, "productCode", productCode);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				/// <summary>
         /// Get Resource Url for DeleteExtra
         /// </summary>
-        /// <param name="attributeFQN">The fully qualified name of the attribute, which is a user defined attribute identifier.</param>
-        /// <param name="productCode">Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only.</param>
+        /// <param name="attributeFQN">"The fully qualified name of the attribute, which is a user defined attribute identifier."</param>
+        /// <param name="productCode">"Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only."</param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string DeleteExtraUrl(string attributeFQN, string productCode)
+        public static MozuUrl DeleteExtraUrl(string attributeFQN, string productCode)
 		{
 			var url = "/api/commerce/catalog/admin/products/{productCode}/Extras/{attributeFQN}";
 			FormatUrl( ref url, "attributeFQN", attributeFQN);
 			FormatUrl( ref url, "productCode", productCode);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		

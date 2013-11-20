@@ -10,26 +10,52 @@
 
 using System;
 using System.Collections.Generic;
+using Mozu.Api.Security;
+
 
 namespace Mozu.Api.Resources.Commerce.Settings
 {
 	/// <summary>
 	/// Use the applications subresource to update site settings for installed applications.
 	/// </summary>
-	public partial class ApplicationResource : BaseResource 	{
+	public partial class ApplicationResource  	{
 				///
 		/// <see cref="Mozu.Api.ApiContext"/>
 		///
-		private readonly ApiContext _apiContext;
-		public ApplicationResource(ApiContext apiContext) 
+		private readonly IApiContext _apiContext;
+		public ApplicationResource(IApiContext apiContext) 
 		{
 			_apiContext = apiContext;
 		}
 
 		
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
+		/// <returns>
+		/// <see cref="Mozu.Api.Contracts.SiteSettings.Application.Application"/>
+		/// </returns>
+		/// <example>
+		/// <code>
+		///   var application = new Application();
+		///   var application = application.ThirdPartyGetApplication(authTicket);
+		/// </code>
+		/// </example>
+		public virtual Mozu.Api.Contracts.SiteSettings.Application.Application ThirdPartyGetApplication(AuthTicket authTicket= null)
+		{
+			MozuClient<Mozu.Api.Contracts.SiteSettings.Application.Application> response;
+			var client = Mozu.Api.Clients.Commerce.Settings.ApplicationClient.ThirdPartyGetApplicationClient(authTicket);
+			client.WithContext(_apiContext);
+			response= client.Execute();
+			return response.Result();
+
+		}
+
 						/// <summary>
 		/// Initializes an application with the necessary configured settings.
 		/// </summary>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <param name="application">Properties of the application to update.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.SiteSettings.Application.Application"/>
@@ -37,14 +63,14 @@ namespace Mozu.Api.Resources.Commerce.Settings
 		/// <example>
 		/// <code>
 		///   var application = new Application();
-		///   var application = application.ThirdPartyUpdateApplication( application);
+		///   var application = application.ThirdPartyUpdateApplication( application, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.SiteSettings.Application.Application ThirdPartyUpdateApplication(Mozu.Api.Contracts.SiteSettings.Application.Application application)
+		public virtual Mozu.Api.Contracts.SiteSettings.Application.Application ThirdPartyUpdateApplication(Mozu.Api.Contracts.SiteSettings.Application.Application application, AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.SiteSettings.Application.Application> response;
-			var client = Mozu.Api.Clients.Commerce.Settings.ApplicationClient.ThirdPartyUpdateApplicationClient( application);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.SiteSettings.Application.Application> response;
+			var client = Mozu.Api.Clients.Commerce.Settings.ApplicationClient.ThirdPartyUpdateApplicationClient( application, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 

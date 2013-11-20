@@ -13,7 +13,7 @@ using System;
 
 namespace Mozu.Api.Urls.Commerce.Settings.Shipping
 {
-	public partial class FeatureUrl : BaseUrl
+	public partial class FeatureUrl : MozuUrl
 	{
 
 		/// <summary>
@@ -22,10 +22,10 @@ namespace Mozu.Api.Urls.Commerce.Settings.Shipping
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string GetActiveRateProvidersUrl()
+        public static MozuUrl GetActiveRateProvidersUrl()
 		{
 			var url = "/api/commerce/settings/shipping/activerateproviders";
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				/// <summary>
@@ -34,10 +34,10 @@ namespace Mozu.Api.Urls.Commerce.Settings.Shipping
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string AddActiveRateProviderUrl()
+        public static MozuUrl AddActiveRateProviderUrl()
 		{
 			var url = "/api/commerce/settings/shipping/activerateproviders";
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				/// <summary>
@@ -46,10 +46,10 @@ namespace Mozu.Api.Urls.Commerce.Settings.Shipping
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string UpdateActiveRateProvidersUrl()
+        public static MozuUrl UpdateActiveRateProvidersUrl()
 		{
 			var url = "/api/commerce/settings/shipping/activerateproviders";
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				

@@ -10,138 +10,145 @@
 
 using System;
 using System.Collections.Generic;
+using Mozu.Api.Security;
+
 
 namespace Mozu.Api.Resources.Commerce.Catalog.Admin.Products
 {
 	/// <summary>
-	/// Use the Properties resource to configure a property attribute for an individual product associated with a product type that uses the property attribute, as well as set property values for the product.
+	/// Query, create, and update product properties.
 	/// </summary>
-	public partial class ProductPropertyResource : BaseResource 	{
+	public partial class ProductPropertyResource  	{
 				///
 		/// <see cref="Mozu.Api.ApiContext"/>
 		///
-		private readonly ApiContext _apiContext;
-		public ProductPropertyResource(ApiContext apiContext) 
+		private readonly IApiContext _apiContext;
+		public ProductPropertyResource(IApiContext apiContext) 
 		{
 			_apiContext = apiContext;
 		}
 
 		
 		/// <summary>
-		/// Retrieves a list of the property attributes configured for the product specified in the request.
+		/// Retrieves a list of product properties by providing the product code.
 		/// </summary>
-		/// <param name="productCode"></param>
+		/// <param name="productCode">Identifies the product for which a list of properties is being retrieved.</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// List{<see cref="Mozu.Api.Contracts.ProductAdmin.ProductProperty"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var productproperty = new ProductProperty();
-		///   var productProperty = productproperty.GetProperties( productCode);
+		///   var productProperty = productproperty.GetProperties(dataViewMode,  productCode, authTicket);
 		/// </code>
 		/// </example>
-		public virtual List<Mozu.Api.Contracts.ProductAdmin.ProductProperty> GetProperties(string productCode)
+		public virtual List<Mozu.Api.Contracts.ProductAdmin.ProductProperty> GetProperties(DataViewMode dataViewMode, string productCode, AuthTicket authTicket= null)
 		{
-						MozuClient<List<Mozu.Api.Contracts.ProductAdmin.ProductProperty>> response;
-			var client = Mozu.Api.Clients.Commerce.Catalog.Admin.Products.ProductPropertyClient.GetPropertiesClient( productCode);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<List<Mozu.Api.Contracts.ProductAdmin.ProductProperty>> response;
+			var client = Mozu.Api.Clients.Commerce.Catalog.Admin.Products.ProductPropertyClient.GetPropertiesClient(dataViewMode,  productCode, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
 		}
 
 		/// <summary>
-		/// Retrieves the details of a property attribute configuration for the product specified in the request.
+		/// Retrieves the individual product property by providing the product code and the attribute's fully qualified name.
 		/// </summary>
-		/// <param name="attributeFQN">The fully qualified name of the attribute, which is a user defined attribute identifier.</param>
-		/// <param name="productCode"></param>
+		/// <param name="attributeFQN">"The fully qualified name of the attribute, which is a user defined attribute identifier."</param>
+		/// <param name="productCode">Identifies the product for which a single property is being retrieved.</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.ProductAdmin.ProductProperty"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var productproperty = new ProductProperty();
-		///   var productProperty = productproperty.GetProperty( attributeFQN,  productCode);
+		///   var productProperty = productproperty.GetProperty(dataViewMode,  attributeFQN,  productCode, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.ProductAdmin.ProductProperty GetProperty(string attributeFQN, string productCode)
+		public virtual Mozu.Api.Contracts.ProductAdmin.ProductProperty GetProperty(DataViewMode dataViewMode, string attributeFQN, string productCode, AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.ProductAdmin.ProductProperty> response;
-			var client = Mozu.Api.Clients.Commerce.Catalog.Admin.Products.ProductPropertyClient.GetPropertyClient( attributeFQN,  productCode);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.ProductAdmin.ProductProperty> response;
+			var client = Mozu.Api.Clients.Commerce.Catalog.Admin.Products.ProductPropertyClient.GetPropertyClient(dataViewMode,  attributeFQN,  productCode, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
 		}
 
 				/// <summary>
-		/// Configures a property attribute for the product specified in the request.
+		/// Adds or creates an individual property by providing the product code.
 		/// </summary>
-		/// <param name="productCode"></param>
-		/// <param name="productProperty">Properties of the property attribute to configure for a product.</param>
+		/// <param name="productCode">The merchant-created code that uniquely identifies the product such as a SKU or item number. Identifies the product for which a new property is created.</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
+		/// <param name="productProperty">The details of the product property including the attribute detail, user's fully qualified name, and the list of product property values to add.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.ProductAdmin.ProductProperty"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var productproperty = new ProductProperty();
-		///   var productProperty = productproperty.AddProperty( productCode,  productProperty);
+		///   var productProperty = productproperty.AddProperty(dataViewMode,  productProperty,  productCode, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.ProductAdmin.ProductProperty AddProperty(string productCode, Mozu.Api.Contracts.ProductAdmin.ProductProperty productProperty)
+		public virtual Mozu.Api.Contracts.ProductAdmin.ProductProperty AddProperty(DataViewMode dataViewMode, Mozu.Api.Contracts.ProductAdmin.ProductProperty productProperty, string productCode, AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.ProductAdmin.ProductProperty> response;
-			var client = Mozu.Api.Clients.Commerce.Catalog.Admin.Products.ProductPropertyClient.AddPropertyClient( productCode,  productProperty);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.ProductAdmin.ProductProperty> response;
+			var client = Mozu.Api.Clients.Commerce.Catalog.Admin.Products.ProductPropertyClient.AddPropertyClient(dataViewMode,  productProperty,  productCode, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
 		}
 
 				/// <summary>
-		/// Update one or more details of a property attribute configuration for the product specified in the request.
+		/// Update the details of a product property by providng the product code and the attribute's fully qualified name.
 		/// </summary>
-		/// <param name="attributeFQN">The fully qualified name of the attribute, which is a user defined attribute identifier.</param>
-		/// <param name="productCode"></param>
-		/// <param name="productProperty">Details of the property attribute to update for the product configuration.</param>
+		/// <param name="attributeFQN">"The fully qualified name of the attribute, which is a user defined attribute identifier."</param>
+		/// <param name="productCode">Identifies the product for which a list of properties is being updated.</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
+		/// <param name="productProperty">The details of the product property including the attribute detail, user's fully qualified name, and the list of product property values to update.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.ProductAdmin.ProductProperty"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var productproperty = new ProductProperty();
-		///   var productProperty = productproperty.UpdateProperty( attributeFQN,  productCode,  productProperty);
+		///   var productProperty = productproperty.UpdateProperty(dataViewMode,  productProperty,  attributeFQN,  productCode, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.ProductAdmin.ProductProperty UpdateProperty(string attributeFQN, string productCode, Mozu.Api.Contracts.ProductAdmin.ProductProperty productProperty)
+		public virtual Mozu.Api.Contracts.ProductAdmin.ProductProperty UpdateProperty(DataViewMode dataViewMode, Mozu.Api.Contracts.ProductAdmin.ProductProperty productProperty, string attributeFQN, string productCode, AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.ProductAdmin.ProductProperty> response;
-			var client = Mozu.Api.Clients.Commerce.Catalog.Admin.Products.ProductPropertyClient.UpdatePropertyClient( attributeFQN,  productCode,  productProperty);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.ProductAdmin.ProductProperty> response;
+			var client = Mozu.Api.Clients.Commerce.Catalog.Admin.Products.ProductPropertyClient.UpdatePropertyClient(dataViewMode,  productProperty,  attributeFQN,  productCode, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
 		}
 
 				/// <summary>
-		/// Deletes the configuration of a property attribute for the product specified in the request.
+		/// Deletes the property by providing the product code and the attribute's fully qualified name.
 		/// </summary>
-		/// <param name="attributeFQN">The fully qualified name of the attribute, which is a user defined attribute identifier.</param>
-		/// <param name="productCode"></param>
+		/// <param name="attributeFQN">"The fully qualified name of the attribute, which is a user defined attribute identifier."</param>
+		/// <param name="productCode">Identifies the product for which a new property is being deleted.</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// 
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var productproperty = new ProductProperty();
-		///   productproperty.DeleteProperty( attributeFQN,  productCode);
+		///   productproperty.DeleteProperty(dataViewMode,  attributeFQN,  productCode, authTicket);
 		/// </code>
 		/// </example>
-		public virtual void DeleteProperty(string attributeFQN, string productCode)
+		public virtual void DeleteProperty(DataViewMode dataViewMode, string attributeFQN, string productCode, AuthTicket authTicket= null)
 		{
-						MozuClient response;
-			var client = Mozu.Api.Clients.Commerce.Catalog.Admin.Products.ProductPropertyClient.DeletePropertyClient( attributeFQN,  productCode);
-			SetContext(_apiContext, ref client,true);
+			MozuClient response;
+			var client = Mozu.Api.Clients.Commerce.Catalog.Admin.Products.ProductPropertyClient.DeletePropertyClient(dataViewMode,  attributeFQN,  productCode, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 
 		}

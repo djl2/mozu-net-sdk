@@ -28,7 +28,7 @@ namespace Mozu.Api.Contracts.ProductAdmin
 			public string AttributeInputType { get; set; }
 
 			///
-			///Describes how an attribute will be used. Valid types are "Extra", "Option", and "Property".
+			///Describes how an attribute will be used. Valid types are "Extra", "Option", and "Property"
 			///
 			public string AttributeUsageType { get; set; }
 

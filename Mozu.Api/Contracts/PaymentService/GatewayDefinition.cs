@@ -28,9 +28,6 @@ namespace Mozu.Api.Contracts.PaymentService
 			///
 			public string Id { get; set; }
 
-			///
-			///The implementing type name of the integration with the payment gateway.
-			///
 			public string IntegrationImplTypeName { get; set; }
 
 			///
@@ -54,7 +51,7 @@ namespace Mozu.Api.Contracts.PaymentService
 			public List<GatewayCredentialFieldDefinition> CredentialDefinitions { get; set; }
 
 			///
-			///Definition of the preauthorization gateway.
+			///***Always private and should not be published.***
 			///
 			public PreAuthorizeDefinition PreAuthorizeDefinition { get; set; }
 

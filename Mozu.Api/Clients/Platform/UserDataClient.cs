@@ -10,6 +10,8 @@
 
 using System;
 using System.Collections.Generic;
+using Mozu.Api.Security;
+
 
 namespace Mozu.Api.Clients.Platform
 {
@@ -22,21 +24,24 @@ namespace Mozu.Api.Clients.Platform
 		/// Retrieves the value of a record in the Mozu database.
 		/// </summary>
 		/// <param name="dbEntryQuery">The database entry query string used to retrieve the record information.</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{string}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=GetDBValue( dbEntryQuery);
+		///   var mozuClient=GetDBValue( dbEntryQuery, authTicket);
 		///   var stringClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<string> GetDBValueClient(string dbEntryQuery)
+		public static MozuClient<string> GetDBValueClient(string dbEntryQuery, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Platform.UserDataUrl.GetDBValueUrl(dbEntryQuery);
 			const string verb = "GET";
 			var mozuClient = new MozuClient<string>().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 
@@ -44,22 +49,25 @@ namespace Mozu.Api.Clients.Platform
 		/// Creates a new record in the Mozu database based on the information supplied in the request.
 		/// </summary>
 		/// <param name="dbEntryQuery">The database entry string to create.</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <param name="value">The value string to create.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=CreateDBValue( dbEntryQuery,  value);
+		///   var mozuClient=CreateDBValue( value,  dbEntryQuery, authTicket);
 		///mozuClient.WithBaseAddress(url).Execute();
 		/// </code>
 		/// </example>
-		public static MozuClient CreateDBValueClient(string dbEntryQuery, string value)
+		public static MozuClient CreateDBValueClient(string value, string dbEntryQuery, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Platform.UserDataUrl.CreateDBValueUrl(dbEntryQuery);
 			const string verb = "POST";
-			var mozuClient = new MozuClient().WithVerb(verb).WithResourceUrl(url).WithBody<string>(value);
-		return mozuClient;
+			var mozuClient = new MozuClient().WithVerb(verb).WithResourceUrl(url).WithBody(value);
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 
@@ -67,22 +75,25 @@ namespace Mozu.Api.Clients.Platform
 		/// Updates a record in the Mozu database based on the information supplied in the request.
 		/// </summary>
 		/// <param name="dbEntryQuery">The database entry query string used to update the record information.</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <param name="value">The database value to update.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=UpdateDBValue( dbEntryQuery,  value);
+		///   var mozuClient=UpdateDBValue( value,  dbEntryQuery, authTicket);
 		///mozuClient.WithBaseAddress(url).Execute();
 		/// </code>
 		/// </example>
-		public static MozuClient UpdateDBValueClient(string dbEntryQuery, string value)
+		public static MozuClient UpdateDBValueClient(string value, string dbEntryQuery, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Platform.UserDataUrl.UpdateDBValueUrl(dbEntryQuery);
 			const string verb = "PUT";
-			var mozuClient = new MozuClient().WithVerb(verb).WithResourceUrl(url).WithBody<string>(value);
-		return mozuClient;
+			var mozuClient = new MozuClient().WithVerb(verb).WithResourceUrl(url).WithBody(value);
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 
@@ -90,21 +101,24 @@ namespace Mozu.Api.Clients.Platform
 		/// Removes a previously defined record in the Mozu database.
 		/// </summary>
 		/// <param name="dbEntryQuery">The database entry string to delete.</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=DeleteDBValue( dbEntryQuery);
+		///   var mozuClient=DeleteDBValue( dbEntryQuery, authTicket);
 		///mozuClient.WithBaseAddress(url).Execute();
 		/// </code>
 		/// </example>
-		public static MozuClient DeleteDBValueClient(string dbEntryQuery)
+		public static MozuClient DeleteDBValueClient(string dbEntryQuery, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Platform.UserDataUrl.DeleteDBValueUrl(dbEntryQuery);
 			const string verb = "DELETE";
 			var mozuClient = new MozuClient().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 

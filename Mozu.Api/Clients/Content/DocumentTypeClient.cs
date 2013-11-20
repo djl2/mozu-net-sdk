@@ -10,6 +10,8 @@
 
 using System;
 using System.Collections.Generic;
+using Mozu.Api.Security;
+
 
 namespace Mozu.Api.Clients.Content
 {
@@ -32,7 +34,7 @@ namespace Mozu.Api.Clients.Content
 		/// </example>
 		public static MozuClient<Mozu.Api.Contracts.Content.DocumentTypeCollection> ListClient()
 		{
-			return ListClient( null,  null);
+			return ListClient( null,  null, null);
 		}
 
 		/// <summary>
@@ -40,21 +42,24 @@ namespace Mozu.Api.Clients.Content
 		/// </summary>
 		/// <param name="pageSize"></param>
 		/// <param name="startIndex"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Content.DocumentTypeCollection"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=List( pageSize,  startIndex);
+		///   var mozuClient=List( pageSize,  startIndex, authTicket);
 		///   var documentTypeCollectionClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.Content.DocumentTypeCollection> ListClient(int? pageSize, int? startIndex)
+		public static MozuClient<Mozu.Api.Contracts.Content.DocumentTypeCollection> ListClient(int? pageSize =  null, int? startIndex =  null, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Content.DocumentTypeUrl.ListUrl(pageSize, startIndex);
 			const string verb = "GET";
 			var mozuClient = new MozuClient<Mozu.Api.Contracts.Content.DocumentTypeCollection>().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 
@@ -62,21 +67,24 @@ namespace Mozu.Api.Clients.Content
 		/// Retrieves an existing DocumentType.
 		/// </summary>
 		/// <param name="documentTypeName">The documentType name being retrieved.</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Content.DocumentType"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=Get( documentTypeName);
+		///   var mozuClient=Get( documentTypeName, authTicket);
 		///   var documentTypeClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.Content.DocumentType> GetClient(string documentTypeName)
+		public static MozuClient<Mozu.Api.Contracts.Content.DocumentType> GetClient(string documentTypeName, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Content.DocumentTypeUrl.GetUrl(documentTypeName);
 			const string verb = "GET";
 			var mozuClient = new MozuClient<Mozu.Api.Contracts.Content.DocumentType>().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 

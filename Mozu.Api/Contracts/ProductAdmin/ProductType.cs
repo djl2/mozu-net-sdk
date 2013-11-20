@@ -29,6 +29,8 @@ namespace Mozu.Api.Contracts.ProductAdmin
 			///
 			public bool IsBaseProductType { get; set; }
 
+			public int? MasterCatalogId { get; set; }
+
 			///
 			///Name of the product type, such as "Shoes" or "TVs".
 			///
@@ -36,10 +38,8 @@ namespace Mozu.Api.Contracts.ProductAdmin
 
 			public int? ProductCount { get; set; }
 
-			public int? SiteGroupId { get; set; }
-
 			///
-			///Identifier and datetime stamp information recorded when creating or updating a resource entity. This value is system-supplied and read-only.
+			///Identifier and datetime stamp information recorded when creating or updating a resource entity. System-supplied and read-only.
 			///
 			public AuditInfo AuditInfo { get; set; }
 

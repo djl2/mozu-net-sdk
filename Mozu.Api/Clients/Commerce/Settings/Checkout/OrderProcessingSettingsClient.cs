@@ -10,6 +10,8 @@
 
 using System;
 using System.Collections.Generic;
+using Mozu.Api.Security;
+
 
 namespace Mozu.Api.Clients.Commerce.Settings.Checkout
 {
@@ -21,43 +23,49 @@ namespace Mozu.Api.Clients.Commerce.Settings.Checkout
 		/// <summary>
 		/// Retrieves a list of the order processing settings defined for the site.
 		/// </summary>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.SiteSettings.Order.OrderProcessingSettings"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=GetOrderProcessingSettings();
+		///   var mozuClient=GetOrderProcessingSettings(authTicket);
 		///   var orderProcessingSettingsClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.SiteSettings.Order.OrderProcessingSettings> GetOrderProcessingSettingsClient()
+		public static MozuClient<Mozu.Api.Contracts.SiteSettings.Order.OrderProcessingSettings> GetOrderProcessingSettingsClient(AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Settings.Checkout.OrderProcessingSettingsUrl.GetOrderProcessingSettingsUrl();
 			const string verb = "GET";
 			var mozuClient = new MozuClient<Mozu.Api.Contracts.SiteSettings.Order.OrderProcessingSettings>().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 
 						/// <summary>
 		/// Updates the order processing settings defined for the site.
 		/// </summary>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <param name="orderProcessingSettings">List of the order processing settings to define for the site.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.SiteSettings.Order.OrderProcessingSettings"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=UpdateOrderProcessingSettings( orderProcessingSettings);
+		///   var mozuClient=UpdateOrderProcessingSettings( orderProcessingSettings, authTicket);
 		///   var orderProcessingSettingsClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.SiteSettings.Order.OrderProcessingSettings> UpdateOrderProcessingSettingsClient(Mozu.Api.Contracts.SiteSettings.Order.OrderProcessingSettings orderProcessingSettings)
+		public static MozuClient<Mozu.Api.Contracts.SiteSettings.Order.OrderProcessingSettings> UpdateOrderProcessingSettingsClient(Mozu.Api.Contracts.SiteSettings.Order.OrderProcessingSettings orderProcessingSettings, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Settings.Checkout.OrderProcessingSettingsUrl.UpdateOrderProcessingSettingsUrl();
 			const string verb = "PUT";
 			var mozuClient = new MozuClient<Mozu.Api.Contracts.SiteSettings.Order.OrderProcessingSettings>().WithVerb(verb).WithResourceUrl(url).WithBody<Mozu.Api.Contracts.SiteSettings.Order.OrderProcessingSettings>(orderProcessingSettings);
-		return mozuClient;
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 

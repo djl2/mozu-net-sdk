@@ -13,7 +13,7 @@ using System;
 
 namespace Mozu.Api.Urls.Content.Documentlists
 {
-	public partial class FolderUrl : BaseUrl
+	public partial class FolderUrl : MozuUrl
 	{
 
 		/// <summary>
@@ -24,26 +24,26 @@ namespace Mozu.Api.Urls.Content.Documentlists
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string GetFolderUrl(string documentListName, string folderId)
+        public static MozuUrl GetFolderUrl(string documentListName, string folderId)
 		{
 			var url = "/api/content/documentlists/{documentListName}/folders/{folderId}";
 			FormatUrl( ref url, "documentListName", documentListName);
 			FormatUrl( ref url, "folderId", folderId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		/// <summary>
         /// Get Resource Url for GetFolders
         /// </summary>
         /// <param name="documentListName">The name of the document list that contains this folder.</param>
-        /// <param name="filter">A set of expressions that consist of a field, operator, and value and represent search parameter syntax when filtering results of a query. Valid operators include equals (eq), does not equal (ne), greater than (gt), less than (lt), greater than or equal to (ge), less than or equal to (le), starts with (sw), or contains (cont). For example - "filter=IsDisplayed+eq+true"</param>
-        /// <param name="pageSize">Specifies the number of results to display on each page when creating paged results from a query. The maximum value is 200.</param>
-        /// <param name="sort">The property by which to sort results and whether the results appear in ascending (a-z) order, represented by ASC or in descending (z-a) order, represented by DESC. The sortBy parameter follows an available property. For example: "sortBy=productCode+asc"</param>
-        /// <param name="startIndex">Indicates the zero-based offset in the complete result set where the returned entities begin, when creating paged results from a query. For example, with a PageSize of 25, to get the 51st through the 75th items, use startIndex=3.</param>
+        /// <param name="filter">"A set of expressions that consist of a field, operator, and value and represent search parameter syntax when filtering results of a query. Valid operators include equals (eq), does not equal (ne), greater than (gt), less than (lt), greater than or equal to (ge), less than or equal to (le), starts with (sw), or contains (cont). For example - ""filter=IsDisplayed+eq+true"""</param>
+        /// <param name="pageSize">Used to create paged results from a query. Specifies the number of results to display on each page. Maximum: 200.</param>
+        /// <param name="sort">"The property by which to sort results and whether the results appear in ascending (a-z) order, represented by 'ASC' or in descending (z-a) order, represented by 'DESC'. The sortBy parameter follows an available property. <b>For example: sortBy=productCode+asc</b>"</param>
+        /// <param name="startIndex">"Used to create paged results from a query. Indicates the zero-based offset in the complete result set where the returned entities begin. For example, with a PageSize of 25, to get the 51st through the 75th items, use startIndex=3."</param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string GetFoldersUrl(string documentListName, string filter, long? pageSize, string sort, long? startIndex)
+        public static MozuUrl GetFoldersUrl(string documentListName, string filter, int? pageSize, string sort, int? startIndex)
 		{
 			var url = "/api/content/documentlists/{documentListName}/folders?filter={filter}&pageSize={pageSize}&startIndex={startIndex}&sortBy={sort}";
 			FormatUrl( ref url, "documentListName", documentListName);
@@ -51,7 +51,7 @@ namespace Mozu.Api.Urls.Content.Documentlists
 			FormatUrl( ref url, "pageSize", pageSize);
 			FormatUrl( ref url, "sort", sort);
 			FormatUrl( ref url, "startIndex", startIndex);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				/// <summary>
@@ -61,11 +61,11 @@ namespace Mozu.Api.Urls.Content.Documentlists
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string CreateFolderUrl(string documentListName)
+        public static MozuUrl CreateFolderUrl(string documentListName)
 		{
 			var url = "/api/content/documentlists/{documentListName}/folders";
 			FormatUrl( ref url, "documentListName", documentListName);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				/// <summary>
@@ -76,12 +76,12 @@ namespace Mozu.Api.Urls.Content.Documentlists
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string UpdateFolderUrl(string documentListName, string folderId)
+        public static MozuUrl UpdateFolderUrl(string documentListName, string folderId)
 		{
 			var url = "/api/content/documentlists/{documentListName}/folders/{folderId}";
 			FormatUrl( ref url, "documentListName", documentListName);
 			FormatUrl( ref url, "folderId", folderId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				/// <summary>
@@ -92,12 +92,12 @@ namespace Mozu.Api.Urls.Content.Documentlists
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string DeleteFolderUrl(string documentListName, string folderId)
+        public static MozuUrl DeleteFolderUrl(string documentListName, string folderId)
 		{
 			var url = "/api/content/documentlists/{documentListName}/folders/{folderId}";
 			FormatUrl( ref url, "documentListName", documentListName);
 			FormatUrl( ref url, "folderId", folderId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		

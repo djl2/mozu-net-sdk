@@ -13,7 +13,7 @@ using System;
 
 namespace Mozu.Api.Urls.Commerce.Catalog.Admin
 {
-	public partial class FacetUrl : BaseUrl
+	public partial class FacetUrl : MozuUrl
 	{
 
 		/// <summary>
@@ -24,12 +24,12 @@ namespace Mozu.Api.Urls.Commerce.Catalog.Admin
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string GetFacetUrl(int facetId, bool? validate)
+        public static MozuUrl GetFacetUrl(int facetId, bool? validate)
 		{
 			var url = "/api/commerce/catalog/admin/facets/{facetId}?validate={validate}";
 			FormatUrl( ref url, "facetId", facetId);
 			FormatUrl( ref url, "validate", validate);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		/// <summary>
@@ -41,13 +41,13 @@ namespace Mozu.Api.Urls.Commerce.Catalog.Admin
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string GetFacetCategoryListUrl(int categoryId, bool? includeAvailable, bool? validate)
+        public static MozuUrl GetFacetCategoryListUrl(int categoryId, bool? includeAvailable, bool? validate)
 		{
 			var url = "/api/commerce/catalog/admin/facets/category/{categoryId}?includAvaliable={includeAvailable}&validate={validate}";
 			FormatUrl( ref url, "categoryId", categoryId);
 			FormatUrl( ref url, "includeAvailable", includeAvailable);
 			FormatUrl( ref url, "validate", validate);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				/// <summary>
@@ -56,10 +56,10 @@ namespace Mozu.Api.Urls.Commerce.Catalog.Admin
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string AddFacetUrl()
+        public static MozuUrl AddFacetUrl()
 		{
 			var url = "/api/commerce/catalog/admin/facets/";
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				/// <summary>
@@ -69,11 +69,11 @@ namespace Mozu.Api.Urls.Commerce.Catalog.Admin
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string UpdateFacetUrl(int facetId)
+        public static MozuUrl UpdateFacetUrl(int facetId)
 		{
 			var url = "/api/commerce/catalog/admin/facets/{facetId}";
 			FormatUrl( ref url, "facetId", facetId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				/// <summary>
@@ -83,11 +83,11 @@ namespace Mozu.Api.Urls.Commerce.Catalog.Admin
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string DeleteFacetByIdUrl(int facetId)
+        public static MozuUrl DeleteFacetByIdUrl(int facetId)
 		{
 			var url = "/api/commerce/catalog/admin/facets/{facetId}";
 			FormatUrl( ref url, "facetId", facetId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		

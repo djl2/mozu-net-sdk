@@ -18,7 +18,7 @@ namespace Mozu.Api.Contracts.ProductAdmin
 		public class ProductVariationOption
 		{
 			///
-			///The fully qualified name of the attribute, which is a user defined attribute identifier.
+			///"The fully qualified name of the attribute, which is a user defined attribute identifier."
 			///
 			public string AttributeFQN { get; set; }
 

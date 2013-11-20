@@ -10,138 +10,150 @@
 
 using System;
 using System.Collections.Generic;
+using Mozu.Api.Security;
+
 
 namespace Mozu.Api.Resources.Commerce.Catalog.Admin.Attributedefinition.Producttypes
 {
 	/// <summary>
-	/// Use the Options subresource to define how an option attribute is used for a specific product type. Product attribute definitions are unique for each associated product type.
+	/// Add or create, delete, retrieve, and update product types that exist as options.
 	/// </summary>
-	public partial class ProductTypeOptionResource : BaseResource 	{
+	public partial class ProductTypeOptionResource  	{
 				///
 		/// <see cref="Mozu.Api.ApiContext"/>
 		///
-		private readonly ApiContext _apiContext;
-		public ProductTypeOptionResource(ApiContext apiContext) 
+		private readonly IApiContext _apiContext;
+		public ProductTypeOptionResource(IApiContext apiContext) 
 		{
 			_apiContext = apiContext;
 		}
 
 		
 		/// <summary>
-		/// Retrieves a list of option product attributes defined for the specified product type.
+		/// Retrieves a list of product attributes that exist as options by specifying the product type ID.
 		/// </summary>
-		/// <param name="productTypeId">Identifier of the product type to retrieve.</param>
+		/// <param name="productTypeId">Identifier of the product type options to retrieve.</param>
+		/// <param name="dataViewMode">{<see cref="Mozu.Api.DataViewMode"/>}</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// List{<see cref="Mozu.Api.Contracts.ProductAdmin.AttributeInProductType"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var producttypeoption = new ProductTypeOption();
-		///   var attributeInProductType = producttypeoption.GetOptions( productTypeId);
+		///   var attributeInProductType = producttypeoption.GetOptions(dataViewMode,  productTypeId, authTicket);
 		/// </code>
 		/// </example>
-		public virtual List<Mozu.Api.Contracts.ProductAdmin.AttributeInProductType> GetOptions(int productTypeId)
+		public virtual List<Mozu.Api.Contracts.ProductAdmin.AttributeInProductType> GetOptions(DataViewMode dataViewMode, int productTypeId, AuthTicket authTicket= null)
 		{
-						MozuClient<List<Mozu.Api.Contracts.ProductAdmin.AttributeInProductType>> response;
-			var client = Mozu.Api.Clients.Commerce.Catalog.Admin.Attributedefinition.Producttypes.ProductTypeOptionClient.GetOptionsClient( productTypeId);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<List<Mozu.Api.Contracts.ProductAdmin.AttributeInProductType>> response;
+			var client = Mozu.Api.Clients.Commerce.Catalog.Admin.Attributedefinition.Producttypes.ProductTypeOptionClient.GetOptionsClient(dataViewMode,  productTypeId, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
 		}
 
 		/// <summary>
-		/// Retrieves the details of an option attribute defined for the specified product type.
+		/// Retrieves a single product attribute that exists as an option by providing the product type ID and the attribute's fully qualified name.
 		/// </summary>
-		/// <param name="attributeFQN">The fully qualified name of the attribute, which is a user defined attribute identifier.</param>
-		/// <param name="productTypeId">The identifier of the product type.</param>
+		/// <param name="attributeFQN">"The fully qualified name of the attribute, which is a user defined attribute identifier."</param>
+		/// <param name="productTypeId">The identifier of the product option type of the option being retrieved.</param>
+		/// <param name="dataViewMode">{<see cref="Mozu.Api.DataViewMode"/>}</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.ProductAdmin.AttributeInProductType"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var producttypeoption = new ProductTypeOption();
-		///   var attributeInProductType = producttypeoption.GetOption( attributeFQN,  productTypeId);
+		///   var attributeInProductType = producttypeoption.GetOption(dataViewMode,  attributeFQN,  productTypeId, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.ProductAdmin.AttributeInProductType GetOption(string attributeFQN, int productTypeId)
+		public virtual Mozu.Api.Contracts.ProductAdmin.AttributeInProductType GetOption(DataViewMode dataViewMode, string attributeFQN, int productTypeId, AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.ProductAdmin.AttributeInProductType> response;
-			var client = Mozu.Api.Clients.Commerce.Catalog.Admin.Attributedefinition.Producttypes.ProductTypeOptionClient.GetOptionClient( attributeFQN,  productTypeId);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.ProductAdmin.AttributeInProductType> response;
+			var client = Mozu.Api.Clients.Commerce.Catalog.Admin.Attributedefinition.Producttypes.ProductTypeOptionClient.GetOptionClient(dataViewMode,  attributeFQN,  productTypeId, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
 		}
 
 				/// <summary>
-		/// Assigns an option attribute to the product type based on the information supplied in the request.
+		/// Adds or creates the attribute which exists as an option.
 		/// </summary>
-		/// <param name="productTypeId">Identifier of the product type.</param>
-		/// <param name="attributeInProductType">Properties of the option attribute to define for the specified product type.</param>
+		/// <param name="productTypeId">Identifier of the product type where an attribute which exists as an option is being added.</param>
+		/// <param name="dataViewMode">{<see cref="Mozu.Api.DataViewMode"/>}</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
+		/// <param name="attributeInProductType">Adds or creates the attribute which exists as an option to the product type.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.ProductAdmin.AttributeInProductType"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var producttypeoption = new ProductTypeOption();
-		///   var attributeInProductType = producttypeoption.AddOption( productTypeId,  attributeInProductType);
+		///   var attributeInProductType = producttypeoption.AddOption(dataViewMode,  attributeInProductType,  productTypeId, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.ProductAdmin.AttributeInProductType AddOption(int productTypeId, Mozu.Api.Contracts.ProductAdmin.AttributeInProductType attributeInProductType)
+		public virtual Mozu.Api.Contracts.ProductAdmin.AttributeInProductType AddOption(DataViewMode dataViewMode, Mozu.Api.Contracts.ProductAdmin.AttributeInProductType attributeInProductType, int productTypeId, AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.ProductAdmin.AttributeInProductType> response;
-			var client = Mozu.Api.Clients.Commerce.Catalog.Admin.Attributedefinition.Producttypes.ProductTypeOptionClient.AddOptionClient( productTypeId,  attributeInProductType);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.ProductAdmin.AttributeInProductType> response;
+			var client = Mozu.Api.Clients.Commerce.Catalog.Admin.Attributedefinition.Producttypes.ProductTypeOptionClient.AddOptionClient(dataViewMode,  attributeInProductType,  productTypeId, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
 		}
 
 				/// <summary>
-		/// Updates an option attribute definition for the specified product type.
+		/// Updates the product attribute that exists as an option.
 		/// </summary>
-		/// <param name="attributeFQN">The fully qualified name of the attribute, which is a user defined attribute identifier.</param>
-		/// <param name="productTypeId">Identifier of the product type.</param>
-		/// <param name="attributeInProductType">Properties of the option product attribute to define for the specified product type.</param>
+		/// <param name="attributeFQN">"The fully qualified name of the attribute, which is a user defined attribute identifier."</param>
+		/// <param name="productTypeId">Identifier of the product type whose attribute that exists as an option to update.</param>
+		/// <param name="dataViewMode">{<see cref="Mozu.Api.DataViewMode"/>}</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
+		/// <param name="attributeInProductType">Updates the attribute which exist as options in the product type.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.ProductAdmin.AttributeInProductType"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var producttypeoption = new ProductTypeOption();
-		///   var attributeInProductType = producttypeoption.UpdateOption( attributeFQN,  productTypeId,  attributeInProductType);
+		///   var attributeInProductType = producttypeoption.UpdateOption(dataViewMode,  attributeInProductType,  attributeFQN,  productTypeId, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.ProductAdmin.AttributeInProductType UpdateOption(string attributeFQN, int productTypeId, Mozu.Api.Contracts.ProductAdmin.AttributeInProductType attributeInProductType)
+		public virtual Mozu.Api.Contracts.ProductAdmin.AttributeInProductType UpdateOption(DataViewMode dataViewMode, Mozu.Api.Contracts.ProductAdmin.AttributeInProductType attributeInProductType, string attributeFQN, int productTypeId, AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.ProductAdmin.AttributeInProductType> response;
-			var client = Mozu.Api.Clients.Commerce.Catalog.Admin.Attributedefinition.Producttypes.ProductTypeOptionClient.UpdateOptionClient( attributeFQN,  productTypeId,  attributeInProductType);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.ProductAdmin.AttributeInProductType> response;
+			var client = Mozu.Api.Clients.Commerce.Catalog.Admin.Attributedefinition.Producttypes.ProductTypeOptionClient.UpdateOptionClient(dataViewMode,  attributeInProductType,  attributeFQN,  productTypeId, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
 		}
 
 				/// <summary>
-		/// Removes an option attribute definition for the specified product type.
+		/// Deletes the product option by providing the product type ID and the attribute's fully qualified name.
 		/// </summary>
-		/// <param name="attributeFQN">The fully qualified name of the attribute, which is a user defined attribute identifier.</param>
-		/// <param name="productTypeId">Identifier of the product type.</param>
+		/// <param name="attributeFQN">"The fully qualified name of the attribute, which is a user defined attribute identifier."</param>
+		/// <param name="productTypeId">Identifier of the product type option to delete.</param>
+		/// <param name="dataViewMode">{<see cref="Mozu.Api.DataViewMode"/>}</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// 
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var producttypeoption = new ProductTypeOption();
-		///   producttypeoption.DeleteOption( attributeFQN,  productTypeId);
+		///   producttypeoption.DeleteOption(dataViewMode,  attributeFQN,  productTypeId, authTicket);
 		/// </code>
 		/// </example>
-		public virtual void DeleteOption(string attributeFQN, int productTypeId)
+		public virtual void DeleteOption(DataViewMode dataViewMode, string attributeFQN, int productTypeId, AuthTicket authTicket= null)
 		{
-						MozuClient response;
-			var client = Mozu.Api.Clients.Commerce.Catalog.Admin.Attributedefinition.Producttypes.ProductTypeOptionClient.DeleteOptionClient( attributeFQN,  productTypeId);
-			SetContext(_apiContext, ref client,true);
+			MozuClient response;
+			var client = Mozu.Api.Clients.Commerce.Catalog.Admin.Attributedefinition.Producttypes.ProductTypeOptionClient.DeleteOptionClient(dataViewMode,  attributeFQN,  productTypeId, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 
 		}

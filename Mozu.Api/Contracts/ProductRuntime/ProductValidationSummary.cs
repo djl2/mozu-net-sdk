@@ -24,7 +24,7 @@ namespace Mozu.Api.Contracts.ProductRuntime
 			public bool IsTaxable { get; set; }
 
 			///
-			///Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only.
+			///"Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only."
 			///
 			public string ProductCode { get; set; }
 
@@ -53,6 +53,8 @@ namespace Mozu.Api.Contracts.ProductRuntime
 			///
 			public ProductImage Image { get; set; }
 
+			public ProductInventoryInfo InventoryInfo { get; set; }
+
 			///
 			///Dimensions of the packaged product.
 			///
@@ -72,11 +74,6 @@ namespace Mozu.Api.Contracts.ProductRuntime
 			///The current state of the product and whether or not it is available for purchasing. If the product is not eligible for purchase, the validation message is included.
 			///
 			public ProductPurchasableState PurchasableState { get; set; }
-
-			///
-			///The number of products accounted for in inventory that are available for purchase.
-			///
-			public ProductStock Stock { get; set; }
 
 		}
 

@@ -10,6 +10,8 @@
 
 using System;
 using System.Collections.Generic;
+using Mozu.Api.Security;
+
 
 namespace Mozu.Api.Clients.Platform.Adminuser
 {
@@ -22,21 +24,24 @@ namespace Mozu.Api.Clients.Platform.Adminuser
 		/// Retrieves the details of the specified administrator user account.
 		/// </summary>
 		/// <param name="userId">Unique identifier of the administrator account to retrieve.</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Core.User"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=GetUser( userId);
+		///   var mozuClient=GetUser( userId, authTicket);
 		///   var userClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.Core.User> GetUserClient(string userId)
+		public static MozuClient<Mozu.Api.Contracts.Core.User> GetUserClient(string userId, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Platform.Adminuser.AdminUserUrl.GetUserUrl(userId);
 			const string verb = "GET";
 			var mozuClient = new MozuClient<Mozu.Api.Contracts.Core.User>().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 
@@ -44,21 +49,24 @@ namespace Mozu.Api.Clients.Platform.Adminuser
 		/// Retrieves a list of the Mozu tenants or development stores for which the specified user has an assigned role.
 		/// </summary>
 		/// <param name="userId">Unique identifier of the user whose tenant scopes you want to retrieve.</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Tenant.TenantCollection"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=GetTenantScopesForUser( userId);
+		///   var mozuClient=GetTenantScopesForUser( userId, authTicket);
 		///   var tenantCollectionClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.Tenant.TenantCollection> GetTenantScopesForUserClient(string userId)
+		public static MozuClient<Mozu.Api.Contracts.Tenant.TenantCollection> GetTenantScopesForUserClient(string userId, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Platform.Adminuser.AdminUserUrl.GetTenantScopesForUserUrl(userId);
 			const string verb = "GET";
 			var mozuClient = new MozuClient<Mozu.Api.Contracts.Tenant.TenantCollection>().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 

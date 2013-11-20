@@ -7,6 +7,6 @@ C:\tfs\mozu\Integrations\Main\Main-branch\SDKs\DotNet\Mozu.Api\Mozu.Api\bin\Debu
 C:\tfs\mozu\Integrations\Main\Main-branch\SDKs\DotNet\Mozu.Api\Mozu.Api\bin\Debug\Mozu.BuildSupport.GetAssemblyFileVersionTask.pdb
 C:\tfs\mozu\Integrations\Main\Main-branch\SDKs\DotNet\Mozu.Api\Mozu.Api\bin\Debug\Newtonsoft.Json.xml
 C:\tfs\mozu\Integrations\Main\Main-branch\SDKs\DotNet\Mozu.Api\Mozu.Api\bin\Debug\System.Net.Http.Formatting.xml
-C:\tfs\mozu\Integrations\Main\Main-branch\SDKs\DotNet\Mozu.Api\Mozu.Api\obj\Debug\Mozu.Api.csprojResolveAssemblyReference.cache
 C:\tfs\mozu\Integrations\Main\Main-branch\SDKs\DotNet\Mozu.Api\Mozu.Api\obj\Debug\Mozu.Api.dll
 C:\tfs\mozu\Integrations\Main\Main-branch\SDKs\DotNet\Mozu.Api\Mozu.Api\obj\Debug\Mozu.Api.pdb
+C:\tfs\mozu\Integrations\Main\Main-branch\SDKs\DotNet\Mozu.Api\Mozu.Api\obj\Debug\Mozu.Api.csprojResolveAssemblyReference.cache

@@ -23,15 +23,14 @@ namespace Mozu.Api.Contracts.Content
 			///
 			public List<string> DocumentTypes { get; set; }
 
-			///
-			///If true, the entity is published and available or rendered.
-			///
-			public bool? IsPublished { get; set; }
+			public bool? EnablePublishing { get; set; }
 
 			///
 			///The name of the document list.
 			///
 			public string Name { get; set; }
+
+			public bool? SupportsPublishing { get; set; }
 
 		}
 

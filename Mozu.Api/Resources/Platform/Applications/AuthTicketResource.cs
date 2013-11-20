@@ -10,22 +10,15 @@
 
 using System;
 using System.Collections.Generic;
+using Mozu.Api.Security;
+
 
 namespace Mozu.Api.Resources.Platform.Applications
 {
 	/// <summary>
 	/// Use this resource to manage authentication tickets for your applications.
 	/// </summary>
-	public partial class AuthTicketResource : BaseResource 	{
-				///
-		/// <see cref="Mozu.Api.ApiContext"/>
-		///
-		private readonly ApiContext _apiContext;
-		public AuthTicketResource(ApiContext apiContext) 
-		{
-			_apiContext = apiContext;
-		}
-
+	public partial class AuthTicketResource  	{
 		
 				/// <summary>
 		/// Generate an authentication ticket for an application.
@@ -42,9 +35,8 @@ namespace Mozu.Api.Resources.Platform.Applications
 		/// </example>
 		public virtual Mozu.Api.Contracts.AppDev.AuthTicket AuthenticateApp(Mozu.Api.Contracts.AppDev.AppAuthInfo appAuthInfo)
 		{
-						MozuClient<Mozu.Api.Contracts.AppDev.AuthTicket> response;
+			MozuClient<Mozu.Api.Contracts.AppDev.AuthTicket> response;
 			var client = Mozu.Api.Clients.Platform.Applications.AuthTicketClient.AuthenticateAppClient( appAuthInfo);
-			SetContext(_apiContext, ref client,false);
 			response= client.Execute();
 			return response.Result();
 
@@ -65,9 +57,8 @@ namespace Mozu.Api.Resources.Platform.Applications
 		/// </example>
 		public virtual Mozu.Api.Contracts.AppDev.AuthTicket RefreshAppAuthTicket(Mozu.Api.Contracts.AppDev.AuthTicketRequest authTicketRequest)
 		{
-						MozuClient<Mozu.Api.Contracts.AppDev.AuthTicket> response;
+			MozuClient<Mozu.Api.Contracts.AppDev.AuthTicket> response;
 			var client = Mozu.Api.Clients.Platform.Applications.AuthTicketClient.RefreshAppAuthTicketClient( authTicketRequest);
-			SetContext(_apiContext, ref client,false);
 			response= client.Execute();
 			return response.Result();
 
@@ -88,9 +79,8 @@ namespace Mozu.Api.Resources.Platform.Applications
 		/// </example>
 		public virtual void DeleteAppAuthTicket(string refreshToken)
 		{
-						MozuClient response;
+			MozuClient response;
 			var client = Mozu.Api.Clients.Platform.Applications.AuthTicketClient.DeleteAppAuthTicketClient( refreshToken);
-			SetContext(_apiContext, ref client,false);
 			response= client.Execute();
 
 		}

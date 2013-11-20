@@ -13,7 +13,7 @@ using System;
 
 namespace Mozu.Api.Urls.Platform.User
 {
-	public partial class UserAuthTicketUrl : BaseUrl
+	public partial class UserAuthTicketUrl : MozuUrl
 	{
 
 				/// <summary>
@@ -22,10 +22,10 @@ namespace Mozu.Api.Urls.Platform.User
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string CreateUserAuthTicketUrl()
+        public static MozuUrl CreateUserAuthTicketUrl()
 		{
 			var url = "/api/platform/user/userauthtickets/";
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		/// <summary>
@@ -34,10 +34,10 @@ namespace Mozu.Api.Urls.Platform.User
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string CreateAuthTicketForSiteUrl()
+        public static MozuUrl CreateAuthTicketForSiteUrl()
 		{
 			var url = "/api/platform/user/userauthtickets/site";
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				/// <summary>
@@ -47,11 +47,11 @@ namespace Mozu.Api.Urls.Platform.User
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string RefreshUserAuthTicketUrl(string refreshToken)
+        public static MozuUrl RefreshUserAuthTicketUrl(string refreshToken)
 		{
 			var url = "/api/platform/user/userauthtickets/refresh?refreshToken={refreshToken}";
 			FormatUrl( ref url, "refreshToken", refreshToken);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				

@@ -18,7 +18,7 @@ namespace Mozu.Api.Contracts.ProductAdmin
 		public class ProductLocalizedSEOContent
 		{
 			///
-			///Language used for the entity. Currently, only "en-US" is supported.
+			///"Language used for the entity. Currently, only ""en-US"" is supported."
 			///
 			public string LocaleCode { get; set; }
 
@@ -40,7 +40,7 @@ namespace Mozu.Api.Contracts.ProductAdmin
 			///
 			///The search engine optimized human-readable portion of the URL in the language of the product's locale code.
 			///
-			public string SEOFriendlyUrl { get; set; }
+			public string SeofriendlyUrl { get; set; }
 
 			///
 			///Customizes the HTML title tag within the header section of the product details page for the specified product.

@@ -10,6 +10,8 @@
 
 using System;
 using System.Collections.Generic;
+using Mozu.Api.Security;
+
 
 namespace Mozu.Api.Clients.Commerce.Catalog.Storefront
 {
@@ -32,7 +34,7 @@ namespace Mozu.Api.Clients.Commerce.Catalog.Storefront
 		/// </example>
 		public static MozuClient<Mozu.Api.Contracts.ProductRuntime.ProductSearchResult> SearchClient()
 		{
-			return SearchClient( null,  null,  null,  null,  null,  null,  null,  null,  null,  null,  null,  null,  null,  null,  null,  null);
+			return SearchClient( null,  null,  null,  null,  null,  null,  null,  null,  null,  null,  null,  null,  null,  null,  null,  null, null);
 		}
 
 		/// <summary>
@@ -50,25 +52,28 @@ namespace Mozu.Api.Clients.Commerce.Catalog.Storefront
 		/// <param name="facetTemplateSubset">Display a subset of the facets defined in the template specified in facetTemplate parameter.</param>
 		/// <param name="facetValueFilter">The facet values to apply to the filter.</param>
 		/// <param name="filter">A set of expressions that consist of a field, operator, and value and represent search parameter syntax when filtering results of a query. You can filter product search results by any of its properties, including product code, type, category, and name. Valid operators include equals (eq), does not equal (ne), greater than (gt), less than (lt), greater than or equal to (ge), less than or equal to (le), starts with (sw), or contains (cont). <b>For example - "filter=categoryId+eq+12"</b></param>
-		/// <param name="pageSize">Specifies the number of results to display on each page when creating paged results from a query. The maximum value is 200.</param>
+		/// <param name="pageSize">Used to create paged results from a query. Specifies the number of results to display on each page. Maximum: 200.</param>
 		/// <param name="query">The terms to search on.</param>
 		/// <param name="sortBy"></param>
 		/// <param name="startIndex"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.ProductRuntime.ProductSearchResult"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=Search( facet,  facetFieldRangeQuery,  facetHierDepth,  facetHierPrefix,  facetHierValue,  facetPageSize,  facetSettings,  facetStartIndex,  facetTemplate,  facetTemplateSubset,  facetValueFilter,  filter,  pageSize,  query,  sortBy,  startIndex);
+		///   var mozuClient=Search( facet,  facetFieldRangeQuery,  facetHierDepth,  facetHierPrefix,  facetHierValue,  facetPageSize,  facetSettings,  facetStartIndex,  facetTemplate,  facetTemplateSubset,  facetValueFilter,  filter,  pageSize,  query,  sortBy,  startIndex, authTicket);
 		///   var productSearchResultClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.ProductRuntime.ProductSearchResult> SearchClient(string facet, string facetFieldRangeQuery, string facetHierDepth, string facetHierPrefix, string facetHierValue, string facetPageSize, string facetSettings, string facetStartIndex, string facetTemplate, string facetTemplateSubset, string facetValueFilter, string filter, int? pageSize, string query, string sortBy, int? startIndex)
+		public static MozuClient<Mozu.Api.Contracts.ProductRuntime.ProductSearchResult> SearchClient(string facet =  null, string facetFieldRangeQuery =  null, string facetHierDepth =  null, string facetHierPrefix =  null, string facetHierValue =  null, string facetPageSize =  null, string facetSettings =  null, string facetStartIndex =  null, string facetTemplate =  null, string facetTemplateSubset =  null, string facetValueFilter =  null, string filter =  null, int? pageSize =  null, string query =  null, string sortBy =  null, int? startIndex =  null, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Catalog.Storefront.ProductSearchResultUrl.SearchUrl(facet, facetFieldRangeQuery, facetHierDepth, facetHierPrefix, facetHierValue, facetPageSize, facetSettings, facetStartIndex, facetTemplate, facetTemplateSubset, facetValueFilter, filter, pageSize, query, sortBy, startIndex);
 			const string verb = "GET";
 			var mozuClient = new MozuClient<Mozu.Api.Contracts.ProductRuntime.ProductSearchResult>().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 
@@ -86,29 +91,32 @@ namespace Mozu.Api.Clients.Commerce.Catalog.Storefront
 		/// </example>
 		public static MozuClient<Mozu.Api.Contracts.ProductRuntime.SearchSuggestion> SuggestClient()
 		{
-			return SuggestClient( null,  null);
+			return SuggestClient( null,  null, null);
 		}
 
 		/// <summary>
 		/// Suggests possible search terms as the shopper enters search text.
 		/// </summary>
-		/// <param name="pageSize">Specifies the number of results to display on each page when creating paged results from a query. The maximum value is 200.</param>
+		/// <param name="pageSize">Used to create paged results from a query. Specifies the number of results to display on each page. Maximum: 200.</param>
 		/// <param name="q">Text that the shopper is currently entering.</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.ProductRuntime.SearchSuggestion"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=Suggest( pageSize,  q);
+		///   var mozuClient=Suggest( pageSize,  q, authTicket);
 		///   var searchSuggestionClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.ProductRuntime.SearchSuggestion> SuggestClient(int? pageSize, string q)
+		public static MozuClient<Mozu.Api.Contracts.ProductRuntime.SearchSuggestion> SuggestClient(int? pageSize =  null, string q =  null, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Catalog.Storefront.ProductSearchResultUrl.SuggestUrl(pageSize, q);
 			const string verb = "GET";
 			var mozuClient = new MozuClient<Mozu.Api.Contracts.ProductRuntime.SearchSuggestion>().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 

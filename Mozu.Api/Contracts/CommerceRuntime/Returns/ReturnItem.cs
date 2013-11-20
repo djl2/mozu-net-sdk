@@ -11,6 +11,7 @@
 using System;
 using System.Collections.Generic;
 using Mozu.Api.Contracts.CommerceRuntime.Orders;
+using Mozu.Api.Contracts.CommerceRuntime.Products;
 
 namespace Mozu.Api.Contracts.CommerceRuntime.Returns
 {
@@ -51,6 +52,8 @@ namespace Mozu.Api.Contracts.CommerceRuntime.Returns
 			///List of merchant-supplied notes associated with the return item.
 			///
 			public List<OrderNote> Notes { get; set; }
+
+			public Product Product { get; set; }
 
 			///
 			///The list of return reasons for the item and the quantity associated with each return reason.

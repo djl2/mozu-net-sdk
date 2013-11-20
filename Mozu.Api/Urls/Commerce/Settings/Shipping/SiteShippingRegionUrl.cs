@@ -13,7 +13,7 @@ using System;
 
 namespace Mozu.Api.Urls.Commerce.Settings.Shipping
 {
-	public partial class SiteShippingRegionUrl : BaseUrl
+	public partial class SiteShippingRegionUrl : MozuUrl
 	{
 
 		/// <summary>
@@ -22,10 +22,10 @@ namespace Mozu.Api.Urls.Commerce.Settings.Shipping
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string GetShippingRegionsUrl()
+        public static MozuUrl GetShippingRegionsUrl()
 		{
 			var url = "/api/commerce/settings/shipping/siteshippingregions";
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 						/// <summary>
@@ -34,10 +34,10 @@ namespace Mozu.Api.Urls.Commerce.Settings.Shipping
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string UpdateShippingRegionsUrl()
+        public static MozuUrl UpdateShippingRegionsUrl()
 		{
 			var url = "/api/commerce/settings/shipping/siteshippingregions";
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				/// <summary>
@@ -46,10 +46,10 @@ namespace Mozu.Api.Urls.Commerce.Settings.Shipping
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string DeleteShippingRegionsUrl()
+        public static MozuUrl DeleteShippingRegionsUrl()
 		{
 			var url = "/api/commerce/settings/shipping/siteshippingregions";
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		

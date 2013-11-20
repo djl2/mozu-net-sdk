@@ -10,6 +10,8 @@
 
 using System;
 using System.Collections.Generic;
+using Mozu.Api.Security;
+
 
 namespace Mozu.Api.Clients.Commerce.Orders
 {
@@ -33,7 +35,7 @@ namespace Mozu.Api.Clients.Commerce.Orders
 		/// </example>
 		public static MozuClient<Mozu.Api.Contracts.CommerceRuntime.Payments.BillingInfo> GetBillingInfoClient(string orderId)
 		{
-			return GetBillingInfoClient( null,  orderId);
+			return GetBillingInfoClient( orderId,  null, null);
 		}
 
 		/// <summary>
@@ -41,21 +43,24 @@ namespace Mozu.Api.Clients.Commerce.Orders
 		/// </summary>
 		/// <param name="draft">If true, retrieve the draft version of the order billing information, which might include uncommitted changes.</param>
 		/// <param name="orderId">Unique identifier of the order.</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.CommerceRuntime.Payments.BillingInfo"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=GetBillingInfo( draft,  orderId);
+		///   var mozuClient=GetBillingInfo( orderId,  draft, authTicket);
 		///   var billingInfoClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.CommerceRuntime.Payments.BillingInfo> GetBillingInfoClient(bool? draft, string orderId)
+		public static MozuClient<Mozu.Api.Contracts.CommerceRuntime.Payments.BillingInfo> GetBillingInfoClient(string orderId, bool? draft =  null, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Orders.BillingInfoUrl.GetBillingInfoUrl(draft, orderId);
 			const string verb = "GET";
 			var mozuClient = new MozuClient<Mozu.Api.Contracts.CommerceRuntime.Payments.BillingInfo>().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 
@@ -69,13 +74,13 @@ namespace Mozu.Api.Clients.Commerce.Orders
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=SetBillingInfo( orderId,  billingInfo);
+		///   var mozuClient=SetBillingInfo( billingInfo,  orderId);
 		///   var billingInfoClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.CommerceRuntime.Payments.BillingInfo> SetBillingInfoClient(string orderId, Mozu.Api.Contracts.CommerceRuntime.Payments.BillingInfo billingInfo)
+		public static MozuClient<Mozu.Api.Contracts.CommerceRuntime.Payments.BillingInfo> SetBillingInfoClient(Mozu.Api.Contracts.CommerceRuntime.Payments.BillingInfo billingInfo, string orderId)
 		{
-			return SetBillingInfoClient( orderId,  null,  null,  billingInfo);
+			return SetBillingInfoClient( billingInfo,  orderId,  null,  null, null);
 		}
 
 		/// <summary>
@@ -83,23 +88,26 @@ namespace Mozu.Api.Clients.Commerce.Orders
 		/// </summary>
 		/// <param name="orderId">Unique identifier of the order.</param>
 		/// <param name="updateMode">Specifies whether to set the billing information by updating the original order, updating the order in draft mode, or updating the order in draft mode and then committing the changes to the original. Draft mode enables users to make incremental order changes before committing the changes to the original order. Valid values are "ApplyToOriginal", "ApplyToDraft", or "ApplyAndCommit".</param>
-		/// <param name="version">If applicable, the version of the order or draft for which to set the billing information.</param>
+		/// <param name="version"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <param name="billingInfo">The properties of the order billing information to update.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.CommerceRuntime.Payments.BillingInfo"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=SetBillingInfo( orderId,  updateMode,  version,  billingInfo);
+		///   var mozuClient=SetBillingInfo( billingInfo,  orderId,  updateMode,  version, authTicket);
 		///   var billingInfoClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.CommerceRuntime.Payments.BillingInfo> SetBillingInfoClient(string orderId, string updateMode, string version, Mozu.Api.Contracts.CommerceRuntime.Payments.BillingInfo billingInfo)
+		public static MozuClient<Mozu.Api.Contracts.CommerceRuntime.Payments.BillingInfo> SetBillingInfoClient(Mozu.Api.Contracts.CommerceRuntime.Payments.BillingInfo billingInfo, string orderId, string updateMode =  null, string version =  null, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Orders.BillingInfoUrl.SetBillingInfoUrl(orderId, updateMode, version);
 			const string verb = "PUT";
 			var mozuClient = new MozuClient<Mozu.Api.Contracts.CommerceRuntime.Payments.BillingInfo>().WithVerb(verb).WithResourceUrl(url).WithBody<Mozu.Api.Contracts.CommerceRuntime.Payments.BillingInfo>(billingInfo);
-		return mozuClient;
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 

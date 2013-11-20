@@ -13,7 +13,7 @@ using System;
 
 namespace Mozu.Api.Urls.Commerce.Customer.Accounts
 {
-	public partial class CustomerNoteUrl : BaseUrl
+	public partial class CustomerNoteUrl : MozuUrl
 	{
 
 		/// <summary>
@@ -24,26 +24,26 @@ namespace Mozu.Api.Urls.Commerce.Customer.Accounts
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string GetAccountNoteUrl(int accountId, int noteId)
+        public static MozuUrl GetAccountNoteUrl(int accountId, int noteId)
 		{
 			var url = "/api/commerce/customer/accounts/{accountId}/notes/{noteId}";
 			FormatUrl( ref url, "accountId", accountId);
 			FormatUrl( ref url, "noteId", noteId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		/// <summary>
         /// Get Resource Url for GetAccountNotes
         /// </summary>
         /// <param name="accountId">Unique identifier of the customer account.</param>
-        /// <param name="filter">A set of expressions that consist of a field, operator, and value and represent search parameter syntax when filtering results of a query. Valid operators include equals (eq), does not equal (ne), greater than (gt), less than (lt), greater than or equal to (ge), less than or equal to (le), starts with (sw), or contains (cont). For example - "filter=IsDisplayed+eq+true"</param>
-        /// <param name="pageSize">Specifies the number of results to display on each page when creating paged results from a query. The maximum value is 200.</param>
-        /// <param name="sortBy">The property by which to sort results and whether the results appear in ascending (a-z) order, represented by ASC or in descending (z-a) order, represented by DESC. The sortBy parameter follows an available property. For example: "sortBy=productCode+asc"</param>
-        /// <param name="startIndex">Indicates the zero-based offset in the complete result set where the returned entities begin, when creating paged results from a query. For example, with a PageSize of 25, to get the 51st through the 75th items, use startIndex=3.</param>
+        /// <param name="filter">"A set of expressions that consist of a field, operator, and value and represent search parameter syntax when filtering results of a query. Valid operators include equals (eq), does not equal (ne), greater than (gt), less than (lt), greater than or equal to (ge), less than or equal to (le), starts with (sw), or contains (cont). For example - ""filter=IsDisplayed+eq+true"""</param>
+        /// <param name="pageSize">Used to create paged results from a query. Specifies the number of results to display on each page. Maximum: 200.</param>
+        /// <param name="sortBy">"The property by which to sort results and whether the results appear in ascending (a-z) order, represented by 'ASC' or in descending (z-a) order, represented by 'DESC'. The sortBy parameter follows an available property. <b>For example: sortBy=productCode+asc</b>"</param>
+        /// <param name="startIndex">"Used to create paged results from a query. Indicates the zero-based offset in the complete result set where the returned entities begin. For example, with a PageSize of 25, to get the 51st through the 75th items, use startIndex=3."</param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string GetAccountNotesUrl(int accountId, string filter, int? pageSize, string sortBy, int? startIndex)
+        public static MozuUrl GetAccountNotesUrl(int accountId, string filter, int? pageSize, string sortBy, int? startIndex)
 		{
 			var url = "/api/commerce/customer/accounts/{accountId}/notes?startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&filter={filter}";
 			FormatUrl( ref url, "accountId", accountId);
@@ -51,7 +51,7 @@ namespace Mozu.Api.Urls.Commerce.Customer.Accounts
 			FormatUrl( ref url, "pageSize", pageSize);
 			FormatUrl( ref url, "sortBy", sortBy);
 			FormatUrl( ref url, "startIndex", startIndex);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				/// <summary>
@@ -61,11 +61,11 @@ namespace Mozu.Api.Urls.Commerce.Customer.Accounts
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string AddAccountNoteUrl(int accountId)
+        public static MozuUrl AddAccountNoteUrl(int accountId)
 		{
 			var url = "/api/commerce/customer/accounts/{accountId}/notes";
 			FormatUrl( ref url, "accountId", accountId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				/// <summary>
@@ -76,12 +76,12 @@ namespace Mozu.Api.Urls.Commerce.Customer.Accounts
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string UpdateAccountNoteUrl(int accountId, int noteId)
+        public static MozuUrl UpdateAccountNoteUrl(int accountId, int noteId)
 		{
 			var url = "/api/commerce/customer/accounts/{accountId}/notes/{noteId}";
 			FormatUrl( ref url, "accountId", accountId);
 			FormatUrl( ref url, "noteId", noteId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				/// <summary>
@@ -92,12 +92,12 @@ namespace Mozu.Api.Urls.Commerce.Customer.Accounts
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string DeleteAccountNoteUrl(int accountId, int noteId)
+        public static MozuUrl DeleteAccountNoteUrl(int accountId, int noteId)
 		{
 			var url = "/api/commerce/customer/accounts/{accountId}/notes/{noteId}";
 			FormatUrl( ref url, "accountId", accountId);
 			FormatUrl( ref url, "noteId", noteId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		

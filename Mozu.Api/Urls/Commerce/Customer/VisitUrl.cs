@@ -13,22 +13,8 @@ using System;
 
 namespace Mozu.Api.Urls.Commerce.Customer
 {
-	public partial class VisitUrl : BaseUrl
+	public partial class VisitUrl : MozuUrl
 	{
-
-		/// <summary>
-        /// Get Resource Url for GetVisit
-        /// </summary>
-        /// <param name="visitId"></param>
-        /// <returns>
-        /// String - Resource Url
-        /// </returns>
-        public static string GetVisitUrl(string visitId)
-		{
-			var url = "/api/commerce/customer/visits/visits/{visitId}";
-			FormatUrl( ref url, "visitId", visitId);
-			return url;
-		}
 
 		/// <summary>
         /// Get Resource Url for GetVisits
@@ -40,14 +26,28 @@ namespace Mozu.Api.Urls.Commerce.Customer
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string GetVisitsUrl(string filter, int? pageSize, string sortBy, int? startIndex)
+        public static MozuUrl GetVisitsUrl(string filter, int? pageSize, string sortBy, int? startIndex)
 		{
-			var url = "/api/commerce/customer/visits/Visits?startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&filter={filter}";
+			var url = "/api/commerce/customer/visits/?startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&filter={filter}";
 			FormatUrl( ref url, "filter", filter);
 			FormatUrl( ref url, "pageSize", pageSize);
 			FormatUrl( ref url, "sortBy", sortBy);
 			FormatUrl( ref url, "startIndex", startIndex);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+		}
+
+		/// <summary>
+        /// Get Resource Url for GetVisit
+        /// </summary>
+        /// <param name="visitId"></param>
+        /// <returns>
+        /// String - Resource Url
+        /// </returns>
+        public static MozuUrl GetVisitUrl(string visitId)
+		{
+			var url = "/api/commerce/customer/visits/{visitId}";
+			FormatUrl( ref url, "visitId", visitId);
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				/// <summary>
@@ -56,10 +56,10 @@ namespace Mozu.Api.Urls.Commerce.Customer
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string AddVisitUrl()
+        public static MozuUrl AddVisitUrl()
 		{
-			var url = "/api/commerce/customer/visits/visits";
-			return url;
+			var url = "/api/commerce/customer/visits/";
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				/// <summary>
@@ -69,11 +69,11 @@ namespace Mozu.Api.Urls.Commerce.Customer
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string UpdateVisitUrl(string visitId)
+        public static MozuUrl UpdateVisitUrl(string visitId)
 		{
-			var url = "/api/commerce/customer/visits/visits/{visitId}";
+			var url = "/api/commerce/customer/visits/{visitId}";
 			FormatUrl( ref url, "visitId", visitId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				

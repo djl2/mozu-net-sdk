@@ -13,7 +13,7 @@ using System;
 
 namespace Mozu.Api.Urls.Platform.Adminuser
 {
-	public partial class AdminUserUrl : BaseUrl
+	public partial class AdminUserUrl : MozuUrl
 	{
 
 		/// <summary>
@@ -23,11 +23,11 @@ namespace Mozu.Api.Urls.Platform.Adminuser
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string GetUserUrl(string userId)
+        public static MozuUrl GetUserUrl(string userId)
 		{
 			var url = "/api/platform/adminuser/accounts/{userId}";
 			FormatUrl( ref url, "userId", userId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.HOME_POD) ;
 		}
 
 		/// <summary>
@@ -37,11 +37,11 @@ namespace Mozu.Api.Urls.Platform.Adminuser
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string GetTenantScopesForUserUrl(string userId)
+        public static MozuUrl GetTenantScopesForUserUrl(string userId)
 		{
 			var url = "/api/platform/adminuser/accounts/{userId}/tenants";
 			FormatUrl( ref url, "userId", userId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.HOME_POD) ;
 		}
 
 								

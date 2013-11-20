@@ -21,7 +21,7 @@ namespace Mozu.Api.Contracts.Reference
 			///
 			///Identifier of the field.
 			///
-			public long Id { get; set; }
+			public int Id { get; set; }
 
 			///
 			///Label for the field.
@@ -31,7 +31,7 @@ namespace Mozu.Api.Contracts.Reference
 			///
 			///Sequence of the field.
 			///
-			public long Order { get; set; }
+			public int Order { get; set; }
 
 			///
 			///Type of field.

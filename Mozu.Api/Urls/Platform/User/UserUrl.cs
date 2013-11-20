@@ -13,21 +13,21 @@ using System;
 
 namespace Mozu.Api.Urls.Platform.User
 {
-	public partial class UserUrl : BaseUrl
+	public partial class UserUrl : MozuUrl
 	{
 
 		/// <summary>
         /// Get Resource Url for GetUserByEmail
         /// </summary>
-        /// <param name="emailAddress">The email address of the specified user or the email address associated with the specified entity.</param>
+        /// <param name="emailAddress">The email address of the specified user.</param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string GetUserByEmailUrl(string emailAddress)
+        public static MozuUrl GetUserByEmailUrl(string emailAddress)
 		{
 			var url = "/api/platform/user/accounts/?emailAddress={emailAddress}";
 			FormatUrl( ref url, "emailAddress", emailAddress);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		/// <summary>
@@ -37,11 +37,11 @@ namespace Mozu.Api.Urls.Platform.User
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string GetUserUrl(string userId)
+        public static MozuUrl GetUserUrl(string userId)
 		{
 			var url = "/api/platform/user/accounts/{userId}";
 			FormatUrl( ref url, "userId", userId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				/// <summary>
@@ -50,10 +50,10 @@ namespace Mozu.Api.Urls.Platform.User
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string CreateUserUrl()
+        public static MozuUrl CreateUserUrl()
 		{
 			var url = "/api/platform/user/accounts/";
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		/// <summary>
@@ -62,10 +62,10 @@ namespace Mozu.Api.Urls.Platform.User
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string CreateUsersUrl()
+        public static MozuUrl CreateUsersUrl()
 		{
 			var url = "/api/platform/user/accounts/Bulk";
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		/// <summary>
@@ -74,10 +74,10 @@ namespace Mozu.Api.Urls.Platform.User
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string LoginUrl()
+        public static MozuUrl LoginUrl()
 		{
 			var url = "/api/platform/user/accounts/Login";
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		/// <summary>
@@ -86,10 +86,10 @@ namespace Mozu.Api.Urls.Platform.User
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string ResetPasswordUrl()
+        public static MozuUrl ResetPasswordUrl()
 		{
 			var url = "/api/platform/user/accounts/resetpassword";
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 						

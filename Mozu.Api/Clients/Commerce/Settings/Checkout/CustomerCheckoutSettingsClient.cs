@@ -10,6 +10,8 @@
 
 using System;
 using System.Collections.Generic;
+using Mozu.Api.Security;
+
 
 namespace Mozu.Api.Clients.Commerce.Settings.Checkout
 {
@@ -21,43 +23,49 @@ namespace Mozu.Api.Clients.Commerce.Settings.Checkout
 		/// <summary>
 		/// Retrieves all checkout settings defined for the site: Payment settings, such as the payment gateway ID and credentials, supported credit cards, and more; Customer Checkout settings, such as whether login is required, and any custom attributes; and Order Processing settings, such as when payment is authorized and captured, and any custom attributes.
 		/// </summary>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.SiteSettings.Order.CustomerCheckoutSettings"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=GetCustomerCheckoutSettings();
+		///   var mozuClient=GetCustomerCheckoutSettings(authTicket);
 		///   var customerCheckoutSettingsClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.SiteSettings.Order.CustomerCheckoutSettings> GetCustomerCheckoutSettingsClient()
+		public static MozuClient<Mozu.Api.Contracts.SiteSettings.Order.CustomerCheckoutSettings> GetCustomerCheckoutSettingsClient(AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Settings.Checkout.CustomerCheckoutSettingsUrl.GetCustomerCheckoutSettingsUrl();
 			const string verb = "GET";
 			var mozuClient = new MozuClient<Mozu.Api.Contracts.SiteSettings.Order.CustomerCheckoutSettings>().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 
 						/// <summary>
 		/// Modifies existing site checkout settings. Modify Payment, Customer Checkout, and Order Processing settings in one PUT.
 		/// </summary>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <param name="customerCheckoutSettings">All the properties to update in the checkout settings.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.SiteSettings.Order.CustomerCheckoutSettings"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=UpdateCustomerCheckoutSettings( customerCheckoutSettings);
+		///   var mozuClient=UpdateCustomerCheckoutSettings( customerCheckoutSettings, authTicket);
 		///   var customerCheckoutSettingsClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.SiteSettings.Order.CustomerCheckoutSettings> UpdateCustomerCheckoutSettingsClient(Mozu.Api.Contracts.SiteSettings.Order.CustomerCheckoutSettings customerCheckoutSettings)
+		public static MozuClient<Mozu.Api.Contracts.SiteSettings.Order.CustomerCheckoutSettings> UpdateCustomerCheckoutSettingsClient(Mozu.Api.Contracts.SiteSettings.Order.CustomerCheckoutSettings customerCheckoutSettings, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Settings.Checkout.CustomerCheckoutSettingsUrl.UpdateCustomerCheckoutSettingsUrl();
 			const string verb = "PUT";
 			var mozuClient = new MozuClient<Mozu.Api.Contracts.SiteSettings.Order.CustomerCheckoutSettings>().WithVerb(verb).WithResourceUrl(url).WithBody<Mozu.Api.Contracts.SiteSettings.Order.CustomerCheckoutSettings>(customerCheckoutSettings);
-		return mozuClient;
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 

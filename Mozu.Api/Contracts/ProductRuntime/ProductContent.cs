@@ -51,7 +51,7 @@ namespace Mozu.Api.Contracts.ProductRuntime
 			///
 			///Product URL defined for search engine optimization.
 			///
-			public string SEOFriendlyUrl { get; set; }
+			public string SeofriendlyUrl { get; set; }
 
 			///
 			///List of image files associated with the product.

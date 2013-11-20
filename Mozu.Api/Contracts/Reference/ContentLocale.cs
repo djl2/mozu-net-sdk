@@ -18,7 +18,7 @@ namespace Mozu.Api.Contracts.Reference
 		public class ContentLocale
 		{
 			///
-			///Language used for the entity. Currently, only "en-US" is supported.
+			///"Language used for the entity. Currently, only ""en-US"" is supported."
 			///
 			public string Code { get; set; }
 

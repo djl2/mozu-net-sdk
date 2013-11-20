@@ -10,6 +10,8 @@
 
 using System;
 using System.Collections.Generic;
+using Mozu.Api.Security;
+
 
 namespace Mozu.Api.Clients.Commerce.Settings.Shipping
 {
@@ -21,65 +23,74 @@ namespace Mozu.Api.Clients.Commerce.Settings.Shipping
 		/// <summary>
 		/// Retrieves a list of the active rate providers configured for the site.
 		/// </summary>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{List{<see cref="Mozu.Api.Contracts.Core.Feature"/>}}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=GetActiveRateProviders();
+		///   var mozuClient=GetActiveRateProviders(authTicket);
 		///   var featureClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<List<Mozu.Api.Contracts.Core.Feature>> GetActiveRateProvidersClient()
+		public static MozuClient<List<Mozu.Api.Contracts.Core.Feature>> GetActiveRateProvidersClient(AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Settings.Shipping.FeatureUrl.GetActiveRateProvidersUrl();
 			const string verb = "GET";
 			var mozuClient = new MozuClient<List<Mozu.Api.Contracts.Core.Feature>>().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 
 				/// <summary>
 		/// Creates a new active rate provider for the site.
 		/// </summary>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <param name="activeRateProvider">Properties of the active rate provider to create.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Core.Feature"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=AddActiveRateProvider( activeRateProvider);
+		///   var mozuClient=AddActiveRateProvider( activeRateProvider, authTicket);
 		///   var featureClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.Core.Feature> AddActiveRateProviderClient(Mozu.Api.Contracts.Core.Feature activeRateProvider)
+		public static MozuClient<Mozu.Api.Contracts.Core.Feature> AddActiveRateProviderClient(Mozu.Api.Contracts.Core.Feature activeRateProvider, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Settings.Shipping.FeatureUrl.AddActiveRateProviderUrl();
 			const string verb = "POST";
 			var mozuClient = new MozuClient<Mozu.Api.Contracts.Core.Feature>().WithVerb(verb).WithResourceUrl(url).WithBody<Mozu.Api.Contracts.Core.Feature>(activeRateProvider);
-		return mozuClient;
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 
 				/// <summary>
 		/// Updates the active rate providers configured for the site.
 		/// </summary>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <param name="activeRateProviders">Properties of the active rate provider to update.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{List{<see cref="Mozu.Api.Contracts.Core.Feature"/>}}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=UpdateActiveRateProviders( activeRateProviders);
+		///   var mozuClient=UpdateActiveRateProviders( activeRateProviders, authTicket);
 		///   var featureClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<List<Mozu.Api.Contracts.Core.Feature>> UpdateActiveRateProvidersClient(List<Mozu.Api.Contracts.Core.Feature> activeRateProviders)
+		public static MozuClient<List<Mozu.Api.Contracts.Core.Feature>> UpdateActiveRateProvidersClient(List<Mozu.Api.Contracts.Core.Feature> activeRateProviders, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Settings.Shipping.FeatureUrl.UpdateActiveRateProvidersUrl();
 			const string verb = "PUT";
 			var mozuClient = new MozuClient<List<Mozu.Api.Contracts.Core.Feature>>().WithVerb(verb).WithResourceUrl(url).WithBody<List<Mozu.Api.Contracts.Core.Feature>>(activeRateProviders);
-		return mozuClient;
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 

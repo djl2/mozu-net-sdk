@@ -34,16 +34,6 @@ namespace Mozu.Api.Contracts.ProductAdmin
 			public bool? IsOrphan { get; set; }
 
 			///
-			///The number of product variations currently available in inventory.
-			///
-			public int? StockOnHand { get; set; }
-
-			///
-			///The number of product variations that are unavailable for current purchase, but placed on back order so that the shopper's order can still be fulfilled, for example, by dropshipping or just waiting for stock to be available again.
-			///
-			public int? StockOnOrder { get; set; }
-
-			///
 			///If true, one or more product variations are configured for the specified product code.
 			///
 			public bool? VariationExists { get; set; }
@@ -67,11 +57,6 @@ namespace Mozu.Api.Contracts.ProductAdmin
 			///Wrapper for the list of option attributes configured for the product variation.
 			///
 			public List<ProductVariationOption> Options { get; set; }
-
-			///
-			///The change made to the number of product variations currently available in inventory.
-			///
-			public StockOnHandAdjustment StockOnHandAdjustment { get; set; }
 
 		}
 

@@ -54,6 +54,10 @@ namespace Mozu.Api.Contracts.SiteSettings.General
 			///
 			public bool? IsGoogleAnalyticsEnabled { get; set; }
 
+			public bool IsMozuWebSite { get; set; }
+
+			public bool? IsWishlistCreationEnabled { get; set; }
+
 			///
 			///They physical directory path or URL where the website logo is stored.
 			///
@@ -89,6 +93,8 @@ namespace Mozu.Api.Contracts.SiteSettings.General
 			///
 			public string SiteTimeZone { get; set; }
 
+			public int? TemplateSiteId { get; set; }
+
 			///
 			///The name of the theme used on the storefront.
 			///
@@ -100,7 +106,7 @@ namespace Mozu.Api.Contracts.SiteSettings.General
 			public string WebsiteName { get; set; }
 
 			///
-			///Identifier and datetime stamp information recorded when creating or updating a resource entity. This value is system-supplied and read-only.
+			///Identifier and datetime stamp information recorded when creating or updating a resource entity. System-supplied and read-only.
 			///
 			public AuditInfo AuditInfo { get; set; }
 

@@ -10,18 +10,20 @@
 
 using System;
 using System.Collections.Generic;
+using Mozu.Api.Security;
+
 
 namespace Mozu.Api.Resources.Commerce.Customer
 {
 	/// <summary>
 	/// 
 	/// </summary>
-	public partial class AddressValidationRequestResource : BaseResource 	{
+	public partial class AddressValidationRequestResource  	{
 				///
 		/// <see cref="Mozu.Api.ApiContext"/>
 		///
-		private readonly ApiContext _apiContext;
-		public AddressValidationRequestResource(ApiContext apiContext) 
+		private readonly IApiContext _apiContext;
+		public AddressValidationRequestResource(IApiContext apiContext) 
 		{
 			_apiContext = apiContext;
 		}
@@ -30,6 +32,7 @@ namespace Mozu.Api.Resources.Commerce.Customer
 				/// <summary>
 		/// 
 		/// </summary>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <param name="addressValidationRequest"></param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.Customer.AddressValidationResponse"/>
@@ -37,14 +40,14 @@ namespace Mozu.Api.Resources.Commerce.Customer
 		/// <example>
 		/// <code>
 		///   var addressvalidationrequest = new AddressValidationRequest();
-		///   var addressValidationResponse = addressvalidationrequest.ValidateAddress( addressValidationRequest);
+		///   var addressValidationResponse = addressvalidationrequest.ValidateAddress( addressValidationRequest, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.Customer.AddressValidationResponse ValidateAddress(Mozu.Api.Contracts.Customer.AddressValidationRequest addressValidationRequest)
+		public virtual Mozu.Api.Contracts.Customer.AddressValidationResponse ValidateAddress(Mozu.Api.Contracts.Customer.AddressValidationRequest addressValidationRequest, AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.Customer.AddressValidationResponse> response;
-			var client = Mozu.Api.Clients.Commerce.Customer.AddressValidationRequestClient.ValidateAddressClient( addressValidationRequest);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.Customer.AddressValidationResponse> response;
+			var client = Mozu.Api.Clients.Commerce.Customer.AddressValidationRequestClient.ValidateAddressClient( addressValidationRequest, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 

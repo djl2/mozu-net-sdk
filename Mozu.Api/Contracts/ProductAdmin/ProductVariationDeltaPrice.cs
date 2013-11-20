@@ -18,7 +18,7 @@ namespace Mozu.Api.Contracts.ProductAdmin
 		public class ProductVariationDeltaPrice
 		{
 			///
-			///3-letter ISO 4217 standard global currency code. Currently, only "USD" (US Dollar) is supported.
+			///"3-letter ISO 4217 standard global currency code. Currently, only ""USD"" (US Dollar) is supported."
 			///
 			public string CurrencyCode { get; set; }
 

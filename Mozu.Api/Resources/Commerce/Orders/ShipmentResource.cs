@@ -10,66 +10,45 @@
 
 using System;
 using System.Collections.Generic;
+using Mozu.Api.Security;
+
 
 namespace Mozu.Api.Resources.Commerce.Orders
 {
 	/// <summary>
 	/// Use the shipments resource to manage shipments of collections of packages for an order.
 	/// </summary>
-	public partial class ShipmentResource : BaseResource 	{
+	public partial class ShipmentResource  	{
 				///
 		/// <see cref="Mozu.Api.ApiContext"/>
 		///
-		private readonly ApiContext _apiContext;
-		public ShipmentResource(ApiContext apiContext) 
+		private readonly IApiContext _apiContext;
+		public ShipmentResource(IApiContext apiContext) 
 		{
 			_apiContext = apiContext;
 		}
 
 		
 		/// <summary>
-		/// Retrieves the shipment actions available for the specified order and package.
+		/// 
 		/// </summary>
-		/// <param name="orderId">Unique identifier of the order for which to get a list of available actions.</param>
-		/// <param name="packageId">Unique identifier for the physical package associated with the order for which to get a list of available actions.</param>
+		/// <param name="orderId"></param>
+		/// <param name="shipmentId"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
-		/// List{string}
+		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Fulfillment.Shipment"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var shipment = new Shipment();
-		///   var string = shipment.GetAvailableShipmentActions( orderId,  packageId);
+		///   var shipment = shipment.GetShipment( orderId,  shipmentId, authTicket);
 		/// </code>
 		/// </example>
-		public virtual List<string> GetAvailableShipmentActions(string orderId, string packageId)
+		public virtual Mozu.Api.Contracts.CommerceRuntime.Fulfillment.Shipment GetShipment(string orderId, string shipmentId, AuthTicket authTicket= null)
 		{
-						MozuClient<List<string>> response;
-			var client = Mozu.Api.Clients.Commerce.Orders.ShipmentClient.GetAvailableShipmentActionsClient( orderId,  packageId);
-			SetContext(_apiContext, ref client,true);
-			response= client.Execute();
-			return response.Result();
-
-		}
-
-		/// <summary>
-		/// Retrieves the details of the order shipment specified in the request.
-		/// </summary>
-		/// <param name="orderId">Unique identifier of the order associated with the shipment to retrieve.</param>
-		/// <param name="shipmentId">Unique identifier of the shipment to retrieve.</param>
-		/// <returns>
-		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Shipping.Shipment"/>
-		/// </returns>
-		/// <example>
-		/// <code>
-		///   var shipment = new Shipment();
-		///   var shipment = shipment.GetShipment( orderId,  shipmentId);
-		/// </code>
-		/// </example>
-		public virtual Mozu.Api.Contracts.CommerceRuntime.Shipping.Shipment GetShipment(string orderId, string shipmentId)
-		{
-						MozuClient<Mozu.Api.Contracts.CommerceRuntime.Shipping.Shipment> response;
-			var client = Mozu.Api.Clients.Commerce.Orders.ShipmentClient.GetShipmentClient( orderId,  shipmentId);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.CommerceRuntime.Fulfillment.Shipment> response;
+			var client = Mozu.Api.Clients.Commerce.Orders.ShipmentClient.GetShipmentClient( orderId,  shipmentId, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
@@ -79,20 +58,21 @@ namespace Mozu.Api.Resources.Commerce.Orders
 		/// Retrieves the available shipping methods applicable to the order. Typically used to display available shipping method options on the checkout page.
 		/// </summary>
 		/// <param name="orderId">Unique identifier of the order for the available shipment methods being retrieved.</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
-		/// List{<see cref="Mozu.Api.Contracts.CommerceRuntime.Shipping.ShippingRate"/>}
+		/// List{<see cref="Mozu.Api.Contracts.CommerceRuntime.Fulfillment.ShippingRate"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var shipment = new Shipment();
-		///   var shippingRate = shipment.GetAvailableShipmentMethods( orderId);
+		///   var shippingRate = shipment.GetAvailableShipmentMethods( orderId, authTicket);
 		/// </code>
 		/// </example>
-		public virtual List<Mozu.Api.Contracts.CommerceRuntime.Shipping.ShippingRate> GetAvailableShipmentMethods(string orderId)
+		public virtual List<Mozu.Api.Contracts.CommerceRuntime.Fulfillment.ShippingRate> GetAvailableShipmentMethods(string orderId, AuthTicket authTicket= null)
 		{
-						MozuClient<List<Mozu.Api.Contracts.CommerceRuntime.Shipping.ShippingRate>> response;
-			var client = Mozu.Api.Clients.Commerce.Orders.ShipmentClient.GetAvailableShipmentMethodsClient( orderId);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<List<Mozu.Api.Contracts.CommerceRuntime.Fulfillment.ShippingRate>> response;
+			var client = Mozu.Api.Clients.Commerce.Orders.ShipmentClient.GetAvailableShipmentMethodsClient( orderId, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
@@ -102,45 +82,22 @@ namespace Mozu.Api.Resources.Commerce.Orders
 		/// Creates a shipment from one or more package associated with an order and assign a label and tracking number to an order shipment.
 		/// </summary>
 		/// <param name="orderId">Unique identifier of the order for this shipment.</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <param name="packageIds">List of unique identifiers for each package associated with this shipment. Not all packages must belong to the same shipment.</param>
 		/// <returns>
-		/// List{<see cref="Mozu.Api.Contracts.CommerceRuntime.Shipping.Package"/>}
+		/// List{<see cref="Mozu.Api.Contracts.CommerceRuntime.Fulfillment.Package"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var shipment = new Shipment();
-		///   var package = shipment.CreatePackageShipments( orderId,  packageIds);
+		///   var package = shipment.CreatePackageShipments( packageIds,  orderId, authTicket);
 		/// </code>
 		/// </example>
-		public virtual List<Mozu.Api.Contracts.CommerceRuntime.Shipping.Package> CreatePackageShipments(string orderId, List<string> packageIds)
+		public virtual List<Mozu.Api.Contracts.CommerceRuntime.Fulfillment.Package> CreatePackageShipments(List<string> packageIds, string orderId, AuthTicket authTicket= null)
 		{
-						MozuClient<List<Mozu.Api.Contracts.CommerceRuntime.Shipping.Package>> response;
-			var client = Mozu.Api.Clients.Commerce.Orders.ShipmentClient.CreatePackageShipmentsClient( orderId,  packageIds);
-			SetContext(_apiContext, ref client,true);
-			response= client.Execute();
-			return response.Result();
-
-		}
-
-		/// <summary>
-		/// Sets the shipment action to "Ship." To ship an order, the order must have a customer name, the "Open" or "OpenAndProcessing" status, full shipping address, and shipping method. Shipping all packages associated with shipments for an order will complete a paid order.
-		/// </summary>
-		/// <param name="orderId">Unique identifier of the order associated with the shipment for which to perform the action.</param>
-		/// <param name="action">The action to perform for the order shipment.</param>
-		/// <returns>
-		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Orders.Order"/>
-		/// </returns>
-		/// <example>
-		/// <code>
-		///   var shipment = new Shipment();
-		///   var order = shipment.PerformShipmentAction( orderId,  action);
-		/// </code>
-		/// </example>
-		public virtual Mozu.Api.Contracts.CommerceRuntime.Orders.Order PerformShipmentAction(string orderId, Mozu.Api.Contracts.CommerceRuntime.Shipping.ShipmentAction action)
-		{
-						MozuClient<Mozu.Api.Contracts.CommerceRuntime.Orders.Order> response;
-			var client = Mozu.Api.Clients.Commerce.Orders.ShipmentClient.PerformShipmentActionClient( orderId,  action);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<List<Mozu.Api.Contracts.CommerceRuntime.Fulfillment.Package>> response;
+			var client = Mozu.Api.Clients.Commerce.Orders.ShipmentClient.CreatePackageShipmentsClient( packageIds,  orderId, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
@@ -151,20 +108,21 @@ namespace Mozu.Api.Resources.Commerce.Orders
 		/// </summary>
 		/// <param name="orderId">Unique identifier of the order to cancel shipment.</param>
 		/// <param name="shipmentId">Unique identifier of the shipment to cancel.</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// 
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var shipment = new Shipment();
-		///   shipment.DeleteShipment( orderId,  shipmentId);
+		///   shipment.DeleteShipment( orderId,  shipmentId, authTicket);
 		/// </code>
 		/// </example>
-		public virtual void DeleteShipment(string orderId, string shipmentId)
+		public virtual void DeleteShipment(string orderId, string shipmentId, AuthTicket authTicket= null)
 		{
-						MozuClient response;
-			var client = Mozu.Api.Clients.Commerce.Orders.ShipmentClient.DeleteShipmentClient( orderId,  shipmentId);
-			SetContext(_apiContext, ref client,true);
+			MozuClient response;
+			var client = Mozu.Api.Clients.Commerce.Orders.ShipmentClient.DeleteShipmentClient( orderId,  shipmentId, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 
 		}

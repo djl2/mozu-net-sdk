@@ -13,8 +13,8 @@ using System.Collections.Generic;
 using Mozu.Api.Contracts.CommerceRuntime.Commerce;
 using Mozu.Api.Contracts.Core;
 using Mozu.Api.Contracts.CommerceRuntime.Payments;
+using Mozu.Api.Contracts.CommerceRuntime.Fulfillment;
 using Mozu.Api.Contracts.CommerceRuntime.Discounts;
-using Mozu.Api.Contracts.CommerceRuntime.Shipping;
 
 namespace Mozu.Api.Contracts.CommerceRuntime.Orders
 {
@@ -23,6 +23,8 @@ namespace Mozu.Api.Contracts.CommerceRuntime.Orders
 		///
 		public class Order
 		{
+			public DateTime? AcceptedDate { get; set; }
+
 			///
 			///The available order, payment, and shipment actions a user can perform for the order.
 			///
@@ -33,15 +35,25 @@ namespace Mozu.Api.Contracts.CommerceRuntime.Orders
 			///
 			public DateTime? CancelledDate { get; set; }
 
+			public string ChannelCode { get; set; }
+
 			///
 			///Date when the order was closed. Closed order is an order that has been processed and the items shipped. System-supplied and read-only.
 			///
 			public DateTime? ClosedDate { get; set; }
 
+			public List<string> CouponCodes { get; set; }
+
+			public string CurrencyCode { get; set; }
+
 			///
 			///Numeric identifer of the customer account.
 			///
 			public int? CustomerAccountId { get; set; }
+
+			public string CustomerInteractionType { get; set; }
+
+			public string CustomerTaxId { get; set; }
 
 			public decimal? DiscountedSubtotal { get; set; }
 
@@ -56,7 +68,7 @@ namespace Mozu.Api.Contracts.CommerceRuntime.Orders
 			public decimal? DiscountTotal { get; set; }
 
 			///
-			///The email address of the specified user or the email address associated with the specified entity.
+			///The email address of the specified user.
 			///
 			public string Email { get; set; }
 
@@ -65,10 +77,14 @@ namespace Mozu.Api.Contracts.CommerceRuntime.Orders
 			///
 			public DateTime? ExpirationDate { get; set; }
 
+			public string ExternalId { get; set; }
+
 			///
 			///The monetary sum of all fees incurred in the order.
 			///
 			public decimal? FeeTotal { get; set; }
+
+			public string FulfillmentStatus { get; set; }
 
 			///
 			///The combined price for all items in the order, including all selected options but excluding any discounts.
@@ -90,20 +106,19 @@ namespace Mozu.Api.Contracts.CommerceRuntime.Orders
 			///
 			public string Id { get; set; }
 
+			public DateTime? ImportDate { get; set; }
+
 			///
 			///The IP address from which the order originated.
 			///
-			public string IPAddress { get; set; }
+			public string IpAddress { get; set; }
 
 			///
 			///If true, this version of the order is a draft that might contain uncommitted changes.
 			///
 			public bool? IsDraft { get; set; }
 
-			///
-			///3-letter ISO 4217 standard global currency code. Currently, only "USD" (US Dollar) is supported.
-			///
-			public string ISOCurrencyCode { get; set; }
+			public bool? IsImport { get; set; }
 
 			///
 			///If true, the order is exempt from applied sales tax.
@@ -147,11 +162,6 @@ namespace Mozu.Api.Contracts.CommerceRuntime.Orders
 			///
 			public string ReturnStatus { get; set; }
 
-			///
-			///The current status of the shipment of this order. Possible values are "Fulfilled" if the order has shipped and "Not Fulfilled" if the order has not shipped. At this time, an order cannot be partially shipped. System-supplied and read-only.
-			///
-			public string ShipmentStatus { get; set; }
-
 			public decimal? ShippingSubTotal { get; set; }
 
 			///
@@ -163,11 +173,6 @@ namespace Mozu.Api.Contracts.CommerceRuntime.Orders
 			///Amount of the shipping fees for the order.
 			///
 			public decimal? ShippingTotal { get; set; }
-
-			///
-			///Unique identifier of the site group.
-			///
-			public int? SiteGroupId { get; set; }
 
 			///
 			///Unique identifier of the site.
@@ -214,14 +219,16 @@ namespace Mozu.Api.Contracts.CommerceRuntime.Orders
 			///
 			public decimal TotalCollected { get; set; }
 
-			///
-			///The current version number of the order.
-			///
 			public string Version { get; set; }
 
 			public string VisitId { get; set; }
 
 			public string WebSessionId { get; set; }
+
+			///
+			///An array list of objects in the returned collection.
+			///
+			public List<OrderItem> Items { get; set; }
 
 			///
 			///Properties of an ad-hoc price adjustment for an order.
@@ -234,7 +241,7 @@ namespace Mozu.Api.Contracts.CommerceRuntime.Orders
 			public List<OrderAttribute> Attributes { get; set; }
 
 			///
-			///Identifier and datetime stamp information recorded when creating or updating a resource entity. This value is system-supplied and read-only.
+			///Identifier and datetime stamp information recorded when creating or updating a resource entity. System-supplied and read-only.
 			///
 			public AuditInfo AuditInfo { get; set; }
 
@@ -248,10 +255,7 @@ namespace Mozu.Api.Contracts.CommerceRuntime.Orders
 			///
 			public List<ChangeMessage> ChangeMessages { get; set; }
 
-			///
-			///An array list of objects in the returned collection.
-			///
-			public List<OrderItem> Items { get; set; }
+			public FulfillmentInfo FulfillmentInfo { get; set; }
 
 			///
 			///Paged list collection of order notes.
@@ -273,6 +277,10 @@ namespace Mozu.Api.Contracts.CommerceRuntime.Orders
 			///
 			public List<Payment> Payments { get; set; }
 
+			public List<Pickup> Pickups { get; set; }
+
+			public List<Shipment> Shipments { get; set; }
+
 			///
 			///Properties of an ad-hoc price adjustment made for an order.
 			///
@@ -284,14 +292,11 @@ namespace Mozu.Api.Contracts.CommerceRuntime.Orders
 			public List<ShippingDiscount> ShippingDiscounts { get; set; }
 
 			///
-			///Container for the shipping information associated with the order.
-			///
-			public ShippingInfo ShippingInfo { get; set; }
-
-			///
 			///A paged list collection of shopper notes for the order.
 			///
 			public ShopperNotes ShopperNotes { get; set; }
+
+			public List<OrderValidationResult> ValidationResults { get; set; }
 
 		}
 

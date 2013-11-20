@@ -13,7 +13,7 @@ using System;
 
 namespace Mozu.Api.Urls.Platform.Applications
 {
-	public partial class AuthTicketUrl : BaseUrl
+	public partial class AuthTicketUrl : MozuUrl
 	{
 
 				/// <summary>
@@ -22,10 +22,10 @@ namespace Mozu.Api.Urls.Platform.Applications
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string AuthenticateAppUrl()
+        public static MozuUrl AuthenticateAppUrl()
 		{
 			var url = "/api/platform/applications/authtickets/";
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.HOME_POD) ;
 		}
 
 				/// <summary>
@@ -34,10 +34,10 @@ namespace Mozu.Api.Urls.Platform.Applications
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string RefreshAppAuthTicketUrl()
+        public static MozuUrl RefreshAppAuthTicketUrl()
 		{
 			var url = "/api/platform/applications/authtickets/refresh-ticket";
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.HOME_POD) ;
 		}
 
 				/// <summary>
@@ -47,11 +47,11 @@ namespace Mozu.Api.Urls.Platform.Applications
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string DeleteAppAuthTicketUrl(string refreshToken)
+        public static MozuUrl DeleteAppAuthTicketUrl(string refreshToken)
 		{
 			var url = "/api/platform/applications/authtickets/{refreshToken}";
 			FormatUrl( ref url, "refreshToken", refreshToken);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.HOME_POD) ;
 		}
 
 		

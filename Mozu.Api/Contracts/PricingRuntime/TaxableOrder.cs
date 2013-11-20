@@ -30,10 +30,16 @@ namespace Mozu.Api.Contracts.PricingRuntime
 			///
 			public DateTime OrderDate { get; set; }
 
+			public string OriginalDocumentCode { get; set; }
+
+			public DateTime OriginalOrderDate { get; set; }
+
 			///
 			///The total shipping amount calculated for the order.
 			///
 			public decimal ShippingAmount { get; set; }
+
+			public string TaxRequestType { get; set; }
 
 			///
 			///The line items associated with the order.

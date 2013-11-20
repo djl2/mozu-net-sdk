@@ -8,6 +8,7 @@ using Mozu.Api.Resources.Platform;
 using Mozu.Api.Sample.Models;
 using Mozu.Api.Security;
 using System.Linq;
+using UserScope = Mozu.Api.Security.UserScope;
 
 namespace Mozu.Api.Sample
 {
@@ -20,13 +21,14 @@ namespace Mozu.Api.Sample
         }
 
         private ApiContext _apiContext;
-
+        private AuthenticationProfile _userInfo;
         private void SetEnvironments()
         {
             var environments = new List<Models.Environment>();
-            environments.Add(new Models.Environment{ Key = "Sandbox", Value="http://sandbox.mozu.com"});
+            environments.Add(new Models.Environment{ Key = "Sandbox", Value="https://sandbox.mozu.com"});
             environments.Add(new Models.Environment { Key = "Production", Value="https://home.mozu.com" });
-            
+            environments.Add(new Models.Environment { Key = "CI", Value = "http://home.mozu-ci.volusion.com" });
+            environments.Add(new Models.Environment { Key = "Dev", Value = "http://mozu-dev.com" });
             cbEnvironment.DataSource = environments;
         }
 
@@ -35,20 +37,14 @@ namespace Mozu.Api.Sample
             try
             {
                 var appAuthInfo = new AppAuthInfo { ApplicationId = txtApplicationID.Text, SharedSecret = txtSharedSecret.Text };
-                Authentication.Initialize(appAuthInfo,SelectedEnv);
+                AppAuthenticator.Initialize(appAuthInfo, SelectedEnv);
 
                 var userAuthInfo = new UserAuthInfo {EmailAddress = txtEmail.Text, Password = txtPassword.Text};
-                UserAuthentication.Initialize(userAuthInfo, SelectedEnv);
+                _userInfo = UserAuthenticator.Authenticate(userAuthInfo, UserScope.Tenant);
 
                 panelTenant.Visible = true;
 
-                if (UserAuthentication.Instance.UserAuthTicket.AvailableTenants == null)
-                {
-                    UserAuthentication.Instance.UserAuthTicket.AvailableTenants = new List<Tenant>();
-                    UserAuthentication.Instance.UserAuthTicket.AvailableTenants.Add(UserAuthentication.Instance.UserAuthTicket.Tenant);
-                }
-                    
-                cbTenant.DataSource = UserAuthentication.Instance.UserAuthTicket.AvailableTenants;
+                cbTenant.DataSource = _userInfo.AuthorizedScopes;
             }
             catch (ApiException exc)
             {
@@ -72,8 +68,11 @@ namespace Mozu.Api.Sample
         {
 
             cbSite.DataSource = null;
-            var tenant = (Tenant)cbTenant.SelectedItem;
-            var sites = tenant.SiteGroups.SelectMany(x => x.Sites).ToList();
+            var scope = (Scope)cbTenant.SelectedItem;
+            
+            var tenantResource = new TenantResource();
+            var tenant = tenantResource.GetTenant(scope.Id);
+            var sites = tenant.Sites;
             cbSite.DataSource = sites;
             cbSite.DisplayMember = "Name";
             panelAPI.Show();
@@ -82,10 +81,8 @@ namespace Mozu.Api.Sample
         private void setContext()
         {
 
-            _apiContext = new ApiContext{BaseUrl = SelectedEnv};
             var site = (Site)cbSite.SelectedItem;
-            _apiContext.SetContext(site);
-            UserAuthentication.Instance.RefreshUserAuthTicket(site.TenantId);
+            _apiContext = new ApiContext(site);
         }
 
         private void btnOrder_Click(object sender, EventArgs e)

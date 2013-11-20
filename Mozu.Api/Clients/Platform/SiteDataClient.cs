@@ -10,6 +10,8 @@
 
 using System;
 using System.Collections.Generic;
+using Mozu.Api.Security;
+
 
 namespace Mozu.Api.Clients.Platform
 {
@@ -36,7 +38,7 @@ namespace Mozu.Api.Clients.Platform
 			var url = Mozu.Api.Urls.Platform.SiteDataUrl.GetDBValueUrl(dbEntryQuery);
 			const string verb = "GET";
 			var mozuClient = new MozuClient<string>().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			return mozuClient;
 
 		}
 
@@ -50,16 +52,16 @@ namespace Mozu.Api.Clients.Platform
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=CreateDBValue( dbEntryQuery,  value);
+		///   var mozuClient=CreateDBValue( value,  dbEntryQuery);
 		///mozuClient.WithBaseAddress(url).Execute();
 		/// </code>
 		/// </example>
-		public static MozuClient CreateDBValueClient(string dbEntryQuery, string value)
+		public static MozuClient CreateDBValueClient(string value, string dbEntryQuery)
 		{
 			var url = Mozu.Api.Urls.Platform.SiteDataUrl.CreateDBValueUrl(dbEntryQuery);
 			const string verb = "POST";
-			var mozuClient = new MozuClient().WithVerb(verb).WithResourceUrl(url).WithBody<string>(value);
-		return mozuClient;
+			var mozuClient = new MozuClient().WithVerb(verb).WithResourceUrl(url).WithBody(value);
+			return mozuClient;
 
 		}
 
@@ -73,16 +75,16 @@ namespace Mozu.Api.Clients.Platform
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=UpdateDBValue( dbEntryQuery,  value);
+		///   var mozuClient=UpdateDBValue( value,  dbEntryQuery);
 		///mozuClient.WithBaseAddress(url).Execute();
 		/// </code>
 		/// </example>
-		public static MozuClient UpdateDBValueClient(string dbEntryQuery, string value)
+		public static MozuClient UpdateDBValueClient(string value, string dbEntryQuery)
 		{
 			var url = Mozu.Api.Urls.Platform.SiteDataUrl.UpdateDBValueUrl(dbEntryQuery);
 			const string verb = "PUT";
-			var mozuClient = new MozuClient().WithVerb(verb).WithResourceUrl(url).WithBody<string>(value);
-		return mozuClient;
+			var mozuClient = new MozuClient().WithVerb(verb).WithResourceUrl(url).WithBody(value);
+			return mozuClient;
 
 		}
 
@@ -104,7 +106,7 @@ namespace Mozu.Api.Clients.Platform
 			var url = Mozu.Api.Urls.Platform.SiteDataUrl.DeleteDBValueUrl(dbEntryQuery);
 			const string verb = "DELETE";
 			var mozuClient = new MozuClient().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			return mozuClient;
 
 		}
 

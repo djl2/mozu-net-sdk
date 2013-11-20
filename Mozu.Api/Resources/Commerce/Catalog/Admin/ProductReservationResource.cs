@@ -10,18 +10,20 @@
 
 using System;
 using System.Collections.Generic;
+using Mozu.Api.Security;
+
 
 namespace Mozu.Api.Resources.Commerce.Catalog.Admin
 {
 	/// <summary>
 	/// Temporarily hold a product from inventory while a shopper is filling out payment information. Create a product reservation when a shopper proceeds to check out and then release the reservation when the order process is complete.
 	/// </summary>
-	public partial class ProductReservationResource : BaseResource 	{
+	public partial class ProductReservationResource  	{
 				///
 		/// <see cref="Mozu.Api.ApiContext"/>
 		///
-		private readonly ApiContext _apiContext;
-		public ProductReservationResource(ApiContext apiContext) 
+		private readonly IApiContext _apiContext;
+		public ProductReservationResource(IApiContext apiContext) 
 		{
 			_apiContext = apiContext;
 		}
@@ -30,41 +32,44 @@ namespace Mozu.Api.Resources.Commerce.Catalog.Admin
 		/// <summary>
 		/// Retrieves a list of product reservations according to any specified filter criteria and sort options.
 		/// </summary>
+		/// <param name="dataViewMode">{<see cref="Mozu.Api.DataViewMode"/>}</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.ProductAdmin.ProductReservationCollection"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var productreservation = new ProductReservation();
-		///   var productReservationCollection = productreservation.GetProductReservations();
+		///   var productReservationCollection = productreservation.GetProductReservations(dataViewMode);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.ProductAdmin.ProductReservationCollection GetProductReservations()
+		public virtual Mozu.Api.Contracts.ProductAdmin.ProductReservationCollection GetProductReservations(DataViewMode dataViewMode)
 		{
-			return GetProductReservations( null,  null,  null,  null);
+			return GetProductReservations(dataViewMode,  null,  null,  null,  null, null);
 		}
 
 		/// <summary>
 		/// Retrieves a list of product reservations according to any specified filter criteria and sort options.
 		/// </summary>
-		/// <param name="filter">A set of expressions that consist of a field, operator, and value and represent search parameter syntax when filtering results of a query. Valid operators include equals (eq), does not equal (ne), greater than (gt), less than (lt), greater than or equal to (ge), less than or equal to (le), starts with (sw), or contains (cont). For example - "filter=IsDisplayed+eq+true"</param>
-		/// <param name="pageSize">Specifies the number of results to display on each page when creating paged results from a query. The maximum value is 200.</param>
+		/// <param name="filter">"A set of expressions that consist of a field, operator, and value and represent search parameter syntax when filtering results of a query. Valid operators include equals (eq), does not equal (ne), greater than (gt), less than (lt), greater than or equal to (ge), less than or equal to (le), starts with (sw), or contains (cont). For example - ""filter=IsDisplayed+eq+true"""</param>
+		/// <param name="pageSize">Used to create paged results from a query. Specifies the number of results to display on each page. Maximum: 200.</param>
 		/// <param name="sortBy"></param>
 		/// <param name="startIndex"></param>
+		/// <param name="dataViewMode">{<see cref="Mozu.Api.DataViewMode"/>}</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.ProductAdmin.ProductReservationCollection"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var productreservation = new ProductReservation();
-		///   var productReservationCollection = productreservation.GetProductReservations( filter,  pageSize,  sortBy,  startIndex);
+		///   var productReservationCollection = productreservation.GetProductReservations(dataViewMode,  filter,  pageSize,  sortBy,  startIndex, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.ProductAdmin.ProductReservationCollection GetProductReservations(string filter, int? pageSize, string sortBy, int? startIndex)
+		public virtual Mozu.Api.Contracts.ProductAdmin.ProductReservationCollection GetProductReservations(DataViewMode dataViewMode, string filter =  null, int? pageSize =  null, string sortBy =  null, int? startIndex =  null, AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.ProductAdmin.ProductReservationCollection> response;
-			var client = Mozu.Api.Clients.Commerce.Catalog.Admin.ProductReservationClient.GetProductReservationsClient( filter,  pageSize,  sortBy,  startIndex);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.ProductAdmin.ProductReservationCollection> response;
+			var client = Mozu.Api.Clients.Commerce.Catalog.Admin.ProductReservationClient.GetProductReservationsClient(dataViewMode,  filter,  pageSize,  sortBy,  startIndex, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
@@ -74,20 +79,22 @@ namespace Mozu.Api.Resources.Commerce.Catalog.Admin
 		/// Retrieves the details of a product reservation.
 		/// </summary>
 		/// <param name="productReservationId">Unique identifier of the product reservation.</param>
+		/// <param name="dataViewMode">{<see cref="Mozu.Api.DataViewMode"/>}</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.ProductAdmin.ProductReservation"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var productreservation = new ProductReservation();
-		///   var productReservation = productreservation.GetProductReservation( productReservationId);
+		///   var productReservation = productreservation.GetProductReservation(dataViewMode,  productReservationId, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.ProductAdmin.ProductReservation GetProductReservation(int productReservationId)
+		public virtual Mozu.Api.Contracts.ProductAdmin.ProductReservation GetProductReservation(DataViewMode dataViewMode, int productReservationId, AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.ProductAdmin.ProductReservation> response;
-			var client = Mozu.Api.Clients.Commerce.Catalog.Admin.ProductReservationClient.GetProductReservationClient( productReservationId);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.ProductAdmin.ProductReservation> response;
+			var client = Mozu.Api.Clients.Commerce.Catalog.Admin.ProductReservationClient.GetProductReservationClient(dataViewMode,  productReservationId, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
@@ -96,6 +103,8 @@ namespace Mozu.Api.Resources.Commerce.Catalog.Admin
 				/// <summary>
 		/// Creates a new product reservation for a product. This action places a hold on the product inventory for the quantity specified during the ordering process.
 		/// </summary>
+		/// <param name="dataViewMode">{<see cref="Mozu.Api.DataViewMode"/>}</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <param name="productReservation">Properties of the product reservation.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.ProductAdmin.ProductReservation"/>
@@ -103,14 +112,14 @@ namespace Mozu.Api.Resources.Commerce.Catalog.Admin
 		/// <example>
 		/// <code>
 		///   var productreservation = new ProductReservation();
-		///   var productReservation = productreservation.AddProductReservation( productReservation);
+		///   var productReservation = productreservation.AddProductReservation(dataViewMode,  productReservation, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.ProductAdmin.ProductReservation AddProductReservation(Mozu.Api.Contracts.ProductAdmin.ProductReservation productReservation)
+		public virtual Mozu.Api.Contracts.ProductAdmin.ProductReservation AddProductReservation(DataViewMode dataViewMode, Mozu.Api.Contracts.ProductAdmin.ProductReservation productReservation, AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.ProductAdmin.ProductReservation> response;
-			var client = Mozu.Api.Clients.Commerce.Catalog.Admin.ProductReservationClient.AddProductReservationClient( productReservation);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.ProductAdmin.ProductReservation> response;
+			var client = Mozu.Api.Clients.Commerce.Catalog.Admin.ProductReservationClient.AddProductReservationClient(dataViewMode,  productReservation, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
@@ -121,20 +130,22 @@ namespace Mozu.Api.Resources.Commerce.Catalog.Admin
 		/// </summary>
 		/// <param name="productReservationId">Unique identifier of the reservation.</param>
 		/// <param name="qty">Number of product items to remove from inventory.</param>
+		/// <param name="dataViewMode">{<see cref="Mozu.Api.DataViewMode"/>}</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// 
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var productreservation = new ProductReservation();
-		///   productreservation.CommitReservation( productReservationId,  qty);
+		///   productreservation.CommitReservation(dataViewMode,  productReservationId,  qty, authTicket);
 		/// </code>
 		/// </example>
-		public virtual void CommitReservation(int productReservationId, int qty)
+		public virtual void CommitReservation(DataViewMode dataViewMode, int productReservationId, int qty, AuthTicket authTicket= null)
 		{
-						MozuClient response;
-			var client = Mozu.Api.Clients.Commerce.Catalog.Admin.ProductReservationClient.CommitReservationClient( productReservationId,  qty);
-			SetContext(_apiContext, ref client,true);
+			MozuClient response;
+			var client = Mozu.Api.Clients.Commerce.Catalog.Admin.ProductReservationClient.CommitReservationClient(dataViewMode,  productReservationId,  qty, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 
 		}
@@ -143,6 +154,8 @@ namespace Mozu.Api.Resources.Commerce.Catalog.Admin
 		/// Updates an existing product reservation for a product. 
 		/// </summary>
 		/// <param name="productReservationId">Unique identifier of the product reservation to update. </param>
+		/// <param name="dataViewMode">{<see cref="Mozu.Api.DataViewMode"/>}</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <param name="productReservation">Properties of the product reservation to update. </param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.ProductAdmin.ProductReservation"/>
@@ -150,14 +163,14 @@ namespace Mozu.Api.Resources.Commerce.Catalog.Admin
 		/// <example>
 		/// <code>
 		///   var productreservation = new ProductReservation();
-		///   var productReservation = productreservation.UpdateProductReservation( productReservationId,  productReservation);
+		///   var productReservation = productreservation.UpdateProductReservation(dataViewMode,  productReservation,  productReservationId, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.ProductAdmin.ProductReservation UpdateProductReservation(int productReservationId, Mozu.Api.Contracts.ProductAdmin.ProductReservation productReservation)
+		public virtual Mozu.Api.Contracts.ProductAdmin.ProductReservation UpdateProductReservation(DataViewMode dataViewMode, Mozu.Api.Contracts.ProductAdmin.ProductReservation productReservation, int productReservationId, AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.ProductAdmin.ProductReservation> response;
-			var client = Mozu.Api.Clients.Commerce.Catalog.Admin.ProductReservationClient.UpdateProductReservationClient( productReservationId,  productReservation);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.ProductAdmin.ProductReservation> response;
+			var client = Mozu.Api.Clients.Commerce.Catalog.Admin.ProductReservationClient.UpdateProductReservationClient(dataViewMode,  productReservation,  productReservationId, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
@@ -167,20 +180,22 @@ namespace Mozu.Api.Resources.Commerce.Catalog.Admin
 		/// Deletes a product reservation. For example, delete a reservation when an order is not processed to return the product quantity back to inventory.
 		/// </summary>
 		/// <param name="productReservationId">Unique identifier of the reservation.</param>
+		/// <param name="dataViewMode">{<see cref="Mozu.Api.DataViewMode"/>}</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// 
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var productreservation = new ProductReservation();
-		///   productreservation.DeleteProductReservation( productReservationId);
+		///   productreservation.DeleteProductReservation(dataViewMode,  productReservationId, authTicket);
 		/// </code>
 		/// </example>
-		public virtual void DeleteProductReservation(int productReservationId)
+		public virtual void DeleteProductReservation(DataViewMode dataViewMode, int productReservationId, AuthTicket authTicket= null)
 		{
-						MozuClient response;
-			var client = Mozu.Api.Clients.Commerce.Catalog.Admin.ProductReservationClient.DeleteProductReservationClient( productReservationId);
-			SetContext(_apiContext, ref client,true);
+			MozuClient response;
+			var client = Mozu.Api.Clients.Commerce.Catalog.Admin.ProductReservationClient.DeleteProductReservationClient(dataViewMode,  productReservationId, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 
 		}

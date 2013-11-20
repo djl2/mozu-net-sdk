@@ -25,7 +25,7 @@ namespace Mozu.Api.Contracts.ProductRuntime
 			///
 			///The maximum number of characters for the numeric length.
 			///
-			public decimal? MaxNumericValue { get; set; }
+			public double MaxNumericValue { get; set; }
 
 			///
 			///The maximum number of characters for the string length.
@@ -40,7 +40,7 @@ namespace Mozu.Api.Contracts.ProductRuntime
 			///
 			///The minimum number of characters for the numeric length.
 			///
-			public decimal? MinNumericValue { get; set; }
+			public double MinNumericValue { get; set; }
 
 			///
 			///The minimum character length of the string.

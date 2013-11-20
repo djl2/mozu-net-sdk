@@ -12,7 +12,7 @@ using System;
 using System.Collections.Generic;
 using Mozu.Api.Contracts.Core;
 using Mozu.Api.Contracts.CommerceRuntime.Orders;
-using Mozu.Api.Contracts.CommerceRuntime.Shipping;
+using Mozu.Api.Contracts.CommerceRuntime.Fulfillment;
 using Mozu.Api.Contracts.CommerceRuntime.Payments;
 
 namespace Mozu.Api.Contracts.CommerceRuntime.Returns
@@ -27,10 +27,20 @@ namespace Mozu.Api.Contracts.CommerceRuntime.Returns
 			///
 			public List<string> AvailableActions { get; set; }
 
+			public string ChannelCode { get; set; }
+
+			public string CurrencyCode { get; set; }
+
+			public int? CustomerAccountId { get; set; }
+
+			public string CustomerInteractionType { get; set; }
+
 			///
 			///Unique identifier of the return.
 			///
 			public string Id { get; set; }
+
+			public string LocationCode { get; set; }
 
 			public decimal? LossTotal { get; set; }
 
@@ -58,38 +68,37 @@ namespace Mozu.Api.Contracts.CommerceRuntime.Returns
 			///
 			public string ReturnOrderId { get; set; }
 
-			///
-			///The type of return, which is "Refund" or "Replace".
-			///
 			public string ReturnType { get; set; }
 
 			///
 			///The date by which a shopper must ship items associated with a return in an "awaiting items" state to the merchant.
 			///
-			public DateTime RMADeadline { get; set; }
+			public DateTime? RmaDeadline { get; set; }
 
 			public decimal? ShippingLossTaxTotal { get; set; }
 
 			public decimal? ShippingLossTotal { get; set; }
 
-			public int? SiteGroupId { get; set; }
-
-			public int SiteId { get; set; }
+			public int? SiteId { get; set; }
 
 			///
 			///Current status of the return, such as "ReturnAuthorized".
 			///
 			public string Status { get; set; }
 
-			public int TenantId { get; set; }
+			public int? TenantId { get; set; }
 
 			///
 			///Unique identifier of the user responsible for the return. Read only and supplied by the original order.
 			///
 			public string UserId { get; set; }
 
+			public string VisitId { get; set; }
+
+			public string WebSessionId { get; set; }
+
 			///
-			///Identifier and datetime stamp information recorded when creating or updating a resource entity. This value is system-supplied and read-only.
+			///Identifier and datetime stamp information recorded when creating or updating a resource entity. System-supplied and read-only.
 			///
 			public AuditInfo AuditInfo { get; set; }
 
@@ -103,9 +112,6 @@ namespace Mozu.Api.Contracts.CommerceRuntime.Returns
 			///
 			public List<OrderNote> Notes { get; set; }
 
-			///
-			///List of packages associated with a replacement order for a return.
-			///
 			public List<Package> Packages { get; set; }
 
 			///

@@ -13,7 +13,7 @@ using System;
 
 namespace Mozu.Api.Urls.Commerce.Settings.General
 {
-	public partial class IPBlockUrl : BaseUrl
+	public partial class IPBlockUrl : MozuUrl
 	{
 
 		/// <summary>
@@ -22,10 +22,10 @@ namespace Mozu.Api.Urls.Commerce.Settings.General
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string GetIPBlocksUrl()
+        public static MozuUrl GetIPBlocksUrl()
 		{
 			var url = "/api/commerce/settings/general/ipblocks";
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		/// <summary>
@@ -35,11 +35,11 @@ namespace Mozu.Api.Urls.Commerce.Settings.General
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string GetIPBlockUrl(int ipBlockId)
+        public static MozuUrl GetIPBlockUrl(int ipBlockId)
 		{
 			var url = "/api/commerce/settings/general/ipblocks/{ipBlockId}";
 			FormatUrl( ref url, "ipBlockId", ipBlockId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				/// <summary>
@@ -48,10 +48,10 @@ namespace Mozu.Api.Urls.Commerce.Settings.General
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string CreateIPBlockUrl()
+        public static MozuUrl CreateIPBlockUrl()
 		{
 			var url = "/api/commerce/settings/general/ipblocks";
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				/// <summary>
@@ -61,11 +61,11 @@ namespace Mozu.Api.Urls.Commerce.Settings.General
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string UpdateIPBlockUrl(int ipBlockId)
+        public static MozuUrl UpdateIPBlockUrl(int ipBlockId)
 		{
 			var url = "/api/commerce/settings/general/ipblocks/{ipBlockId}";
 			FormatUrl( ref url, "ipBlockId", ipBlockId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				/// <summary>
@@ -75,11 +75,11 @@ namespace Mozu.Api.Urls.Commerce.Settings.General
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string DeleteIPBlockUrl(int ipBlockId)
+        public static MozuUrl DeleteIPBlockUrl(int ipBlockId)
 		{
 			var url = "/api/commerce/settings/general/ipblocks/{ipBlockId}";
 			FormatUrl( ref url, "ipBlockId", ipBlockId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		

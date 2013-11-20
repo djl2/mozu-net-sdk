@@ -9,6 +9,7 @@
 //------------------------------------------------------------------------------
 
 using System;
+using System.Collections.Generic;
 
 namespace Mozu.Api.Contracts.CommerceRuntime.Payments
 {
@@ -17,20 +18,9 @@ namespace Mozu.Api.Contracts.CommerceRuntime.Payments
 		///
 		public class PaymentCollection
 		{
-			///
-			///The maximum number of items that can appear in this collection.
-			///
-			public int Capacity { get; set; }
+			public long TotalCount { get; set; }
 
-			///
-			///The number of results listed in the query collection, represented by a signed 64-bit (8-byte) integer. This value is system-supplied and read-only.
-			///
-			public int Count { get; set; }
-
-			///
-			///An array list of objects in the returned collection.
-			///
-			public Payment Item { get; set; }
+			public List<Payment> Items { get; set; }
 
 		}
 

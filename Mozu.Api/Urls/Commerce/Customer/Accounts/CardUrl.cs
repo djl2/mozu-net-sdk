@@ -13,7 +13,7 @@ using System;
 
 namespace Mozu.Api.Urls.Commerce.Customer.Accounts
 {
-	public partial class CardUrl : BaseUrl
+	public partial class CardUrl : MozuUrl
 	{
 
 		/// <summary>
@@ -23,11 +23,11 @@ namespace Mozu.Api.Urls.Commerce.Customer.Accounts
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string GetAccountCardsUrl(int accountId)
+        public static MozuUrl GetAccountCardsUrl(int accountId)
 		{
 			var url = "/api/commerce/customer/accounts/{accountId}/cards";
 			FormatUrl( ref url, "accountId", accountId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				/// <summary>
@@ -37,11 +37,11 @@ namespace Mozu.Api.Urls.Commerce.Customer.Accounts
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string AddAccountCardUrl(int accountId)
+        public static MozuUrl AddAccountCardUrl(int accountId)
 		{
 			var url = "/api/commerce/customer/accounts/{accountId}/cards";
 			FormatUrl( ref url, "accountId", accountId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				/// <summary>
@@ -51,11 +51,11 @@ namespace Mozu.Api.Urls.Commerce.Customer.Accounts
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string UpdateAccountCardUrl(int accountId)
+        public static MozuUrl UpdateAccountCardUrl(int accountId)
 		{
 			var url = "/api/commerce/customer/accounts/{accountId}/cards";
 			FormatUrl( ref url, "accountId", accountId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				/// <summary>
@@ -66,12 +66,12 @@ namespace Mozu.Api.Urls.Commerce.Customer.Accounts
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string DeleteAccountCardUrl(int accountId, string cardId)
+        public static MozuUrl DeleteAccountCardUrl(int accountId, string cardId)
 		{
 			var url = "/api/commerce/customer/accounts/{accountId}/cards/{cardId}";
 			FormatUrl( ref url, "accountId", accountId);
 			FormatUrl( ref url, "cardId", cardId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		

@@ -10,6 +10,8 @@
 
 using System;
 using System.Collections.Generic;
+using Mozu.Api.Security;
+
 
 namespace Mozu.Api.Clients.Commerce.Settings.Shipping
 {
@@ -21,65 +23,74 @@ namespace Mozu.Api.Clients.Commerce.Settings.Shipping
 		/// <summary>
 		/// Retrieves the details of the order handling fee configured for the site.
 		/// </summary>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.SiteSettings.Shipping.SiteShippingHandlingFee"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=GetOrderHandlingFee();
+		///   var mozuClient=GetOrderHandlingFee(authTicket);
 		///   var siteShippingHandlingFeeClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.SiteSettings.Shipping.SiteShippingHandlingFee> GetOrderHandlingFeeClient()
+		public static MozuClient<Mozu.Api.Contracts.SiteSettings.Shipping.SiteShippingHandlingFee> GetOrderHandlingFeeClient(AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Settings.Shipping.SiteShippingHandlingFeeUrl.GetOrderHandlingFeeUrl();
 			const string verb = "GET";
 			var mozuClient = new MozuClient<Mozu.Api.Contracts.SiteSettings.Shipping.SiteShippingHandlingFee>().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 
 				/// <summary>
 		/// Creates a new order handling fee for the site.
 		/// </summary>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <param name="orderHandlingFee">Properties of the order handling fee to assess for order shipment.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.SiteSettings.Shipping.SiteShippingHandlingFee"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=CreateOrderHandlingFee( orderHandlingFee);
+		///   var mozuClient=CreateOrderHandlingFee( orderHandlingFee, authTicket);
 		///   var siteShippingHandlingFeeClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.SiteSettings.Shipping.SiteShippingHandlingFee> CreateOrderHandlingFeeClient(Mozu.Api.Contracts.SiteSettings.Shipping.SiteShippingHandlingFee orderHandlingFee)
+		public static MozuClient<Mozu.Api.Contracts.SiteSettings.Shipping.SiteShippingHandlingFee> CreateOrderHandlingFeeClient(Mozu.Api.Contracts.SiteSettings.Shipping.SiteShippingHandlingFee orderHandlingFee, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Settings.Shipping.SiteShippingHandlingFeeUrl.CreateOrderHandlingFeeUrl();
 			const string verb = "POST";
 			var mozuClient = new MozuClient<Mozu.Api.Contracts.SiteSettings.Shipping.SiteShippingHandlingFee>().WithVerb(verb).WithResourceUrl(url).WithBody<Mozu.Api.Contracts.SiteSettings.Shipping.SiteShippingHandlingFee>(orderHandlingFee);
-		return mozuClient;
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 
 				/// <summary>
 		/// Updates the order handling fee amount for the site.
 		/// </summary>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <param name="orderHandlingFee">The combined price for all items in the order, including all selected options but excluding any discounts.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.SiteSettings.Shipping.SiteShippingHandlingFee"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=UpdateOrderHandlingFee( orderHandlingFee);
+		///   var mozuClient=UpdateOrderHandlingFee( orderHandlingFee, authTicket);
 		///   var siteShippingHandlingFeeClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.SiteSettings.Shipping.SiteShippingHandlingFee> UpdateOrderHandlingFeeClient(Mozu.Api.Contracts.SiteSettings.Shipping.SiteShippingHandlingFee orderHandlingFee)
+		public static MozuClient<Mozu.Api.Contracts.SiteSettings.Shipping.SiteShippingHandlingFee> UpdateOrderHandlingFeeClient(Mozu.Api.Contracts.SiteSettings.Shipping.SiteShippingHandlingFee orderHandlingFee, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Settings.Shipping.SiteShippingHandlingFeeUrl.UpdateOrderHandlingFeeUrl();
 			const string verb = "PUT";
 			var mozuClient = new MozuClient<Mozu.Api.Contracts.SiteSettings.Shipping.SiteShippingHandlingFee>().WithVerb(verb).WithResourceUrl(url).WithBody<Mozu.Api.Contracts.SiteSettings.Shipping.SiteShippingHandlingFee>(orderHandlingFee);
-		return mozuClient;
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 

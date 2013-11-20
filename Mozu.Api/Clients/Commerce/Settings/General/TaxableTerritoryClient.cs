@@ -10,6 +10,8 @@
 
 using System;
 using System.Collections.Generic;
+using Mozu.Api.Security;
+
 
 namespace Mozu.Api.Clients.Commerce.Settings.General
 {
@@ -21,65 +23,74 @@ namespace Mozu.Api.Clients.Commerce.Settings.General
 		/// <summary>
 		/// Retrieves a list of the taxable territories configured for the site.
 		/// </summary>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{List{<see cref="Mozu.Api.Contracts.SiteSettings.General.TaxableTerritory"/>}}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=GetTaxableTerritories();
+		///   var mozuClient=GetTaxableTerritories(authTicket);
 		///   var taxableTerritoryClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<List<Mozu.Api.Contracts.SiteSettings.General.TaxableTerritory>> GetTaxableTerritoriesClient()
+		public static MozuClient<List<Mozu.Api.Contracts.SiteSettings.General.TaxableTerritory>> GetTaxableTerritoriesClient(AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Settings.General.TaxableTerritoryUrl.GetTaxableTerritoriesUrl();
 			const string verb = "GET";
 			var mozuClient = new MozuClient<List<Mozu.Api.Contracts.SiteSettings.General.TaxableTerritory>>().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 
 				/// <summary>
 		/// Creates a new territory for which to calculate sales tax.
 		/// </summary>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <param name="taxableTerritory">Properties of the taxable territory to create.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.SiteSettings.General.TaxableTerritory"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=AddTaxableTerritory( taxableTerritory);
+		///   var mozuClient=AddTaxableTerritory( taxableTerritory, authTicket);
 		///   var taxableTerritoryClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.SiteSettings.General.TaxableTerritory> AddTaxableTerritoryClient(Mozu.Api.Contracts.SiteSettings.General.TaxableTerritory taxableTerritory)
+		public static MozuClient<Mozu.Api.Contracts.SiteSettings.General.TaxableTerritory> AddTaxableTerritoryClient(Mozu.Api.Contracts.SiteSettings.General.TaxableTerritory taxableTerritory, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Settings.General.TaxableTerritoryUrl.AddTaxableTerritoryUrl();
 			const string verb = "POST";
 			var mozuClient = new MozuClient<Mozu.Api.Contracts.SiteSettings.General.TaxableTerritory>().WithVerb(verb).WithResourceUrl(url).WithBody<Mozu.Api.Contracts.SiteSettings.General.TaxableTerritory>(taxableTerritory);
-		return mozuClient;
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 
 				/// <summary>
 		/// Updates one or more taxable territories configured for a site.
 		/// </summary>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <param name="taxableterritories">Properties of the taxable territories to update.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{List{<see cref="Mozu.Api.Contracts.SiteSettings.General.TaxableTerritory"/>}}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=UpdateTaxableTerritories( taxableterritories);
+		///   var mozuClient=UpdateTaxableTerritories( taxableterritories, authTicket);
 		///   var taxableTerritoryClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<List<Mozu.Api.Contracts.SiteSettings.General.TaxableTerritory>> UpdateTaxableTerritoriesClient(List<Mozu.Api.Contracts.SiteSettings.General.TaxableTerritory> taxableterritories)
+		public static MozuClient<List<Mozu.Api.Contracts.SiteSettings.General.TaxableTerritory>> UpdateTaxableTerritoriesClient(List<Mozu.Api.Contracts.SiteSettings.General.TaxableTerritory> taxableterritories, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Settings.General.TaxableTerritoryUrl.UpdateTaxableTerritoriesUrl();
 			const string verb = "PUT";
 			var mozuClient = new MozuClient<List<Mozu.Api.Contracts.SiteSettings.General.TaxableTerritory>>().WithVerb(verb).WithResourceUrl(url).WithBody<List<Mozu.Api.Contracts.SiteSettings.General.TaxableTerritory>>(taxableterritories);
-		return mozuClient;
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 

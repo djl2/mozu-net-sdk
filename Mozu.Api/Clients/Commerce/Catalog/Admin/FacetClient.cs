@@ -10,6 +10,8 @@
 
 using System;
 using System.Collections.Generic;
+using Mozu.Api.Security;
+
 
 namespace Mozu.Api.Clients.Commerce.Catalog.Admin
 {
@@ -27,13 +29,13 @@ namespace Mozu.Api.Clients.Commerce.Catalog.Admin
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=GetFacet( facetId);
+		///   var mozuClient=GetFacet(dataViewMode,  facetId);
 		///   var facetClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.ProductAdmin.Facet> GetFacetClient(int facetId)
+		public static MozuClient<Mozu.Api.Contracts.ProductAdmin.Facet> GetFacetClient(DataViewMode dataViewMode, int facetId)
 		{
-			return GetFacetClient( facetId,  null);
+			return GetFacetClient(dataViewMode,  facetId,  null, null);
 		}
 
 		/// <summary>
@@ -41,21 +43,24 @@ namespace Mozu.Api.Clients.Commerce.Catalog.Admin
 		/// </summary>
 		/// <param name="facetId">Unique identifier of the facet to retrieve.</param>
 		/// <param name="validate">Validates that the product category associated with a facet is active. System-supplied and read only.</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.ProductAdmin.Facet"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=GetFacet( facetId,  validate);
+		///   var mozuClient=GetFacet(dataViewMode,  facetId,  validate, authTicket);
 		///   var facetClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.ProductAdmin.Facet> GetFacetClient(int facetId, bool? validate)
+		public static MozuClient<Mozu.Api.Contracts.ProductAdmin.Facet> GetFacetClient(DataViewMode dataViewMode, int facetId, bool? validate =  null, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Catalog.Admin.FacetUrl.GetFacetUrl(facetId, validate);
 			const string verb = "GET";
-			var mozuClient = new MozuClient<Mozu.Api.Contracts.ProductAdmin.Facet>().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			var mozuClient = new MozuClient<Mozu.Api.Contracts.ProductAdmin.Facet>().WithVerb(verb).WithResourceUrl(url).WithHeader(Headers.X_VOL_DATAVIEW_MODE ,dataViewMode.ToString());
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 
@@ -68,13 +73,13 @@ namespace Mozu.Api.Clients.Commerce.Catalog.Admin
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=GetFacetCategoryList( categoryId);
+		///   var mozuClient=GetFacetCategoryList(dataViewMode,  categoryId);
 		///   var facetSetClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.ProductAdmin.FacetSet> GetFacetCategoryListClient(int categoryId)
+		public static MozuClient<Mozu.Api.Contracts.ProductAdmin.FacetSet> GetFacetCategoryListClient(DataViewMode dataViewMode, int categoryId)
 		{
-			return GetFacetCategoryListClient( categoryId,  null,  null);
+			return GetFacetCategoryListClient(dataViewMode,  categoryId,  null,  null, null);
 		}
 
 		/// <summary>
@@ -83,43 +88,49 @@ namespace Mozu.Api.Clients.Commerce.Catalog.Admin
 		/// <param name="categoryId">Unique identifier of the category associated with the facets to retrieve.</param>
 		/// <param name="includeAvailable">If true, returns a list of the attributes and categories associated with a product type that have not been defined as a facet for the category.</param>
 		/// <param name="validate">Validates that the product category associated with a facet is active. System-supplied and read only.</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.ProductAdmin.FacetSet"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=GetFacetCategoryList( categoryId,  includeAvailable,  validate);
+		///   var mozuClient=GetFacetCategoryList(dataViewMode,  categoryId,  includeAvailable,  validate, authTicket);
 		///   var facetSetClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.ProductAdmin.FacetSet> GetFacetCategoryListClient(int categoryId, bool? includeAvailable, bool? validate)
+		public static MozuClient<Mozu.Api.Contracts.ProductAdmin.FacetSet> GetFacetCategoryListClient(DataViewMode dataViewMode, int categoryId, bool? includeAvailable =  null, bool? validate =  null, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Catalog.Admin.FacetUrl.GetFacetCategoryListUrl(categoryId, includeAvailable, validate);
 			const string verb = "GET";
-			var mozuClient = new MozuClient<Mozu.Api.Contracts.ProductAdmin.FacetSet>().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			var mozuClient = new MozuClient<Mozu.Api.Contracts.ProductAdmin.FacetSet>().WithVerb(verb).WithResourceUrl(url).WithHeader(Headers.X_VOL_DATAVIEW_MODE ,dataViewMode.ToString());
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 
 				/// <summary>
 		/// Creates a new category, price, or attribute facet. Supply the category or attribute source to use for the facet values.
 		/// </summary>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <param name="facet">Properties of the new facet to create. Required properties: Source, FacetType, IsHidden, and CategoryId.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.ProductAdmin.Facet"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=AddFacet( facet);
+		///   var mozuClient=AddFacet(dataViewMode,  facet, authTicket);
 		///   var facetClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.ProductAdmin.Facet> AddFacetClient(Mozu.Api.Contracts.ProductAdmin.Facet facet)
+		public static MozuClient<Mozu.Api.Contracts.ProductAdmin.Facet> AddFacetClient(DataViewMode dataViewMode, Mozu.Api.Contracts.ProductAdmin.Facet facet, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Catalog.Admin.FacetUrl.AddFacetUrl();
 			const string verb = "POST";
-			var mozuClient = new MozuClient<Mozu.Api.Contracts.ProductAdmin.Facet>().WithVerb(verb).WithResourceUrl(url).WithBody<Mozu.Api.Contracts.ProductAdmin.Facet>(facet);
-		return mozuClient;
+			var mozuClient = new MozuClient<Mozu.Api.Contracts.ProductAdmin.Facet>().WithVerb(verb).WithResourceUrl(url).WithBody<Mozu.Api.Contracts.ProductAdmin.Facet>(facet).WithHeader(Headers.X_VOL_DATAVIEW_MODE ,dataViewMode.ToString());
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 
@@ -127,22 +138,25 @@ namespace Mozu.Api.Clients.Commerce.Catalog.Admin
 		/// Modifies one or more properties of a defined facet.
 		/// </summary>
 		/// <param name="facetId">Unique identifier of the facet to modify.</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <param name="facet">Properties of the defined facet to modify. Required properties: Source, FacetType, IsHidden, and CategoryId.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.ProductAdmin.Facet"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=UpdateFacet( facetId,  facet);
+		///   var mozuClient=UpdateFacet(dataViewMode,  facet,  facetId, authTicket);
 		///   var facetClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.ProductAdmin.Facet> UpdateFacetClient(int facetId, Mozu.Api.Contracts.ProductAdmin.Facet facet)
+		public static MozuClient<Mozu.Api.Contracts.ProductAdmin.Facet> UpdateFacetClient(DataViewMode dataViewMode, Mozu.Api.Contracts.ProductAdmin.Facet facet, int facetId, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Catalog.Admin.FacetUrl.UpdateFacetUrl(facetId);
 			const string verb = "PUT";
-			var mozuClient = new MozuClient<Mozu.Api.Contracts.ProductAdmin.Facet>().WithVerb(verb).WithResourceUrl(url).WithBody<Mozu.Api.Contracts.ProductAdmin.Facet>(facet);
-		return mozuClient;
+			var mozuClient = new MozuClient<Mozu.Api.Contracts.ProductAdmin.Facet>().WithVerb(verb).WithResourceUrl(url).WithBody<Mozu.Api.Contracts.ProductAdmin.Facet>(facet).WithHeader(Headers.X_VOL_DATAVIEW_MODE ,dataViewMode.ToString());
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 
@@ -150,21 +164,24 @@ namespace Mozu.Api.Clients.Commerce.Catalog.Admin
 		/// Deletes the facet specified by its unique identifier.
 		/// </summary>
 		/// <param name="facetId">Unique identifier of the facet to delete.</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=DeleteFacetById( facetId);
+		///   var mozuClient=DeleteFacetById(dataViewMode,  facetId, authTicket);
 		///mozuClient.WithBaseAddress(url).Execute();
 		/// </code>
 		/// </example>
-		public static MozuClient DeleteFacetByIdClient(int facetId)
+		public static MozuClient DeleteFacetByIdClient(DataViewMode dataViewMode, int facetId, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Catalog.Admin.FacetUrl.DeleteFacetByIdUrl(facetId);
 			const string verb = "DELETE";
-			var mozuClient = new MozuClient().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			var mozuClient = new MozuClient().WithVerb(verb).WithResourceUrl(url).WithHeader(Headers.X_VOL_DATAVIEW_MODE ,dataViewMode.ToString());
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 

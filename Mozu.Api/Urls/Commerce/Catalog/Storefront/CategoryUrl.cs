@@ -13,27 +13,27 @@ using System;
 
 namespace Mozu.Api.Urls.Commerce.Catalog.Storefront
 {
-	public partial class CategoryUrl : BaseUrl
+	public partial class CategoryUrl : MozuUrl
 	{
 
 		/// <summary>
         /// Get Resource Url for GetCategories
         /// </summary>
         /// <param name="filter">A set of expressions that consist of a field, operator, and value and represent search parameter syntax when filtering results of a query. You can filter product category search results by any of its properties, including its position in the category hierarchy. Valid operators include equals (eq), does not equal (ne), greater than (gt), less than (lt), greater than or equal to (ge), less than or equal to (le), starts with (sw), or contains (cont). <b>For example - "filter=IsDisplayed+eq+true"</b></param>
-        /// <param name="pageSize">Specifies the number of results to display on each page when creating paged results from a query. The maximum value is 200.</param>
+        /// <param name="pageSize">Used to create paged results from a query. Specifies the number of results to display on each page. Maximum: 200.</param>
         /// <param name="sortBy"></param>
         /// <param name="startIndex"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string GetCategoriesUrl(string filter, int? pageSize, string sortBy, int? startIndex)
+        public static MozuUrl GetCategoriesUrl(string filter, int? pageSize, string sortBy, int? startIndex)
 		{
 			var url = "/api/commerce/catalog/storefront/categories/?filter={filter}&startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}";
 			FormatUrl( ref url, "filter", filter);
 			FormatUrl( ref url, "pageSize", pageSize);
 			FormatUrl( ref url, "sortBy", sortBy);
 			FormatUrl( ref url, "startIndex", startIndex);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		/// <summary>
@@ -44,12 +44,12 @@ namespace Mozu.Api.Urls.Commerce.Catalog.Storefront
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string GetCategoryUrl(bool? allowInactive, int categoryId)
+        public static MozuUrl GetCategoryUrl(bool? allowInactive, int categoryId)
 		{
 			var url = "/api/commerce/catalog/storefront/categories/{categoryId}?allowInactive={allowInactive}";
 			FormatUrl( ref url, "allowInactive", allowInactive);
 			FormatUrl( ref url, "categoryId", categoryId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		/// <summary>
@@ -58,10 +58,10 @@ namespace Mozu.Api.Urls.Commerce.Catalog.Storefront
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string GetCategoryTreeUrl()
+        public static MozuUrl GetCategoryTreeUrl()
 		{
 			var url = "/api/commerce/catalog/storefront/categories/tree";
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 								

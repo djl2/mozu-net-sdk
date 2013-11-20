@@ -21,12 +21,42 @@ namespace Mozu.Api
 
         public ApiException(SerializationInfo info, StreamingContext context)
         {
-            ExceptionDetail = (ExceptionDetail) info.GetValue("ExceptionDetail", typeof (ExceptionDetail));
+            
+            try
+            {
+                ExceptionDetail = (ExceptionDetail) info.GetValue("exceptionDetail", typeof (ExceptionDetail));
+            }
+            catch (Exception)
+            {
+                try
+                {
+                    ExceptionDetail = (ExceptionDetail)info.GetValue("ExceptionDetail", typeof(ExceptionDetail));
+                }
+                catch (Exception) { }
+            }
+
+
+
             if (ExceptionDetail != null)
             {
                 _message = ExceptionDetail.Message;
-            }           
-            Items = (List<Item>)info.GetValue("Items", typeof(List<Item>));
+            }
+
+            try
+            {
+                Items = (List<Item>) info.GetValue("items", typeof (List<Item>));
+            }
+            catch (Exception)
+            {
+
+                try
+                {
+                    Items = (List<Item>)info.GetValue("Items", typeof(List<Item>));
+                }
+                catch (Exception) { }
+                
+            }
+
             //_message = info.GetString("Message");
             //ErrorCode = info.GetString("ErrorCode");
         }

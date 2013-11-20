@@ -14,12 +14,12 @@ using System.Collections.Generic;
 namespace Mozu.Api.Contracts.ProductRuntime
 {
 		///
-		///	Represents configurable options that a shopper can choose when ordering a product, such as a T-shirt's color and size.
+		///	Represents configurable and stand-alone options that a shopper can choose when ordering a product. Configurable options apply to a product, for example, a shopper chooses a T-shirtâ€™s color and size. A stand-alone option is independent of a product itself but can be added to a product when ordering it. For example, a shopper may choose to add a personalized monogram.
 		///
 		public class ProductOption
 		{
 			///
-			///The fully qualified name of the attribute, which is a user defined attribute identifier.
+			///"The fully qualified name of the attribute, which is a user defined attribute identifier."
 			///
 			public string AttributeFQN { get; set; }
 

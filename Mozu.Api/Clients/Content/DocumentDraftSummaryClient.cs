@@ -10,6 +10,8 @@
 
 using System;
 using System.Collections.Generic;
+using Mozu.Api.Security;
+
 
 namespace Mozu.Api.Clients.Content
 {
@@ -19,7 +21,7 @@ namespace Mozu.Api.Clients.Content
 	public partial class DocumentDraftSummaryClient 	{
 		
 		/// <summary>
-		/// Retrieves a list of the documents currently in draft state, according to any defined filter and sort criteria.
+		/// Retrieves a list of the documents currently in draft state according to any sort criteria defined.
 		/// </summary>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Content.DocumentDraftSummaryPagedCollection"/>}
@@ -32,30 +34,33 @@ namespace Mozu.Api.Clients.Content
 		/// </example>
 		public static MozuClient<Mozu.Api.Contracts.Content.DocumentDraftSummaryPagedCollection> ListDocumentDraftSummariesClient()
 		{
-			return ListDocumentDraftSummariesClient( null,  null,  null);
+			return ListDocumentDraftSummariesClient( null,  null,  null, null);
 		}
 
 		/// <summary>
-		/// Retrieves a list of the documents currently in draft state, according to any defined filter and sort criteria.
+		/// Retrieves a list of the documents currently in draft state according to any sort criteria defined.
 		/// </summary>
 		/// <param name="documentLists">Lists that contain the document drafts.</param>
-		/// <param name="pageSize">Specifies the number of results to display on each page when creating paged results from a query. The maximum value is 200.</param>
-		/// <param name="startIndex">Indicates the zero-based offset in the complete result set where the returned entities begin, when creating paged results from a query. For example, with a PageSize of 25, to get the 51st through the 75th items, use startIndex=3.</param>
+		/// <param name="pageSize">Used to create paged results from a query. Specifies the number of results to display on each page. Maximum: 200.</param>
+		/// <param name="startIndex">"Used to create paged results from a query. Indicates the zero-based offset in the complete result set where the returned entities begin. For example, with a PageSize of 25, to get the 51st through the 75th items, use startIndex=3."</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Content.DocumentDraftSummaryPagedCollection"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=ListDocumentDraftSummaries( documentLists,  pageSize,  startIndex);
+		///   var mozuClient=ListDocumentDraftSummaries( documentLists,  pageSize,  startIndex, authTicket);
 		///   var documentDraftSummaryPagedCollectionClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.Content.DocumentDraftSummaryPagedCollection> ListDocumentDraftSummariesClient(string documentLists, int? pageSize, int? startIndex)
+		public static MozuClient<Mozu.Api.Contracts.Content.DocumentDraftSummaryPagedCollection> ListDocumentDraftSummariesClient(string documentLists =  null, int? pageSize =  null, int? startIndex =  null, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Content.DocumentDraftSummaryUrl.ListDocumentDraftSummariesUrl(documentLists, pageSize, startIndex);
 			const string verb = "GET";
 			var mozuClient = new MozuClient<Mozu.Api.Contracts.Content.DocumentDraftSummaryPagedCollection>().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 
@@ -74,29 +79,32 @@ namespace Mozu.Api.Clients.Content
 		/// </example>
 		public static MozuClient PublishDocumentsClient(List<string> documentIds)
 		{
-			return PublishDocumentsClient( null,  documentIds);
+			return PublishDocumentsClient( documentIds,  null, null);
 		}
 
 		/// <summary>
 		/// Publish one or more document drafts to live content on the site.
 		/// </summary>
 		/// <param name="documentLists">List of document lists that contain documents to publish.</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <param name="documentIds">List of unique identifiers of the document drafts to publish.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=PublishDocuments( documentLists,  documentIds);
+		///   var mozuClient=PublishDocuments( documentIds,  documentLists, authTicket);
 		///mozuClient.WithBaseAddress(url).Execute();
 		/// </code>
 		/// </example>
-		public static MozuClient PublishDocumentsClient(string documentLists, List<string> documentIds)
+		public static MozuClient PublishDocumentsClient(List<string> documentIds, string documentLists =  null, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Content.DocumentDraftSummaryUrl.PublishDocumentsUrl(documentLists);
 			const string verb = "PUT";
-			var mozuClient = new MozuClient().WithVerb(verb).WithResourceUrl(url).WithBody<List<string>>(documentIds);
-		return mozuClient;
+			var mozuClient = new MozuClient().WithVerb(verb).WithResourceUrl(url).WithBody(documentIds);
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 
@@ -115,7 +123,7 @@ namespace Mozu.Api.Clients.Content
 		/// </example>
 		public static MozuClient DeleteDocumentDraftsClient(string documentIds)
 		{
-			return DeleteDocumentDraftsClient( documentIds,  null);
+			return DeleteDocumentDraftsClient( documentIds,  null, null);
 		}
 
 		/// <summary>
@@ -123,21 +131,24 @@ namespace Mozu.Api.Clients.Content
 		/// </summary>
 		/// <param name="documentIds">Unique identifiers of the documents to delete.</param>
 		/// <param name="documentLists">List of document lists that contain documents to delete.</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=DeleteDocumentDrafts( documentIds,  documentLists);
+		///   var mozuClient=DeleteDocumentDrafts( documentIds,  documentLists, authTicket);
 		///mozuClient.WithBaseAddress(url).Execute();
 		/// </code>
 		/// </example>
-		public static MozuClient DeleteDocumentDraftsClient(string documentIds, string documentLists)
+		public static MozuClient DeleteDocumentDraftsClient(string documentIds, string documentLists =  null, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Content.DocumentDraftSummaryUrl.DeleteDocumentDraftsUrl(documentIds, documentLists);
 			const string verb = "DELETE";
 			var mozuClient = new MozuClient().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 

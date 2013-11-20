@@ -43,9 +43,11 @@ namespace Mozu.Api.Contracts.ProductAdmin
 			public string ImageUrl { get; set; }
 
 			///
-			///Language used for the entity. Currently, only "en-US" is supported.
+			///"Language used for the entity. Currently, only ""en-US"" is supported."
 			///
 			public string LocaleCode { get; set; }
+
+			public string MediaType { get; set; }
 
 			public int? Sequence { get; set; }
 

@@ -22,6 +22,8 @@ namespace Mozu.Api.Contracts.Core
 			///
 			public int? Id { get; set; }
 
+			public string Name { get; set; }
+
 			///
 			///The type of scope, which is a developer account or tenant.
 			///

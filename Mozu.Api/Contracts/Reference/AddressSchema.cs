@@ -31,7 +31,7 @@ namespace Mozu.Api.Contracts.Reference
 			///
 			///The unique identifier of this postal address schema.
 			///
-			public long Id { get; set; }
+			public int Id { get; set; }
 
 			///
 			///The fields to display for postal addresses associated with this country.

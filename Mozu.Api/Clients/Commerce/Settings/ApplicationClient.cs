@@ -10,6 +10,8 @@
 
 using System;
 using System.Collections.Generic;
+using Mozu.Api.Security;
+
 
 namespace Mozu.Api.Clients.Commerce.Settings
 {
@@ -18,25 +20,52 @@ namespace Mozu.Api.Clients.Commerce.Settings
 	/// </summary>
 	public partial class ApplicationClient 	{
 		
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
+		/// <returns>
+		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.SiteSettings.Application.Application"/>}
+		/// </returns>
+		/// <example>
+		/// <code>
+		///   var mozuClient=ThirdPartyGetApplication(authTicket);
+		///   var applicationClient = mozuClient.WithBaseAddress(url).Execute().Result();
+		/// </code>
+		/// </example>
+		public static MozuClient<Mozu.Api.Contracts.SiteSettings.Application.Application> ThirdPartyGetApplicationClient(AuthTicket authTicket= null)
+		{
+			var url = Mozu.Api.Urls.Commerce.Settings.ApplicationUrl.ThirdPartyGetApplicationUrl();
+			const string verb = "GET";
+			var mozuClient = new MozuClient<Mozu.Api.Contracts.SiteSettings.Application.Application>().WithVerb(verb).WithResourceUrl(url);
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
+
+		}
+
 						/// <summary>
 		/// Initializes an application with the necessary configured settings.
 		/// </summary>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <param name="application">Properties of the application to update.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.SiteSettings.Application.Application"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=ThirdPartyUpdateApplication( application);
+		///   var mozuClient=ThirdPartyUpdateApplication( application, authTicket);
 		///   var applicationClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.SiteSettings.Application.Application> ThirdPartyUpdateApplicationClient(Mozu.Api.Contracts.SiteSettings.Application.Application application)
+		public static MozuClient<Mozu.Api.Contracts.SiteSettings.Application.Application> ThirdPartyUpdateApplicationClient(Mozu.Api.Contracts.SiteSettings.Application.Application application, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Settings.ApplicationUrl.ThirdPartyUpdateApplicationUrl();
 			const string verb = "PUT";
 			var mozuClient = new MozuClient<Mozu.Api.Contracts.SiteSettings.Application.Application>().WithVerb(verb).WithResourceUrl(url).WithBody<Mozu.Api.Contracts.SiteSettings.Application.Application>(application);
-		return mozuClient;
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 

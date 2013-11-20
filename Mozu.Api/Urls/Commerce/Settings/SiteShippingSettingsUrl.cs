@@ -13,7 +13,7 @@ using System;
 
 namespace Mozu.Api.Urls.Commerce.Settings
 {
-	public partial class SiteShippingSettingsUrl : BaseUrl
+	public partial class SiteShippingSettingsUrl : MozuUrl
 	{
 
 		/// <summary>
@@ -22,10 +22,10 @@ namespace Mozu.Api.Urls.Commerce.Settings
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string GetSiteShippingSettingsUrl()
+        public static MozuUrl GetSiteShippingSettingsUrl()
 		{
 			var url = "/api/commerce/settings/shipping/";
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 								

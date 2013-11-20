@@ -17,6 +17,9 @@ namespace Mozu.Api.Contracts.Content
 		///
 		public class DocumentDraftSummary
 		{
+			///
+			///Date when the entity was last updated. UTC Date/Time.
+			///
 			public DateTime? ActiveUpdateDate { get; set; }
 
 			///
@@ -24,6 +27,9 @@ namespace Mozu.Api.Contracts.Content
 			///
 			public string DocumentListName { get; set; }
 
+			///
+			///The most recent date the draft has been modified. System-supplied and read-only.
+			///
 			public DateTime DraftUpdateDate { get; set; }
 
 			///
@@ -42,7 +48,7 @@ namespace Mozu.Api.Contracts.Content
 			public string PublishType { get; set; }
 
 			///
-			///Unique identifier of the user who last modified the item. This value is system-supplied and read-only.
+			///Unique identifier of the entity who updated the resource property most recently. System-supplied and read-only.
 			///
 			public string UpdatedBy { get; set; }
 

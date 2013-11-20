@@ -13,85 +13,85 @@ using System;
 
 namespace Mozu.Api.Urls.Commerce.Returns
 {
-	public partial class PackageUrl : BaseUrl
+	public partial class PackageUrl : MozuUrl
 	{
 
 		/// <summary>
         /// Get Resource Url for GetPackage
         /// </summary>
-        /// <param name="packageId">Unique identifier of the return replacement package to retrieve.</param>
-        /// <param name="returnId">Unique identifier of the return associated with the replacement package to retrieve.</param>
+        /// <param name="packageId"></param>
+        /// <param name="returnId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string GetPackageUrl(string packageId, string returnId)
+        public static MozuUrl GetPackageUrl(string packageId, string returnId)
 		{
 			var url = "/api/commerce/returns/{returnId}/packages/{packageId}";
 			FormatUrl( ref url, "packageId", packageId);
 			FormatUrl( ref url, "returnId", returnId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		/// <summary>
         /// Get Resource Url for GetPackageLabel
         /// </summary>
-        /// <param name="packageId">Unique identifier of the return replacement package for which to retrieve the label.</param>
-        /// <param name="returnId">Unique identifier of the return associated with the replacement package label to retrieve.</param>
+        /// <param name="packageId"></param>
+        /// <param name="returnId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string GetPackageLabelUrl(string packageId, string returnId)
+        public static MozuUrl GetPackageLabelUrl(string packageId, string returnId)
 		{
 			var url = "/api/commerce/returns/{returnId}/packages/{packageId}/label";
 			FormatUrl( ref url, "packageId", packageId);
 			FormatUrl( ref url, "returnId", returnId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				/// <summary>
         /// Get Resource Url for CreatePackage
         /// </summary>
-        /// <param name="returnId">Unique identifier of the return for which to create a replacement package.</param>
+        /// <param name="returnId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string CreatePackageUrl(string returnId)
+        public static MozuUrl CreatePackageUrl(string returnId)
 		{
 			var url = "/api/commerce/returns/{returnId}/packages";
 			FormatUrl( ref url, "returnId", returnId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				/// <summary>
         /// Get Resource Url for UpdatePackage
         /// </summary>
-        /// <param name="packageId">Unique identifier of the return replacement package to update.</param>
-        /// <param name="returnId">Unique identifier of the return associated with the replacement package to update.</param>
+        /// <param name="packageId"></param>
+        /// <param name="returnId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string UpdatePackageUrl(string packageId, string returnId)
+        public static MozuUrl UpdatePackageUrl(string packageId, string returnId)
 		{
 			var url = "/api/commerce/returns/{returnId}/packages/{packageId}";
 			FormatUrl( ref url, "packageId", packageId);
 			FormatUrl( ref url, "returnId", returnId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				/// <summary>
         /// Get Resource Url for DeletePackage
         /// </summary>
-        /// <param name="packageId">Unique identifier of the return replacement package to delete.</param>
-        /// <param name="returnId">Unique identifier of the return associated with the replacement package to delete.</param>
+        /// <param name="packageId"></param>
+        /// <param name="returnId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string DeletePackageUrl(string packageId, string returnId)
+        public static MozuUrl DeletePackageUrl(string packageId, string returnId)
 		{
 			var url = "/api/commerce/returns/{returnId}/packages/{packageId}";
 			FormatUrl( ref url, "packageId", packageId);
 			FormatUrl( ref url, "returnId", returnId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		

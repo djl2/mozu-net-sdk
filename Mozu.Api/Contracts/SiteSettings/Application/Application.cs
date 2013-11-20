@@ -21,9 +21,6 @@ namespace Mozu.Api.Contracts.SiteSettings.Application
 		///
 		public class Application
 		{
-			///
-			///The unique identifier of the application in Dev Center.
-			///
 			public string AppId { get; set; }
 
 			///
@@ -39,7 +36,7 @@ namespace Mozu.Api.Contracts.SiteSettings.Application
 			///
 			///URL of the application's setting configuration user interface. System-supplied and read only.
 			///
-			public string UIConfigurationUrl { get; set; }
+			public string UiconfigurationUrl { get; set; }
 
 			public AuditInfo AuditInfo { get; set; }
 
@@ -48,9 +45,6 @@ namespace Mozu.Api.Contracts.SiteSettings.Application
 			///
 			public List<Capability> Capabilities { get; set; }
 
-			///
-			///Properties of the capability application entitlement record, including the merchant it is licensed to and the duration of the license.
-			///
 			public Entitlement Entitlement { get; set; }
 
 		}

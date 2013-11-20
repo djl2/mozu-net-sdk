@@ -28,6 +28,8 @@ namespace Mozu.Api.Contracts.CommerceRuntime.Payments
 			///
 			public string CheckNumber { get; set; }
 
+			public string CurrencyCode { get; set; }
+
 			///
 			///If required by the payment gateway, the authorization code of the transaction.
 			///
@@ -79,11 +81,6 @@ namespace Mozu.Api.Contracts.CommerceRuntime.Payments
 			public bool IsManual { get; set; }
 
 			///
-			///3-letter ISO 4217 standard global currency code. Currently, only "USD" (US Dollar) is supported.
-			///
-			public string ISOCurrencyCode { get; set; }
-
-			///
 			///If true, this payment interaction repeats on a scheduled interval.
 			///
 			public bool? IsRecurring { get; set; }
@@ -97,6 +94,8 @@ namespace Mozu.Api.Contracts.CommerceRuntime.Payments
 			///Unique identifier of the order associated with this payment interaction.
 			///
 			public string OrderId { get; set; }
+
+			public string PaymentEntryStatus { get; set; }
 
 			///
 			///Unique identifier of the payment associated with this transaction.
@@ -114,7 +113,7 @@ namespace Mozu.Api.Contracts.CommerceRuntime.Payments
 			public string Status { get; set; }
 
 			///
-			///Identifier and datetime stamp information recorded when creating or updating a resource entity. This value is system-supplied and read-only.
+			///Identifier and datetime stamp information recorded when creating or updating a resource entity. System-supplied and read-only.
 			///
 			public AuditInfo AuditInfo { get; set; }
 

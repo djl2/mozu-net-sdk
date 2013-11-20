@@ -10,6 +10,8 @@
 
 using System;
 using System.Collections.Generic;
+using Mozu.Api.Security;
+
 
 namespace Mozu.Api.Clients.Commerce.Customer.Accounts
 {
@@ -23,21 +25,24 @@ namespace Mozu.Api.Clients.Commerce.Customer.Accounts
 		/// </summary>
 		/// <param name="accountId">Unique identifier of the customer account whose contact information is being retrieved.</param>
 		/// <param name="contactId">Unique identifier of the customer account contact to retrieve.</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Customer.CustomerContact"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=GetAccountContact( accountId,  contactId);
+		///   var mozuClient=GetAccountContact( accountId,  contactId, authTicket);
 		///   var customerContactClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.Customer.CustomerContact> GetAccountContactClient(int accountId, int contactId)
+		public static MozuClient<Mozu.Api.Contracts.Customer.CustomerContact> GetAccountContactClient(int accountId, int contactId, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Customer.Accounts.CustomerContactUrl.GetAccountContactUrl(accountId, contactId);
 			const string verb = "GET";
 			var mozuClient = new MozuClient<Mozu.Api.Contracts.Customer.CustomerContact>().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 
@@ -56,32 +61,35 @@ namespace Mozu.Api.Clients.Commerce.Customer.Accounts
 		/// </example>
 		public static MozuClient<Mozu.Api.Contracts.Customer.CustomerContactCollection> GetAccountContactsClient(int accountId)
 		{
-			return GetAccountContactsClient( accountId,  null,  null,  null,  null);
+			return GetAccountContactsClient( accountId,  null,  null,  null,  null, null);
 		}
 
 		/// <summary>
 		/// Retrieves a list of contacts for a customer according to any specified filter criteria and sort options.
 		/// </summary>
 		/// <param name="accountId">Unique identifier of the customer account associated with the contact information to retrieve.</param>
-		/// <param name="filter">A set of expressions that consist of a field, operator, and value and represent search parameter syntax when filtering results of a query. Valid operators include equals (eq), does not equal (ne), greater than (gt), less than (lt), greater than or equal to (ge), less than or equal to (le), starts with (sw), or contains (cont). For example - "filter=IsDisplayed+eq+true"</param>
-		/// <param name="pageSize">Specifies the number of results to display on each page when creating paged results from a query. The maximum value is 200.</param>
+		/// <param name="filter">"A set of expressions that consist of a field, operator, and value and represent search parameter syntax when filtering results of a query. Valid operators include equals (eq), does not equal (ne), greater than (gt), less than (lt), greater than or equal to (ge), less than or equal to (le), starts with (sw), or contains (cont). For example - ""filter=IsDisplayed+eq+true"""</param>
+		/// <param name="pageSize">Used to create paged results from a query. Specifies the number of results to display on each page. Maximum: 200.</param>
 		/// <param name="sortBy"></param>
 		/// <param name="startIndex"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Customer.CustomerContactCollection"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=GetAccountContacts( accountId,  filter,  pageSize,  sortBy,  startIndex);
+		///   var mozuClient=GetAccountContacts( accountId,  filter,  pageSize,  sortBy,  startIndex, authTicket);
 		///   var customerContactCollectionClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.Customer.CustomerContactCollection> GetAccountContactsClient(int accountId, string filter, int? pageSize, string sortBy, int? startIndex)
+		public static MozuClient<Mozu.Api.Contracts.Customer.CustomerContactCollection> GetAccountContactsClient(int accountId, string filter =  null, int? pageSize =  null, string sortBy =  null, int? startIndex =  null, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Customer.Accounts.CustomerContactUrl.GetAccountContactsUrl(accountId, filter, pageSize, sortBy, startIndex);
 			const string verb = "GET";
 			var mozuClient = new MozuClient<Mozu.Api.Contracts.Customer.CustomerContactCollection>().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 
@@ -89,22 +97,25 @@ namespace Mozu.Api.Clients.Commerce.Customer.Accounts
 		/// Creates a new contact for a customer account such as a new shipping address.
 		/// </summary>
 		/// <param name="accountId">Unique identifier of the customer account containing the new contact.</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <param name="contact">Properties of the new contact. Required properties: Contact.Email, ContactType.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Customer.CustomerContact"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=AddAccountContact( accountId,  contact);
+		///   var mozuClient=AddAccountContact( contact,  accountId, authTicket);
 		///   var customerContactClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.Customer.CustomerContact> AddAccountContactClient(int accountId, Mozu.Api.Contracts.Customer.CustomerContact contact)
+		public static MozuClient<Mozu.Api.Contracts.Customer.CustomerContact> AddAccountContactClient(Mozu.Api.Contracts.Customer.CustomerContact contact, int accountId, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Customer.Accounts.CustomerContactUrl.AddAccountContactUrl(accountId);
 			const string verb = "POST";
 			var mozuClient = new MozuClient<Mozu.Api.Contracts.Customer.CustomerContact>().WithVerb(verb).WithResourceUrl(url).WithBody<Mozu.Api.Contracts.Customer.CustomerContact>(contact);
-		return mozuClient;
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 
@@ -113,22 +124,25 @@ namespace Mozu.Api.Clients.Commerce.Customer.Accounts
 		/// </summary>
 		/// <param name="accountId">Unique identifier of the customer account whose contact information is being updated.</param>
 		/// <param name="contactId">Unique identifer of the customer account contact being updated.</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <param name="contact">All properties the updated contact will have. Required properties: Name and email address.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Customer.CustomerContact"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=UpdateAccountContact( accountId,  contactId,  contact);
+		///   var mozuClient=UpdateAccountContact( contact,  accountId,  contactId, authTicket);
 		///   var customerContactClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.Customer.CustomerContact> UpdateAccountContactClient(int accountId, int contactId, Mozu.Api.Contracts.Customer.CustomerContact contact)
+		public static MozuClient<Mozu.Api.Contracts.Customer.CustomerContact> UpdateAccountContactClient(Mozu.Api.Contracts.Customer.CustomerContact contact, int accountId, int contactId, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Customer.Accounts.CustomerContactUrl.UpdateAccountContactUrl(accountId, contactId);
 			const string verb = "PUT";
 			var mozuClient = new MozuClient<Mozu.Api.Contracts.Customer.CustomerContact>().WithVerb(verb).WithResourceUrl(url).WithBody<Mozu.Api.Contracts.Customer.CustomerContact>(contact);
-		return mozuClient;
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 
@@ -137,21 +151,24 @@ namespace Mozu.Api.Clients.Commerce.Customer.Accounts
 		/// </summary>
 		/// <param name="accountId">Unique identifier of the customer account.</param>
 		/// <param name="contactId">Unique identifier of the customer account contact to delete.</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=DeleteAccountContact( accountId,  contactId);
+		///   var mozuClient=DeleteAccountContact( accountId,  contactId, authTicket);
 		///mozuClient.WithBaseAddress(url).Execute();
 		/// </code>
 		/// </example>
-		public static MozuClient DeleteAccountContactClient(int accountId, int contactId)
+		public static MozuClient DeleteAccountContactClient(int accountId, int contactId, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Customer.Accounts.CustomerContactUrl.DeleteAccountContactUrl(accountId, contactId);
 			const string verb = "DELETE";
 			var mozuClient = new MozuClient().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 

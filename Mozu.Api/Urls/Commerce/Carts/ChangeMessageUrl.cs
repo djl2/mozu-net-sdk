@@ -13,7 +13,7 @@ using System;
 
 namespace Mozu.Api.Urls.Commerce.Carts
 {
-	public partial class ChangeMessageUrl : BaseUrl
+	public partial class ChangeMessageUrl : MozuUrl
 	{
 
 		/// <summary>
@@ -22,10 +22,10 @@ namespace Mozu.Api.Urls.Commerce.Carts
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string GetMessagesUrl()
+        public static MozuUrl GetMessagesUrl()
 		{
 			var url = "/api/commerce/carts/current/messages";
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 								/// <summary>
@@ -34,10 +34,10 @@ namespace Mozu.Api.Urls.Commerce.Carts
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string RemoveAllMessagesUrl()
+        public static MozuUrl RemoveAllMessagesUrl()
 		{
 			var url = "/api/commerce/carts/current/messages";
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		/// <summary>
@@ -47,11 +47,11 @@ namespace Mozu.Api.Urls.Commerce.Carts
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string RemoveMessageUrl(string messageId)
+        public static MozuUrl RemoveMessageUrl(string messageId)
 		{
 			var url = "/api/commerce/carts/current/messages/{messageId}";
 			FormatUrl( ref url, "messageId", messageId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		

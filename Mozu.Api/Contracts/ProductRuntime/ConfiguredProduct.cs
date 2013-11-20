@@ -19,7 +19,7 @@ namespace Mozu.Api.Contracts.ProductRuntime
 		public class ConfiguredProduct
 		{
 			///
-			///Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only.
+			///"Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only."
 			///
 			public string ProductCode { get; set; }
 
@@ -32,6 +32,8 @@ namespace Mozu.Api.Contracts.ProductRuntime
 			///List of shipping discounts that can be applied to the configured product.
 			///
 			public List<Discount> AvailableShippingDiscounts { get; set; }
+
+			public ProductInventoryInfo InventoryInfo { get; set; }
 
 			///
 			///Dimensions of the packaged product.
@@ -57,11 +59,6 @@ namespace Mozu.Api.Contracts.ProductRuntime
 			///The current state of the configured product determines whether or not the product is eligible for purchase. Products with options are only purchasable if the shopper has selected all required options. If the product is not ready for purchase, a message lists missing options that are required.
 			///
 			public ProductPurchasableState PurchasableState { get; set; }
-
-			///
-			///The number of products accounted for in inventory that are available for purchase.
-			///
-			public ProductStock Stock { get; set; }
 
 		}
 

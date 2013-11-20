@@ -10,6 +10,8 @@
 
 using System;
 using System.Collections.Generic;
+using Mozu.Api.Security;
+
 
 namespace Mozu.Api.Clients.Platform.Applications
 {
@@ -36,7 +38,7 @@ namespace Mozu.Api.Clients.Platform.Applications
 			var url = Mozu.Api.Urls.Platform.Applications.AuthTicketUrl.AuthenticateAppUrl();
 			const string verb = "POST";
 			var mozuClient = new MozuClient<Mozu.Api.Contracts.AppDev.AuthTicket>().WithVerb(verb).WithResourceUrl(url).WithBody<Mozu.Api.Contracts.AppDev.AppAuthInfo>(appAuthInfo);
-		return mozuClient;
+			return mozuClient;
 
 		}
 
@@ -58,7 +60,7 @@ namespace Mozu.Api.Clients.Platform.Applications
 			var url = Mozu.Api.Urls.Platform.Applications.AuthTicketUrl.RefreshAppAuthTicketUrl();
 			const string verb = "PUT";
 			var mozuClient = new MozuClient<Mozu.Api.Contracts.AppDev.AuthTicket>().WithVerb(verb).WithResourceUrl(url).WithBody<Mozu.Api.Contracts.AppDev.AuthTicketRequest>(authTicketRequest);
-		return mozuClient;
+			return mozuClient;
 
 		}
 
@@ -80,7 +82,7 @@ namespace Mozu.Api.Clients.Platform.Applications
 			var url = Mozu.Api.Urls.Platform.Applications.AuthTicketUrl.DeleteAppAuthTicketUrl(refreshToken);
 			const string verb = "DELETE";
 			var mozuClient = new MozuClient().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			return mozuClient;
 
 		}
 

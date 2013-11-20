@@ -28,7 +28,7 @@ namespace Mozu.Api.Contracts.SiteSettings.General
 			public bool? IsShippingTaxable { get; set; }
 
 			///
-			///The two-letter geographic code representing the state for the physical or mailing address. This is currently limited to the US.
+			///2 letter geographic code representing the state for the physical or mailing address. Currently limited to the US.
 			///
 			public string StateOrProvinceCode { get; set; }
 

@@ -10,44 +10,37 @@
 
 using System;
 using System.Collections.Generic;
+using Mozu.Api.Security;
+
 
 namespace Mozu.Api.Resources.Platform
 {
 	/// <summary>
 	/// Use the tenants resource to manage information about a Mozu tenant.
 	/// </summary>
-	public partial class TenantResource : BaseResource 	{
-				///
-		/// <see cref="Mozu.Api.ApiContext"/>
-		///
-		private readonly ApiContext _apiContext;
-		public TenantResource(ApiContext apiContext) 
-		{
-			_apiContext = apiContext;
-		}
-
+	public partial class TenantResource  	{
 		
 		/// <summary>
 		/// Retrieve details about a specific tenant by providing the tenant ID.
 		/// </summary>
 		/// <param name="tenantId">Unique identifier of the Mozu tenant.</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.Tenant.Tenant"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var tenant = new Tenant();
-		///   var tenant = tenant.GetTenant( tenantId);
+		///   var tenant = tenant.GetTenant( tenantId, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.Tenant.Tenant GetTenant(int tenantId)
+		public virtual Mozu.Api.Contracts.Tenant.Tenant GetTenant(int tenantId, AuthTicket authTicket= null)
 		{
 			var tenant = Cache.CacheManager.Instance.Get<Mozu.Api.Contracts.Tenant.Tenant>(tenantId.ToString());
 			if (tenant != null )
 				return tenant;
-			MozuClient<Mozu.Api.Contracts.Tenant.Tenant> response;
-			var client = Mozu.Api.Clients.Platform.TenantClient.GetTenantClient( tenantId);
-			SetContext(_apiContext, ref client, false);
+MozuClient<Mozu.Api.Contracts.Tenant.Tenant> response;
+			var client = Mozu.Api.Clients.Platform.TenantClient.GetTenantClient( tenantId, authTicket);
 			response= client.Execute();
 			Cache.CacheManager.Instance.Add(response.Result(), tenantId.ToString());
 			return response.Result();

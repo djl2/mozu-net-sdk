@@ -13,7 +13,7 @@ using System;
 
 namespace Mozu.Api.Urls.Platform
 {
-	public partial class SiteDataUrl : BaseUrl
+	public partial class SiteDataUrl : MozuUrl
 	{
 
 		/// <summary>
@@ -23,11 +23,11 @@ namespace Mozu.Api.Urls.Platform
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string GetDBValueUrl(string dbEntryQuery)
+        public static MozuUrl GetDBValueUrl(string dbEntryQuery)
 		{
 			var url = "/api/platform/sitedata/{*dbEntryQuery}";
 			FormatUrl( ref url, "dbEntryQuery", dbEntryQuery);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				/// <summary>
@@ -37,11 +37,11 @@ namespace Mozu.Api.Urls.Platform
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string CreateDBValueUrl(string dbEntryQuery)
+        public static MozuUrl CreateDBValueUrl(string dbEntryQuery)
 		{
 			var url = "/api/platform/sitedata/{*dbEntryQuery}";
 			FormatUrl( ref url, "dbEntryQuery", dbEntryQuery);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				/// <summary>
@@ -51,11 +51,11 @@ namespace Mozu.Api.Urls.Platform
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string UpdateDBValueUrl(string dbEntryQuery)
+        public static MozuUrl UpdateDBValueUrl(string dbEntryQuery)
 		{
 			var url = "/api/platform/sitedata/{*dbEntryQuery}";
 			FormatUrl( ref url, "dbEntryQuery", dbEntryQuery);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				/// <summary>
@@ -65,11 +65,11 @@ namespace Mozu.Api.Urls.Platform
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string DeleteDBValueUrl(string dbEntryQuery)
+        public static MozuUrl DeleteDBValueUrl(string dbEntryQuery)
 		{
 			var url = "/api/platform/sitedata/{*dbEntryQuery}";
 			FormatUrl( ref url, "dbEntryQuery", dbEntryQuery);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		

@@ -13,7 +13,7 @@ using System;
 
 namespace Mozu.Api.Urls.Commerce.Orders
 {
-	public partial class PackageUrl : BaseUrl
+	public partial class PackageUrl : MozuUrl
 	{
 
 		/// <summary>
@@ -24,12 +24,28 @@ namespace Mozu.Api.Urls.Commerce.Orders
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string GetPackageUrl(string orderId, string packageId)
+        public static MozuUrl GetPackageUrl(string orderId, string packageId)
 		{
 			var url = "/api/commerce/orders/{orderId}/packages/{packageId}";
 			FormatUrl( ref url, "orderId", orderId);
 			FormatUrl( ref url, "packageId", packageId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+		}
+
+		/// <summary>
+        /// Get Resource Url for GetAvailablePackageFulfillmentActions
+        /// </summary>
+        /// <param name="orderId"></param>
+        /// <param name="packageId"></param>
+        /// <returns>
+        /// String - Resource Url
+        /// </returns>
+        public static MozuUrl GetAvailablePackageFulfillmentActionsUrl(string orderId, string packageId)
+		{
+			var url = "/api/commerce/orders/{orderId}/packages/{packageId}/actions";
+			FormatUrl( ref url, "orderId", orderId);
+			FormatUrl( ref url, "packageId", packageId);
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		/// <summary>
@@ -40,12 +56,12 @@ namespace Mozu.Api.Urls.Commerce.Orders
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string GetPackageLabelUrl(string orderId, string packageId)
+        public static MozuUrl GetPackageLabelUrl(string orderId, string packageId)
 		{
 			var url = "/api/commerce/orders/{orderId}/packages/{packageId}/label";
 			FormatUrl( ref url, "orderId", orderId);
 			FormatUrl( ref url, "packageId", packageId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				/// <summary>
@@ -55,11 +71,11 @@ namespace Mozu.Api.Urls.Commerce.Orders
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string CreatePackageUrl(string orderId)
+        public static MozuUrl CreatePackageUrl(string orderId)
 		{
 			var url = "/api/commerce/orders/{orderId}/packages";
 			FormatUrl( ref url, "orderId", orderId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				/// <summary>
@@ -70,12 +86,12 @@ namespace Mozu.Api.Urls.Commerce.Orders
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string UpdatePackageUrl(string orderId, string packageId)
+        public static MozuUrl UpdatePackageUrl(string orderId, string packageId)
 		{
 			var url = "/api/commerce/orders/{orderId}/packages/{packageId}";
 			FormatUrl( ref url, "orderId", orderId);
 			FormatUrl( ref url, "packageId", packageId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				/// <summary>
@@ -86,12 +102,12 @@ namespace Mozu.Api.Urls.Commerce.Orders
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string DeletePackageUrl(string orderId, string packageId)
+        public static MozuUrl DeletePackageUrl(string orderId, string packageId)
 		{
 			var url = "/api/commerce/orders/{orderId}/packages/{packageId}";
 			FormatUrl( ref url, "orderId", orderId);
 			FormatUrl( ref url, "packageId", packageId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		

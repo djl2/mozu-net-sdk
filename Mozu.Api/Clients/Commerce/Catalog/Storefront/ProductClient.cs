@@ -10,6 +10,8 @@
 
 using System;
 using System.Collections.Generic;
+using Mozu.Api.Security;
+
 
 namespace Mozu.Api.Clients.Commerce.Catalog.Storefront
 {
@@ -32,38 +34,85 @@ namespace Mozu.Api.Clients.Commerce.Catalog.Storefront
 		/// </example>
 		public static MozuClient<Mozu.Api.Contracts.ProductRuntime.ProductCollection> GetProductsClient()
 		{
-			return GetProductsClient( null,  null,  null,  null);
+			return GetProductsClient( null,  null,  null,  null, null);
 		}
 
 		/// <summary>
 		/// Retrieves a list of products that appear on the storefront according to any specified filter criteria and sort options. A set of filter expressions representing the search parameters for a query.
 		/// </summary>
-		/// <param name="filter">A set of expressions that consist of a field, operator, and value and represent search parameter syntax when filtering results of a query. Valid operators include equals (eq), does not equal (ne), greater than (gt), less than (lt), greater than or equal to (ge), less than or equal to (le), starts with (sw), or contains (cont). For example - "filter=IsDisplayed+eq+true"</param>
-		/// <param name="pageSize">Specifies the number of results to display on each page when creating paged results from a query. The maximum value is 200.</param>
+		/// <param name="filter">"A set of expressions that consist of a field, operator, and value and represent search parameter syntax when filtering results of a query. Valid operators include equals (eq), does not equal (ne), greater than (gt), less than (lt), greater than or equal to (ge), less than or equal to (le), starts with (sw), or contains (cont). For example - ""filter=IsDisplayed+eq+true"""</param>
+		/// <param name="pageSize">Used to create paged results from a query. Specifies the number of results to display on each page. Maximum: 200.</param>
 		/// <param name="sortBy"></param>
 		/// <param name="startIndex"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.ProductRuntime.ProductCollection"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=GetProducts( filter,  pageSize,  sortBy,  startIndex);
+		///   var mozuClient=GetProducts( filter,  pageSize,  sortBy,  startIndex, authTicket);
 		///   var productCollectionClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.ProductRuntime.ProductCollection> GetProductsClient(string filter, int? pageSize, string sortBy, int? startIndex)
+		public static MozuClient<Mozu.Api.Contracts.ProductRuntime.ProductCollection> GetProductsClient(string filter =  null, int? pageSize =  null, string sortBy =  null, int? startIndex =  null, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Catalog.Storefront.ProductUrl.GetProductsUrl(filter, pageSize, sortBy, startIndex);
 			const string verb = "GET";
 			var mozuClient = new MozuClient<Mozu.Api.Contracts.ProductRuntime.ProductCollection>().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
+
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="productCode"></param>
+		/// <returns>
+		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.ProductRuntime.LocationInventoryCollection"/>}
+		/// </returns>
+		/// <example>
+		/// <code>
+		///   var mozuClient=GetProductInventory( productCode);
+		///   var locationInventoryCollectionClient = mozuClient.WithBaseAddress(url).Execute().Result();
+		/// </code>
+		/// </example>
+		public static MozuClient<Mozu.Api.Contracts.ProductRuntime.LocationInventoryCollection> GetProductInventoryClient(string productCode)
+		{
+			return GetProductInventoryClient( productCode,  null, null);
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="locationCodes"></param>
+		/// <param name="productCode"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
+		/// <returns>
+		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.ProductRuntime.LocationInventoryCollection"/>}
+		/// </returns>
+		/// <example>
+		/// <code>
+		///   var mozuClient=GetProductInventory( productCode,  locationCodes, authTicket);
+		///   var locationInventoryCollectionClient = mozuClient.WithBaseAddress(url).Execute().Result();
+		/// </code>
+		/// </example>
+		public static MozuClient<Mozu.Api.Contracts.ProductRuntime.LocationInventoryCollection> GetProductInventoryClient(string productCode, string locationCodes =  null, AuthTicket authTicket= null)
+		{
+			var url = Mozu.Api.Urls.Commerce.Catalog.Storefront.ProductUrl.GetProductInventoryUrl(locationCodes, productCode);
+			const string verb = "GET";
+			var mozuClient = new MozuClient<Mozu.Api.Contracts.ProductRuntime.LocationInventoryCollection>().WithVerb(verb).WithResourceUrl(url);
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 
 		/// <summary>
 		/// Retrieves information about a single product given its product code.
 		/// </summary>
-		/// <param name="productCode">Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only.</param>
+		/// <param name="productCode">"Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only."</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.ProductRuntime.Product"/>}
 		/// </returns>
@@ -75,96 +124,105 @@ namespace Mozu.Api.Clients.Commerce.Catalog.Storefront
 		/// </example>
 		public static MozuClient<Mozu.Api.Contracts.ProductRuntime.Product> GetProductClient(string productCode)
 		{
-			return GetProductClient( null,  productCode,  null);
+			return GetProductClient( productCode,  null,  null, null);
 		}
 
 		/// <summary>
 		/// Retrieves information about a single product given its product code.
 		/// </summary>
 		/// <param name="allowInactive">If true, returns an inactive product as part of the query.</param>
-		/// <param name="productCode">Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only.</param>
+		/// <param name="productCode">"Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only."</param>
 		/// <param name="variationProductCode">Merchant-created code associated with a specific product variation. Variation product codes maintain an association with the base product code.</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.ProductRuntime.Product"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=GetProduct( allowInactive,  productCode,  variationProductCode);
+		///   var mozuClient=GetProduct( productCode,  allowInactive,  variationProductCode, authTicket);
 		///   var productClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.ProductRuntime.Product> GetProductClient(bool? allowInactive, string productCode, string variationProductCode)
+		public static MozuClient<Mozu.Api.Contracts.ProductRuntime.Product> GetProductClient(string productCode, bool? allowInactive =  null, string variationProductCode =  null, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Catalog.Storefront.ProductUrl.GetProductUrl(allowInactive, productCode, variationProductCode);
 			const string verb = "GET";
 			var mozuClient = new MozuClient<Mozu.Api.Contracts.ProductRuntime.Product>().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 
 				/// <summary>
 		/// Creates a new product selection. A create occurs each time a shopper selects a product option as they configure a product. Once all the required product options are configured, the product can be added to a cart.
 		/// </summary>
-		/// <param name="productCode">Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only.</param>
+		/// <param name="productCode">"Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only."</param>
 		/// <param name="productOptionSelections">For a product with shopper-configurable options, the properties of the product options selected by the shopper.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.ProductRuntime.ConfiguredProduct"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=ConfiguredProduct( productCode,  productOptionSelections);
+		///   var mozuClient=ConfiguredProduct( productOptionSelections,  productCode);
 		///   var configuredProductClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.ProductRuntime.ConfiguredProduct> ConfiguredProductClient(string productCode, Mozu.Api.Contracts.ProductRuntime.ProductOptionSelections productOptionSelections)
+		public static MozuClient<Mozu.Api.Contracts.ProductRuntime.ConfiguredProduct> ConfiguredProductClient(Mozu.Api.Contracts.ProductRuntime.ProductOptionSelections productOptionSelections, string productCode)
 		{
-			return ConfiguredProductClient( null,  productCode,  productOptionSelections);
+			return ConfiguredProductClient( productOptionSelections,  productCode,  null, null);
 		}
 
 		/// <summary>
 		/// Creates a new product selection. A create occurs each time a shopper selects a product option as they configure a product. Once all the required product options are configured, the product can be added to a cart.
 		/// </summary>
 		/// <param name="includeOptionDetails">If true, the response returns details about the product. If false, returns a product summary such as the product name, price, and sale price.</param>
-		/// <param name="productCode">Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only.</param>
+		/// <param name="productCode">"Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only."</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <param name="productOptionSelections">For a product with shopper-configurable options, the properties of the product options selected by the shopper.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.ProductRuntime.ConfiguredProduct"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=ConfiguredProduct( includeOptionDetails,  productCode,  productOptionSelections);
+		///   var mozuClient=ConfiguredProduct( productOptionSelections,  productCode,  includeOptionDetails, authTicket);
 		///   var configuredProductClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.ProductRuntime.ConfiguredProduct> ConfiguredProductClient(bool? includeOptionDetails, string productCode, Mozu.Api.Contracts.ProductRuntime.ProductOptionSelections productOptionSelections)
+		public static MozuClient<Mozu.Api.Contracts.ProductRuntime.ConfiguredProduct> ConfiguredProductClient(Mozu.Api.Contracts.ProductRuntime.ProductOptionSelections productOptionSelections, string productCode, bool? includeOptionDetails =  null, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Catalog.Storefront.ProductUrl.ConfiguredProductUrl(includeOptionDetails, productCode);
 			const string verb = "POST";
 			var mozuClient = new MozuClient<Mozu.Api.Contracts.ProductRuntime.ConfiguredProduct>().WithVerb(verb).WithResourceUrl(url).WithBody<Mozu.Api.Contracts.ProductRuntime.ProductOptionSelections>(productOptionSelections);
-		return mozuClient;
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 
 		/// <summary>
 		/// Validate the final state of shopper-selected options.
 		/// </summary>
-		/// <param name="productCode">Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only.</param>
+		/// <param name="productCode">"Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only."</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <param name="productOptionSelections">For a product with shopper-configurable options, the properties of the product options selected by the shopper.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.ProductRuntime.ProductValidationSummary"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=ValidateProduct( productCode,  productOptionSelections);
+		///   var mozuClient=ValidateProduct( productOptionSelections,  productCode, authTicket);
 		///   var productValidationSummaryClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.ProductRuntime.ProductValidationSummary> ValidateProductClient(string productCode, Mozu.Api.Contracts.ProductRuntime.ProductOptionSelections productOptionSelections)
+		public static MozuClient<Mozu.Api.Contracts.ProductRuntime.ProductValidationSummary> ValidateProductClient(Mozu.Api.Contracts.ProductRuntime.ProductOptionSelections productOptionSelections, string productCode, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Catalog.Storefront.ProductUrl.ValidateProductUrl(productCode);
 			const string verb = "POST";
 			var mozuClient = new MozuClient<Mozu.Api.Contracts.ProductRuntime.ProductValidationSummary>().WithVerb(verb).WithResourceUrl(url).WithBody<Mozu.Api.Contracts.ProductRuntime.ProductOptionSelections>(productOptionSelections);
-		return mozuClient;
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 

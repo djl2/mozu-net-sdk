@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Specialized;
+using System.IO;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using Mozu.Api.Contracts;
+using Mozu.Api.Resources.Platform;
 using Mozu.Api.Security;
 using Mozu.Api.Utilities;
 using Newtonsoft.Json;
@@ -19,27 +22,21 @@ namespace Mozu.Api
     public class MozuClient<TResult> : MozuClient<object, TResult>
     {
 
+        public virtual MozuClient<TResult> WithUserAuth(AuthTicket authTicket)
+        {
+            base.SetUserClaims(authTicket);
+            return this;
+        }
+
+		public virtual MozuClient<TResult> WithContext(IApiContext apiContext)
+		{
+			base.SetContext(apiContext);
+			return this;
+		}
+
         public virtual MozuClient<TResult> WithBaseAddress(string baseAddress)
         {
             base.SetBaseAddress(baseAddress);
-            return this;
-        }
-
-		public virtual MozuClient<TResult> WithContext(int tenantId)
-        {
-            base.SetContext(tenantId);
-            return this;
-        }
-
-		public virtual MozuClient<TResult> WithContext(int tenantId, int? siteGroupId)
-        {
-            base.SetContext(tenantId, siteGroupId);
-            return this;
-        }
-
-		public virtual MozuClient<TResult> WithContext(int tenantId, int? siteGroupId, int? siteId)
-        {
-            base.SetContext(tenantId, siteGroupId, siteId);
             return this;
         }
 
@@ -55,7 +52,7 @@ namespace Mozu.Api
             return this;
         }
 
-		public virtual MozuClient<TResult> WithResourceUrl(string resourceUrl)
+		public virtual MozuClient<TResult> WithResourceUrl(MozuUrl resourceUrl)
         {
             base.SetResourceUrl(resourceUrl);
             return this;
@@ -73,6 +70,13 @@ namespace Mozu.Api
             return this;
         }
 
+        public virtual MozuClient<TResult> WithBody(Stream body)
+        {
+            base.SetBody(body);
+            return this;
+        }
+
+
 		public virtual MozuClient<TResult> Execute()
         {
             base.ExecuteRequest();
@@ -86,27 +90,22 @@ namespace Mozu.Api
     /// </summary>
     public class MozuClient : MozuClient<object, object>
     {
+
+        public virtual MozuClient WithUserAuth(AuthTicket authTicket)
+        {
+            base.SetUserClaims(authTicket);
+            return this;
+        }
+
+		public virtual MozuClient WithContext(IApiContext apiContext)
+		{
+			base.SetContext(apiContext);
+			return this;
+		}
+
 		public virtual MozuClient WithBaseAddress(string baseAddress)
         {
             base.SetBaseAddress(baseAddress);
-            return this;
-        }
-
-		public virtual MozuClient WithContext(int tenantId)
-        {
-            base.SetContext(tenantId);
-            return this;
-        }
-
-		public virtual MozuClient WithContext(int tenantId, int? siteGroupId)
-        {
-            base.SetContext(tenantId, siteGroupId);
-            return this;
-        }
-
-		public virtual MozuClient WithContext(int tenantId, int? siteGroupId, int? siteId)
-        {
-            base.SetContext(tenantId, siteGroupId, siteId);
             return this;
         }
 
@@ -122,7 +121,7 @@ namespace Mozu.Api
             return this;
         }
 
-		public virtual MozuClient WithResourceUrl(string resourceUrl)
+		public virtual MozuClient WithResourceUrl(MozuUrl resourceUrl)
         {
             base.SetResourceUrl(resourceUrl);
             return this;
@@ -136,6 +135,12 @@ namespace Mozu.Api
         }
 
 		public virtual MozuClient WithBody(string body)
+        {
+            base.SetBody(body);
+            return this;
+        }
+
+        public virtual MozuClient WithBody(Stream body)
         {
             base.SetBody(body);
             return this;
@@ -155,58 +160,67 @@ namespace Mozu.Api
     /// </summary>
     public class MozuClient<TBody,TResult>
     {
-
+		private IApiContext _apiContext = null;
         private string _baseAddress = string.Empty;
         private HttpResponseMessage _httpResponseMessage = null;
         private StringContent _httpContent = null;
+        private StreamContent _streamContent = null;
         private string _verb = string.Empty;
-        private string _resourceUrl = string.Empty;
+		private MozuUrl _resourceUrl = new MozuUrl() { Url = "", Location = MozuUrl.UrlLocation.TENANT_POD };
         private NameValueCollection _headers = new NameValueCollection();
         private static ConcurrentDictionary<string, HttpClient> _clientsByHostName;
 
         static MozuClient()
         {
             _clientsByHostName = new ConcurrentDictionary<string, HttpClient>();
-            /*if (!AppAuthTicketKeepAlive.IsInitialized)
-            {
-                throw new ApplicationException("App Authentication is not initialized");
-            }*/
         }
+
+        protected virtual void SetUserClaims(AuthTicket authTicket)
+        {
+            var userInfo = UserAuthenticator.EnsureAuthTicket(authTicket);
+            if (userInfo != null)
+            {
+                authTicket.AccessToken = userInfo.AuthTicket.AccessToken;
+                authTicket.AccessTokenExpiration = userInfo.AuthTicket.AccessTokenExpiration;
+            }
+                
+            _headers.Add(Headers.X_VOL_USER_CLAIMS, authTicket.AccessToken);
+        }
+
+		protected virtual void SetContext(IApiContext apiContext)
+		{
+			_apiContext = apiContext;
+
+			if (_apiContext.TenantId > 0)
+			{
+				AddHeader(Headers.X_VOL_TENANT, _apiContext.TenantId.ToString());
+			}
+
+			if (_apiContext.SiteId.HasValue && _apiContext.SiteId.Value > 0)
+			{
+				AddHeader(Headers.X_VOL_SITE, _apiContext.SiteId.Value.ToString());
+			}
+
+            if (_apiContext.MasterCatalogId.HasValue && _apiContext.MasterCatalogId.Value > 0)
+			{
+				AddHeader(Headers.X_VOL_MASTER_CATALOG, _apiContext.MasterCatalogId.Value.ToString());
+			}
+
+            if (_apiContext.CatalogId.HasValue && _apiContext.CatalogId.Value > 0)
+			{
+				AddHeader(Headers.X_VOL_CATALOG, _apiContext.CatalogId.Value.ToString());
+			}
+
+		}
 
         protected void SetBaseAddress(string baseAddress)
         {
             _baseAddress = baseAddress;
-            //_httpClient.BaseAddress = new Uri(baseAddress);
-        }
-
-        protected void SetContext(int tenantId)
-        {
-            if (tenantId > 0)
-                AddHeader(Headers.X_VOL_TENANT, tenantId.ToString());
-        }
-
-        protected void SetContext(int tenantId, int? siteGroupId)
-        {
-            if (tenantId > 0)
-                AddHeader(Headers.X_VOL_TENANT, tenantId.ToString());
-            if (siteGroupId.HasValue)
-                AddHeader(Headers.X_VOL_SITEGROUP, siteGroupId.Value.ToString());
-        }
-
-        protected void SetContext(int tenantId, int? siteGroupId, int? siteId)
-        {
-            if (tenantId > 0)
-                AddHeader(Headers.X_VOL_TENANT, tenantId.ToString());
-            if (siteGroupId.HasValue)
-                AddHeader(Headers.X_VOL_SITEGROUP, siteGroupId.Value.ToString());
-            if (siteId.HasValue)
-                AddHeader(Headers.X_VOL_SITE, siteId.Value.ToString());
         }
 
 		public virtual void AddHeader(string header, string value)
         {
             _headers.Add(header, value);
-            //_httpClient.DefaultRequestHeaders.Add(header, value);
         }
 
         protected void SetVerb(string verb)
@@ -214,7 +228,7 @@ namespace Mozu.Api
             _verb = verb.ToLower();
         }
 
-        protected void SetResourceUrl(string resourceUrl)
+        protected void SetResourceUrl(MozuUrl resourceUrl)
         {
             _resourceUrl = resourceUrl;
         }
@@ -224,6 +238,13 @@ namespace Mozu.Api
         {
             var stringContent = JsonConvert.SerializeObject(body, _jsonSerializerSettings);
             SetBody(stringContent);
+            
+        }
+
+        protected void SetBody(Stream stream)
+        {
+            _streamContent = new StreamContent(stream);
+
         }
 
         protected void SetBody(string body)
@@ -231,20 +252,12 @@ namespace Mozu.Api
             _httpContent = new StringContent(body, Encoding.UTF8, "application/json");
         }
 
-        protected void ValidateRequest()
-        {
-            if (String.IsNullOrEmpty(_baseAddress))
-                throw new ApplicationException("Base address is not provided");
-        }
-
-       
-
 		public virtual HttpResponseMessage HttpResponse
         {
             get { return _httpResponseMessage; }
         }
 
-        public string ResourceUrl { get { return _resourceUrl; } }
+        public MozuUrl ResourceUrl { get { return _resourceUrl; } }
 
 		public virtual HttpClient HttpClient
         {
@@ -253,17 +266,17 @@ namespace Mozu.Api
                 var client = GetHttpClient();
 
                 client.BaseAddress = new Uri(_baseAddress);
-                if (_headers[Headers.X_VOL_APP_CLAIMS] == null)
-                    Authentication.AddAuthHeader(client);
 
-                if (UserAuthentication.Instance != null)
-                    UserAuthentication.AddUserAuthHeader(client);
+                if (_headers[Headers.X_VOL_APP_CLAIMS] == null)
+                    AppAuthenticator.AddHeader(client);
 
                 AddHeader(Headers.X_VOL_VERSION, Version.ApiVersion);
+
                 foreach (var key in _headers.AllKeys)
                 {
                     client.DefaultRequestHeaders.Add(key, _headers[key]);
                 }
+
 
                 return client;
             }
@@ -281,8 +294,37 @@ namespace Mozu.Api
             return JsonConvert.DeserializeObject<TResult>(HttpResponse.Content.ReadAsStringAsync().Result);
         }
 
+		protected void ValidateContext()
+		{
+			if (_resourceUrl.Location == MozuUrl.UrlLocation.TENANT_POD)
+			{
+				if (_apiContext.TenantId < 0)
+					throw new ApiException("TenantId is missing");
+
+				if (string.IsNullOrEmpty(_apiContext.TenantUrl))
+				{
+					var tenantResource = new TenantResource();
+					var tenant = tenantResource.GetTenant(_apiContext.TenantId);
+
+					if (tenant == null)
+						throw new ApiException("Tenant " + _apiContext.TenantId + " Not found");
+                    _baseAddress = _apiContext.GetUrl(tenant.Domain);
+				}
+                else
+                    _baseAddress = _apiContext.TenantUrl;
+			}
+			else
+			{
+				if (string.IsNullOrEmpty(AppAuthenticator.Instance.BaseUrl))
+					throw new ApiException("Authentication.Instance.BaseUrl is missing");
+
+			    _baseAddress = AppAuthenticator.Instance.BaseUrl;
+			}
+		}
+
         protected void ExecuteRequest()
         {
+			ValidateContext();
             var client = GetHttpClient();
             _httpResponseMessage = client.SendAsync(GetRequestMessage(), HttpCompletionOption.ResponseContentRead).Result;
             ResponseHelper.EnsureSuccess(_httpResponseMessage);
@@ -290,19 +332,20 @@ namespace Mozu.Api
         
         private HttpRequestMessage GetRequestMessage()
         {
-            var requestMessage = new HttpRequestMessage { RequestUri = new Uri(_baseAddress+_resourceUrl) };
+            var requestMessage = new HttpRequestMessage { RequestUri = new Uri(_baseAddress+_resourceUrl.Url) };
             requestMessage.Method = GetMethod();
 
             if (requestMessage.Method == HttpMethod.Post || requestMessage.Method == HttpMethod.Put)
             {
-                requestMessage.Content = _httpContent;
+                if (_httpContent != null)
+                    requestMessage.Content = _httpContent;
+                else
+                    requestMessage.Content =  _streamContent;
+                
             }
 
             if (_headers[Headers.X_VOL_APP_CLAIMS] == null)
-                Authentication.AddAuthHeader(requestMessage);
-
-            if (UserAuthentication.Instance != null)
-                UserAuthentication.AddUserAuthHeader(requestMessage);
+                AppAuthenticator.AddHeader(requestMessage);
 
             AddHeader(Headers.X_VOL_VERSION, Version.ApiVersion);
 

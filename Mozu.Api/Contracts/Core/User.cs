@@ -19,12 +19,12 @@ namespace Mozu.Api.Contracts.Core
 		public class User
 		{
 			///
-			///The email address of the specified user or the email address associated with the specified entity.
+			///The email address of the specified user.
 			///
 			public string EmailAddress { get; set; }
 
 			///
-			///The first name of the contact. The maximum character length is 200.
+			///The first name of the contact. Max length: 200.
 			///
 			public string FirstName { get; set; }
 
@@ -39,12 +39,12 @@ namespace Mozu.Api.Contracts.Core
 			public bool IsActive { get; set; }
 
 			///
-			///The last name or surname of the contact. The maximum character length is 200.
+			///The last name or surname of the contact. Max length: 200.
 			///
 			public string LastName { get; set; }
 
 			///
-			///Language used for the entity. Currently, only "en-US" is supported.
+			///"Language used for the entity. Currently, only ""en-US"" is supported."
 			///
 			public string LocaleCode { get; set; }
 

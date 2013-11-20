@@ -18,17 +18,17 @@ namespace Mozu.Api.Contracts.Core
 		public class Contact
 		{
 			///
-			///The legal or doing business as (DBA) or tradestyle name of the business or organization. The maximum character length is 200.
+			///The legal or doing business as (DBA) or tradestyle name of the business or organization. Max length: 200.
 			///
 			public string CompanyOrOrganization { get; set; }
 
 			///
-			///The email address of the specified user or the email address associated with the specified entity.
+			///The email address of the specified user.
 			///
 			public string Email { get; set; }
 
 			///
-			///The first name of the contact. The maximum character length is 200.
+			///The first name of the contact. Max length: 200.
 			///
 			public string FirstName { get; set; }
 
@@ -38,12 +38,12 @@ namespace Mozu.Api.Contracts.Core
 			public int Id { get; set; }
 
 			///
-			///The last name or surname of the contact. The maximum character length is 200.
+			///The last name or surname of the contact. Max length: 200.
 			///
 			public string LastNameOrSurname { get; set; }
 
 			///
-			///The middle name or the first initial of the middle name of the contact. The maximum character length is 100.
+			///The middle name or the first initial of the middle name of the contact. Max length: 100.
 			///
 			public string MiddleNameOrInitial { get; set; }
 

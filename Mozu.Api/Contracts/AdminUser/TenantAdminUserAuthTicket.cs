@@ -31,7 +31,7 @@ namespace Mozu.Api.Contracts.AdminUser
 			public DateTime AccessTokenExpiration { get; set; }
 
 			///
-			///Date and time when the entity was created, represented in UTC Date/Time.
+			///Date and time when the entity was created. UTC Date/Time.
 			///
 			public DateTime CreatedOn { get; set; }
 

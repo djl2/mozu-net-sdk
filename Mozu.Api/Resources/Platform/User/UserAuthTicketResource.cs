@@ -10,18 +10,20 @@
 
 using System;
 using System.Collections.Generic;
+using Mozu.Api.Security;
+
 
 namespace Mozu.Api.Resources.Platform.User
 {
 	/// <summary>
 	/// Manage the user authentication tickets used to perform operations in the Mozu API.
 	/// </summary>
-	public partial class UserAuthTicketResource : BaseResource 	{
+	public partial class UserAuthTicketResource  	{
 				///
 		/// <see cref="Mozu.Api.ApiContext"/>
 		///
-		private readonly ApiContext _apiContext;
-		public UserAuthTicketResource(ApiContext apiContext) 
+		private readonly IApiContext _apiContext;
+		public UserAuthTicketResource(IApiContext apiContext) 
 		{
 			_apiContext = apiContext;
 		}
@@ -42,9 +44,9 @@ namespace Mozu.Api.Resources.Platform.User
 		/// </example>
 		public virtual Mozu.Api.Contracts.Core.UserAuthTicket CreateUserAuthTicket(Mozu.Api.Contracts.Core.UserAuthInfo userAuthInfo)
 		{
-						MozuClient<Mozu.Api.Contracts.Core.UserAuthTicket> response;
+			MozuClient<Mozu.Api.Contracts.Core.UserAuthTicket> response;
 			var client = Mozu.Api.Clients.Platform.User.UserAuthTicketClient.CreateUserAuthTicketClient( userAuthInfo);
-			SetContext(_apiContext, ref client,true);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
@@ -65,9 +67,9 @@ namespace Mozu.Api.Resources.Platform.User
 		/// </example>
 		public virtual Mozu.Api.Contracts.Core.UserAuthTicket CreateAuthTicketForSite(Mozu.Api.Contracts.Core.UserTokenInfo userAuthInfo)
 		{
-						MozuClient<Mozu.Api.Contracts.Core.UserAuthTicket> response;
+			MozuClient<Mozu.Api.Contracts.Core.UserAuthTicket> response;
 			var client = Mozu.Api.Clients.Platform.User.UserAuthTicketClient.CreateAuthTicketForSiteClient( userAuthInfo);
-			SetContext(_apiContext, ref client,true);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
@@ -88,9 +90,9 @@ namespace Mozu.Api.Resources.Platform.User
 		/// </example>
 		public virtual Mozu.Api.Contracts.Core.UserAuthTicket RefreshUserAuthTicket(string refreshToken)
 		{
-						MozuClient<Mozu.Api.Contracts.Core.UserAuthTicket> response;
+			MozuClient<Mozu.Api.Contracts.Core.UserAuthTicket> response;
 			var client = Mozu.Api.Clients.Platform.User.UserAuthTicketClient.RefreshUserAuthTicketClient( refreshToken);
-			SetContext(_apiContext, ref client,true);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 

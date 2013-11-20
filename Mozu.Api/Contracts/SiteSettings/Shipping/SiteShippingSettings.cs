@@ -9,7 +9,6 @@
 //------------------------------------------------------------------------------
 
 using System;
-using System.Collections.Generic;
 using Mozu.Api.Contracts.Core;
 
 namespace Mozu.Api.Contracts.SiteSettings.Shipping
@@ -20,12 +19,7 @@ namespace Mozu.Api.Contracts.SiteSettings.Shipping
 		public class SiteShippingSettings
 		{
 			///
-			///Collection of entities that provide estimated shipping rate calculations for a site.
-			///
-			public List<Feature> ActiveRateProviders { get; set; }
-
-			///
-			///Identifier and datetime stamp information recorded when creating or updating a resource entity. This value is system-supplied and read-only.
+			///Identifier and datetime stamp information recorded when creating or updating a resource entity. System-supplied and read-only.
 			///
 			public AuditInfo AuditInfo { get; set; }
 
@@ -34,20 +28,7 @@ namespace Mozu.Api.Contracts.SiteSettings.Shipping
 			///
 			public SiteShippingHandlingFee OrderHandlingFee { get; set; }
 
-			///
-			///Properties of the package signature requirements for the site.
-			///
 			public SiteShippingSignatureRequirement SignatureRequirement { get; set; }
-
-			///
-			///The physical address from which packages will originate for shipping.
-			///
-			public Contact SiteShippingOriginAddress { get; set; }
-
-			///
-			///The regions to which products for the site will ship. International shipping will be supported in a future release.
-			///
-			public List<SiteShippingRegion> SiteShippingRegions { get; set; }
 
 		}
 

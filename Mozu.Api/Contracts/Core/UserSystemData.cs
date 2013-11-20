@@ -18,7 +18,7 @@ namespace Mozu.Api.Contracts.Core
 		public class UserSystemData
 		{
 			///
-			///Date and time when the entity was created, represented in UTC Date/Time.
+			///Date and time when the entity was created. UTC Date/Time.
 			///
 			public DateTime? CreatedOn { get; set; }
 
@@ -63,7 +63,7 @@ namespace Mozu.Api.Contracts.Core
 			public int RemainingLoginAttempts { get; set; }
 
 			///
-			///Date and time when the entity was last updated, represented in UTC Date/Time.
+			///Date and time when the entity was last updated. UTC Date/Time.
 			///
 			public DateTime? UpdatedOn { get; set; }
 

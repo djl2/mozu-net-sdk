@@ -17,24 +17,12 @@ namespace Mozu.Api.Contracts.CommerceRuntime.Products
 		{
 			public string AttributeFQN { get; set; }
 
-			///
-			///The data type of the property attribute, which is Bool, DateTime, Number, or String.
-			///
 			public string DataType { get; set; }
 
-			///
-			///If true, the product property can have more than one value.
-			///
 			public bool IsMultiValue { get; set; }
 
-			///
-			///The name of the product property.
-			///
 			public string Name { get; set; }
 
-			///
-			///The list of possible values for the product property.
-			///
 			public List<ProductPropertyValue> Values { get; set; }
 
 		}

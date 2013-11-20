@@ -10,80 +10,91 @@
 
 using System;
 using System.Collections.Generic;
+using Mozu.Api.Security;
+
 
 namespace Mozu.Api.Clients.Commerce.Returns
 {
 	/// <summary>
-	/// Use the return shipments subresource to manage shipments for a return replacement.
+	/// 
 	/// </summary>
 	public partial class ShipmentClient 	{
 		
 		/// <summary>
-		/// Retrieves the details of the specified return replacement shipment.
+		/// 
 		/// </summary>
-		/// <param name="returnId">Unique identifier of the return associated with the replacement shipment to retrieve.</param>
-		/// <param name="shipmentId">Unique identifier of the return replacement shipment to retrieve.</param>
+		/// <param name="returnId"></param>
+		/// <param name="shipmentId"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
-		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.CommerceRuntime.Shipping.Shipment"/>}
+		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.CommerceRuntime.Fulfillment.Shipment"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=GetShipment( returnId,  shipmentId);
+		///   var mozuClient=GetShipment( returnId,  shipmentId, authTicket);
 		///   var shipmentClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.CommerceRuntime.Shipping.Shipment> GetShipmentClient(string returnId, string shipmentId)
+		public static MozuClient<Mozu.Api.Contracts.CommerceRuntime.Fulfillment.Shipment> GetShipmentClient(string returnId, string shipmentId, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Returns.ShipmentUrl.GetShipmentUrl(returnId, shipmentId);
 			const string verb = "GET";
-			var mozuClient = new MozuClient<Mozu.Api.Contracts.CommerceRuntime.Shipping.Shipment>().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			var mozuClient = new MozuClient<Mozu.Api.Contracts.CommerceRuntime.Fulfillment.Shipment>().WithVerb(verb).WithResourceUrl(url);
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 
 				/// <summary>
-		/// Creates a shipment from one or more packages associated with a return replacement.
+		/// 
 		/// </summary>
-		/// <param name="returnId">Unique identifier of the return for which to create replacement package shipments.</param>
-		/// <param name="packageIds">List of packages in the return replacement shipment.</param>
+		/// <param name="returnId"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
+		/// <param name="packageIds"></param>
 		/// <returns>
-		///  <see cref="Mozu.Api.MozuClient" />{List{<see cref="Mozu.Api.Contracts.CommerceRuntime.Shipping.Package"/>}}
+		///  <see cref="Mozu.Api.MozuClient" />{List{<see cref="Mozu.Api.Contracts.CommerceRuntime.Fulfillment.Package"/>}}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=CreatePackageShipments( returnId,  packageIds);
+		///   var mozuClient=CreatePackageShipments( packageIds,  returnId, authTicket);
 		///   var packageClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<List<Mozu.Api.Contracts.CommerceRuntime.Shipping.Package>> CreatePackageShipmentsClient(string returnId, List<string> packageIds)
+		public static MozuClient<List<Mozu.Api.Contracts.CommerceRuntime.Fulfillment.Package>> CreatePackageShipmentsClient(List<string> packageIds, string returnId, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Returns.ShipmentUrl.CreatePackageShipmentsUrl(returnId);
 			const string verb = "POST";
-			var mozuClient = new MozuClient<List<Mozu.Api.Contracts.CommerceRuntime.Shipping.Package>>().WithVerb(verb).WithResourceUrl(url).WithBody<List<string>>(packageIds);
-		return mozuClient;
+			var mozuClient = new MozuClient<List<Mozu.Api.Contracts.CommerceRuntime.Fulfillment.Package>>().WithVerb(verb).WithResourceUrl(url).WithBody(packageIds);
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 
 						/// <summary>
-		/// Deletes a shipment for a return replacement.
+		/// 
 		/// </summary>
-		/// <param name="returnId">Unique identifier of the return associated with the replacement shipment to delete.</param>
-		/// <param name="shipmentId">Unique identifier of the return replacement shipment to delete.</param>
+		/// <param name="returnId"></param>
+		/// <param name="shipmentId"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=DeleteShipment( returnId,  shipmentId);
+		///   var mozuClient=DeleteShipment( returnId,  shipmentId, authTicket);
 		///mozuClient.WithBaseAddress(url).Execute();
 		/// </code>
 		/// </example>
-		public static MozuClient DeleteShipmentClient(string returnId, string shipmentId)
+		public static MozuClient DeleteShipmentClient(string returnId, string shipmentId, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Returns.ShipmentUrl.DeleteShipmentUrl(returnId, shipmentId);
 			const string verb = "DELETE";
 			var mozuClient = new MozuClient().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 

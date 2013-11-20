@@ -36,6 +36,10 @@ namespace Mozu.Api.Contracts.CommerceRuntime.Carts
 			///
 			public decimal? FeeTotal { get; set; }
 
+			public string FulfillmentLocationCode { get; set; }
+
+			public string FulfillmentMethod { get; set; }
+
 			///
 			///Unique identifier of the cart item.
 			///
@@ -57,7 +61,7 @@ namespace Mozu.Api.Contracts.CommerceRuntime.Carts
 			public decimal? ItemTaxTotal { get; set; }
 
 			///
-			///Language used for the entity. Currently, only "en-US" is supported.
+			///"Language used for the entity. Currently, only ""en-US"" is supported."
 			///
 			public string LocaleCode { get; set; }
 
@@ -92,7 +96,7 @@ namespace Mozu.Api.Contracts.CommerceRuntime.Carts
 			public decimal? Total { get; set; }
 
 			///
-			///Identifier and datetime stamp information recorded when creating or updating a resource entity. This value is system-supplied and read-only.
+			///Identifier and datetime stamp information recorded when creating or updating a resource entity. System-supplied and read-only.
 			///
 			public AuditInfo AuditInfo { get; set; }
 
@@ -110,11 +114,6 @@ namespace Mozu.Api.Contracts.CommerceRuntime.Carts
 			///List of shipping discounts projected to apply to the cart at checkout.
 			///
 			public List<ShippingDiscount> ShippingDiscounts { get; set; }
-
-			///
-			///The inventory properties associated with the cart item.
-			///
-			public ProductStock Stock { get; set; }
 
 			///
 			///Properties of the unit price associated with the cart item.

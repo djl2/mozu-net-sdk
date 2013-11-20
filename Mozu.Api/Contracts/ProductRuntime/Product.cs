@@ -24,7 +24,7 @@ namespace Mozu.Api.Contracts.ProductRuntime
 			public int? AttributeSetId { get; set; }
 
 			///
-			///Date and time when the entity was created, represented in UTC Date/Time.
+			///Date and time when the entity was created. UTC Date/Time.
 			///
 			public DateTime CreateDate { get; set; }
 
@@ -44,7 +44,7 @@ namespace Mozu.Api.Contracts.ProductRuntime
 			public bool IsTaxable { get; set; }
 
 			///
-			///Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only.
+			///"Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only."
 			///
 			public string ProductCode { get; set; }
 
@@ -60,7 +60,7 @@ namespace Mozu.Api.Contracts.ProductRuntime
 			///
 			///The universal product code (UPC code) of the product.
 			///
-			public string UPC { get; set; }
+			public string Upc { get; set; }
 
 			public string VariationProductCode { get; set; }
 
@@ -78,6 +78,8 @@ namespace Mozu.Api.Contracts.ProductRuntime
 			///Complex type that contains content for a language specified by LocaleCode.
 			///
 			public ProductContent Content { get; set; }
+
+			public ProductInventoryInfo InventoryInfo { get; set; }
 
 			///
 			///Dimensions of the packaged product.
@@ -108,11 +110,6 @@ namespace Mozu.Api.Contracts.ProductRuntime
 			///The current state of the configured product determines whether or not the product is eligible for purchase. Products with options are only purchasable if the shopper has selected all required options. If the product is not ready for purchase, a message lists missing options that are required.
 			///
 			public ProductPurchasableState PurchasableState { get; set; }
-
-			///
-			///The number of products accounted for in inventory that are available for purchase.
-			///
-			public ProductStock Stock { get; set; }
 
 		}
 

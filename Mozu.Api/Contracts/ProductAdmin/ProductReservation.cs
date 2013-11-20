@@ -23,6 +23,8 @@ namespace Mozu.Api.Contracts.ProductAdmin
 			///
 			public int? Id { get; set; }
 
+			public string LocationCode { get; set; }
+
 			///
 			///Unique identifier of the order.
 			///
@@ -34,7 +36,7 @@ namespace Mozu.Api.Contracts.ProductAdmin
 			public string OrderItemId { get; set; }
 
 			///
-			///Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only.
+			///"Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only."
 			///
 			public string ProductCode { get; set; }
 
@@ -44,7 +46,7 @@ namespace Mozu.Api.Contracts.ProductAdmin
 			public int Quantity { get; set; }
 
 			///
-			///Identifier and datetime stamp information recorded when creating or updating a resource entity. This value is system-supplied and read-only.
+			///Identifier and datetime stamp information recorded when creating or updating a resource entity. System-supplied and read-only.
 			///
 			public AuditInfo AuditInfo { get; set; }
 

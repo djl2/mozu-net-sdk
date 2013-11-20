@@ -15,13 +15,13 @@ namespace Mozu.Api.Contracts.Customer
 {
 		public class VisitCollection
 		{
-			public int PageCount { get; set; }
+			public long PageCount { get; set; }
 
 			public int PageSize { get; set; }
 
 			public int StartIndex { get; set; }
 
-			public int TotalCount { get; set; }
+			public long TotalCount { get; set; }
 
 			public List<Visit> Items { get; set; }
 

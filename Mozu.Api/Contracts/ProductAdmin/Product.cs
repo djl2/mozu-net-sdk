@@ -35,16 +35,6 @@ namespace Mozu.Api.Contracts.ProductAdmin
 			public bool HasStandAloneOptions { get; set; }
 
 			///
-			///If true, a shopper can order the product when it is out of stock through the site, but can get the product once it is available again in inventory or through dropshipping.
-			///
-			public bool? IsBackOrderAllowed { get; set; }
-
-			///
-			///If true, the product does not appear on the storefront when it is not in stock. If false, the product stays on the storefront even when it is out of stock.
-			///
-			public bool? IsHiddenWhenOutOfStock { get; set; }
-
-			///
 			///If true, the product must be packaged on its own and should not be jointly packaged with other products.
 			///
 			public bool? IsPackagedStandAlone { get; set; }
@@ -69,13 +59,10 @@ namespace Mozu.Api.Contracts.ProductAdmin
 			///
 			public bool IsVariation { get; set; }
 
-			///
-			///If true, the Products services will manage inventory for this product.
-			///
-			public bool? ManageStock { get; set; }
+			public int? MasterCatalogId { get; set; }
 
 			///
-			///Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only.
+			///"Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only."
 			///
 			public string ProductCode { get; set; }
 
@@ -91,32 +78,15 @@ namespace Mozu.Api.Contracts.ProductAdmin
 			///
 			public int? ShippingClassId { get; set; }
 
-			public int? SiteGroupId { get; set; }
-
 			///
 			///If the product must be packaged separately, the type of standalone package to use.
 			///
 			public string StandAlonePackageType { get; set; }
 
 			///
-			///The number of products accounted for in inventory that are available for purchase.
-			///
-			public int? StockAvailable { get; set; }
-
-			///
-			///The number of products that are unavailable for current purchase, but placed on back order so that the shopper's order can still be fulfilled, for example, by dropshipping or just waiting for stock to be available again.
-			///
-			public int? StockOnBackOrder { get; set; }
-
-			///
-			///The number of products currently available in inventory.
-			///
-			public int? StockOnHand { get; set; }
-
-			///
 			///The universal product code (UPC code) of the product.
 			///
-			public string UPC { get; set; }
+			public string Upc { get; set; }
 
 			///
 			///System-generated key that represents the attribute values that uniquely identify a specific product variation.
@@ -129,7 +99,7 @@ namespace Mozu.Api.Contracts.ProductAdmin
 			public List<Discount> ApplicableDiscounts { get; set; }
 
 			///
-			///Identifier and datetime stamp information recorded when creating or updating a resource entity. This value is system-supplied and read-only.
+			///Identifier and datetime stamp information recorded when creating or updating a resource entity. System-supplied and read-only.
 			///
 			public AuditInfo AuditInfo { get; set; }
 
@@ -142,6 +112,8 @@ namespace Mozu.Api.Contracts.ProductAdmin
 			///The list of extras set up in product admin.
 			///
 			public List<ProductExtra> Extras { get; set; }
+
+			public ProductInventoryInfo InventoryInfo { get; set; }
 
 			///
 			///The list of options set up in product admin.
@@ -170,10 +142,7 @@ namespace Mozu.Api.Contracts.ProductAdmin
 
 			public ProductPrice Price { get; set; }
 
-			///
-			///List of products that belong to a specific site ID.
-			///
-			public List<ProductInSiteInfo> ProductInSites { get; set; }
+			public List<ProductInCatalogInfo> ProductInCatalogs { get; set; }
 
 			///
 			///The list of product properties to set in product admin.
@@ -185,12 +154,7 @@ namespace Mozu.Api.Contracts.ProductAdmin
 			///
 			///search engine optimized product content.
 			///
-			public ProductLocalizedSEOContent SEOContent { get; set; }
-
-			///
-			///The change made to the number of products currently available in inventory.
-			///
-			public StockOnHandAdjustment StockOnHandAdjustment { get; set; }
+			public ProductLocalizedSEOContent Seocontent { get; set; }
 
 			///
 			///The list of product variation options that exist in product admin.

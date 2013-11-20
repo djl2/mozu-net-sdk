@@ -18,6 +18,8 @@ namespace Mozu.Api.Contracts.ProductAdmin
 		///
 		public class Category
 		{
+			public int? CatalogId { get; set; }
+
 			///
 			///The number of children (subcategories, for example) that stem from a parent (top-level category).
 			///
@@ -48,10 +50,8 @@ namespace Mozu.Api.Contracts.ProductAdmin
 			///
 			public int? Sequence { get; set; }
 
-			public int? SiteId { get; set; }
-
 			///
-			///Identifier and datetime stamp information recorded when creating or updating a resource entity. This value is system-supplied and read-only.
+			///Identifier and datetime stamp information recorded when creating or updating a resource entity. System-supplied and read-only.
 			///
 			public AuditInfo AuditInfo { get; set; }
 

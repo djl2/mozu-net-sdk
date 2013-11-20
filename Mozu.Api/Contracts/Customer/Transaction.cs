@@ -22,8 +22,6 @@ namespace Mozu.Api.Contracts.Customer
 
 			public string InteractionType { get; set; }
 
-			public int SiteId { get; set; }
-
 			public string TransactionId { get; set; }
 
 			public string TransactionType { get; set; }

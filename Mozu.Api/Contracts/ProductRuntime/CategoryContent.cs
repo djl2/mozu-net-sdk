@@ -9,6 +9,7 @@
 //------------------------------------------------------------------------------
 
 using System;
+using System.Collections.Generic;
 
 namespace Mozu.Api.Contracts.ProductRuntime
 {
@@ -51,6 +52,8 @@ namespace Mozu.Api.Contracts.ProductRuntime
 			///Human-readable identifier to associated with a product category to create friendly URLs.
 			///
 			public string Slug { get; set; }
+
+			public List<CategoryImage> CategoryImages { get; set; }
 
 		}
 

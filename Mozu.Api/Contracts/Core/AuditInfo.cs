@@ -13,29 +13,29 @@ using System;
 namespace Mozu.Api.Contracts.Core
 {
 		///
-		///	Identifier and datetime stamp information recorded when creating or updating a resource entity. This value is system-supplied and read-only.
+		///	Identifier and datetime stamp information recorded when creating or updating a resource entity. System-supplied and read-only.
 		///
 		public class AuditInfo
 		{
 			///
-			///Unique identifier of the user created the resource entity. This value is system-supplied and read-only.
-			///
-			public string CreateBy { get; set; }
-
-			///
-			///Date and time when the entity was created, represented in UTC Date/Time.
+			///Date and time when the entity was created. UTC Date/Time.
 			///
 			public DateTime? CreateDate { get; set; }
 
 			///
-			///Unique identifier of the user who last modified the item. This value is system-supplied and read-only.
+			///Unique identifier of the entity who updated the resource property most recently. System-supplied and read-only.
 			///
 			public string UpdateBy { get; set; }
 
 			///
-			///Date and time when the entity was last updated, represented in UTC Date/Time.
+			///Date and time when the entity was last updated. UTC Date/Time.
 			///
 			public DateTime? UpdateDate { get; set; }
+
+			///
+			///Unique identifier of the user created the resource entity. System-supplied and read-only.
+			///
+			public string CreateBy { get; set; }
 
 		}
 

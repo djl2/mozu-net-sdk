@@ -18,6 +18,8 @@ namespace Mozu.Api.Contracts.Event
 		///
 		public class Event
 		{
+			public int? CatalogId { get; set; }
+
 			///
 			///The unique identifier of the entity that caused the event. For example, if the event is "ProductCreated", the entity ID value represents the product code of the product that was created.
 			///
@@ -33,10 +35,7 @@ namespace Mozu.Api.Contracts.Event
 			///
 			public bool? IsTest { get; set; }
 
-			///
-			///Unique identifier of the site group.
-			///
-			public int? SiteGroupId { get; set; }
+			public int? MasterCatalogId { get; set; }
 
 			public int? SiteId { get; set; }
 
@@ -51,7 +50,7 @@ namespace Mozu.Api.Contracts.Event
 			public string Topic { get; set; }
 
 			///
-			///Identifier and datetime stamp information recorded when creating or updating a resource entity. This value is system-supplied and read-only.
+			///Identifier and datetime stamp information recorded when creating or updating a resource entity. System-supplied and read-only.
 			///
 			public AuditInfo AuditInfo { get; set; }
 

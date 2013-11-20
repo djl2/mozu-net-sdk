@@ -10,6 +10,8 @@
 
 using System;
 using System.Collections.Generic;
+using Mozu.Api.Security;
+
 
 namespace Mozu.Api.Clients.Platform
 {
@@ -22,21 +24,24 @@ namespace Mozu.Api.Clients.Platform
 		/// Retrieve details about a specific tenant by providing the tenant ID.
 		/// </summary>
 		/// <param name="tenantId">Unique identifier of the Mozu tenant.</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Tenant.Tenant"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=GetTenant( tenantId);
+		///   var mozuClient=GetTenant( tenantId, authTicket);
 		///   var tenantClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.Tenant.Tenant> GetTenantClient(int tenantId)
+		public static MozuClient<Mozu.Api.Contracts.Tenant.Tenant> GetTenantClient(int tenantId, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Platform.TenantUrl.GetTenantUrl(tenantId);
 			const string verb = "GET";
 			var mozuClient = new MozuClient<Mozu.Api.Contracts.Tenant.Tenant>().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 

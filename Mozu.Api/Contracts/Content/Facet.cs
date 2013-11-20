@@ -20,7 +20,7 @@ namespace Mozu.Api.Contracts.Content
 			///
 			///The number of facet results.
 			///
-			public long Count { get; set; }
+			public int Count { get; set; }
 
 			///
 			///The name of the facet.

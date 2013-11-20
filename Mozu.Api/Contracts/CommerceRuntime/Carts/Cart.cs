@@ -12,8 +12,8 @@ using System;
 using System.Collections.Generic;
 using Mozu.Api.Contracts.Core;
 using Mozu.Api.Contracts.CommerceRuntime.Commerce;
+using Mozu.Api.Contracts.CommerceRuntime.Fulfillment;
 using Mozu.Api.Contracts.CommerceRuntime.Discounts;
-using Mozu.Api.Contracts.CommerceRuntime.Shipping;
 
 namespace Mozu.Api.Contracts.CommerceRuntime.Carts
 {
@@ -22,6 +22,12 @@ namespace Mozu.Api.Contracts.CommerceRuntime.Carts
 		///
 		public class Cart
 		{
+			public string ChannelCode { get; set; }
+
+			public string CurrencyCode { get; set; }
+
+			public string CustomerInteractionType { get; set; }
+
 			public decimal? DiscountedSubtotal { get; set; }
 
 			///
@@ -55,11 +61,6 @@ namespace Mozu.Api.Contracts.CommerceRuntime.Carts
 			public string Id { get; set; }
 
 			///
-			///3-letter ISO 4217 standard global currency code. Currently, only "USD" (US Dollar) is supported.
-			///
-			public string ISOCurrencyCode { get; set; }
-
-			///
 			///The total amount of tax for items in the cart.
 			///
 			public decimal? ItemTaxTotal { get; set; }
@@ -80,11 +81,6 @@ namespace Mozu.Api.Contracts.CommerceRuntime.Carts
 			///The total shipping amount estimated for the cart.
 			///
 			public decimal? ShippingTotal { get; set; }
-
-			///
-			///Unique identifier of the site group.
-			///
-			public int? SiteGroupId { get; set; }
 
 			///
 			///Unique identifier of the site.
@@ -116,8 +112,12 @@ namespace Mozu.Api.Contracts.CommerceRuntime.Carts
 			///
 			public string UserId { get; set; }
 
+			public string VisitId { get; set; }
+
+			public string WebSessionId { get; set; }
+
 			///
-			///Identifier and datetime stamp information recorded when creating or updating a resource entity. This value is system-supplied and read-only.
+			///Identifier and datetime stamp information recorded when creating or updating a resource entity. System-supplied and read-only.
 			///
 			public AuditInfo AuditInfo { get; set; }
 
@@ -125,6 +125,8 @@ namespace Mozu.Api.Contracts.CommerceRuntime.Carts
 			///Messages logged or created each time the cart was modified.
 			///
 			public List<ChangeMessage> ChangeMessages { get; set; }
+
+			public FulfillmentInfo FulfillmentInfo { get; set; }
 
 			///
 			///An array list of objects in the returned collection.
@@ -135,11 +137,6 @@ namespace Mozu.Api.Contracts.CommerceRuntime.Carts
 			///List of order-level discounts projected to apply to the cart at checkout.
 			///
 			public List<AppliedDiscount> OrderDiscounts { get; set; }
-
-			///
-			///Shipping information associated with the cart.
-			///
-			public ShippingInfo ShippingInfo { get; set; }
 
 		}
 

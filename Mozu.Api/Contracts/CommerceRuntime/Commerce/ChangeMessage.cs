@@ -18,7 +18,7 @@ namespace Mozu.Api.Contracts.CommerceRuntime.Commerce
 		public class ChangeMessage
 		{
 			///
-			///Date and time when the entity was created, represented in UTC Date/Time.
+			///Date and time when the entity was created. UTC Date/Time.
 			///
 			public DateTime? CreateDate { get; set; }
 

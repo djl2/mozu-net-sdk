@@ -13,41 +13,41 @@ using System;
 
 namespace Mozu.Api.Urls.Commerce.Catalog.Admin.Attributedefinition
 {
-	public partial class AttributeUrl : BaseUrl
+	public partial class AttributeUrl : MozuUrl
 	{
 
 		/// <summary>
         /// Get Resource Url for GetAttributes
         /// </summary>
-        /// <param name="filter">A set of expressions that consist of a field, operator, and value and represent search parameter syntax when filtering results of a query. Valid operators include equals (eq), does not equal (ne), greater than (gt), less than (lt), greater than or equal to (ge), less than or equal to (le), starts with (sw), or contains (cont). For example - "filter=IsDisplayed+eq+true"</param>
-        /// <param name="pageSize">Specifies the number of results to display on each page when creating paged results from a query. The maximum value is 200.</param>
+        /// <param name="filter">"A set of expressions that consist of a field, operator, and value and represent search parameter syntax when filtering results of a query. Valid operators include equals (eq), does not equal (ne), greater than (gt), less than (lt), greater than or equal to (ge), less than or equal to (le), starts with (sw), or contains (cont). For example - ""filter=IsDisplayed+eq+true"""</param>
+        /// <param name="pageSize">Used to create paged results from a query. Specifies the number of results to display on each page. Maximum: 200.</param>
         /// <param name="sortBy"></param>
         /// <param name="startIndex"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string GetAttributesUrl(string filter, int? pageSize, string sortBy, int? startIndex)
+        public static MozuUrl GetAttributesUrl(string filter, int? pageSize, string sortBy, int? startIndex)
 		{
-			var url = "/api/commerce/catalog/admin/attributedefinition/attributes/?startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&&filter={filter}";
+			var url = "/api/commerce/catalog/admin/attributedefinition/attributes/?startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&filter={filter}";
 			FormatUrl( ref url, "filter", filter);
 			FormatUrl( ref url, "pageSize", pageSize);
 			FormatUrl( ref url, "sortBy", sortBy);
 			FormatUrl( ref url, "startIndex", startIndex);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		/// <summary>
         /// Get Resource Url for GetAttribute
         /// </summary>
-        /// <param name="attributeFQN">The fully qualified name of the attribute, which is a user defined attribute identifier.</param>
+        /// <param name="attributeFQN">"The fully qualified name of the attribute, which is a user defined attribute identifier."</param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string GetAttributeUrl(string attributeFQN)
+        public static MozuUrl GetAttributeUrl(string attributeFQN)
 		{
 			var url = "/api/commerce/catalog/admin/attributedefinition/attributes/{attributeFQN}";
 			FormatUrl( ref url, "attributeFQN", attributeFQN);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				/// <summary>
@@ -56,38 +56,38 @@ namespace Mozu.Api.Urls.Commerce.Catalog.Admin.Attributedefinition
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string AddAttributeUrl()
+        public static MozuUrl AddAttributeUrl()
 		{
 			var url = "/api/commerce/catalog/admin/attributedefinition/attributes/";
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				/// <summary>
         /// Get Resource Url for UpdateAttribute
         /// </summary>
-        /// <param name="attributeFQN">The fully qualified name of the attribute, which is a user defined attribute identifier.</param>
+        /// <param name="attributeFQN">"The fully qualified name of the attribute, which is a user defined attribute identifier."</param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string UpdateAttributeUrl(string attributeFQN)
+        public static MozuUrl UpdateAttributeUrl(string attributeFQN)
 		{
 			var url = "/api/commerce/catalog/admin/attributedefinition/attributes/{attributeFQN}";
 			FormatUrl( ref url, "attributeFQN", attributeFQN);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				/// <summary>
         /// Get Resource Url for DeleteAttribute
         /// </summary>
-        /// <param name="attributeFQN">The fully qualified name of the attribute, which is a user defined attribute identifier.</param>
+        /// <param name="attributeFQN">"The fully qualified name of the attribute, which is a user defined attribute identifier."</param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string DeleteAttributeUrl(string attributeFQN)
+        public static MozuUrl DeleteAttributeUrl(string attributeFQN)
 		{
 			var url = "/api/commerce/catalog/admin/attributedefinition/attributes/{attributeFQN}";
 			FormatUrl( ref url, "attributeFQN", attributeFQN);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		

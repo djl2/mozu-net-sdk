@@ -13,7 +13,7 @@ using System;
 
 namespace Mozu.Api.Urls.Platform.Adminuser
 {
-	public partial class TenantAdminUserAuthTicketUrl : BaseUrl
+	public partial class TenantAdminUserAuthTicketUrl : MozuUrl
 	{
 
 				/// <summary>
@@ -23,11 +23,11 @@ namespace Mozu.Api.Urls.Platform.Adminuser
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string CreateUserAuthTicketUrl(int? tenantId)
+        public static MozuUrl CreateUserAuthTicketUrl(int? tenantId)
 		{
-			var url = "/api/platform/adminuser/authtickets/?tenantId={tenantId}";
+			var url = "/api/platform/adminuser/authtickets/tenants?tenantId={tenantId}";
 			FormatUrl( ref url, "tenantId", tenantId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.HOME_POD) ;
 		}
 
 				/// <summary>
@@ -37,11 +37,11 @@ namespace Mozu.Api.Urls.Platform.Adminuser
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string RefreshAuthTicketUrl(int? tenantId)
+        public static MozuUrl RefreshAuthTicketUrl(int? tenantId)
 		{
-			var url = "/api/platform/adminuser/authtickets/?tenantId={tenantId}";
+			var url = "/api/platform/adminuser/authtickets/tenants?tenantId={tenantId}";
 			FormatUrl( ref url, "tenantId", tenantId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.HOME_POD) ;
 		}
 
 				/// <summary>
@@ -51,11 +51,11 @@ namespace Mozu.Api.Urls.Platform.Adminuser
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string DeleteUserAuthTicketUrl(string refreshToken)
+        public static MozuUrl DeleteUserAuthTicketUrl(string refreshToken)
 		{
 			var url = "/api/platform/adminuser/authtickets/?refreshToken={refreshToken}";
 			FormatUrl( ref url, "refreshToken", refreshToken);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.HOME_POD) ;
 		}
 
 		

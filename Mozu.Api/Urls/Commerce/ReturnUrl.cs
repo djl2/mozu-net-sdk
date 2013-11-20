@@ -13,7 +13,7 @@ using System;
 
 namespace Mozu.Api.Urls.Commerce
 {
-	public partial class ReturnUrl : BaseUrl
+	public partial class ReturnUrl : MozuUrl
 	{
 
 		/// <summary>
@@ -26,14 +26,14 @@ namespace Mozu.Api.Urls.Commerce
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string GetReturnsUrl(string filter, int? pageSize, string sortBy, int? startIndex)
+        public static MozuUrl GetReturnsUrl(string filter, int? pageSize, string sortBy, int? startIndex)
 		{
 			var url = "/api/commerce/returns/?startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&filter={filter}";
 			FormatUrl( ref url, "filter", filter);
 			FormatUrl( ref url, "pageSize", pageSize);
 			FormatUrl( ref url, "sortBy", sortBy);
 			FormatUrl( ref url, "startIndex", startIndex);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		/// <summary>
@@ -43,11 +43,11 @@ namespace Mozu.Api.Urls.Commerce
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string GetReturnUrl(string returnId)
+        public static MozuUrl GetReturnUrl(string returnId)
 		{
 			var url = "/api/commerce/returns/{returnId}";
 			FormatUrl( ref url, "returnId", returnId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		/// <summary>
@@ -57,11 +57,11 @@ namespace Mozu.Api.Urls.Commerce
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string GetAvailableReturnActionsUrl(string returnId)
+        public static MozuUrl GetAvailableReturnActionsUrl(string returnId)
 		{
 			var url = "/api/commerce/returns/{returnId}/actions";
 			FormatUrl( ref url, "returnId", returnId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		/// <summary>
@@ -71,11 +71,11 @@ namespace Mozu.Api.Urls.Commerce
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string GetPaymentsUrl(string returnId)
+        public static MozuUrl GetPaymentsUrl(string returnId)
 		{
 			var url = "/api/commerce/returns/{returnId}/payments";
 			FormatUrl( ref url, "returnId", returnId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		/// <summary>
@@ -86,12 +86,12 @@ namespace Mozu.Api.Urls.Commerce
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string GetPaymentUrl(string paymentId, string returnId)
+        public static MozuUrl GetPaymentUrl(string paymentId, string returnId)
 		{
 			var url = "/api/commerce/returns/{returnId}/payments/{paymentId}";
 			FormatUrl( ref url, "paymentId", paymentId);
 			FormatUrl( ref url, "returnId", returnId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		/// <summary>
@@ -102,12 +102,12 @@ namespace Mozu.Api.Urls.Commerce
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string GetAvailablePaymentActionsForReturnUrl(string paymentId, string returnId)
+        public static MozuUrl GetAvailablePaymentActionsForReturnUrl(string paymentId, string returnId)
 		{
 			var url = "/api/commerce/returns/{returnId}/payments/{paymentId}/actions";
 			FormatUrl( ref url, "paymentId", paymentId);
 			FormatUrl( ref url, "returnId", returnId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				/// <summary>
@@ -116,10 +116,10 @@ namespace Mozu.Api.Urls.Commerce
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string CreateReturnUrl()
+        public static MozuUrl CreateReturnUrl()
 		{
 			var url = "/api/commerce/returns/";
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		/// <summary>
@@ -130,12 +130,12 @@ namespace Mozu.Api.Urls.Commerce
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string PerformPaymentActionForReturnUrl(string paymentId, string returnId)
+        public static MozuUrl PerformPaymentActionForReturnUrl(string paymentId, string returnId)
 		{
 			var url = "/api/commerce/returns/{returnId}/payments/{paymentId}/actions";
 			FormatUrl( ref url, "paymentId", paymentId);
 			FormatUrl( ref url, "returnId", returnId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		/// <summary>
@@ -145,11 +145,11 @@ namespace Mozu.Api.Urls.Commerce
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string CreatePaymentActionForReturnUrl(string returnId)
+        public static MozuUrl CreatePaymentActionForReturnUrl(string returnId)
 		{
 			var url = "/api/commerce/returns/{returnId}/payments/actions";
 			FormatUrl( ref url, "returnId", returnId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		/// <summary>
@@ -158,10 +158,10 @@ namespace Mozu.Api.Urls.Commerce
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string PerformReturnActionsUrl()
+        public static MozuUrl PerformReturnActionsUrl()
 		{
 			var url = "/api/commerce/returns/actions";
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				/// <summary>
@@ -171,11 +171,11 @@ namespace Mozu.Api.Urls.Commerce
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string UpdateReturnUrl(string returnId)
+        public static MozuUrl UpdateReturnUrl(string returnId)
 		{
 			var url = "/api/commerce/returns/{returnId}";
 			FormatUrl( ref url, "returnId", returnId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				/// <summary>
@@ -185,11 +185,11 @@ namespace Mozu.Api.Urls.Commerce
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string DeleteReturnUrl(string returnId)
+        public static MozuUrl DeleteReturnUrl(string returnId)
 		{
 			var url = "/api/commerce/returns/{returnId}";
 			FormatUrl( ref url, "returnId", returnId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		

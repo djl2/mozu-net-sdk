@@ -23,7 +23,7 @@ namespace Mozu.Api.Contracts.Customer
 			public decimal Amount { get; set; }
 
 			///
-			///3-letter ISO 4217 standard global currency code. Currently, only "USD" (US Dollar) is supported.
+			///"3-letter ISO 4217 standard global currency code. Currently, only ""USD"" (US Dollar) is supported."
 			///
 			public string CurrencyCode { get; set; }
 

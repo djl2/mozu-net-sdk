@@ -50,7 +50,7 @@ namespace Mozu.Api.Contracts.CommerceRuntime.Products
 			public string Name { get; set; }
 
 			///
-			///Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only.
+			///"Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only."
 			///
 			public string ProductCode { get; set; }
 
@@ -90,11 +90,6 @@ namespace Mozu.Api.Contracts.CommerceRuntime.Products
 			public ProductPrice Price { get; set; }
 
 			public List<ProductProperty> Properties { get; set; }
-
-			///
-			///The number of products accounted for in inventory that are available for purchase.
-			///
-			public ProductStock Stock { get; set; }
 
 		}
 

@@ -18,12 +18,12 @@ namespace Mozu.Api.Contracts.ProductAdmin
 		public class ProductExtraValue
 		{
 			///
-			///The difference between the weight associated with this product extra and the base product. For example, if a product with a monogram weighs an extra 1/4 lb, the DeltaWeight value is "0.25".
+			///The difference between the highest weight and the lowest weight associated with this product extra.
 			///
 			public decimal? DeltaWeight { get; set; }
 
 			///
-			///If true, the value for the product extra is selected by default. Shopper entered extras cannot be defaulted.
+			///If true, the product extra value shows defaults.
 			///
 			public bool? IsDefaulted { get; set; }
 
@@ -38,7 +38,7 @@ namespace Mozu.Api.Contracts.ProductAdmin
 			public AttributeVocabularyValue AttributeVocabularyValueDetail { get; set; }
 
 			///
-			///The difference between the price associated with this product extra and the base product. For example, if a product with a defined monogram extra costs an additional $10, the DeltaPrice value is "10".
+			///The difference between the highest price and the lowest price associated with this product extra.
 			///
 			public ProductExtraValueDeltaPrice DeltaPrice { get; set; }
 

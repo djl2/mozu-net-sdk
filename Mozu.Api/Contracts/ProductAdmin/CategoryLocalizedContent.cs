@@ -9,6 +9,7 @@
 //------------------------------------------------------------------------------
 
 using System;
+using System.Collections.Generic;
 
 namespace Mozu.Api.Contracts.ProductAdmin
 {
@@ -23,7 +24,7 @@ namespace Mozu.Api.Contracts.ProductAdmin
 			public string Description { get; set; }
 
 			///
-			///Language used for the entity. Currently, only "en-US" is supported.
+			///"Language used for the entity. Currently, only ""en-US"" is supported."
 			///
 			public string LocaleCode { get; set; }
 
@@ -56,6 +57,8 @@ namespace Mozu.Api.Contracts.ProductAdmin
 			///Human-readable identifier to assign to the category to generate user-friendly URLs.
 			///
 			public string Slug { get; set; }
+
+			public List<CategoryLocalizedImage> CategoryImages { get; set; }
 
 		}
 

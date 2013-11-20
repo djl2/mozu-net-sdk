@@ -10,6 +10,8 @@
 
 using System;
 using System.Collections.Generic;
+using Mozu.Api.Security;
+
 
 namespace Mozu.Api.Clients.Content.Documentlists
 {
@@ -33,7 +35,7 @@ namespace Mozu.Api.Clients.Content.Documentlists
 		/// </example>
 		public static MozuClient<Mozu.Api.Contracts.Content.FolderTree> GetFolderTreeClient(string documentListName)
 		{
-			return GetFolderTreeClient( documentListName,  null,  null,  null);
+			return GetFolderTreeClient( documentListName,  null,  null,  null, null);
 		}
 
 		/// <summary>
@@ -43,21 +45,24 @@ namespace Mozu.Api.Clients.Content.Documentlists
 		/// <param name="levels">The number of levels in the folder hierarchy to return.</param>
 		/// <param name="rootFolderId">The unique identifier of the top-level folder in the document list.</param>
 		/// <param name="rootFolderPath">The location in the document hierarchy of the top-level folder in the document list.</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Content.FolderTree"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=GetFolderTree( documentListName,  levels,  rootFolderId,  rootFolderPath);
+		///   var mozuClient=GetFolderTree( documentListName,  levels,  rootFolderId,  rootFolderPath, authTicket);
 		///   var folderTreeClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.Content.FolderTree> GetFolderTreeClient(string documentListName, long? levels, string rootFolderId, string rootFolderPath)
+		public static MozuClient<Mozu.Api.Contracts.Content.FolderTree> GetFolderTreeClient(string documentListName, int? levels =  null, string rootFolderId =  null, string rootFolderPath =  null, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Content.Documentlists.FolderTreeUrl.GetFolderTreeUrl(documentListName, levels, rootFolderId, rootFolderPath);
 			const string verb = "GET";
 			var mozuClient = new MozuClient<Mozu.Api.Contracts.Content.FolderTree>().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 

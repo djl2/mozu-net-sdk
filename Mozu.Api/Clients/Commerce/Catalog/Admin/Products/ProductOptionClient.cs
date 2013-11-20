@@ -10,126 +10,143 @@
 
 using System;
 using System.Collections.Generic;
+using Mozu.Api.Security;
+
 
 namespace Mozu.Api.Clients.Commerce.Catalog.Admin.Products
 {
 	/// <summary>
-	/// Use the Options resource to configure the option attributes and vocabulary values for an individual product associated with the product type that uses the option attribute. Options are used to generate variations of a product.
+	/// Query, create, and update product options.
 	/// </summary>
 	public partial class ProductOptionClient 	{
 		
 		/// <summary>
-		/// Retrieves a list of all option attributes configured for the product specified in the request.
+		/// Retrieves a list of options by providing the product type ID.
 		/// </summary>
-		/// <param name="productCode">Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only.</param>
+		/// <param name="productCode">"Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only."</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{List{<see cref="Mozu.Api.Contracts.ProductAdmin.ProductOption"/>}}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=GetOptions( productCode);
+		///   var mozuClient=GetOptions(dataViewMode,  productCode, authTicket);
 		///   var productOptionClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<List<Mozu.Api.Contracts.ProductAdmin.ProductOption>> GetOptionsClient(string productCode)
+		public static MozuClient<List<Mozu.Api.Contracts.ProductAdmin.ProductOption>> GetOptionsClient(DataViewMode dataViewMode, string productCode, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Catalog.Admin.Products.ProductOptionUrl.GetOptionsUrl(productCode);
 			const string verb = "GET";
-			var mozuClient = new MozuClient<List<Mozu.Api.Contracts.ProductAdmin.ProductOption>>().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			var mozuClient = new MozuClient<List<Mozu.Api.Contracts.ProductAdmin.ProductOption>>().WithVerb(verb).WithResourceUrl(url).WithHeader(Headers.X_VOL_DATAVIEW_MODE ,dataViewMode.ToString());
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 
 		/// <summary>
-		/// Retrieves the details of an option attribute configuration for the specified product.
+		/// Retrieves the catalog option by providing the product type ID and the attribute's fully qualified name.
 		/// </summary>
-		/// <param name="attributeFQN">The fully qualified name of the attribute, which is a user defined attribute identifier.</param>
-		/// <param name="productCode">Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only.</param>
+		/// <param name="attributeFQN">"The fully qualified name of the attribute, which is a user defined attribute identifier."</param>
+		/// <param name="productCode">"Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only."</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.ProductAdmin.ProductOption"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=GetOption( attributeFQN,  productCode);
+		///   var mozuClient=GetOption(dataViewMode,  attributeFQN,  productCode, authTicket);
 		///   var productOptionClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.ProductAdmin.ProductOption> GetOptionClient(string attributeFQN, string productCode)
+		public static MozuClient<Mozu.Api.Contracts.ProductAdmin.ProductOption> GetOptionClient(DataViewMode dataViewMode, string attributeFQN, string productCode, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Catalog.Admin.Products.ProductOptionUrl.GetOptionUrl(attributeFQN, productCode);
 			const string verb = "GET";
-			var mozuClient = new MozuClient<Mozu.Api.Contracts.ProductAdmin.ProductOption>().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			var mozuClient = new MozuClient<Mozu.Api.Contracts.ProductAdmin.ProductOption>().WithVerb(verb).WithResourceUrl(url).WithHeader(Headers.X_VOL_DATAVIEW_MODE ,dataViewMode.ToString());
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 
 				/// <summary>
-		/// Configures an option attribute for the product specified in the request.
+		/// Adds or creates a product option.
 		/// </summary>
-		/// <param name="productCode">Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only.</param>
-		/// <param name="productOption">Properties of the option attribute to define for the product.</param>
+		/// <param name="productCode">"Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only."</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
+		/// <param name="productOption">The product option being added or created.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.ProductAdmin.ProductOption"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=AddOption( productCode,  productOption);
+		///   var mozuClient=AddOption(dataViewMode,  productOption,  productCode, authTicket);
 		///   var productOptionClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.ProductAdmin.ProductOption> AddOptionClient(string productCode, Mozu.Api.Contracts.ProductAdmin.ProductOption productOption)
+		public static MozuClient<Mozu.Api.Contracts.ProductAdmin.ProductOption> AddOptionClient(DataViewMode dataViewMode, Mozu.Api.Contracts.ProductAdmin.ProductOption productOption, string productCode, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Catalog.Admin.Products.ProductOptionUrl.AddOptionUrl(productCode);
 			const string verb = "POST";
-			var mozuClient = new MozuClient<Mozu.Api.Contracts.ProductAdmin.ProductOption>().WithVerb(verb).WithResourceUrl(url).WithBody<Mozu.Api.Contracts.ProductAdmin.ProductOption>(productOption);
-		return mozuClient;
+			var mozuClient = new MozuClient<Mozu.Api.Contracts.ProductAdmin.ProductOption>().WithVerb(verb).WithResourceUrl(url).WithBody<Mozu.Api.Contracts.ProductAdmin.ProductOption>(productOption).WithHeader(Headers.X_VOL_DATAVIEW_MODE ,dataViewMode.ToString());
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 
 				/// <summary>
-		/// Updates one or more properties of an option attribute configured for a product.
+		/// Updates a product option by providing the product type ID and the attribute's fully qualified name. There is also a request body to supply additional information.
 		/// </summary>
-		/// <param name="attributeFQN">The fully qualified name of the attribute, which is a user defined attribute identifier.</param>
-		/// <param name="productCode">Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only.</param>
-		/// <param name="productOption">Properties of the product option attribute configuration to update.</param>
+		/// <param name="attributeFQN">"The fully qualified name of the attribute, which is a user defined attribute identifier."</param>
+		/// <param name="productCode">"Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only."</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
+		/// <param name="productOption">The product option being updated.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.ProductAdmin.ProductOption"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=UpdateOption( attributeFQN,  productCode,  productOption);
+		///   var mozuClient=UpdateOption(dataViewMode,  productOption,  attributeFQN,  productCode, authTicket);
 		///   var productOptionClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.ProductAdmin.ProductOption> UpdateOptionClient(string attributeFQN, string productCode, Mozu.Api.Contracts.ProductAdmin.ProductOption productOption)
+		public static MozuClient<Mozu.Api.Contracts.ProductAdmin.ProductOption> UpdateOptionClient(DataViewMode dataViewMode, Mozu.Api.Contracts.ProductAdmin.ProductOption productOption, string attributeFQN, string productCode, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Catalog.Admin.Products.ProductOptionUrl.UpdateOptionUrl(attributeFQN, productCode);
 			const string verb = "PUT";
-			var mozuClient = new MozuClient<Mozu.Api.Contracts.ProductAdmin.ProductOption>().WithVerb(verb).WithResourceUrl(url).WithBody<Mozu.Api.Contracts.ProductAdmin.ProductOption>(productOption);
-		return mozuClient;
+			var mozuClient = new MozuClient<Mozu.Api.Contracts.ProductAdmin.ProductOption>().WithVerb(verb).WithResourceUrl(url).WithBody<Mozu.Api.Contracts.ProductAdmin.ProductOption>(productOption).WithHeader(Headers.X_VOL_DATAVIEW_MODE ,dataViewMode.ToString());
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 
 				/// <summary>
-		/// Deletes the configuration of an option attribute for the product specified in the request.
+		/// Deletes the catalog option by providing the product type ID and the attribute's fully qualified name.
 		/// </summary>
-		/// <param name="attributeFQN">The fully qualified name of the attribute, which is a user defined attribute identifier.</param>
-		/// <param name="productCode">Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only.</param>
+		/// <param name="attributeFQN">"The fully qualified name of the attribute, which is a user defined attribute identifier."</param>
+		/// <param name="productCode">"Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only."</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=DeleteOption( attributeFQN,  productCode);
+		///   var mozuClient=DeleteOption(dataViewMode,  attributeFQN,  productCode, authTicket);
 		///mozuClient.WithBaseAddress(url).Execute();
 		/// </code>
 		/// </example>
-		public static MozuClient DeleteOptionClient(string attributeFQN, string productCode)
+		public static MozuClient DeleteOptionClient(DataViewMode dataViewMode, string attributeFQN, string productCode, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Catalog.Admin.Products.ProductOptionUrl.DeleteOptionUrl(attributeFQN, productCode);
 			const string verb = "DELETE";
-			var mozuClient = new MozuClient().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			var mozuClient = new MozuClient().WithVerb(verb).WithResourceUrl(url).WithHeader(Headers.X_VOL_DATAVIEW_MODE ,dataViewMode.ToString());
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 

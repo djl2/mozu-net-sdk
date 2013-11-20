@@ -13,7 +13,7 @@ using System;
 
 namespace Mozu.Api.Urls.Content.Documentlists
 {
-	public partial class DocumentTreeUrl : BaseUrl
+	public partial class DocumentTreeUrl : MozuUrl
 	{
 
 		/// <summary>
@@ -23,19 +23,17 @@ namespace Mozu.Api.Urls.Content.Documentlists
         /// <param name="documentName">The name of the document, which is unique within its folder.</param>
         /// <param name="folderId">If applicable, the unique identifier of the folder that contains the document.</param>
         /// <param name="folderPath">If applicable, the path of the folder hierarchy location associated with the document.</param>
-        /// <param name="publishState">The current state of the document, which is Active, Draft, or Latest. Active documents are published and cannot be deleted. Querying Latest returns the most recent version of the document, regardless of whether it is published or a draft.</param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string GetTreeDocumentContentUrl(string documentListName, string documentName, string folderId, string folderPath, string publishState)
+        public static MozuUrl GetTreeDocumentContentUrl(string documentListName, string documentName, string folderId, string folderPath)
 		{
-			var url = "/api/content/documentlists/{documentListName}/documentTree/{documentName}/content?folderPath={folderPath}&folderId={folderId}&publishState={publishState}";
+			var url = "/api/content/documentlists/{documentListName}/documentTree/{documentName}/content?folderPath={folderPath}&folderId={folderId}";
 			FormatUrl( ref url, "documentListName", documentListName);
 			FormatUrl( ref url, "documentName", documentName);
 			FormatUrl( ref url, "folderId", folderId);
 			FormatUrl( ref url, "folderPath", folderPath);
-			FormatUrl( ref url, "publishState", publishState);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		/// <summary>
@@ -45,19 +43,17 @@ namespace Mozu.Api.Urls.Content.Documentlists
         /// <param name="documentName">The name of the document, which is unique within its folder.</param>
         /// <param name="folderId">If applicable, the unique identifier of the folder that contains the document.</param>
         /// <param name="folderPath">If applicable, the path of the folder hierarchy location that contains the document.</param>
-        /// <param name="publishState">The current state of the document, which is Active, Draft, or Latest. Active documents are published and cannot be deleted. Querying Latest returns the most recent version of the document, regardless of whether it is published or a draft.</param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string GetTreeDocumentUrl(string documentListName, string documentName, string folderId, string folderPath, string publishState)
+        public static MozuUrl GetTreeDocumentUrl(string documentListName, string documentName, string folderId, string folderPath)
 		{
-			var url = "/api/content/documentlists/{documentListName}/documentTree/{documentName}?folderPath={folderPath}&folderId={folderId}&publishState={publishState}";
+			var url = "/api/content/documentlists/{documentListName}/documentTree/{documentName}?folderPath={folderPath}&folderId={folderId}";
 			FormatUrl( ref url, "documentListName", documentListName);
 			FormatUrl( ref url, "documentName", documentName);
 			FormatUrl( ref url, "folderId", folderId);
 			FormatUrl( ref url, "folderPath", folderPath);
-			FormatUrl( ref url, "publishState", publishState);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 						/// <summary>
@@ -70,14 +66,14 @@ namespace Mozu.Api.Urls.Content.Documentlists
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string UpdateTreeDocumentContentUrl(string documentListName, string documentName, string folderId, string folderPath)
+        public static MozuUrl UpdateTreeDocumentContentUrl(string documentListName, string documentName, string folderId, string folderPath)
 		{
 			var url = "/api/content/documentlists/{documentListName}/documentTree/{documentName}/content?folderPath={folderPath}&folderId={folderId}";
 			FormatUrl( ref url, "documentListName", documentListName);
 			FormatUrl( ref url, "documentName", documentName);
 			FormatUrl( ref url, "folderId", folderId);
 			FormatUrl( ref url, "folderPath", folderPath);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				/// <summary>
@@ -90,14 +86,14 @@ namespace Mozu.Api.Urls.Content.Documentlists
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string DeleteTreeDocumentContentUrl(string documentListName, string documentName, string folderId, string folderPath)
+        public static MozuUrl DeleteTreeDocumentContentUrl(string documentListName, string documentName, string folderId, string folderPath)
 		{
 			var url = "/api/content/documentlists/{documentListName}/documentTree/{documentName}/content?folderPath={folderPath}&folderId={folderId}";
 			FormatUrl( ref url, "documentListName", documentListName);
 			FormatUrl( ref url, "documentName", documentName);
 			FormatUrl( ref url, "folderId", folderId);
 			FormatUrl( ref url, "folderPath", folderPath);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		

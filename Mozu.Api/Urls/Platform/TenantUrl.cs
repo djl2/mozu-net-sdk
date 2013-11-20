@@ -13,7 +13,7 @@ using System;
 
 namespace Mozu.Api.Urls.Platform
 {
-	public partial class TenantUrl : BaseUrl
+	public partial class TenantUrl : MozuUrl
 	{
 
 		/// <summary>
@@ -23,11 +23,11 @@ namespace Mozu.Api.Urls.Platform
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string GetTenantUrl(int tenantId)
+        public static MozuUrl GetTenantUrl(int tenantId)
 		{
 			var url = "/api/platform/tenants/{tenantId}";
 			FormatUrl( ref url, "tenantId", tenantId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.HOME_POD) ;
 		}
 
 								

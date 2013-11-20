@@ -13,7 +13,7 @@ using System;
 
 namespace Mozu.Api.Urls.Commerce.Carts
 {
-	public partial class CartItemUrl : BaseUrl
+	public partial class CartItemUrl : MozuUrl
 	{
 
 		/// <summary>
@@ -22,10 +22,10 @@ namespace Mozu.Api.Urls.Commerce.Carts
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string GetCartItemsUrl()
+        public static MozuUrl GetCartItemsUrl()
 		{
 			var url = "/api/commerce/carts/current/items";
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		/// <summary>
@@ -35,11 +35,11 @@ namespace Mozu.Api.Urls.Commerce.Carts
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string GetCartItemUrl(string cartItemId)
+        public static MozuUrl GetCartItemUrl(string cartItemId)
 		{
 			var url = "/api/commerce/carts/current/items/{cartItemId}";
 			FormatUrl( ref url, "cartItemId", cartItemId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				/// <summary>
@@ -48,10 +48,10 @@ namespace Mozu.Api.Urls.Commerce.Carts
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string AddItemToCartUrl()
+        public static MozuUrl AddItemToCartUrl()
 		{
 			var url = "/api/commerce/carts/current/items";
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				/// <summary>
@@ -61,11 +61,11 @@ namespace Mozu.Api.Urls.Commerce.Carts
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string UpdateCartItemUrl(string cartItemId)
+        public static MozuUrl UpdateCartItemUrl(string cartItemId)
 		{
 			var url = "/api/commerce/carts/current/items/{cartItemId}";
 			FormatUrl( ref url, "cartItemId", cartItemId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		/// <summary>
@@ -76,12 +76,12 @@ namespace Mozu.Api.Urls.Commerce.Carts
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string UpdateCartItemQuantityUrl(string cartItemId, int quantity)
+        public static MozuUrl UpdateCartItemQuantityUrl(string cartItemId, int quantity)
 		{
 			var url = "/api/commerce/carts/current/items/{cartItemId}/{quantity}";
 			FormatUrl( ref url, "cartItemId", cartItemId);
 			FormatUrl( ref url, "quantity", quantity);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				/// <summary>
@@ -90,10 +90,10 @@ namespace Mozu.Api.Urls.Commerce.Carts
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string RemoveAllCartItemsUrl()
+        public static MozuUrl RemoveAllCartItemsUrl()
 		{
 			var url = "/api/commerce/carts/current/items";
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		/// <summary>
@@ -103,11 +103,11 @@ namespace Mozu.Api.Urls.Commerce.Carts
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string DeleteCartItemUrl(string cartItemId)
+        public static MozuUrl DeleteCartItemUrl(string cartItemId)
 		{
 			var url = "/api/commerce/carts/current/items/{cartItemId}";
 			FormatUrl( ref url, "cartItemId", cartItemId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		

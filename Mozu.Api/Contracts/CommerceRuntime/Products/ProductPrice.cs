@@ -27,6 +27,8 @@ namespace Mozu.Api.Contracts.CommerceRuntime.Products
 			///
 			public decimal? SalePrice { get; set; }
 
+			public decimal? TenantOverridePrice { get; set; }
+
 		}
 
 }

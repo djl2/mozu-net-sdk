@@ -18,7 +18,7 @@ namespace Mozu.Api.Contracts.Core
 		public class UserAuthInfo
 		{
 			///
-			///The email address of the specified user or the email address associated with the specified entity.
+			///The email address of the specified user.
 			///
 			public string EmailAddress { get; set; }
 

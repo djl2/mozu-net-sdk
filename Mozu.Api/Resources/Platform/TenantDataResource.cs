@@ -10,18 +10,20 @@
 
 using System;
 using System.Collections.Generic;
+using Mozu.Api.Security;
+
 
 namespace Mozu.Api.Resources.Platform
 {
 	/// <summary>
 	/// Use the tenant data resource to store tenant-level information required for a third-party application in the Mozu database.
 	/// </summary>
-	public partial class TenantDataResource : BaseResource 	{
+	public partial class TenantDataResource  	{
 				///
 		/// <see cref="Mozu.Api.ApiContext"/>
 		///
-		private readonly ApiContext _apiContext;
-		public TenantDataResource(ApiContext apiContext) 
+		private readonly IApiContext _apiContext;
+		public TenantDataResource(IApiContext apiContext) 
 		{
 			_apiContext = apiContext;
 		}
@@ -42,9 +44,9 @@ namespace Mozu.Api.Resources.Platform
 		/// </example>
 		public virtual string GetDBValue(string dbEntryQuery)
 		{
-						MozuClient<string> response;
+			MozuClient<string> response;
 			var client = Mozu.Api.Clients.Platform.TenantDataClient.GetDBValueClient( dbEntryQuery);
-			SetContext(_apiContext, ref client,true);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
@@ -61,14 +63,14 @@ namespace Mozu.Api.Resources.Platform
 		/// <example>
 		/// <code>
 		///   var tenantdata = new TenantData();
-		///   tenantdata.CreateDBValue( dbEntryQuery,  value);
+		///   tenantdata.CreateDBValue( value,  dbEntryQuery);
 		/// </code>
 		/// </example>
-		public virtual void CreateDBValue(string dbEntryQuery, string value)
+		public virtual void CreateDBValue(string value, string dbEntryQuery)
 		{
-						MozuClient response;
-			var client = Mozu.Api.Clients.Platform.TenantDataClient.CreateDBValueClient( dbEntryQuery,  value);
-			SetContext(_apiContext, ref client,true);
+			MozuClient response;
+			var client = Mozu.Api.Clients.Platform.TenantDataClient.CreateDBValueClient( value,  dbEntryQuery);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 
 		}
@@ -84,14 +86,14 @@ namespace Mozu.Api.Resources.Platform
 		/// <example>
 		/// <code>
 		///   var tenantdata = new TenantData();
-		///   tenantdata.UpdateDBValue( dbEntryQuery,  value);
+		///   tenantdata.UpdateDBValue( value,  dbEntryQuery);
 		/// </code>
 		/// </example>
-		public virtual void UpdateDBValue(string dbEntryQuery, string value)
+		public virtual void UpdateDBValue(string value, string dbEntryQuery)
 		{
-						MozuClient response;
-			var client = Mozu.Api.Clients.Platform.TenantDataClient.UpdateDBValueClient( dbEntryQuery,  value);
-			SetContext(_apiContext, ref client,true);
+			MozuClient response;
+			var client = Mozu.Api.Clients.Platform.TenantDataClient.UpdateDBValueClient( value,  dbEntryQuery);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 
 		}
@@ -111,9 +113,9 @@ namespace Mozu.Api.Resources.Platform
 		/// </example>
 		public virtual void DeleteDBValue(string dbEntryQuery)
 		{
-						MozuClient response;
+			MozuClient response;
 			var client = Mozu.Api.Clients.Platform.TenantDataClient.DeleteDBValueClient( dbEntryQuery);
-			SetContext(_apiContext, ref client,true);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 
 		}

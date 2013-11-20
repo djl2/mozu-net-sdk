@@ -19,7 +19,7 @@ namespace Mozu.Api.Contracts.ProductAdmin
 		public class ProductLocalizedContent
 		{
 			///
-			///Language used for the entity. Currently, only "en-US" is supported.
+			///"Language used for the entity. Currently, only ""en-US"" is supported."
 			///
 			public string LocaleCode { get; set; }
 

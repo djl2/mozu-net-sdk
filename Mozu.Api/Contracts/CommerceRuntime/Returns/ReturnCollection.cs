@@ -18,13 +18,13 @@ namespace Mozu.Api.Contracts.CommerceRuntime.Returns
 		///
 		public class ReturnCollection
 		{
-			public int PageCount { get; set; }
+			public long PageCount { get; set; }
 
 			public int PageSize { get; set; }
 
 			public int StartIndex { get; set; }
 
-			public int TotalCount { get; set; }
+			public long TotalCount { get; set; }
 
 			public List<Return> Items { get; set; }
 

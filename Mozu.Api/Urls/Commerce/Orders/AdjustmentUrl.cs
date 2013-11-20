@@ -13,7 +13,7 @@ using System;
 
 namespace Mozu.Api.Urls.Commerce.Orders
 {
-	public partial class AdjustmentUrl : BaseUrl
+	public partial class AdjustmentUrl : MozuUrl
 	{
 
 						/// <summary>
@@ -21,17 +21,17 @@ namespace Mozu.Api.Urls.Commerce.Orders
         /// </summary>
         /// <param name="orderId">Unique identifier of the order associated with the shipping adjustment.</param>
         /// <param name="updateMode">Specifies whether to apply the shipping adjustment by updating the original order, updating the order in draft mode, or updating the order in draft mode and then committing the changes to the original. Draft mode enables users to make incremental order changes before committing the changes to the original order. Valid values are "ApplyToOriginal", "ApplyToDraft", or "ApplyAndCommit".</param>
-        /// <param name="version">If applicable, the version of the order or draft to which to apply the shipping adjustment.</param>
+        /// <param name="version"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string ApplyShippingAdjustmentUrl(string orderId, string updateMode, string version)
+        public static MozuUrl ApplyShippingAdjustmentUrl(string orderId, string updateMode, string version)
 		{
 			var url = "/api/commerce/orders/{orderId}/adjustment/shipping?updatemode={updateMode}&version={version}";
 			FormatUrl( ref url, "orderId", orderId);
 			FormatUrl( ref url, "updateMode", updateMode);
 			FormatUrl( ref url, "version", version);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		/// <summary>
@@ -39,35 +39,35 @@ namespace Mozu.Api.Urls.Commerce.Orders
         /// </summary>
         /// <param name="orderId">Unique identifier of the order for which to apply the adjustment.</param>
         /// <param name="updateMode">Specifies whether to apply the adjustment by updating the original order, updating the order in draft mode, or updating the order in draft mode and then committing the changes to the original. Draft mode enables users to make incremental order changes before committing the changes to the original order. Valid values are "ApplyToOriginal", "ApplyToDraft", or "ApplyAndCommit".</param>
-        /// <param name="version">If applicable, the version of the order or draft for which to apply the adjustment.</param>
+        /// <param name="version"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string ApplyAdjustmentUrl(string orderId, string updateMode, string version)
+        public static MozuUrl ApplyAdjustmentUrl(string orderId, string updateMode, string version)
 		{
 			var url = "/api/commerce/orders/{orderId}/adjustment?updatemode={updateMode}&version={version}";
 			FormatUrl( ref url, "orderId", orderId);
 			FormatUrl( ref url, "updateMode", updateMode);
 			FormatUrl( ref url, "version", version);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				/// <summary>
         /// Get Resource Url for RemoveShippingAdjustment
         /// </summary>
-        /// <param name="orderId">Unique identifier of the order with the applied shipping adjustment.</param>
+        /// <param name="orderId"></param>
         /// <param name="updateMode">Specifies whether to remove the shipping adjustment by updating the original order, updating the order in draft mode, or updating the order in draft mode and then commit the changes to the original. Draft mode enables users to make incremental order changes before committing the changes to the original order. Valid values are "ApplyToOriginal", "ApplyToDraft", or "ApplyAndCommit".</param>
-        /// <param name="version">If applicable, the version of the order or draft from which to remove the shipping adjustment.</param>
+        /// <param name="version"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string RemoveShippingAdjustmentUrl(string orderId, string updateMode, string version)
+        public static MozuUrl RemoveShippingAdjustmentUrl(string orderId, string updateMode, string version)
 		{
 			var url = "/api/commerce/orders/{orderId}/adjustment/shipping?updatemode={updateMode}&version={version}";
 			FormatUrl( ref url, "orderId", orderId);
 			FormatUrl( ref url, "updateMode", updateMode);
 			FormatUrl( ref url, "version", version);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		/// <summary>
@@ -75,17 +75,17 @@ namespace Mozu.Api.Urls.Commerce.Orders
         /// </summary>
         /// <param name="orderId">Unique identifier of the order for which to delete the adjustment.</param>
         /// <param name="updateMode">Specifies whether to remove the adjustment by updating the original order, updating the order in draft mode, or updating the order in draft mode and then committing the changes to the original. Draft mode enables users to make incremental order changes before committing the changes to the original order. Valid values are "ApplyToOriginal", "ApplyToDraft", or "ApplyAndCommit".</param>
-        /// <param name="version">If applicable, the version of the order or draft from which to remove the adjustment.</param>
+        /// <param name="version"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string RemoveAdjustmentUrl(string orderId, string updateMode, string version)
+        public static MozuUrl RemoveAdjustmentUrl(string orderId, string updateMode, string version)
 		{
 			var url = "/api/commerce/orders/{orderId}/adjustment?updatemode={updateMode}&version={version}";
 			FormatUrl( ref url, "orderId", orderId);
 			FormatUrl( ref url, "updateMode", updateMode);
 			FormatUrl( ref url, "version", version);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		

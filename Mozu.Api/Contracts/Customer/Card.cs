@@ -30,12 +30,12 @@ namespace Mozu.Api.Contracts.Customer
 			///
 			///The two-digit month the credit card expires.
 			///
-			public int? ExpireMonth { get; set; }
+			public short ExpireMonth { get; set; }
 
 			///
 			///The four-digit year the credit card expires.
 			///
-			public int? ExpireYear { get; set; }
+			public short ExpireYear { get; set; }
 
 			///
 			///Unique ID of the credit card for the customer account. This identifier is separate from the credit card number.

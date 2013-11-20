@@ -27,10 +27,14 @@ namespace Mozu.Api.Contracts.CommerceRuntime.Payments
 			///
 			public decimal? Amount { get; set; }
 
+			public string CancelUrl { get; set; }
+
 			///
 			///If applicable, the check number associated with the payment action.
 			///
 			public string CheckNumber { get; set; }
+
+			public string CurrencyCode { get; set; }
 
 			///
 			///Date and time the payment gateway interaction was performed.
@@ -38,14 +42,11 @@ namespace Mozu.Api.Contracts.CommerceRuntime.Payments
 			public DateTime? InteractionDate { get; set; }
 
 			///
-			///3-letter ISO 4217 standard global currency code. Currently, only "USD" (US Dollar) is supported.
-			///
-			public string ISOCurrencyCode { get; set; }
-
-			///
 			///Unique ID that references an original transaction in the event of a credit back.
 			///
 			public string ReferenceSourcePaymentId { get; set; }
+
+			public string ReturnUrl { get; set; }
 
 			///
 			///Properties of a manually performed interaction with the payment gateway.

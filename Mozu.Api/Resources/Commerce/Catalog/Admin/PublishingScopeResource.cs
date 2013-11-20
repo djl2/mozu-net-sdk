@@ -10,18 +10,20 @@
 
 using System;
 using System.Collections.Generic;
+using Mozu.Api.Security;
+
 
 namespace Mozu.Api.Resources.Commerce.Catalog.Admin
 {
 	/// <summary>
 	/// 
 	/// </summary>
-	public partial class PublishingScopeResource : BaseResource 	{
+	public partial class PublishingScopeResource  	{
 				///
 		/// <see cref="Mozu.Api.ApiContext"/>
 		///
-		private readonly ApiContext _apiContext;
-		public PublishingScopeResource(ApiContext apiContext) 
+		private readonly IApiContext _apiContext;
+		public PublishingScopeResource(IApiContext apiContext) 
 		{
 			_apiContext = apiContext;
 		}
@@ -30,6 +32,8 @@ namespace Mozu.Api.Resources.Commerce.Catalog.Admin
 				/// <summary>
 		/// 
 		/// </summary>
+		/// <param name="dataViewMode">{<see cref="Mozu.Api.DataViewMode"/>}</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <param name="publishScope"></param>
 		/// <returns>
 		/// 
@@ -37,14 +41,14 @@ namespace Mozu.Api.Resources.Commerce.Catalog.Admin
 		/// <example>
 		/// <code>
 		///   var publishingscope = new PublishingScope();
-		///   publishingscope.DiscardDrafts( publishScope);
+		///   publishingscope.DiscardDrafts(dataViewMode,  publishScope, authTicket);
 		/// </code>
 		/// </example>
-		public virtual void DiscardDrafts(Mozu.Api.Contracts.ProductAdmin.PublishingScope publishScope)
+		public virtual void DiscardDrafts(DataViewMode dataViewMode, Mozu.Api.Contracts.ProductAdmin.PublishingScope publishScope, AuthTicket authTicket= null)
 		{
-						MozuClient response;
-			var client = Mozu.Api.Clients.Commerce.Catalog.Admin.PublishingScopeClient.DiscardDraftsClient( publishScope);
-			SetContext(_apiContext, ref client,true);
+			MozuClient response;
+			var client = Mozu.Api.Clients.Commerce.Catalog.Admin.PublishingScopeClient.DiscardDraftsClient(dataViewMode,  publishScope, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 
 		}
@@ -52,6 +56,8 @@ namespace Mozu.Api.Resources.Commerce.Catalog.Admin
 		/// <summary>
 		/// 
 		/// </summary>
+		/// <param name="dataViewMode">{<see cref="Mozu.Api.DataViewMode"/>}</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <param name="publishScope"></param>
 		/// <returns>
 		/// 
@@ -59,14 +65,14 @@ namespace Mozu.Api.Resources.Commerce.Catalog.Admin
 		/// <example>
 		/// <code>
 		///   var publishingscope = new PublishingScope();
-		///   publishingscope.PublishDrafts( publishScope);
+		///   publishingscope.PublishDrafts(dataViewMode,  publishScope, authTicket);
 		/// </code>
 		/// </example>
-		public virtual void PublishDrafts(Mozu.Api.Contracts.ProductAdmin.PublishingScope publishScope)
+		public virtual void PublishDrafts(DataViewMode dataViewMode, Mozu.Api.Contracts.ProductAdmin.PublishingScope publishScope, AuthTicket authTicket= null)
 		{
-						MozuClient response;
-			var client = Mozu.Api.Clients.Commerce.Catalog.Admin.PublishingScopeClient.PublishDraftsClient( publishScope);
-			SetContext(_apiContext, ref client,true);
+			MozuClient response;
+			var client = Mozu.Api.Clients.Commerce.Catalog.Admin.PublishingScopeClient.PublishDraftsClient(dataViewMode,  publishScope, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 
 		}
