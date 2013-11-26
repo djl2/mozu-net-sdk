@@ -17,9 +17,6 @@ using Mozu.Api.Contracts.CommerceRuntime.Discounts;
 
 namespace Mozu.Api.Contracts.CommerceRuntime.Carts
 {
-		///
-		///	Properties of an active shopping cart.
-		///
 		public class Cart
 		{
 			public string ChannelCode { get; set; }
@@ -30,112 +27,52 @@ namespace Mozu.Api.Contracts.CommerceRuntime.Carts
 
 			public decimal? DiscountedSubtotal { get; set; }
 
-			///
-			///The estimated total of the cart after all discounts have been applied.
-			///
 			public decimal? DiscountedTotal { get; set; }
 
-			///
-			///Estimated amount of discounts applied to all items in the cart. Usually a negative dollar amount or number. System-supplied and read-only.
-			///
 			public decimal? DiscountTotal { get; set; }
 
-			///
-			///Date in UTC Date/Time when the cart becomes inactive based on a system-calculated interval. For example, if an anonymous shopper has 14 days of inactivity, the cart is considered abandoned after that period of inactivity. System-supplied and read-only.
-			///
 			public DateTime? ExpirationDate { get; set; }
 
-			///
-			///The monetary sum of all fees incurred in the cart.
-			///
 			public decimal? FeeTotal { get; set; }
 
-			///
-			///If the handling fee for the cart is subject to sales tax, the total tax amount.
-			///
 			public decimal? HandlingTaxTotal { get; set; }
 
-			///
-			///Unique identifier of the shopping cart.
-			///
 			public string Id { get; set; }
 
-			///
-			///The total amount of tax for items in the cart.
-			///
 			public decimal? ItemTaxTotal { get; set; }
 
-			///
-			///The date in UTC Date/Time when the items in the cart were last validated against the site's product catalog. System-supplied and read-only.
-			///
 			public DateTime? LastValidationDate { get; set; }
 
 			public decimal? ShippingSubTotal { get; set; }
 
-			///
-			///The total amount of tax incurred on the shipping charges in the cart.
-			///
 			public decimal? ShippingTaxTotal { get; set; }
 
-			///
-			///The total shipping amount estimated for the cart.
-			///
 			public decimal? ShippingTotal { get; set; }
 
-			///
-			///Unique identifier of the site.
-			///
 			public int? SiteId { get; set; }
 
-			///
-			///Estimated amount of the cart without sales tax, shipping costs, and other fees.
-			///
 			public decimal? Subtotal { get; set; }
 
-			///
-			///The total sum of sales tax estimated for a cart.
-			///
 			public decimal? TaxTotal { get; set; }
 
-			///
-			///Unique identifier of the Mozu tenant.
-			///
 			public int? TenantId { get; set; }
 
-			///
-			///Estimated total amount of the cart, including items, sales tax, shipping costs, and other fees.
-			///
 			public decimal? Total { get; set; }
 
-			///
-			///Unique identifier of the user associated with the shopping cart.
-			///
 			public string UserId { get; set; }
 
 			public string VisitId { get; set; }
 
 			public string WebSessionId { get; set; }
 
-			///
-			///Identifier and datetime stamp information recorded when creating or updating a resource entity. System-supplied and read-only.
-			///
 			public AuditInfo AuditInfo { get; set; }
 
-			///
-			///Messages logged or created each time the cart was modified.
-			///
 			public List<ChangeMessage> ChangeMessages { get; set; }
 
 			public FulfillmentInfo FulfillmentInfo { get; set; }
 
-			///
-			///An array list of objects in the returned collection.
-			///
 			public List<CartItem> Items { get; set; }
 
-			///
-			///List of order-level discounts projected to apply to the cart at checkout.
-			///
 			public List<AppliedDiscount> OrderDiscounts { get; set; }
 
 		}

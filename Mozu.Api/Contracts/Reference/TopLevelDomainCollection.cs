@@ -13,19 +13,10 @@ using System.Collections.Generic;
 
 namespace Mozu.Api.Contracts.Reference
 {
-		///
-		///	The paged collection of all top level Internet domains that the system supports including general, USA-specific, infrastructure, and country codes. The Internet Assigned Numbers Authority (IANA) maintains this list.
-		///
 		public class TopLevelDomainCollection
 		{
-			///
-			///An array list of objects in the returned collection.
-			///
 			public List<string> Items { get; set; }
 
-			///
-			///The number of the resource entity items listed in the query collection. Signed 64-bit (8-byte) integer. System-supplied and read-only.
-			///
 			public long TotalCount { get; set; }
 
 		}

@@ -19,7 +19,7 @@ namespace Mozu.Api.Urls.Commerce.Catalog.Admin.Attributedefinition.Producttypes
 		/// <summary>
         /// Get Resource Url for GetProperties
         /// </summary>
-        /// <param name="productTypeId">Identifier of the product type whose properties are being retrieved as a paged list.</param>
+        /// <param name="productTypeId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
@@ -33,8 +33,8 @@ namespace Mozu.Api.Urls.Commerce.Catalog.Admin.Attributedefinition.Producttypes
 		/// <summary>
         /// Get Resource Url for GetProperty
         /// </summary>
-        /// <param name="attributeFQN">"The fully qualified name of the attribute, which is a user defined attribute identifier."</param>
-        /// <param name="productTypeId">Identifier of the product type whose single instance of a property is being retrieved.</param>
+        /// <param name="attributeFQN"></param>
+        /// <param name="productTypeId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
@@ -49,7 +49,7 @@ namespace Mozu.Api.Urls.Commerce.Catalog.Admin.Attributedefinition.Producttypes
 				/// <summary>
         /// Get Resource Url for AddProperty
         /// </summary>
-        /// <param name="productTypeId">Identifier of the product type whose properties are being added or created to the product type.</param>
+        /// <param name="productTypeId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
@@ -63,8 +63,8 @@ namespace Mozu.Api.Urls.Commerce.Catalog.Admin.Attributedefinition.Producttypes
 				/// <summary>
         /// Get Resource Url for UpdateProperty
         /// </summary>
-        /// <param name="attributeFQN">"The fully qualified name of the attribute, which is a user defined attribute identifier."</param>
-        /// <param name="productTypeId">Identifier of the product type whose single instance of a property is being updated.</param>
+        /// <param name="attributeFQN"></param>
+        /// <param name="productTypeId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
@@ -79,8 +79,8 @@ namespace Mozu.Api.Urls.Commerce.Catalog.Admin.Attributedefinition.Producttypes
 				/// <summary>
         /// Get Resource Url for DeleteProperty
         /// </summary>
-        /// <param name="attributeFQN">"The fully qualified name of the attribute, which is a user defined attribute identifier."</param>
-        /// <param name="productTypeId">Identifier of the product type whose properties are being deleted.</param>
+        /// <param name="attributeFQN"></param>
+        /// <param name="productTypeId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>

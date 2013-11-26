@@ -16,7 +16,6 @@ using System.Net;
 using Mozu.Api;
 using Mozu.Api.Security;
 using Mozu.Api.Test.Helpers;
-using Newtonsoft.Json;
 
 #endregion
 
@@ -30,7 +29,11 @@ namespace Mozu.Api.Test.Factories
 
 		/// <summary> 
 		/// 
-		/// DeveloperAdminUserAuthTicketFactory.CreateDeveloperUserAuthTicket(handler : handler,  userAuthInfo :  userAuthInfo,  expectedCode: expectedCode, successCode: successCode);
+		/// <example> 
+		///  <code> 
+		//// DeveloperAdminUserAuthTicketFactory.CreateDeveloperUserAuthTicket(handler : handler,  userAuthInfo :  userAuthInfo,  expectedCode: expectedCode, successCode: successCode);
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.AdminUser.DeveloperAdminUserAuthTicket CreateDeveloperUserAuthTicket(ServiceClientMessageHandler handler, 
  		 Mozu.Api.Contracts.Core.UserAuthInfo userAuthInfo, 
@@ -39,12 +42,16 @@ namespace Mozu.Api.Test.Factories
 			return CreateDeveloperUserAuthTicket(handler : handler,  developerAccountId :  null,  userAuthInfo :  userAuthInfo, 
 				expectedCode: expectedCode, successCode: successCode);
 		}
-
+  
 		/// <summary> 
 		/// 
-		/// DeveloperAdminUserAuthTicketFactory.CreateDeveloperUserAuthTicket(handler : handler,  developerAccountId :  developerAccountId,  userAuthInfo :  userAuthInfo,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<DeveloperAdminUserAuthTicket>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// <example> 
+		///  <code> 
+		//// var result = DeveloperAdminUserAuthTicketFactory.CreateDeveloperUserAuthTicket(handler : handler,  developerAccountId :  developerAccountId,  userAuthInfo :  userAuthInfo,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<DeveloperAdminUserAuthTicket>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.AdminUser.DeveloperAdminUserAuthTicket CreateDeveloperUserAuthTicket(ServiceClientMessageHandler handler, 
  		 int? developerAccountId, Mozu.Api.Contracts.Core.UserAuthInfo userAuthInfo, 
@@ -59,10 +66,14 @@ namespace Mozu.Api.Test.Factories
 					 : null;
 
 		}
-
-			/// <summary> 
+  
+		/// <summary> 
 		/// 
-		/// DeveloperAdminUserAuthTicketFactory.RefreshDeveloperAuthTicket(handler : handler,  existingAuthTicket :  existingAuthTicket,  expectedCode: expectedCode, successCode: successCode);
+		/// <example> 
+		///  <code> 
+		//// DeveloperAdminUserAuthTicketFactory.RefreshDeveloperAuthTicket(handler : handler,  existingAuthTicket :  existingAuthTicket,  expectedCode: expectedCode, successCode: successCode);
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.AdminUser.DeveloperAdminUserAuthTicket RefreshDeveloperAuthTicket(ServiceClientMessageHandler handler, 
  		 Mozu.Api.Contracts.AdminUser.DeveloperAdminUserAuthTicket existingAuthTicket, 
@@ -71,12 +82,16 @@ namespace Mozu.Api.Test.Factories
 			return RefreshDeveloperAuthTicket(handler : handler,  developerAccountId :  null,  existingAuthTicket :  existingAuthTicket, 
 				expectedCode: expectedCode, successCode: successCode);
 		}
-
+  
 		/// <summary> 
 		/// 
-		/// DeveloperAdminUserAuthTicketFactory.RefreshDeveloperAuthTicket(handler : handler,  developerAccountId :  developerAccountId,  existingAuthTicket :  existingAuthTicket,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<DeveloperAdminUserAuthTicket>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// <example> 
+		///  <code> 
+		//// var result = DeveloperAdminUserAuthTicketFactory.RefreshDeveloperAuthTicket(handler : handler,  developerAccountId :  developerAccountId,  existingAuthTicket :  existingAuthTicket,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<DeveloperAdminUserAuthTicket>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.AdminUser.DeveloperAdminUserAuthTicket RefreshDeveloperAuthTicket(ServiceClientMessageHandler handler, 
  		 int? developerAccountId, Mozu.Api.Contracts.AdminUser.DeveloperAdminUserAuthTicket existingAuthTicket, 
@@ -91,12 +106,16 @@ namespace Mozu.Api.Test.Factories
 					 : null;
 
 		}
-
-			/// <summary> 
+  
+		/// <summary> 
 		/// 
-		/// DeveloperAdminUserAuthTicketFactory.DeleteUserAuthTicket(handler : handler,  refreshToken :  refreshToken,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<void>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// <example> 
+		///  <code> 
+		//// var result = DeveloperAdminUserAuthTicketFactory.DeleteUserAuthTicket(handler : handler,  refreshToken :  refreshToken,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<void>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static void DeleteUserAuthTicket(ServiceClientMessageHandler handler, 
  		string refreshToken, 
@@ -111,8 +130,8 @@ namespace Mozu.Api.Test.Factories
 					 : null;
 
 		}
+  
 
-		
 	}
 
 }

@@ -16,14 +16,14 @@ using Mozu.Api.Security;
 namespace Mozu.Api.Resources.Platform.Adminuser
 {
 	/// <summary>
-	/// Use the Admin user Authtickets resource to generate and refresh authentication tickets for Mozu administrator or developer account users to access tenants or development stores.
+	/// 
 	/// </summary>
 	public partial class TenantAdminUserAuthTicketResource  	{
 		
 				/// <summary>
-		/// Creates an authentication ticket for the supplied user to specify in API requests associated with the supplied tenant.
+		/// 
 		/// </summary>
-		/// <param name="userAuthInfo">The user authentication information required to generate the user authentication ticket, which consists of a user name and password.</param>
+		/// <param name="userAuthInfo"></param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.AdminUser.TenantAdminUserAuthTicket"/>
 		/// </returns>
@@ -39,11 +39,11 @@ namespace Mozu.Api.Resources.Platform.Adminuser
 		}
 
 		/// <summary>
-		/// Creates an authentication ticket for the supplied user to specify in API requests associated with the supplied tenant.
+		/// 
 		/// </summary>
-		/// <param name="tenantId">Unique identifier of the Mozu tenant or development store for which to generate the user authentication ticket.</param>
+		/// <param name="tenantId"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="userAuthInfo">The user authentication information required to generate the user authentication ticket, which consists of a user name and password.</param>
+		/// <param name="userAuthInfo"></param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.AdminUser.TenantAdminUserAuthTicket"/>
 		/// </returns>
@@ -63,9 +63,9 @@ namespace Mozu.Api.Resources.Platform.Adminuser
 		}
 
 				/// <summary>
-		/// Generates a new user authentication ticket for the specified tenant by supplying the user's existing refresh token information.
+		/// 
 		/// </summary>
-		/// <param name="existingAuthTicket">Properties of the authentication ticket to refresh. The refresh token is required to complete this request.</param>
+		/// <param name="existingAuthTicket"></param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.AdminUser.TenantAdminUserAuthTicket"/>
 		/// </returns>
@@ -81,11 +81,11 @@ namespace Mozu.Api.Resources.Platform.Adminuser
 		}
 
 		/// <summary>
-		/// Generates a new user authentication ticket for the specified tenant by supplying the user's existing refresh token information.
+		/// 
 		/// </summary>
-		/// <param name="tenantId">Unique identifier of the Mozu tenant or development store for which to refresh the authentication ticket.</param>
+		/// <param name="tenantId"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="existingAuthTicket">Properties of the authentication ticket to refresh. The refresh token is required to complete this request.</param>
+		/// <param name="existingAuthTicket"></param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.AdminUser.TenantAdminUserAuthTicket"/>
 		/// </returns>
@@ -105,9 +105,9 @@ namespace Mozu.Api.Resources.Platform.Adminuser
 		}
 
 				/// <summary>
-		/// Deletes the authentication ticket for the user by supplying the refresh token.
+		/// 
 		/// </summary>
-		/// <param name="refreshToken">Refresh token string associated with the user authentication ticket.</param>
+		/// <param name="refreshToken"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// 

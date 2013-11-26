@@ -16,14 +16,14 @@ using Mozu.Api.Security;
 namespace Mozu.Api.Clients.Commerce.Catalog.Admin.Products
 {
 	/// <summary>
-	/// Query, create, and update product options.
+	/// 
 	/// </summary>
 	public partial class ProductOptionClient 	{
 		
 		/// <summary>
-		/// Retrieves a list of options by providing the product type ID.
+		/// 
 		/// </summary>
-		/// <param name="productCode">"Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only."</param>
+		/// <param name="productCode"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{List{<see cref="Mozu.Api.Contracts.ProductAdmin.ProductOption"/>}}
@@ -46,10 +46,10 @@ namespace Mozu.Api.Clients.Commerce.Catalog.Admin.Products
 		}
 
 		/// <summary>
-		/// Retrieves the catalog option by providing the product type ID and the attribute's fully qualified name.
+		/// 
 		/// </summary>
-		/// <param name="attributeFQN">"The fully qualified name of the attribute, which is a user defined attribute identifier."</param>
-		/// <param name="productCode">"Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only."</param>
+		/// <param name="attributeFQN"></param>
+		/// <param name="productCode"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.ProductAdmin.ProductOption"/>}
@@ -72,11 +72,11 @@ namespace Mozu.Api.Clients.Commerce.Catalog.Admin.Products
 		}
 
 				/// <summary>
-		/// Adds or creates a product option.
+		/// 
 		/// </summary>
-		/// <param name="productCode">"Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only."</param>
+		/// <param name="productCode"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="productOption">The product option being added or created.</param>
+		/// <param name="productOption"></param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.ProductAdmin.ProductOption"/>}
 		/// </returns>
@@ -98,12 +98,12 @@ namespace Mozu.Api.Clients.Commerce.Catalog.Admin.Products
 		}
 
 				/// <summary>
-		/// Updates a product option by providing the product type ID and the attribute's fully qualified name. There is also a request body to supply additional information.
+		/// 
 		/// </summary>
-		/// <param name="attributeFQN">"The fully qualified name of the attribute, which is a user defined attribute identifier."</param>
-		/// <param name="productCode">"Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only."</param>
+		/// <param name="attributeFQN"></param>
+		/// <param name="productCode"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="productOption">The product option being updated.</param>
+		/// <param name="productOption"></param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.ProductAdmin.ProductOption"/>}
 		/// </returns>
@@ -125,10 +125,10 @@ namespace Mozu.Api.Clients.Commerce.Catalog.Admin.Products
 		}
 
 				/// <summary>
-		/// Deletes the catalog option by providing the product type ID and the attribute's fully qualified name.
+		/// 
 		/// </summary>
-		/// <param name="attributeFQN">"The fully qualified name of the attribute, which is a user defined attribute identifier."</param>
-		/// <param name="productCode">"Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only."</param>
+		/// <param name="attributeFQN"></param>
+		/// <param name="productCode"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />

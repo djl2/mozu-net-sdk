@@ -12,29 +12,14 @@ using System;
 
 namespace Mozu.Api.Contracts.ProductRuntime
 {
-		///
-		///	The selection the shopper made from a list of options set up in product admin.
-		///
 		public class ProductOptionSelection
 		{
-			///
-			///"The fully qualified name of the attribute, which is a user defined attribute identifier."
-			///
 			public string AttributeFQN { get; set; }
 
-			///
-			///Identifier of the value of this attribute.
-			///
 			public int? AttributeValueId { get; set; }
 
-			///
-			///The custom value the shopper entered for an option set up in product admin.
-			///
 			public object ShopperEnteredValue { get; set; }
 
-			///
-			///The attribute value.
-			///
 			public object Value { get; set; }
 
 		}

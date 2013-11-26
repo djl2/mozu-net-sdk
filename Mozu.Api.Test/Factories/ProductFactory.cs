@@ -16,251 +16,298 @@ using System.Net;
 using Mozu.Api;
 using Mozu.Api.Security;
 using Mozu.Api.Test.Helpers;
-using Newtonsoft.Json;
 
 #endregion
 
 namespace Mozu.Api.Test.Factories
 {
 	/// <summary>
-	/// Use this resource to create products, view the attributes associated with existing products, and determine which sites feature a specific product.
+	/// 
 	/// </summary>
 	public partial class ProductFactory : BaseDataFactory
 	{
 
-	/// <summary> 
-		/// Retrieves a list of products according to any specified facets, filter criteria, and sort options.
-		/// ProductFactory.GetProducts(handler : handler,  dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode);
+		/// <summary> 
+		/// 
+		/// <example> 
+		///  <code> 
+		//// ProductFactory.GetProducts(handler : handler,  dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode);
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.ProductAdmin.ProductCollection GetProducts(ServiceClientMessageHandler handler, 
- 		 DataViewMode dataViewMode= DataViewMode.Live, 
+ 		  DataViewMode dataViewMode= DataViewMode.Live, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
-			return GetProducts(handler : handler,  filter :  null,  noCount :  null,  pageSize :  null,  q :  null,  qLimit :  null,  sortBy :  null,  startIndex :  null, dataViewMode: dataViewMode, 
+			return GetProducts(handler : handler,  filter :  null,  noCount :  null,  pageSize :  null,  q :  null,  qLimit :  null,  sortBy :  null,  startIndex :  null,authTicket : null, dataViewMode: dataViewMode, 
 				expectedCode: expectedCode, successCode: successCode);
 		}
-
+  
 		/// <summary> 
-		/// Retrieves a list of products according to any specified facets, filter criteria, and sort options.
-		/// ProductFactory.GetProducts(handler : handler,  filter :  filter,  noCount :  noCount,  pageSize :  pageSize,  q :  q,  qLimit :  qLimit,  sortBy :  sortBy,  startIndex :  startIndex,  dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<ProductCollection>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// 
+		/// <example> 
+		///  <code> 
+		//// var result = ProductFactory.GetProducts(handler : handler,  filter :  filter,  noCount :  noCount,  pageSize :  pageSize,  q :  q,  qLimit :  qLimit,  sortBy :  sortBy,  startIndex :  startIndex,  authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<ProductCollection>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.ProductAdmin.ProductCollection GetProducts(ServiceClientMessageHandler handler, 
- 		 string filter, bool? noCount, int? pageSize, string q, int? qLimit, string sortBy, int? startIndex, DataViewMode dataViewMode= DataViewMode.Live, 
+ 		 string filter, bool? noCount, int? pageSize, string q, int? qLimit, string sortBy, int? startIndex,  AuthTicket authTicket= null, DataViewMode dataViewMode= DataViewMode.Live, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Admin.ProductClient.GetProductsClient(
-				 filter :  filter,  noCount :  noCount,  pageSize :  pageSize,  q :  q,  qLimit :  qLimit,  sortBy :  sortBy,  startIndex :  startIndex, dataViewMode: dataViewMode		);
+				 filter :  filter,  noCount :  noCount,  pageSize :  pageSize,  q :  q,  qLimit :  qLimit,  sortBy :  sortBy,  startIndex :  startIndex, authTicket : authTicket, dataViewMode: dataViewMode		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
+  
 		/// <summary> 
-		/// Retrieves an existing product.
-		/// ProductFactory.GetProduct(handler : handler,  productCode :  productCode,  dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<Product>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// 
+		/// <example> 
+		///  <code> 
+		//// var result = ProductFactory.GetProduct(handler : handler,  productCode :  productCode,  authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<Product>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.ProductAdmin.Product GetProduct(ServiceClientMessageHandler handler, 
- 		 string productCode, DataViewMode dataViewMode= DataViewMode.Live, 
+ 		 string productCode,  AuthTicket authTicket= null, DataViewMode dataViewMode= DataViewMode.Live, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Admin.ProductClient.GetProductClient(
-				 productCode :  productCode, dataViewMode: dataViewMode		);
+				 productCode :  productCode, authTicket : authTicket, dataViewMode: dataViewMode		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
+  
 		/// <summary> 
 		/// 
-		/// ProductFactory.GetProductInCatalogs(handler : handler,  productCode :  productCode,  dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<List<ProductInCatalogInfo>>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// <example> 
+		///  <code> 
+		//// var result = ProductFactory.GetProductInCatalogs(handler : handler,  productCode :  productCode,  authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<List<ProductInCatalogInfo>>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static List<Mozu.Api.Contracts.ProductAdmin.ProductInCatalogInfo> GetProductInCatalogs(ServiceClientMessageHandler handler, 
- 		 string productCode, DataViewMode dataViewMode= DataViewMode.Live, 
+ 		 string productCode,  AuthTicket authTicket= null, DataViewMode dataViewMode= DataViewMode.Live, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Admin.ProductClient.GetProductInCatalogsClient(
-				 productCode :  productCode, dataViewMode: dataViewMode		);
+				 productCode :  productCode, authTicket : authTicket, dataViewMode: dataViewMode		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
+  
 		/// <summary> 
 		/// 
-		/// ProductFactory.GetProductInCatalog(handler : handler,  catalogId :  catalogId,  productCode :  productCode,  dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<ProductInCatalogInfo>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// <example> 
+		///  <code> 
+		//// var result = ProductFactory.GetProductInCatalog(handler : handler,  catalogId :  catalogId,  productCode :  productCode,  authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<ProductInCatalogInfo>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.ProductAdmin.ProductInCatalogInfo GetProductInCatalog(ServiceClientMessageHandler handler, 
- 		 int catalogId, string productCode, DataViewMode dataViewMode= DataViewMode.Live, 
+ 		 int catalogId, string productCode,  AuthTicket authTicket= null, DataViewMode dataViewMode= DataViewMode.Live, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Admin.ProductClient.GetProductInCatalogClient(
-				 catalogId :  catalogId,  productCode :  productCode, dataViewMode: dataViewMode		);
+				 catalogId :  catalogId,  productCode :  productCode, authTicket : authTicket, dataViewMode: dataViewMode		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
-			/// <summary> 
-		/// Creates a new product. Supply a product name, product code, price and other product characteristics such as its attributes, categories where the product belongs, whether the product has configurable options, stand-alone options, and so on.
-		/// ProductFactory.AddProduct(handler : handler,  product :  product, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<Product>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+  
+		/// <summary> 
+		/// 
+		/// <example> 
+		///  <code> 
+		//// var result = ProductFactory.AddProduct(handler : handler,  product :  product, authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<Product>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.ProductAdmin.Product AddProduct(ServiceClientMessageHandler handler, 
- 		 Mozu.Api.Contracts.ProductAdmin.Product product,DataViewMode dataViewMode= DataViewMode.Live, 
+ 		 Mozu.Api.Contracts.ProductAdmin.Product product, AuthTicket authTicket= null, DataViewMode dataViewMode= DataViewMode.Live, 
 		 int expectedCode = (int)HttpStatusCode.Created, int successCode = (int)HttpStatusCode.Created)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Admin.ProductClient.AddProductClient(
-				 product :  product, dataViewMode: dataViewMode		);
+				 product :  product, authTicket : authTicket, dataViewMode: dataViewMode		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
+  
 		/// <summary> 
 		/// 
-		/// ProductFactory.AddProductInCatalog(handler : handler,  productCode :  productCode,  productInCatalogInfoIn :  productInCatalogInfoIn, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<ProductInCatalogInfo>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// <example> 
+		///  <code> 
+		//// var result = ProductFactory.AddProductInCatalog(handler : handler,  productCode :  productCode,  productInCatalogInfoIn :  productInCatalogInfoIn, authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<ProductInCatalogInfo>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.ProductAdmin.ProductInCatalogInfo AddProductInCatalog(ServiceClientMessageHandler handler, 
- 		 string productCode, Mozu.Api.Contracts.ProductAdmin.ProductInCatalogInfo productInCatalogInfoIn,DataViewMode dataViewMode= DataViewMode.Live, 
+ 		 string productCode, Mozu.Api.Contracts.ProductAdmin.ProductInCatalogInfo productInCatalogInfoIn, AuthTicket authTicket= null, DataViewMode dataViewMode= DataViewMode.Live, 
 		 int expectedCode = (int)HttpStatusCode.Created, int successCode = (int)HttpStatusCode.Created)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Admin.ProductClient.AddProductInCatalogClient(
-				 productCode :  productCode,  productInCatalogInfoIn :  productInCatalogInfoIn, dataViewMode: dataViewMode		);
+				 productCode :  productCode,  productInCatalogInfoIn :  productInCatalogInfoIn, authTicket : authTicket, dataViewMode: dataViewMode		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
-			/// <summary> 
-		/// Modifies an existing product.
-		/// ProductFactory.UpdateProduct(handler : handler,  productCode :  productCode,  product :  product, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<Product>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+  
+		/// <summary> 
+		/// 
+		/// <example> 
+		///  <code> 
+		//// var result = ProductFactory.UpdateProduct(handler : handler,  productCode :  productCode,  product :  product, authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<Product>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.ProductAdmin.Product UpdateProduct(ServiceClientMessageHandler handler, 
- 		 string productCode, Mozu.Api.Contracts.ProductAdmin.Product product,DataViewMode dataViewMode= DataViewMode.Live, 
+ 		 string productCode, Mozu.Api.Contracts.ProductAdmin.Product product, AuthTicket authTicket= null, DataViewMode dataViewMode= DataViewMode.Live, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Admin.ProductClient.UpdateProductClient(
-				 productCode :  productCode,  product :  product, dataViewMode: dataViewMode		);
+				 productCode :  productCode,  product :  product, authTicket : authTicket, dataViewMode: dataViewMode		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
+  
 		/// <summary> 
 		/// 
-		/// ProductFactory.UpdateProductInCatalogs(handler : handler,  productCode :  productCode,  productInCatalogsIn :  productInCatalogsIn, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<List<ProductInCatalogInfo>>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// <example> 
+		///  <code> 
+		//// var result = ProductFactory.UpdateProductInCatalogs(handler : handler,  productCode :  productCode,  productInCatalogsIn :  productInCatalogsIn, authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<List<ProductInCatalogInfo>>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static List<Mozu.Api.Contracts.ProductAdmin.ProductInCatalogInfo> UpdateProductInCatalogs(ServiceClientMessageHandler handler, 
- 		 string productCode, List<Mozu.Api.Contracts.ProductAdmin.ProductInCatalogInfo> productInCatalogsIn,DataViewMode dataViewMode= DataViewMode.Live, 
+ 		 string productCode, List<Mozu.Api.Contracts.ProductAdmin.ProductInCatalogInfo> productInCatalogsIn, AuthTicket authTicket= null, DataViewMode dataViewMode= DataViewMode.Live, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Admin.ProductClient.UpdateProductInCatalogsClient(
-				 productCode :  productCode,  productInCatalogsIn :  productInCatalogsIn, dataViewMode: dataViewMode		);
+				 productCode :  productCode,  productInCatalogsIn :  productInCatalogsIn, authTicket : authTicket, dataViewMode: dataViewMode		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
+  
 		/// <summary> 
 		/// 
-		/// ProductFactory.UpdateProductInCatalog(handler : handler,  catalogId :  catalogId,  productCode :  productCode,  productInCatalogInfoIn :  productInCatalogInfoIn, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<ProductInCatalogInfo>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// <example> 
+		///  <code> 
+		//// var result = ProductFactory.UpdateProductInCatalog(handler : handler,  catalogId :  catalogId,  productCode :  productCode,  productInCatalogInfoIn :  productInCatalogInfoIn, authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<ProductInCatalogInfo>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.ProductAdmin.ProductInCatalogInfo UpdateProductInCatalog(ServiceClientMessageHandler handler, 
- 		 int catalogId, string productCode, Mozu.Api.Contracts.ProductAdmin.ProductInCatalogInfo productInCatalogInfoIn,DataViewMode dataViewMode= DataViewMode.Live, 
+ 		 int catalogId, string productCode, Mozu.Api.Contracts.ProductAdmin.ProductInCatalogInfo productInCatalogInfoIn, AuthTicket authTicket= null, DataViewMode dataViewMode= DataViewMode.Live, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Admin.ProductClient.UpdateProductInCatalogClient(
-				 catalogId :  catalogId,  productCode :  productCode,  productInCatalogInfoIn :  productInCatalogInfoIn, dataViewMode: dataViewMode		);
+				 catalogId :  catalogId,  productCode :  productCode,  productInCatalogInfoIn :  productInCatalogInfoIn, authTicket : authTicket, dataViewMode: dataViewMode		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
-			/// <summary> 
-		/// Deletes the product specified by its product code.
-		/// ProductFactory.DeleteProduct(handler : handler,  productCode :  productCode,  dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<void>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+  
+		/// <summary> 
+		/// 
+		/// <example> 
+		///  <code> 
+		//// var result = ProductFactory.DeleteProduct(handler : handler,  productCode :  productCode,  authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<void>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static void DeleteProduct(ServiceClientMessageHandler handler, 
- 		string productCode, DataViewMode dataViewMode= DataViewMode.Live, 
+ 		string productCode,  AuthTicket authTicket= null, DataViewMode dataViewMode= DataViewMode.Live, 
 		 int expectedCode = (int)HttpStatusCode.NoContent, int successCode = (int)HttpStatusCode.NoContent)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Admin.ProductClient.DeleteProductClient(
-				 productCode :  productCode, dataViewMode: dataViewMode		);
+				 productCode :  productCode, authTicket : authTicket, dataViewMode: dataViewMode		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			var noResponse = ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
+  
 		/// <summary> 
 		/// 
-		/// ProductFactory.DeleteProductInCatalog(handler : handler,  catalogId :  catalogId,  productCode :  productCode,  dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<void>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// <example> 
+		///  <code> 
+		//// var result = ProductFactory.DeleteProductInCatalog(handler : handler,  catalogId :  catalogId,  productCode :  productCode,  authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<void>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static void DeleteProductInCatalog(ServiceClientMessageHandler handler, 
- 		int catalogId, string productCode, DataViewMode dataViewMode= DataViewMode.Live, 
+ 		int catalogId, string productCode,  AuthTicket authTicket= null, DataViewMode dataViewMode= DataViewMode.Live, 
 		 int expectedCode = (int)HttpStatusCode.NoContent, int successCode = (int)HttpStatusCode.NoContent)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Admin.ProductClient.DeleteProductInCatalogClient(
-				 catalogId :  catalogId,  productCode :  productCode, dataViewMode: dataViewMode		);
+				 catalogId :  catalogId,  productCode :  productCode, authTicket : authTicket, dataViewMode: dataViewMode		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			var noResponse = ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
+  
 
-		
 	}
 
 }

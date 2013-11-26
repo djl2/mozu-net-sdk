@@ -19,7 +19,7 @@ namespace Mozu.Api.Urls.Commerce.Catalog.Admin.Attributedefinition.Producttypes
 		/// <summary>
         /// Get Resource Url for GetOptions
         /// </summary>
-        /// <param name="productTypeId">Identifier of the product type options to retrieve.</param>
+        /// <param name="productTypeId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
@@ -33,8 +33,8 @@ namespace Mozu.Api.Urls.Commerce.Catalog.Admin.Attributedefinition.Producttypes
 		/// <summary>
         /// Get Resource Url for GetOption
         /// </summary>
-        /// <param name="attributeFQN">"The fully qualified name of the attribute, which is a user defined attribute identifier."</param>
-        /// <param name="productTypeId">The identifier of the product option type of the option being retrieved.</param>
+        /// <param name="attributeFQN"></param>
+        /// <param name="productTypeId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
@@ -49,7 +49,7 @@ namespace Mozu.Api.Urls.Commerce.Catalog.Admin.Attributedefinition.Producttypes
 				/// <summary>
         /// Get Resource Url for AddOption
         /// </summary>
-        /// <param name="productTypeId">Identifier of the product type where an attribute which exists as an option is being added.</param>
+        /// <param name="productTypeId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
@@ -63,8 +63,8 @@ namespace Mozu.Api.Urls.Commerce.Catalog.Admin.Attributedefinition.Producttypes
 				/// <summary>
         /// Get Resource Url for UpdateOption
         /// </summary>
-        /// <param name="attributeFQN">"The fully qualified name of the attribute, which is a user defined attribute identifier."</param>
-        /// <param name="productTypeId">Identifier of the product type whose attribute that exists as an option to update.</param>
+        /// <param name="attributeFQN"></param>
+        /// <param name="productTypeId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
@@ -79,8 +79,8 @@ namespace Mozu.Api.Urls.Commerce.Catalog.Admin.Attributedefinition.Producttypes
 				/// <summary>
         /// Get Resource Url for DeleteOption
         /// </summary>
-        /// <param name="attributeFQN">"The fully qualified name of the attribute, which is a user defined attribute identifier."</param>
-        /// <param name="productTypeId">Identifier of the product type option to delete.</param>
+        /// <param name="attributeFQN"></param>
+        /// <param name="productTypeId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>

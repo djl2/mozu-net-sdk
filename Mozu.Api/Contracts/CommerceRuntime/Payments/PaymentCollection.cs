@@ -13,9 +13,6 @@ using System.Collections.Generic;
 
 namespace Mozu.Api.Contracts.CommerceRuntime.Payments
 {
-		///
-		///	Collection of payment transactions associated with an order.
-		///
 		public class PaymentCollection
 		{
 			public long TotalCount { get; set; }

@@ -12,34 +12,16 @@ using System;
 
 namespace Mozu.Api.Contracts.Content
 {
-		///
-		///	The properties of a folder including the name of the parent document list it to which it belongs, its name, unique identifier, the ID of its parent folder, and the physical location path where it can be found in the folder hierarchy.
-		///
 		public class Folder
 		{
-			///
-			///The name of the document list that contains the folder.
-			///
 			public string DocumentListName { get; set; }
 
-			///
-			///Unique identifier of the folder.
-			///
 			public string Id { get; set; }
 
-			///
-			///The name of the folder.
-			///
 			public string Name { get; set; }
 
-			///
-			///If applicable, the parent folder that contains this folder.
-			///
 			public string ParentId { get; set; }
 
-			///
-			///The content path associated with the folder.
-			///
 			public string Path { get; set; }
 
 		}

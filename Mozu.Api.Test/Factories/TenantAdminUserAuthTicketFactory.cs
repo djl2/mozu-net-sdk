@@ -16,103 +16,122 @@ using System.Net;
 using Mozu.Api;
 using Mozu.Api.Security;
 using Mozu.Api.Test.Helpers;
-using Newtonsoft.Json;
 
 #endregion
 
 namespace Mozu.Api.Test.Factories
 {
 	/// <summary>
-	/// Use the Admin user Authtickets resource to generate and refresh authentication tickets for Mozu administrator or developer account users to access tenants or development stores.
+	/// 
 	/// </summary>
 	public partial class TenantAdminUserAuthTicketFactory : BaseDataFactory
 	{
 
 		/// <summary> 
-		/// Creates an authentication ticket for the supplied user to specify in API requests associated with the supplied tenant.
-		/// TenantAdminUserAuthTicketFactory.CreateUserAuthTicket(handler : handler,  userAuthInfo :  userAuthInfo,  expectedCode: expectedCode, successCode: successCode);
+		/// 
+		/// <example> 
+		///  <code> 
+		//// TenantAdminUserAuthTicketFactory.CreateUserAuthTicket(handler : handler,  userAuthInfo :  userAuthInfo,  expectedCode: expectedCode, successCode: successCode);
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.AdminUser.TenantAdminUserAuthTicket CreateUserAuthTicket(ServiceClientMessageHandler handler, 
  		 Mozu.Api.Contracts.Core.UserAuthInfo userAuthInfo, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
-			return CreateUserAuthTicket(handler : handler,  tenantId :  null,  userAuthInfo :  userAuthInfo, 
+			return CreateUserAuthTicket(handler : handler,  tenantId :  null,  userAuthInfo :  userAuthInfo,authTicket : null, 
 				expectedCode: expectedCode, successCode: successCode);
 		}
-
+  
 		/// <summary> 
-		/// Creates an authentication ticket for the supplied user to specify in API requests associated with the supplied tenant.
-		/// TenantAdminUserAuthTicketFactory.CreateUserAuthTicket(handler : handler,  tenantId :  tenantId,  userAuthInfo :  userAuthInfo,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<TenantAdminUserAuthTicket>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// 
+		/// <example> 
+		///  <code> 
+		//// var result = TenantAdminUserAuthTicketFactory.CreateUserAuthTicket(handler : handler,  tenantId :  tenantId,  userAuthInfo :  userAuthInfo, authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<TenantAdminUserAuthTicket>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.AdminUser.TenantAdminUserAuthTicket CreateUserAuthTicket(ServiceClientMessageHandler handler, 
- 		 int? tenantId, Mozu.Api.Contracts.Core.UserAuthInfo userAuthInfo, 
+ 		 int? tenantId, Mozu.Api.Contracts.Core.UserAuthInfo userAuthInfo, AuthTicket authTicket= null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Platform.Adminuser.TenantAdminUserAuthTicketClient.CreateUserAuthTicketClient(
-				 tenantId :  tenantId,  userAuthInfo :  userAuthInfo		);
+				 tenantId :  tenantId,  userAuthInfo :  userAuthInfo, authTicket : authTicket		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
-			/// <summary> 
-		/// Generates a new user authentication ticket for the specified tenant by supplying the user's existing refresh token information.
-		/// TenantAdminUserAuthTicketFactory.RefreshAuthTicket(handler : handler,  existingAuthTicket :  existingAuthTicket,  expectedCode: expectedCode, successCode: successCode);
+  
+		/// <summary> 
+		/// 
+		/// <example> 
+		///  <code> 
+		//// TenantAdminUserAuthTicketFactory.RefreshAuthTicket(handler : handler,  existingAuthTicket :  existingAuthTicket,  expectedCode: expectedCode, successCode: successCode);
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.AdminUser.TenantAdminUserAuthTicket RefreshAuthTicket(ServiceClientMessageHandler handler, 
  		 Mozu.Api.Contracts.AdminUser.TenantAdminUserAuthTicket existingAuthTicket, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
-			return RefreshAuthTicket(handler : handler,  tenantId :  null,  existingAuthTicket :  existingAuthTicket, 
+			return RefreshAuthTicket(handler : handler,  tenantId :  null,  existingAuthTicket :  existingAuthTicket,authTicket : null, 
 				expectedCode: expectedCode, successCode: successCode);
 		}
-
+  
 		/// <summary> 
-		/// Generates a new user authentication ticket for the specified tenant by supplying the user's existing refresh token information.
-		/// TenantAdminUserAuthTicketFactory.RefreshAuthTicket(handler : handler,  tenantId :  tenantId,  existingAuthTicket :  existingAuthTicket,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<TenantAdminUserAuthTicket>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// 
+		/// <example> 
+		///  <code> 
+		//// var result = TenantAdminUserAuthTicketFactory.RefreshAuthTicket(handler : handler,  tenantId :  tenantId,  existingAuthTicket :  existingAuthTicket, authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<TenantAdminUserAuthTicket>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.AdminUser.TenantAdminUserAuthTicket RefreshAuthTicket(ServiceClientMessageHandler handler, 
- 		 int? tenantId, Mozu.Api.Contracts.AdminUser.TenantAdminUserAuthTicket existingAuthTicket, 
+ 		 int? tenantId, Mozu.Api.Contracts.AdminUser.TenantAdminUserAuthTicket existingAuthTicket, AuthTicket authTicket= null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Platform.Adminuser.TenantAdminUserAuthTicketClient.RefreshAuthTicketClient(
-				 tenantId :  tenantId,  existingAuthTicket :  existingAuthTicket		);
+				 tenantId :  tenantId,  existingAuthTicket :  existingAuthTicket, authTicket : authTicket		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
-			/// <summary> 
-		/// Deletes the authentication ticket for the user by supplying the refresh token.
-		/// TenantAdminUserAuthTicketFactory.DeleteUserAuthTicket(handler : handler,  refreshToken :  refreshToken,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<void>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+  
+		/// <summary> 
+		/// 
+		/// <example> 
+		///  <code> 
+		//// var result = TenantAdminUserAuthTicketFactory.DeleteUserAuthTicket(handler : handler,  refreshToken :  refreshToken,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<void>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static void DeleteUserAuthTicket(ServiceClientMessageHandler handler, 
- 		string refreshToken, 
+ 		string refreshToken,  AuthTicket authTicket= null, 
 		 int expectedCode = (int)HttpStatusCode.NoContent, int successCode = (int)HttpStatusCode.NoContent)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Platform.Adminuser.TenantAdminUserAuthTicketClient.DeleteUserAuthTicketClient(
-				 refreshToken :  refreshToken		);
+				 refreshToken :  refreshToken, authTicket : authTicket		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			var noResponse = ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
+  
 
-		
 	}
 
 }

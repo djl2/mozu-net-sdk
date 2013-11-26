@@ -19,8 +19,8 @@ namespace Mozu.Api.Urls.Commerce.Orders
 		/// <summary>
         /// Get Resource Url for GetPackage
         /// </summary>
-        /// <param name="orderId">Unique identifier of the order associated with the package to retrieve.</param>
-        /// <param name="packageId">Unique identifier of the package to retrieve.</param>
+        /// <param name="orderId"></param>
+        /// <param name="packageId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
@@ -51,8 +51,8 @@ namespace Mozu.Api.Urls.Commerce.Orders
 		/// <summary>
         /// Get Resource Url for GetPackageLabel
         /// </summary>
-        /// <param name="orderId">Unique identifier of the order associated with the package label to retrieve.</param>
-        /// <param name="packageId">Unique identifier of the package for which to retrieve the label.</param>
+        /// <param name="orderId"></param>
+        /// <param name="packageId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
@@ -67,7 +67,7 @@ namespace Mozu.Api.Urls.Commerce.Orders
 				/// <summary>
         /// Get Resource Url for CreatePackage
         /// </summary>
-        /// <param name="orderId">Unique identifier of the order associated with this package.</param>
+        /// <param name="orderId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
@@ -81,8 +81,8 @@ namespace Mozu.Api.Urls.Commerce.Orders
 				/// <summary>
         /// Get Resource Url for UpdatePackage
         /// </summary>
-        /// <param name="orderId">Unique identifier of the order associated with the package to update.</param>
-        /// <param name="packageId">Unique identifier of the package of order items to update.</param>
+        /// <param name="orderId"></param>
+        /// <param name="packageId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
@@ -97,8 +97,8 @@ namespace Mozu.Api.Urls.Commerce.Orders
 				/// <summary>
         /// Get Resource Url for DeletePackage
         /// </summary>
-        /// <param name="orderId">Unique identifier of the order associated with the package to delete.</param>
-        /// <param name="packageId">Unique identifier of the package to delete.</param>
+        /// <param name="orderId"></param>
+        /// <param name="packageId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>

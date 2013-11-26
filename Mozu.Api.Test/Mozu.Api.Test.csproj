@@ -182,6 +182,7 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <None Include="SampleTestConfig.config" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

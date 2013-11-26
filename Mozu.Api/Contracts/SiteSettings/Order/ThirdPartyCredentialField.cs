@@ -14,7 +14,7 @@ namespace Mozu.Api.Contracts.SiteSettings.Order
 {
 		public class ThirdPartyCredentialField
 		{
-			public string Apiname { get; set; }
+			public string ApiName { get; set; }
 
 			public string DisplayName { get; set; }
 

@@ -16,12 +16,12 @@ using Mozu.Api.Security;
 namespace Mozu.Api.Clients.Commerce
 {
 	/// <summary>
-	/// Manage order processing, payment, and shipping. Includes getting customer payment details, shipping address and selected shipment method, processing payment transactions, and, once paid, shipping the order to the shopper.
+	/// 
 	/// </summary>
 	public partial class OrderClient 	{
 		
 		/// <summary>
-		/// Retrieves a list of orders according to any specified filter criteria and sort options.
+		/// 
 		/// </summary>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.CommerceRuntime.Orders.OrderCollection"/>}
@@ -38,10 +38,10 @@ namespace Mozu.Api.Clients.Commerce
 		}
 
 		/// <summary>
-		/// Retrieves a list of orders according to any specified filter criteria and sort options.
+		/// 
 		/// </summary>
-		/// <param name="filter">A set of expressions that consist of a field, operator, and value and represent search parameter syntax when filtering results of a query. You can filter an order's search results by any of its properties, including status, contact information, or total. Valid operators include equals (eq), does not equal (ne), greater than (gt), less than (lt), greater than or equal to (ge), less than or equal to (le), starts with (sw), or contains (cont). <b>For example - "filter=Status+eq+Submitted"</b></param>
-		/// <param name="pageSize">Used to create paged results from a query. Specifies the number of results to display on each page. Maximum: 200.</param>
+		/// <param name="filter"></param>
+		/// <param name="pageSize"></param>
 		/// <param name="q"></param>
 		/// <param name="qLimit"></param>
 		/// <param name="sortBy"></param>
@@ -68,9 +68,9 @@ namespace Mozu.Api.Clients.Commerce
 		}
 
 		/// <summary>
-		/// Retrieves available order actions which depends on the status of the order. Actions are "CreateOrder," "SubmitOrder," "SetOrderAsProcessing," "CloseOrder," or "CancelOrder."
+		/// 
 		/// </summary>
-		/// <param name="orderId">Unique identifier of the available order actions to get.</param>
+		/// <param name="orderId"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{List{string}}
@@ -118,9 +118,9 @@ namespace Mozu.Api.Clients.Commerce
 		}
 
 		/// <summary>
-		/// Retrieves the details of an order specified by the order ID.
+		/// 
 		/// </summary>
-		/// <param name="orderId">Unique identifier of the order details to get.</param>
+		/// <param name="orderId"></param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.CommerceRuntime.Orders.Order"/>}
 		/// </returns>
@@ -136,10 +136,10 @@ namespace Mozu.Api.Clients.Commerce
 		}
 
 		/// <summary>
-		/// Retrieves the details of an order specified by the order ID.
+		/// 
 		/// </summary>
-		/// <param name="draft">If true, retrieve the draft version of the order, which might include uncommitted changes to the order or its components.</param>
-		/// <param name="orderId">Unique identifier of the order details to get.</param>
+		/// <param name="draft"></param>
+		/// <param name="orderId"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.CommerceRuntime.Orders.Order"/>}
@@ -162,10 +162,10 @@ namespace Mozu.Api.Clients.Commerce
 		}
 
 				/// <summary>
-		/// Creates a new order for no-cart quick-ordering scenarios.
+		/// 
 		/// </summary>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="order">All properties of the order to place.</param>
+		/// <param name="order"></param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.CommerceRuntime.Orders.Order"/>}
 		/// </returns>
@@ -187,9 +187,9 @@ namespace Mozu.Api.Clients.Commerce
 		}
 
 		/// <summary>
-		/// Creates a new order from an existing cart when the customer chooses to proceed to checkout.
+		/// 
 		/// </summary>
-		/// <param name="cartId">Unique identifier of the cart. This is the original cart ID expressed as a GUID.</param>
+		/// <param name="cartId"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.CommerceRuntime.Orders.Order"/>}
@@ -212,11 +212,11 @@ namespace Mozu.Api.Clients.Commerce
 		}
 
 		/// <summary>
-		/// Perform the specified action for an order. Available actions depend on the current status of the order. When in doubt, first get a list of available order actions.
+		/// 
 		/// </summary>
-		/// <param name="orderId">Unique identifier of the order.</param>
+		/// <param name="orderId"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="action">Action to perform, which can be "CreateOrder," "SubmitOrder," "SetOrderAsProcessing," "CloseOrder," or "CancelOrder."</param>
+		/// <param name="action"></param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.CommerceRuntime.Orders.Order"/>}
 		/// </returns>
@@ -238,11 +238,11 @@ namespace Mozu.Api.Clients.Commerce
 		}
 
 				/// <summary>
-		/// Update the properties of a discount applied to an order.
+		/// 
 		/// </summary>
-		/// <param name="discountId">Unique identifier of the discount. System-supplied and read only.</param>
-		/// <param name="orderId">Unique identifier of the order discount. System-supplied and read only.</param>
-		/// <param name="discount">Properties of the order discount to update.</param>
+		/// <param name="discountId"></param>
+		/// <param name="orderId"></param>
+		/// <param name="discount"></param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.CommerceRuntime.Orders.Order"/>}
 		/// </returns>
@@ -258,14 +258,14 @@ namespace Mozu.Api.Clients.Commerce
 		}
 
 		/// <summary>
-		/// Update the properties of a discount applied to an order.
+		/// 
 		/// </summary>
-		/// <param name="discountId">Unique identifier of the discount. System-supplied and read only.</param>
-		/// <param name="orderId">Unique identifier of the order discount. System-supplied and read only.</param>
-		/// <param name="updateMode">Specifies whether to modify the discount by updating the original order, updating the order in draft mode, or updating the order in draft mode and then committing the changes to the original. Draft mode enables users to make incremental order changes before committing the changes to the original order. Valid values are "ApplyToOriginal", "ApplyToDraft", or "ApplyAndCommit".</param>
+		/// <param name="discountId"></param>
+		/// <param name="orderId"></param>
+		/// <param name="updateMode"></param>
 		/// <param name="version"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="discount">Properties of the order discount to update.</param>
+		/// <param name="discount"></param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.CommerceRuntime.Orders.Order"/>}
 		/// </returns>
@@ -287,9 +287,9 @@ namespace Mozu.Api.Clients.Commerce
 		}
 
 		/// <summary>
-		/// Deletes the current draft version of the order, which also deletes any uncommitted changes made to the order in draft mode.
+		/// 
 		/// </summary>
-		/// <param name="orderId">Unique identifier of the order associated with the draft to delete.</param>
+		/// <param name="orderId"></param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />
 		/// </returns>
@@ -305,10 +305,10 @@ namespace Mozu.Api.Clients.Commerce
 		}
 
 		/// <summary>
-		/// Deletes the current draft version of the order, which also deletes any uncommitted changes made to the order in draft mode.
+		/// 
 		/// </summary>
-		/// <param name="orderId">Unique identifier of the order associated with the draft to delete.</param>
-		/// <param name="version">The version of the order draft to delete.</param>
+		/// <param name="orderId"></param>
+		/// <param name="version"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />
@@ -356,10 +356,10 @@ namespace Mozu.Api.Clients.Commerce
 		}
 
 		/// <summary>
-		/// Updates the specified order when additional order information, such as shipping or billing information, is modified during the checkout process.
+		/// 
 		/// </summary>
-		/// <param name="orderId">Unique identifier of the order to update.</param>
-		/// <param name="order">The properties of the order to update.</param>
+		/// <param name="orderId"></param>
+		/// <param name="order"></param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.CommerceRuntime.Orders.Order"/>}
 		/// </returns>
@@ -375,13 +375,13 @@ namespace Mozu.Api.Clients.Commerce
 		}
 
 		/// <summary>
-		/// Updates the specified order when additional order information, such as shipping or billing information, is modified during the checkout process.
+		/// 
 		/// </summary>
-		/// <param name="orderId">Unique identifier of the order to update.</param>
-		/// <param name="updateMode">Specifies whether to update the original order, update the order in draft mode, or update the order in draft mode and then commit the changes to the original. Draft mode enables users to make incremental order changes before committing the changes to the original order. Valid values are "ApplyToOriginal", "ApplyToDraft", or "ApplyAndCommit".</param>
+		/// <param name="orderId"></param>
+		/// <param name="updateMode"></param>
 		/// <param name="version"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="order">The properties of the order to update.</param>
+		/// <param name="order"></param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.CommerceRuntime.Orders.Order"/>}
 		/// </returns>

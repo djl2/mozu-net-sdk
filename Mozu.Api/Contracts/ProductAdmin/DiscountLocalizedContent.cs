@@ -13,24 +13,12 @@ using Mozu.Api.Contracts.Core;
 
 namespace Mozu.Api.Contracts.ProductAdmin
 {
-		///
-		///	The container for the language-specific name of the discount. A container exists for each supported language (LocaleCode). This parameter enables you to display the discount name in multiple languages yet manage it as a single discount internally.
-		///
 		public class DiscountLocalizedContent
 		{
-			///
-			///"Language used for the entity. Currently, only ""en-US"" is supported."
-			///
 			public string LocaleCode { get; set; }
 
-			///
-			///Name of the localized content.
-			///
 			public string Name { get; set; }
 
-			///
-			///Identifier and datetime stamp information recorded when creating or updating a resource entity. System-supplied and read-only.
-			///
 			public AuditInfo AuditInfo { get; set; }
 
 		}

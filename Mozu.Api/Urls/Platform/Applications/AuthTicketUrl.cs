@@ -43,7 +43,7 @@ namespace Mozu.Api.Urls.Platform.Applications
 				/// <summary>
         /// Get Resource Url for DeleteAppAuthTicket
         /// </summary>
-        /// <param name="refreshToken">The refresh token string from the application's authentication ticket.</param>
+        /// <param name="refreshToken"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>

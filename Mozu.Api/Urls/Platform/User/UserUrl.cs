@@ -19,7 +19,7 @@ namespace Mozu.Api.Urls.Platform.User
 		/// <summary>
         /// Get Resource Url for GetUserByEmail
         /// </summary>
-        /// <param name="emailAddress">The email address of the specified user.</param>
+        /// <param name="emailAddress"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
@@ -33,7 +33,7 @@ namespace Mozu.Api.Urls.Platform.User
 		/// <summary>
         /// Get Resource Url for GetUser
         /// </summary>
-        /// <param name="userId">Unique identifier of the user.</param>
+        /// <param name="userId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>

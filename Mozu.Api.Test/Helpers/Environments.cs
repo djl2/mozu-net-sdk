@@ -4,9 +4,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-
 using System.Configuration;
-using System.Diagnostics;
 using System.IO;
 
 namespace Mozu.Api.Test.Helpers

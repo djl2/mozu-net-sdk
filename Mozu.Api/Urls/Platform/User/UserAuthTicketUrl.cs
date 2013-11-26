@@ -43,7 +43,7 @@ namespace Mozu.Api.Urls.Platform.User
 				/// <summary>
         /// Get Resource Url for RefreshUserAuthTicket
         /// </summary>
-        /// <param name="refreshToken">The refresh token generated in the user authentication ticket.</param>
+        /// <param name="refreshToken"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>

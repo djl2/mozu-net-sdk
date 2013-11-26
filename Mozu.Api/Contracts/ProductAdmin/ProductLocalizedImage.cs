@@ -12,48 +12,24 @@ using System;
 
 namespace Mozu.Api.Contracts.ProductAdmin
 {
-		///
-		///	The localized product image in the language specified by the LocaleCode.
-		///
 		public class ProductLocalizedImage
 		{
-			///
-			///Descriptive text associated with the image or video that appears on the storefront.
-			///
 			public string AltText { get; set; }
 
-			///
-			///Identifier of the localized product image.
-			///
 			public int? Id { get; set; }
 
-			///
-			///Image title that appears on the storefront set to the language specified by the site's LocaleCode.
-			///
 			public string ImageLabel { get; set; }
 
-			///
-			///Directory path where the physical product image is stored.
-			///
 			public string ImagePath { get; set; }
 
-			///
-			///URL of the image.
-			///
 			public string ImageUrl { get; set; }
 
-			///
-			///"Language used for the entity. Currently, only ""en-US"" is supported."
-			///
 			public string LocaleCode { get; set; }
 
 			public string MediaType { get; set; }
 
 			public int? Sequence { get; set; }
 
-			///
-			///The physical link or URL of the product video. The physical path name is set in the language specified by the LocaleCode.
-			///
 			public string VideoUrl { get; set; }
 
 		}

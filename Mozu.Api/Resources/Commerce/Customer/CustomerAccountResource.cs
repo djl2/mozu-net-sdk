@@ -16,7 +16,7 @@ using Mozu.Api.Security;
 namespace Mozu.Api.Resources.Commerce.Customer
 {
 	/// <summary>
-	/// Create, view, update, and delete a contact in a customer account. A customer account may have multiple contacts for billing or shipping addresses. Each contact may also list any groups to which the contact belongs and whether the contact accepts marketing material such as newsletters or email offers.
+	/// 
 	/// </summary>
 	public partial class CustomerAccountResource  	{
 				///
@@ -30,7 +30,7 @@ namespace Mozu.Api.Resources.Commerce.Customer
 
 		
 		/// <summary>
-		/// Retrieves a list of customer accounts.
+		/// 
 		/// </summary>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.Customer.CustomerAccountCollection"/>
@@ -47,10 +47,10 @@ namespace Mozu.Api.Resources.Commerce.Customer
 		}
 
 		/// <summary>
-		/// Retrieves a list of customer accounts.
+		/// 
 		/// </summary>
-		/// <param name="fields">The fields to include in the response.</param>
-		/// <param name="filter">"A set of expressions that consist of a field, operator, and value and represent search parameter syntax when filtering results of a query. Valid operators include equals (eq), does not equal (ne), greater than (gt), less than (lt), greater than or equal to (ge), less than or equal to (le), starts with (sw), or contains (cont). For example - ""filter=IsDisplayed+eq+true"""</param>
+		/// <param name="fields"></param>
+		/// <param name="filter"></param>
 		/// <param name="pageSize"></param>
 		/// <param name="q"></param>
 		/// <param name="qLimit"></param>
@@ -77,9 +77,9 @@ namespace Mozu.Api.Resources.Commerce.Customer
 		}
 
 		/// <summary>
-		/// Retrieve details of a customer account.
+		/// 
 		/// </summary>
-		/// <param name="accountId">Unique identifier of the customer account to retrieve.</param>
+		/// <param name="accountId"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.Customer.CustomerAccount"/>
@@ -172,7 +172,7 @@ namespace Mozu.Api.Resources.Commerce.Customer
 		}
 
 				/// <summary>
-		/// Creates a new customer account.
+		/// 
 		/// </summary>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <param name="account"></param>
@@ -220,10 +220,33 @@ namespace Mozu.Api.Resources.Commerce.Customer
 
 		}
 
-				/// <summary>
-		/// Updates a customer account.
+		/// <summary>
+		/// 
 		/// </summary>
-		/// <param name="accountId">Unique identifier of the customer account.</param>
+		/// <param name="accountId"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
+		/// <returns>
+		/// 
+		/// </returns>
+		/// <example>
+		/// <code>
+		///   var customeraccount = new CustomerAccount();
+		///   customeraccount.RecomputeCustomerLifetimeValue( accountId, authTicket);
+		/// </code>
+		/// </example>
+		public virtual void RecomputeCustomerLifetimeValue(int accountId, AuthTicket authTicket= null)
+		{
+			MozuClient response;
+			var client = Mozu.Api.Clients.Commerce.Customer.CustomerAccountClient.RecomputeCustomerLifetimeValueClient( accountId, authTicket);
+			client.WithContext(_apiContext);
+			response= client.Execute();
+
+		}
+
+				/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="accountId"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <param name="account"></param>
 		/// <returns>
@@ -246,9 +269,9 @@ namespace Mozu.Api.Resources.Commerce.Customer
 		}
 
 				/// <summary>
-		/// Deletes a customer account. A customer account cannot be deleted if any orders exist, past or present.
+		/// 
 		/// </summary>
-		/// <param name="accountId">Unique identifier of the customer account to delete.</param>
+		/// <param name="accountId"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// 

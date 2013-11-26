@@ -13,19 +13,10 @@ using System.Collections.Generic;
 
 namespace Mozu.Api.Contracts.Reference
 {
-		///
-		///	The paged collection of content locale codes that the system supports.
-		///
 		public class ContentLocaleCollection
 		{
-			///
-			///The number of the resource entity items listed in the query collection. Signed 64-bit (8-byte) integer. System-supplied and read-only.
-			///
 			public long TotalCount { get; set; }
 
-			///
-			///An array list of objects in the returned collection.
-			///
 			public List<ContentLocale> Items { get; set; }
 
 		}

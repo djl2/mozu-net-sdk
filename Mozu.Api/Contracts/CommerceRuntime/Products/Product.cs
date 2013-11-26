@@ -14,79 +14,34 @@ using Mozu.Api.Contracts.CommerceRuntime.Commerce;
 
 namespace Mozu.Api.Contracts.CommerceRuntime.Products
 {
-		///
-		///	Properties of a product set up in admin and added as an item in a cart or order.
-		///
 		public class Product
 		{
-			///
-			///Short description of the product in the language specified in the locale code for the storefront.
-			///
 			public string Description { get; set; }
 
-			///
-			///The alternate image description defined for the product, in the language specified in the locale code for the storefront.
-			///
 			public string ImageAlternateText { get; set; }
 
-			///
-			///The URL of the image file associated with a product on a storefront.
-			///
 			public string ImagePath { get; set; }
 
-			///
-			///If true, the product can be purchased or fulfilled at regular intervals such as a monthly billing cycle or a digital or physical subscription.
-			///
 			public bool? IsRecurring { get; set; }
 
-			///
-			///If true, the entity is subject to sales tax based on the relevant tax rate.
-			///
 			public bool? IsTaxable { get; set; }
 
-			///
-			///The name of the product that appears on the storefront.
-			///
 			public string Name { get; set; }
 
-			///
-			///"Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only."
-			///
 			public string ProductCode { get; set; }
 
-			///
-			///The product type template associated with the product on the storefront.
-			///
 			public string ProductType { get; set; }
 
-			///
-			///If true, the product cannot be shipped in combination with other products.
-			///
 			public bool? ShipsByItself { get; set; }
 
-			///
-			///Merchant-created code associated with a specific product variation. Variation product codes maintain an association with the base product code.
-			///
 			public string VariationProductCode { get; set; }
 
-			///
-			///The list of all categories associated with the product.
-			///
 			public List<Category> Categories { get; set; }
 
-			///
-			///Dimensions of the packaged product.
-			///
 			public PackageMeasurements Measurements { get; set; }
 
-			///
-			///The list of option attributes configured for the product.
-			///
 			public List<ProductOption> Options { get; set; }
 
-			///
-			///The price of the product that appears on the storefront including any applied discounts.
-			///
 			public ProductPrice Price { get; set; }
 
 			public List<ProductProperty> Properties { get; set; }

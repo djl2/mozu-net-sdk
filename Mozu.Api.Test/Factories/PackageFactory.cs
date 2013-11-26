@@ -16,139 +16,162 @@ using System.Net;
 using Mozu.Api;
 using Mozu.Api.Security;
 using Mozu.Api.Test.Helpers;
-using Newtonsoft.Json;
 
 #endregion
 
 namespace Mozu.Api.Test.Factories
 {
 	/// <summary>
-	/// Use the packages subresource to manage the physical packages to ship for an order.
+	/// 
 	/// </summary>
 	public partial class PackageFactory : BaseDataFactory
 	{
 
-	/// <summary> 
-		/// Retrieves the details of a package of order items.
-		/// PackageFactory.GetPackage(handler : handler,  orderId :  orderId,  packageId :  packageId,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<Package>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// <summary> 
+		/// 
+		/// <example> 
+		///  <code> 
+		//// var result = PackageFactory.GetPackage(handler : handler,  orderId :  orderId,  packageId :  packageId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<Package>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.CommerceRuntime.Fulfillment.Package GetPackage(ServiceClientMessageHandler handler, 
- 		 string orderId, string packageId, 
+ 		 string orderId, string packageId,  AuthTicket authTicket= null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Orders.PackageClient.GetPackageClient(
-				 orderId :  orderId,  packageId :  packageId		);
+				 orderId :  orderId,  packageId :  packageId, authTicket : authTicket		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
+  
 		/// <summary> 
 		/// 
-		/// PackageFactory.GetAvailablePackageFulfillmentActions(handler : handler,  orderId :  orderId,  packageId :  packageId,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<List<string>>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// <example> 
+		///  <code> 
+		//// var result = PackageFactory.GetAvailablePackageFulfillmentActions(handler : handler,  orderId :  orderId,  packageId :  packageId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<List<string>>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static List<string> GetAvailablePackageFulfillmentActions(ServiceClientMessageHandler handler, 
- 		 string orderId, string packageId, 
+ 		 string orderId, string packageId,  AuthTicket authTicket= null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Orders.PackageClient.GetAvailablePackageFulfillmentActionsClient(
-				 orderId :  orderId,  packageId :  packageId		);
+				 orderId :  orderId,  packageId :  packageId, authTicket : authTicket		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
+  
 		/// <summary> 
-		/// Retrieves the package label image supplied by the carrier.
-		/// PackageFactory.GetPackageLabel(handler : handler,  orderId :  orderId,  packageId :  packageId,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<void>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// 
+		/// <example> 
+		///  <code> 
+		//// var result = PackageFactory.GetPackageLabel(handler : handler,  orderId :  orderId,  packageId :  packageId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<void>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static void GetPackageLabel(ServiceClientMessageHandler handler, 
- 		string orderId, string packageId, 
+ 		string orderId, string packageId,  AuthTicket authTicket= null, 
 		 int expectedCode = (int)HttpStatusCode.NoContent, int successCode = (int)HttpStatusCode.NoContent)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Orders.PackageClient.GetPackageLabelClient(
-				 orderId :  orderId,  packageId :  packageId		);
+				 orderId :  orderId,  packageId :  packageId, authTicket : authTicket		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			var noResponse = ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
-			/// <summary> 
-		/// Creates a new physical package of order items.
-		/// PackageFactory.CreatePackage(handler : handler,  orderId :  orderId,  pkg :  pkg,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<Package>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+  
+		/// <summary> 
+		/// 
+		/// <example> 
+		///  <code> 
+		//// var result = PackageFactory.CreatePackage(handler : handler,  orderId :  orderId,  pkg :  pkg, authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<Package>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.CommerceRuntime.Fulfillment.Package CreatePackage(ServiceClientMessageHandler handler, 
- 		 string orderId, Mozu.Api.Contracts.CommerceRuntime.Fulfillment.Package pkg, 
+ 		 string orderId, Mozu.Api.Contracts.CommerceRuntime.Fulfillment.Package pkg, AuthTicket authTicket= null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Orders.PackageClient.CreatePackageClient(
-				 orderId :  orderId,  pkg :  pkg		);
+				 orderId :  orderId,  pkg :  pkg, authTicket : authTicket		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
-			/// <summary> 
-		/// Updates one or more properties of a physical package of order items.
-		/// PackageFactory.UpdatePackage(handler : handler,  orderId :  orderId,  packageId :  packageId,  pkg :  pkg,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<Package>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+  
+		/// <summary> 
+		/// 
+		/// <example> 
+		///  <code> 
+		//// var result = PackageFactory.UpdatePackage(handler : handler,  orderId :  orderId,  packageId :  packageId,  pkg :  pkg, authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<Package>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.CommerceRuntime.Fulfillment.Package UpdatePackage(ServiceClientMessageHandler handler, 
- 		 string orderId, string packageId, Mozu.Api.Contracts.CommerceRuntime.Fulfillment.Package pkg, 
+ 		 string orderId, string packageId, Mozu.Api.Contracts.CommerceRuntime.Fulfillment.Package pkg, AuthTicket authTicket= null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Orders.PackageClient.UpdatePackageClient(
-				 orderId :  orderId,  packageId :  packageId,  pkg :  pkg		);
+				 orderId :  orderId,  packageId :  packageId,  pkg :  pkg, authTicket : authTicket		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
-			/// <summary> 
-		/// Removes a physical package of items from the specified order.
-		/// PackageFactory.DeletePackage(handler : handler,  orderId :  orderId,  packageId :  packageId,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<void>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+  
+		/// <summary> 
+		/// 
+		/// <example> 
+		///  <code> 
+		//// var result = PackageFactory.DeletePackage(handler : handler,  orderId :  orderId,  packageId :  packageId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<void>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static void DeletePackage(ServiceClientMessageHandler handler, 
- 		string orderId, string packageId, 
+ 		string orderId, string packageId,  AuthTicket authTicket= null, 
 		 int expectedCode = (int)HttpStatusCode.NoContent, int successCode = (int)HttpStatusCode.NoContent)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Orders.PackageClient.DeletePackageClient(
-				 orderId :  orderId,  packageId :  packageId		);
+				 orderId :  orderId,  packageId :  packageId, authTicket : authTicket		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			var noResponse = ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
+  
 
-		
 	}
 
 }

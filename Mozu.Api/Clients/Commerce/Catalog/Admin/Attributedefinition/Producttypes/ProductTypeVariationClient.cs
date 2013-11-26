@@ -16,16 +16,16 @@ using Mozu.Api.Security;
 namespace Mozu.Api.Clients.Commerce.Catalog.Admin.Attributedefinition.Producttypes
 {
 	/// <summary>
-	/// Use the variations resource to manage product variations for a specific product type based on the attributes defined for the product type, such as size or color.
+	/// 
 	/// </summary>
 	public partial class ProductTypeVariationClient 	{
 		
 				/// <summary>
-		/// Creates the combinations of variations available for this product type.
+		/// 
 		/// </summary>
-		/// <param name="productTypeId">Unique identifier of the product type.</param>
+		/// <param name="productTypeId"></param>
 		/// <param name="dataViewMode">{<see cref="Mozu.Api.DataViewMode"/>}</param>
-		/// <param name="productOptionsIn">The product options configured for this product type.</param>
+		/// <param name="productOptionsIn"></param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.ProductAdmin.ProductVariationPagedCollection"/>}
 		/// </returns>
@@ -41,17 +41,17 @@ namespace Mozu.Api.Clients.Commerce.Catalog.Admin.Attributedefinition.Producttyp
 		}
 
 		/// <summary>
-		/// Creates the combinations of variations available for this product type.
+		/// 
 		/// </summary>
-		/// <param name="filter">"A set of expressions that consist of a field, operator, and value and represent search parameter syntax when filtering results of a query. Valid operators include equals (eq), does not equal (ne), greater than (gt), less than (lt), greater than or equal to (ge), less than or equal to (le), starts with (sw), or contains (cont). For example - ""filter=IsDisplayed+eq+true"""</param>
-		/// <param name="pageSize">Used to create paged results from a query. Specifies the number of results to display on each page. Maximum: 200.</param>
+		/// <param name="filter"></param>
+		/// <param name="pageSize"></param>
 		/// <param name="productCode"></param>
-		/// <param name="productTypeId">Unique identifier of the product type.</param>
-		/// <param name="sortBy">"The property by which to sort results and whether the results appear in ascending (a-z) order, represented by 'ASC' or in descending (z-a) order, represented by 'DESC'. The sortBy parameter follows an available property. <b>For example: sortBy=productCode+asc</b>"</param>
-		/// <param name="startIndex">"Used to create paged results from a query. Indicates the zero-based offset in the complete result set where the returned entities begin. For example, with a PageSize of 25, to get the 51st through the 75th items, use startIndex=3."</param>
+		/// <param name="productTypeId"></param>
+		/// <param name="sortBy"></param>
+		/// <param name="startIndex"></param>
 		/// <param name="dataViewMode">{<see cref="Mozu.Api.DataViewMode"/>}</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="productOptionsIn">The product options configured for this product type.</param>
+		/// <param name="productOptionsIn"></param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.ProductAdmin.ProductVariationPagedCollection"/>}
 		/// </returns>

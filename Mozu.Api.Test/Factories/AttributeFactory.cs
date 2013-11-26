@@ -16,131 +16,154 @@ using System.Net;
 using Mozu.Api;
 using Mozu.Api.Security;
 using Mozu.Api.Test.Helpers;
-using Newtonsoft.Json;
 
 #endregion
 
 namespace Mozu.Api.Test.Factories
 {
 	/// <summary>
-	/// Attributes allow a merchant to define a product base type by extending product details. Define details, such as specifications, to describe products. Create attributes to share across several or all products in a store or stores such as price, size, weight, color, and brand. Some attributes will apply to a specific type of product or a single product, for example, screen resolution or storage capacity. Create attributes separately from products to share common attributes across products. <br></br> Attributes are options, extras, and properties. Options are a a grouping of option values. Products with options do not produce child products with unique SKU's. Options themselves are not tied to inventory. However, they are tied to a product and are only available in the cart when a product is being added, updated, or removed. Examples: color or size. <br></br> Option values are the choices available in an option group. Examples: red, blue, green or small, medium, large. <br></br> Extras are product details to add on to the product itself. Examples: Upgrades, monogram. Properties are Examples: Brand name or UPC Code.
+	/// 
 	/// </summary>
 	public partial class AttributeFactory : BaseDataFactory
 	{
 
-	/// <summary> 
-		/// Retrieves a paged list of attributes according to any specified filter criteria and sort options.
-		/// AttributeFactory.GetAttributes(handler : handler,  dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode);
+		/// <summary> 
+		/// 
+		/// <example> 
+		///  <code> 
+		//// AttributeFactory.GetAttributes(handler : handler,  dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode);
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.ProductAdmin.AttributeCollection GetAttributes(ServiceClientMessageHandler handler, 
- 		 DataViewMode dataViewMode= DataViewMode.Live, 
+ 		  DataViewMode dataViewMode= DataViewMode.Live, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
-			return GetAttributes(handler : handler,  filter :  null,  pageSize :  null,  sortBy :  null,  startIndex :  null, dataViewMode: dataViewMode, 
+			return GetAttributes(handler : handler,  filter :  null,  pageSize :  null,  sortBy :  null,  startIndex :  null,authTicket : null, dataViewMode: dataViewMode, 
 				expectedCode: expectedCode, successCode: successCode);
 		}
-
+  
 		/// <summary> 
-		/// Retrieves a paged list of attributes according to any specified filter criteria and sort options.
-		/// AttributeFactory.GetAttributes(handler : handler,  filter :  filter,  pageSize :  pageSize,  sortBy :  sortBy,  startIndex :  startIndex,  dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<AttributeCollection>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// 
+		/// <example> 
+		///  <code> 
+		//// var result = AttributeFactory.GetAttributes(handler : handler,  filter :  filter,  pageSize :  pageSize,  sortBy :  sortBy,  startIndex :  startIndex,  authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<AttributeCollection>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.ProductAdmin.AttributeCollection GetAttributes(ServiceClientMessageHandler handler, 
- 		 string filter, int? pageSize, string sortBy, int? startIndex, DataViewMode dataViewMode= DataViewMode.Live, 
+ 		 string filter, int? pageSize, string sortBy, int? startIndex,  AuthTicket authTicket= null, DataViewMode dataViewMode= DataViewMode.Live, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Admin.Attributedefinition.AttributeClient.GetAttributesClient(
-				 filter :  filter,  pageSize :  pageSize,  sortBy :  sortBy,  startIndex :  startIndex, dataViewMode: dataViewMode		);
+				 filter :  filter,  pageSize :  pageSize,  sortBy :  sortBy,  startIndex :  startIndex, authTicket : authTicket, dataViewMode: dataViewMode		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
+  
 		/// <summary> 
-		/// Retrieves summary details of a single attribute, such as whether it's required, has multiple values, or is entered by the shopper. Another operation retrieves the attribute's list of attribute values.
-		/// AttributeFactory.GetAttribute(handler : handler,  attributeFQN :  attributeFQN,  dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<Attribute>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// 
+		/// <example> 
+		///  <code> 
+		//// var result = AttributeFactory.GetAttribute(handler : handler,  attributeFQN :  attributeFQN,  authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<Attribute>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.ProductAdmin.Attribute GetAttribute(ServiceClientMessageHandler handler, 
- 		 string attributeFQN, DataViewMode dataViewMode= DataViewMode.Live, 
+ 		 string attributeFQN,  AuthTicket authTicket= null, DataViewMode dataViewMode= DataViewMode.Live, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Admin.Attributedefinition.AttributeClient.GetAttributeClient(
-				 attributeFQN :  attributeFQN, dataViewMode: dataViewMode		);
+				 attributeFQN :  attributeFQN, authTicket : authTicket, dataViewMode: dataViewMode		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
-			/// <summary> 
-		/// Creates a new attribute to describe one aspect of a product such as color or size. Specify several properties when creating the attribute. Include its display name, whether it represents a product option that a shopper selects when purchasing it, or whether the shopper supplies the value (if required to do so), such as engraved initials. Include how attribute values should appear on the storefront such as via radio buttons or text boxes.
-		/// AttributeFactory.AddAttribute(handler : handler,  attribute :  attribute, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<Attribute>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+  
+		/// <summary> 
+		/// 
+		/// <example> 
+		///  <code> 
+		//// var result = AttributeFactory.AddAttribute(handler : handler,  attribute :  attribute, authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<Attribute>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.ProductAdmin.Attribute AddAttribute(ServiceClientMessageHandler handler, 
- 		 Mozu.Api.Contracts.ProductAdmin.Attribute attribute,DataViewMode dataViewMode= DataViewMode.Live, 
+ 		 Mozu.Api.Contracts.ProductAdmin.Attribute attribute, AuthTicket authTicket= null, DataViewMode dataViewMode= DataViewMode.Live, 
 		 int expectedCode = (int)HttpStatusCode.Created, int successCode = (int)HttpStatusCode.Created)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Admin.Attributedefinition.AttributeClient.AddAttributeClient(
-				 attribute :  attribute, dataViewMode: dataViewMode		);
+				 attribute :  attribute, authTicket : authTicket, dataViewMode: dataViewMode		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
-			/// <summary> 
-		/// Updates an existing attribute with attribute properties to set.
-		/// AttributeFactory.UpdateAttribute(handler : handler,  attributeFQN :  attributeFQN,  attribute :  attribute, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<Attribute>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+  
+		/// <summary> 
+		/// 
+		/// <example> 
+		///  <code> 
+		//// var result = AttributeFactory.UpdateAttribute(handler : handler,  attributeFQN :  attributeFQN,  attribute :  attribute, authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<Attribute>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.ProductAdmin.Attribute UpdateAttribute(ServiceClientMessageHandler handler, 
- 		 string attributeFQN, Mozu.Api.Contracts.ProductAdmin.Attribute attribute,DataViewMode dataViewMode= DataViewMode.Live, 
+ 		 string attributeFQN, Mozu.Api.Contracts.ProductAdmin.Attribute attribute, AuthTicket authTicket= null, DataViewMode dataViewMode= DataViewMode.Live, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Admin.Attributedefinition.AttributeClient.UpdateAttributeClient(
-				 attributeFQN :  attributeFQN,  attribute :  attribute, dataViewMode: dataViewMode		);
+				 attributeFQN :  attributeFQN,  attribute :  attribute, authTicket : authTicket, dataViewMode: dataViewMode		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
-			/// <summary> 
-		/// Deletes an existing attribute.
-		/// AttributeFactory.DeleteAttribute(handler : handler,  attributeFQN :  attributeFQN,  dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<void>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+  
+		/// <summary> 
+		/// 
+		/// <example> 
+		///  <code> 
+		//// var result = AttributeFactory.DeleteAttribute(handler : handler,  attributeFQN :  attributeFQN,  authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<void>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static void DeleteAttribute(ServiceClientMessageHandler handler, 
- 		string attributeFQN, DataViewMode dataViewMode= DataViewMode.Live, 
+ 		string attributeFQN,  AuthTicket authTicket= null, DataViewMode dataViewMode= DataViewMode.Live, 
 		 int expectedCode = (int)HttpStatusCode.NoContent, int successCode = (int)HttpStatusCode.NoContent)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Admin.Attributedefinition.AttributeClient.DeleteAttributeClient(
-				 attributeFQN :  attributeFQN, dataViewMode: dataViewMode		);
+				 attributeFQN :  attributeFQN, authTicket : authTicket, dataViewMode: dataViewMode		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			var noResponse = ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
+  
 
-		
 	}
 
 }

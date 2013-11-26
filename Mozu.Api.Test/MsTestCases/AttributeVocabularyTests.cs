@@ -10,10 +10,7 @@ namespace Mozu.Api.Test.MsTestCases
     public class AttributeVocabularyTests : MozuApiTestBase
     {
 
-                #region NonTestCaseCode
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ProductTests"/> class.
-        /// </summary>
+        #region NonTestCaseCode
         public AttributeVocabularyTests()
         {
 

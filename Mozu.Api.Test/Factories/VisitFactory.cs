@@ -16,7 +16,6 @@ using System.Net;
 using Mozu.Api;
 using Mozu.Api.Security;
 using Mozu.Api.Test.Helpers;
-using Newtonsoft.Json;
 
 #endregion
 
@@ -28,99 +27,119 @@ namespace Mozu.Api.Test.Factories
 	public partial class VisitFactory : BaseDataFactory
 	{
 
-	/// <summary> 
+		/// <summary> 
 		/// 
-		/// VisitFactory.GetVisits(handler : handler,  expectedCode: expectedCode, successCode: successCode);
+		/// <example> 
+		///  <code> 
+		//// VisitFactory.GetVisits(handler : handler,  expectedCode: expectedCode, successCode: successCode);
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.Customer.VisitCollection GetVisits(ServiceClientMessageHandler handler, 
  		 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
-			return GetVisits(handler : handler,  filter :  null,  pageSize :  null,  sortBy :  null,  startIndex :  null, 
+			return GetVisits(handler : handler,  filter :  null,  pageSize :  null,  sortBy :  null,  startIndex :  null,authTicket : null, 
 				expectedCode: expectedCode, successCode: successCode);
 		}
-
+  
 		/// <summary> 
 		/// 
-		/// VisitFactory.GetVisits(handler : handler,  filter :  filter,  pageSize :  pageSize,  sortBy :  sortBy,  startIndex :  startIndex,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<VisitCollection>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// <example> 
+		///  <code> 
+		//// var result = VisitFactory.GetVisits(handler : handler,  filter :  filter,  pageSize :  pageSize,  sortBy :  sortBy,  startIndex :  startIndex,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<VisitCollection>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.Customer.VisitCollection GetVisits(ServiceClientMessageHandler handler, 
- 		 string filter, int? pageSize, string sortBy, int? startIndex, 
+ 		 string filter, int? pageSize, string sortBy, int? startIndex,  AuthTicket authTicket= null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Customer.VisitClient.GetVisitsClient(
-				 filter :  filter,  pageSize :  pageSize,  sortBy :  sortBy,  startIndex :  startIndex		);
+				 filter :  filter,  pageSize :  pageSize,  sortBy :  sortBy,  startIndex :  startIndex, authTicket : authTicket		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
+  
 		/// <summary> 
 		/// 
-		/// VisitFactory.GetVisit(handler : handler,  visitId :  visitId,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<Visit>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// <example> 
+		///  <code> 
+		//// var result = VisitFactory.GetVisit(handler : handler,  visitId :  visitId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<Visit>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.Customer.Visit GetVisit(ServiceClientMessageHandler handler, 
- 		 string visitId, 
+ 		 string visitId,  AuthTicket authTicket= null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Customer.VisitClient.GetVisitClient(
-				 visitId :  visitId		);
+				 visitId :  visitId, authTicket : authTicket		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
-			/// <summary> 
+  
+		/// <summary> 
 		/// 
-		/// VisitFactory.AddVisit(handler : handler,  visit :  visit,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<Visit>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// <example> 
+		///  <code> 
+		//// var result = VisitFactory.AddVisit(handler : handler,  visit :  visit, authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<Visit>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.Customer.Visit AddVisit(ServiceClientMessageHandler handler, 
- 		 Mozu.Api.Contracts.Customer.Visit visit, 
+ 		 Mozu.Api.Contracts.Customer.Visit visit, AuthTicket authTicket= null, 
 		 int expectedCode = (int)HttpStatusCode.Created, int successCode = (int)HttpStatusCode.Created)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Customer.VisitClient.AddVisitClient(
-				 visit :  visit		);
+				 visit :  visit, authTicket : authTicket		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
-			/// <summary> 
+  
+		/// <summary> 
 		/// 
-		/// VisitFactory.UpdateVisit(handler : handler,  visitId :  visitId,  visit :  visit,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<Visit>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// <example> 
+		///  <code> 
+		//// var result = VisitFactory.UpdateVisit(handler : handler,  visitId :  visitId,  visit :  visit, authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<Visit>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.Customer.Visit UpdateVisit(ServiceClientMessageHandler handler, 
- 		 string visitId, Mozu.Api.Contracts.Customer.Visit visit, 
+ 		 string visitId, Mozu.Api.Contracts.Customer.Visit visit, AuthTicket authTicket= null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Customer.VisitClient.UpdateVisitClient(
-				 visitId :  visitId,  visit :  visit		);
+				 visitId :  visitId,  visit :  visit, authTicket : authTicket		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
+  
 
-			
 	}
 
 }

@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// ***********************************************************************
+// <copyright file="BaseDataFactory.cs" company="Volusion">
+//     Copyright (c) Volusion. All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using System;
 using Mozu.Api.Contracts.AppDev;
 using Mozu.Api.Security;
-using System.Configuration;
-using Mozu.Api.Test.Helpers;
 using Newtonsoft.Json;
 
 namespace Mozu.Api.Test.Helpers

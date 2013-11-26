@@ -16,99 +16,114 @@ using System.Net;
 using Mozu.Api;
 using Mozu.Api.Security;
 using Mozu.Api.Test.Helpers;
-using Newtonsoft.Json;
 
 #endregion
 
 namespace Mozu.Api.Test.Factories
 {
 	/// <summary>
-	/// Use the shipments resource to manage shipments of collections of packages for an order.
+	/// 
 	/// </summary>
 	public partial class ShipmentFactory : BaseDataFactory
 	{
 
-	/// <summary> 
+		/// <summary> 
 		/// 
-		/// ShipmentFactory.GetShipment(handler : handler,  orderId :  orderId,  shipmentId :  shipmentId,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<Shipment>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// <example> 
+		///  <code> 
+		//// var result = ShipmentFactory.GetShipment(handler : handler,  orderId :  orderId,  shipmentId :  shipmentId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<Shipment>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.CommerceRuntime.Fulfillment.Shipment GetShipment(ServiceClientMessageHandler handler, 
- 		 string orderId, string shipmentId, 
+ 		 string orderId, string shipmentId,  AuthTicket authTicket= null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Orders.ShipmentClient.GetShipmentClient(
-				 orderId :  orderId,  shipmentId :  shipmentId		);
+				 orderId :  orderId,  shipmentId :  shipmentId, authTicket : authTicket		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
+  
 		/// <summary> 
-		/// Retrieves the available shipping methods applicable to the order. Typically used to display available shipping method options on the checkout page.
-		/// ShipmentFactory.GetAvailableShipmentMethods(handler : handler,  orderId :  orderId,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<List<ShippingRate>>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// 
+		/// <example> 
+		///  <code> 
+		//// var result = ShipmentFactory.GetAvailableShipmentMethods(handler : handler,  orderId :  orderId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<List<ShippingRate>>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static List<Mozu.Api.Contracts.CommerceRuntime.Fulfillment.ShippingRate> GetAvailableShipmentMethods(ServiceClientMessageHandler handler, 
- 		 string orderId, 
+ 		 string orderId,  AuthTicket authTicket= null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Orders.ShipmentClient.GetAvailableShipmentMethodsClient(
-				 orderId :  orderId		);
+				 orderId :  orderId, authTicket : authTicket		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
-			/// <summary> 
-		/// Creates a shipment from one or more package associated with an order and assign a label and tracking number to an order shipment.
-		/// ShipmentFactory.CreatePackageShipments(handler : handler,  orderId :  orderId,  packageIds :  packageIds,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<List<Package>>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+  
+		/// <summary> 
+		/// 
+		/// <example> 
+		///  <code> 
+		//// var result = ShipmentFactory.CreatePackageShipments(handler : handler,  orderId :  orderId,  packageIds :  packageIds, authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<List<Package>>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static List<Mozu.Api.Contracts.CommerceRuntime.Fulfillment.Package> CreatePackageShipments(ServiceClientMessageHandler handler, 
- 		 string orderId, List<string> packageIds, 
+ 		 string orderId, List<string> packageIds, AuthTicket authTicket= null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Orders.ShipmentClient.CreatePackageShipmentsClient(
-				 orderId :  orderId,  packageIds :  packageIds		);
+				 orderId :  orderId,  packageIds :  packageIds, authTicket : authTicket		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
-				/// <summary> 
-		/// Cancels a shipment.
-		/// ShipmentFactory.DeleteShipment(handler : handler,  orderId :  orderId,  shipmentId :  shipmentId,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<void>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+  
+		/// <summary> 
+		/// 
+		/// <example> 
+		///  <code> 
+		//// var result = ShipmentFactory.DeleteShipment(handler : handler,  orderId :  orderId,  shipmentId :  shipmentId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<void>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static void DeleteShipment(ServiceClientMessageHandler handler, 
- 		string orderId, string shipmentId, 
+ 		string orderId, string shipmentId,  AuthTicket authTicket= null, 
 		 int expectedCode = (int)HttpStatusCode.NoContent, int successCode = (int)HttpStatusCode.NoContent)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Orders.ShipmentClient.DeleteShipmentClient(
-				 orderId :  orderId,  shipmentId :  shipmentId		);
+				 orderId :  orderId,  shipmentId :  shipmentId, authTicket : authTicket		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			var noResponse = ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
+  
 
-		
 	}
 
 }

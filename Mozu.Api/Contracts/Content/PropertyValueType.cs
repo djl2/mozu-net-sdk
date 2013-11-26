@@ -12,19 +12,10 @@ using System;
 
 namespace Mozu.Api.Contracts.Content
 {
-		///
-		///	A type of content property value.
-		///
 		public class PropertyValueType
 		{
-			///
-			///The name of the property type value.
-			///
 			public string Name { get; set; }
 
-			///
-			///The data storage type associated with this property type value.
-			///
 			public string StorageType { get; set; }
 
 		}

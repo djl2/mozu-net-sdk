@@ -16,7 +16,7 @@ using Mozu.Api.Security;
 namespace Mozu.Api.Resources.Commerce.Customer.Accounts
 {
 	/// <summary>
-	/// Mozu customers and merchants can create, view, update, and delete attributes for a customer account.
+	/// 
 	/// </summary>
 	public partial class CustomerAttributeResource  	{
 				///
@@ -55,10 +55,10 @@ namespace Mozu.Api.Resources.Commerce.Customer.Accounts
 		}
 
 		/// <summary>
-		/// Retrieves the contents of an attribute associated with the specified customer account.
+		/// 
 		/// </summary>
-		/// <param name="accountId">Identifier of the customer account associated with the attribute to retrieve.</param>
-		/// <param name="attributeId">Identifier of the customer account attribute to retrieve.</param>
+		/// <param name="accountId"></param>
+		/// <param name="attributeId"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.Customer.CustomerAttribute"/>
@@ -80,9 +80,9 @@ namespace Mozu.Api.Resources.Commerce.Customer.Accounts
 		}
 
 		/// <summary>
-		/// Retrieves the list of customer account attributes.
+		/// 
 		/// </summary>
-		/// <param name="accountId">Identifier of the customer account associated with the attributes to retrieve.</param>
+		/// <param name="accountId"></param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.Customer.CustomerAttributeCollection"/>
 		/// </returns>
@@ -98,9 +98,9 @@ namespace Mozu.Api.Resources.Commerce.Customer.Accounts
 		}
 
 		/// <summary>
-		/// Retrieves the list of customer account attributes.
+		/// 
 		/// </summary>
-		/// <param name="accountId">Identifier of the customer account associated with the attributes to retrieve.</param>
+		/// <param name="accountId"></param>
 		/// <param name="filter"></param>
 		/// <param name="pageSize"></param>
 		/// <param name="sortBy"></param>
@@ -151,11 +151,11 @@ namespace Mozu.Api.Resources.Commerce.Customer.Accounts
 		}
 
 				/// <summary>
-		/// Update a single customer account attribute by providing the customer account ID. This operation can optionally indicate whether or not items missing from the collection should be removed.
+		/// 
 		/// </summary>
-		/// <param name="accountId">Identifier of the customer account associated with the attribute.</param>
+		/// <param name="accountId"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="customerAccountAttribute">The properties of the customer account attribute being updated.</param>
+		/// <param name="customerAccountAttribute"></param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.Customer.CustomerAttribute"/>
 		/// </returns>

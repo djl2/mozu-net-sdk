@@ -16,147 +16,178 @@ using System.Net;
 using Mozu.Api;
 using Mozu.Api.Security;
 using Mozu.Api.Test.Helpers;
-using Newtonsoft.Json;
 
 #endregion
 
 namespace Mozu.Api.Test.Factories
 {
 	/// <summary>
-	/// Use the document tree subresource to retrieve documents and manage content within the document hierarchy.
+	/// 
 	/// </summary>
 	public partial class DocumentTreeFactory : BaseDataFactory
 	{
 
-	/// <summary> 
-		/// Retrieve the content associated with the document, such as a product image or PDF specifications file.
-		/// DocumentTreeFactory.GetTreeDocumentContent(handler : handler,  documentListName :  documentListName,  documentName :  documentName,  expectedCode: expectedCode, successCode: successCode);
+		/// <summary> 
+		/// 
+		/// <example> 
+		///  <code> 
+		//// DocumentTreeFactory.GetTreeDocumentContent(handler : handler,  documentListName :  documentListName,  documentName :  documentName,  expectedCode: expectedCode, successCode: successCode);
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static void GetTreeDocumentContent(ServiceClientMessageHandler handler, 
  		string documentListName, string documentName, 
 		 int expectedCode = (int)HttpStatusCode.NoContent, int successCode = (int)HttpStatusCode.NoContent)
 		{
-GetTreeDocumentContent(handler : handler,  documentListName :  documentListName,  documentName :  documentName,  folderId :  null,  folderPath :  null, 
+GetTreeDocumentContent(handler : handler,  documentListName :  documentListName,  documentName :  documentName,  folderId :  null,  folderPath :  null,authTicket : null, 
 				expectedCode: expectedCode, successCode: successCode);
 		}
-
+  
 		/// <summary> 
-		/// Retrieve the content associated with the document, such as a product image or PDF specifications file.
-		/// DocumentTreeFactory.GetTreeDocumentContent(handler : handler,  documentListName :  documentListName,  documentName :  documentName,  folderId :  folderId,  folderPath :  folderPath,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<void>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// 
+		/// <example> 
+		///  <code> 
+		//// var result = DocumentTreeFactory.GetTreeDocumentContent(handler : handler,  documentListName :  documentListName,  documentName :  documentName,  folderId :  folderId,  folderPath :  folderPath,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<void>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static void GetTreeDocumentContent(ServiceClientMessageHandler handler, 
- 		string documentListName, string documentName, string folderId, string folderPath, 
+ 		string documentListName, string documentName, string folderId, string folderPath,  AuthTicket authTicket= null, 
 		 int expectedCode = (int)HttpStatusCode.NoContent, int successCode = (int)HttpStatusCode.NoContent)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Content.Documentlists.DocumentTreeClient.GetTreeDocumentContentClient(
-				 documentListName :  documentListName,  documentName :  documentName,  folderId :  folderId,  folderPath :  folderPath		);
+				 documentListName :  documentListName,  documentName :  documentName,  folderId :  folderId,  folderPath :  folderPath, authTicket : authTicket		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			var noResponse = ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
+  
 		/// <summary> 
-		/// Retrieves a document based on its document list and folder path in the document hierarchy.
-		/// DocumentTreeFactory.GetTreeDocument(handler : handler,  documentListName :  documentListName,  documentName :  documentName,  expectedCode: expectedCode, successCode: successCode);
+		/// 
+		/// <example> 
+		///  <code> 
+		//// DocumentTreeFactory.GetTreeDocument(handler : handler,  documentListName :  documentListName,  documentName :  documentName,  expectedCode: expectedCode, successCode: successCode);
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.Content.Document GetTreeDocument(ServiceClientMessageHandler handler, 
  		 string documentListName, string documentName, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
-			return GetTreeDocument(handler : handler,  documentListName :  documentListName,  documentName :  documentName,  folderId :  null,  folderPath :  null, 
+			return GetTreeDocument(handler : handler,  documentListName :  documentListName,  documentName :  documentName,  folderId :  null,  folderPath :  null,authTicket : null, 
 				expectedCode: expectedCode, successCode: successCode);
 		}
-
+  
 		/// <summary> 
-		/// Retrieves a document based on its document list and folder path in the document hierarchy.
-		/// DocumentTreeFactory.GetTreeDocument(handler : handler,  documentListName :  documentListName,  documentName :  documentName,  folderId :  folderId,  folderPath :  folderPath,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<Document>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// 
+		/// <example> 
+		///  <code> 
+		//// var result = DocumentTreeFactory.GetTreeDocument(handler : handler,  documentListName :  documentListName,  documentName :  documentName,  folderId :  folderId,  folderPath :  folderPath,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<Document>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.Content.Document GetTreeDocument(ServiceClientMessageHandler handler, 
- 		 string documentListName, string documentName, string folderId, string folderPath, 
+ 		 string documentListName, string documentName, string folderId, string folderPath,  AuthTicket authTicket= null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Content.Documentlists.DocumentTreeClient.GetTreeDocumentClient(
-				 documentListName :  documentListName,  documentName :  documentName,  folderId :  folderId,  folderPath :  folderPath		);
+				 documentListName :  documentListName,  documentName :  documentName,  folderId :  folderId,  folderPath :  folderPath, authTicket : authTicket		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
-				/// <summary> 
-		/// Updates the content associated with a document, such as a product image or PDF specifications file, based on the document's position in the document hierarchy.
-		/// DocumentTreeFactory.UpdateTreeDocumentContent(handler : handler,  documentListName :  documentListName,  documentName :  documentName,  stream :  stream,  expectedCode: expectedCode, successCode: successCode);
+  
+		/// <summary> 
+		/// 
+		/// <example> 
+		///  <code> 
+		//// DocumentTreeFactory.UpdateTreeDocumentContent(handler : handler,  documentListName :  documentListName,  documentName :  documentName,  stream :  stream,  expectedCode: expectedCode, successCode: successCode);
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static void UpdateTreeDocumentContent(ServiceClientMessageHandler handler, 
  		string documentListName, string documentName, System.IO.Stream stream, 
 		 int expectedCode = (int)HttpStatusCode.NoContent, int successCode = (int)HttpStatusCode.NoContent)
 		{
-UpdateTreeDocumentContent(handler : handler,  documentListName :  documentListName,  documentName :  documentName,  folderId :  null,  folderPath :  null,  stream :  stream, 
+UpdateTreeDocumentContent(handler : handler,  documentListName :  documentListName,  documentName :  documentName,  folderId :  null,  folderPath :  null,  stream :  stream,authTicket : null, 
 				expectedCode: expectedCode, successCode: successCode);
 		}
-
+  
 		/// <summary> 
-		/// Updates the content associated with a document, such as a product image or PDF specifications file, based on the document's position in the document hierarchy.
-		/// DocumentTreeFactory.UpdateTreeDocumentContent(handler : handler,  documentListName :  documentListName,  documentName :  documentName,  folderId :  folderId,  folderPath :  folderPath,  stream :  stream,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<void>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// 
+		/// <example> 
+		///  <code> 
+		//// var result = DocumentTreeFactory.UpdateTreeDocumentContent(handler : handler,  documentListName :  documentListName,  documentName :  documentName,  folderId :  folderId,  folderPath :  folderPath,  stream :  stream, authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<void>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static void UpdateTreeDocumentContent(ServiceClientMessageHandler handler, 
- 		string documentListName, string documentName, string folderId, string folderPath, System.IO.Stream stream, 
+ 		string documentListName, string documentName, string folderId, string folderPath, System.IO.Stream stream, AuthTicket authTicket= null, 
 		 int expectedCode = (int)HttpStatusCode.NoContent, int successCode = (int)HttpStatusCode.NoContent)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Content.Documentlists.DocumentTreeClient.UpdateTreeDocumentContentClient(
-				 documentListName :  documentListName,  documentName :  documentName,  folderId :  folderId,  folderPath :  folderPath,  stream :  stream		);
+				 documentListName :  documentListName,  documentName :  documentName,  folderId :  folderId,  folderPath :  folderPath,  stream :  stream, authTicket : authTicket		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			var noResponse = ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
-			/// <summary> 
-		/// Deletes the content associated with a document, such as a product image or PDF specifications file.
-		/// DocumentTreeFactory.DeleteTreeDocumentContent(handler : handler,  documentListName :  documentListName,  documentName :  documentName,  stream :  stream,  expectedCode: expectedCode, successCode: successCode);
+  
+		/// <summary> 
+		/// 
+		/// <example> 
+		///  <code> 
+		//// DocumentTreeFactory.DeleteTreeDocumentContent(handler : handler,  documentListName :  documentListName,  documentName :  documentName,  stream :  stream,  expectedCode: expectedCode, successCode: successCode);
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static void DeleteTreeDocumentContent(ServiceClientMessageHandler handler, 
  		string documentListName, string documentName, System.IO.Stream stream, 
 		 int expectedCode = (int)HttpStatusCode.NoContent, int successCode = (int)HttpStatusCode.NoContent)
 		{
-DeleteTreeDocumentContent(handler : handler,  documentListName :  documentListName,  documentName :  documentName,  folderId :  null,  folderPath :  null,  stream :  stream, 
+DeleteTreeDocumentContent(handler : handler,  documentListName :  documentListName,  documentName :  documentName,  folderId :  null,  folderPath :  null,  stream :  stream,authTicket : null, 
 				expectedCode: expectedCode, successCode: successCode);
 		}
-
+  
 		/// <summary> 
-		/// Deletes the content associated with a document, such as a product image or PDF specifications file.
-		/// DocumentTreeFactory.DeleteTreeDocumentContent(handler : handler,  documentListName :  documentListName,  documentName :  documentName,  folderId :  folderId,  folderPath :  folderPath,  stream :  stream,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<void>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// 
+		/// <example> 
+		///  <code> 
+		//// var result = DocumentTreeFactory.DeleteTreeDocumentContent(handler : handler,  documentListName :  documentListName,  documentName :  documentName,  folderId :  folderId,  folderPath :  folderPath,  stream :  stream, authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<void>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static void DeleteTreeDocumentContent(ServiceClientMessageHandler handler, 
- 		string documentListName, string documentName, string folderId, string folderPath, System.IO.Stream stream, 
+ 		string documentListName, string documentName, string folderId, string folderPath, System.IO.Stream stream, AuthTicket authTicket= null, 
 		 int expectedCode = (int)HttpStatusCode.NoContent, int successCode = (int)HttpStatusCode.NoContent)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Content.Documentlists.DocumentTreeClient.DeleteTreeDocumentContentClient(
-				 documentListName :  documentListName,  documentName :  documentName,  folderId :  folderId,  folderPath :  folderPath,  stream :  stream		);
+				 documentListName :  documentListName,  documentName :  documentName,  folderId :  folderId,  folderPath :  folderPath,  stream :  stream, authTicket : authTicket		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			var noResponse = ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
+  
 
-		
 	}
 
 }

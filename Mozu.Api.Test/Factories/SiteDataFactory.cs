@@ -16,23 +16,26 @@ using System.Net;
 using Mozu.Api;
 using Mozu.Api.Security;
 using Mozu.Api.Test.Helpers;
-using Newtonsoft.Json;
 
 #endregion
 
 namespace Mozu.Api.Test.Factories
 {
 	/// <summary>
-	/// Use the site data resource to store site-level information required for a third-party application in the Mozu database.
+	/// 
 	/// </summary>
 	public partial class SiteDataFactory : BaseDataFactory
 	{
 
-	/// <summary> 
-		/// Retrieves the value of a record in the Mozu database.
-		/// SiteDataFactory.GetDBValue(handler : handler,  dbEntryQuery :  dbEntryQuery,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<string>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// <summary> 
+		/// 
+		/// <example> 
+		///  <code> 
+		//// var result = SiteDataFactory.GetDBValue(handler : handler,  dbEntryQuery :  dbEntryQuery,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<string>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static string GetDBValue(ServiceClientMessageHandler handler, 
  		 string dbEntryQuery, 
@@ -47,12 +50,16 @@ namespace Mozu.Api.Test.Factories
 					 : null;
 
 		}
-
-			/// <summary> 
-		/// Creates a new record in the Mozu database based on the information supplied in the request.
-		/// SiteDataFactory.CreateDBValue(handler : handler,  dbEntryQuery :  dbEntryQuery,  value :  value,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<void>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+  
+		/// <summary> 
+		/// 
+		/// <example> 
+		///  <code> 
+		//// var result = SiteDataFactory.CreateDBValue(handler : handler,  dbEntryQuery :  dbEntryQuery,  value :  value,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<void>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static void CreateDBValue(ServiceClientMessageHandler handler, 
  		string dbEntryQuery, string value, 
@@ -67,12 +74,16 @@ namespace Mozu.Api.Test.Factories
 					 : null;
 
 		}
-
-			/// <summary> 
-		/// Updates a record in the Mozu database based on the information supplied in the request.
-		/// SiteDataFactory.UpdateDBValue(handler : handler,  dbEntryQuery :  dbEntryQuery,  value :  value,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<void>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+  
+		/// <summary> 
+		/// 
+		/// <example> 
+		///  <code> 
+		//// var result = SiteDataFactory.UpdateDBValue(handler : handler,  dbEntryQuery :  dbEntryQuery,  value :  value,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<void>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static void UpdateDBValue(ServiceClientMessageHandler handler, 
  		string dbEntryQuery, string value, 
@@ -87,12 +98,16 @@ namespace Mozu.Api.Test.Factories
 					 : null;
 
 		}
-
-			/// <summary> 
-		/// Removes a previously defined record in the Mozu database.
-		/// SiteDataFactory.DeleteDBValue(handler : handler,  dbEntryQuery :  dbEntryQuery,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<void>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+  
+		/// <summary> 
+		/// 
+		/// <example> 
+		///  <code> 
+		//// var result = SiteDataFactory.DeleteDBValue(handler : handler,  dbEntryQuery :  dbEntryQuery,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<void>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static void DeleteDBValue(ServiceClientMessageHandler handler, 
  		string dbEntryQuery, 
@@ -107,8 +122,8 @@ namespace Mozu.Api.Test.Factories
 					 : null;
 
 		}
+  
 
-		
 	}
 
 }

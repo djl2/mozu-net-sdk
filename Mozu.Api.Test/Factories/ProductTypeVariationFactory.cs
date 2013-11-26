@@ -16,51 +16,58 @@ using System.Net;
 using Mozu.Api;
 using Mozu.Api.Security;
 using Mozu.Api.Test.Helpers;
-using Newtonsoft.Json;
 
 #endregion
 
 namespace Mozu.Api.Test.Factories
 {
 	/// <summary>
-	/// Use the variations resource to manage product variations for a specific product type based on the attributes defined for the product type, such as size or color.
+	/// 
 	/// </summary>
 	public partial class ProductTypeVariationFactory : BaseDataFactory
 	{
 
 		/// <summary> 
-		/// Creates the combinations of variations available for this product type.
-		/// ProductTypeVariationFactory.GenerateProductVariations(handler : handler,  productTypeId :  productTypeId,  productOptionsIn :  productOptionsIn, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode);
+		/// 
+		/// <example> 
+		///  <code> 
+		//// ProductTypeVariationFactory.GenerateProductVariations(handler : handler,  productTypeId :  productTypeId,  productOptionsIn :  productOptionsIn, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode);
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.ProductAdmin.ProductVariationPagedCollection GenerateProductVariations(ServiceClientMessageHandler handler, 
- 		 int productTypeId, List<Mozu.Api.Contracts.ProductAdmin.ProductOption> productOptionsIn,DataViewMode dataViewMode= DataViewMode.Live, 
+ 		 int productTypeId, List<Mozu.Api.Contracts.ProductAdmin.ProductOption> productOptionsIn, DataViewMode dataViewMode= DataViewMode.Live, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
-			return GenerateProductVariations(handler : handler,  filter :  null,  pageSize :  null,  productCode :  null,  productTypeId :  productTypeId,  sortBy :  null,  startIndex :  null,  productOptionsIn :  productOptionsIn, dataViewMode: dataViewMode, 
+			return GenerateProductVariations(handler : handler,  filter :  null,  pageSize :  null,  productCode :  null,  productTypeId :  productTypeId,  sortBy :  null,  startIndex :  null,  productOptionsIn :  productOptionsIn,authTicket : null, dataViewMode: dataViewMode, 
 				expectedCode: expectedCode, successCode: successCode);
 		}
-
+  
 		/// <summary> 
-		/// Creates the combinations of variations available for this product type.
-		/// ProductTypeVariationFactory.GenerateProductVariations(handler : handler,  filter :  filter,  pageSize :  pageSize,  productCode :  productCode,  productTypeId :  productTypeId,  sortBy :  sortBy,  startIndex :  startIndex,  productOptionsIn :  productOptionsIn, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<ProductVariationPagedCollection>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// 
+		/// <example> 
+		///  <code> 
+		//// var result = ProductTypeVariationFactory.GenerateProductVariations(handler : handler,  filter :  filter,  pageSize :  pageSize,  productCode :  productCode,  productTypeId :  productTypeId,  sortBy :  sortBy,  startIndex :  startIndex,  productOptionsIn :  productOptionsIn, authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<ProductVariationPagedCollection>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.ProductAdmin.ProductVariationPagedCollection GenerateProductVariations(ServiceClientMessageHandler handler, 
- 		 string filter, int? pageSize, string productCode, int productTypeId, string sortBy, int? startIndex, List<Mozu.Api.Contracts.ProductAdmin.ProductOption> productOptionsIn,DataViewMode dataViewMode= DataViewMode.Live, 
+ 		 string filter, int? pageSize, string productCode, int productTypeId, string sortBy, int? startIndex, List<Mozu.Api.Contracts.ProductAdmin.ProductOption> productOptionsIn, AuthTicket authTicket= null, DataViewMode dataViewMode= DataViewMode.Live, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Admin.Attributedefinition.Producttypes.ProductTypeVariationClient.GenerateProductVariationsClient(
-				 filter :  filter,  pageSize :  pageSize,  productCode :  productCode,  productTypeId :  productTypeId,  sortBy :  sortBy,  startIndex :  startIndex,  productOptionsIn :  productOptionsIn, dataViewMode: dataViewMode		);
+				 filter :  filter,  pageSize :  pageSize,  productCode :  productCode,  productTypeId :  productTypeId,  sortBy :  sortBy,  startIndex :  startIndex,  productOptionsIn :  productOptionsIn, authTicket : authTicket, dataViewMode: dataViewMode		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
+  
 
-				
 	}
 
 }

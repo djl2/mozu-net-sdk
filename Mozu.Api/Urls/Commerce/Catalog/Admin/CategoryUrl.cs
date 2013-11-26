@@ -19,8 +19,8 @@ namespace Mozu.Api.Urls.Commerce.Catalog.Admin
 		/// <summary>
         /// Get Resource Url for GetCategories
         /// </summary>
-        /// <param name="filter">A set of expressions that consist of a field, operator, and value and represent search parameter syntax when filtering results of a query. You can filter product category search results by any of its properties, including its position in the category hierarchy. Valid operators include equals (eq), does not equal (ne), greater than (gt), less than (lt), greater than or equal to (ge), less than or equal to (le), starts with (sw), or contains (cont). For example - "filter=IsDisplayed+eq+true"</param>
-        /// <param name="pageSize">Used to create paged results from a query. Specifies the number of results to display on each page. Maximum: 200.</param>
+        /// <param name="filter"></param>
+        /// <param name="pageSize"></param>
         /// <param name="sortBy"></param>
         /// <param name="startIndex"></param>
         /// <returns>
@@ -39,7 +39,7 @@ namespace Mozu.Api.Urls.Commerce.Catalog.Admin
 		/// <summary>
         /// Get Resource Url for GetCategory
         /// </summary>
-        /// <param name="categoryId">Unique identifier of the category to retrieve.</param>
+        /// <param name="categoryId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
@@ -53,7 +53,7 @@ namespace Mozu.Api.Urls.Commerce.Catalog.Admin
 		/// <summary>
         /// Get Resource Url for GetChildCategories
         /// </summary>
-        /// <param name="categoryId">Unique identifier of the category whose subcategories are retrieved.</param>
+        /// <param name="categoryId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
@@ -79,8 +79,8 @@ namespace Mozu.Api.Urls.Commerce.Catalog.Admin
 				/// <summary>
         /// Get Resource Url for UpdateCategory
         /// </summary>
-        /// <param name="cascadeVisibility">If true, when changing the display option for the category, change it for all subcategories also. Default: False.</param>
-        /// <param name="categoryId">Unique identifier of the category to modify.</param>
+        /// <param name="cascadeVisibility"></param>
+        /// <param name="categoryId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
@@ -95,8 +95,8 @@ namespace Mozu.Api.Urls.Commerce.Catalog.Admin
 				/// <summary>
         /// Get Resource Url for DeleteCategoryById
         /// </summary>
-        /// <param name="cascadeDelete">If true, any subcategories of a category are deleted when this category is deleted. Default: False.</param>
-        /// <param name="categoryId">Unique identifier of the category to delete.</param>
+        /// <param name="cascadeDelete"></param>
+        /// <param name="categoryId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>

@@ -16,12 +16,12 @@ using Mozu.Api.Security;
 namespace Mozu.Api.Clients.Commerce.Carts
 {
 	/// <summary>
-	/// System messages for live carts to notify the shopper about a product price or inventory change. System-supplied and read-only. For example: Product price is reduced due to a buy one, get one 50% off (BOGO) sale. A message may appear if the product is out of stock during the cart shopping process.
+	/// 
 	/// </summary>
 	public partial class ChangeMessageClient 	{
 		
 		/// <summary>
-		/// Retrieves messages to and from the current shopper. These are messages supplied by the system to notify the shopper of price increases or decreases or product unavailability.
+		/// 
 		/// </summary>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
@@ -45,7 +45,7 @@ namespace Mozu.Api.Clients.Commerce.Carts
 		}
 
 								/// <summary>
-		/// Deletes all messages associated with the cart of the current shopper.
+		/// 
 		/// </summary>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
@@ -69,9 +69,9 @@ namespace Mozu.Api.Clients.Commerce.Carts
 		}
 
 		/// <summary>
-		/// Removes a single message associated with the cart of the current shopper.
+		/// 
 		/// </summary>
-		/// <param name="messageId">Identifier of the message to remove from the cart.</param>
+		/// <param name="messageId"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />

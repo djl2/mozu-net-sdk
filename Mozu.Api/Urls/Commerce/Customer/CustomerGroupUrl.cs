@@ -19,10 +19,10 @@ namespace Mozu.Api.Urls.Commerce.Customer
 		/// <summary>
         /// Get Resource Url for GetGroups
         /// </summary>
-        /// <param name="filter">"A set of expressions that consist of a field, operator, and value and represent search parameter syntax when filtering results of a query. Valid operators include equals (eq), does not equal (ne), greater than (gt), less than (lt), greater than or equal to (ge), less than or equal to (le), starts with (sw), or contains (cont). For example - ""filter=IsDisplayed+eq+true"""</param>
-        /// <param name="pageSize">Used to create paged results from a query. Specifies the number of results to display on each page. Maximum: 200.</param>
-        /// <param name="sortBy">"The property by which to sort results and whether the results appear in ascending (a-z) order, represented by 'ASC' or in descending (z-a) order, represented by 'DESC'. The sortBy parameter follows an available property. <b>For example: sortBy=productCode+asc</b>"</param>
-        /// <param name="startIndex">"Used to create paged results from a query. Indicates the zero-based offset in the complete result set where the returned entities begin. For example, with a PageSize of 25, to get the 51st through the 75th items, use startIndex=3."</param>
+        /// <param name="filter"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="sortBy"></param>
+        /// <param name="startIndex"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
@@ -39,7 +39,7 @@ namespace Mozu.Api.Urls.Commerce.Customer
 		/// <summary>
         /// Get Resource Url for GetGroup
         /// </summary>
-        /// <param name="groupId">Identifier of the customer group to retrieve.</param>
+        /// <param name="groupId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
@@ -65,7 +65,7 @@ namespace Mozu.Api.Urls.Commerce.Customer
 				/// <summary>
         /// Get Resource Url for UpdateGroup
         /// </summary>
-        /// <param name="groupId">Identifier of the customer group to update.</param>
+        /// <param name="groupId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
@@ -79,7 +79,7 @@ namespace Mozu.Api.Urls.Commerce.Customer
 				/// <summary>
         /// Get Resource Url for DeleteGroup
         /// </summary>
-        /// <param name="groupId">Identifier of the customer group to delete.</param>
+        /// <param name="groupId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>

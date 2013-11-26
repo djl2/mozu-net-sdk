@@ -35,7 +35,7 @@ namespace Mozu.Api.Urls.Content
 		/// <summary>
         /// Get Resource Url for Get
         /// </summary>
-        /// <param name="documentTypeName">The documentType name being retrieved.</param>
+        /// <param name="documentTypeName"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>

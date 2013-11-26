@@ -4,16 +4,12 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-
 using System;
-using Mozu.Api;
 using Mozu.Api.Contracts.ProductAdmin;
 using System.Collections.Generic;
-using System.Collections;
 using System.Linq;
 using Mozu.Api.Test.Factories;
 using System.Net;
-
 
 namespace Mozu.Api.Test.Helpers
 {
@@ -817,7 +813,7 @@ namespace Mozu.Api.Test.Helpers
             {
                 ProductCode = Generator.RandomString(5, Generator.RandomCharacterGroup.AlphaOnly),
                 Price = GenerateProductPrice(price: Generator.RandomDecimal(50, 200)),
-                Seocontent = GenerateProductLocalizedSEOContent(),
+                SeoContent = GenerateProductLocalizedSEOContent(),
                 Content = GenerateProductLocalizedContent(Generator.RandomString(6, Generator.RandomCharacterGroup.AlphaOnly)),
                 Extras = extras,
                 Options = options,
@@ -1014,7 +1010,7 @@ namespace Mozu.Api.Test.Helpers
         {
             return new ProductPrice
             {
-                IsocurrencyCode = currency,
+                IsoCurrencyCode = currency,
                 Price = price,
                 SalePrice = salePrice
             };
@@ -1116,11 +1112,11 @@ namespace Mozu.Api.Test.Helpers
             return new ProductInCatalogInfo
             {
                 Content = GenerateProductLocalizedContent(name),
-                Seocontent = GenerateProductLocalizedSEOContent(),
+                SeoContent = GenerateProductLocalizedSEOContent(),
                 IsActive = isActive,
                 IsContentOverridden = isContentOverridden,
                 IsPriceOverridden = isPriceOverridden,
-                IsSEOContentOverridden = isSeoContentOverridden,
+                IsseoContentOverridden = isSeoContentOverridden,
                 Price = GenerateProductPrice(price: price),
                 ProductCategories = productCategories,
                 CatalogId = catalogId,
@@ -1211,7 +1207,7 @@ namespace Mozu.Api.Test.Helpers
                 MetaTagDescription = Generator.RandomString(10, Generator.RandomCharacterGroup.AlphaOnly),
                 MetaTagKeywords = Generator.RandomString(4, Generator.RandomCharacterGroup.AlphaOnly),
                 MetaTagTitle = Generator.RandomString(5, Generator.RandomCharacterGroup.AlphaOnly),
-                SeofriendlyUrl = Generator.RandomURL(),
+                SeoFriendlyUrl = Generator.RandomURL(),
                 TitleTagTitle = Generator.RandomString(8, Generator.RandomCharacterGroup.AlphaOnly)
             };
         }
@@ -1881,7 +1877,7 @@ namespace Mozu.Api.Test.Helpers
                                                      isActive: proInSite.IsActive,
                                                      isContentOverridden: proInSite.IsContentOverridden, 
                                                      isPriceOverridden: proInSite.IsPriceOverridden,
-                                                     isSeoContentOverridden: proInSite.IsSEOContentOverridden);
+                                                     isSeoContentOverridden: proInSite.IsseoContentOverridden);
             ProductFactory.UpdateProductInCatalog(handler: ApiMsgHandler,
                                         productInCatalogInfoIn: proInfo, 
                                         productCode: "artichoke-dining-lamp", 

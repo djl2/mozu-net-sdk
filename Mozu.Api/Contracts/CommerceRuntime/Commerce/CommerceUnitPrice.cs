@@ -12,41 +12,20 @@ using System;
 
 namespace Mozu.Api.Contracts.CommerceRuntime.Commerce
 {
-		///
-		///	Pricing details for a product in a cart or an order, including the original price, discount amount, and final price.
-		///
 		public class CommerceUnitPrice
 		{
-			///
-			///The original price of the item in the cart or order.
-			///
 			public decimal? BaseAmount { get; set; }
 
-			///
-			///The calculated amount of the discount to apply.
-			///
 			public decimal? DiscountAmount { get; set; }
 
-			///
-			///The price of the item after all discounts are applied.
-			///
 			public decimal? DiscountedAmount { get; set; }
 
 			public decimal? ExtendedAmount { get; set; }
 
-			///
-			///The price the item is listed for in the storefront.
-			///
 			public decimal? ListAmount { get; set; }
 
-			///
-			///The override price of the item set by the merchant for a given order.
-			///
 			public decimal? OverrideAmount { get; set; }
 
-			///
-			///The sale price set for the item.
-			///
 			public decimal? SaleAmount { get; set; }
 
 		}

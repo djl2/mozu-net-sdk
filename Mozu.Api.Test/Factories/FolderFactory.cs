@@ -16,131 +16,154 @@ using System.Net;
 using Mozu.Api;
 using Mozu.Api.Security;
 using Mozu.Api.Test.Helpers;
-using Newtonsoft.Json;
 
 #endregion
 
 namespace Mozu.Api.Test.Factories
 {
 	/// <summary>
-	/// Use the folders subresource to organize content into folders.
+	/// 
 	/// </summary>
 	public partial class FolderFactory : BaseDataFactory
 	{
 
-	/// <summary> 
-		/// Retrieves the properties of an existing folder.
-		/// FolderFactory.GetFolder(handler : handler,  documentListName :  documentListName,  folderId :  folderId,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<Folder>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// <summary> 
+		/// 
+		/// <example> 
+		///  <code> 
+		//// var result = FolderFactory.GetFolder(handler : handler,  documentListName :  documentListName,  folderId :  folderId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<Folder>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.Content.Folder GetFolder(ServiceClientMessageHandler handler, 
- 		 string documentListName, string folderId, 
+ 		 string documentListName, string folderId,  AuthTicket authTicket= null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Content.Documentlists.FolderClient.GetFolderClient(
-				 documentListName :  documentListName,  folderId :  folderId		);
+				 documentListName :  documentListName,  folderId :  folderId, authTicket : authTicket		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
+  
 		/// <summary> 
-		/// Retrieve a list of content folders according to any filter and sort criteria.
-		/// FolderFactory.GetFolders(handler : handler,  documentListName :  documentListName,  filter :  filter,  expectedCode: expectedCode, successCode: successCode);
+		/// 
+		/// <example> 
+		///  <code> 
+		//// FolderFactory.GetFolders(handler : handler,  documentListName :  documentListName,  filter :  filter,  expectedCode: expectedCode, successCode: successCode);
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.Content.FolderCollection GetFolders(ServiceClientMessageHandler handler, 
  		 string documentListName, string filter, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
-			return GetFolders(handler : handler,  documentListName :  documentListName,  filter :  filter,  pageSize :  null,  sort :  null,  startIndex :  null, 
+			return GetFolders(handler : handler,  documentListName :  documentListName,  filter :  filter,  pageSize :  null,  sort :  null,  startIndex :  null,authTicket : null, 
 				expectedCode: expectedCode, successCode: successCode);
 		}
-
+  
 		/// <summary> 
-		/// Retrieve a list of content folders according to any filter and sort criteria.
-		/// FolderFactory.GetFolders(handler : handler,  documentListName :  documentListName,  filter :  filter,  pageSize :  pageSize,  sort :  sort,  startIndex :  startIndex,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<FolderCollection>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// 
+		/// <example> 
+		///  <code> 
+		//// var result = FolderFactory.GetFolders(handler : handler,  documentListName :  documentListName,  filter :  filter,  pageSize :  pageSize,  sort :  sort,  startIndex :  startIndex,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<FolderCollection>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.Content.FolderCollection GetFolders(ServiceClientMessageHandler handler, 
- 		 string documentListName, string filter, int? pageSize, string sort, int? startIndex, 
+ 		 string documentListName, string filter, int? pageSize, string sort, int? startIndex,  AuthTicket authTicket= null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Content.Documentlists.FolderClient.GetFoldersClient(
-				 documentListName :  documentListName,  filter :  filter,  pageSize :  pageSize,  sort :  sort,  startIndex :  startIndex		);
+				 documentListName :  documentListName,  filter :  filter,  pageSize :  pageSize,  sort :  sort,  startIndex :  startIndex, authTicket : authTicket		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
-			/// <summary> 
-		/// Creates a new folder.
-		/// FolderFactory.CreateFolder(handler : handler,  documentListName :  documentListName,  folder :  folder,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<Folder>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+  
+		/// <summary> 
+		/// 
+		/// <example> 
+		///  <code> 
+		//// var result = FolderFactory.CreateFolder(handler : handler,  documentListName :  documentListName,  folder :  folder, authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<Folder>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.Content.Folder CreateFolder(ServiceClientMessageHandler handler, 
- 		 string documentListName, Mozu.Api.Contracts.Content.Folder folder, 
+ 		 string documentListName, Mozu.Api.Contracts.Content.Folder folder, AuthTicket authTicket= null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Content.Documentlists.FolderClient.CreateFolderClient(
-				 documentListName :  documentListName,  folder :  folder		);
+				 documentListName :  documentListName,  folder :  folder, authTicket : authTicket		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
-			/// <summary> 
-		/// Updates an existing content folder in a document list.
-		/// FolderFactory.UpdateFolder(handler : handler,  documentListName :  documentListName,  folderId :  folderId,  folder :  folder,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<Folder>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+  
+		/// <summary> 
+		/// 
+		/// <example> 
+		///  <code> 
+		//// var result = FolderFactory.UpdateFolder(handler : handler,  documentListName :  documentListName,  folderId :  folderId,  folder :  folder, authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<Folder>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.Content.Folder UpdateFolder(ServiceClientMessageHandler handler, 
- 		 string documentListName, string folderId, Mozu.Api.Contracts.Content.Folder folder, 
+ 		 string documentListName, string folderId, Mozu.Api.Contracts.Content.Folder folder, AuthTicket authTicket= null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Content.Documentlists.FolderClient.UpdateFolderClient(
-				 documentListName :  documentListName,  folderId :  folderId,  folder :  folder		);
+				 documentListName :  documentListName,  folderId :  folderId,  folder :  folder, authTicket : authTicket		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
-			/// <summary> 
-		/// Deletes a folder of documents from the specified document list.
-		/// FolderFactory.DeleteFolder(handler : handler,  documentListName :  documentListName,  folderId :  folderId,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<void>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+  
+		/// <summary> 
+		/// 
+		/// <example> 
+		///  <code> 
+		//// var result = FolderFactory.DeleteFolder(handler : handler,  documentListName :  documentListName,  folderId :  folderId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<void>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static void DeleteFolder(ServiceClientMessageHandler handler, 
- 		string documentListName, string folderId, 
+ 		string documentListName, string folderId,  AuthTicket authTicket= null, 
 		 int expectedCode = (int)HttpStatusCode.NoContent, int successCode = (int)HttpStatusCode.NoContent)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Content.Documentlists.FolderClient.DeleteFolderClient(
-				 documentListName :  documentListName,  folderId :  folderId		);
+				 documentListName :  documentListName,  folderId :  folderId, authTicket : authTicket		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			var noResponse = ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
+  
 
-		
 	}
 
 }

@@ -16,12 +16,9 @@ namespace Mozu.Api.Test.MsTestCases
     [TestClass]
     public class UserAuthTest : MozuApiTestBase
     {
-               #region NonTestCaseCode
+        #region NonTestCaseCode
         public UserAuthTest()
         {
-            //
-            // TODO: Add constructor logic here
-            //
         }
        
         #region Initializers

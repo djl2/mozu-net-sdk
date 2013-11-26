@@ -16,7 +16,7 @@ using Mozu.Api.Security;
 namespace Mozu.Api.Resources.Content.Documentlists
 {
 	/// <summary>
-	/// Use the document tree subresource to retrieve documents and manage content within the document hierarchy.
+	/// 
 	/// </summary>
 	public partial class DocumentTreeResource  	{
 				///
@@ -30,10 +30,10 @@ namespace Mozu.Api.Resources.Content.Documentlists
 
 		
 		/// <summary>
-		/// Retrieve the content associated with the document, such as a product image or PDF specifications file.
+		/// 
 		/// </summary>
-		/// <param name="documentListName">The name of the document list associated with the document.</param>
-		/// <param name="documentName">The name of the document, which is unique within its folder.</param>
+		/// <param name="documentListName"></param>
+		/// <param name="documentName"></param>
 		/// <returns>
 		/// 
 		/// </returns>
@@ -49,12 +49,12 @@ namespace Mozu.Api.Resources.Content.Documentlists
 		}
 
 		/// <summary>
-		/// Retrieve the content associated with the document, such as a product image or PDF specifications file.
+		/// 
 		/// </summary>
-		/// <param name="documentListName">The name of the document list associated with the document.</param>
-		/// <param name="documentName">The name of the document, which is unique within its folder.</param>
-		/// <param name="folderId">If applicable, the unique identifier of the folder that contains the document.</param>
-		/// <param name="folderPath">If applicable, the path of the folder hierarchy location associated with the document.</param>
+		/// <param name="documentListName"></param>
+		/// <param name="documentName"></param>
+		/// <param name="folderId"></param>
+		/// <param name="folderPath"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// 
@@ -75,10 +75,10 @@ namespace Mozu.Api.Resources.Content.Documentlists
 		}
 
 		/// <summary>
-		/// Retrieves a document based on its document list and folder path in the document hierarchy.
+		/// 
 		/// </summary>
-		/// <param name="documentListName">The name of the document list associated with the document.</param>
-		/// <param name="documentName">The name of the document, which is unique within its folder.</param>
+		/// <param name="documentListName"></param>
+		/// <param name="documentName"></param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.Content.Document"/>
 		/// </returns>
@@ -94,12 +94,12 @@ namespace Mozu.Api.Resources.Content.Documentlists
 		}
 
 		/// <summary>
-		/// Retrieves a document based on its document list and folder path in the document hierarchy.
+		/// 
 		/// </summary>
-		/// <param name="documentListName">The name of the document list associated with the document.</param>
-		/// <param name="documentName">The name of the document, which is unique within its folder.</param>
-		/// <param name="folderId">If applicable, the unique identifier of the folder that contains the document.</param>
-		/// <param name="folderPath">If applicable, the path of the folder hierarchy location that contains the document.</param>
+		/// <param name="documentListName"></param>
+		/// <param name="documentName"></param>
+		/// <param name="folderId"></param>
+		/// <param name="folderPath"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.Content.Document"/>
@@ -121,10 +121,10 @@ namespace Mozu.Api.Resources.Content.Documentlists
 		}
 
 						/// <summary>
-		/// Updates the content associated with a document, such as a product image or PDF specifications file, based on the document's position in the document hierarchy.
+		/// 
 		/// </summary>
-		/// <param name="documentListName">The name of the document list associated with the document.</param>
-		/// <param name="documentName">The name of the document, which is unique within its folder.</param>
+		/// <param name="documentListName"></param>
+		/// <param name="documentName"></param>
 		/// <param name="stream"></param>
 		/// <returns>
 		/// 
@@ -141,12 +141,12 @@ namespace Mozu.Api.Resources.Content.Documentlists
 		}
 
 		/// <summary>
-		/// Updates the content associated with a document, such as a product image or PDF specifications file, based on the document's position in the document hierarchy.
+		/// 
 		/// </summary>
-		/// <param name="documentListName">The name of the document list associated with the document.</param>
-		/// <param name="documentName">The name of the document, which is unique within its folder.</param>
-		/// <param name="folderId">If applicable, the unique identifier of the folder that contains the document.</param>
-		/// <param name="folderPath">If applicable, the path of the folder hierarchy location associated with the document.</param>
+		/// <param name="documentListName"></param>
+		/// <param name="documentName"></param>
+		/// <param name="folderId"></param>
+		/// <param name="folderPath"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <param name="stream"></param>
 		/// <returns>
@@ -168,10 +168,10 @@ namespace Mozu.Api.Resources.Content.Documentlists
 		}
 
 				/// <summary>
-		/// Deletes the content associated with a document, such as a product image or PDF specifications file.
+		/// 
 		/// </summary>
-		/// <param name="documentListName">The name of the document list associated with the document.</param>
-		/// <param name="documentName">The name of the document, which is unique within its folder.</param>
+		/// <param name="documentListName"></param>
+		/// <param name="documentName"></param>
 		/// <param name="stream"></param>
 		/// <returns>
 		/// 
@@ -188,12 +188,12 @@ namespace Mozu.Api.Resources.Content.Documentlists
 		}
 
 		/// <summary>
-		/// Deletes the content associated with a document, such as a product image or PDF specifications file.
+		/// 
 		/// </summary>
-		/// <param name="documentListName">The name of the document list associated with the document.</param>
-		/// <param name="documentName">The name of the document, which is unique within its folder.</param>
-		/// <param name="folderId">If applicable, the unique identifier of the folder that contains the document.</param>
-		/// <param name="folderPath">If applicable, the path of the folder hierarchy location associated with the document.</param>
+		/// <param name="documentListName"></param>
+		/// <param name="documentName"></param>
+		/// <param name="folderId"></param>
+		/// <param name="folderPath"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <param name="stream"></param>
 		/// <returns>

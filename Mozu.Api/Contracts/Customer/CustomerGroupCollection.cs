@@ -13,31 +13,16 @@ using System.Collections.Generic;
 
 namespace Mozu.Api.Contracts.Customer
 {
-		///
-		///	Paged list of customer sets.
-		///
 		public class CustomerGroupCollection
 		{
-			///
-			///The number of pages returned based on the startIndex and pageSize supplied. Signed 64-bit (8-byte) integer. System-supplied and read-only.
-			///
 			public long PageCount { get; set; }
 
-			///
-			///Used to create paged results from a query. Specifies the number of results to display on each page. Maximum: 200.
-			///
 			public int PageSize { get; set; }
 
 			public int StartIndex { get; set; }
 
-			///
-			///The number of the resource entity items listed in the query collection. Signed 64-bit (8-byte) integer. System-supplied and read-only.
-			///
 			public long TotalCount { get; set; }
 
-			///
-			///An array list of objects in the returned collection.
-			///
 			public List<CustomerGroup> Items { get; set; }
 
 		}

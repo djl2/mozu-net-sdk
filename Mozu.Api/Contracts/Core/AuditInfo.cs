@@ -12,30 +12,15 @@ using System;
 
 namespace Mozu.Api.Contracts.Core
 {
-		///
-		///	Identifier and datetime stamp information recorded when creating or updating a resource entity. System-supplied and read-only.
-		///
 		public class AuditInfo
 		{
-			///
-			///Date and time when the entity was created. UTC Date/Time.
-			///
+			public string CreateBy { get; set; }
+
 			public DateTime? CreateDate { get; set; }
 
-			///
-			///Unique identifier of the entity who updated the resource property most recently. System-supplied and read-only.
-			///
 			public string UpdateBy { get; set; }
 
-			///
-			///Date and time when the entity was last updated. UTC Date/Time.
-			///
 			public DateTime? UpdateDate { get; set; }
-
-			///
-			///Unique identifier of the user created the resource entity. System-supplied and read-only.
-			///
-			public string CreateBy { get; set; }
 
 		}
 

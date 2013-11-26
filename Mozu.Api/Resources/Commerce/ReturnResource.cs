@@ -16,7 +16,7 @@ using Mozu.Api.Security;
 namespace Mozu.Api.Resources.Commerce
 {
 	/// <summary>
-	/// Use the returns subresource to manage returned items for a completed order. Returns can include any number of items associated with the original order.
+	/// 
 	/// </summary>
 	public partial class ReturnResource  	{
 				///
@@ -30,7 +30,7 @@ namespace Mozu.Api.Resources.Commerce
 
 		
 		/// <summary>
-		/// Retrieves a list of all returns according to any filter and sort criteria.
+		/// 
 		/// </summary>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Returns.ReturnCollection"/>
@@ -47,7 +47,7 @@ namespace Mozu.Api.Resources.Commerce
 		}
 
 		/// <summary>
-		/// Retrieves a list of all returns according to any filter and sort criteria.
+		/// 
 		/// </summary>
 		/// <param name="filter"></param>
 		/// <param name="pageSize"></param>
@@ -74,9 +74,9 @@ namespace Mozu.Api.Resources.Commerce
 		}
 
 		/// <summary>
-		/// Retrieves a list of properties for the specified return.
+		/// 
 		/// </summary>
-		/// <param name="returnId">Returns the properties of the return specified in the request as well as system-supplied information.</param>
+		/// <param name="returnId"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Returns.Return"/>
@@ -98,9 +98,9 @@ namespace Mozu.Api.Resources.Commerce
 		}
 
 		/// <summary>
-		/// Retrieves a list of the actions available to perform for the specified return based on its current state.
+		/// 
 		/// </summary>
-		/// <param name="returnId">Retrieves a list of the actions available to perform for the specified return based on its current state.</param>
+		/// <param name="returnId"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// List{string}
@@ -122,9 +122,9 @@ namespace Mozu.Api.Resources.Commerce
 		}
 
 		/// <summary>
-		/// Retrieves a list of all payments submitted as part of a refund associated with a customer return.
+		/// 
 		/// </summary>
-		/// <param name="returnId">Returns the details of the refund payment associated with the return specified in the request.</param>
+		/// <param name="returnId"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Payments.PaymentCollection"/>
@@ -146,10 +146,10 @@ namespace Mozu.Api.Resources.Commerce
 		}
 
 		/// <summary>
-		/// Retrieves the details of a payment submitted as part of a refund associated with a customer return.
+		/// 
 		/// </summary>
-		/// <param name="paymentId">Unique identifier of the return payment to retrieve.</param>
-		/// <param name="returnId">Unique identifier of the return associated with the payment.</param>
+		/// <param name="paymentId"></param>
+		/// <param name="returnId"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Payments.Payment"/>
@@ -171,10 +171,10 @@ namespace Mozu.Api.Resources.Commerce
 		}
 
 		/// <summary>
-		/// Retrieves a list of the payment actions available to perform for the specified return when a return results in a refund to the customer.
+		/// 
 		/// </summary>
-		/// <param name="paymentId">Unique identifier of the payment for which to perform the action.</param>
-		/// <param name="returnId">Unique identifier of the return associated with the payment.</param>
+		/// <param name="paymentId"></param>
+		/// <param name="returnId"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// List{string}
@@ -196,10 +196,10 @@ namespace Mozu.Api.Resources.Commerce
 		}
 
 				/// <summary>
-		/// Creates a return for items previously shipped in a completed order.
+		/// 
 		/// </summary>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="ret">Wrapper for the properties of the return to create.</param>
+		/// <param name="ret"></param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Returns.Return"/>
 		/// </returns>
@@ -220,12 +220,12 @@ namespace Mozu.Api.Resources.Commerce
 		}
 
 		/// <summary>
-		/// Updates a refund payment associated with a customer return by performing the specified action.
+		/// 
 		/// </summary>
-		/// <param name="paymentId">Unique identifier of the return payment to update.</param>
-		/// <param name="returnId">Unique identifier of the return associated with the refund payment.</param>
+		/// <param name="paymentId"></param>
+		/// <param name="returnId"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="action">The payment action to perform for the refund payment.</param>
+		/// <param name="action"></param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Returns.Return"/>
 		/// </returns>
@@ -246,11 +246,11 @@ namespace Mozu.Api.Resources.Commerce
 		}
 
 		/// <summary>
-		/// Creates a new payment for a return that results in a refund to the customer.
+		/// 
 		/// </summary>
-		/// <param name="returnId">Unique identifier of the return associated with the payment action.</param>
+		/// <param name="returnId"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="action">The payment action to perform for the customer return.</param>
+		/// <param name="action"></param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Returns.Return"/>
 		/// </returns>
@@ -271,10 +271,10 @@ namespace Mozu.Api.Resources.Commerce
 		}
 
 		/// <summary>
-		/// Updates the return by performing the specified action.
+		/// 
 		/// </summary>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="action">The name of the return action to perform, such as "Refund" or "Replace".</param>
+		/// <param name="action"></param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Returns.ReturnCollection"/>
 		/// </returns>
@@ -295,11 +295,11 @@ namespace Mozu.Api.Resources.Commerce
 		}
 
 				/// <summary>
-		/// Updates one or more properties of a return for items previously shipped in a completed order.
+		/// 
 		/// </summary>
-		/// <param name="returnId">Unique identifier of the return.</param>
+		/// <param name="returnId"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="ret">Wrapper for the array of properties to update for the return.</param>
+		/// <param name="ret"></param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Returns.Return"/>
 		/// </returns>
@@ -320,9 +320,9 @@ namespace Mozu.Api.Resources.Commerce
 		}
 
 				/// <summary>
-		/// Deletes a return previously configured for the specified order.
+		/// 
 		/// </summary>
-		/// <param name="returnId">Unique identifier of the return to delete from the order.</param>
+		/// <param name="returnId"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// 

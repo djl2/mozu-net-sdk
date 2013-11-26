@@ -35,7 +35,7 @@ namespace Mozu.Api.Urls.Commerce.Orders
 		/// <summary>
         /// Get Resource Url for GetAvailableShipmentMethods
         /// </summary>
-        /// <param name="orderId">Unique identifier of the order for the available shipment methods being retrieved.</param>
+        /// <param name="orderId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
@@ -49,7 +49,7 @@ namespace Mozu.Api.Urls.Commerce.Orders
 				/// <summary>
         /// Get Resource Url for CreatePackageShipments
         /// </summary>
-        /// <param name="orderId">Unique identifier of the order for this shipment.</param>
+        /// <param name="orderId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
@@ -63,8 +63,8 @@ namespace Mozu.Api.Urls.Commerce.Orders
 						/// <summary>
         /// Get Resource Url for DeleteShipment
         /// </summary>
-        /// <param name="orderId">Unique identifier of the order to cancel shipment.</param>
-        /// <param name="shipmentId">Unique identifier of the shipment to cancel.</param>
+        /// <param name="orderId"></param>
+        /// <param name="shipmentId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>

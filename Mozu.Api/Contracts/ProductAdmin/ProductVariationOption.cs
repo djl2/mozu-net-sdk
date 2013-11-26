@@ -12,24 +12,12 @@ using System;
 
 namespace Mozu.Api.Contracts.ProductAdmin
 {
-		///
-		///	Details of a product variation option.
-		///
 		public class ProductVariationOption
 		{
-			///
-			///"The fully qualified name of the attribute, which is a user defined attribute identifier."
-			///
 			public string AttributeFQN { get; set; }
 
-			///
-			///The value of an attribute option specified for this product variation.
-			///
 			public object Value { get; set; }
 
-			///
-			///Complex type that contains content for a language specified by LocaleCode.
-			///
 			public AttributeVocabularyValueLocalizedContent Content { get; set; }
 
 		}

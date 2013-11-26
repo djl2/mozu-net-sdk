@@ -16,39 +16,42 @@ using System.Net;
 using Mozu.Api;
 using Mozu.Api.Security;
 using Mozu.Api.Test.Helpers;
-using Newtonsoft.Json;
 
 #endregion
 
 namespace Mozu.Api.Test.Factories
 {
 	/// <summary>
-	/// Use the tenants resource to manage information about a Mozu tenant.
+	/// 
 	/// </summary>
 	public partial class TenantFactory : BaseDataFactory
 	{
 
-	/// <summary> 
-		/// Retrieve details about a specific tenant by providing the tenant ID.
-		/// TenantFactory.GetTenant(handler : handler,  tenantId :  tenantId,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<Tenant>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// <summary> 
+		/// 
+		/// <example> 
+		///  <code> 
+		//// var result = TenantFactory.GetTenant(handler : handler,  tenantId :  tenantId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<Tenant>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.Tenant.Tenant GetTenant(ServiceClientMessageHandler handler, 
- 		 int tenantId, 
+ 		 int tenantId,  AuthTicket authTicket= null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Platform.TenantClient.GetTenantClient(
-				 tenantId :  tenantId		);
+				 tenantId :  tenantId, authTicket : authTicket		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
+  
 
-					
 	}
 
 }

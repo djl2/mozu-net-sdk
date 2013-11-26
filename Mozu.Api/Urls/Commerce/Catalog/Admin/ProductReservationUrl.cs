@@ -19,8 +19,8 @@ namespace Mozu.Api.Urls.Commerce.Catalog.Admin
 		/// <summary>
         /// Get Resource Url for GetProductReservations
         /// </summary>
-        /// <param name="filter">"A set of expressions that consist of a field, operator, and value and represent search parameter syntax when filtering results of a query. Valid operators include equals (eq), does not equal (ne), greater than (gt), less than (lt), greater than or equal to (ge), less than or equal to (le), starts with (sw), or contains (cont). For example - ""filter=IsDisplayed+eq+true"""</param>
-        /// <param name="pageSize">Used to create paged results from a query. Specifies the number of results to display on each page. Maximum: 200.</param>
+        /// <param name="filter"></param>
+        /// <param name="pageSize"></param>
         /// <param name="sortBy"></param>
         /// <param name="startIndex"></param>
         /// <returns>
@@ -39,7 +39,7 @@ namespace Mozu.Api.Urls.Commerce.Catalog.Admin
 		/// <summary>
         /// Get Resource Url for GetProductReservation
         /// </summary>
-        /// <param name="productReservationId">Unique identifier of the product reservation.</param>
+        /// <param name="productReservationId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
@@ -65,8 +65,8 @@ namespace Mozu.Api.Urls.Commerce.Catalog.Admin
 		/// <summary>
         /// Get Resource Url for CommitReservation
         /// </summary>
-        /// <param name="productReservationId">Unique identifier of the reservation.</param>
-        /// <param name="qty">Number of product items to remove from inventory.</param>
+        /// <param name="productReservationId"></param>
+        /// <param name="qty"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
@@ -95,7 +95,7 @@ namespace Mozu.Api.Urls.Commerce.Catalog.Admin
 				/// <summary>
         /// Get Resource Url for DeleteProductReservation
         /// </summary>
-        /// <param name="productReservationId">Unique identifier of the reservation.</param>
+        /// <param name="productReservationId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>

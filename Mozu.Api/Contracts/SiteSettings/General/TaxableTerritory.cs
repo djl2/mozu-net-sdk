@@ -12,24 +12,12 @@ using System;
 
 namespace Mozu.Api.Contracts.SiteSettings.General
 {
-		///
-		///	Properties of the territory which is subject to sales tax.
-		///
 		public class TaxableTerritory
 		{
-			///
-			///2 letter geographic code representing the country for the physical or mailing address. Currently limited to the US.
-			///
 			public string CountryCode { get; set; }
 
-			///
-			///If true, all shipping charges for this territory are subject to sales tax.
-			///
 			public bool? IsShippingTaxable { get; set; }
 
-			///
-			///2 letter geographic code representing the state for the physical or mailing address. Currently limited to the US.
-			///
 			public string StateOrProvinceCode { get; set; }
 
 		}

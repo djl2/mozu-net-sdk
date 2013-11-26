@@ -19,7 +19,7 @@ namespace Mozu.Api.Urls.Commerce
 		/// <summary>
         /// Get Resource Url for GetCart
         /// </summary>
-        /// <param name="cartId">Identifier of the cart being retrieved.</param>
+        /// <param name="cartId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
@@ -57,7 +57,7 @@ namespace Mozu.Api.Urls.Commerce
 		/// <summary>
         /// Get Resource Url for GetUserCart
         /// </summary>
-        /// <param name="userId">Unique identifier of the user whose cart you want to retrieve.</param>
+        /// <param name="userId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
@@ -71,7 +71,7 @@ namespace Mozu.Api.Urls.Commerce
 		/// <summary>
         /// Get Resource Url for GetUserCartSummary
         /// </summary>
-        /// <param name="userId">Unique identifier of the user whose cart details you want to retrieve.</param>
+        /// <param name="userId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
@@ -97,7 +97,7 @@ namespace Mozu.Api.Urls.Commerce
 				/// <summary>
         /// Get Resource Url for DeleteCart
         /// </summary>
-        /// <param name="cartId">Identifier of the cart being deleted.</param>
+        /// <param name="cartId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>

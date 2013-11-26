@@ -16,14 +16,14 @@ using Mozu.Api.Security;
 namespace Mozu.Api.Clients.Commerce.Catalog.Admin
 {
 	/// <summary>
-	/// Use the Facets resource to manage the facets shoppers use to filter product display results on a storefront. Facets can include categories, product attributes, or prices, and use either a range of values or discrete values.
+	/// 
 	/// </summary>
 	public partial class FacetClient 	{
 		
 		/// <summary>
-		/// Retrieves a facet specified by its unique identifier and displays its properties.
+		/// 
 		/// </summary>
-		/// <param name="facetId">Unique identifier of the facet to retrieve.</param>
+		/// <param name="facetId"></param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.ProductAdmin.Facet"/>}
 		/// </returns>
@@ -39,10 +39,10 @@ namespace Mozu.Api.Clients.Commerce.Catalog.Admin
 		}
 
 		/// <summary>
-		/// Retrieves a facet specified by its unique identifier and displays its properties.
+		/// 
 		/// </summary>
-		/// <param name="facetId">Unique identifier of the facet to retrieve.</param>
-		/// <param name="validate">Validates that the product category associated with a facet is active. System-supplied and read only.</param>
+		/// <param name="facetId"></param>
+		/// <param name="validate"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.ProductAdmin.Facet"/>}
@@ -65,9 +65,9 @@ namespace Mozu.Api.Clients.Commerce.Catalog.Admin
 		}
 
 		/// <summary>
-		/// Retrieves a list of the facets defined for the specified category.
+		/// 
 		/// </summary>
-		/// <param name="categoryId">Unique identifier of the category associated with the facets to retrieve.</param>
+		/// <param name="categoryId"></param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.ProductAdmin.FacetSet"/>}
 		/// </returns>
@@ -83,11 +83,11 @@ namespace Mozu.Api.Clients.Commerce.Catalog.Admin
 		}
 
 		/// <summary>
-		/// Retrieves a list of the facets defined for the specified category.
+		/// 
 		/// </summary>
-		/// <param name="categoryId">Unique identifier of the category associated with the facets to retrieve.</param>
-		/// <param name="includeAvailable">If true, returns a list of the attributes and categories associated with a product type that have not been defined as a facet for the category.</param>
-		/// <param name="validate">Validates that the product category associated with a facet is active. System-supplied and read only.</param>
+		/// <param name="categoryId"></param>
+		/// <param name="includeAvailable"></param>
+		/// <param name="validate"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.ProductAdmin.FacetSet"/>}
@@ -110,10 +110,10 @@ namespace Mozu.Api.Clients.Commerce.Catalog.Admin
 		}
 
 				/// <summary>
-		/// Creates a new category, price, or attribute facet. Supply the category or attribute source to use for the facet values.
+		/// 
 		/// </summary>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="facet">Properties of the new facet to create. Required properties: Source, FacetType, IsHidden, and CategoryId.</param>
+		/// <param name="facet"></param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.ProductAdmin.Facet"/>}
 		/// </returns>
@@ -135,11 +135,11 @@ namespace Mozu.Api.Clients.Commerce.Catalog.Admin
 		}
 
 				/// <summary>
-		/// Modifies one or more properties of a defined facet.
+		/// 
 		/// </summary>
-		/// <param name="facetId">Unique identifier of the facet to modify.</param>
+		/// <param name="facetId"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="facet">Properties of the defined facet to modify. Required properties: Source, FacetType, IsHidden, and CategoryId.</param>
+		/// <param name="facet"></param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.ProductAdmin.Facet"/>}
 		/// </returns>
@@ -161,9 +161,9 @@ namespace Mozu.Api.Clients.Commerce.Catalog.Admin
 		}
 
 				/// <summary>
-		/// Deletes the facet specified by its unique identifier.
+		/// 
 		/// </summary>
-		/// <param name="facetId">Unique identifier of the facet to delete.</param>
+		/// <param name="facetId"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />

@@ -19,10 +19,10 @@ namespace Mozu.Api.Urls.Content.Documentlists
 		/// <summary>
         /// Get Resource Url for GetTreeDocumentContent
         /// </summary>
-        /// <param name="documentListName">The name of the document list associated with the document.</param>
-        /// <param name="documentName">The name of the document, which is unique within its folder.</param>
-        /// <param name="folderId">If applicable, the unique identifier of the folder that contains the document.</param>
-        /// <param name="folderPath">If applicable, the path of the folder hierarchy location associated with the document.</param>
+        /// <param name="documentListName"></param>
+        /// <param name="documentName"></param>
+        /// <param name="folderId"></param>
+        /// <param name="folderPath"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
@@ -39,10 +39,10 @@ namespace Mozu.Api.Urls.Content.Documentlists
 		/// <summary>
         /// Get Resource Url for GetTreeDocument
         /// </summary>
-        /// <param name="documentListName">The name of the document list associated with the document.</param>
-        /// <param name="documentName">The name of the document, which is unique within its folder.</param>
-        /// <param name="folderId">If applicable, the unique identifier of the folder that contains the document.</param>
-        /// <param name="folderPath">If applicable, the path of the folder hierarchy location that contains the document.</param>
+        /// <param name="documentListName"></param>
+        /// <param name="documentName"></param>
+        /// <param name="folderId"></param>
+        /// <param name="folderPath"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
@@ -59,10 +59,10 @@ namespace Mozu.Api.Urls.Content.Documentlists
 						/// <summary>
         /// Get Resource Url for UpdateTreeDocumentContent
         /// </summary>
-        /// <param name="documentListName">The name of the document list associated with the document.</param>
-        /// <param name="documentName">The name of the document, which is unique within its folder.</param>
-        /// <param name="folderId">If applicable, the unique identifier of the folder that contains the document.</param>
-        /// <param name="folderPath">If applicable, the path of the folder hierarchy location associated with the document.</param>
+        /// <param name="documentListName"></param>
+        /// <param name="documentName"></param>
+        /// <param name="folderId"></param>
+        /// <param name="folderPath"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
@@ -79,10 +79,10 @@ namespace Mozu.Api.Urls.Content.Documentlists
 				/// <summary>
         /// Get Resource Url for DeleteTreeDocumentContent
         /// </summary>
-        /// <param name="documentListName">The name of the document list associated with the document.</param>
-        /// <param name="documentName">The name of the document, which is unique within its folder.</param>
-        /// <param name="folderId">If applicable, the unique identifier of the folder that contains the document.</param>
-        /// <param name="folderPath">If applicable, the path of the folder hierarchy location associated with the document.</param>
+        /// <param name="documentListName"></param>
+        /// <param name="documentName"></param>
+        /// <param name="folderId"></param>
+        /// <param name="folderPath"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>

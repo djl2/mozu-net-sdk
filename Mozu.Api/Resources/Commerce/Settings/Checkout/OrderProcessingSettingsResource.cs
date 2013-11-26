@@ -16,7 +16,7 @@ using Mozu.Api.Security;
 namespace Mozu.Api.Resources.Commerce.Settings.Checkout
 {
 	/// <summary>
-	/// Use the order processing settings resource to define how orders and payments are processed for the site.
+	/// 
 	/// </summary>
 	public partial class OrderProcessingSettingsResource  	{
 				///
@@ -30,7 +30,7 @@ namespace Mozu.Api.Resources.Commerce.Settings.Checkout
 
 		
 		/// <summary>
-		/// Retrieves a list of the order processing settings defined for the site.
+		/// 
 		/// </summary>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
@@ -53,10 +53,10 @@ namespace Mozu.Api.Resources.Commerce.Settings.Checkout
 		}
 
 						/// <summary>
-		/// Updates the order processing settings defined for the site.
+		/// 
 		/// </summary>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="orderProcessingSettings">List of the order processing settings to define for the site.</param>
+		/// <param name="orderProcessingSettings"></param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.SiteSettings.Order.OrderProcessingSettings"/>
 		/// </returns>

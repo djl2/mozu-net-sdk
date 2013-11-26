@@ -16,23 +16,26 @@ using System.Net;
 using Mozu.Api;
 using Mozu.Api.Security;
 using Mozu.Api.Test.Helpers;
-using Newtonsoft.Json;
 
 #endregion
 
 namespace Mozu.Api.Test.Factories
 {
 	/// <summary>
-	/// Use this resource to manage authentication tickets for your applications.
+	/// 
 	/// </summary>
 	public partial class AuthTicketFactory : BaseDataFactory
 	{
 
 		/// <summary> 
-		/// Generate an authentication ticket for an application.
-		/// AuthTicketFactory.AuthenticateApp(handler : handler,  appAuthInfo :  appAuthInfo,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<AuthTicket>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// 
+		/// <example> 
+		///  <code> 
+		//// var result = AuthTicketFactory.AuthenticateApp(handler : handler,  appAuthInfo :  appAuthInfo,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<AuthTicket>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.AppDev.AuthTicket AuthenticateApp(ServiceClientMessageHandler handler, 
  		 Mozu.Api.Contracts.AppDev.AppAuthInfo appAuthInfo, 
@@ -47,12 +50,16 @@ namespace Mozu.Api.Test.Factories
 					 : null;
 
 		}
-
-			/// <summary> 
-		/// Refreshes the application's authentication ticket and generates a new access token by providing the refresh token string.
-		/// AuthTicketFactory.RefreshAppAuthTicket(handler : handler,  authTicketRequest :  authTicketRequest,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<AuthTicket>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+  
+		/// <summary> 
+		/// 
+		/// <example> 
+		///  <code> 
+		//// var result = AuthTicketFactory.RefreshAppAuthTicket(handler : handler,  authTicketRequest :  authTicketRequest,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<AuthTicket>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.AppDev.AuthTicket RefreshAppAuthTicket(ServiceClientMessageHandler handler, 
  		 Mozu.Api.Contracts.AppDev.AuthTicketRequest authTicketRequest, 
@@ -67,12 +74,16 @@ namespace Mozu.Api.Test.Factories
 					 : null;
 
 		}
-
-			/// <summary> 
-		/// Deletes an authentication for an application based on the specified refresh token.
-		/// AuthTicketFactory.DeleteAppAuthTicket(handler : handler,  refreshToken :  refreshToken,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<void>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+  
+		/// <summary> 
+		/// 
+		/// <example> 
+		///  <code> 
+		//// var result = AuthTicketFactory.DeleteAppAuthTicket(handler : handler,  refreshToken :  refreshToken,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<void>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static void DeleteAppAuthTicket(ServiceClientMessageHandler handler, 
  		string refreshToken, 
@@ -87,8 +98,8 @@ namespace Mozu.Api.Test.Factories
 					 : null;
 
 		}
+  
 
-		
 	}
 
 }

@@ -16,15 +16,15 @@ using Mozu.Api.Security;
 namespace Mozu.Api.Clients.Content.Documentlists
 {
 	/// <summary>
-	/// Use the folders subresource to organize content into folders.
+	/// 
 	/// </summary>
 	public partial class FolderClient 	{
 		
 		/// <summary>
-		/// Retrieves the properties of an existing folder.
+		/// 
 		/// </summary>
-		/// <param name="documentListName">The name of the document list associated with the folder to retrieve.</param>
-		/// <param name="folderId">The unique identifier of the folder to retrieve.</param>
+		/// <param name="documentListName"></param>
+		/// <param name="folderId"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Content.Folder"/>}
@@ -47,10 +47,10 @@ namespace Mozu.Api.Clients.Content.Documentlists
 		}
 
 		/// <summary>
-		/// Retrieve a list of content folders according to any filter and sort criteria.
+		/// 
 		/// </summary>
-		/// <param name="documentListName">The name of the document list that contains this folder.</param>
-		/// <param name="filter">"A set of expressions that consist of a field, operator, and value and represent search parameter syntax when filtering results of a query. Valid operators include equals (eq), does not equal (ne), greater than (gt), less than (lt), greater than or equal to (ge), less than or equal to (le), starts with (sw), or contains (cont). For example - ""filter=IsDisplayed+eq+true"""</param>
+		/// <param name="documentListName"></param>
+		/// <param name="filter"></param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Content.FolderCollection"/>}
 		/// </returns>
@@ -66,13 +66,13 @@ namespace Mozu.Api.Clients.Content.Documentlists
 		}
 
 		/// <summary>
-		/// Retrieve a list of content folders according to any filter and sort criteria.
+		/// 
 		/// </summary>
-		/// <param name="documentListName">The name of the document list that contains this folder.</param>
-		/// <param name="filter">"A set of expressions that consist of a field, operator, and value and represent search parameter syntax when filtering results of a query. Valid operators include equals (eq), does not equal (ne), greater than (gt), less than (lt), greater than or equal to (ge), less than or equal to (le), starts with (sw), or contains (cont). For example - ""filter=IsDisplayed+eq+true"""</param>
-		/// <param name="pageSize">Used to create paged results from a query. Specifies the number of results to display on each page. Maximum: 200.</param>
-		/// <param name="sort">"The property by which to sort results and whether the results appear in ascending (a-z) order, represented by 'ASC' or in descending (z-a) order, represented by 'DESC'. The sortBy parameter follows an available property. <b>For example: sortBy=productCode+asc</b>"</param>
-		/// <param name="startIndex">"Used to create paged results from a query. Indicates the zero-based offset in the complete result set where the returned entities begin. For example, with a PageSize of 25, to get the 51st through the 75th items, use startIndex=3."</param>
+		/// <param name="documentListName"></param>
+		/// <param name="filter"></param>
+		/// <param name="pageSize"></param>
+		/// <param name="sort"></param>
+		/// <param name="startIndex"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Content.FolderCollection"/>}
@@ -95,11 +95,11 @@ namespace Mozu.Api.Clients.Content.Documentlists
 		}
 
 				/// <summary>
-		/// Creates a new folder.
+		/// 
 		/// </summary>
-		/// <param name="documentListName">The name of the document list for which to create a new folder.</param>
+		/// <param name="documentListName"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="folder">The name of the newly created folder.</param>
+		/// <param name="folder"></param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Content.Folder"/>}
 		/// </returns>
@@ -121,12 +121,12 @@ namespace Mozu.Api.Clients.Content.Documentlists
 		}
 
 				/// <summary>
-		/// Updates an existing content folder in a document list.
+		/// 
 		/// </summary>
-		/// <param name="documentListName">The name of the document list that contains this folder.</param>
-		/// <param name="folderId">Unique identifier of the folder.</param>
+		/// <param name="documentListName"></param>
+		/// <param name="folderId"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="folder">Properties of the folder to update.</param>
+		/// <param name="folder"></param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Content.Folder"/>}
 		/// </returns>
@@ -148,10 +148,10 @@ namespace Mozu.Api.Clients.Content.Documentlists
 		}
 
 				/// <summary>
-		/// Deletes a folder of documents from the specified document list.
+		/// 
 		/// </summary>
-		/// <param name="documentListName">The name of the document list associated with the folder to delete.</param>
-		/// <param name="folderId">The unique identifier of the folder to delete.</param>
+		/// <param name="documentListName"></param>
+		/// <param name="folderId"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />

@@ -12,34 +12,16 @@ using System;
 
 namespace Mozu.Api.Contracts.ProductAdmin
 {
-		///
-		///	Properties of a defined value for a product extra attribute.
-		///
 		public class ProductExtraValue
 		{
-			///
-			///The difference between the highest weight and the lowest weight associated with this product extra.
-			///
 			public decimal? DeltaWeight { get; set; }
 
-			///
-			///If true, the product extra value shows defaults.
-			///
 			public bool? IsDefaulted { get; set; }
 
-			///
-			///Properties of a defined value for a product extra attribute.
-			///
 			public object Value { get; set; }
 
-			///
-			///Detail of the product extra attribute vocabulary value.
-			///
 			public AttributeVocabularyValue AttributeVocabularyValueDetail { get; set; }
 
-			///
-			///The difference between the highest price and the lowest price associated with this product extra.
-			///
 			public ProductExtraValueDeltaPrice DeltaPrice { get; set; }
 
 		}

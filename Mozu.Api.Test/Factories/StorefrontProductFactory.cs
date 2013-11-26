@@ -16,167 +16,202 @@ using System.Net;
 using Mozu.Api;
 using Mozu.Api.Security;
 using Mozu.Api.Test.Helpers;
-using Newtonsoft.Json;
 
 #endregion
 
 namespace Mozu.Api.Test.Factories
 {
 	/// <summary>
-	/// Manage shoppers' product selection process during a visit to the storefront. Update product options as shoppers pick and choose their product choices. A shopper can't add a product to a cart until all of its required options have been selected.
+	/// 
 	/// </summary>
 	public partial class StorefrontProductFactory : BaseDataFactory
 	{
 
-	/// <summary> 
-		/// Retrieves a list of products that appear on the storefront according to any specified filter criteria and sort options. A set of filter expressions representing the search parameters for a query.
-		/// ProductFactory.GetProducts(handler : handler,  expectedCode: expectedCode, successCode: successCode);
+		/// <summary> 
+		/// 
+		/// <example> 
+		///  <code> 
+		//// ProductFactory.GetProducts(handler : handler,  expectedCode: expectedCode, successCode: successCode);
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.ProductRuntime.ProductCollection GetProducts(ServiceClientMessageHandler handler, 
  		 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
-			return GetProducts(handler : handler,  filter :  null,  pageSize :  null,  sortBy :  null,  startIndex :  null, 
+			return GetProducts(handler : handler,  filter :  null,  pageSize :  null,  sortBy :  null,  startIndex :  null,authTicket : null, 
 				expectedCode: expectedCode, successCode: successCode);
 		}
-
+  
 		/// <summary> 
-		/// Retrieves a list of products that appear on the storefront according to any specified filter criteria and sort options. A set of filter expressions representing the search parameters for a query.
-		/// ProductFactory.GetProducts(handler : handler,  filter :  filter,  pageSize :  pageSize,  sortBy :  sortBy,  startIndex :  startIndex,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<ProductCollection>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// 
+		/// <example> 
+		///  <code> 
+		//// var result = ProductFactory.GetProducts(handler : handler,  filter :  filter,  pageSize :  pageSize,  sortBy :  sortBy,  startIndex :  startIndex,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<ProductCollection>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.ProductRuntime.ProductCollection GetProducts(ServiceClientMessageHandler handler, 
- 		 string filter, int? pageSize, string sortBy, int? startIndex, 
+ 		 string filter, int? pageSize, string sortBy, int? startIndex,  AuthTicket authTicket= null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Storefront.ProductClient.GetProductsClient(
-				 filter :  filter,  pageSize :  pageSize,  sortBy :  sortBy,  startIndex :  startIndex		);
+				 filter :  filter,  pageSize :  pageSize,  sortBy :  sortBy,  startIndex :  startIndex, authTicket : authTicket		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
+  
 		/// <summary> 
 		/// 
-		/// ProductFactory.GetProductInventory(handler : handler,  productCode :  productCode,  expectedCode: expectedCode, successCode: successCode);
+		/// <example> 
+		///  <code> 
+		//// ProductFactory.GetProductInventory(handler : handler,  productCode :  productCode,  expectedCode: expectedCode, successCode: successCode);
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.ProductRuntime.LocationInventoryCollection GetProductInventory(ServiceClientMessageHandler handler, 
  		 string productCode, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
-			return GetProductInventory(handler : handler,  locationCodes :  null,  productCode :  productCode, 
+			return GetProductInventory(handler : handler,  locationCodes :  null,  productCode :  productCode, authTicket : null, 
 				expectedCode: expectedCode, successCode: successCode);
 		}
-
+  
 		/// <summary> 
 		/// 
-		/// ProductFactory.GetProductInventory(handler : handler,  locationCodes :  locationCodes,  productCode :  productCode,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<LocationInventoryCollection>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// <example> 
+		///  <code> 
+		//// var result = ProductFactory.GetProductInventory(handler : handler,  locationCodes :  locationCodes,  productCode :  productCode,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<LocationInventoryCollection>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.ProductRuntime.LocationInventoryCollection GetProductInventory(ServiceClientMessageHandler handler, 
- 		 string locationCodes, string productCode, 
+ 		 string locationCodes, string productCode,  AuthTicket authTicket= null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Storefront.ProductClient.GetProductInventoryClient(
-				 locationCodes :  locationCodes,  productCode :  productCode		);
+				 locationCodes :  locationCodes,  productCode :  productCode, authTicket : authTicket		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
+  
 		/// <summary> 
-		/// Retrieves information about a single product given its product code.
-		/// ProductFactory.GetProduct(handler : handler,  productCode :  productCode,  expectedCode: expectedCode, successCode: successCode);
+		/// 
+		/// <example> 
+		///  <code> 
+		//// ProductFactory.GetProduct(handler : handler,  productCode :  productCode,  expectedCode: expectedCode, successCode: successCode);
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.ProductRuntime.Product GetProduct(ServiceClientMessageHandler handler, 
  		 string productCode, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
-			return GetProduct(handler : handler,  allowInactive :  null,  productCode :  productCode,  variationProductCode :  null, 
+			return GetProduct(handler : handler,  allowInactive :  null,  productCode :  productCode,  variationProductCode :  null,authTicket : null, 
 				expectedCode: expectedCode, successCode: successCode);
 		}
-
+  
 		/// <summary> 
-		/// Retrieves information about a single product given its product code.
-		/// ProductFactory.GetProduct(handler : handler,  allowInactive :  allowInactive,  productCode :  productCode,  variationProductCode :  variationProductCode,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<Product>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// 
+		/// <example> 
+		///  <code> 
+		//// var result = ProductFactory.GetProduct(handler : handler,  allowInactive :  allowInactive,  productCode :  productCode,  variationProductCode :  variationProductCode,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<Product>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.ProductRuntime.Product GetProduct(ServiceClientMessageHandler handler, 
- 		 bool? allowInactive, string productCode, string variationProductCode, 
+ 		 bool? allowInactive, string productCode, string variationProductCode,  AuthTicket authTicket= null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Storefront.ProductClient.GetProductClient(
-				 allowInactive :  allowInactive,  productCode :  productCode,  variationProductCode :  variationProductCode		);
+				 allowInactive :  allowInactive,  productCode :  productCode,  variationProductCode :  variationProductCode, authTicket : authTicket		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
-			/// <summary> 
-		/// Creates a new product selection. A create occurs each time a shopper selects a product option as they configure a product. Once all the required product options are configured, the product can be added to a cart.
-		/// ProductFactory.ConfiguredProduct(handler : handler,  productCode :  productCode,  productOptionSelections :  productOptionSelections,  expectedCode: expectedCode, successCode: successCode);
+  
+		/// <summary> 
+		/// 
+		/// <example> 
+		///  <code> 
+		//// ProductFactory.ConfiguredProduct(handler : handler,  productCode :  productCode,  productOptionSelections :  productOptionSelections,  expectedCode: expectedCode, successCode: successCode);
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.ProductRuntime.ConfiguredProduct ConfiguredProduct(ServiceClientMessageHandler handler, 
  		 string productCode, Mozu.Api.Contracts.ProductRuntime.ProductOptionSelections productOptionSelections, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
-			return ConfiguredProduct(handler : handler,  includeOptionDetails :  null,  productCode :  productCode,  productOptionSelections :  productOptionSelections, 
+			return ConfiguredProduct(handler : handler,  includeOptionDetails :  null,  productCode :  productCode,  productOptionSelections :  productOptionSelections,authTicket : null, 
 				expectedCode: expectedCode, successCode: successCode);
 		}
-
+  
 		/// <summary> 
-		/// Creates a new product selection. A create occurs each time a shopper selects a product option as they configure a product. Once all the required product options are configured, the product can be added to a cart.
-		/// ProductFactory.ConfiguredProduct(handler : handler,  includeOptionDetails :  includeOptionDetails,  productCode :  productCode,  productOptionSelections :  productOptionSelections,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<ConfiguredProduct>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// 
+		/// <example> 
+		///  <code> 
+		//// var result = ProductFactory.ConfiguredProduct(handler : handler,  includeOptionDetails :  includeOptionDetails,  productCode :  productCode,  productOptionSelections :  productOptionSelections, authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<ConfiguredProduct>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.ProductRuntime.ConfiguredProduct ConfiguredProduct(ServiceClientMessageHandler handler, 
- 		 bool? includeOptionDetails, string productCode, Mozu.Api.Contracts.ProductRuntime.ProductOptionSelections productOptionSelections, 
+ 		 bool? includeOptionDetails, string productCode, Mozu.Api.Contracts.ProductRuntime.ProductOptionSelections productOptionSelections, AuthTicket authTicket= null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Storefront.ProductClient.ConfiguredProductClient(
-				 includeOptionDetails :  includeOptionDetails,  productCode :  productCode,  productOptionSelections :  productOptionSelections		);
+				 includeOptionDetails :  includeOptionDetails,  productCode :  productCode,  productOptionSelections :  productOptionSelections, authTicket : authTicket		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
+  
 		/// <summary> 
-		/// Validate the final state of shopper-selected options.
-		/// ProductFactory.ValidateProduct(handler : handler,  productCode :  productCode,  productOptionSelections :  productOptionSelections,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<ProductValidationSummary>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// 
+		/// <example> 
+		///  <code> 
+		//// var result = ProductFactory.ValidateProduct(handler : handler,  productCode :  productCode,  productOptionSelections :  productOptionSelections, authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<ProductValidationSummary>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.ProductRuntime.ProductValidationSummary ValidateProduct(ServiceClientMessageHandler handler, 
- 		 string productCode, Mozu.Api.Contracts.ProductRuntime.ProductOptionSelections productOptionSelections, 
+ 		 string productCode, Mozu.Api.Contracts.ProductRuntime.ProductOptionSelections productOptionSelections, AuthTicket authTicket= null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Storefront.ProductClient.ValidateProductClient(
-				 productCode :  productCode,  productOptionSelections :  productOptionSelections		);
+				 productCode :  productCode,  productOptionSelections :  productOptionSelections, authTicket : authTicket		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
+  
 
-				
 	}
 
 }

@@ -16,12 +16,12 @@ using Mozu.Api.Security;
 namespace Mozu.Api.Clients.Commerce.Catalog.Admin.Discounts
 {
 	/// <summary>
-	/// Retrieves and modifies the products, categories, and shipping methods eligible for discounts in the form of a fixed dollar amount, percentage off a product price, or free shipping.
+	/// 
 	/// </summary>
 	public partial class DiscountTargetClient 	{
 		
 		/// <summary>
-		/// Retrieves the discount target, that is which products, categories, or shipping methods are eligible for the discount.
+		/// 
 		/// </summary>
 		/// <param name="discountId"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
@@ -46,11 +46,11 @@ namespace Mozu.Api.Clients.Commerce.Catalog.Admin.Discounts
 		}
 
 						/// <summary>
-		/// Modifies properties of the discount target, for example, the dollar amount, or precentage off the price.
+		/// 
 		/// </summary>
-		/// <param name="discountId">Unique identifier of the discount. System-supplied and read-only.</param>
+		/// <param name="discountId"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="discountTarget">Properties of the discount target to modify. Required properties: Target.Type. Any unspecified properties are set to null and boolean variables to false.</param>
+		/// <param name="discountTarget"></param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.ProductAdmin.DiscountTarget"/>}
 		/// </returns>

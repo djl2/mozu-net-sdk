@@ -31,7 +31,7 @@ namespace Mozu.Api.Urls.Commerce.Carts
 		/// <summary>
         /// Get Resource Url for GetCartItem
         /// </summary>
-        /// <param name="cartItemId">Identifier of the cart item to retrieve.</param>
+        /// <param name="cartItemId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
@@ -57,7 +57,7 @@ namespace Mozu.Api.Urls.Commerce.Carts
 				/// <summary>
         /// Get Resource Url for UpdateCartItem
         /// </summary>
-        /// <param name="cartItemId">Identifier of the cart item to update.</param>
+        /// <param name="cartItemId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
@@ -71,8 +71,8 @@ namespace Mozu.Api.Urls.Commerce.Carts
 		/// <summary>
         /// Get Resource Url for UpdateCartItemQuantity
         /// </summary>
-        /// <param name="cartItemId">Identifier of the cart item to update quantity.</param>
-        /// <param name="quantity">The number of cart items in the shopper's active cart.</param>
+        /// <param name="cartItemId"></param>
+        /// <param name="quantity"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
@@ -99,7 +99,7 @@ namespace Mozu.Api.Urls.Commerce.Carts
 		/// <summary>
         /// Get Resource Url for DeleteCartItem
         /// </summary>
-        /// <param name="cartItemId">Identifier of the cart item to delete.</param>
+        /// <param name="cartItemId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>

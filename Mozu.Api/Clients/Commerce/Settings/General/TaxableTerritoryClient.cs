@@ -16,12 +16,12 @@ using Mozu.Api.Security;
 namespace Mozu.Api.Clients.Commerce.Settings.General
 {
 	/// <summary>
-	/// Use the taxable territories subresource to manage the regional territories for this site that are subejct to sales tax.
+	/// 
 	/// </summary>
 	public partial class TaxableTerritoryClient 	{
 		
 		/// <summary>
-		/// Retrieves a list of the taxable territories configured for the site.
+		/// 
 		/// </summary>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
@@ -45,10 +45,10 @@ namespace Mozu.Api.Clients.Commerce.Settings.General
 		}
 
 				/// <summary>
-		/// Creates a new territory for which to calculate sales tax.
+		/// 
 		/// </summary>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="taxableTerritory">Properties of the taxable territory to create.</param>
+		/// <param name="taxableTerritory"></param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.SiteSettings.General.TaxableTerritory"/>}
 		/// </returns>
@@ -70,10 +70,10 @@ namespace Mozu.Api.Clients.Commerce.Settings.General
 		}
 
 				/// <summary>
-		/// Updates one or more taxable territories configured for a site.
+		/// 
 		/// </summary>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="taxableterritories">Properties of the taxable territories to update.</param>
+		/// <param name="taxableterritories"></param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{List{<see cref="Mozu.Api.Contracts.SiteSettings.General.TaxableTerritory"/>}}
 		/// </returns>

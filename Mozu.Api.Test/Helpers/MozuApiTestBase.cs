@@ -1,22 +1,14 @@
 ﻿// ***********************************************************************
-// Assembly         : Mozu.Test.TestBase
-// Author           : Brian Reisman
-// Created          : 04-22-2013
-//
-// Last Modified By : Brian Reisman
-// Last Modified On : 05-03-2013
-// ***********************************************************************
-// <copyright file="MozuTestBase.cs" company="Volusion">
+// <copyright file="MozuApiTestBase.cs" company="Volusion">
 //     Copyright (c) Volusion. All rights reserved.
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-
 using System.Configuration;
-using System;
 using System.Diagnostics;
+using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Mozu.Api;
+using UserScope = Mozu.Api.Security.UserScope;
 
 namespace Mozu.Api.Test.Helpers
 {
@@ -26,8 +18,6 @@ namespace Mozu.Api.Test.Helpers
     [TestClass]
     public class MozuApiTestBase
     {
-
-
         #region Fields
 
         /// <summary>
@@ -50,6 +40,8 @@ namespace Mozu.Api.Test.Helpers
         public static ServiceClientMessageHandler ShopperMsgHandler;
         public static ServiceClientMessageHandler AnonShopperMsgHandler;
 
+        public static Mozu.Api.Security.AuthTicket ShopperAuthTicket = new Mozu.Api.Security.AuthTicket() { Scope = UserScope.Shopper, AccessTokenExpiration = (DateTime.UtcNow.AddDays(1)) };
+        
         public static int tenantId;
         //public static int siteGroupId;
         public static int siteId;
@@ -63,7 +55,6 @@ namespace Mozu.Api.Test.Helpers
             Debug.WriteLine("*****Base Class Static Constructor");
 
         }
-
 
         public MozuApiTestBase()
         {

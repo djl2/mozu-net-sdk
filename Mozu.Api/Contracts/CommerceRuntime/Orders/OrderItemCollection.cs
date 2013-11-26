@@ -13,19 +13,10 @@ using System.Collections.Generic;
 
 namespace Mozu.Api.Contracts.CommerceRuntime.Orders
 {
-		///
-		///	Collection of all order items that appear on the order.
-		///
 		public class OrderItemCollection
 		{
-			///
-			///The number of the resource entity items listed in the query collection. Signed 64-bit (8-byte) integer. System-supplied and read-only.
-			///
 			public long TotalCount { get; set; }
 
-			///
-			///An array list of objects in the returned collection.
-			///
 			public List<OrderItem> Items { get; set; }
 
 		}

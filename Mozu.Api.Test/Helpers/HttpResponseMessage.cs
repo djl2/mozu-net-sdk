@@ -7,10 +7,6 @@
 using System;
 using System.Globalization;
 using System.Net;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Mozu.Api.Test.Helpers
 {

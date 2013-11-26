@@ -19,7 +19,7 @@ namespace Mozu.Api.Urls.Commerce.Catalog.Admin.Attributedefinition.Producttypes
 		/// <summary>
         /// Get Resource Url for GetExtras
         /// </summary>
-        /// <param name="productTypeId">Identifier of the product type whose list is being retrieved.</param>
+        /// <param name="productTypeId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
@@ -33,8 +33,8 @@ namespace Mozu.Api.Urls.Commerce.Catalog.Admin.Attributedefinition.Producttypes
 		/// <summary>
         /// Get Resource Url for GetExtra
         /// </summary>
-        /// <param name="attributeFQN">"The fully qualified name of the attribute, which is a user defined attribute identifier."</param>
-        /// <param name="productTypeId">Identifier of the product type whose extra is being retrieved.</param>
+        /// <param name="attributeFQN"></param>
+        /// <param name="productTypeId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
@@ -49,7 +49,7 @@ namespace Mozu.Api.Urls.Commerce.Catalog.Admin.Attributedefinition.Producttypes
 				/// <summary>
         /// Get Resource Url for AddExtra
         /// </summary>
-        /// <param name="productTypeId">Identifier of the product type to add an extra.</param>
+        /// <param name="productTypeId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
@@ -63,8 +63,8 @@ namespace Mozu.Api.Urls.Commerce.Catalog.Admin.Attributedefinition.Producttypes
 				/// <summary>
         /// Get Resource Url for UpdateExtra
         /// </summary>
-        /// <param name="attributeFQN">"The fully qualified name of the attribute, which is a user defined attribute identifier."</param>
-        /// <param name="productTypeId">Identifier of the product type whose extra is being updated.</param>
+        /// <param name="attributeFQN"></param>
+        /// <param name="productTypeId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
@@ -79,8 +79,8 @@ namespace Mozu.Api.Urls.Commerce.Catalog.Admin.Attributedefinition.Producttypes
 				/// <summary>
         /// Get Resource Url for DeleteExtra
         /// </summary>
-        /// <param name="attributeFQN">"The fully qualified name of the attribute, which is a user defined attribute identifier."</param>
-        /// <param name="productTypeId">Identifier of the product type whose extra is being deleted.</param>
+        /// <param name="attributeFQN"></param>
+        /// <param name="productTypeId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>

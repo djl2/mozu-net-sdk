@@ -16,7 +16,7 @@ using Mozu.Api.Security;
 namespace Mozu.Api.Resources.Commerce.Orders
 {
 	/// <summary>
-	/// Use the shipments resource to manage shipments of collections of packages for an order.
+	/// 
 	/// </summary>
 	public partial class ShipmentResource  	{
 				///
@@ -55,9 +55,9 @@ namespace Mozu.Api.Resources.Commerce.Orders
 		}
 
 		/// <summary>
-		/// Retrieves the available shipping methods applicable to the order. Typically used to display available shipping method options on the checkout page.
+		/// 
 		/// </summary>
-		/// <param name="orderId">Unique identifier of the order for the available shipment methods being retrieved.</param>
+		/// <param name="orderId"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// List{<see cref="Mozu.Api.Contracts.CommerceRuntime.Fulfillment.ShippingRate"/>}
@@ -79,11 +79,11 @@ namespace Mozu.Api.Resources.Commerce.Orders
 		}
 
 				/// <summary>
-		/// Creates a shipment from one or more package associated with an order and assign a label and tracking number to an order shipment.
+		/// 
 		/// </summary>
-		/// <param name="orderId">Unique identifier of the order for this shipment.</param>
+		/// <param name="orderId"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="packageIds">List of unique identifiers for each package associated with this shipment. Not all packages must belong to the same shipment.</param>
+		/// <param name="packageIds"></param>
 		/// <returns>
 		/// List{<see cref="Mozu.Api.Contracts.CommerceRuntime.Fulfillment.Package"/>}
 		/// </returns>
@@ -104,10 +104,10 @@ namespace Mozu.Api.Resources.Commerce.Orders
 		}
 
 						/// <summary>
-		/// Cancels a shipment.
+		/// 
 		/// </summary>
-		/// <param name="orderId">Unique identifier of the order to cancel shipment.</param>
-		/// <param name="shipmentId">Unique identifier of the shipment to cancel.</param>
+		/// <param name="orderId"></param>
+		/// <param name="shipmentId"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// 

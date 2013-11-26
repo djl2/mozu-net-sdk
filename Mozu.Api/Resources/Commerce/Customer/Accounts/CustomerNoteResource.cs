@@ -16,7 +16,7 @@ using Mozu.Api.Security;
 namespace Mozu.Api.Resources.Commerce.Customer.Accounts
 {
 	/// <summary>
-	/// Merchants can add and view internal notes for a customer account. For example, a merchant can track a customer's interests or complaints. Only merchants can add and view notes. Customers cannot see these notes from their My Account page.
+	/// 
 	/// </summary>
 	public partial class CustomerNoteResource  	{
 				///
@@ -30,10 +30,10 @@ namespace Mozu.Api.Resources.Commerce.Customer.Accounts
 
 		
 		/// <summary>
-		/// Retrieves the contents of a particular note attached to a specified customer account.
+		/// 
 		/// </summary>
-		/// <param name="accountId">Unique identifier of the customer account that contains the note being retrieved.</param>
-		/// <param name="noteId">Unique identifier of a particular note to retrieve.</param>
+		/// <param name="accountId"></param>
+		/// <param name="noteId"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.Customer.CustomerNote"/>
@@ -55,9 +55,9 @@ namespace Mozu.Api.Resources.Commerce.Customer.Accounts
 		}
 
 		/// <summary>
-		/// Retrieves a list of notes added to a customer account according to any specified filter criteria and sort options.
+		/// 
 		/// </summary>
-		/// <param name="accountId">Unique identifier of the customer account.</param>
+		/// <param name="accountId"></param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.Customer.CustomerNoteCollection"/>
 		/// </returns>
@@ -73,13 +73,13 @@ namespace Mozu.Api.Resources.Commerce.Customer.Accounts
 		}
 
 		/// <summary>
-		/// Retrieves a list of notes added to a customer account according to any specified filter criteria and sort options.
+		/// 
 		/// </summary>
-		/// <param name="accountId">Unique identifier of the customer account.</param>
-		/// <param name="filter">"A set of expressions that consist of a field, operator, and value and represent search parameter syntax when filtering results of a query. Valid operators include equals (eq), does not equal (ne), greater than (gt), less than (lt), greater than or equal to (ge), less than or equal to (le), starts with (sw), or contains (cont). For example - ""filter=IsDisplayed+eq+true"""</param>
-		/// <param name="pageSize">Used to create paged results from a query. Specifies the number of results to display on each page. Maximum: 200.</param>
-		/// <param name="sortBy">"The property by which to sort results and whether the results appear in ascending (a-z) order, represented by 'ASC' or in descending (z-a) order, represented by 'DESC'. The sortBy parameter follows an available property. <b>For example: sortBy=productCode+asc</b>"</param>
-		/// <param name="startIndex">"Used to create paged results from a query. Indicates the zero-based offset in the complete result set where the returned entities begin. For example, with a PageSize of 25, to get the 51st through the 75th items, use startIndex=3."</param>
+		/// <param name="accountId"></param>
+		/// <param name="filter"></param>
+		/// <param name="pageSize"></param>
+		/// <param name="sortBy"></param>
+		/// <param name="startIndex"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.Customer.CustomerNoteCollection"/>
@@ -101,9 +101,9 @@ namespace Mozu.Api.Resources.Commerce.Customer.Accounts
 		}
 
 				/// <summary>
-		/// Adds a new note to the specified customer account.
+		/// 
 		/// </summary>
-		/// <param name="accountId">Unique identifier of the customer account for which to create the note.</param>
+		/// <param name="accountId"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <param name="note"></param>
 		/// <returns>
@@ -126,12 +126,12 @@ namespace Mozu.Api.Resources.Commerce.Customer.Accounts
 		}
 
 				/// <summary>
-		/// Modifies an existing note for a customer account.
+		/// 
 		/// </summary>
-		/// <param name="accountId">Unique identifier of the customer account note to modify.</param>
-		/// <param name="noteId">Unique identifier of the note to update.</param>
+		/// <param name="accountId"></param>
+		/// <param name="noteId"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="note">The new content to replace the existing note.</param>
+		/// <param name="note"></param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.Customer.CustomerNote"/>
 		/// </returns>
@@ -152,10 +152,10 @@ namespace Mozu.Api.Resources.Commerce.Customer.Accounts
 		}
 
 				/// <summary>
-		/// Removes a note from the specified customer account.
+		/// 
 		/// </summary>
-		/// <param name="accountId">Unique identifier of the customer account that contains the note being deleted.</param>
-		/// <param name="noteId">Unique identifier of the customer account note being deleted.</param>
+		/// <param name="accountId"></param>
+		/// <param name="noteId"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// 

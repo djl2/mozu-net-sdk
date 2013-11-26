@@ -16,59 +16,66 @@ using System.Net;
 using Mozu.Api;
 using Mozu.Api.Security;
 using Mozu.Api.Test.Helpers;
-using Newtonsoft.Json;
 
 #endregion
 
 namespace Mozu.Api.Test.Factories
 {
 	/// <summary>
-	/// Define global site settings such as the site name, shipping and email addresses, and logo images. Block undesirable IP addresses using this resource.
+	/// 
 	/// </summary>
 	public partial class GeneralSettingsFactory : BaseDataFactory
 	{
 
-	/// <summary> 
-		/// Retrieve a site's general global settings.
-		/// GeneralSettingsFactory.GetGeneralSettings(handler : handler,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<GeneralSettings>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// <summary> 
+		/// 
+		/// <example> 
+		///  <code> 
+		//// var result = GeneralSettingsFactory.GetGeneralSettings(handler : handler,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<GeneralSettings>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.SiteSettings.General.GeneralSettings GetGeneralSettings(ServiceClientMessageHandler handler, 
- 		 
+ 		  AuthTicket authTicket= null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Settings.GeneralSettingsClient.GetGeneralSettingsClient(
-						);
+				 authTicket : authTicket		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
-				/// <summary> 
-		/// Updates a site's general global settings.
-		/// GeneralSettingsFactory.UpdateGeneralSettings(handler : handler,  generalSettings :  generalSettings,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<GeneralSettings>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+  
+		/// <summary> 
+		/// 
+		/// <example> 
+		///  <code> 
+		//// var result = GeneralSettingsFactory.UpdateGeneralSettings(handler : handler,  generalSettings :  generalSettings, authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<GeneralSettings>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.SiteSettings.General.GeneralSettings UpdateGeneralSettings(ServiceClientMessageHandler handler, 
- 		 Mozu.Api.Contracts.SiteSettings.General.GeneralSettings generalSettings, 
+ 		 Mozu.Api.Contracts.SiteSettings.General.GeneralSettings generalSettings, AuthTicket authTicket= null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Settings.GeneralSettingsClient.UpdateGeneralSettingsClient(
-				 generalSettings :  generalSettings		);
+				 generalSettings :  generalSettings, authTicket : authTicket		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
+  
 
-			
 	}
 
 }

@@ -16,79 +16,90 @@ using System.Net;
 using Mozu.Api;
 using Mozu.Api.Security;
 using Mozu.Api.Test.Helpers;
-using Newtonsoft.Json;
 
 #endregion
 
 namespace Mozu.Api.Test.Factories
 {
 	/// <summary>
-	/// Use the taxable territories subresource to manage the regional territories for this site that are subejct to sales tax.
+	/// 
 	/// </summary>
 	public partial class TaxableTerritoryFactory : BaseDataFactory
 	{
 
-	/// <summary> 
-		/// Retrieves a list of the taxable territories configured for the site.
-		/// TaxableTerritoryFactory.GetTaxableTerritories(handler : handler,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<List<TaxableTerritory>>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// <summary> 
+		/// 
+		/// <example> 
+		///  <code> 
+		//// var result = TaxableTerritoryFactory.GetTaxableTerritories(handler : handler,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<List<TaxableTerritory>>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static List<Mozu.Api.Contracts.SiteSettings.General.TaxableTerritory> GetTaxableTerritories(ServiceClientMessageHandler handler, 
- 		 
+ 		  AuthTicket authTicket= null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Settings.General.TaxableTerritoryClient.GetTaxableTerritoriesClient(
-						);
+				 authTicket : authTicket		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
-			/// <summary> 
-		/// Creates a new territory for which to calculate sales tax.
-		/// TaxableTerritoryFactory.AddTaxableTerritory(handler : handler,  taxableTerritory :  taxableTerritory,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<TaxableTerritory>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+  
+		/// <summary> 
+		/// 
+		/// <example> 
+		///  <code> 
+		//// var result = TaxableTerritoryFactory.AddTaxableTerritory(handler : handler,  taxableTerritory :  taxableTerritory, authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<TaxableTerritory>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.SiteSettings.General.TaxableTerritory AddTaxableTerritory(ServiceClientMessageHandler handler, 
- 		 Mozu.Api.Contracts.SiteSettings.General.TaxableTerritory taxableTerritory, 
+ 		 Mozu.Api.Contracts.SiteSettings.General.TaxableTerritory taxableTerritory, AuthTicket authTicket= null, 
 		 int expectedCode = (int)HttpStatusCode.Created, int successCode = (int)HttpStatusCode.Created)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Settings.General.TaxableTerritoryClient.AddTaxableTerritoryClient(
-				 taxableTerritory :  taxableTerritory		);
+				 taxableTerritory :  taxableTerritory, authTicket : authTicket		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
-			/// <summary> 
-		/// Updates one or more taxable territories configured for a site.
-		/// TaxableTerritoryFactory.UpdateTaxableTerritories(handler : handler,  taxableterritories :  taxableterritories,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<List<TaxableTerritory>>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+  
+		/// <summary> 
+		/// 
+		/// <example> 
+		///  <code> 
+		//// var result = TaxableTerritoryFactory.UpdateTaxableTerritories(handler : handler,  taxableterritories :  taxableterritories, authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<List<TaxableTerritory>>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static List<Mozu.Api.Contracts.SiteSettings.General.TaxableTerritory> UpdateTaxableTerritories(ServiceClientMessageHandler handler, 
- 		 List<Mozu.Api.Contracts.SiteSettings.General.TaxableTerritory> taxableterritories, 
+ 		 List<Mozu.Api.Contracts.SiteSettings.General.TaxableTerritory> taxableterritories, AuthTicket authTicket= null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Settings.General.TaxableTerritoryClient.UpdateTaxableTerritoriesClient(
-				 taxableterritories :  taxableterritories		);
+				 taxableterritories :  taxableterritories, authTicket : authTicket		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
+  
 
-			
 	}
 
 }

@@ -35,8 +35,8 @@ namespace Mozu.Api.Urls.Commerce.Customer.Accounts
 		/// <summary>
         /// Get Resource Url for GetAccountAttribute
         /// </summary>
-        /// <param name="accountId">Identifier of the customer account associated with the attribute to retrieve.</param>
-        /// <param name="attributeId">Identifier of the customer account attribute to retrieve.</param>
+        /// <param name="accountId"></param>
+        /// <param name="attributeId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
@@ -51,7 +51,7 @@ namespace Mozu.Api.Urls.Commerce.Customer.Accounts
 		/// <summary>
         /// Get Resource Url for GetAccountAttributes
         /// </summary>
-        /// <param name="accountId">Identifier of the customer account associated with the attributes to retrieve.</param>
+        /// <param name="accountId"></param>
         /// <param name="filter"></param>
         /// <param name="pageSize"></param>
         /// <param name="sortBy"></param>
@@ -87,7 +87,7 @@ namespace Mozu.Api.Urls.Commerce.Customer.Accounts
 				/// <summary>
         /// Get Resource Url for UpdateAccountAttribute
         /// </summary>
-        /// <param name="accountId">Identifier of the customer account associated with the attribute.</param>
+        /// <param name="accountId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>

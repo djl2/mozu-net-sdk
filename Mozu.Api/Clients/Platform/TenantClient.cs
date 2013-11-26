@@ -16,14 +16,14 @@ using Mozu.Api.Security;
 namespace Mozu.Api.Clients.Platform
 {
 	/// <summary>
-	/// Use the tenants resource to manage information about a Mozu tenant.
+	/// 
 	/// </summary>
 	public partial class TenantClient 	{
 		
 		/// <summary>
-		/// Retrieve details about a specific tenant by providing the tenant ID.
+		/// 
 		/// </summary>
-		/// <param name="tenantId">Unique identifier of the Mozu tenant.</param>
+		/// <param name="tenantId"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Tenant.Tenant"/>}

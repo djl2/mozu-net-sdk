@@ -43,7 +43,7 @@ namespace Mozu.Api.Urls.Commerce.Carts
 		/// <summary>
         /// Get Resource Url for RemoveMessage
         /// </summary>
-        /// <param name="messageId">Identifier of the message to remove from the cart.</param>
+        /// <param name="messageId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>

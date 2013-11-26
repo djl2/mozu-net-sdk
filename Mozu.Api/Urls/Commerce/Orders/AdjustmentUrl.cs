@@ -19,8 +19,8 @@ namespace Mozu.Api.Urls.Commerce.Orders
 						/// <summary>
         /// Get Resource Url for ApplyShippingAdjustment
         /// </summary>
-        /// <param name="orderId">Unique identifier of the order associated with the shipping adjustment.</param>
-        /// <param name="updateMode">Specifies whether to apply the shipping adjustment by updating the original order, updating the order in draft mode, or updating the order in draft mode and then committing the changes to the original. Draft mode enables users to make incremental order changes before committing the changes to the original order. Valid values are "ApplyToOriginal", "ApplyToDraft", or "ApplyAndCommit".</param>
+        /// <param name="orderId"></param>
+        /// <param name="updateMode"></param>
         /// <param name="version"></param>
         /// <returns>
         /// String - Resource Url
@@ -37,8 +37,8 @@ namespace Mozu.Api.Urls.Commerce.Orders
 		/// <summary>
         /// Get Resource Url for ApplyAdjustment
         /// </summary>
-        /// <param name="orderId">Unique identifier of the order for which to apply the adjustment.</param>
-        /// <param name="updateMode">Specifies whether to apply the adjustment by updating the original order, updating the order in draft mode, or updating the order in draft mode and then committing the changes to the original. Draft mode enables users to make incremental order changes before committing the changes to the original order. Valid values are "ApplyToOriginal", "ApplyToDraft", or "ApplyAndCommit".</param>
+        /// <param name="orderId"></param>
+        /// <param name="updateMode"></param>
         /// <param name="version"></param>
         /// <returns>
         /// String - Resource Url
@@ -56,7 +56,7 @@ namespace Mozu.Api.Urls.Commerce.Orders
         /// Get Resource Url for RemoveShippingAdjustment
         /// </summary>
         /// <param name="orderId"></param>
-        /// <param name="updateMode">Specifies whether to remove the shipping adjustment by updating the original order, updating the order in draft mode, or updating the order in draft mode and then commit the changes to the original. Draft mode enables users to make incremental order changes before committing the changes to the original order. Valid values are "ApplyToOriginal", "ApplyToDraft", or "ApplyAndCommit".</param>
+        /// <param name="updateMode"></param>
         /// <param name="version"></param>
         /// <returns>
         /// String - Resource Url
@@ -73,8 +73,8 @@ namespace Mozu.Api.Urls.Commerce.Orders
 		/// <summary>
         /// Get Resource Url for RemoveAdjustment
         /// </summary>
-        /// <param name="orderId">Unique identifier of the order for which to delete the adjustment.</param>
-        /// <param name="updateMode">Specifies whether to remove the adjustment by updating the original order, updating the order in draft mode, or updating the order in draft mode and then committing the changes to the original. Draft mode enables users to make incremental order changes before committing the changes to the original order. Valid values are "ApplyToOriginal", "ApplyToDraft", or "ApplyAndCommit".</param>
+        /// <param name="orderId"></param>
+        /// <param name="updateMode"></param>
         /// <param name="version"></param>
         /// <returns>
         /// String - Resource Url

@@ -26,10 +26,6 @@ namespace Mozu.Api.Test.NunitCases
     {
 
         #region NonTestCaseCode
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="OrderTests"/> class.
-        /// </summary>
         public OrderTests()
         {
 
@@ -50,7 +46,7 @@ namespace Mozu.Api.Test.NunitCases
             masterCatalogId = TestBaseTenant.MasterCatalogs.First().Id;
             catalogId = TestBaseTenant.MasterCatalogs.First().Catalogs.First().Id;
             ApiMsgHandler = ServiceClientMessageFactory.GetTestClientMessage(tenantId, masterCatalogId: masterCatalogId, catalogId: catalogId);
-            AnonShopperMsgHandler = ServiceClientMessageFactory.GetTestShopperMessage(tenantId, masterCatalogId: masterCatalogId, catalogId: catalogId);
+            AnonShopperMsgHandler = ServiceClientMessageFactory.GetTestShopperMessage(tenantId, siteId: TestBaseTenant.Sites.First().Id);
         }
 
         /// <summary>

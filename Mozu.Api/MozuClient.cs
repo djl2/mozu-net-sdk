@@ -233,7 +233,10 @@ namespace Mozu.Api
             _resourceUrl = resourceUrl;
         }
 
-        private readonly JsonSerializerSettings _jsonSerializerSettings = new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore };
+        private readonly JsonSerializerSettings _jsonSerializerSettings = new JsonSerializerSettings { 
+                                                                                    NullValueHandling = NullValueHandling.Ignore, 
+                                                                                    DateTimeZoneHandling = DateTimeZoneHandling.Utc
+                                                                                };
         protected void SetBody(TBody body)
         {
             var stringContent = JsonConvert.SerializeObject(body, _jsonSerializerSettings);

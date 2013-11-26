@@ -16,59 +16,66 @@ using System.Net;
 using Mozu.Api;
 using Mozu.Api.Security;
 using Mozu.Api.Test.Helpers;
-using Newtonsoft.Json;
 
 #endregion
 
 namespace Mozu.Api.Test.Factories
 {
 	/// <summary>
-	/// Retrieves and modifies the products, categories, and shipping methods eligible for discounts in the form of a fixed dollar amount, percentage off a product price, or free shipping.
+	/// 
 	/// </summary>
 	public partial class DiscountTargetFactory : BaseDataFactory
 	{
 
-	/// <summary> 
-		/// Retrieves the discount target, that is which products, categories, or shipping methods are eligible for the discount.
-		/// DiscountTargetFactory.GetDiscountTarget(handler : handler,  discountId :  discountId,  dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<DiscountTarget>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// <summary> 
+		/// 
+		/// <example> 
+		///  <code> 
+		//// var result = DiscountTargetFactory.GetDiscountTarget(handler : handler,  discountId :  discountId,  authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<DiscountTarget>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.ProductAdmin.DiscountTarget GetDiscountTarget(ServiceClientMessageHandler handler, 
- 		 int discountId, DataViewMode dataViewMode= DataViewMode.Live, 
+ 		 int discountId,  AuthTicket authTicket= null, DataViewMode dataViewMode= DataViewMode.Live, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Admin.Discounts.DiscountTargetClient.GetDiscountTargetClient(
-				 discountId :  discountId, dataViewMode: dataViewMode		);
+				 discountId :  discountId, authTicket : authTicket, dataViewMode: dataViewMode		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
-				/// <summary> 
-		/// Modifies properties of the discount target, for example, the dollar amount, or precentage off the price.
-		/// DiscountTargetFactory.UpdateDiscountTarget(handler : handler,  discountId :  discountId,  discountTarget :  discountTarget, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<DiscountTarget>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+  
+		/// <summary> 
+		/// 
+		/// <example> 
+		///  <code> 
+		//// var result = DiscountTargetFactory.UpdateDiscountTarget(handler : handler,  discountId :  discountId,  discountTarget :  discountTarget, authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<DiscountTarget>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.ProductAdmin.DiscountTarget UpdateDiscountTarget(ServiceClientMessageHandler handler, 
- 		 int discountId, Mozu.Api.Contracts.ProductAdmin.DiscountTarget discountTarget,DataViewMode dataViewMode= DataViewMode.Live, 
+ 		 int discountId, Mozu.Api.Contracts.ProductAdmin.DiscountTarget discountTarget, AuthTicket authTicket= null, DataViewMode dataViewMode= DataViewMode.Live, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Admin.Discounts.DiscountTargetClient.UpdateDiscountTargetClient(
-				 discountId :  discountId,  discountTarget :  discountTarget, dataViewMode: dataViewMode		);
+				 discountId :  discountId,  discountTarget :  discountTarget, authTicket : authTicket, dataViewMode: dataViewMode		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
+  
 
-			
 	}
 
 }

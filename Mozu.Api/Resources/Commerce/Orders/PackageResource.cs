@@ -16,7 +16,7 @@ using Mozu.Api.Security;
 namespace Mozu.Api.Resources.Commerce.Orders
 {
 	/// <summary>
-	/// Use the packages subresource to manage the physical packages to ship for an order.
+	/// 
 	/// </summary>
 	public partial class PackageResource  	{
 				///
@@ -30,10 +30,10 @@ namespace Mozu.Api.Resources.Commerce.Orders
 
 		
 		/// <summary>
-		/// Retrieves the details of a package of order items.
+		/// 
 		/// </summary>
-		/// <param name="orderId">Unique identifier of the order associated with the package to retrieve.</param>
-		/// <param name="packageId">Unique identifier of the package to retrieve.</param>
+		/// <param name="orderId"></param>
+		/// <param name="packageId"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Fulfillment.Package"/>
@@ -80,10 +80,10 @@ namespace Mozu.Api.Resources.Commerce.Orders
 		}
 
 		/// <summary>
-		/// Retrieves the package label image supplied by the carrier.
+		/// 
 		/// </summary>
-		/// <param name="orderId">Unique identifier of the order associated with the package label to retrieve.</param>
-		/// <param name="packageId">Unique identifier of the package for which to retrieve the label.</param>
+		/// <param name="orderId"></param>
+		/// <param name="packageId"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// 
@@ -104,11 +104,11 @@ namespace Mozu.Api.Resources.Commerce.Orders
 		}
 
 				/// <summary>
-		/// Creates a new physical package of order items.
+		/// 
 		/// </summary>
-		/// <param name="orderId">Unique identifier of the order associated with this package.</param>
+		/// <param name="orderId"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="package">Properties of the physical package of order items.</param>
+		/// <param name="package"></param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Fulfillment.Package"/>
 		/// </returns>
@@ -129,12 +129,12 @@ namespace Mozu.Api.Resources.Commerce.Orders
 		}
 
 				/// <summary>
-		/// Updates one or more properties of a physical package of order items.
+		/// 
 		/// </summary>
-		/// <param name="orderId">Unique identifier of the order associated with the package to update.</param>
-		/// <param name="packageId">Unique identifier of the package of order items to update.</param>
+		/// <param name="orderId"></param>
+		/// <param name="packageId"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="package">Wrapper of properties for the package of order items to update.</param>
+		/// <param name="package"></param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Fulfillment.Package"/>
 		/// </returns>
@@ -155,10 +155,10 @@ namespace Mozu.Api.Resources.Commerce.Orders
 		}
 
 				/// <summary>
-		/// Removes a physical package of items from the specified order.
+		/// 
 		/// </summary>
-		/// <param name="orderId">Unique identifier of the order associated with the package to delete.</param>
-		/// <param name="packageId">Unique identifier of the package to delete.</param>
+		/// <param name="orderId"></param>
+		/// <param name="packageId"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// 

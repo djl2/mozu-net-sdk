@@ -28,9 +28,6 @@ namespace Mozu.Api.Test.MsTestCases
         private static List<int> productTypeId1 = new List<int>();
         private static List<string> attributeFQN1 = new List<string>();
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ProductTests"/> class.
-        /// </summary>
         public ProductTests()
         {
 
@@ -566,7 +563,7 @@ namespace Mozu.Api.Test.MsTestCases
         [TestCategory("Mozu SDK Sample")]
         [Timeout(TestTimeout.Infinite)]
         [Priority(2)]
-        [Description("ProductInCatalogs: IsContentOverridden, IsPriceOverridden, IsSEOContentOverridden  --false")]
+        [Description("ProductInCatalogs: IsContentOverridden, IsPriceOverridden, IsSeoContentOverridden  --false")]
         public void AddProductTest14()   //bug 18881
         {
             var attrObj = Generator.GenerateAttribute(isProperty: true);
@@ -590,14 +587,14 @@ namespace Mozu.Api.Test.MsTestCases
             productCode1.Add(createdProduct.ProductCode);
             Assert.AreEqual(createdProduct.Content.ProductName, createdProduct.ProductInCatalogs.First().Content.ProductName);
             Assert.AreEqual(createdProduct.Price.Price, createdProduct.ProductInCatalogs.First().Price.Price);
-            Assert.AreEqual(createdProduct.Seocontent.TitleTagTitle, createdProduct.ProductInCatalogs.First().Seocontent.TitleTagTitle);
+            Assert.AreEqual(createdProduct.SeoContent.TitleTagTitle, createdProduct.ProductInCatalogs.First().SeoContent.TitleTagTitle);
             var messageHandler1 = ServiceClientMessageFactory.GetTestClientMessage(TestBaseTenant.Id, TestBaseTenant.MasterCatalogs.First().Catalogs.First().Id, TestBaseTenant.MasterCatalogs.First().Id);
             var info = ProductFactory.GetProductInCatalog(messageHandler1,productCode: createdProduct.ProductCode,catalogId:
                                          TestBaseTenant.MasterCatalogs.First().Catalogs.First().Id);
             Assert.AreEqual(cates.Items.First().Id, info.ProductCategories[0].CategoryId);
             Assert.AreEqual(createdProduct.Content.ProductName, info.Content.ProductName);
             Assert.AreEqual(createdProduct.Price.Price, info.Price.Price);
-            Assert.AreEqual(createdProduct.Seocontent.TitleTagTitle, info.Seocontent.TitleTagTitle);
+            Assert.AreEqual(createdProduct.SeoContent.TitleTagTitle, info.SeoContent.TitleTagTitle);
         }
 
         [TestMethod]
@@ -664,7 +661,7 @@ namespace Mozu.Api.Test.MsTestCases
         [TestCategory("Mozu SDK Sample")]
         [Timeout(TestTimeout.Infinite)]
         [Priority(2)]
-        [Description("SEOContent")]
+        [Description("SeoContent")]
         public void AddProductTest17()
         {
             var attrObj = Generator.GenerateAttribute(isProperty: true);
@@ -676,14 +673,14 @@ namespace Mozu.Api.Test.MsTestCases
             var createdPT = ProductTypeFactory.AddProductType(handler: ApiMsgHandler,productType: myPT);
             productTypeId1.Add(createdPT.Id.Value);
             var myProduct = Generator.GenerateProduct(createdPT);
-            myProduct.Seocontent = Generator.GenerateProductLocalizedSEOContent();
+            myProduct.SeoContent = Generator.GenerateProductLocalizedSEOContent();
             var createdProduct = ProductFactory.AddProduct(handler: ApiMsgHandler,product: myProduct, expectedCode: (int)HttpStatusCode.Created);
             productCode1.Add(createdProduct.ProductCode);
-            Assert.AreEqual(myProduct.Seocontent.MetaTagDescription, createdProduct.Seocontent.MetaTagDescription);
-            Assert.AreEqual(myProduct.Seocontent.MetaTagKeywords, createdProduct.Seocontent.MetaTagKeywords);
-            Assert.AreEqual(myProduct.Seocontent.MetaTagTitle, createdProduct.Seocontent.MetaTagTitle);
-            Assert.AreEqual(myProduct.Seocontent.SeofriendlyUrl, createdProduct.Seocontent.SeofriendlyUrl);
-            Assert.AreEqual(myProduct.Seocontent.TitleTagTitle, createdProduct.Seocontent.TitleTagTitle);
+            Assert.AreEqual(myProduct.SeoContent.MetaTagDescription, createdProduct.SeoContent.MetaTagDescription);
+            Assert.AreEqual(myProduct.SeoContent.MetaTagKeywords, createdProduct.SeoContent.MetaTagKeywords);
+            Assert.AreEqual(myProduct.SeoContent.MetaTagTitle, createdProduct.SeoContent.MetaTagTitle);
+            Assert.AreEqual(myProduct.SeoContent.SeoFriendlyUrl, createdProduct.SeoContent.SeoFriendlyUrl);
+            Assert.AreEqual(myProduct.SeoContent.TitleTagTitle, createdProduct.SeoContent.TitleTagTitle);
         }
 
         [TestMethod]
@@ -771,7 +768,7 @@ namespace Mozu.Api.Test.MsTestCases
         [TestCategory("Mozu SDK Sample")]
         [Timeout(TestTimeout.Infinite)]
         [Priority(2)]
-        [Description("ProductInCatalogs: IsContentOverridden, IsPriceOverridden, IsSEOContentOverridden  --true")]
+        [Description("ProductInCatalogs: IsContentOverridden, IsPriceOverridden, IsSeoContentOverridden  --true")]
         public void AddProductTest21()
         {
             var attrObj = Generator.GenerateAttribute(isProperty: true);
@@ -792,14 +789,14 @@ namespace Mozu.Api.Test.MsTestCases
             productCode1.Add(createdProduct.ProductCode);
             Assert.AreNotEqual(createdProduct.Content.ProductName, createdProduct.ProductInCatalogs.First().Content.ProductName);
             Assert.AreNotEqual(createdProduct.Price.Price, createdProduct.ProductInCatalogs.First().Price.Price);
-            Assert.AreNotEqual(createdProduct.Seocontent.TitleTagTitle, createdProduct.ProductInCatalogs.First().Seocontent.TitleTagTitle);
+            Assert.AreNotEqual(createdProduct.SeoContent.TitleTagTitle, createdProduct.ProductInCatalogs.First().SeoContent.TitleTagTitle);
             var messageHandler1 = ServiceClientMessageFactory.GetTestClientMessage(TestBaseTenant.Id, TestBaseTenant.MasterCatalogs.First().Catalogs.First().Id, TestBaseTenant.MasterCatalogs.First().Id);
             var info = ProductFactory.GetProductInCatalog(handler: messageHandler1,productCode: createdProduct.ProductCode, catalogId:
                                          TestBaseTenant.MasterCatalogs.First().Catalogs.First().Id);
             Assert.AreEqual(cates.Items.First().Id, info.ProductCategories[0].CategoryId);
             Assert.AreNotEqual(createdProduct.Content.ProductName, info.Content.ProductName);
             Assert.AreNotEqual(createdProduct.Price.Price, info.Price.Price);
-            Assert.AreNotEqual(createdProduct.Seocontent.TitleTagTitle, info.Seocontent.TitleTagTitle);
+            Assert.AreNotEqual(createdProduct.SeoContent.TitleTagTitle, info.SeoContent.TitleTagTitle);
         }
 
         [TestMethod]
@@ -939,7 +936,7 @@ namespace Mozu.Api.Test.MsTestCases
         [TestCategory("Mozu SDK Sample")]
         [Timeout(TestTimeout.Infinite)]
         [Priority(2)]
-        [Description("SEOContent")]
+        [Description("SeoContent")]
         public void UpdateProductTest6()
         {
             var attrObj = Generator.GenerateAttribute(isProperty: true);
@@ -953,13 +950,13 @@ namespace Mozu.Api.Test.MsTestCases
             var myProduct = Generator.GenerateProduct(createdPT);
             var createdProduct = ProductFactory.AddProduct(handler: ApiMsgHandler,product: myProduct);
             productCode1.Add(createdProduct.ProductCode);
-            createdProduct.Seocontent = Generator.GenerateProductLocalizedSEOContent();
+            createdProduct.SeoContent = Generator.GenerateProductLocalizedSEOContent();
             var updateProd = ProductFactory.UpdateProduct(handler: ApiMsgHandler,product: createdProduct,productCode: createdProduct.ProductCode, expectedCode: (int)HttpStatusCode.OK);
-            Assert.AreEqual(createdProduct.Seocontent.MetaTagDescription, createdProduct.Seocontent.MetaTagDescription);
-            Assert.AreEqual(createdProduct.Seocontent.MetaTagKeywords, createdProduct.Seocontent.MetaTagKeywords);
-            Assert.AreEqual(createdProduct.Seocontent.MetaTagTitle, createdProduct.Seocontent.MetaTagTitle);
-            Assert.AreEqual(createdProduct.Seocontent.SeofriendlyUrl, createdProduct.Seocontent.SeofriendlyUrl);
-            Assert.AreEqual(createdProduct.Seocontent.TitleTagTitle, createdProduct.Seocontent.TitleTagTitle);
+            Assert.AreEqual(createdProduct.SeoContent.MetaTagDescription, createdProduct.SeoContent.MetaTagDescription);
+            Assert.AreEqual(createdProduct.SeoContent.MetaTagKeywords, createdProduct.SeoContent.MetaTagKeywords);
+            Assert.AreEqual(createdProduct.SeoContent.MetaTagTitle, createdProduct.SeoContent.MetaTagTitle);
+            Assert.AreEqual(createdProduct.SeoContent.SeoFriendlyUrl, createdProduct.SeoContent.SeoFriendlyUrl);
+            Assert.AreEqual(createdProduct.SeoContent.TitleTagTitle, createdProduct.SeoContent.TitleTagTitle);
         }
 
         [TestMethod]
@@ -1328,7 +1325,7 @@ namespace Mozu.Api.Test.MsTestCases
         [TestCategory("Mozu SDK Sample")]
         [Timeout(TestTimeout.Infinite)]
         [Priority(2)]
-        [Description("IsContentOverridden, IsPriceOverridden, IsSEOContentOverridden  --false")]
+        [Description("IsContentOverridden, IsPriceOverridden, IsSeoContentOverridden  --false")]
         public void AddProductInCatalogTest2()
         {
             var attrObj = Generator.GenerateAttribute(isProperty: true);
@@ -1355,18 +1352,18 @@ namespace Mozu.Api.Test.MsTestCases
             Assert.AreEqual(getProduct.Price.Price, getProduct.ProductInCatalogs.First().Price.Price);
             Assert.AreEqual(getProduct.Price.SalePrice, getProduct.ProductInCatalogs.First().Price.SalePrice);
 
-            Assert.AreEqual(getProduct.Seocontent.MetaTagDescription, getProduct.ProductInCatalogs.First().Seocontent.MetaTagDescription);
-            Assert.AreEqual(getProduct.Seocontent.MetaTagKeywords, getProduct.ProductInCatalogs.First().Seocontent.MetaTagKeywords);
-            Assert.AreEqual(getProduct.Seocontent.MetaTagTitle, getProduct.ProductInCatalogs.First().Seocontent.MetaTagTitle);
-            Assert.AreEqual(getProduct.Seocontent.SeofriendlyUrl, getProduct.ProductInCatalogs.First().Seocontent.SeofriendlyUrl);
-            Assert.AreEqual(getProduct.Seocontent.TitleTagTitle, getProduct.ProductInCatalogs.First().Seocontent.TitleTagTitle);
+            Assert.AreEqual(getProduct.SeoContent.MetaTagDescription, getProduct.ProductInCatalogs.First().SeoContent.MetaTagDescription);
+            Assert.AreEqual(getProduct.SeoContent.MetaTagKeywords, getProduct.ProductInCatalogs.First().SeoContent.MetaTagKeywords);
+            Assert.AreEqual(getProduct.SeoContent.MetaTagTitle, getProduct.ProductInCatalogs.First().SeoContent.MetaTagTitle);
+            Assert.AreEqual(getProduct.SeoContent.SeoFriendlyUrl, getProduct.ProductInCatalogs.First().SeoContent.SeoFriendlyUrl);
+            Assert.AreEqual(getProduct.SeoContent.TitleTagTitle, getProduct.ProductInCatalogs.First().SeoContent.TitleTagTitle);
         }
 
         [TestMethod]
         [TestCategory("Mozu SDK Sample")]
         [Timeout(TestTimeout.Infinite)]
         [Priority(2)]
-        [Description("IsContentOverridden, IsPriceOverridden, IsSEOContentOverridden  --true")]
+        [Description("IsContentOverridden, IsPriceOverridden, IsSeoContentOverridden  --true")]
         public void AddProductInCatalogTest3()
         {
             var attrObj = Generator.GenerateAttribute(isProperty: true);
@@ -1391,11 +1388,11 @@ namespace Mozu.Api.Test.MsTestCases
 
             Assert.AreNotEqual(getProduct.Price.Price, getProduct.ProductInCatalogs.First().Price.Price);
 
-            Assert.AreNotEqual(getProduct.Seocontent.MetaTagDescription, getProduct.ProductInCatalogs.First().Seocontent.MetaTagDescription);
-            Assert.AreNotEqual(getProduct.Seocontent.MetaTagKeywords, getProduct.ProductInCatalogs.First().Seocontent.MetaTagKeywords);
-            Assert.AreNotEqual(getProduct.Seocontent.MetaTagTitle, getProduct.ProductInCatalogs.First().Seocontent.MetaTagTitle);
-            Assert.AreNotEqual(getProduct.Seocontent.SeofriendlyUrl, getProduct.ProductInCatalogs.First().Seocontent.SeofriendlyUrl);
-            Assert.AreNotEqual(getProduct.Seocontent.TitleTagTitle, getProduct.ProductInCatalogs.First().Seocontent.TitleTagTitle);
+            Assert.AreNotEqual(getProduct.SeoContent.MetaTagDescription, getProduct.ProductInCatalogs.First().SeoContent.MetaTagDescription);
+            Assert.AreNotEqual(getProduct.SeoContent.MetaTagKeywords, getProduct.ProductInCatalogs.First().SeoContent.MetaTagKeywords);
+            Assert.AreNotEqual(getProduct.SeoContent.MetaTagTitle, getProduct.ProductInCatalogs.First().SeoContent.MetaTagTitle);
+            Assert.AreNotEqual(getProduct.SeoContent.SeoFriendlyUrl, getProduct.ProductInCatalogs.First().SeoContent.SeoFriendlyUrl);
+            Assert.AreNotEqual(getProduct.SeoContent.TitleTagTitle, getProduct.ProductInCatalogs.First().SeoContent.TitleTagTitle);
         }
 
         [TestMethod]
@@ -1571,7 +1568,7 @@ namespace Mozu.Api.Test.MsTestCases
             Assert.AreNotEqual(getInfo.First().Price.Price, getInfo.Last().Price.Price);
             Assert.AreNotEqual(getInfo.First().IsActive, getInfo.Last().IsActive);
             Assert.AreNotEqual(getInfo.First().Content.ProductName, getInfo.Last().Content.ProductName);
-            Assert.AreNotEqual(getInfo.First().Seocontent.TitleTagTitle, getInfo.Last().Seocontent.TitleTagTitle);
+            Assert.AreNotEqual(getInfo.First().SeoContent.TitleTagTitle, getInfo.Last().SeoContent.TitleTagTitle);
         }
 
         [TestMethod]
@@ -1698,7 +1695,7 @@ namespace Mozu.Api.Test.MsTestCases
         [TestCategory("Mozu SDK Sample")]
         [Timeout(TestTimeout.Infinite)]
         [Priority(2)]
-        [Description("SEOContent, IsSEOContentOverridden = true")]
+        [Description("SeoContent, IsSeoContentOverridden = true")]
         public void UpdateProductInCatalogTest6()
         {
             var myProduct = Generator.GenerateProduct();
@@ -1706,22 +1703,22 @@ namespace Mozu.Api.Test.MsTestCases
             productCode1.Add(createdProduct.ProductCode);
             var info = ProductFactory.AddProductInCatalog(handler: ApiMsgHandler,productInCatalogInfoIn: Generator.GenerateProductInCatalogInfo(
                                                 TestBaseTenant.MasterCatalogs.First().Catalogs.First().Id, null, null, null, null, null), productCode: createdProduct.ProductCode);
-            info.Seocontent = Generator.GenerateProductLocalizedSEOContent();
-            info.IsSEOContentOverridden = true;
+            info.SeoContent = Generator.GenerateProductLocalizedSEOContent();
+            info.IsseoContentOverridden = true;
             var updateInfo = ProductFactory.UpdateProductInCatalog(handler: ApiMsgHandler,productInCatalogInfoIn: info, productCode:createdProduct.ProductCode,
                                                                      catalogId: TestBaseTenant.MasterCatalogs.First().Catalogs.First().Id, expectedCode: (int)HttpStatusCode.OK);
-            Assert.AreEqual(updateInfo.Seocontent.MetaTagDescription, info.Seocontent.MetaTagDescription);
-            Assert.AreEqual(updateInfo.Seocontent.MetaTagKeywords, info.Seocontent.MetaTagKeywords);
-            Assert.AreEqual(updateInfo.Seocontent.MetaTagTitle, info.Seocontent.MetaTagTitle);
-            Assert.AreEqual(updateInfo.Seocontent.SeofriendlyUrl, info.Seocontent.SeofriendlyUrl);
-            Assert.AreEqual(updateInfo.Seocontent.TitleTagTitle, info.Seocontent.TitleTagTitle);
+            Assert.AreEqual(updateInfo.SeoContent.MetaTagDescription, info.SeoContent.MetaTagDescription);
+            Assert.AreEqual(updateInfo.SeoContent.MetaTagKeywords, info.SeoContent.MetaTagKeywords);
+            Assert.AreEqual(updateInfo.SeoContent.MetaTagTitle, info.SeoContent.MetaTagTitle);
+            Assert.AreEqual(updateInfo.SeoContent.SeoFriendlyUrl, info.SeoContent.SeoFriendlyUrl);
+            Assert.AreEqual(updateInfo.SeoContent.TitleTagTitle, info.SeoContent.TitleTagTitle);
         }
 
         [TestMethod]
         [TestCategory("Mozu SDK Sample")]
         [Timeout(TestTimeout.Infinite)]
         [Priority(2)]
-        [Description("SEOContent, IsSEOContentOverridden = false")]
+        [Description("SeoContent, IsSeoContentOverridden = false")]
         public void UpdateProductInCatalogTest7()
         {
             var myProduct = Generator.GenerateProduct();
@@ -1729,15 +1726,15 @@ namespace Mozu.Api.Test.MsTestCases
             productCode1.Add(createdProduct.ProductCode);
             var info = ProductFactory.AddProductInCatalog(handler: ApiMsgHandler, productInCatalogInfoIn: Generator.GenerateProductInCatalogInfo(
                                                 TestBaseTenant.MasterCatalogs.First().Catalogs.First().Id, null, null, null, null, null), productCode: createdProduct.ProductCode);
-            info.Seocontent = Generator.GenerateProductLocalizedSEOContent();
-            info.IsSEOContentOverridden = false;
+            info.SeoContent = Generator.GenerateProductLocalizedSEOContent();
+            info.IsseoContentOverridden = false;
             var updateInfo = ProductFactory.UpdateProductInCatalog(handler: ApiMsgHandler,productInCatalogInfoIn: info, productCode: createdProduct.ProductCode,
                                                              catalogId: TestBaseTenant.MasterCatalogs.First().Catalogs.First().Id, expectedCode: (int)HttpStatusCode.OK);
-            Assert.AreEqual(updateInfo.Seocontent.MetaTagDescription, createdProduct.Seocontent.MetaTagDescription);
-            Assert.AreEqual(updateInfo.Seocontent.MetaTagKeywords, createdProduct.Seocontent.MetaTagKeywords);
-            Assert.AreEqual(updateInfo.Seocontent.MetaTagTitle, createdProduct.Seocontent.MetaTagTitle);
-            Assert.AreEqual(updateInfo.Seocontent.SeofriendlyUrl, createdProduct.Seocontent.SeofriendlyUrl);
-            Assert.AreEqual(updateInfo.Seocontent.TitleTagTitle, createdProduct.Seocontent.TitleTagTitle);
+            Assert.AreEqual(updateInfo.SeoContent.MetaTagDescription, createdProduct.SeoContent.MetaTagDescription);
+            Assert.AreEqual(updateInfo.SeoContent.MetaTagKeywords, createdProduct.SeoContent.MetaTagKeywords);
+            Assert.AreEqual(updateInfo.SeoContent.MetaTagTitle, createdProduct.SeoContent.MetaTagTitle);
+            Assert.AreEqual(updateInfo.SeoContent.SeoFriendlyUrl, createdProduct.SeoContent.SeoFriendlyUrl);
+            Assert.AreEqual(updateInfo.SeoContent.TitleTagTitle, createdProduct.SeoContent.TitleTagTitle);
         }
 
         [TestMethod]

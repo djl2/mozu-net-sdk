@@ -16,7 +16,6 @@ using System.Net;
 using Mozu.Api;
 using Mozu.Api.Security;
 using Mozu.Api.Test.Helpers;
-using Newtonsoft.Json;
 
 #endregion
 
@@ -28,119 +27,143 @@ namespace Mozu.Api.Test.Factories
 	public partial class LocationInventoryFactory : BaseDataFactory
 	{
 
-	/// <summary> 
+		/// <summary> 
 		/// 
-		/// LocationInventoryFactory.GetLocationInventory(handler : handler,  locationCode :  locationCode,  productCode :  productCode,  dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<LocationInventory>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// <example> 
+		///  <code> 
+		//// var result = LocationInventoryFactory.GetLocationInventory(handler : handler,  locationCode :  locationCode,  productCode :  productCode,  authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<LocationInventory>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.ProductAdmin.LocationInventory GetLocationInventory(ServiceClientMessageHandler handler, 
- 		 string locationCode, string productCode, DataViewMode dataViewMode= DataViewMode.Live, 
+ 		 string locationCode, string productCode,  AuthTicket authTicket= null, DataViewMode dataViewMode= DataViewMode.Live, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Admin.LocationInventoryClient.GetLocationInventoryClient(
-				 locationCode :  locationCode,  productCode :  productCode, dataViewMode: dataViewMode		);
+				 locationCode :  locationCode,  productCode :  productCode, authTicket : authTicket, dataViewMode: dataViewMode		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
+  
 		/// <summary> 
 		/// 
-		/// LocationInventoryFactory.GetLocationInventories(handler : handler,  locationCode :  locationCode,  dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode);
+		/// <example> 
+		///  <code> 
+		//// LocationInventoryFactory.GetLocationInventories(handler : handler,  locationCode :  locationCode,  dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode);
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.ProductAdmin.LocationInventoryCollection GetLocationInventories(ServiceClientMessageHandler handler, 
- 		 string locationCode, DataViewMode dataViewMode= DataViewMode.Live, 
+ 		 string locationCode,  DataViewMode dataViewMode= DataViewMode.Live, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
-			return GetLocationInventories(handler : handler,  filter :  null,  locationCode :  locationCode,  pageSize :  null,  sortBy :  null,  startIndex :  null, dataViewMode: dataViewMode, 
+			return GetLocationInventories(handler : handler,  filter :  null,  locationCode :  locationCode,  pageSize :  null,  sortBy :  null,  startIndex :  null,authTicket : null, dataViewMode: dataViewMode, 
 				expectedCode: expectedCode, successCode: successCode);
 		}
-
+  
 		/// <summary> 
 		/// 
-		/// LocationInventoryFactory.GetLocationInventories(handler : handler,  filter :  filter,  locationCode :  locationCode,  pageSize :  pageSize,  sortBy :  sortBy,  startIndex :  startIndex,  dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<LocationInventoryCollection>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// <example> 
+		///  <code> 
+		//// var result = LocationInventoryFactory.GetLocationInventories(handler : handler,  filter :  filter,  locationCode :  locationCode,  pageSize :  pageSize,  sortBy :  sortBy,  startIndex :  startIndex,  authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<LocationInventoryCollection>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.ProductAdmin.LocationInventoryCollection GetLocationInventories(ServiceClientMessageHandler handler, 
- 		 string filter, string locationCode, int? pageSize, string sortBy, int? startIndex, DataViewMode dataViewMode= DataViewMode.Live, 
+ 		 string filter, string locationCode, int? pageSize, string sortBy, int? startIndex,  AuthTicket authTicket= null, DataViewMode dataViewMode= DataViewMode.Live, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Admin.LocationInventoryClient.GetLocationInventoriesClient(
-				 filter :  filter,  locationCode :  locationCode,  pageSize :  pageSize,  sortBy :  sortBy,  startIndex :  startIndex, dataViewMode: dataViewMode		);
+				 filter :  filter,  locationCode :  locationCode,  pageSize :  pageSize,  sortBy :  sortBy,  startIndex :  startIndex, authTicket : authTicket, dataViewMode: dataViewMode		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
-			/// <summary> 
+  
+		/// <summary> 
 		/// 
-		/// LocationInventoryFactory.AddLocationInventory(handler : handler,  locationCode :  locationCode,  locationInventoryList :  locationInventoryList, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<List<LocationInventory>>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// <example> 
+		///  <code> 
+		//// var result = LocationInventoryFactory.AddLocationInventory(handler : handler,  locationCode :  locationCode,  locationInventoryList :  locationInventoryList, authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<List<LocationInventory>>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static List<Mozu.Api.Contracts.ProductAdmin.LocationInventory> AddLocationInventory(ServiceClientMessageHandler handler, 
- 		 string locationCode, List<Mozu.Api.Contracts.ProductAdmin.LocationInventory> locationInventoryList,DataViewMode dataViewMode= DataViewMode.Live, 
+ 		 string locationCode, List<Mozu.Api.Contracts.ProductAdmin.LocationInventory> locationInventoryList, AuthTicket authTicket= null, DataViewMode dataViewMode= DataViewMode.Live, 
 		 int expectedCode = (int)HttpStatusCode.Created, int successCode = (int)HttpStatusCode.Created)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Admin.LocationInventoryClient.AddLocationInventoryClient(
-				 locationCode :  locationCode,  locationInventoryList :  locationInventoryList, dataViewMode: dataViewMode		);
+				 locationCode :  locationCode,  locationInventoryList :  locationInventoryList, authTicket : authTicket, dataViewMode: dataViewMode		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
-			/// <summary> 
+  
+		/// <summary> 
 		/// 
-		/// LocationInventoryFactory.UpdateLocationInventory(handler : handler,  locationCode :  locationCode,  locationInventoryAdjustments :  locationInventoryAdjustments, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<List<LocationInventory>>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// <example> 
+		///  <code> 
+		//// var result = LocationInventoryFactory.UpdateLocationInventory(handler : handler,  locationCode :  locationCode,  locationInventoryAdjustments :  locationInventoryAdjustments, authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<List<LocationInventory>>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static List<Mozu.Api.Contracts.ProductAdmin.LocationInventory> UpdateLocationInventory(ServiceClientMessageHandler handler, 
- 		 string locationCode, List<Mozu.Api.Contracts.ProductAdmin.LocationInventoryAdjustment> locationInventoryAdjustments,DataViewMode dataViewMode= DataViewMode.Live, 
+ 		 string locationCode, List<Mozu.Api.Contracts.ProductAdmin.LocationInventoryAdjustment> locationInventoryAdjustments, AuthTicket authTicket= null, DataViewMode dataViewMode= DataViewMode.Live, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Admin.LocationInventoryClient.UpdateLocationInventoryClient(
-				 locationCode :  locationCode,  locationInventoryAdjustments :  locationInventoryAdjustments, dataViewMode: dataViewMode		);
+				 locationCode :  locationCode,  locationInventoryAdjustments :  locationInventoryAdjustments, authTicket : authTicket, dataViewMode: dataViewMode		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
-			/// <summary> 
+  
+		/// <summary> 
 		/// 
-		/// LocationInventoryFactory.DeleteLocationInventory(handler : handler,  locationCode :  locationCode,  productCode :  productCode,  dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<void>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// <example> 
+		///  <code> 
+		//// var result = LocationInventoryFactory.DeleteLocationInventory(handler : handler,  locationCode :  locationCode,  productCode :  productCode,  authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<void>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static void DeleteLocationInventory(ServiceClientMessageHandler handler, 
- 		string locationCode, string productCode, DataViewMode dataViewMode= DataViewMode.Live, 
+ 		string locationCode, string productCode,  AuthTicket authTicket= null, DataViewMode dataViewMode= DataViewMode.Live, 
 		 int expectedCode = (int)HttpStatusCode.NoContent, int successCode = (int)HttpStatusCode.NoContent)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Admin.LocationInventoryClient.DeleteLocationInventoryClient(
-				 locationCode :  locationCode,  productCode :  productCode, dataViewMode: dataViewMode		);
+				 locationCode :  locationCode,  productCode :  productCode, authTicket : authTicket, dataViewMode: dataViewMode		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			var noResponse = ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
+  
 
-		
 	}
 
 }

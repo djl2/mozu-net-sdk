@@ -16,12 +16,12 @@ using Mozu.Api.Security;
 namespace Mozu.Api.Clients.Content
 {
 	/// <summary>
-	/// Use the property types subresource to manage content properties.
+	/// 
 	/// </summary>
 	public partial class PropertyTypeClient 	{
 		
 		/// <summary>
-		/// Retrieve a list of the content property types.
+		/// 
 		/// </summary>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Content.PropertyTypeCollection"/>}
@@ -38,9 +38,9 @@ namespace Mozu.Api.Clients.Content
 		}
 
 		/// <summary>
-		/// Retrieve a list of the content property types.
+		/// 
 		/// </summary>
-		/// <param name="pageSize">Used to create paged results from a query. Specifies the number of results to display on each page. Maximum: 200.</param>
+		/// <param name="pageSize"></param>
 		/// <param name="startIndex"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
@@ -64,9 +64,9 @@ namespace Mozu.Api.Clients.Content
 		}
 
 		/// <summary>
-		/// Retrieve the details of the content property type.
+		/// 
 		/// </summary>
-		/// <param name="propertyTypeName">The name of the content property type.</param>
+		/// <param name="propertyTypeName"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Content.PropertyType"/>}
@@ -89,7 +89,7 @@ namespace Mozu.Api.Clients.Content
 		}
 
 		/// <summary>
-		/// Retrieve the value types associated with a content property.
+		/// 
 		/// </summary>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>

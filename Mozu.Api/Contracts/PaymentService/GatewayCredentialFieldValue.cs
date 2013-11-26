@@ -12,19 +12,10 @@ using System;
 
 namespace Mozu.Api.Contracts.PaymentService
 {
-		///
-		///	Field value information for the payment gateway.
-		///
 		public class GatewayCredentialFieldValue
 		{
-			///
-			///The name of the payment gateway field.
-			///
 			public string Name { get; set; }
 
-			///
-			///The value of the payment gateway field.
-			///
 			public string Value { get; set; }
 
 		}

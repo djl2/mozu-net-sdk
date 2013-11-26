@@ -13,9 +13,6 @@ using System.Collections.Generic;
 
 namespace Mozu.Api.Contracts.CommerceRuntime.Returns
 {
-		///
-		///	List of returns and the details of each return in the list.
-		///
 		public class ReturnCollection
 		{
 			public long PageCount { get; set; }

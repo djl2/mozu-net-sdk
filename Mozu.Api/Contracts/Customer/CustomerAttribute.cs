@@ -14,31 +14,16 @@ using Mozu.Api.Contracts.Core;
 
 namespace Mozu.Api.Contracts.Customer
 {
-		///
-		///	Properties of an attribute associated with a customer account.
-		///
 		public class CustomerAttribute
 		{
 			public int AttributeDefinitionId { get; set; }
 
-			///
-			///"The fully qualified name of the attribute, which is a user defined attribute identifier."
-			///
 			public string FullyQualifiedName { get; set; }
 
-			///
-			///Unique identifier of the customer account attribute.
-			///
 			public int? Id { get; set; }
 
-			///
-			///List of values for the attribute.
-			///
 			public List<object> Values { get; set; }
 
-			///
-			///Identifier and datetime stamp information recorded when creating or updating a resource entity. System-supplied and read-only.
-			///
 			public AuditInfo AuditInfo { get; set; }
 
 		}

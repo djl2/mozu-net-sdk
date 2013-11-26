@@ -16,14 +16,14 @@ using Mozu.Api.Security;
 namespace Mozu.Api.Clients.Platform.User
 {
 	/// <summary>
-	/// Manage the user authentication tickets used to perform operations in the Mozu API.
+	/// 
 	/// </summary>
 	public partial class UserAuthTicketClient 	{
 		
 				/// <summary>
-		/// Generates an authentication ticket for a user.
+		/// 
 		/// </summary>
-		/// <param name="userAuthInfo">The user authentication information, which consists of email address and password.</param>
+		/// <param name="userAuthInfo"></param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Core.UserAuthTicket"/>}
 		/// </returns>
@@ -43,9 +43,9 @@ namespace Mozu.Api.Clients.Platform.User
 		}
 
 		/// <summary>
-		/// Generates an authentication ticket for a user that can be used for an individual site.
+		/// 
 		/// </summary>
-		/// <param name="userAuthInfo">The user authentication information, which consists of email address and password.</param>
+		/// <param name="userAuthInfo"></param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Core.UserAuthTicket"/>}
 		/// </returns>
@@ -65,9 +65,9 @@ namespace Mozu.Api.Clients.Platform.User
 		}
 
 				/// <summary>
-		/// Refresh the user authentication ticket by supplying the refresh token.
+		/// 
 		/// </summary>
-		/// <param name="refreshToken">The refresh token generated in the user authentication ticket.</param>
+		/// <param name="refreshToken"></param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Core.UserAuthTicket"/>}
 		/// </returns>

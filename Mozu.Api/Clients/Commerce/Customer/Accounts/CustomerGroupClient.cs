@@ -16,14 +16,14 @@ using Mozu.Api.Security;
 namespace Mozu.Api.Clients.Commerce.Customer.Accounts
 {
 	/// <summary>
-	/// Use the groups subresource to manage customer accounts in groups. The groups are useful to manage sets of customers. A customer account can belong to several groups or none at all.
+	/// 
 	/// </summary>
 	public partial class CustomerGroupClient 	{
 		
 		/// <summary>
-		/// Retrieve a list of customer groups associated with the customer account.
+		/// 
 		/// </summary>
-		/// <param name="accountId">Unique identifier of the customer account.</param>
+		/// <param name="accountId"></param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Customer.CustomerGroupCollection"/>}
 		/// </returns>
@@ -39,11 +39,11 @@ namespace Mozu.Api.Clients.Commerce.Customer.Accounts
 		}
 
 		/// <summary>
-		/// Retrieve a list of customer groups associated with the customer account.
+		/// 
 		/// </summary>
-		/// <param name="accountId">Unique identifier of the customer account.</param>
-		/// <param name="filter">"A set of expressions that consist of a field, operator, and value and represent search parameter syntax when filtering results of a query. Valid operators include equals (eq), does not equal (ne), greater than (gt), less than (lt), greater than or equal to (ge), less than or equal to (le), starts with (sw), or contains (cont). For example - ""filter=IsDisplayed+eq+true"""</param>
-		/// <param name="pageSize">Used to create paged results from a query. Specifies the number of results to display on each page. Maximum: 200.</param>
+		/// <param name="accountId"></param>
+		/// <param name="filter"></param>
+		/// <param name="pageSize"></param>
 		/// <param name="sortBy"></param>
 		/// <param name="startIndex"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
@@ -68,10 +68,10 @@ namespace Mozu.Api.Clients.Commerce.Customer.Accounts
 		}
 
 		/// <summary>
-		/// Retrieves details of a customer account in a group.
+		/// 
 		/// </summary>
-		/// <param name="accountId">Unique identifier of the customer account.</param>
-		/// <param name="groupId">Unique identifier of the customer group.</param>
+		/// <param name="accountId"></param>
+		/// <param name="groupId"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Customer.CustomerGroup"/>}
@@ -94,10 +94,10 @@ namespace Mozu.Api.Clients.Commerce.Customer.Accounts
 		}
 
 				/// <summary>
-		/// Adds a customer account to a group.
+		/// 
 		/// </summary>
-		/// <param name="accountId">Unique identifier of the customer account to add to a group.</param>
-		/// <param name="groupId">Unique identifier of the customer group to add the customer to.</param>
+		/// <param name="accountId"></param>
+		/// <param name="groupId"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Customer.CustomerGroup"/>}
@@ -120,10 +120,10 @@ namespace Mozu.Api.Clients.Commerce.Customer.Accounts
 		}
 
 						/// <summary>
-		/// Removes a customer account from a group.
+		/// 
 		/// </summary>
-		/// <param name="accountId">Unique identifier of the customer account to remove from the group.</param>
-		/// <param name="groupId">Unique identifier of the customer group.</param>
+		/// <param name="accountId"></param>
+		/// <param name="groupId"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />

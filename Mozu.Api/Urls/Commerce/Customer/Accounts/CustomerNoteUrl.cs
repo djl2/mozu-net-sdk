@@ -19,8 +19,8 @@ namespace Mozu.Api.Urls.Commerce.Customer.Accounts
 		/// <summary>
         /// Get Resource Url for GetAccountNote
         /// </summary>
-        /// <param name="accountId">Unique identifier of the customer account that contains the note being retrieved.</param>
-        /// <param name="noteId">Unique identifier of a particular note to retrieve.</param>
+        /// <param name="accountId"></param>
+        /// <param name="noteId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
@@ -35,11 +35,11 @@ namespace Mozu.Api.Urls.Commerce.Customer.Accounts
 		/// <summary>
         /// Get Resource Url for GetAccountNotes
         /// </summary>
-        /// <param name="accountId">Unique identifier of the customer account.</param>
-        /// <param name="filter">"A set of expressions that consist of a field, operator, and value and represent search parameter syntax when filtering results of a query. Valid operators include equals (eq), does not equal (ne), greater than (gt), less than (lt), greater than or equal to (ge), less than or equal to (le), starts with (sw), or contains (cont). For example - ""filter=IsDisplayed+eq+true"""</param>
-        /// <param name="pageSize">Used to create paged results from a query. Specifies the number of results to display on each page. Maximum: 200.</param>
-        /// <param name="sortBy">"The property by which to sort results and whether the results appear in ascending (a-z) order, represented by 'ASC' or in descending (z-a) order, represented by 'DESC'. The sortBy parameter follows an available property. <b>For example: sortBy=productCode+asc</b>"</param>
-        /// <param name="startIndex">"Used to create paged results from a query. Indicates the zero-based offset in the complete result set where the returned entities begin. For example, with a PageSize of 25, to get the 51st through the 75th items, use startIndex=3."</param>
+        /// <param name="accountId"></param>
+        /// <param name="filter"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="sortBy"></param>
+        /// <param name="startIndex"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
@@ -57,7 +57,7 @@ namespace Mozu.Api.Urls.Commerce.Customer.Accounts
 				/// <summary>
         /// Get Resource Url for AddAccountNote
         /// </summary>
-        /// <param name="accountId">Unique identifier of the customer account for which to create the note.</param>
+        /// <param name="accountId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
@@ -71,8 +71,8 @@ namespace Mozu.Api.Urls.Commerce.Customer.Accounts
 				/// <summary>
         /// Get Resource Url for UpdateAccountNote
         /// </summary>
-        /// <param name="accountId">Unique identifier of the customer account note to modify.</param>
-        /// <param name="noteId">Unique identifier of the note to update.</param>
+        /// <param name="accountId"></param>
+        /// <param name="noteId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
@@ -87,8 +87,8 @@ namespace Mozu.Api.Urls.Commerce.Customer.Accounts
 				/// <summary>
         /// Get Resource Url for DeleteAccountNote
         /// </summary>
-        /// <param name="accountId">Unique identifier of the customer account that contains the note being deleted.</param>
-        /// <param name="noteId">Unique identifier of the customer account note being deleted.</param>
+        /// <param name="accountId"></param>
+        /// <param name="noteId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>

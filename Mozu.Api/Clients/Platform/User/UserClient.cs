@@ -16,14 +16,14 @@ using Mozu.Api.Security;
 namespace Mozu.Api.Clients.Platform.User
 {
 	/// <summary>
-	/// Use this resource to manage shopper accounts for your Mozu tenant.
+	/// 
 	/// </summary>
 	public partial class UserClient 	{
 		
 		/// <summary>
-		/// Retrieves the details of a user account by supplying the user's email address.
+		/// 
 		/// </summary>
-		/// <param name="emailAddress">The email address of the specified user.</param>
+		/// <param name="emailAddress"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Core.User"/>}
@@ -46,9 +46,9 @@ namespace Mozu.Api.Clients.Platform.User
 		}
 
 		/// <summary>
-		/// Retrieves the details of a user account by supplying the user ID.
+		/// 
 		/// </summary>
-		/// <param name="userId">Unique identifier of the user.</param>
+		/// <param name="userId"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Core.User"/>}
@@ -71,10 +71,10 @@ namespace Mozu.Api.Clients.Platform.User
 		}
 
 				/// <summary>
-		/// Creates a new shopper user account.
+		/// 
 		/// </summary>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="shopper">Properties of the new shopper user account to create.</param>
+		/// <param name="shopper"></param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Core.User"/>}
 		/// </returns>
@@ -96,10 +96,10 @@ namespace Mozu.Api.Clients.Platform.User
 		}
 
 		/// <summary>
-		/// Creates a bulk collection of new shopper user accounts.
+		/// 
 		/// </summary>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="users">Properties of the new shopper user accounts to create.</param>
+		/// <param name="users"></param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Core.UserCollection"/>}
 		/// </returns>
@@ -121,10 +121,10 @@ namespace Mozu.Api.Clients.Platform.User
 		}
 
 		/// <summary>
-		/// Logs a shopper user in to a tenant.
+		/// 
 		/// </summary>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="userAuthInfo">The authentication information required to log the user in, which consists of email address and password.</param>
+		/// <param name="userAuthInfo"></param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.User.UserLoginResult"/>}
 		/// </returns>
@@ -146,10 +146,10 @@ namespace Mozu.Api.Clients.Platform.User
 		}
 
 		/// <summary>
-		/// Reset the shopper user password by supplying the email address.
+		/// 
 		/// </summary>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="resetPasswordInfo">The information required to reset the password, which consists of the user email address.</param>
+		/// <param name="resetPasswordInfo"></param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />
 		/// </returns>

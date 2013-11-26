@@ -16,23 +16,26 @@ using System.Net;
 using Mozu.Api;
 using Mozu.Api.Security;
 using Mozu.Api.Test.Helpers;
-using Newtonsoft.Json;
 
 #endregion
 
 namespace Mozu.Api.Test.Factories
 {
 	/// <summary>
-	/// Manage the user authentication tickets used to perform operations in the Mozu API.
+	/// 
 	/// </summary>
 	public partial class UserAuthTicketFactory : BaseDataFactory
 	{
 
 		/// <summary> 
-		/// Generates an authentication ticket for a user.
-		/// UserAuthTicketFactory.CreateUserAuthTicket(handler : handler,  userAuthInfo :  userAuthInfo,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<UserAuthTicket>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// 
+		/// <example> 
+		///  <code> 
+		//// var result = UserAuthTicketFactory.CreateUserAuthTicket(handler : handler,  userAuthInfo :  userAuthInfo,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<UserAuthTicket>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.Core.UserAuthTicket CreateUserAuthTicket(ServiceClientMessageHandler handler, 
  		 Mozu.Api.Contracts.Core.UserAuthInfo userAuthInfo, 
@@ -47,12 +50,16 @@ namespace Mozu.Api.Test.Factories
 					 : null;
 
 		}
-
+  
 		/// <summary> 
-		/// Generates an authentication ticket for a user that can be used for an individual site.
-		/// UserAuthTicketFactory.CreateAuthTicketForSite(handler : handler,  userAuthInfo :  userAuthInfo,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<UserAuthTicket>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// 
+		/// <example> 
+		///  <code> 
+		//// var result = UserAuthTicketFactory.CreateAuthTicketForSite(handler : handler,  userAuthInfo :  userAuthInfo,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<UserAuthTicket>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.Core.UserAuthTicket CreateAuthTicketForSite(ServiceClientMessageHandler handler, 
  		 Mozu.Api.Contracts.Core.UserTokenInfo userAuthInfo, 
@@ -67,12 +74,16 @@ namespace Mozu.Api.Test.Factories
 					 : null;
 
 		}
-
-			/// <summary> 
-		/// Refresh the user authentication ticket by supplying the refresh token.
-		/// UserAuthTicketFactory.RefreshUserAuthTicket(handler : handler,  refreshToken :  refreshToken,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<UserAuthTicket>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+  
+		/// <summary> 
+		/// 
+		/// <example> 
+		///  <code> 
+		//// var result = UserAuthTicketFactory.RefreshUserAuthTicket(handler : handler,  refreshToken :  refreshToken,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<UserAuthTicket>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.Core.UserAuthTicket RefreshUserAuthTicket(ServiceClientMessageHandler handler, 
  		 string refreshToken, 
@@ -87,8 +98,8 @@ namespace Mozu.Api.Test.Factories
 					 : null;
 
 		}
+  
 
-			
 	}
 
 }

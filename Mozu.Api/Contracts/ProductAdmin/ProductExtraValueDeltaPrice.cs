@@ -12,19 +12,10 @@ using System;
 
 namespace Mozu.Api.Contracts.ProductAdmin
 {
-		///
-		///	The difference between the highest price and the lowest price of the product extra values.
-		///
 		public class ProductExtraValueDeltaPrice
 		{
-			///
-			///"3-letter ISO 4217 standard global currency code. Currently, only ""USD"" (US Dollar) is supported."
-			///
 			public string CurrencyCode { get; set; }
 
-			///
-			///The difference between the highest price and the lowest price for product extra values.
-			///
 			public decimal DeltaPrice { get; set; }
 
 		}

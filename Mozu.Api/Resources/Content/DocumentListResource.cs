@@ -16,7 +16,7 @@ using Mozu.Api.Security;
 namespace Mozu.Api.Resources.Content
 {
 	/// <summary>
-	/// Use the document lists resource to organize your site's documents into a hierarchy. Document lists can contain documents, folders, and complete hierarchies of folders, which contain documents with unique names.
+	/// 
 	/// </summary>
 	public partial class DocumentListResource  	{
 				///
@@ -30,7 +30,7 @@ namespace Mozu.Api.Resources.Content
 
 		
 		/// <summary>
-		/// Retrieves a collection of document lists.
+		/// 
 		/// </summary>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.Content.DocumentListCollection"/>
@@ -47,9 +47,9 @@ namespace Mozu.Api.Resources.Content
 		}
 
 		/// <summary>
-		/// Retrieves a collection of document lists.
+		/// 
 		/// </summary>
-		/// <param name="pageSize">Used to create paged results from a query. Specifies the number of results to display on each page. Maximum: 200.</param>
+		/// <param name="pageSize"></param>
 		/// <param name="sort"></param>
 		/// <param name="startIndex"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
@@ -73,9 +73,9 @@ namespace Mozu.Api.Resources.Content
 		}
 
 		/// <summary>
-		/// Retrieve the details of a document list by providing the list name.
+		/// 
 		/// </summary>
-		/// <param name="documentListName">The name of the document list.</param>
+		/// <param name="documentListName"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.Content.DocumentList"/>

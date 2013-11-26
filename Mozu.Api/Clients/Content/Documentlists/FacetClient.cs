@@ -16,15 +16,15 @@ using Mozu.Api.Security;
 namespace Mozu.Api.Clients.Content.Documentlists
 {
 	/// <summary>
-	/// Use the facets subresource to allow a merchant to add information for product indexing and searching.
+	/// 
 	/// </summary>
 	public partial class FacetClient 	{
 		
 		/// <summary>
-		/// Retrieves the properties of facets that aid in indexing and searching.
+		/// 
 		/// </summary>
-		/// <param name="documentListName">The document list associated with the facets are to retrieve.</param>
-		/// <param name="propertyName">The property name associated with the facets to retrieve.</param>
+		/// <param name="documentListName"></param>
+		/// <param name="propertyName"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{List{<see cref="Mozu.Api.Contracts.Content.Facet"/>}}

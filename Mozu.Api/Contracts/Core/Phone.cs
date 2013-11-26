@@ -12,24 +12,12 @@ using System;
 
 namespace Mozu.Api.Contracts.Core
 {
-		///
-		///	Phone number information for a contact.
-		///
 		public class Phone
 		{
-			///
-			///Home phone number.
-			///
 			public string Home { get; set; }
 
-			///
-			///Mobile phone number.
-			///
 			public string Mobile { get; set; }
 
-			///
-			///Work phone number.
-			///
 			public string Work { get; set; }
 
 		}

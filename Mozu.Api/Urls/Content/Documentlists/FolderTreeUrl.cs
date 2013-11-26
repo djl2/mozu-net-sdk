@@ -19,10 +19,10 @@ namespace Mozu.Api.Urls.Content.Documentlists
 		/// <summary>
         /// Get Resource Url for GetFolderTree
         /// </summary>
-        /// <param name="documentListName">The name of the document list that contains this folder hierarchy.</param>
-        /// <param name="levels">The number of levels in the folder hierarchy to return.</param>
-        /// <param name="rootFolderId">The unique identifier of the top-level folder in the document list.</param>
-        /// <param name="rootFolderPath">The location in the document hierarchy of the top-level folder in the document list.</param>
+        /// <param name="documentListName"></param>
+        /// <param name="levels"></param>
+        /// <param name="rootFolderId"></param>
+        /// <param name="rootFolderPath"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>

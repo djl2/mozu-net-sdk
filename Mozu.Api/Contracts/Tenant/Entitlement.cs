@@ -12,9 +12,6 @@ using System;
 
 namespace Mozu.Api.Contracts.Tenant
 {
-		///
-		///	***Always private and should not be published.***
-		///
 		public class Entitlement
 		{
 			public string AppConfigUrl { get; set; }
@@ -29,14 +26,8 @@ namespace Mozu.Api.Contracts.Tenant
 
 			public string ApplicationVersion { get; set; }
 
-			///
-			///***Always private and should not be published.***
-			///
 			public int ApplicationVersionId { get; set; }
 
-			///
-			///Date and time when the entity was created. UTC Date/Time.
-			///
 			public DateTime CreateDate { get; set; }
 
 			public string DeveloperAccountName { get; set; }
@@ -47,30 +38,18 @@ namespace Mozu.Api.Contracts.Tenant
 
 			public string HeroImage { get; set; }
 
-			///
-			///Identifier of the entity.
-			///
 			public int Id { get; set; }
 
 			public string LicenseType { get; set; }
 
-			///
-			///When the document was published. System-supplied and read-only.
-			///
 			public DateTime PublishedDate { get; set; }
 
 			public int? SiteId { get; set; }
 
 			public string Status { get; set; }
 
-			///
-			///Unique identifier of the Mozu tenant.
-			///
 			public int TenantId { get; set; }
 
-			///
-			///Date and time when the entity was last updated. UTC Date/Time.
-			///
 			public DateTime UpdateDate { get; set; }
 
 		}

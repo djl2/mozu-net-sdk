@@ -14,9 +14,6 @@ namespace Mozu.Api.Contracts.PaymentService
 {
 		public class GatewayCredentialFieldDefinition
 		{
-			///
-			///***Always private and should not be published.*** Previous ApiRefId "Mozu.PaymentService.Contracts.GatewayCredentialFieldDefinition.AdminDisplayOrder"
-			///
 			public int AdminDisplayOrder { get; set; }
 
 			public string DisplayName { get; set; }

@@ -14,13 +14,13 @@ namespace Mozu.Api.Contracts.ProductAdmin
 {
 		public class LocationInventoryAdjustment
 		{
-			public string Type { get; set; }
-
-			public int Value { get; set; }
-
 			public string LocationCode { get; set; }
 
 			public string ProductCode { get; set; }
+
+			public string Type { get; set; }
+
+			public int Value { get; set; }
 
 		}
 

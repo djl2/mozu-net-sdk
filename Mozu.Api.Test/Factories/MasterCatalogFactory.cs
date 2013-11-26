@@ -16,7 +16,6 @@ using System.Net;
 using Mozu.Api;
 using Mozu.Api.Security;
 using Mozu.Api.Test.Helpers;
-using Newtonsoft.Json;
 
 #endregion
 
@@ -28,67 +27,79 @@ namespace Mozu.Api.Test.Factories
 	public partial class MasterCatalogFactory : BaseDataFactory
 	{
 
-	/// <summary> 
+		/// <summary> 
 		/// 
-		/// MasterCatalogFactory.GetMasterCatalogs(handler : handler,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<MasterCatalogCollection>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// <example> 
+		///  <code> 
+		//// var result = MasterCatalogFactory.GetMasterCatalogs(handler : handler,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<MasterCatalogCollection>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.ProductAdmin.MasterCatalogCollection GetMasterCatalogs(ServiceClientMessageHandler handler, 
- 		 
+ 		  AuthTicket authTicket= null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Admin.MasterCatalogClient.GetMasterCatalogsClient(
-						);
+				 authTicket : authTicket		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
+  
 		/// <summary> 
 		/// 
-		/// MasterCatalogFactory.GetMasterCatalog(handler : handler,  masterCatalogId :  masterCatalogId,  dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<MasterCatalog>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// <example> 
+		///  <code> 
+		//// var result = MasterCatalogFactory.GetMasterCatalog(handler : handler,  masterCatalogId :  masterCatalogId,  authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<MasterCatalog>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.ProductAdmin.MasterCatalog GetMasterCatalog(ServiceClientMessageHandler handler, 
- 		 int masterCatalogId, DataViewMode dataViewMode= DataViewMode.Live, 
+ 		 int masterCatalogId,  AuthTicket authTicket= null, DataViewMode dataViewMode= DataViewMode.Live, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Admin.MasterCatalogClient.GetMasterCatalogClient(
-				 masterCatalogId :  masterCatalogId, dataViewMode: dataViewMode		);
+				 masterCatalogId :  masterCatalogId, authTicket : authTicket, dataViewMode: dataViewMode		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
-				/// <summary> 
+  
+		/// <summary> 
 		/// 
-		/// MasterCatalogFactory.UpdateMasterCatalog(handler : handler,  masterCatalogId :  masterCatalogId,  masterCatalog :  masterCatalog, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<MasterCatalog>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// <example> 
+		///  <code> 
+		//// var result = MasterCatalogFactory.UpdateMasterCatalog(handler : handler,  masterCatalogId :  masterCatalogId,  masterCatalog :  masterCatalog, authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<MasterCatalog>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.ProductAdmin.MasterCatalog UpdateMasterCatalog(ServiceClientMessageHandler handler, 
- 		 int masterCatalogId, Mozu.Api.Contracts.ProductAdmin.MasterCatalog masterCatalog,DataViewMode dataViewMode= DataViewMode.Live, 
+ 		 int masterCatalogId, Mozu.Api.Contracts.ProductAdmin.MasterCatalog masterCatalog, AuthTicket authTicket= null, DataViewMode dataViewMode= DataViewMode.Live, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Admin.MasterCatalogClient.UpdateMasterCatalogClient(
-				 masterCatalogId :  masterCatalogId,  masterCatalog :  masterCatalog, dataViewMode: dataViewMode		);
+				 masterCatalogId :  masterCatalogId,  masterCatalog :  masterCatalog, authTicket : authTicket, dataViewMode: dataViewMode		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
+  
 
-			
 	}
 
 }

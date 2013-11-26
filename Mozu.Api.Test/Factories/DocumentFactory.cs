@@ -16,191 +16,226 @@ using System.Net;
 using Mozu.Api;
 using Mozu.Api.Security;
 using Mozu.Api.Test.Helpers;
-using Newtonsoft.Json;
 
 #endregion
 
 namespace Mozu.Api.Test.Factories
 {
 	/// <summary>
-	/// Use this subresource to manage documents in a document list.
+	/// 
 	/// </summary>
 	public partial class DocumentFactory : BaseDataFactory
 	{
 
-	/// <summary> 
-		/// Get a specific document within the specified document list by providing the document ID.
-		/// DocumentFactory.GetDocument(handler : handler,  documentId :  documentId,  documentListName :  documentListName,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<Document>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// <summary> 
+		/// 
+		/// <example> 
+		///  <code> 
+		//// var result = DocumentFactory.GetDocument(handler : handler,  documentId :  documentId,  documentListName :  documentListName,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<Document>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.Content.Document GetDocument(ServiceClientMessageHandler handler, 
- 		 string documentId, string documentListName, 
+ 		 string documentId, string documentListName,  AuthTicket authTicket= null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Content.Documentlists.DocumentClient.GetDocumentClient(
-				 documentId :  documentId,  documentListName :  documentListName		);
+				 documentId :  documentId,  documentListName :  documentListName, authTicket : authTicket		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
+  
 		/// <summary> 
-		/// Retrieve the content associated with a document, such as a product image or PDF specifications file, by supplying the document ID.
-		/// DocumentFactory.GetDocumentContent(handler : handler,  documentId :  documentId,  documentListName :  documentListName,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<void>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// 
+		/// <example> 
+		///  <code> 
+		//// var result = DocumentFactory.GetDocumentContent(handler : handler,  documentId :  documentId,  documentListName :  documentListName,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<void>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static void GetDocumentContent(ServiceClientMessageHandler handler, 
- 		string documentId, string documentListName, 
+ 		string documentId, string documentListName,  AuthTicket authTicket= null, 
 		 int expectedCode = (int)HttpStatusCode.NoContent, int successCode = (int)HttpStatusCode.NoContent)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Content.Documentlists.DocumentClient.GetDocumentContentClient(
-				 documentId :  documentId,  documentListName :  documentListName		);
+				 documentId :  documentId,  documentListName :  documentListName, authTicket : authTicket		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			var noResponse = ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
+  
 		/// <summary> 
-		/// Retrieves a collection of documents according to any filter and sort criteria.
-		/// DocumentFactory.GetDocuments(handler : handler,  documentListName :  documentListName,  expectedCode: expectedCode, successCode: successCode);
+		/// 
+		/// <example> 
+		///  <code> 
+		//// DocumentFactory.GetDocuments(handler : handler,  documentListName :  documentListName,  expectedCode: expectedCode, successCode: successCode);
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.Content.DocumentCollection GetDocuments(ServiceClientMessageHandler handler, 
  		 string documentListName, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
-			return GetDocuments(handler : handler,  documentListName :  documentListName,  filter :  null,  pageSize :  null,  sortBy :  null,  startIndex :  null, 
+			return GetDocuments(handler : handler,  documentListName :  documentListName,  filter :  null,  pageSize :  null,  sortBy :  null,  startIndex :  null,authTicket : null, 
 				expectedCode: expectedCode, successCode: successCode);
 		}
-
+  
 		/// <summary> 
-		/// Retrieves a collection of documents according to any filter and sort criteria.
-		/// DocumentFactory.GetDocuments(handler : handler,  documentListName :  documentListName,  filter :  filter,  pageSize :  pageSize,  sortBy :  sortBy,  startIndex :  startIndex,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<DocumentCollection>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// 
+		/// <example> 
+		///  <code> 
+		//// var result = DocumentFactory.GetDocuments(handler : handler,  documentListName :  documentListName,  filter :  filter,  pageSize :  pageSize,  sortBy :  sortBy,  startIndex :  startIndex,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<DocumentCollection>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.Content.DocumentCollection GetDocuments(ServiceClientMessageHandler handler, 
- 		 string documentListName, string filter, int? pageSize, string sortBy, int? startIndex, 
+ 		 string documentListName, string filter, int? pageSize, string sortBy, int? startIndex,  AuthTicket authTicket= null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Content.Documentlists.DocumentClient.GetDocumentsClient(
-				 documentListName :  documentListName,  filter :  filter,  pageSize :  pageSize,  sortBy :  sortBy,  startIndex :  startIndex		);
+				 documentListName :  documentListName,  filter :  filter,  pageSize :  pageSize,  sortBy :  sortBy,  startIndex :  startIndex, authTicket : authTicket		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
-			/// <summary> 
-		/// Creates a new document in an existing list.
-		/// DocumentFactory.CreateDocument(handler : handler,  documentListName :  documentListName,  document :  document,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<Document>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+  
+		/// <summary> 
+		/// 
+		/// <example> 
+		///  <code> 
+		//// var result = DocumentFactory.CreateDocument(handler : handler,  documentListName :  documentListName,  document :  document, authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<Document>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.Content.Document CreateDocument(ServiceClientMessageHandler handler, 
- 		 string documentListName, Mozu.Api.Contracts.Content.Document document, 
+ 		 string documentListName, Mozu.Api.Contracts.Content.Document document, AuthTicket authTicket= null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Content.Documentlists.DocumentClient.CreateDocumentClient(
-				 documentListName :  documentListName,  document :  document		);
+				 documentListName :  documentListName,  document :  document, authTicket : authTicket		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
-			/// <summary> 
-		/// Updates a document in a document list.
-		/// DocumentFactory.UpdateDocument(handler : handler,  documentId :  documentId,  documentListName :  documentListName,  document :  document,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<Document>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+  
+		/// <summary> 
+		/// 
+		/// <example> 
+		///  <code> 
+		//// var result = DocumentFactory.UpdateDocument(handler : handler,  documentId :  documentId,  documentListName :  documentListName,  document :  document, authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<Document>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.Content.Document UpdateDocument(ServiceClientMessageHandler handler, 
- 		 string documentId, string documentListName, Mozu.Api.Contracts.Content.Document document, 
+ 		 string documentId, string documentListName, Mozu.Api.Contracts.Content.Document document, AuthTicket authTicket= null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Content.Documentlists.DocumentClient.UpdateDocumentClient(
-				 documentId :  documentId,  documentListName :  documentListName,  document :  document		);
+				 documentId :  documentId,  documentListName :  documentListName,  document :  document, authTicket : authTicket		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
+  
 		/// <summary> 
-		/// Updates the content associated with a document, such as a product image or PDF specifications file, by supplying the document ID.
-		/// DocumentFactory.UpdateDocumentContent(handler : handler,  documentId :  documentId,  documentListName :  documentListName,  stream :  stream,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<void>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// 
+		/// <example> 
+		///  <code> 
+		//// var result = DocumentFactory.UpdateDocumentContent(handler : handler,  documentId :  documentId,  documentListName :  documentListName,  stream :  stream, authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<void>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static void UpdateDocumentContent(ServiceClientMessageHandler handler, 
- 		string documentId, string documentListName, System.IO.Stream stream, 
+ 		string documentId, string documentListName, System.IO.Stream stream, AuthTicket authTicket= null, 
 		 int expectedCode = (int)HttpStatusCode.NoContent, int successCode = (int)HttpStatusCode.NoContent)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Content.Documentlists.DocumentClient.UpdateDocumentContentClient(
-				 documentId :  documentId,  documentListName :  documentListName,  stream :  stream		);
+				 documentId :  documentId,  documentListName :  documentListName,  stream :  stream, authTicket : authTicket		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			var noResponse = ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
-			/// <summary> 
-		/// Deletes a specific document based on the specified documentId.
-		/// DocumentFactory.DeleteDocument(handler : handler,  documentId :  documentId,  documentListName :  documentListName,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<void>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+  
+		/// <summary> 
+		/// 
+		/// <example> 
+		///  <code> 
+		//// var result = DocumentFactory.DeleteDocument(handler : handler,  documentId :  documentId,  documentListName :  documentListName,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<void>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static void DeleteDocument(ServiceClientMessageHandler handler, 
- 		string documentId, string documentListName, 
+ 		string documentId, string documentListName,  AuthTicket authTicket= null, 
 		 int expectedCode = (int)HttpStatusCode.NoContent, int successCode = (int)HttpStatusCode.NoContent)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Content.Documentlists.DocumentClient.DeleteDocumentClient(
-				 documentId :  documentId,  documentListName :  documentListName		);
+				 documentId :  documentId,  documentListName :  documentListName, authTicket : authTicket		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			var noResponse = ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
+  
 		/// <summary> 
-		/// Deletes the content associated with a document, such as a product image or PDF specification, by supplying the document ID.
-		/// DocumentFactory.DeleteDocumentContent(handler : handler,  documentId :  documentId,  documentListName :  documentListName,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<void>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// 
+		/// <example> 
+		///  <code> 
+		//// var result = DocumentFactory.DeleteDocumentContent(handler : handler,  documentId :  documentId,  documentListName :  documentListName,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<void>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static void DeleteDocumentContent(ServiceClientMessageHandler handler, 
- 		string documentId, string documentListName, 
+ 		string documentId, string documentListName,  AuthTicket authTicket= null, 
 		 int expectedCode = (int)HttpStatusCode.NoContent, int successCode = (int)HttpStatusCode.NoContent)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Content.Documentlists.DocumentClient.DeleteDocumentContentClient(
-				 documentId :  documentId,  documentListName :  documentListName		);
+				 documentId :  documentId,  documentListName :  documentListName, authTicket : authTicket		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			var noResponse = ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
+  
 
-		
 	}
 
 }

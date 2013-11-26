@@ -19,8 +19,8 @@ namespace Mozu.Api.Urls.Commerce.Customer.Accounts
 		/// <summary>
         /// Get Resource Url for GetAccountContact
         /// </summary>
-        /// <param name="accountId">Unique identifier of the customer account whose contact information is being retrieved.</param>
-        /// <param name="contactId">Unique identifier of the customer account contact to retrieve.</param>
+        /// <param name="accountId"></param>
+        /// <param name="contactId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
@@ -35,9 +35,9 @@ namespace Mozu.Api.Urls.Commerce.Customer.Accounts
 		/// <summary>
         /// Get Resource Url for GetAccountContacts
         /// </summary>
-        /// <param name="accountId">Unique identifier of the customer account associated with the contact information to retrieve.</param>
-        /// <param name="filter">"A set of expressions that consist of a field, operator, and value and represent search parameter syntax when filtering results of a query. Valid operators include equals (eq), does not equal (ne), greater than (gt), less than (lt), greater than or equal to (ge), less than or equal to (le), starts with (sw), or contains (cont). For example - ""filter=IsDisplayed+eq+true"""</param>
-        /// <param name="pageSize">Used to create paged results from a query. Specifies the number of results to display on each page. Maximum: 200.</param>
+        /// <param name="accountId"></param>
+        /// <param name="filter"></param>
+        /// <param name="pageSize"></param>
         /// <param name="sortBy"></param>
         /// <param name="startIndex"></param>
         /// <returns>
@@ -57,7 +57,7 @@ namespace Mozu.Api.Urls.Commerce.Customer.Accounts
 				/// <summary>
         /// Get Resource Url for AddAccountContact
         /// </summary>
-        /// <param name="accountId">Unique identifier of the customer account containing the new contact.</param>
+        /// <param name="accountId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
@@ -71,8 +71,8 @@ namespace Mozu.Api.Urls.Commerce.Customer.Accounts
 				/// <summary>
         /// Get Resource Url for UpdateAccountContact
         /// </summary>
-        /// <param name="accountId">Unique identifier of the customer account whose contact information is being updated.</param>
-        /// <param name="contactId">Unique identifer of the customer account contact being updated.</param>
+        /// <param name="accountId"></param>
+        /// <param name="contactId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
@@ -87,8 +87,8 @@ namespace Mozu.Api.Urls.Commerce.Customer.Accounts
 				/// <summary>
         /// Get Resource Url for DeleteAccountContact
         /// </summary>
-        /// <param name="accountId">Unique identifier of the customer account.</param>
-        /// <param name="contactId">Unique identifier of the customer account contact to delete.</param>
+        /// <param name="accountId"></param>
+        /// <param name="contactId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>

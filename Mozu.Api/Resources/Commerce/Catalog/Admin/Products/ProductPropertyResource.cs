@@ -16,7 +16,7 @@ using Mozu.Api.Security;
 namespace Mozu.Api.Resources.Commerce.Catalog.Admin.Products
 {
 	/// <summary>
-	/// Query, create, and update product properties.
+	/// 
 	/// </summary>
 	public partial class ProductPropertyResource  	{
 				///
@@ -30,9 +30,9 @@ namespace Mozu.Api.Resources.Commerce.Catalog.Admin.Products
 
 		
 		/// <summary>
-		/// Retrieves a list of product properties by providing the product code.
+		/// 
 		/// </summary>
-		/// <param name="productCode">Identifies the product for which a list of properties is being retrieved.</param>
+		/// <param name="productCode"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// List{<see cref="Mozu.Api.Contracts.ProductAdmin.ProductProperty"/>}
@@ -54,10 +54,10 @@ namespace Mozu.Api.Resources.Commerce.Catalog.Admin.Products
 		}
 
 		/// <summary>
-		/// Retrieves the individual product property by providing the product code and the attribute's fully qualified name.
+		/// 
 		/// </summary>
-		/// <param name="attributeFQN">"The fully qualified name of the attribute, which is a user defined attribute identifier."</param>
-		/// <param name="productCode">Identifies the product for which a single property is being retrieved.</param>
+		/// <param name="attributeFQN"></param>
+		/// <param name="productCode"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.ProductAdmin.ProductProperty"/>
@@ -79,11 +79,11 @@ namespace Mozu.Api.Resources.Commerce.Catalog.Admin.Products
 		}
 
 				/// <summary>
-		/// Adds or creates an individual property by providing the product code.
+		/// 
 		/// </summary>
-		/// <param name="productCode">The merchant-created code that uniquely identifies the product such as a SKU or item number. Identifies the product for which a new property is created.</param>
+		/// <param name="productCode"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="productProperty">The details of the product property including the attribute detail, user's fully qualified name, and the list of product property values to add.</param>
+		/// <param name="productProperty"></param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.ProductAdmin.ProductProperty"/>
 		/// </returns>
@@ -104,12 +104,12 @@ namespace Mozu.Api.Resources.Commerce.Catalog.Admin.Products
 		}
 
 				/// <summary>
-		/// Update the details of a product property by providng the product code and the attribute's fully qualified name.
+		/// 
 		/// </summary>
-		/// <param name="attributeFQN">"The fully qualified name of the attribute, which is a user defined attribute identifier."</param>
-		/// <param name="productCode">Identifies the product for which a list of properties is being updated.</param>
+		/// <param name="attributeFQN"></param>
+		/// <param name="productCode"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="productProperty">The details of the product property including the attribute detail, user's fully qualified name, and the list of product property values to update.</param>
+		/// <param name="productProperty"></param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.ProductAdmin.ProductProperty"/>
 		/// </returns>
@@ -130,10 +130,10 @@ namespace Mozu.Api.Resources.Commerce.Catalog.Admin.Products
 		}
 
 				/// <summary>
-		/// Deletes the property by providing the product code and the attribute's fully qualified name.
+		/// 
 		/// </summary>
-		/// <param name="attributeFQN">"The fully qualified name of the attribute, which is a user defined attribute identifier."</param>
-		/// <param name="productCode">Identifies the product for which a new property is being deleted.</param>
+		/// <param name="attributeFQN"></param>
+		/// <param name="productCode"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// 

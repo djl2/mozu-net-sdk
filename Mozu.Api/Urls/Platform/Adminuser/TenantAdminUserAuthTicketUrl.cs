@@ -19,7 +19,7 @@ namespace Mozu.Api.Urls.Platform.Adminuser
 				/// <summary>
         /// Get Resource Url for CreateUserAuthTicket
         /// </summary>
-        /// <param name="tenantId">Unique identifier of the Mozu tenant or development store for which to generate the user authentication ticket.</param>
+        /// <param name="tenantId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
@@ -33,7 +33,7 @@ namespace Mozu.Api.Urls.Platform.Adminuser
 				/// <summary>
         /// Get Resource Url for RefreshAuthTicket
         /// </summary>
-        /// <param name="tenantId">Unique identifier of the Mozu tenant or development store for which to refresh the authentication ticket.</param>
+        /// <param name="tenantId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
@@ -47,7 +47,7 @@ namespace Mozu.Api.Urls.Platform.Adminuser
 				/// <summary>
         /// Get Resource Url for DeleteUserAuthTicket
         /// </summary>
-        /// <param name="refreshToken">Refresh token string associated with the user authentication ticket.</param>
+        /// <param name="refreshToken"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>

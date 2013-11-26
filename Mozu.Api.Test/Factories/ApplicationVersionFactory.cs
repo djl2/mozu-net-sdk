@@ -16,7 +16,6 @@ using System.Net;
 using Mozu.Api;
 using Mozu.Api.Security;
 using Mozu.Api.Test.Helpers;
-using Newtonsoft.Json;
 
 #endregion
 
@@ -28,279 +27,335 @@ namespace Mozu.Api.Test.Factories
 	public partial class ApplicationVersionFactory : BaseDataFactory
 	{
 
-	/// <summary> 
+		/// <summary> 
 		/// 
-		/// ApplicationVersionFactory.GetAllApplications(handler : handler,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<ApplicationCollection>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// <example> 
+		///  <code> 
+		//// var result = ApplicationVersionFactory.GetAllApplications(handler : handler,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<ApplicationCollection>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.AppDev.ApplicationCollection GetAllApplications(ServiceClientMessageHandler handler, 
- 		 
+ 		  AuthTicket authTicket= null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Platform.Developer.ApplicationVersionClient.GetAllApplicationsClient(
-						);
+				 authTicket : authTicket		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
+  
 		/// <summary> 
 		/// 
-		/// ApplicationVersionFactory.GetApplication(handler : handler,  expectedCode: expectedCode, successCode: successCode);
+		/// <example> 
+		///  <code> 
+		//// ApplicationVersionFactory.GetApplication(handler : handler,  expectedCode: expectedCode, successCode: successCode);
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.AppDev.Application GetApplication(ServiceClientMessageHandler handler, 
  		 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
-			return GetApplication(handler : handler,  applicationId :  null, 
+			return GetApplication(handler : handler,  applicationId :  null,authTicket : null, 
 				expectedCode: expectedCode, successCode: successCode);
 		}
-
+  
 		/// <summary> 
 		/// 
-		/// ApplicationVersionFactory.GetApplication(handler : handler,  applicationId :  applicationId,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<Application>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// <example> 
+		///  <code> 
+		//// var result = ApplicationVersionFactory.GetApplication(handler : handler,  applicationId :  applicationId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<Application>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.AppDev.Application GetApplication(ServiceClientMessageHandler handler, 
- 		 int? applicationId, 
+ 		 int? applicationId,  AuthTicket authTicket= null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Platform.Developer.ApplicationVersionClient.GetApplicationClient(
-				 applicationId :  applicationId		);
+				 applicationId :  applicationId, authTicket : authTicket		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
+  
 		/// <summary> 
 		/// 
-		/// ApplicationVersionFactory.GetApplicationVersion(handler : handler,  applicationVersionId :  applicationVersionId,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<ApplicationVersion>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// <example> 
+		///  <code> 
+		//// var result = ApplicationVersionFactory.GetApplicationVersion(handler : handler,  applicationVersionId :  applicationVersionId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<ApplicationVersion>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.AppDev.ApplicationVersion GetApplicationVersion(ServiceClientMessageHandler handler, 
- 		 int applicationVersionId, 
+ 		 int applicationVersionId,  AuthTicket authTicket= null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Platform.Developer.ApplicationVersionClient.GetApplicationVersionClient(
-				 applicationVersionId :  applicationVersionId		);
+				 applicationVersionId :  applicationVersionId, authTicket : authTicket		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
+  
 		/// <summary> 
 		/// 
-		/// ApplicationVersionFactory.GetPackages(handler : handler,  applicationVersionId :  applicationVersionId,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<PackageCollection>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// <example> 
+		///  <code> 
+		//// var result = ApplicationVersionFactory.GetPackages(handler : handler,  applicationVersionId :  applicationVersionId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<PackageCollection>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.AppDev.PackageCollection GetPackages(ServiceClientMessageHandler handler, 
- 		 int applicationVersionId, 
+ 		 int applicationVersionId,  AuthTicket authTicket= null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Platform.Developer.ApplicationVersionClient.GetPackagesClient(
-				 applicationVersionId :  applicationVersionId		);
+				 applicationVersionId :  applicationVersionId, authTicket : authTicket		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
+  
 		/// <summary> 
 		/// 
-		/// ApplicationVersionFactory.GetPackage(handler : handler,  applicationVersionId :  applicationVersionId,  packageId :  packageId,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<Package>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// <example> 
+		///  <code> 
+		//// var result = ApplicationVersionFactory.GetPackage(handler : handler,  applicationVersionId :  applicationVersionId,  packageId :  packageId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<Package>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.AppDev.Package GetPackage(ServiceClientMessageHandler handler, 
- 		 int applicationVersionId, int packageId, 
+ 		 int applicationVersionId, int packageId,  AuthTicket authTicket= null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Platform.Developer.ApplicationVersionClient.GetPackageClient(
-				 applicationVersionId :  applicationVersionId,  packageId :  packageId		);
+				 applicationVersionId :  applicationVersionId,  packageId :  packageId, authTicket : authTicket		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
+  
 		/// <summary> 
 		/// 
-		/// ApplicationVersionFactory.GetPackageItemsMetadata(handler : handler,  applicationVersionId :  applicationVersionId,  packageId :  packageId,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<FolderMetadata>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// <example> 
+		///  <code> 
+		//// var result = ApplicationVersionFactory.GetPackageItemsMetadata(handler : handler,  applicationVersionId :  applicationVersionId,  packageId :  packageId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<FolderMetadata>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.AppDev.FolderMetadata GetPackageItemsMetadata(ServiceClientMessageHandler handler, 
- 		 int applicationVersionId, int packageId, 
+ 		 int applicationVersionId, int packageId,  AuthTicket authTicket= null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Platform.Developer.ApplicationVersionClient.GetPackageItemsMetadataClient(
-				 applicationVersionId :  applicationVersionId,  packageId :  packageId		);
+				 applicationVersionId :  applicationVersionId,  packageId :  packageId, authTicket : authTicket		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
+  
 		/// <summary> 
 		/// 
-		/// ApplicationVersionFactory.GetPackageItemMetadata(handler : handler,  applicationVersionId :  applicationVersionId,  itempath :  itempath,  packageId :  packageId,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<FileMetadata>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// <example> 
+		///  <code> 
+		//// var result = ApplicationVersionFactory.GetPackageItemMetadata(handler : handler,  applicationVersionId :  applicationVersionId,  itempath :  itempath,  packageId :  packageId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<FileMetadata>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.AppDev.FileMetadata GetPackageItemMetadata(ServiceClientMessageHandler handler, 
- 		 int applicationVersionId, string itempath, int packageId, 
+ 		 int applicationVersionId, string itempath, int packageId,  AuthTicket authTicket= null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Platform.Developer.ApplicationVersionClient.GetPackageItemMetadataClient(
-				 applicationVersionId :  applicationVersionId,  itempath :  itempath,  packageId :  packageId		);
+				 applicationVersionId :  applicationVersionId,  itempath :  itempath,  packageId :  packageId, authTicket : authTicket		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
+  
 		/// <summary> 
 		/// 
-		/// ApplicationVersionFactory.GetPackageFilesZip(handler : handler,  applicationVersionId :  applicationVersionId,  packageId :  packageId,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<void>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// <example> 
+		///  <code> 
+		//// var result = ApplicationVersionFactory.GetPackageFilesZip(handler : handler,  applicationVersionId :  applicationVersionId,  packageId :  packageId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<void>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static void GetPackageFilesZip(ServiceClientMessageHandler handler, 
- 		int applicationVersionId, int packageId, 
+ 		int applicationVersionId, int packageId,  AuthTicket authTicket= null, 
 		 int expectedCode = (int)HttpStatusCode.NoContent, int successCode = (int)HttpStatusCode.NoContent)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Platform.Developer.ApplicationVersionClient.GetPackageFilesZipClient(
-				 applicationVersionId :  applicationVersionId,  packageId :  packageId		);
+				 applicationVersionId :  applicationVersionId,  packageId :  packageId, authTicket : authTicket		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			var noResponse = ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
-			/// <summary> 
+  
+		/// <summary> 
 		/// 
-		/// ApplicationVersionFactory.AddPackage(handler : handler,  applicationVersionId :  applicationVersionId,  pkg :  pkg,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<Package>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// <example> 
+		///  <code> 
+		//// var result = ApplicationVersionFactory.AddPackage(handler : handler,  applicationVersionId :  applicationVersionId,  pkg :  pkg, authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<Package>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.AppDev.Package AddPackage(ServiceClientMessageHandler handler, 
- 		 int applicationVersionId, Mozu.Api.Contracts.AppDev.Package pkg, 
+ 		 int applicationVersionId, Mozu.Api.Contracts.AppDev.Package pkg, AuthTicket authTicket= null, 
 		 int expectedCode = (int)HttpStatusCode.Created, int successCode = (int)HttpStatusCode.Created)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Platform.Developer.ApplicationVersionClient.AddPackageClient(
-				 applicationVersionId :  applicationVersionId,  pkg :  pkg		);
+				 applicationVersionId :  applicationVersionId,  pkg :  pkg, authTicket : authTicket		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
+  
 		/// <summary> 
 		/// 
-		/// ApplicationVersionFactory.AddPackageFile(handler : handler,  applicationVersionId :  applicationVersionId,  filepath :  filepath,  packageId :  packageId,  stream :  stream,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<FileMetadata>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// <example> 
+		///  <code> 
+		//// var result = ApplicationVersionFactory.AddPackageFile(handler : handler,  applicationVersionId :  applicationVersionId,  filepath :  filepath,  packageId :  packageId,  stream :  stream, authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<FileMetadata>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.AppDev.FileMetadata AddPackageFile(ServiceClientMessageHandler handler, 
- 		 int applicationVersionId, string filepath, int packageId, System.IO.Stream stream, 
+ 		 int applicationVersionId, string filepath, int packageId, System.IO.Stream stream, AuthTicket authTicket= null, 
 		 int expectedCode = (int)HttpStatusCode.Created, int successCode = (int)HttpStatusCode.Created)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Platform.Developer.ApplicationVersionClient.AddPackageFileClient(
-				 applicationVersionId :  applicationVersionId,  filepath :  filepath,  packageId :  packageId,  stream :  stream		);
+				 applicationVersionId :  applicationVersionId,  filepath :  filepath,  packageId :  packageId,  stream :  stream, authTicket : authTicket		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
+  
 		/// <summary> 
 		/// 
-		/// ApplicationVersionFactory.ChangePackageFileNameOrPath(handler : handler,  applicationVersionId :  applicationVersionId,  packageId :  packageId,  renameInfo :  renameInfo,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<FileMetadata>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// <example> 
+		///  <code> 
+		//// var result = ApplicationVersionFactory.ChangePackageFileNameOrPath(handler : handler,  applicationVersionId :  applicationVersionId,  packageId :  packageId,  renameInfo :  renameInfo, authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<FileMetadata>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.AppDev.FileMetadata ChangePackageFileNameOrPath(ServiceClientMessageHandler handler, 
- 		 int applicationVersionId, int packageId, Mozu.Api.Contracts.AppDev.RenameInfo renameInfo, 
+ 		 int applicationVersionId, int packageId, Mozu.Api.Contracts.AppDev.RenameInfo renameInfo, AuthTicket authTicket= null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Platform.Developer.ApplicationVersionClient.ChangePackageFileNameOrPathClient(
-				 applicationVersionId :  applicationVersionId,  packageId :  packageId,  renameInfo :  renameInfo		);
+				 applicationVersionId :  applicationVersionId,  packageId :  packageId,  renameInfo :  renameInfo, authTicket : authTicket		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
-			/// <summary> 
+  
+		/// <summary> 
 		/// 
-		/// ApplicationVersionFactory.UpdatePackageFile(handler : handler,  applicationVersionId :  applicationVersionId,  filepath :  filepath,  packageId :  packageId,  stream :  stream,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<FileMetadata>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// <example> 
+		///  <code> 
+		//// var result = ApplicationVersionFactory.UpdatePackageFile(handler : handler,  applicationVersionId :  applicationVersionId,  filepath :  filepath,  packageId :  packageId,  stream :  stream, authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<FileMetadata>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.AppDev.FileMetadata UpdatePackageFile(ServiceClientMessageHandler handler, 
- 		 int applicationVersionId, string filepath, int packageId, System.IO.Stream stream, 
+ 		 int applicationVersionId, string filepath, int packageId, System.IO.Stream stream, AuthTicket authTicket= null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Platform.Developer.ApplicationVersionClient.UpdatePackageFileClient(
-				 applicationVersionId :  applicationVersionId,  filepath :  filepath,  packageId :  packageId,  stream :  stream		);
+				 applicationVersionId :  applicationVersionId,  filepath :  filepath,  packageId :  packageId,  stream :  stream, authTicket : authTicket		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
-			/// <summary> 
+  
+		/// <summary> 
 		/// 
-		/// ApplicationVersionFactory.DeletePackageFile(handler : handler,  applicationVersionId :  applicationVersionId,  filepath :  filepath,  packageId :  packageId,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<void>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// <example> 
+		///  <code> 
+		//// var result = ApplicationVersionFactory.DeletePackageFile(handler : handler,  applicationVersionId :  applicationVersionId,  filepath :  filepath,  packageId :  packageId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<void>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static void DeletePackageFile(ServiceClientMessageHandler handler, 
- 		int applicationVersionId, string filepath, int packageId, 
+ 		int applicationVersionId, string filepath, int packageId,  AuthTicket authTicket= null, 
 		 int expectedCode = (int)HttpStatusCode.NoContent, int successCode = (int)HttpStatusCode.NoContent)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Platform.Developer.ApplicationVersionClient.DeletePackageFileClient(
-				 applicationVersionId :  applicationVersionId,  filepath :  filepath,  packageId :  packageId		);
+				 applicationVersionId :  applicationVersionId,  filepath :  filepath,  packageId :  packageId, authTicket : authTicket		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			var noResponse = ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
+  
 
-		
 	}
 
 }

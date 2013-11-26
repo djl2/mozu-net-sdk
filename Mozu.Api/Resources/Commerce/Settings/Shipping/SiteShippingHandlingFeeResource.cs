@@ -16,7 +16,7 @@ using Mozu.Api.Security;
 namespace Mozu.Api.Resources.Commerce.Settings.Shipping
 {
 	/// <summary>
-	/// Use the Order Handling Fee subresource to configure any shipping and handling fees to apply to orders for this site.
+	/// 
 	/// </summary>
 	public partial class SiteShippingHandlingFeeResource  	{
 				///
@@ -30,7 +30,7 @@ namespace Mozu.Api.Resources.Commerce.Settings.Shipping
 
 		
 		/// <summary>
-		/// Retrieves the details of the order handling fee configured for the site.
+		/// 
 		/// </summary>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
@@ -53,10 +53,10 @@ namespace Mozu.Api.Resources.Commerce.Settings.Shipping
 		}
 
 				/// <summary>
-		/// Creates a new order handling fee for the site.
+		/// 
 		/// </summary>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="orderHandlingFee">Properties of the order handling fee to assess for order shipment.</param>
+		/// <param name="orderHandlingFee"></param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.SiteSettings.Shipping.SiteShippingHandlingFee"/>
 		/// </returns>
@@ -77,10 +77,10 @@ namespace Mozu.Api.Resources.Commerce.Settings.Shipping
 		}
 
 				/// <summary>
-		/// Updates the order handling fee amount for the site.
+		/// 
 		/// </summary>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="orderHandlingFee">The combined price for all items in the order, including all selected options but excluding any discounts.</param>
+		/// <param name="orderHandlingFee"></param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.SiteSettings.Shipping.SiteShippingHandlingFee"/>
 		/// </returns>

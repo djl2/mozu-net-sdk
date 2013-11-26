@@ -19,8 +19,8 @@ namespace Mozu.Api.Urls.Commerce.Catalog.Storefront
 		/// <summary>
         /// Get Resource Url for GetProducts
         /// </summary>
-        /// <param name="filter">"A set of expressions that consist of a field, operator, and value and represent search parameter syntax when filtering results of a query. Valid operators include equals (eq), does not equal (ne), greater than (gt), less than (lt), greater than or equal to (ge), less than or equal to (le), starts with (sw), or contains (cont). For example - ""filter=IsDisplayed+eq+true"""</param>
-        /// <param name="pageSize">Used to create paged results from a query. Specifies the number of results to display on each page. Maximum: 200.</param>
+        /// <param name="filter"></param>
+        /// <param name="pageSize"></param>
         /// <param name="sortBy"></param>
         /// <param name="startIndex"></param>
         /// <returns>
@@ -55,9 +55,9 @@ namespace Mozu.Api.Urls.Commerce.Catalog.Storefront
 		/// <summary>
         /// Get Resource Url for GetProduct
         /// </summary>
-        /// <param name="allowInactive">If true, returns an inactive product as part of the query.</param>
-        /// <param name="productCode">"Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only."</param>
-        /// <param name="variationProductCode">Merchant-created code associated with a specific product variation. Variation product codes maintain an association with the base product code.</param>
+        /// <param name="allowInactive"></param>
+        /// <param name="productCode"></param>
+        /// <param name="variationProductCode"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
@@ -73,8 +73,8 @@ namespace Mozu.Api.Urls.Commerce.Catalog.Storefront
 				/// <summary>
         /// Get Resource Url for ConfiguredProduct
         /// </summary>
-        /// <param name="includeOptionDetails">If true, the response returns details about the product. If false, returns a product summary such as the product name, price, and sale price.</param>
-        /// <param name="productCode">"Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only."</param>
+        /// <param name="includeOptionDetails"></param>
+        /// <param name="productCode"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
@@ -89,7 +89,7 @@ namespace Mozu.Api.Urls.Commerce.Catalog.Storefront
 		/// <summary>
         /// Get Resource Url for ValidateProduct
         /// </summary>
-        /// <param name="productCode">"Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only."</param>
+        /// <param name="productCode"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>

@@ -13,29 +13,14 @@ using System.Collections.Generic;
 
 namespace Mozu.Api.Contracts.ProductAdmin
 {
-		///
-		///	Properties of the product extra to create such as the attribute detail, fully qualified name, and list of product extra values. Setting up product extras in Product Admin allows for shopper-entered information such as th initials on a monogram.
-		///
 		public class ProductExtra
 		{
-			///
-			///"The fully qualified name of the attribute, which is a user defined attribute identifier."
-			///
 			public string AttributeFQN { get; set; }
 
-			///
-			///If true, the property has several selections.
-			///
 			public bool? IsMultiSelect { get; set; }
 
-			///
-			///If true, the product extra is required for the request to return a valid response.
-			///
 			public bool? IsRequired { get; set; }
 
-			///
-			///The list of values that populate a product extra as set in the Admin for the Storefront.
-			///
 			public List<ProductExtraValue> Values { get; set; }
 
 		}

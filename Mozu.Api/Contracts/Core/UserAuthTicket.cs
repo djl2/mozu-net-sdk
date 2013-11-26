@@ -13,44 +13,20 @@ using System.Collections.Generic;
 
 namespace Mozu.Api.Contracts.Core
 {
-		///
-		///	Properties of a user authentication ticket.
-		///
 		public class UserAuthTicket
 		{
-			///
-			///Access token for the user authentication ticket.
-			///
 			public string AccessToken { get; set; }
 
-			///
-			///The date and time the access token expires for the user authentication ticket.
-			///
 			public DateTime AccessTokenExpiration { get; set; }
 
-			///
-			///Encrypted list of behaviors associated with the user authentication ticket.
-			///
 			public List<int> GrantedBehaviors { get; set; }
 
-			///
-			///The refresh roken for the user authentication ticket.
-			///
 			public string RefreshToken { get; set; }
 
-			///
-			///The date and time the refresh token expires for the user authentication ticket.
-			///
 			public DateTime RefreshTokenExpiration { get; set; }
 
-			///
-			///The tenant scope to which the user authentication ticket applies.
-			///
 			public UserScope Scope { get; set; }
 
-			///
-			///Properties of the user.
-			///
 			public UserProfile User { get; set; }
 
 		}

@@ -13,79 +13,34 @@ using Mozu.Api.Contracts.Core;
 
 namespace Mozu.Api.Contracts.ProductAdmin
 {
-		///
-		///	Discount used to calculate SalePrice. Includes coupon code if applicable, amount of the discount, and discount savings. Discounts can be either an absolute price or a percentage off. The sale price beats any discounts.
-		///
 		public class Discount
 		{
-			///
-			///The integer amount of the discount. For example, an entry of "10" could represent a discount of $10.00 or a discount of 10%, depending on the type.
-			///
 			public decimal? Amount { get; set; }
 
-			///
-			///The type of discount amount, such as an amount or a percentage.
-			///
 			public string AmountType { get; set; }
 
-			///
-			///Alphanumeric code associated with the coupon or promotion that results in a discounted price.
-			///
 			public string CouponCode { get; set; }
 
-			///
-			///The most recent number of redeemed discounts.
-			///
 			public int? CurrentRedemptionCount { get; set; }
 
-			///
-			/// The date when the order will no longer be active or considered abandoned. For example, if a guest or anonymous shoppper has 14 days of inactivity, the order is considered abandoned after that period of inactivity. An order never expires for shoppers who are logged into their account. Date in UTC Date/Time. System-supplied and read-only.
-			///
 			public DateTime? ExpirationDate { get; set; }
 
-			///
-			///Unique identifier of the discount.
-			///
 			public int? Id { get; set; }
 
-			///
-			///The maximum number of discount redemptions accepted.
-			///
 			public int? MaxRedemptionCount { get; set; }
 
-			///
-			///If true, a coupon code entry is required to redeem the discount.
-			///
 			public bool RequiresCoupon { get; set; }
 
-			///
-			///The scope to which the discount applies, which is "Order" for order discounts or "LineItem" for individual product discounts.
-			///
 			public string Scope { get; set; }
 
-			///
-			///Date when the product discount goes into effect. System-supplied and read-only.
-			///
 			public DateTime? StartDate { get; set; }
 
-			///
-			///Current status of the product discount. Possible values are "Active", "Scheduled", or "Expired".
-			///
 			public string Status { get; set; }
 
-			///
-			///Identifier and datetime stamp information recorded when creating or updating a resource entity. System-supplied and read-only.
-			///
 			public AuditInfo AuditInfo { get; set; }
 
-			///
-			///Complex type that contains content for a language specified by LocaleCode.
-			///
 			public DiscountLocalizedContent Content { get; set; }
 
-			///
-			///Properties of the target object to which the discount applies, such as a product or an order.
-			///
 			public DiscountTarget Target { get; set; }
 
 		}

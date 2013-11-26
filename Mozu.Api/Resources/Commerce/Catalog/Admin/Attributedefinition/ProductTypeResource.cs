@@ -16,7 +16,7 @@ using Mozu.Api.Security;
 namespace Mozu.Api.Resources.Commerce.Catalog.Admin.Attributedefinition
 {
 	/// <summary>
-	/// Use the Product Types resource to manage the types for your product catalog. Product types act as configuration templates, which store a set of attributes common to all products associated with that type. Unlike categories, products can only be associated with a single product type.
+	/// 
 	/// </summary>
 	public partial class ProductTypeResource  	{
 				///
@@ -30,7 +30,7 @@ namespace Mozu.Api.Resources.Commerce.Catalog.Admin.Attributedefinition
 
 		
 		/// <summary>
-		/// Retrieves a list of product types according to any specified filter criteria and sort options.
+		/// 
 		/// </summary>
 		/// <param name="dataViewMode">{<see cref="Mozu.Api.DataViewMode"/>}</param>
 		/// <returns>
@@ -48,10 +48,10 @@ namespace Mozu.Api.Resources.Commerce.Catalog.Admin.Attributedefinition
 		}
 
 		/// <summary>
-		/// Retrieves a list of product types according to any specified filter criteria and sort options.
+		/// 
 		/// </summary>
-		/// <param name="filter">A set of expressions that consist of a field, operator, and value and represent search parameter syntax when filtering results of a query. You can filter product type search results by any of its properties. Valid operators include equals (eq), does not equal (ne), greater than (gt), less than (lt), greater than or equal to (ge), less than or equal to (le), starts with (sw), or contains (cont). <b>For example - "filter=Name+cont+shoes"</b></param>
-		/// <param name="pageSize">Used to create paged results from a query. Specifies the number of results to display on each page. Maximum: 200.</param>
+		/// <param name="filter"></param>
+		/// <param name="pageSize"></param>
 		/// <param name="sortBy"></param>
 		/// <param name="startIndex"></param>
 		/// <param name="dataViewMode">{<see cref="Mozu.Api.DataViewMode"/>}</param>
@@ -76,9 +76,9 @@ namespace Mozu.Api.Resources.Commerce.Catalog.Admin.Attributedefinition
 		}
 
 		/// <summary>
-		/// Retrieves a product type by providing the product type ID.
+		/// 
 		/// </summary>
-		/// <param name="productTypeId">Identifier of the product type being retrieved.</param>
+		/// <param name="productTypeId"></param>
 		/// <param name="dataViewMode">{<see cref="Mozu.Api.DataViewMode"/>}</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
@@ -101,11 +101,11 @@ namespace Mozu.Api.Resources.Commerce.Catalog.Admin.Attributedefinition
 		}
 
 				/// <summary>
-		/// Add or create a new product type.
+		/// 
 		/// </summary>
 		/// <param name="dataViewMode">{<see cref="Mozu.Api.DataViewMode"/>}</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="productType">Add or create the product type using these properties.</param>
+		/// <param name="productType"></param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.ProductAdmin.ProductType"/>
 		/// </returns>
@@ -126,12 +126,12 @@ namespace Mozu.Api.Resources.Commerce.Catalog.Admin.Attributedefinition
 		}
 
 				/// <summary>
-		/// Update a product type by providing the product type ID.
+		/// 
 		/// </summary>
-		/// <param name="productTypeId">Identifier of the product type to update.</param>
+		/// <param name="productTypeId"></param>
 		/// <param name="dataViewMode">{<see cref="Mozu.Api.DataViewMode"/>}</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="productType">The details of the product type to update.</param>
+		/// <param name="productType"></param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.ProductAdmin.ProductType"/>
 		/// </returns>
@@ -152,9 +152,9 @@ namespace Mozu.Api.Resources.Commerce.Catalog.Admin.Attributedefinition
 		}
 
 				/// <summary>
-		/// Delete product type by providing the product type ID.
+		/// 
 		/// </summary>
-		/// <param name="productTypeId">Identifier of the product type being deleted.</param>
+		/// <param name="productTypeId"></param>
 		/// <param name="dataViewMode">{<see cref="Mozu.Api.DataViewMode"/>}</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>

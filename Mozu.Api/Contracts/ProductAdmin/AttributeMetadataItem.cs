@@ -12,19 +12,10 @@ using System;
 
 namespace Mozu.Api.Contracts.ProductAdmin
 {
-		///
-		///	Item used to define additional key-value pairs of data associated with a product attribute.
-		///
 		public class AttributeMetadataItem
 		{
-			///
-			///User-defined key for attribute metadata.
-			///
 			public string Key { get; set; }
 
-			///
-			///Value for the user-defined key.
-			///
 			public string Value { get; set; }
 
 		}

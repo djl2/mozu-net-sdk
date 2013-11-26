@@ -16,299 +16,362 @@ using System.Net;
 using Mozu.Api;
 using Mozu.Api.Security;
 using Mozu.Api.Test.Helpers;
-using Newtonsoft.Json;
 
 #endregion
 
 namespace Mozu.Api.Test.Factories
 {
 	/// <summary>
-	/// Manage order processing, payment, and shipping. Includes getting customer payment details, shipping address and selected shipment method, processing payment transactions, and, once paid, shipping the order to the shopper.
+	/// 
 	/// </summary>
 	public partial class OrderFactory : BaseDataFactory
 	{
 
-	/// <summary> 
-		/// Retrieves a list of orders according to any specified filter criteria and sort options.
-		/// OrderFactory.GetOrders(handler : handler,  expectedCode: expectedCode, successCode: successCode);
+		/// <summary> 
+		/// 
+		/// <example> 
+		///  <code> 
+		//// OrderFactory.GetOrders(handler : handler,  expectedCode: expectedCode, successCode: successCode);
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.CommerceRuntime.Orders.OrderCollection GetOrders(ServiceClientMessageHandler handler, 
  		 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
-			return GetOrders(handler : handler,  filter :  null,  pageSize :  null,  q :  null,  qLimit :  null,  sortBy :  null,  startIndex :  null, 
+			return GetOrders(handler : handler,  filter :  null,  pageSize :  null,  q :  null,  qLimit :  null,  sortBy :  null,  startIndex :  null,authTicket : null, 
 				expectedCode: expectedCode, successCode: successCode);
 		}
-
+  
 		/// <summary> 
-		/// Retrieves a list of orders according to any specified filter criteria and sort options.
-		/// OrderFactory.GetOrders(handler : handler,  filter :  filter,  pageSize :  pageSize,  q :  q,  qLimit :  qLimit,  sortBy :  sortBy,  startIndex :  startIndex,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<OrderCollection>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// 
+		/// <example> 
+		///  <code> 
+		//// var result = OrderFactory.GetOrders(handler : handler,  filter :  filter,  pageSize :  pageSize,  q :  q,  qLimit :  qLimit,  sortBy :  sortBy,  startIndex :  startIndex,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<OrderCollection>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.CommerceRuntime.Orders.OrderCollection GetOrders(ServiceClientMessageHandler handler, 
- 		 string filter, int? pageSize, string q, int? qLimit, string sortBy, int? startIndex, 
+ 		 string filter, int? pageSize, string q, int? qLimit, string sortBy, int? startIndex,  AuthTicket authTicket= null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.OrderClient.GetOrdersClient(
-				 filter :  filter,  pageSize :  pageSize,  q :  q,  qLimit :  qLimit,  sortBy :  sortBy,  startIndex :  startIndex		);
+				 filter :  filter,  pageSize :  pageSize,  q :  q,  qLimit :  qLimit,  sortBy :  sortBy,  startIndex :  startIndex, authTicket : authTicket		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
+  
 		/// <summary> 
-		/// Retrieves available order actions which depends on the status of the order. Actions are "CreateOrder," "SubmitOrder," "SetOrderAsProcessing," "CloseOrder," or "CancelOrder."
-		/// OrderFactory.GetAvailableActions(handler : handler,  orderId :  orderId,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<List<string>>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// 
+		/// <example> 
+		///  <code> 
+		//// var result = OrderFactory.GetAvailableActions(handler : handler,  orderId :  orderId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<List<string>>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static List<string> GetAvailableActions(ServiceClientMessageHandler handler, 
- 		 string orderId, 
+ 		 string orderId,  AuthTicket authTicket= null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.OrderClient.GetAvailableActionsClient(
-				 orderId :  orderId		);
+				 orderId :  orderId, authTicket : authTicket		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
+  
 		/// <summary> 
 		/// 
-		/// OrderFactory.GetTaxableOrders(handler : handler,  orderId :  orderId,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<List<TaxableOrder>>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// <example> 
+		///  <code> 
+		//// var result = OrderFactory.GetTaxableOrders(handler : handler,  orderId :  orderId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<List<TaxableOrder>>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static List<Mozu.Api.Contracts.PricingRuntime.TaxableOrder> GetTaxableOrders(ServiceClientMessageHandler handler, 
- 		 string orderId, 
+ 		 string orderId,  AuthTicket authTicket= null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.OrderClient.GetTaxableOrdersClient(
-				 orderId :  orderId		);
+				 orderId :  orderId, authTicket : authTicket		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
+  
 		/// <summary> 
-		/// Retrieves the details of an order specified by the order ID.
-		/// OrderFactory.GetOrder(handler : handler,  orderId :  orderId,  expectedCode: expectedCode, successCode: successCode);
+		/// 
+		/// <example> 
+		///  <code> 
+		//// OrderFactory.GetOrder(handler : handler,  orderId :  orderId,  expectedCode: expectedCode, successCode: successCode);
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.CommerceRuntime.Orders.Order GetOrder(ServiceClientMessageHandler handler, 
  		 string orderId, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
-			return GetOrder(handler : handler,  draft :  null,  orderId :  orderId, 
+			return GetOrder(handler : handler,  draft :  null,  orderId :  orderId, authTicket : null, 
 				expectedCode: expectedCode, successCode: successCode);
 		}
-
+  
 		/// <summary> 
-		/// Retrieves the details of an order specified by the order ID.
-		/// OrderFactory.GetOrder(handler : handler,  draft :  draft,  orderId :  orderId,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<Order>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// 
+		/// <example> 
+		///  <code> 
+		//// var result = OrderFactory.GetOrder(handler : handler,  draft :  draft,  orderId :  orderId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<Order>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.CommerceRuntime.Orders.Order GetOrder(ServiceClientMessageHandler handler, 
- 		 bool? draft, string orderId, 
+ 		 bool? draft, string orderId,  AuthTicket authTicket= null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.OrderClient.GetOrderClient(
-				 draft :  draft,  orderId :  orderId		);
+				 draft :  draft,  orderId :  orderId, authTicket : authTicket		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
-			/// <summary> 
-		/// Creates a new order for no-cart quick-ordering scenarios.
-		/// OrderFactory.CreateOrder(handler : handler,  order :  order,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<Order>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+  
+		/// <summary> 
+		/// 
+		/// <example> 
+		///  <code> 
+		//// var result = OrderFactory.CreateOrder(handler : handler,  order :  order, authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<Order>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.CommerceRuntime.Orders.Order CreateOrder(ServiceClientMessageHandler handler, 
- 		 Mozu.Api.Contracts.CommerceRuntime.Orders.Order order, 
+ 		 Mozu.Api.Contracts.CommerceRuntime.Orders.Order order, AuthTicket authTicket= null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.OrderClient.CreateOrderClient(
-				 order :  order		);
+				 order :  order, authTicket : authTicket		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
+  
 		/// <summary> 
-		/// Creates a new order from an existing cart when the customer chooses to proceed to checkout.
-		/// OrderFactory.CreateOrderFromCart(handler : handler,  cartId :  cartId,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<Order>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// 
+		/// <example> 
+		///  <code> 
+		//// var result = OrderFactory.CreateOrderFromCart(handler : handler,  cartId :  cartId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<Order>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.CommerceRuntime.Orders.Order CreateOrderFromCart(ServiceClientMessageHandler handler, 
- 		 string cartId, 
+ 		 string cartId,  AuthTicket authTicket= null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.OrderClient.CreateOrderFromCartClient(
-				 cartId :  cartId		);
+				 cartId :  cartId, authTicket : authTicket		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
+  
 		/// <summary> 
-		/// Perform the specified action for an order. Available actions depend on the current status of the order. When in doubt, first get a list of available order actions.
-		/// OrderFactory.PerformOrderAction(handler : handler,  orderId :  orderId,  action :  action,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<Order>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// 
+		/// <example> 
+		///  <code> 
+		//// var result = OrderFactory.PerformOrderAction(handler : handler,  orderId :  orderId,  action :  action, authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<Order>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.CommerceRuntime.Orders.Order PerformOrderAction(ServiceClientMessageHandler handler, 
- 		 string orderId, Mozu.Api.Contracts.CommerceRuntime.Orders.OrderAction action, 
+ 		 string orderId, Mozu.Api.Contracts.CommerceRuntime.Orders.OrderAction action, AuthTicket authTicket= null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.OrderClient.PerformOrderActionClient(
-				 orderId :  orderId,  action :  action		);
+				 orderId :  orderId,  action :  action, authTicket : authTicket		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
-			/// <summary> 
-		/// Update the properties of a discount applied to an order.
-		/// OrderFactory.UpdateOrderDiscount(handler : handler,  discountId :  discountId,  orderId :  orderId,  discount :  discount,  expectedCode: expectedCode, successCode: successCode);
+  
+		/// <summary> 
+		/// 
+		/// <example> 
+		///  <code> 
+		//// OrderFactory.UpdateOrderDiscount(handler : handler,  discountId :  discountId,  orderId :  orderId,  discount :  discount,  expectedCode: expectedCode, successCode: successCode);
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.CommerceRuntime.Orders.Order UpdateOrderDiscount(ServiceClientMessageHandler handler, 
  		 int discountId, string orderId, Mozu.Api.Contracts.CommerceRuntime.Discounts.AppliedDiscount discount, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
-			return UpdateOrderDiscount(handler : handler,  discountId :  discountId,  orderId :  orderId,  updateMode :  null,  version :  null,  discount :  discount, 
+			return UpdateOrderDiscount(handler : handler,  discountId :  discountId,  orderId :  orderId,  updateMode :  null,  version :  null,  discount :  discount,authTicket : null, 
 				expectedCode: expectedCode, successCode: successCode);
 		}
-
+  
 		/// <summary> 
-		/// Update the properties of a discount applied to an order.
-		/// OrderFactory.UpdateOrderDiscount(handler : handler,  discountId :  discountId,  orderId :  orderId,  updateMode :  updateMode,  version :  version,  discount :  discount,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<Order>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// 
+		/// <example> 
+		///  <code> 
+		//// var result = OrderFactory.UpdateOrderDiscount(handler : handler,  discountId :  discountId,  orderId :  orderId,  updateMode :  updateMode,  version :  version,  discount :  discount, authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<Order>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.CommerceRuntime.Orders.Order UpdateOrderDiscount(ServiceClientMessageHandler handler, 
- 		 int discountId, string orderId, string updateMode, string version, Mozu.Api.Contracts.CommerceRuntime.Discounts.AppliedDiscount discount, 
+ 		 int discountId, string orderId, string updateMode, string version, Mozu.Api.Contracts.CommerceRuntime.Discounts.AppliedDiscount discount, AuthTicket authTicket= null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.OrderClient.UpdateOrderDiscountClient(
-				 discountId :  discountId,  orderId :  orderId,  updateMode :  updateMode,  version :  version,  discount :  discount		);
+				 discountId :  discountId,  orderId :  orderId,  updateMode :  updateMode,  version :  version,  discount :  discount, authTicket : authTicket		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
+  
 		/// <summary> 
-		/// Deletes the current draft version of the order, which also deletes any uncommitted changes made to the order in draft mode.
-		/// OrderFactory.DeleteOrderDraft(handler : handler,  orderId :  orderId,  expectedCode: expectedCode, successCode: successCode);
+		/// 
+		/// <example> 
+		///  <code> 
+		//// OrderFactory.DeleteOrderDraft(handler : handler,  orderId :  orderId,  expectedCode: expectedCode, successCode: successCode);
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static void DeleteOrderDraft(ServiceClientMessageHandler handler, 
  		string orderId, 
 		 int expectedCode = (int)HttpStatusCode.NoContent, int successCode = (int)HttpStatusCode.NoContent)
 		{
-DeleteOrderDraft(handler : handler,  orderId :  orderId,  version :  null, 
+DeleteOrderDraft(handler : handler,  orderId :  orderId,  version :  null,authTicket : null, 
 				expectedCode: expectedCode, successCode: successCode);
 		}
-
+  
 		/// <summary> 
-		/// Deletes the current draft version of the order, which also deletes any uncommitted changes made to the order in draft mode.
-		/// OrderFactory.DeleteOrderDraft(handler : handler,  orderId :  orderId,  version :  version,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<void>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// 
+		/// <example> 
+		///  <code> 
+		//// var result = OrderFactory.DeleteOrderDraft(handler : handler,  orderId :  orderId,  version :  version,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<void>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static void DeleteOrderDraft(ServiceClientMessageHandler handler, 
- 		string orderId, string version, 
+ 		string orderId, string version,  AuthTicket authTicket= null, 
 		 int expectedCode = (int)HttpStatusCode.NoContent, int successCode = (int)HttpStatusCode.NoContent)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.OrderClient.DeleteOrderDraftClient(
-				 orderId :  orderId,  version :  version		);
+				 orderId :  orderId,  version :  version, authTicket : authTicket		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			var noResponse = ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
+  
 		/// <summary> 
 		/// 
-		/// OrderFactory.ChangeOrderUserId(handler : handler,  orderId :  orderId,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<Order>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// <example> 
+		///  <code> 
+		//// var result = OrderFactory.ChangeOrderUserId(handler : handler,  orderId :  orderId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<Order>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.CommerceRuntime.Orders.Order ChangeOrderUserId(ServiceClientMessageHandler handler, 
- 		 string orderId, 
+ 		 string orderId,  AuthTicket authTicket= null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.OrderClient.ChangeOrderUserIdClient(
-				 orderId :  orderId		);
+				 orderId :  orderId, authTicket : authTicket		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
+  
 		/// <summary> 
-		/// Updates the specified order when additional order information, such as shipping or billing information, is modified during the checkout process.
-		/// OrderFactory.UpdateOrder(handler : handler,  orderId :  orderId,  order :  order,  expectedCode: expectedCode, successCode: successCode);
+		/// 
+		/// <example> 
+		///  <code> 
+		//// OrderFactory.UpdateOrder(handler : handler,  orderId :  orderId,  order :  order,  expectedCode: expectedCode, successCode: successCode);
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.CommerceRuntime.Orders.Order UpdateOrder(ServiceClientMessageHandler handler, 
  		 string orderId, Mozu.Api.Contracts.CommerceRuntime.Orders.Order order, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
-			return UpdateOrder(handler : handler,  orderId :  orderId,  updateMode :  null,  version :  null,  order :  order, 
+			return UpdateOrder(handler : handler,  orderId :  orderId,  updateMode :  null,  version :  null,  order :  order,authTicket : null, 
 				expectedCode: expectedCode, successCode: successCode);
 		}
-
+  
 		/// <summary> 
-		/// Updates the specified order when additional order information, such as shipping or billing information, is modified during the checkout process.
-		/// OrderFactory.UpdateOrder(handler : handler,  orderId :  orderId,  updateMode :  updateMode,  version :  version,  order :  order,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<Order>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// 
+		/// <example> 
+		///  <code> 
+		//// var result = OrderFactory.UpdateOrder(handler : handler,  orderId :  orderId,  updateMode :  updateMode,  version :  version,  order :  order, authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<Order>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.CommerceRuntime.Orders.Order UpdateOrder(ServiceClientMessageHandler handler, 
- 		 string orderId, string updateMode, string version, Mozu.Api.Contracts.CommerceRuntime.Orders.Order order, 
+ 		 string orderId, string updateMode, string version, Mozu.Api.Contracts.CommerceRuntime.Orders.Order order, AuthTicket authTicket= null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.OrderClient.UpdateOrderClient(
-				 orderId :  orderId,  updateMode :  updateMode,  version :  version,  order :  order		);
+				 orderId :  orderId,  updateMode :  updateMode,  version :  version,  order :  order, authTicket : authTicket		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
+  
 
-			
 	}
 
 }

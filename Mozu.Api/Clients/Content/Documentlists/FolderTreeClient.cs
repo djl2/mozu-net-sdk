@@ -16,14 +16,14 @@ using Mozu.Api.Security;
 namespace Mozu.Api.Clients.Content.Documentlists
 {
 	/// <summary>
-	/// Use the folder tree subresource to view individual folders in the document hierarchy.
+	/// 
 	/// </summary>
 	public partial class FolderTreeClient 	{
 		
 		/// <summary>
-		/// Retrieves the folder hierarchy used to organize documents in lists.
+		/// 
 		/// </summary>
-		/// <param name="documentListName">The name of the document list that contains this folder hierarchy.</param>
+		/// <param name="documentListName"></param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Content.FolderTree"/>}
 		/// </returns>
@@ -39,12 +39,12 @@ namespace Mozu.Api.Clients.Content.Documentlists
 		}
 
 		/// <summary>
-		/// Retrieves the folder hierarchy used to organize documents in lists.
+		/// 
 		/// </summary>
-		/// <param name="documentListName">The name of the document list that contains this folder hierarchy.</param>
-		/// <param name="levels">The number of levels in the folder hierarchy to return.</param>
-		/// <param name="rootFolderId">The unique identifier of the top-level folder in the document list.</param>
-		/// <param name="rootFolderPath">The location in the document hierarchy of the top-level folder in the document list.</param>
+		/// <param name="documentListName"></param>
+		/// <param name="levels"></param>
+		/// <param name="rootFolderId"></param>
+		/// <param name="rootFolderPath"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Content.FolderTree"/>}

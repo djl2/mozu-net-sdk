@@ -16,7 +16,7 @@ using Mozu.Api.Security;
 namespace Mozu.Api.Resources.Content
 {
 	/// <summary>
-	/// Use the document publishing subresource to manage and publish document drafts in the Content service.
+	/// 
 	/// </summary>
 	public partial class DocumentDraftSummaryResource  	{
 				///
@@ -30,7 +30,7 @@ namespace Mozu.Api.Resources.Content
 
 		
 		/// <summary>
-		/// Retrieves a list of the documents currently in draft state according to any sort criteria defined.
+		/// 
 		/// </summary>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.Content.DocumentDraftSummaryPagedCollection"/>
@@ -47,11 +47,11 @@ namespace Mozu.Api.Resources.Content
 		}
 
 		/// <summary>
-		/// Retrieves a list of the documents currently in draft state according to any sort criteria defined.
+		/// 
 		/// </summary>
-		/// <param name="documentLists">Lists that contain the document drafts.</param>
-		/// <param name="pageSize">Used to create paged results from a query. Specifies the number of results to display on each page. Maximum: 200.</param>
-		/// <param name="startIndex">"Used to create paged results from a query. Indicates the zero-based offset in the complete result set where the returned entities begin. For example, with a PageSize of 25, to get the 51st through the 75th items, use startIndex=3."</param>
+		/// <param name="documentLists"></param>
+		/// <param name="pageSize"></param>
+		/// <param name="startIndex"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.Content.DocumentDraftSummaryPagedCollection"/>
@@ -73,9 +73,9 @@ namespace Mozu.Api.Resources.Content
 		}
 
 						/// <summary>
-		/// Publish one or more document drafts to live content on the site.
+		/// 
 		/// </summary>
-		/// <param name="documentIds">List of unique identifiers of the document drafts to publish.</param>
+		/// <param name="documentIds"></param>
 		/// <returns>
 		/// 
 		/// </returns>
@@ -91,11 +91,11 @@ namespace Mozu.Api.Resources.Content
 		}
 
 		/// <summary>
-		/// Publish one or more document drafts to live content on the site.
+		/// 
 		/// </summary>
-		/// <param name="documentLists">List of document lists that contain documents to publish.</param>
+		/// <param name="documentLists"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="documentIds">List of unique identifiers of the document drafts to publish.</param>
+		/// <param name="documentIds"></param>
 		/// <returns>
 		/// 
 		/// </returns>
@@ -115,9 +115,9 @@ namespace Mozu.Api.Resources.Content
 		}
 
 				/// <summary>
-		/// Deletes the drafts of the specified documents. Published documents cannot be deleted.
+		/// 
 		/// </summary>
-		/// <param name="documentIds">Unique identifiers of the documents to delete.</param>
+		/// <param name="documentIds"></param>
 		/// <returns>
 		/// 
 		/// </returns>
@@ -133,10 +133,10 @@ namespace Mozu.Api.Resources.Content
 		}
 
 		/// <summary>
-		/// Deletes the drafts of the specified documents. Published documents cannot be deleted.
+		/// 
 		/// </summary>
-		/// <param name="documentIds">Unique identifiers of the documents to delete.</param>
-		/// <param name="documentLists">List of document lists that contain documents to delete.</param>
+		/// <param name="documentIds"></param>
+		/// <param name="documentLists"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// 

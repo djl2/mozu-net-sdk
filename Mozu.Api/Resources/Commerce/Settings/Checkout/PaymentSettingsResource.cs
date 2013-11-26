@@ -16,7 +16,7 @@ using Mozu.Api.Security;
 namespace Mozu.Api.Resources.Commerce.Settings.Checkout
 {
 	/// <summary>
-	/// Specify settings when creating payments for order checkout on the site.
+	/// 
 	/// </summary>
 	public partial class PaymentSettingsResource  	{
 				///
@@ -30,7 +30,7 @@ namespace Mozu.Api.Resources.Commerce.Settings.Checkout
 
 		
 		/// <summary>
-		/// Retrieves a list of the payment settings for the specified site.
+		/// 
 		/// </summary>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
@@ -171,10 +171,10 @@ namespace Mozu.Api.Resources.Commerce.Settings.Checkout
 		}
 
 				/// <summary>
-		/// Updates one or more properties in the configured payment settings for a site.
+		/// 
 		/// </summary>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="paymentSettings">Properties of the payment settings to use for the site.</param>
+		/// <param name="paymentSettings"></param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.SiteSettings.Order.PaymentSettings"/>
 		/// </returns>

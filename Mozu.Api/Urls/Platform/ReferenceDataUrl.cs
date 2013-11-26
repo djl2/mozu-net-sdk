@@ -19,7 +19,7 @@ namespace Mozu.Api.Urls.Platform
 		/// <summary>
         /// Get Resource Url for GetAddressSchema
         /// </summary>
-        /// <param name="countryCode">2 letter geographic code representing the country for the physical or mailing address. Currently limited to the US.</param>
+        /// <param name="countryCode"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
@@ -45,7 +45,7 @@ namespace Mozu.Api.Urls.Platform
 		/// <summary>
         /// Get Resource Url for GetBehavior
         /// </summary>
-        /// <param name="behaviorId">***Always private and should not be published.***</param>
+        /// <param name="behaviorId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
@@ -71,7 +71,7 @@ namespace Mozu.Api.Urls.Platform
 		/// <summary>
         /// Get Resource Url for GetBehaviorCategory
         /// </summary>
-        /// <param name="categoryId">***Always private and should not be published.***</param>
+        /// <param name="categoryId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
@@ -159,7 +159,7 @@ namespace Mozu.Api.Urls.Platform
 		/// <summary>
         /// Get Resource Url for GetUnitsOfMeasure
         /// </summary>
-        /// <param name="filter">"A set of expressions that consist of a field, operator, and value and represent search parameter syntax when filtering results of a query. Valid operators include equals (eq), does not equal (ne), greater than (gt), less than (lt), greater than or equal to (ge), less than or equal to (le), starts with (sw), or contains (cont). For example - ""filter=IsDisplayed+eq+true"""</param>
+        /// <param name="filter"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>

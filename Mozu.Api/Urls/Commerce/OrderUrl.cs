@@ -19,8 +19,8 @@ namespace Mozu.Api.Urls.Commerce
 		/// <summary>
         /// Get Resource Url for GetOrders
         /// </summary>
-        /// <param name="filter">A set of expressions that consist of a field, operator, and value and represent search parameter syntax when filtering results of a query. You can filter an order's search results by any of its properties, including status, contact information, or total. Valid operators include equals (eq), does not equal (ne), greater than (gt), less than (lt), greater than or equal to (ge), less than or equal to (le), starts with (sw), or contains (cont). <b>For example - "filter=Status+eq+Submitted"</b></param>
-        /// <param name="pageSize">Used to create paged results from a query. Specifies the number of results to display on each page. Maximum: 200.</param>
+        /// <param name="filter"></param>
+        /// <param name="pageSize"></param>
         /// <param name="q"></param>
         /// <param name="qLimit"></param>
         /// <param name="sortBy"></param>
@@ -43,7 +43,7 @@ namespace Mozu.Api.Urls.Commerce
 		/// <summary>
         /// Get Resource Url for GetAvailableActions
         /// </summary>
-        /// <param name="orderId">Unique identifier of the available order actions to get.</param>
+        /// <param name="orderId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
@@ -71,8 +71,8 @@ namespace Mozu.Api.Urls.Commerce
 		/// <summary>
         /// Get Resource Url for GetOrder
         /// </summary>
-        /// <param name="draft">If true, retrieve the draft version of the order, which might include uncommitted changes to the order or its components.</param>
-        /// <param name="orderId">Unique identifier of the order details to get.</param>
+        /// <param name="draft"></param>
+        /// <param name="orderId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
@@ -99,7 +99,7 @@ namespace Mozu.Api.Urls.Commerce
 		/// <summary>
         /// Get Resource Url for CreateOrderFromCart
         /// </summary>
-        /// <param name="cartId">Unique identifier of the cart. This is the original cart ID expressed as a GUID.</param>
+        /// <param name="cartId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
@@ -113,7 +113,7 @@ namespace Mozu.Api.Urls.Commerce
 		/// <summary>
         /// Get Resource Url for PerformOrderAction
         /// </summary>
-        /// <param name="orderId">Unique identifier of the order.</param>
+        /// <param name="orderId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
@@ -127,9 +127,9 @@ namespace Mozu.Api.Urls.Commerce
 				/// <summary>
         /// Get Resource Url for UpdateOrderDiscount
         /// </summary>
-        /// <param name="discountId">Unique identifier of the discount. System-supplied and read only.</param>
-        /// <param name="orderId">Unique identifier of the order discount. System-supplied and read only.</param>
-        /// <param name="updateMode">Specifies whether to modify the discount by updating the original order, updating the order in draft mode, or updating the order in draft mode and then committing the changes to the original. Draft mode enables users to make incremental order changes before committing the changes to the original order. Valid values are "ApplyToOriginal", "ApplyToDraft", or "ApplyAndCommit".</param>
+        /// <param name="discountId"></param>
+        /// <param name="orderId"></param>
+        /// <param name="updateMode"></param>
         /// <param name="version"></param>
         /// <returns>
         /// String - Resource Url
@@ -147,8 +147,8 @@ namespace Mozu.Api.Urls.Commerce
 		/// <summary>
         /// Get Resource Url for DeleteOrderDraft
         /// </summary>
-        /// <param name="orderId">Unique identifier of the order associated with the draft to delete.</param>
-        /// <param name="version">The version of the order draft to delete.</param>
+        /// <param name="orderId"></param>
+        /// <param name="version"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
@@ -177,8 +177,8 @@ namespace Mozu.Api.Urls.Commerce
 		/// <summary>
         /// Get Resource Url for UpdateOrder
         /// </summary>
-        /// <param name="orderId">Unique identifier of the order to update.</param>
-        /// <param name="updateMode">Specifies whether to update the original order, update the order in draft mode, or update the order in draft mode and then commit the changes to the original. Draft mode enables users to make incremental order changes before committing the changes to the original order. Valid values are "ApplyToOriginal", "ApplyToDraft", or "ApplyAndCommit".</param>
+        /// <param name="orderId"></param>
+        /// <param name="updateMode"></param>
         /// <param name="version"></param>
         /// <returns>
         /// String - Resource Url

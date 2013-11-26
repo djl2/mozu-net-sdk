@@ -16,143 +16,170 @@ using System.Net;
 using Mozu.Api;
 using Mozu.Api.Security;
 using Mozu.Api.Test.Helpers;
-using Newtonsoft.Json;
 
 #endregion
 
 namespace Mozu.Api.Test.Factories
 {
 	/// <summary>
-	/// Use the Facets resource to manage the facets shoppers use to filter product display results on a storefront. Facets can include categories, product attributes, or prices, and use either a range of values or discrete values.
+	/// 
 	/// </summary>
 	public partial class FacetFactory : BaseDataFactory
 	{
 
-	/// <summary> 
-		/// Retrieves a facet specified by its unique identifier and displays its properties.
-		/// FacetFactory.GetFacet(handler : handler,  facetId :  facetId,  dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode);
+		/// <summary> 
+		/// 
+		/// <example> 
+		///  <code> 
+		//// FacetFactory.GetFacet(handler : handler,  facetId :  facetId,  dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode);
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.ProductAdmin.Facet GetFacet(ServiceClientMessageHandler handler, 
- 		 int facetId, DataViewMode dataViewMode= DataViewMode.Live, 
+ 		 int facetId,  DataViewMode dataViewMode= DataViewMode.Live, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
-			return GetFacet(handler : handler,  facetId :  facetId,  validate :  null, dataViewMode: dataViewMode, 
+			return GetFacet(handler : handler,  facetId :  facetId,  validate :  null,authTicket : null, dataViewMode: dataViewMode, 
 				expectedCode: expectedCode, successCode: successCode);
 		}
-
+  
 		/// <summary> 
-		/// Retrieves a facet specified by its unique identifier and displays its properties.
-		/// FacetFactory.GetFacet(handler : handler,  facetId :  facetId,  validate :  validate,  dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<Facet>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// 
+		/// <example> 
+		///  <code> 
+		//// var result = FacetFactory.GetFacet(handler : handler,  facetId :  facetId,  validate :  validate,  authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<Facet>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.ProductAdmin.Facet GetFacet(ServiceClientMessageHandler handler, 
- 		 int facetId, bool? validate, DataViewMode dataViewMode= DataViewMode.Live, 
+ 		 int facetId, bool? validate,  AuthTicket authTicket= null, DataViewMode dataViewMode= DataViewMode.Live, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Admin.FacetClient.GetFacetClient(
-				 facetId :  facetId,  validate :  validate, dataViewMode: dataViewMode		);
+				 facetId :  facetId,  validate :  validate, authTicket : authTicket, dataViewMode: dataViewMode		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
+  
 		/// <summary> 
-		/// Retrieves a list of the facets defined for the specified category.
-		/// FacetFactory.GetFacetCategoryList(handler : handler,  categoryId :  categoryId,  dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode);
+		/// 
+		/// <example> 
+		///  <code> 
+		//// FacetFactory.GetFacetCategoryList(handler : handler,  categoryId :  categoryId,  dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode);
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.ProductAdmin.FacetSet GetFacetCategoryList(ServiceClientMessageHandler handler, 
- 		 int categoryId, DataViewMode dataViewMode= DataViewMode.Live, 
+ 		 int categoryId,  DataViewMode dataViewMode= DataViewMode.Live, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
-			return GetFacetCategoryList(handler : handler,  categoryId :  categoryId,  includeAvailable :  null,  validate :  null, dataViewMode: dataViewMode, 
+			return GetFacetCategoryList(handler : handler,  categoryId :  categoryId,  includeAvailable :  null,  validate :  null,authTicket : null, dataViewMode: dataViewMode, 
 				expectedCode: expectedCode, successCode: successCode);
 		}
-
+  
 		/// <summary> 
-		/// Retrieves a list of the facets defined for the specified category.
-		/// FacetFactory.GetFacetCategoryList(handler : handler,  categoryId :  categoryId,  includeAvailable :  includeAvailable,  validate :  validate,  dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<FacetSet>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// 
+		/// <example> 
+		///  <code> 
+		//// var result = FacetFactory.GetFacetCategoryList(handler : handler,  categoryId :  categoryId,  includeAvailable :  includeAvailable,  validate :  validate,  authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<FacetSet>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.ProductAdmin.FacetSet GetFacetCategoryList(ServiceClientMessageHandler handler, 
- 		 int categoryId, bool? includeAvailable, bool? validate, DataViewMode dataViewMode= DataViewMode.Live, 
+ 		 int categoryId, bool? includeAvailable, bool? validate,  AuthTicket authTicket= null, DataViewMode dataViewMode= DataViewMode.Live, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Admin.FacetClient.GetFacetCategoryListClient(
-				 categoryId :  categoryId,  includeAvailable :  includeAvailable,  validate :  validate, dataViewMode: dataViewMode		);
+				 categoryId :  categoryId,  includeAvailable :  includeAvailable,  validate :  validate, authTicket : authTicket, dataViewMode: dataViewMode		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
-			/// <summary> 
-		/// Creates a new category, price, or attribute facet. Supply the category or attribute source to use for the facet values.
-		/// FacetFactory.AddFacet(handler : handler,  facet :  facet, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<Facet>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+  
+		/// <summary> 
+		/// 
+		/// <example> 
+		///  <code> 
+		//// var result = FacetFactory.AddFacet(handler : handler,  facet :  facet, authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<Facet>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.ProductAdmin.Facet AddFacet(ServiceClientMessageHandler handler, 
- 		 Mozu.Api.Contracts.ProductAdmin.Facet facet,DataViewMode dataViewMode= DataViewMode.Live, 
+ 		 Mozu.Api.Contracts.ProductAdmin.Facet facet, AuthTicket authTicket= null, DataViewMode dataViewMode= DataViewMode.Live, 
 		 int expectedCode = (int)HttpStatusCode.Created, int successCode = (int)HttpStatusCode.Created)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Admin.FacetClient.AddFacetClient(
-				 facet :  facet, dataViewMode: dataViewMode		);
+				 facet :  facet, authTicket : authTicket, dataViewMode: dataViewMode		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
-			/// <summary> 
-		/// Modifies one or more properties of a defined facet.
-		/// FacetFactory.UpdateFacet(handler : handler,  facetId :  facetId,  facet :  facet, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<Facet>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+  
+		/// <summary> 
+		/// 
+		/// <example> 
+		///  <code> 
+		//// var result = FacetFactory.UpdateFacet(handler : handler,  facetId :  facetId,  facet :  facet, authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<Facet>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.ProductAdmin.Facet UpdateFacet(ServiceClientMessageHandler handler, 
- 		 int facetId, Mozu.Api.Contracts.ProductAdmin.Facet facet,DataViewMode dataViewMode= DataViewMode.Live, 
+ 		 int facetId, Mozu.Api.Contracts.ProductAdmin.Facet facet, AuthTicket authTicket= null, DataViewMode dataViewMode= DataViewMode.Live, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Admin.FacetClient.UpdateFacetClient(
-				 facetId :  facetId,  facet :  facet, dataViewMode: dataViewMode		);
+				 facetId :  facetId,  facet :  facet, authTicket : authTicket, dataViewMode: dataViewMode		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
-			/// <summary> 
-		/// Deletes the facet specified by its unique identifier.
-		/// FacetFactory.DeleteFacetById(handler : handler,  facetId :  facetId,  dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<void>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+  
+		/// <summary> 
+		/// 
+		/// <example> 
+		///  <code> 
+		//// var result = FacetFactory.DeleteFacetById(handler : handler,  facetId :  facetId,  authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<void>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static void DeleteFacetById(ServiceClientMessageHandler handler, 
- 		int facetId, DataViewMode dataViewMode= DataViewMode.Live, 
+ 		int facetId,  AuthTicket authTicket= null, DataViewMode dataViewMode= DataViewMode.Live, 
 		 int expectedCode = (int)HttpStatusCode.NoContent, int successCode = (int)HttpStatusCode.NoContent)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Admin.FacetClient.DeleteFacetByIdClient(
-				 facetId :  facetId, dataViewMode: dataViewMode		);
+				 facetId :  facetId, authTicket : authTicket, dataViewMode: dataViewMode		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			var noResponse = ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
+  
 
-		
 	}
 
 }

@@ -15,49 +15,28 @@ using Mozu.Api.Contracts.CommerceRuntime.Products;
 
 namespace Mozu.Api.Contracts.CommerceRuntime.Returns
 {
-		///
-		///	Properties of an item associated with a return for a previously shipped order.
-		///
 		public class ReturnItem
 		{
-			///
-			///Unique identifier of the item in the original completed order. All return items should be associated with a corresponding order item.
-			///
 			public string OrderItemId { get; set; }
 
 			public decimal? ProductLossAmount { get; set; }
 
 			public decimal? ProductLossTaxAmount { get; set; }
 
-			///
-			///The actual quantity received for the return item.
-			///
 			public int QuantityReceived { get; set; }
 
-			///
-			///The quantity of returned items that can be returned to active product stock.
-			///
 			public int QuantityRestockable { get; set; }
 
-			///
-			///The quantity of the item shipped to the shopper in the event of a return item replacement.
-			///
 			public int QuantityShipped { get; set; }
 
 			public decimal? ShippingLossAmount { get; set; }
 
 			public decimal? ShippingLossTaxAmount { get; set; }
 
-			///
-			///List of merchant-supplied notes associated with the return item.
-			///
 			public List<OrderNote> Notes { get; set; }
 
 			public Product Product { get; set; }
 
-			///
-			///The list of return reasons for the item and the quantity associated with each return reason.
-			///
 			public List<ReturnReason> Reasons { get; set; }
 
 		}

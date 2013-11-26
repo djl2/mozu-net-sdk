@@ -1,10 +1,9 @@
 // ***********************************************************************
-// <copyright file="Generic.cs" company="Volusion">
+// <copyright file="Constant.cs" company="Volusion">
 //     Copyright (c) Volusion. All rights reserved.
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-
 using System.Collections.Generic;
 
 namespace Mozu.Api.Test.Helpers

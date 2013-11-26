@@ -16,119 +16,138 @@ using System.Net;
 using Mozu.Api;
 using Mozu.Api.Security;
 using Mozu.Api.Test.Helpers;
-using Newtonsoft.Json;
 
 #endregion
 
 namespace Mozu.Api.Test.Factories
 {
 	/// <summary>
-	/// Query, create, and update product properties.
+	/// 
 	/// </summary>
 	public partial class ProductPropertyFactory : BaseDataFactory
 	{
 
-	/// <summary> 
-		/// Retrieves a list of product properties by providing the product code.
-		/// ProductPropertyFactory.GetProperties(handler : handler,  productCode :  productCode,  dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<List<ProductProperty>>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// <summary> 
+		/// 
+		/// <example> 
+		///  <code> 
+		//// var result = ProductPropertyFactory.GetProperties(handler : handler,  productCode :  productCode,  authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<List<ProductProperty>>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static List<Mozu.Api.Contracts.ProductAdmin.ProductProperty> GetProperties(ServiceClientMessageHandler handler, 
- 		 string productCode, DataViewMode dataViewMode= DataViewMode.Live, 
+ 		 string productCode,  AuthTicket authTicket= null, DataViewMode dataViewMode= DataViewMode.Live, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Admin.Products.ProductPropertyClient.GetPropertiesClient(
-				 productCode :  productCode, dataViewMode: dataViewMode		);
+				 productCode :  productCode, authTicket : authTicket, dataViewMode: dataViewMode		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
+  
 		/// <summary> 
-		/// Retrieves the individual product property by providing the product code and the attribute's fully qualified name.
-		/// ProductPropertyFactory.GetProperty(handler : handler,  attributeFQN :  attributeFQN,  productCode :  productCode,  dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<ProductProperty>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// 
+		/// <example> 
+		///  <code> 
+		//// var result = ProductPropertyFactory.GetProperty(handler : handler,  attributeFQN :  attributeFQN,  productCode :  productCode,  authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<ProductProperty>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.ProductAdmin.ProductProperty GetProperty(ServiceClientMessageHandler handler, 
- 		 string attributeFQN, string productCode, DataViewMode dataViewMode= DataViewMode.Live, 
+ 		 string attributeFQN, string productCode,  AuthTicket authTicket= null, DataViewMode dataViewMode= DataViewMode.Live, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Admin.Products.ProductPropertyClient.GetPropertyClient(
-				 attributeFQN :  attributeFQN,  productCode :  productCode, dataViewMode: dataViewMode		);
+				 attributeFQN :  attributeFQN,  productCode :  productCode, authTicket : authTicket, dataViewMode: dataViewMode		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
-			/// <summary> 
-		/// Adds or creates an individual property by providing the product code.
-		/// ProductPropertyFactory.AddProperty(handler : handler,  productCode :  productCode,  productProperty :  productProperty, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<ProductProperty>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+  
+		/// <summary> 
+		/// 
+		/// <example> 
+		///  <code> 
+		//// var result = ProductPropertyFactory.AddProperty(handler : handler,  productCode :  productCode,  productProperty :  productProperty, authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<ProductProperty>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.ProductAdmin.ProductProperty AddProperty(ServiceClientMessageHandler handler, 
- 		 string productCode, Mozu.Api.Contracts.ProductAdmin.ProductProperty productProperty,DataViewMode dataViewMode= DataViewMode.Live, 
+ 		 string productCode, Mozu.Api.Contracts.ProductAdmin.ProductProperty productProperty, AuthTicket authTicket= null, DataViewMode dataViewMode= DataViewMode.Live, 
 		 int expectedCode = (int)HttpStatusCode.Created, int successCode = (int)HttpStatusCode.Created)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Admin.Products.ProductPropertyClient.AddPropertyClient(
-				 productCode :  productCode,  productProperty :  productProperty, dataViewMode: dataViewMode		);
+				 productCode :  productCode,  productProperty :  productProperty, authTicket : authTicket, dataViewMode: dataViewMode		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
-			/// <summary> 
-		/// Update the details of a product property by providng the product code and the attribute's fully qualified name.
-		/// ProductPropertyFactory.UpdateProperty(handler : handler,  attributeFQN :  attributeFQN,  productCode :  productCode,  productProperty :  productProperty, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<ProductProperty>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+  
+		/// <summary> 
+		/// 
+		/// <example> 
+		///  <code> 
+		//// var result = ProductPropertyFactory.UpdateProperty(handler : handler,  attributeFQN :  attributeFQN,  productCode :  productCode,  productProperty :  productProperty, authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<ProductProperty>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.ProductAdmin.ProductProperty UpdateProperty(ServiceClientMessageHandler handler, 
- 		 string attributeFQN, string productCode, Mozu.Api.Contracts.ProductAdmin.ProductProperty productProperty,DataViewMode dataViewMode= DataViewMode.Live, 
+ 		 string attributeFQN, string productCode, Mozu.Api.Contracts.ProductAdmin.ProductProperty productProperty, AuthTicket authTicket= null, DataViewMode dataViewMode= DataViewMode.Live, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Admin.Products.ProductPropertyClient.UpdatePropertyClient(
-				 attributeFQN :  attributeFQN,  productCode :  productCode,  productProperty :  productProperty, dataViewMode: dataViewMode		);
+				 attributeFQN :  attributeFQN,  productCode :  productCode,  productProperty :  productProperty, authTicket : authTicket, dataViewMode: dataViewMode		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
-			/// <summary> 
-		/// Deletes the property by providing the product code and the attribute's fully qualified name.
-		/// ProductPropertyFactory.DeleteProperty(handler : handler,  attributeFQN :  attributeFQN,  productCode :  productCode,  dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<void>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+  
+		/// <summary> 
+		/// 
+		/// <example> 
+		///  <code> 
+		//// var result = ProductPropertyFactory.DeleteProperty(handler : handler,  attributeFQN :  attributeFQN,  productCode :  productCode,  authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<void>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static void DeleteProperty(ServiceClientMessageHandler handler, 
- 		string attributeFQN, string productCode, DataViewMode dataViewMode= DataViewMode.Live, 
+ 		string attributeFQN, string productCode,  AuthTicket authTicket= null, DataViewMode dataViewMode= DataViewMode.Live, 
 		 int expectedCode = (int)HttpStatusCode.NoContent, int successCode = (int)HttpStatusCode.NoContent)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Admin.Products.ProductPropertyClient.DeletePropertyClient(
-				 attributeFQN :  attributeFQN,  productCode :  productCode, dataViewMode: dataViewMode		);
+				 attributeFQN :  attributeFQN,  productCode :  productCode, authTicket : authTicket, dataViewMode: dataViewMode		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			var noResponse = ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
+  
 
-		
 	}
 
 }

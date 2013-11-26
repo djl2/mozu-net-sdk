@@ -19,9 +19,9 @@ namespace Mozu.Api.Urls.Commerce.Customer.Accounts
 		/// <summary>
         /// Get Resource Url for GetAccountGroups
         /// </summary>
-        /// <param name="accountId">Unique identifier of the customer account.</param>
-        /// <param name="filter">"A set of expressions that consist of a field, operator, and value and represent search parameter syntax when filtering results of a query. Valid operators include equals (eq), does not equal (ne), greater than (gt), less than (lt), greater than or equal to (ge), less than or equal to (le), starts with (sw), or contains (cont). For example - ""filter=IsDisplayed+eq+true"""</param>
-        /// <param name="pageSize">Used to create paged results from a query. Specifies the number of results to display on each page. Maximum: 200.</param>
+        /// <param name="accountId"></param>
+        /// <param name="filter"></param>
+        /// <param name="pageSize"></param>
         /// <param name="sortBy"></param>
         /// <param name="startIndex"></param>
         /// <returns>
@@ -41,8 +41,8 @@ namespace Mozu.Api.Urls.Commerce.Customer.Accounts
 		/// <summary>
         /// Get Resource Url for GetAccountGroup
         /// </summary>
-        /// <param name="accountId">Unique identifier of the customer account.</param>
-        /// <param name="groupId">Unique identifier of the customer group.</param>
+        /// <param name="accountId"></param>
+        /// <param name="groupId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
@@ -57,8 +57,8 @@ namespace Mozu.Api.Urls.Commerce.Customer.Accounts
 				/// <summary>
         /// Get Resource Url for AddAccountGroup
         /// </summary>
-        /// <param name="accountId">Unique identifier of the customer account to add to a group.</param>
-        /// <param name="groupId">Unique identifier of the customer group to add the customer to.</param>
+        /// <param name="accountId"></param>
+        /// <param name="groupId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
@@ -73,8 +73,8 @@ namespace Mozu.Api.Urls.Commerce.Customer.Accounts
 						/// <summary>
         /// Get Resource Url for DeleteAccountGroup
         /// </summary>
-        /// <param name="accountId">Unique identifier of the customer account to remove from the group.</param>
-        /// <param name="groupId">Unique identifier of the customer group.</param>
+        /// <param name="accountId"></param>
+        /// <param name="groupId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>

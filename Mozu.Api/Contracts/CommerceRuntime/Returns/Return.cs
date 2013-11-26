@@ -17,14 +17,8 @@ using Mozu.Api.Contracts.CommerceRuntime.Payments;
 
 namespace Mozu.Api.Contracts.CommerceRuntime.Returns
 {
-		///
-		///	Properties of a return of one or more items shipped with a previously completed order.
-		///
 		public class Return
 		{
-			///
-			///The actions a user can perform for the return at this time.
-			///
 			public List<string> AvailableActions { get; set; }
 
 			public string ChannelCode { get; set; }
@@ -35,44 +29,26 @@ namespace Mozu.Api.Contracts.CommerceRuntime.Returns
 
 			public string CustomerInteractionType { get; set; }
 
-			///
-			///Unique identifier of the return.
-			///
 			public string Id { get; set; }
 
 			public string LocationCode { get; set; }
 
 			public decimal? LossTotal { get; set; }
 
-			///
-			///Unique identifier of the original completed order associated with this return.
-			///
 			public string OriginalOrderId { get; set; }
 
 			public decimal? ProductLossTaxTotal { get; set; }
 
 			public decimal? ProductLossTotal { get; set; }
 
-			///
-			///If a refund action was performed for this return, the total amount refunded to the shopper. The refund amount can differ from the sum of the price of the returned items.
-			///
 			public decimal? RefundAmount { get; set; }
 
-			///
-			///A merchant-specific identifier used to sequentially order returns.
-			///
 			public int? ReturnNumber { get; set; }
 
-			///
-			///Unique identifier for the order created as a result of the return. If the return results in shipping a replacement item, the order includes shipment information for the replaced items. If the return results in a refund, the order includes payment transactions to credit the shopper.
-			///
 			public string ReturnOrderId { get; set; }
 
 			public string ReturnType { get; set; }
 
-			///
-			///The date by which a shopper must ship items associated with a return in an "awaiting items" state to the merchant.
-			///
 			public DateTime? RmaDeadline { get; set; }
 
 			public decimal? ShippingLossTaxTotal { get; set; }
@@ -81,42 +57,24 @@ namespace Mozu.Api.Contracts.CommerceRuntime.Returns
 
 			public int? SiteId { get; set; }
 
-			///
-			///Current status of the return, such as "ReturnAuthorized".
-			///
 			public string Status { get; set; }
 
 			public int? TenantId { get; set; }
 
-			///
-			///Unique identifier of the user responsible for the return. Read only and supplied by the original order.
-			///
 			public string UserId { get; set; }
 
 			public string VisitId { get; set; }
 
 			public string WebSessionId { get; set; }
 
-			///
-			///Identifier and datetime stamp information recorded when creating or updating a resource entity. System-supplied and read-only.
-			///
 			public AuditInfo AuditInfo { get; set; }
 
-			///
-			///An array list of objects in the returned collection.
-			///
 			public List<ReturnItem> Items { get; set; }
 
-			///
-			///Collection of merchant-supplied notes entered for the return.
-			///
 			public List<OrderNote> Notes { get; set; }
 
 			public List<Package> Packages { get; set; }
 
-			///
-			///Array of payments associated with this return, if applicable.
-			///
 			public List<Payment> Payments { get; set; }
 
 		}

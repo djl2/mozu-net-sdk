@@ -19,8 +19,8 @@ namespace Mozu.Api.Urls.Commerce.Catalog.Admin
 		/// <summary>
         /// Get Resource Url for GetDiscounts
         /// </summary>
-        /// <param name="filter">"A set of expressions that consist of a field, operator, and value and represent search parameter syntax when filtering results of a query. Valid operators include equals (eq), does not equal (ne), greater than (gt), less than (lt), greater than or equal to (ge), less than or equal to (le), starts with (sw), or contains (cont). For example - ""filter=IsDisplayed+eq+true"""</param>
-        /// <param name="pageSize">Used to create paged results from a query. Specifies the number of results to display on each page. Maximum: 200.</param>
+        /// <param name="filter"></param>
+        /// <param name="pageSize"></param>
         /// <param name="sortBy"></param>
         /// <param name="startIndex"></param>
         /// <returns>
@@ -39,7 +39,7 @@ namespace Mozu.Api.Urls.Commerce.Catalog.Admin
 		/// <summary>
         /// Get Resource Url for GetDiscount
         /// </summary>
-        /// <param name="discountId">Unique identifier of the discount. System-supplied and read-only.</param>
+        /// <param name="discountId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
@@ -53,7 +53,7 @@ namespace Mozu.Api.Urls.Commerce.Catalog.Admin
 		/// <summary>
         /// Get Resource Url for GetDiscountContent
         /// </summary>
-        /// <param name="discountId">Unique identifier of the discount. System-supplied and read-only.</param>
+        /// <param name="discountId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
@@ -103,7 +103,7 @@ namespace Mozu.Api.Urls.Commerce.Catalog.Admin
 				/// <summary>
         /// Get Resource Url for UpdateDiscount
         /// </summary>
-        /// <param name="discountId">Unique identifier of the discount. System-supplied and read-only.</param>
+        /// <param name="discountId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
@@ -117,7 +117,7 @@ namespace Mozu.Api.Urls.Commerce.Catalog.Admin
 		/// <summary>
         /// Get Resource Url for UpdateDiscountContent
         /// </summary>
-        /// <param name="discountId">Unique identifier of the discount. System-supplied and read-only.</param>
+        /// <param name="discountId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
@@ -131,7 +131,7 @@ namespace Mozu.Api.Urls.Commerce.Catalog.Admin
 				/// <summary>
         /// Get Resource Url for DeleteDiscount
         /// </summary>
-        /// <param name="discountId">Unique identifier of the discount. System-supplied and read-only.</param>
+        /// <param name="discountId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
@@ -145,8 +145,8 @@ namespace Mozu.Api.Urls.Commerce.Catalog.Admin
 		/// <summary>
         /// Get Resource Url for UnRedeemDiscount
         /// </summary>
-        /// <param name="discountId">Unique identifier of the previously redeemed discount. System-supplied and read only.</param>
-        /// <param name="orderNumber">The number of the order associated with the redeemed product discount.</param>
+        /// <param name="discountId"></param>
+        /// <param name="orderNumber"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>

@@ -16,59 +16,66 @@ using System.Net;
 using Mozu.Api;
 using Mozu.Api.Security;
 using Mozu.Api.Test.Helpers;
-using Newtonsoft.Json;
 
 #endregion
 
 namespace Mozu.Api.Test.Factories
 {
 	/// <summary>
-	/// Use the order processing settings resource to define how orders and payments are processed for the site.
+	/// 
 	/// </summary>
 	public partial class OrderProcessingSettingsFactory : BaseDataFactory
 	{
 
-	/// <summary> 
-		/// Retrieves a list of the order processing settings defined for the site.
-		/// OrderProcessingSettingsFactory.GetOrderProcessingSettings(handler : handler,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<OrderProcessingSettings>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// <summary> 
+		/// 
+		/// <example> 
+		///  <code> 
+		//// var result = OrderProcessingSettingsFactory.GetOrderProcessingSettings(handler : handler,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<OrderProcessingSettings>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.SiteSettings.Order.OrderProcessingSettings GetOrderProcessingSettings(ServiceClientMessageHandler handler, 
- 		 
+ 		  AuthTicket authTicket= null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Settings.Checkout.OrderProcessingSettingsClient.GetOrderProcessingSettingsClient(
-						);
+				 authTicket : authTicket		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
-				/// <summary> 
-		/// Updates the order processing settings defined for the site.
-		/// OrderProcessingSettingsFactory.UpdateOrderProcessingSettings(handler : handler,  orderProcessingSettings :  orderProcessingSettings,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<OrderProcessingSettings>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+  
+		/// <summary> 
+		/// 
+		/// <example> 
+		///  <code> 
+		//// var result = OrderProcessingSettingsFactory.UpdateOrderProcessingSettings(handler : handler,  orderProcessingSettings :  orderProcessingSettings, authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<OrderProcessingSettings>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.SiteSettings.Order.OrderProcessingSettings UpdateOrderProcessingSettings(ServiceClientMessageHandler handler, 
- 		 Mozu.Api.Contracts.SiteSettings.Order.OrderProcessingSettings orderProcessingSettings, 
+ 		 Mozu.Api.Contracts.SiteSettings.Order.OrderProcessingSettings orderProcessingSettings, AuthTicket authTicket= null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Settings.Checkout.OrderProcessingSettingsClient.UpdateOrderProcessingSettingsClient(
-				 orderProcessingSettings :  orderProcessingSettings		);
+				 orderProcessingSettings :  orderProcessingSettings, authTicket : authTicket		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
+  
 
-			
 	}
 
 }

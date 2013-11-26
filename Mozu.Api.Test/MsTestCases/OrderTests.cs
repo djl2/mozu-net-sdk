@@ -19,6 +19,7 @@ using Mozu.Api.Test.Factories;
 using System.Configuration;
 using Mozu.Api.Contracts.Core;
 
+
 namespace Mozu.Api.Test.MsTestCases
 {
     [TestClass]
@@ -27,9 +28,6 @@ namespace Mozu.Api.Test.MsTestCases
 
         #region NonTestCaseCode
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="OrderTests"/> class.
-        /// </summary>
         public OrderTests()
         {
 
@@ -49,7 +47,7 @@ namespace Mozu.Api.Test.MsTestCases
             masterCatalogId = TestBaseTenant.MasterCatalogs.First().Id;
             catalogId = TestBaseTenant.MasterCatalogs.First().Catalogs.First().Id;
             ApiMsgHandler = ServiceClientMessageFactory.GetTestClientMessage(tenantId, masterCatalogId: masterCatalogId, catalogId: catalogId);
-            AnonShopperMsgHandler = ServiceClientMessageFactory.GetTestShopperMessage(tenantId, masterCatalogId: masterCatalogId, catalogId: catalogId);
+            AnonShopperMsgHandler = ServiceClientMessageFactory.GetTestShopperMessage(tenantId, siteId:TestBaseTenant.Sites.First().Id);
         }
 
         /// <summary>
@@ -99,7 +97,9 @@ namespace Mozu.Api.Test.MsTestCases
         [Description("Create order from existing cart.")]
         public void OrderTests_Test1()
         {
-            var createdCart = CartFactory.GetOrCreateCart(AnonShopperMsgHandler);
+            ShopperAuthTicket.AccessToken = "123123";
+
+            var createdCart = CartFactory.GetOrCreateCart(AnonShopperMsgHandler, authTicket: ShopperAuthTicket);
             const int index = 0;
             var product = ProductFactory.GetProducts(AnonShopperMsgHandler, index, 13).Items.First();
             const int itemQty = 1; 

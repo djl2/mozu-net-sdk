@@ -16,115 +16,138 @@ using System.Net;
 using Mozu.Api;
 using Mozu.Api.Security;
 using Mozu.Api.Test.Helpers;
-using Newtonsoft.Json;
 
 #endregion
 
 namespace Mozu.Api.Test.Factories
 {
 	/// <summary>
-	/// Use this subresource to apply coupons to or remove coupons from an order based on a supplied coupon code.
+	/// 
 	/// </summary>
 	public partial class AppliedDiscountFactory : BaseDataFactory
 	{
 
-			/// <summary> 
-		/// Apply a coupon to the order.
-		/// AppliedDiscountFactory.ApplyCoupon(handler : handler,  couponCode :  couponCode,  orderId :  orderId,  expectedCode: expectedCode, successCode: successCode);
+		/// <summary> 
+		/// 
+		/// <example> 
+		///  <code> 
+		//// AppliedDiscountFactory.ApplyCoupon(handler : handler,  couponCode :  couponCode,  orderId :  orderId,  expectedCode: expectedCode, successCode: successCode);
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.CommerceRuntime.Orders.Order ApplyCoupon(ServiceClientMessageHandler handler, 
  		 string couponCode, string orderId, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
-			return ApplyCoupon(handler : handler,  couponCode :  couponCode,  orderId :  orderId,  updateMode :  null,  version :  null, 
+			return ApplyCoupon(handler : handler,  couponCode :  couponCode,  orderId :  orderId,  updateMode :  null,  version :  null,authTicket : null, 
 				expectedCode: expectedCode, successCode: successCode);
 		}
-
+  
 		/// <summary> 
-		/// Apply a coupon to the order.
-		/// AppliedDiscountFactory.ApplyCoupon(handler : handler,  couponCode :  couponCode,  orderId :  orderId,  updateMode :  updateMode,  version :  version,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<Order>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// 
+		/// <example> 
+		///  <code> 
+		//// var result = AppliedDiscountFactory.ApplyCoupon(handler : handler,  couponCode :  couponCode,  orderId :  orderId,  updateMode :  updateMode,  version :  version,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<Order>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.CommerceRuntime.Orders.Order ApplyCoupon(ServiceClientMessageHandler handler, 
- 		 string couponCode, string orderId, string updateMode, string version, 
+ 		 string couponCode, string orderId, string updateMode, string version,  AuthTicket authTicket= null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Orders.AppliedDiscountClient.ApplyCouponClient(
-				 couponCode :  couponCode,  orderId :  orderId,  updateMode :  updateMode,  version :  version		);
+				 couponCode :  couponCode,  orderId :  orderId,  updateMode :  updateMode,  version :  version, authTicket : authTicket		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
-			/// <summary> 
-		/// Removes a coupon previously applied to the order.
-		/// AppliedDiscountFactory.RemoveCoupon(handler : handler,  couponCode :  couponCode,  orderId :  orderId,  expectedCode: expectedCode, successCode: successCode);
+  
+		/// <summary> 
+		/// 
+		/// <example> 
+		///  <code> 
+		//// AppliedDiscountFactory.RemoveCoupon(handler : handler,  couponCode :  couponCode,  orderId :  orderId,  expectedCode: expectedCode, successCode: successCode);
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.CommerceRuntime.Orders.Order RemoveCoupon(ServiceClientMessageHandler handler, 
  		 string couponCode, string orderId, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
-			return RemoveCoupon(handler : handler,  couponCode :  couponCode,  orderId :  orderId,  updateMode :  null,  version :  null, 
+			return RemoveCoupon(handler : handler,  couponCode :  couponCode,  orderId :  orderId,  updateMode :  null,  version :  null,authTicket : null, 
 				expectedCode: expectedCode, successCode: successCode);
 		}
-
+  
 		/// <summary> 
-		/// Removes a coupon previously applied to the order.
-		/// AppliedDiscountFactory.RemoveCoupon(handler : handler,  couponCode :  couponCode,  orderId :  orderId,  updateMode :  updateMode,  version :  version,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<Order>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// 
+		/// <example> 
+		///  <code> 
+		//// var result = AppliedDiscountFactory.RemoveCoupon(handler : handler,  couponCode :  couponCode,  orderId :  orderId,  updateMode :  updateMode,  version :  version,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<Order>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.CommerceRuntime.Orders.Order RemoveCoupon(ServiceClientMessageHandler handler, 
- 		 string couponCode, string orderId, string updateMode, string version, 
+ 		 string couponCode, string orderId, string updateMode, string version,  AuthTicket authTicket= null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Orders.AppliedDiscountClient.RemoveCouponClient(
-				 couponCode :  couponCode,  orderId :  orderId,  updateMode :  updateMode,  version :  version		);
+				 couponCode :  couponCode,  orderId :  orderId,  updateMode :  updateMode,  version :  version, authTicket : authTicket		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
+  
 		/// <summary> 
-		/// Removes all coupons previously applied to the order.
-		/// AppliedDiscountFactory.RemoveCoupons(handler : handler,  orderId :  orderId,  expectedCode: expectedCode, successCode: successCode);
+		/// 
+		/// <example> 
+		///  <code> 
+		//// AppliedDiscountFactory.RemoveCoupons(handler : handler,  orderId :  orderId,  expectedCode: expectedCode, successCode: successCode);
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.CommerceRuntime.Orders.Order RemoveCoupons(ServiceClientMessageHandler handler, 
  		 string orderId, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
-			return RemoveCoupons(handler : handler,  orderId :  orderId,  updateMode :  null,  version :  null, 
+			return RemoveCoupons(handler : handler,  orderId :  orderId,  updateMode :  null,  version :  null,authTicket : null, 
 				expectedCode: expectedCode, successCode: successCode);
 		}
-
+  
 		/// <summary> 
-		/// Removes all coupons previously applied to the order.
-		/// AppliedDiscountFactory.RemoveCoupons(handler : handler,  orderId :  orderId,  updateMode :  updateMode,  version :  version,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<Order>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// 
+		/// <example> 
+		///  <code> 
+		//// var result = AppliedDiscountFactory.RemoveCoupons(handler : handler,  orderId :  orderId,  updateMode :  updateMode,  version :  version,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<Order>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.CommerceRuntime.Orders.Order RemoveCoupons(ServiceClientMessageHandler handler, 
- 		 string orderId, string updateMode, string version, 
+ 		 string orderId, string updateMode, string version,  AuthTicket authTicket= null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Orders.AppliedDiscountClient.RemoveCouponsClient(
-				 orderId :  orderId,  updateMode :  updateMode,  version :  version		);
+				 orderId :  orderId,  updateMode :  updateMode,  version :  version, authTicket : authTicket		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
+  
 
-		
 	}
 
 }

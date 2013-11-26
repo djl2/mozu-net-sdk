@@ -1,7 +1,12 @@
-﻿using System;
+﻿// ***********************************************************************
+// <copyright file="CleanUpData.cs" company="Volusion">
+//     Copyright (c) Volusion. All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using System;
 using System.Collections.Generic;
 using Mozu.Api.Test.Factories;
-
 
 namespace Mozu.Api.Test.Helpers
 {

@@ -12,19 +12,10 @@ using System;
 
 namespace Mozu.Api.Contracts.ProductAdmin
 {
-		///
-		///	System-supplied and read only parameter that validates a facet for its associated category.
-		///
 		public class FacetValidity
 		{
-			///
-			///If true, the facet source is valid for its associated category.
-			///
 			public bool IsValid { get; set; }
 
-			///
-			///Code associated with a reason for facet validation to return false for its associated category.
-			///
 			public string ReasonCode { get; set; }
 
 		}

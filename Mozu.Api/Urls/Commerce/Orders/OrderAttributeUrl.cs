@@ -19,7 +19,7 @@ namespace Mozu.Api.Urls.Commerce.Orders
 		/// <summary>
         /// Get Resource Url for GetOrderAttributes
         /// </summary>
-        /// <param name="orderId">Identifier of the order whose order attributes are being retrieved.</param>
+        /// <param name="orderId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
@@ -33,7 +33,7 @@ namespace Mozu.Api.Urls.Commerce.Orders
 				/// <summary>
         /// Get Resource Url for CreateOrderAttributes
         /// </summary>
-        /// <param name="orderId">Identifier of the order whose attributes are being created.</param>
+        /// <param name="orderId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
@@ -47,8 +47,8 @@ namespace Mozu.Api.Urls.Commerce.Orders
 				/// <summary>
         /// Get Resource Url for UpdateOrderAttributes
         /// </summary>
-        /// <param name="orderId">Identifier of the order whose order attributes are being updated.</param>
-        /// <param name="removeMissing">If true, the operation removes missing properties so that the updated order attributes will not show properties with a null value.</param>
+        /// <param name="orderId"></param>
+        /// <param name="removeMissing"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>

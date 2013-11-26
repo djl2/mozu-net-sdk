@@ -13,26 +13,14 @@ using System.Collections.Generic;
 
 namespace Mozu.Api.Contracts.PricingRuntime
 {
-		///
-		///	Details of a property defined for a product.
-		///
 		public class ProductProperty
 		{
 			public string AttributeFQN { get; set; }
 
-			///
-			///If true, this product property does not appear on the storefront.
-			///
 			public bool? IsHidden { get; set; }
 
-			///
-			///If true, the product property has multiple values.
-			///
 			public bool? IsMultiValue { get; set; }
 
-			///
-			///Details of a product attribute.
-			///
 			public ProductAttribute AttributeDetail { get; set; }
 
 			public List<ProductPropertyValue> Values { get; set; }

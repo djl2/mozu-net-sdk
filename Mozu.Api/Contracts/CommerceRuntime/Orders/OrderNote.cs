@@ -13,24 +13,12 @@ using Mozu.Api.Contracts.Core;
 
 namespace Mozu.Api.Contracts.CommerceRuntime.Orders
 {
-		///
-		///	For a customer, the order note could be a comment or a gift message. For a merchant, the order note is internal only for administrative purposes and not available to the customer.
-		///
 		public class OrderNote
 		{
-			///
-			///Unique identifier of the order note.
-			///
 			public string Id { get; set; }
 
-			///
-			///The text content of the order note.
-			///
 			public string Text { get; set; }
 
-			///
-			///Identifier and datetime stamp information recorded when creating or updating a resource entity. System-supplied and read-only.
-			///
 			public AuditInfo AuditInfo { get; set; }
 
 		}

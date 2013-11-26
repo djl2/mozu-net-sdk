@@ -12,44 +12,20 @@ using System;
 
 namespace Mozu.Api.Contracts.Content
 {
-		///
-		///	A high level description of the document draft.
-		///
 		public class DocumentDraftSummary
 		{
-			///
-			///Date when the entity was last updated. UTC Date/Time.
-			///
 			public DateTime? ActiveUpdateDate { get; set; }
 
-			///
-			///Name of the document list associated with the draft.
-			///
 			public string DocumentListName { get; set; }
 
-			///
-			///The most recent date the draft has been modified. System-supplied and read-only.
-			///
 			public DateTime DraftUpdateDate { get; set; }
 
-			///
-			///Identifier of document draft.
-			///
 			public string Id { get; set; }
 
-			///
-			///Name of the document draft.
-			///
 			public string Name { get; set; }
 
-			///
-			///Whether the draft has been published.
-			///
 			public string PublishType { get; set; }
 
-			///
-			///Unique identifier of the entity who updated the resource property most recently. System-supplied and read-only.
-			///
 			public string UpdatedBy { get; set; }
 
 		}

@@ -19,9 +19,9 @@ namespace Mozu.Api.Urls.Content
 		/// <summary>
         /// Get Resource Url for ListDocumentDraftSummaries
         /// </summary>
-        /// <param name="documentLists">Lists that contain the document drafts.</param>
-        /// <param name="pageSize">Used to create paged results from a query. Specifies the number of results to display on each page. Maximum: 200.</param>
-        /// <param name="startIndex">"Used to create paged results from a query. Indicates the zero-based offset in the complete result set where the returned entities begin. For example, with a PageSize of 25, to get the 51st through the 75th items, use startIndex=3."</param>
+        /// <param name="documentLists"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="startIndex"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
@@ -37,7 +37,7 @@ namespace Mozu.Api.Urls.Content
 						/// <summary>
         /// Get Resource Url for PublishDocuments
         /// </summary>
-        /// <param name="documentLists">List of document lists that contain documents to publish.</param>
+        /// <param name="documentLists"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
@@ -51,8 +51,8 @@ namespace Mozu.Api.Urls.Content
 				/// <summary>
         /// Get Resource Url for DeleteDocumentDrafts
         /// </summary>
-        /// <param name="documentIds">Unique identifiers of the documents to delete.</param>
-        /// <param name="documentLists">List of document lists that contain documents to delete.</param>
+        /// <param name="documentIds"></param>
+        /// <param name="documentLists"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>

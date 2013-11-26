@@ -16,12 +16,12 @@ using Mozu.Api.Security;
 namespace Mozu.Api.Clients.Event
 {
 	/// <summary>
-	/// Use the events resource to retreive events, which are notifications about a create, read, update, or delete operation.
+	/// 
 	/// </summary>
 	public partial class EventNotificationClient 	{
 		
 		/// <summary>
-		/// Retrieves a list of events.
+		/// 
 		/// </summary>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Event.EventCollection"/>}
@@ -38,10 +38,10 @@ namespace Mozu.Api.Clients.Event
 		}
 
 		/// <summary>
-		/// Retrieves a list of events.
+		/// 
 		/// </summary>
-		/// <param name="filter">"A set of expressions that consist of a field, operator, and value and represent search parameter syntax when filtering results of a query. Valid operators include equals (eq), does not equal (ne), greater than (gt), less than (lt), greater than or equal to (ge), less than or equal to (le), starts with (sw), or contains (cont). For example - ""filter=IsDisplayed+eq+true"""</param>
-		/// <param name="pageSize">Used to create paged results from a query. Specifies the number of results to display on each page. Maximum: 200.</param>
+		/// <param name="filter"></param>
+		/// <param name="pageSize"></param>
 		/// <param name="sortBy"></param>
 		/// <param name="startIndex"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
@@ -66,9 +66,9 @@ namespace Mozu.Api.Clients.Event
 		}
 
 		/// <summary>
-		/// Retrieves an event by providing the event ID.
+		/// 
 		/// </summary>
-		/// <param name="eventId">The unique identifier of the event being retrieved. An event is a notification about a create, read, update, or delete on an order, product, discount or category.</param>
+		/// <param name="eventId"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Event.Event"/>}

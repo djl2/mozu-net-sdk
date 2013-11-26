@@ -16,14 +16,14 @@ using Mozu.Api.Security;
 namespace Mozu.Api.Clients.Commerce.Orders
 {
 	/// <summary>
-	/// Use this subresource to manage notes associated with an active order.
+	/// 
 	/// </summary>
 	public partial class OrderNoteClient 	{
 		
 		/// <summary>
-		/// Retrieves a list of all notes for an order.
+		/// 
 		/// </summary>
-		/// <param name="orderId">Unique identifier of the order whose notes are retrieved.</param>
+		/// <param name="orderId"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{List{<see cref="Mozu.Api.Contracts.CommerceRuntime.Orders.OrderNote"/>}}
@@ -46,10 +46,10 @@ namespace Mozu.Api.Clients.Commerce.Orders
 		}
 
 		/// <summary>
-		/// Retrieves a specific order note from an order.
+		/// 
 		/// </summary>
-		/// <param name="noteId">Unique identifier of the note text to retrieve.</param>
-		/// <param name="orderId">Unique identifier of the order note to retrieve.</param>
+		/// <param name="noteId"></param>
+		/// <param name="orderId"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.CommerceRuntime.Orders.OrderNote"/>}
@@ -72,11 +72,11 @@ namespace Mozu.Api.Clients.Commerce.Orders
 		}
 
 				/// <summary>
-		/// Adds a note to the order. This is an internal note that the merchant can add to an order.
+		/// 
 		/// </summary>
-		/// <param name="orderId">Unique identifier of the order to add a note.</param>
+		/// <param name="orderId"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="orderNote">The Unicode alphanumeric text contained in the note. Max length: 256 characters.</param>
+		/// <param name="orderNote"></param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.CommerceRuntime.Orders.OrderNote"/>}
 		/// </returns>
@@ -98,12 +98,12 @@ namespace Mozu.Api.Clients.Commerce.Orders
 		}
 
 				/// <summary>
-		/// Updates a specific order note for an order.
+		/// 
 		/// </summary>
-		/// <param name="noteId">Unique identifier of the note whose text is being updated.</param>
-		/// <param name="orderId">Unique identifier of the order whose note is being updated.</param>
+		/// <param name="noteId"></param>
+		/// <param name="orderId"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="orderNote">The Unicode alphanumeric text contained in the note.</param>
+		/// <param name="orderNote"></param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.CommerceRuntime.Orders.OrderNote"/>}
 		/// </returns>
@@ -125,10 +125,10 @@ namespace Mozu.Api.Clients.Commerce.Orders
 		}
 
 				/// <summary>
-		/// Deletes a specific order note on an order.
+		/// 
 		/// </summary>
-		/// <param name="noteId">Unique identifier of the note text to delete.</param>
-		/// <param name="orderId">Unique identifier of the order note to delete.</param>
+		/// <param name="noteId"></param>
+		/// <param name="orderId"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />

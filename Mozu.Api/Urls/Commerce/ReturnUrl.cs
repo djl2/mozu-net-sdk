@@ -39,7 +39,7 @@ namespace Mozu.Api.Urls.Commerce
 		/// <summary>
         /// Get Resource Url for GetReturn
         /// </summary>
-        /// <param name="returnId">Returns the properties of the return specified in the request as well as system-supplied information.</param>
+        /// <param name="returnId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
@@ -53,7 +53,7 @@ namespace Mozu.Api.Urls.Commerce
 		/// <summary>
         /// Get Resource Url for GetAvailableReturnActions
         /// </summary>
-        /// <param name="returnId">Retrieves a list of the actions available to perform for the specified return based on its current state.</param>
+        /// <param name="returnId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
@@ -67,7 +67,7 @@ namespace Mozu.Api.Urls.Commerce
 		/// <summary>
         /// Get Resource Url for GetPayments
         /// </summary>
-        /// <param name="returnId">Returns the details of the refund payment associated with the return specified in the request.</param>
+        /// <param name="returnId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
@@ -81,8 +81,8 @@ namespace Mozu.Api.Urls.Commerce
 		/// <summary>
         /// Get Resource Url for GetPayment
         /// </summary>
-        /// <param name="paymentId">Unique identifier of the return payment to retrieve.</param>
-        /// <param name="returnId">Unique identifier of the return associated with the payment.</param>
+        /// <param name="paymentId"></param>
+        /// <param name="returnId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
@@ -97,8 +97,8 @@ namespace Mozu.Api.Urls.Commerce
 		/// <summary>
         /// Get Resource Url for GetAvailablePaymentActionsForReturn
         /// </summary>
-        /// <param name="paymentId">Unique identifier of the payment for which to perform the action.</param>
-        /// <param name="returnId">Unique identifier of the return associated with the payment.</param>
+        /// <param name="paymentId"></param>
+        /// <param name="returnId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
@@ -125,8 +125,8 @@ namespace Mozu.Api.Urls.Commerce
 		/// <summary>
         /// Get Resource Url for PerformPaymentActionForReturn
         /// </summary>
-        /// <param name="paymentId">Unique identifier of the return payment to update.</param>
-        /// <param name="returnId">Unique identifier of the return associated with the refund payment.</param>
+        /// <param name="paymentId"></param>
+        /// <param name="returnId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
@@ -141,7 +141,7 @@ namespace Mozu.Api.Urls.Commerce
 		/// <summary>
         /// Get Resource Url for CreatePaymentActionForReturn
         /// </summary>
-        /// <param name="returnId">Unique identifier of the return associated with the payment action.</param>
+        /// <param name="returnId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
@@ -167,7 +167,7 @@ namespace Mozu.Api.Urls.Commerce
 				/// <summary>
         /// Get Resource Url for UpdateReturn
         /// </summary>
-        /// <param name="returnId">Unique identifier of the return.</param>
+        /// <param name="returnId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
@@ -181,7 +181,7 @@ namespace Mozu.Api.Urls.Commerce
 				/// <summary>
         /// Get Resource Url for DeleteReturn
         /// </summary>
-        /// <param name="returnId">Unique identifier of the return to delete from the order.</param>
+        /// <param name="returnId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>

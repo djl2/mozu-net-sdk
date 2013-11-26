@@ -16,12 +16,12 @@ using Mozu.Api.Security;
 namespace Mozu.Api.Clients.Commerce.Customer
 {
 	/// <summary>
-	/// Merchants create, view, update and delete groups. Groups are useful to manage sets of customers, for example, to offer discounts to particular groups or assign VIP status to a set of customers. A customer account can have several groups or none at all.
+	/// 
 	/// </summary>
 	public partial class CustomerGroupClient 	{
 		
 		/// <summary>
-		/// Retrieves a list of all customer groups defined for the site according to any specified filter criteria and sort options.
+		/// 
 		/// </summary>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Customer.CustomerGroupCollection"/>}
@@ -38,12 +38,12 @@ namespace Mozu.Api.Clients.Commerce.Customer
 		}
 
 		/// <summary>
-		/// Retrieves a list of all customer groups defined for the site according to any specified filter criteria and sort options.
+		/// 
 		/// </summary>
-		/// <param name="filter">"A set of expressions that consist of a field, operator, and value and represent search parameter syntax when filtering results of a query. Valid operators include equals (eq), does not equal (ne), greater than (gt), less than (lt), greater than or equal to (ge), less than or equal to (le), starts with (sw), or contains (cont). For example - ""filter=IsDisplayed+eq+true"""</param>
-		/// <param name="pageSize">Used to create paged results from a query. Specifies the number of results to display on each page. Maximum: 200.</param>
-		/// <param name="sortBy">"The property by which to sort results and whether the results appear in ascending (a-z) order, represented by 'ASC' or in descending (z-a) order, represented by 'DESC'. The sortBy parameter follows an available property. <b>For example: sortBy=productCode+asc</b>"</param>
-		/// <param name="startIndex">"Used to create paged results from a query. Indicates the zero-based offset in the complete result set where the returned entities begin. For example, with a PageSize of 25, to get the 51st through the 75th items, use startIndex=3."</param>
+		/// <param name="filter"></param>
+		/// <param name="pageSize"></param>
+		/// <param name="sortBy"></param>
+		/// <param name="startIndex"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Customer.CustomerGroupCollection"/>}
@@ -66,9 +66,9 @@ namespace Mozu.Api.Clients.Commerce.Customer
 		}
 
 		/// <summary>
-		/// Retrieves the name of a customer group specified the customer group ID.
+		/// 
 		/// </summary>
-		/// <param name="groupId">Identifier of the customer group to retrieve.</param>
+		/// <param name="groupId"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Customer.CustomerGroup"/>}
@@ -91,7 +91,7 @@ namespace Mozu.Api.Clients.Commerce.Customer
 		}
 
 				/// <summary>
-		/// Creates a new customer group. New customer groups do not have any associated customer accounts.
+		/// 
 		/// </summary>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <param name="group"></param>
@@ -116,9 +116,9 @@ namespace Mozu.Api.Clients.Commerce.Customer
 		}
 
 				/// <summary>
-		/// Changes the name of an existing customer group.
+		/// 
 		/// </summary>
-		/// <param name="groupId">Identifier of the customer group to update.</param>
+		/// <param name="groupId"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <param name="group"></param>
 		/// <returns>
@@ -142,9 +142,9 @@ namespace Mozu.Api.Clients.Commerce.Customer
 		}
 
 				/// <summary>
-		/// Deletes a customer group specified by its unique identifier. Deleting a group removes any customer account associations, but does not delete the customer account itself.
+		/// 
 		/// </summary>
-		/// <param name="groupId">Identifier of the customer group to delete.</param>
+		/// <param name="groupId"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />

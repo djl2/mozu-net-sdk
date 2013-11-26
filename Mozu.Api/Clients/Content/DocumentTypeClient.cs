@@ -16,12 +16,12 @@ using Mozu.Api.Security;
 namespace Mozu.Api.Clients.Content
 {
 	/// <summary>
-	/// The DocumentTypes resource is a part of the Content Service.
+	/// 
 	/// </summary>
 	public partial class DocumentTypeClient 	{
 		
 		/// <summary>
-		/// Retrieves a paged list of DocumentTypes.
+		/// 
 		/// </summary>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Content.DocumentTypeCollection"/>}
@@ -38,7 +38,7 @@ namespace Mozu.Api.Clients.Content
 		}
 
 		/// <summary>
-		/// Retrieves a paged list of DocumentTypes.
+		/// 
 		/// </summary>
 		/// <param name="pageSize"></param>
 		/// <param name="startIndex"></param>
@@ -64,9 +64,9 @@ namespace Mozu.Api.Clients.Content
 		}
 
 		/// <summary>
-		/// Retrieves an existing DocumentType.
+		/// 
 		/// </summary>
-		/// <param name="documentTypeName">The documentType name being retrieved.</param>
+		/// <param name="documentTypeName"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Content.DocumentType"/>}

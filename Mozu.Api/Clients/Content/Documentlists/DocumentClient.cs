@@ -16,15 +16,15 @@ using Mozu.Api.Security;
 namespace Mozu.Api.Clients.Content.Documentlists
 {
 	/// <summary>
-	/// Use this subresource to manage documents in a document list.
+	/// 
 	/// </summary>
 	public partial class DocumentClient 	{
 		
 		/// <summary>
-		/// Get a specific document within the specified document list by providing the document ID.
+		/// 
 		/// </summary>
-		/// <param name="documentId">Identifier of the document being retrieved.</param>
-		/// <param name="documentListName">The name of the document list associated with the document to retrieve.</param>
+		/// <param name="documentId"></param>
+		/// <param name="documentListName"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Content.Document"/>}
@@ -47,10 +47,10 @@ namespace Mozu.Api.Clients.Content.Documentlists
 		}
 
 		/// <summary>
-		/// Retrieve the content associated with a document, such as a product image or PDF specifications file, by supplying the document ID.
+		/// 
 		/// </summary>
-		/// <param name="documentId">Unique identifier of the document.</param>
-		/// <param name="documentListName">The name of the document list associated with the document.</param>
+		/// <param name="documentId"></param>
+		/// <param name="documentListName"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />
@@ -73,9 +73,9 @@ namespace Mozu.Api.Clients.Content.Documentlists
 		}
 
 		/// <summary>
-		/// Retrieves a collection of documents according to any filter and sort criteria.
+		/// 
 		/// </summary>
-		/// <param name="documentListName">The name of the document list.</param>
+		/// <param name="documentListName"></param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Content.DocumentCollection"/>}
 		/// </returns>
@@ -91,13 +91,13 @@ namespace Mozu.Api.Clients.Content.Documentlists
 		}
 
 		/// <summary>
-		/// Retrieves a collection of documents according to any filter and sort criteria.
+		/// 
 		/// </summary>
-		/// <param name="documentListName">The name of the document list.</param>
-		/// <param name="filter">A set of expressions that consist of a field, operator, and value and represent search parameter syntax when filtering results of a query. You can filter a document's search results by any of its properties, including its name or folder path. Valid operators include equals (eq), does not equal (ne), greater than (gt), less than (lt), greater than or equal to (ge), less than or equal to (le), starts with (sw), or contains (cont). <b>For example - "filter=Name+sw+Events"</b></param>
-		/// <param name="pageSize">Used to create paged results from a query. Specifies the number of results to display on each page. Maximum: 200.</param>
-		/// <param name="sortBy">"The property by which to sort results and whether the results appear in ascending (a-z) order, represented by 'ASC' or in descending (z-a) order, represented by 'DESC'. The sortBy parameter follows an available property. <b>For example: sortBy=productCode+asc</b>"</param>
-		/// <param name="startIndex">"Used to create paged results from a query. Indicates the zero-based offset in the complete result set where the returned entities begin. For example, with a PageSize of 25, to get the 51st through the 75th items, use startIndex=3."</param>
+		/// <param name="documentListName"></param>
+		/// <param name="filter"></param>
+		/// <param name="pageSize"></param>
+		/// <param name="sortBy"></param>
+		/// <param name="startIndex"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Content.DocumentCollection"/>}
@@ -120,11 +120,11 @@ namespace Mozu.Api.Clients.Content.Documentlists
 		}
 
 				/// <summary>
-		/// Creates a new document in an existing list.
+		/// 
 		/// </summary>
-		/// <param name="documentListName">The descriptive alphanumeric document list name being created.</param>
+		/// <param name="documentListName"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="document">The descriptive name of the newly created document.</param>
+		/// <param name="document"></param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Content.Document"/>}
 		/// </returns>
@@ -146,12 +146,12 @@ namespace Mozu.Api.Clients.Content.Documentlists
 		}
 
 				/// <summary>
-		/// Updates a document in a document list.
+		/// 
 		/// </summary>
-		/// <param name="documentId">Unique identifier of the document to update.</param>
-		/// <param name="documentListName">Name of the document list associated with the document.</param>
+		/// <param name="documentId"></param>
+		/// <param name="documentListName"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="document">Properties of the document to update.</param>
+		/// <param name="document"></param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Content.Document"/>}
 		/// </returns>
@@ -173,10 +173,10 @@ namespace Mozu.Api.Clients.Content.Documentlists
 		}
 
 		/// <summary>
-		/// Updates the content associated with a document, such as a product image or PDF specifications file, by supplying the document ID.
+		/// 
 		/// </summary>
-		/// <param name="documentId">Unique identifier of the document.</param>
-		/// <param name="documentListName">The name of the document list associated with the document.</param>
+		/// <param name="documentId"></param>
+		/// <param name="documentListName"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <param name="stream"></param>
 		/// <returns>
@@ -200,10 +200,10 @@ namespace Mozu.Api.Clients.Content.Documentlists
 		}
 
 				/// <summary>
-		/// Deletes a specific document based on the specified documentId.
+		/// 
 		/// </summary>
-		/// <param name="documentId">Identifier of the document being deleted.</param>
-		/// <param name="documentListName">The name of the document list associated with the document list being deleted.</param>
+		/// <param name="documentId"></param>
+		/// <param name="documentListName"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />
@@ -226,10 +226,10 @@ namespace Mozu.Api.Clients.Content.Documentlists
 		}
 
 		/// <summary>
-		/// Deletes the content associated with a document, such as a product image or PDF specification, by supplying the document ID.
+		/// 
 		/// </summary>
-		/// <param name="documentId">Unique identifier of the document.</param>
-		/// <param name="documentListName">The name of the document list associated with the document.</param>
+		/// <param name="documentId"></param>
+		/// <param name="documentListName"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />

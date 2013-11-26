@@ -55,18 +55,13 @@ namespace Mozu.Api
 			MasterCatalogId = masterCatalogId;
 			CatalogId = catalogId;
 
-            if (site != null && site.Id >= 0)
-            {
-                SiteId = site.Id;
-                SiteUrl = GetUrl(site.Domain);
-            }
-
+            SetBySite(site);
 
             if (!masterCatalogId.HasValue && Tenant.MasterCatalogs.Count == 1)
             {
-                MasterCatalogId = Tenant.MasterCatalogs[0].Id;
+                MasterCatalogId = Tenant.MasterCatalogs.First().Id;
                 if (Tenant.MasterCatalogs[0].Catalogs.Count == 1)
-                    CatalogId = Tenant.MasterCatalogs[0].Catalogs[0].Id;
+                    CatalogId = Tenant.MasterCatalogs.First().Catalogs.First().Id;
             }
 
         }
@@ -76,12 +71,7 @@ namespace Mozu.Api
 			TenantId = site.TenantId;
 			MasterCatalogId = masterCatalogId;
 			CatalogId = catalogId;
-
-			if (site != null && site.Id >= 0)
-			{
-				SiteId = site.Id;
-				SiteUrl = GetUrl(site.Domain);
-			}
+		    SetBySite(site);
 
 		}
 
@@ -142,12 +132,21 @@ namespace Mozu.Api
 
 		}
 
+        //TODO: need to replace with Meta information about SSL - Move to MozuClient and build on resource url properties?
         public string GetUrl(string domain)
         {
             //return (AppAuthenticator.UseSSL ? "Https://" : "http://" )+domain;
             return  "http://" + domain;
         }
 
+        private void SetBySite(Site site)
+        {
+            if (site != null && site.Id >= 0)
+            {
+                SiteId = site.Id;
+                SiteUrl = GetUrl(site.Domain);
+            }
+        }
 
         protected string GetHeaderValue(string header, HttpRequestHeaders headers)
         {

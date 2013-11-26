@@ -16,7 +16,6 @@ using System.Net;
 using Mozu.Api;
 using Mozu.Api.Security;
 using Mozu.Api.Test.Helpers;
-using Newtonsoft.Json;
 
 #endregion
 
@@ -30,45 +29,53 @@ namespace Mozu.Api.Test.Factories
 
 		/// <summary> 
 		/// 
-		/// PublishingScopeFactory.DiscardDrafts(handler : handler,  publishScope :  publishScope, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<void>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// <example> 
+		///  <code> 
+		//// var result = PublishingScopeFactory.DiscardDrafts(handler : handler,  publishScope :  publishScope, authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<void>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static void DiscardDrafts(ServiceClientMessageHandler handler, 
- 		Mozu.Api.Contracts.ProductAdmin.PublishingScope publishScope,DataViewMode dataViewMode= DataViewMode.Live, 
+ 		Mozu.Api.Contracts.ProductAdmin.PublishingScope publishScope, AuthTicket authTicket= null, DataViewMode dataViewMode= DataViewMode.Live, 
 		 int expectedCode = (int)HttpStatusCode.NoContent, int successCode = (int)HttpStatusCode.NoContent)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Admin.PublishingScopeClient.DiscardDraftsClient(
-				 publishScope :  publishScope, dataViewMode: dataViewMode		);
+				 publishScope :  publishScope, authTicket : authTicket, dataViewMode: dataViewMode		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			var noResponse = ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
+  
 		/// <summary> 
 		/// 
-		/// PublishingScopeFactory.PublishDrafts(handler : handler,  publishScope :  publishScope, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<void>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// <example> 
+		///  <code> 
+		//// var result = PublishingScopeFactory.PublishDrafts(handler : handler,  publishScope :  publishScope, authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<void>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static void PublishDrafts(ServiceClientMessageHandler handler, 
- 		Mozu.Api.Contracts.ProductAdmin.PublishingScope publishScope,DataViewMode dataViewMode= DataViewMode.Live, 
+ 		Mozu.Api.Contracts.ProductAdmin.PublishingScope publishScope, AuthTicket authTicket= null, DataViewMode dataViewMode= DataViewMode.Live, 
 		 int expectedCode = (int)HttpStatusCode.NoContent, int successCode = (int)HttpStatusCode.NoContent)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Admin.PublishingScopeClient.PublishDraftsClient(
-				 publishScope :  publishScope, dataViewMode: dataViewMode		);
+				 publishScope :  publishScope, authTicket : authTicket, dataViewMode: dataViewMode		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			var noResponse = ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
+  
 
-				
 	}
 
 }

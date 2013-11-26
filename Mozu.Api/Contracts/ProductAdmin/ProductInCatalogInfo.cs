@@ -24,7 +24,7 @@ namespace Mozu.Api.Contracts.ProductAdmin
 
 			public bool? IsPriceOverridden { get; set; }
 
-			public bool? IsSEOContentOverridden { get; set; }
+			public bool? IsseoContentOverridden { get; set; }
 
 			public AuditInfo AuditInfo { get; set; }
 
@@ -34,7 +34,7 @@ namespace Mozu.Api.Contracts.ProductAdmin
 
 			public List<ProductCategory> ProductCategories { get; set; }
 
-			public ProductLocalizedSEOContent Seocontent { get; set; }
+			public ProductLocalizedSEOContent SeoContent { get; set; }
 
 		}
 

@@ -16,7 +16,6 @@ using System.Net;
 using Mozu.Api;
 using Mozu.Api.Security;
 using Mozu.Api.Test.Helpers;
-using Newtonsoft.Json;
 
 #endregion
 
@@ -28,71 +27,87 @@ namespace Mozu.Api.Test.Factories
 	public partial class FulfillmentInfoFactory : BaseDataFactory
 	{
 
-	/// <summary> 
+		/// <summary> 
 		/// 
-		/// FulfillmentInfoFactory.GetFulfillmentInfo(handler : handler,  orderId :  orderId,  expectedCode: expectedCode, successCode: successCode);
+		/// <example> 
+		///  <code> 
+		//// FulfillmentInfoFactory.GetFulfillmentInfo(handler : handler,  orderId :  orderId,  expectedCode: expectedCode, successCode: successCode);
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.CommerceRuntime.Fulfillment.FulfillmentInfo GetFulfillmentInfo(ServiceClientMessageHandler handler, 
  		 string orderId, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
-			return GetFulfillmentInfo(handler : handler,  draft :  null,  orderId :  orderId, 
+			return GetFulfillmentInfo(handler : handler,  draft :  null,  orderId :  orderId, authTicket : null, 
 				expectedCode: expectedCode, successCode: successCode);
 		}
-
+  
 		/// <summary> 
 		/// 
-		/// FulfillmentInfoFactory.GetFulfillmentInfo(handler : handler,  draft :  draft,  orderId :  orderId,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<FulfillmentInfo>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// <example> 
+		///  <code> 
+		//// var result = FulfillmentInfoFactory.GetFulfillmentInfo(handler : handler,  draft :  draft,  orderId :  orderId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<FulfillmentInfo>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.CommerceRuntime.Fulfillment.FulfillmentInfo GetFulfillmentInfo(ServiceClientMessageHandler handler, 
- 		 bool? draft, string orderId, 
+ 		 bool? draft, string orderId,  AuthTicket authTicket= null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Orders.FulfillmentInfoClient.GetFulfillmentInfoClient(
-				 draft :  draft,  orderId :  orderId		);
+				 draft :  draft,  orderId :  orderId, authTicket : authTicket		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
-				/// <summary> 
+  
+		/// <summary> 
 		/// 
-		/// FulfillmentInfoFactory.SetFulFillmentInfo(handler : handler,  orderId :  orderId,  fulfillmentInfo :  fulfillmentInfo,  expectedCode: expectedCode, successCode: successCode);
+		/// <example> 
+		///  <code> 
+		//// FulfillmentInfoFactory.SetFulFillmentInfo(handler : handler,  orderId :  orderId,  fulfillmentInfo :  fulfillmentInfo,  expectedCode: expectedCode, successCode: successCode);
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.CommerceRuntime.Fulfillment.FulfillmentInfo SetFulFillmentInfo(ServiceClientMessageHandler handler, 
  		 string orderId, Mozu.Api.Contracts.CommerceRuntime.Fulfillment.FulfillmentInfo fulfillmentInfo, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
-			return SetFulFillmentInfo(handler : handler,  orderId :  orderId,  updateMode :  null,  version :  null,  fulfillmentInfo :  fulfillmentInfo, 
+			return SetFulFillmentInfo(handler : handler,  orderId :  orderId,  updateMode :  null,  version :  null,  fulfillmentInfo :  fulfillmentInfo,authTicket : null, 
 				expectedCode: expectedCode, successCode: successCode);
 		}
-
+  
 		/// <summary> 
 		/// 
-		/// FulfillmentInfoFactory.SetFulFillmentInfo(handler : handler,  orderId :  orderId,  updateMode :  updateMode,  version :  version,  fulfillmentInfo :  fulfillmentInfo,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<FulfillmentInfo>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// <example> 
+		///  <code> 
+		//// var result = FulfillmentInfoFactory.SetFulFillmentInfo(handler : handler,  orderId :  orderId,  updateMode :  updateMode,  version :  version,  fulfillmentInfo :  fulfillmentInfo, authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<FulfillmentInfo>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.CommerceRuntime.Fulfillment.FulfillmentInfo SetFulFillmentInfo(ServiceClientMessageHandler handler, 
- 		 string orderId, string updateMode, string version, Mozu.Api.Contracts.CommerceRuntime.Fulfillment.FulfillmentInfo fulfillmentInfo, 
+ 		 string orderId, string updateMode, string version, Mozu.Api.Contracts.CommerceRuntime.Fulfillment.FulfillmentInfo fulfillmentInfo, AuthTicket authTicket= null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Orders.FulfillmentInfoClient.SetFulFillmentInfoClient(
-				 orderId :  orderId,  updateMode :  updateMode,  version :  version,  fulfillmentInfo :  fulfillmentInfo		);
+				 orderId :  orderId,  updateMode :  updateMode,  version :  version,  fulfillmentInfo :  fulfillmentInfo, authTicket : authTicket		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
+  
 
-			
 	}
 
 }

@@ -1,6 +1,10 @@
-﻿using System;
-
-using Mozu.Api;
+﻿// ***********************************************************************
+// <copyright file="ServiceClientMessageHandler.cs" company="Volusion">
+//     Copyright (c) Volusion. All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using System;
 
 namespace Mozu.Api.Test.Helpers
 {

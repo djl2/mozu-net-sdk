@@ -16,7 +16,6 @@ using System.Net;
 using Mozu.Api;
 using Mozu.Api.Security;
 using Mozu.Api.Test.Helpers;
-using Newtonsoft.Json;
 
 #endregion
 
@@ -28,107 +27,127 @@ namespace Mozu.Api.Test.Factories
 	public partial class PickupFactory : BaseDataFactory
 	{
 
-	/// <summary> 
+		/// <summary> 
 		/// 
-		/// PickupFactory.GetPickup(handler : handler,  orderId :  orderId,  pickupId :  pickupId,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<Pickup>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// <example> 
+		///  <code> 
+		//// var result = PickupFactory.GetPickup(handler : handler,  orderId :  orderId,  pickupId :  pickupId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<Pickup>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.CommerceRuntime.Fulfillment.Pickup GetPickup(ServiceClientMessageHandler handler, 
- 		 string orderId, string pickupId, 
+ 		 string orderId, string pickupId,  AuthTicket authTicket= null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Orders.PickupClient.GetPickupClient(
-				 orderId :  orderId,  pickupId :  pickupId		);
+				 orderId :  orderId,  pickupId :  pickupId, authTicket : authTicket		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
+  
 		/// <summary> 
 		/// 
-		/// PickupFactory.GetAvailablePickupFulfillmentActions(handler : handler,  orderId :  orderId,  pickupId :  pickupId,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<List<string>>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// <example> 
+		///  <code> 
+		//// var result = PickupFactory.GetAvailablePickupFulfillmentActions(handler : handler,  orderId :  orderId,  pickupId :  pickupId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<List<string>>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static List<string> GetAvailablePickupFulfillmentActions(ServiceClientMessageHandler handler, 
- 		 string orderId, string pickupId, 
+ 		 string orderId, string pickupId,  AuthTicket authTicket= null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Orders.PickupClient.GetAvailablePickupFulfillmentActionsClient(
-				 orderId :  orderId,  pickupId :  pickupId		);
+				 orderId :  orderId,  pickupId :  pickupId, authTicket : authTicket		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
-			/// <summary> 
+  
+		/// <summary> 
 		/// 
-		/// PickupFactory.CreatePickup(handler : handler,  orderId :  orderId,  pickup :  pickup,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<Pickup>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// <example> 
+		///  <code> 
+		//// var result = PickupFactory.CreatePickup(handler : handler,  orderId :  orderId,  pickup :  pickup, authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<Pickup>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.CommerceRuntime.Fulfillment.Pickup CreatePickup(ServiceClientMessageHandler handler, 
- 		 string orderId, Mozu.Api.Contracts.CommerceRuntime.Fulfillment.Pickup pickup, 
+ 		 string orderId, Mozu.Api.Contracts.CommerceRuntime.Fulfillment.Pickup pickup, AuthTicket authTicket= null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Orders.PickupClient.CreatePickupClient(
-				 orderId :  orderId,  pickup :  pickup		);
+				 orderId :  orderId,  pickup :  pickup, authTicket : authTicket		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
-			/// <summary> 
+  
+		/// <summary> 
 		/// 
-		/// PickupFactory.UpdatePickup(handler : handler,  orderId :  orderId,  pickupId :  pickupId,  pickup :  pickup,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<Pickup>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// <example> 
+		///  <code> 
+		//// var result = PickupFactory.UpdatePickup(handler : handler,  orderId :  orderId,  pickupId :  pickupId,  pickup :  pickup, authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<Pickup>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.CommerceRuntime.Fulfillment.Pickup UpdatePickup(ServiceClientMessageHandler handler, 
- 		 string orderId, string pickupId, Mozu.Api.Contracts.CommerceRuntime.Fulfillment.Pickup pickup, 
+ 		 string orderId, string pickupId, Mozu.Api.Contracts.CommerceRuntime.Fulfillment.Pickup pickup, AuthTicket authTicket= null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Orders.PickupClient.UpdatePickupClient(
-				 orderId :  orderId,  pickupId :  pickupId,  pickup :  pickup		);
+				 orderId :  orderId,  pickupId :  pickupId,  pickup :  pickup, authTicket : authTicket		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
-
-			/// <summary> 
+  
+		/// <summary> 
 		/// 
-		/// PickupFactory.DeletePickup(handler : handler,  orderId :  orderId,  pickupId :  pickupId,  expectedCode: expectedCode, successCode: successCode); 
-		/// var casted = JsonConvert.DeserializeObject<void>(JsonConvert.SerializeObject(result)); 
-		/// return casted;
+		/// <example> 
+		///  <code> 
+		//// var result = PickupFactory.DeletePickup(handler : handler,  orderId :  orderId,  pickupId :  pickupId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		//// var optionalCasting = ConvertClass<void>(result); 
+		//// return optionalCasting;
+		///  </code> 
+		/// </example> 
 		/// </summary>
 		public static void DeletePickup(ServiceClientMessageHandler handler, 
- 		string orderId, string pickupId, 
+ 		string orderId, string pickupId,  AuthTicket authTicket= null, 
 		 int expectedCode = (int)HttpStatusCode.NoContent, int successCode = (int)HttpStatusCode.NoContent)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Orders.PickupClient.DeletePickupClient(
-				 orderId :  orderId,  pickupId :  pickupId		);
+				 orderId :  orderId,  pickupId :  pickupId, authTicket : authTicket		);
 			apiClient.WithContext(handler.ApiContext).Execute();
 			var noResponse = ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
+  
 
-		
 	}
 
 }

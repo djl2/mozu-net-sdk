@@ -16,6 +16,8 @@ namespace Mozu.Api.Contracts.Location
 		{
 			public string CompanyOrOrganization { get; set; }
 
+			public string Email { get; set; }
+
 			public string FirstName { get; set; }
 
 			public string LastNameOrSurname { get; set; }

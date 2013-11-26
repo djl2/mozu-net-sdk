@@ -57,8 +57,6 @@ namespace Mozu.Api
                 
             }
 
-            //_message = info.GetString("Message");
-            //ErrorCode = info.GetString("ErrorCode");
         }
 
         public override string Message
@@ -66,7 +64,6 @@ namespace Mozu.Api
             get { return _message; }
         }
 
-        public string ErrorCode { get; set; }
         public ExceptionDetail ExceptionDetail;
         public List<Item> Items;
         public HttpStatusCode HttpStatusCode;

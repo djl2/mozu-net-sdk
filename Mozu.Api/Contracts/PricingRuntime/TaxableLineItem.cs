@@ -13,45 +13,24 @@ using System.Collections.Generic;
 
 namespace Mozu.Api.Contracts.PricingRuntime
 {
-		///
-		///	Properties of a line item in an order that is subject to tax.
-		///
 		public class TaxableLineItem
 		{
-			///
-			///Unique identifier of the taxable line item.
-			///
 			public string Id { get; set; }
 
-			///
-			///If true, the line item in the order is subject to tax.
-			///
 			public bool? IsTaxable { get; set; }
 
-			///
-			///The sale price of the line item in the order.
-			///
 			public decimal LineItemPrice { get; set; }
 
 			public string ProductCode { get; set; }
 
 			public string ProductName { get; set; }
 
-			///
-			///The quantity of the line item in the order.
-			///
 			public int Quantity { get; set; }
 
 			public string Reason { get; set; }
 
-			///
-			///The amount of shipping calculated for a line item in an order.
-			///
 			public decimal ShippingAmount { get; set; }
 
-			///
-			///Properties of the product that represents the line item in the order.
-			///
 			public List<ProductProperty> ProductProperties { get; set; }
 
 		}

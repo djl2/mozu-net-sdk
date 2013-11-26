@@ -28,9 +28,6 @@ namespace Mozu.Api.Test.MsTestCases
 
         public TenantDataTest()
         {
-            //
-            // TODO: Add constructor logic here
-            //
         }
        
         #region Initializers

@@ -13,108 +13,48 @@ using Mozu.Api.Contracts.Core;
 
 namespace Mozu.Api.Contracts.CommerceRuntime.Payments
 {
-		///
-		///	Properties of a resulting payment interaction that occurs when a payment action is performed.
-		///
 		public class PaymentInteraction
 		{
-			///
-			///If applicable, the total monetary amount associated with this payment interaction.
-			///
-			public decimal? Amount { get; set; }
-
-			///
-			///If applicable, the check number associated with this payment interaction.
-			///
-			public string CheckNumber { get; set; }
-
-			public string CurrencyCode { get; set; }
-
-			///
-			///If required by the payment gateway, the authorization code of the transaction.
-			///
-			public string GatewayAuthCode { get; set; }
-
-			///
-			///AVS codes supplied by the payment gateway.
-			///
-			public string GatewayAVSCodes { get; set; }
-
-			///
-			///CVV2 codes supplied by the payment gateway.
-			///
-			public string GatewayCVV2Codes { get; set; }
-
-			///
-			///Unique identifier of the gateway interaction. Used for credit card transactions where the payment creates a GatewayInteractionId for each interaction. System-supplied and read-only.
-			///
-			public int? GatewayInteractionId { get; set; }
-
-			///
-			///Response code from the gateway associated with the payment interaction. For example, if the gateway returns "Not Authorized," an interaction for voiding the payment transaction would result.
-			///
-			public string GatewayResponseCode { get; set; }
-
-			///
-			///Unique identifier of the gateway transaction associated with the payment interaction.
-			///
-			public string GatewayTransactionId { get; set; }
-
-			///
-			///Unique identifier of the payment interaction.
-			///
-			public string Id { get; set; }
-
-			///
-			///Date and time the payment interaction occured.
-			///
-			public DateTime? InteractionDate { get; set; }
-
-			///
-			///The type of payment interaction, such as Capture or CheckReceived.
-			///
 			public string InteractionType { get; set; }
 
-			///
-			///If true, the payment interaction was manually defined s part of offline order processing.
-			///
 			public bool IsManual { get; set; }
 
-			///
-			///If true, this payment interaction repeats on a scheduled interval.
-			///
 			public bool? IsRecurring { get; set; }
 
-			///
-			///Note content entered for a payment interaction.
-			///
 			public string Note { get; set; }
 
-			///
-			///Unique identifier of the order associated with this payment interaction.
-			///
 			public string OrderId { get; set; }
 
 			public string PaymentEntryStatus { get; set; }
 
-			///
-			///Unique identifier of the payment associated with this transaction.
-			///
 			public string PaymentId { get; set; }
 
-			///
-			///Unique identifier of previous interaction that this payment interaction is modifying. For example, when refunding a payment, the crediting interaction would reference the capture interaction.
-			///
 			public int? PaymentTransactionInteractionIdReference { get; set; }
 
-			///
-			///The status of this payment interaction. Possible values are "Success" or "Failure".
-			///
 			public string Status { get; set; }
 
-			///
-			///Identifier and datetime stamp information recorded when creating or updating a resource entity. System-supplied and read-only.
-			///
+			public decimal? Amount { get; set; }
+
+			public string CheckNumber { get; set; }
+
+			public string CurrencyCode { get; set; }
+
+			public string GatewayAuthCode { get; set; }
+
+			public string GatewayAVSCodes { get; set; }
+
+			public string GatewayCVV2Codes { get; set; }
+
+			public int? GatewayInteractionId { get; set; }
+
+			public string GatewayResponseCode { get; set; }
+
+			public string GatewayTransactionId { get; set; }
+
+			public string Id { get; set; }
+
+			public DateTime? InteractionDate { get; set; }
+
 			public AuditInfo AuditInfo { get; set; }
 
 		}

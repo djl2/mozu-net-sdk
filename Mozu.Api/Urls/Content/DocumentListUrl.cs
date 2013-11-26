@@ -19,7 +19,7 @@ namespace Mozu.Api.Urls.Content
 		/// <summary>
         /// Get Resource Url for GetDocumentLists
         /// </summary>
-        /// <param name="pageSize">Used to create paged results from a query. Specifies the number of results to display on each page. Maximum: 200.</param>
+        /// <param name="pageSize"></param>
         /// <param name="sort"></param>
         /// <param name="startIndex"></param>
         /// <returns>
@@ -37,7 +37,7 @@ namespace Mozu.Api.Urls.Content
 		/// <summary>
         /// Get Resource Url for GetDocumentList
         /// </summary>
-        /// <param name="documentListName">The name of the document list.</param>
+        /// <param name="documentListName"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>

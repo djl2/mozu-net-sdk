@@ -17,107 +17,50 @@ using Mozu.Api.Contracts.CommerceRuntime.Commerce;
 
 namespace Mozu.Api.Contracts.CommerceRuntime.Carts
 {
-		///
-		///	Properties of an item added to an active shopping cart.
-		///
 		public class CartItem
 		{
 			public decimal? DiscountedTotal { get; set; }
 
-			///
-			///The total amount discounted from an item.
-			///
 			public decimal? DiscountTotal { get; set; }
 
 			public decimal? ExtendedTotal { get; set; }
 
-			///
-			///The total amount of all fees incurred for the item.
-			///
 			public decimal? FeeTotal { get; set; }
 
 			public string FulfillmentLocationCode { get; set; }
 
 			public string FulfillmentMethod { get; set; }
 
-			///
-			///Unique identifier of the cart item.
-			///
 			public string Id { get; set; }
 
-			///
-			///If true, the item can be purchased or fulfilled at regular intervals, such as a monthly billing cycle. For example, digital or physical product subscriptions are recurring cart items.
-			///
 			public bool? IsRecurring { get; set; }
 
-			///
-			///If true, the entity is subject to tax based on the relevant tax rate.
-			///
 			public bool? IsTaxable { get; set; }
 
-			///
-			///The total amount of tax for the item in the cart.
-			///
 			public decimal? ItemTaxTotal { get; set; }
 
-			///
-			///"Language used for the entity. Currently, only ""en-US"" is supported."
-			///
 			public string LocaleCode { get; set; }
 
-			///
-			///The specified quantity of the cart item.
-			///
 			public int Quantity { get; set; }
 
-			///
-			///The total amount of tax incurred on the shipping charges in the cart.
-			///
 			public decimal? ShippingTaxTotal { get; set; }
 
-			///
-			///The estimated total amount of shipping fees for the item in the cart.
-			///
 			public decimal? ShippingTotal { get; set; }
 
-			///
-			///Estimated amount of the item in the cart without sales tax, shipping costs, and other fees.
-			///
 			public decimal? Subtotal { get; set; }
 
-			///
-			///The amount of the item in the cart that is subject to tax. This amount typically represents the cart item subtotal before applied discounts.
-			///
 			public decimal? TaxableTotal { get; set; }
 
-			///
-			///Estimated total amount of the item, including the product price, sales tax, shipping costs, and other fees.
-			///
 			public decimal? Total { get; set; }
 
-			///
-			///Identifier and datetime stamp information recorded when creating or updating a resource entity. System-supplied and read-only.
-			///
 			public AuditInfo AuditInfo { get; set; }
 
-			///
-			///The properties of the associated product.
-			///
 			public Product Product { get; set; }
 
-			///
-			///List of product-level discounts projected to apply to the cart at checkout.
-			///
 			public List<AppliedProductDiscount> ProductDiscounts { get; set; }
 
-			///
-			///List of shipping discounts projected to apply to the cart at checkout.
-			///
 			public List<ShippingDiscount> ShippingDiscounts { get; set; }
 
-			///
-			///Properties of the unit price associated with the cart item.
-			///
 			public CommerceUnitPrice UnitPrice { get; set; }
 
 		}
