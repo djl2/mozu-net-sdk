@@ -1,10 +1,4 @@
-﻿// ***********************************************************************
-// <copyright file="ServiceClientMessageFactory.cs" company="Volusion">
-//     Copyright (c) Volusion. All rights reserved.
-// </copyright>
-// <summary></summary>
-// ***********************************************************************
-using System.Net.Http.Headers;
+﻿using System.Net.Http.Headers;
 
 namespace Mozu.Api.Test.Helpers
 {

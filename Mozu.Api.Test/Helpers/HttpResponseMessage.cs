@@ -1,10 +1,4 @@
-﻿// ***********************************************************************
-// <copyright file="HttpResponseMessage.cs" company="Volusion">
-//     Copyright (c) Volusion. All rights reserved.
-// </copyright>
-// <summary></summary>
-// ***********************************************************************
-using System;
+﻿using System;
 using System.Globalization;
 using System.Net;
 

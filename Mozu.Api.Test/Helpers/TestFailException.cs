@@ -1,9 +1,3 @@
-// ***********************************************************************
-// <copyright file="TestFailException.cs" company="Volusion">
-//     Copyright (c) Volusion. All rights reserved.
-// </copyright>
-// <summary></summary>
-// ***********************************************************************
 using System;
 using System.Diagnostics;
 

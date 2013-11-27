@@ -1,10 +1,4 @@
-﻿// ***********************************************************************
-// <copyright file="MozuApiTestBase.cs" company="Volusion">
-//     Copyright (c) Volusion. All rights reserved.
-// </copyright>
-// <summary></summary>
-// ***********************************************************************
-using System.Configuration;
+﻿using System.Configuration;
 using System.Diagnostics;
 using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -40,8 +34,6 @@ namespace Mozu.Api.Test.Helpers
         public static ServiceClientMessageHandler ShopperMsgHandler;
         public static ServiceClientMessageHandler AnonShopperMsgHandler;
 
-        public static Mozu.Api.Security.AuthTicket ShopperAuthTicket = new Mozu.Api.Security.AuthTicket() { Scope = UserScope.Shopper, AccessTokenExpiration = (DateTime.UtcNow.AddDays(1)) };
-        
         public static int tenantId;
         //public static int siteGroupId;
         public static int siteId;

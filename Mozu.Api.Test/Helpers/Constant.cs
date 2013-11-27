@@ -1,9 +1,3 @@
-// ***********************************************************************
-// <copyright file="Constant.cs" company="Volusion">
-//     Copyright (c) Volusion. All rights reserved.
-// </copyright>
-// <summary></summary>
-// ***********************************************************************
 using System.Collections.Generic;
 
 namespace Mozu.Api.Test.Helpers
@@ -13,7 +7,7 @@ namespace Mozu.Api.Test.Helpers
         public const string LocaleCode = "en-US";
         public const string Currency = "USD";
         public const string CountryCode = "US";
-        public const string Password = "Volusion1";
+        public const string Password = "MozuPass1";
 
         public const string VISA = "Visa";
         public const string MASTER = "MasterCard";

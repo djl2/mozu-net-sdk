@@ -1,11 +1,4 @@
-﻿// ***********************************************************************
-// <copyright file="ProductTests.cs" company="Volusion">
-//     Copyright (c) Volusion 2013. All rights reserved.
-// </copyright>
-// <summary></summary>
-// ***********************************************************************
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;

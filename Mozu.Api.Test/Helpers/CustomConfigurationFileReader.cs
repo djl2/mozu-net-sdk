@@ -1,10 +1,4 @@
-﻿// ***********************************************************************
-// <copyright file="CustomConfigurationFileReader.cs" company="Volusion">
-//     Copyright (c) Volusion. All rights reserved.
-// </copyright>
-// <summary></summary>
-// ***********************************************************************
-using System;
+﻿using System;
 using System.Configuration;
 using System.IO;
 

@@ -1,10 +1,4 @@
-﻿// ***********************************************************************
-// <copyright file="Environments.cs" company="Volusion">
-//     Copyright (c) Volusion. All rights reserved.
-// </copyright>
-// <summary></summary>
-// ***********************************************************************
-using System.Configuration;
+﻿using System.Configuration;
 using System.IO;
 
 namespace Mozu.Api.Test.Helpers

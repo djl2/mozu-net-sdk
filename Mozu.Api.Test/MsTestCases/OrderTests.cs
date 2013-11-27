@@ -1,11 +1,4 @@
-﻿// ***********************************************************************
-// <copyright file="OrderTests.cs" company="Volusion">
-//     Copyright (c) Volusion 2013. All rights reserved.
-// </copyright>
-// <summary></summary>
-// ***********************************************************************
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -16,9 +9,8 @@ using Mozu.Api.Contracts.CommerceRuntime.Products;
 using Mozu.Api.Test.Helpers;
 using Mozu.Api.Contracts.CommerceRuntime.Carts;
 using Mozu.Api.Test.Factories;
-using System.Configuration;
 using Mozu.Api.Contracts.Core;
-
+using UserScope = Mozu.Api.Security.UserScope;
 
 namespace Mozu.Api.Test.MsTestCases
 {
@@ -97,9 +89,10 @@ namespace Mozu.Api.Test.MsTestCases
         [Description("Create order from existing cart.")]
         public void OrderTests_Test1()
         {
-            ShopperAuthTicket.AccessToken = "123123";
+            var userAuthInfo = new UserAuthInfo();
+            var userInfo = Mozu.Api.Security.UserAuthenticator.Authenticate(userAuthInfo, UserScope.Shopper);
 
-            var createdCart = CartFactory.GetOrCreateCart(AnonShopperMsgHandler, authTicket: ShopperAuthTicket);
+            var createdCart = CartFactory.GetOrCreateCart(AnonShopperMsgHandler, authTicket: userInfo.AuthTicket);
             const int index = 0;
             var product = ProductFactory.GetProducts(AnonShopperMsgHandler, index, 13).Items.First();
             const int itemQty = 1; 

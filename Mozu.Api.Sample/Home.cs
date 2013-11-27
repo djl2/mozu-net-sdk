@@ -25,10 +25,7 @@ namespace Mozu.Api.Sample
         private void SetEnvironments()
         {
             var environments = new List<Models.Environment>();
-            environments.Add(new Models.Environment{ Key = "Sandbox", Value="https://sandbox.mozu.com"});
             environments.Add(new Models.Environment { Key = "Production", Value="https://home.mozu.com" });
-            environments.Add(new Models.Environment { Key = "CI", Value = "http://home.mozu-ci.volusion.com" });
-            environments.Add(new Models.Environment { Key = "Dev", Value = "http://mozu-dev.com" });
             cbEnvironment.DataSource = environments;
         }
 
@@ -64,6 +61,7 @@ namespace Mozu.Api.Sample
             get { return ((Models.Environment) cbEnvironment.SelectedItem).Value; } 
         }
 
+        private Tenant _tenant;
         private void cbTenant_changed(object sender, EventArgs e)
         {
 
@@ -71,8 +69,8 @@ namespace Mozu.Api.Sample
             var scope = (Scope)cbTenant.SelectedItem;
             
             var tenantResource = new TenantResource();
-            var tenant = tenantResource.GetTenant(scope.Id);
-            var sites = tenant.Sites;
+            _tenant = tenantResource.GetTenant(scope.Id);
+            var sites = _tenant.Sites;
             cbSite.DataSource = sites;
             cbSite.DisplayMember = "Name";
             panelAPI.Show();
@@ -82,20 +80,26 @@ namespace Mozu.Api.Sample
         {
 
             var site = (Site)cbSite.SelectedItem;
-            _apiContext = new ApiContext(site);
+
+           var masterCatalog = (from mc in _tenant.MasterCatalogs
+            from c in mc.Catalogs
+            where c.Id == site.CatalogId
+            select mc).SingleOrDefault();
+
+            _apiContext = new ApiContext(site.TenantId, site.Id, masterCatalogId:masterCatalog.Id,catalogId:site.CatalogId);
         }
 
         private void btnOrder_Click(object sender, EventArgs e)
         {
             setContext();
-            var orderHome = new OrderHandler.Orders(_apiContext);
+            var orderHome = new OrderHandler.Orders(new ApiContext(tenantId:_apiContext.TenantId, siteId:_apiContext.SiteId));
             orderHome.Show();
         }
 
         private void btnProduct_Click(object sender, EventArgs e)
         {
             setContext();
-            var productHome = new ProductHandler.Home(_apiContext);
+            var productHome = new ProductHandler.Home(new ApiContext(_apiContext.TenantId, masterCatalogId:_apiContext.MasterCatalogId, catalogId:_apiContext.CatalogId));
             productHome.Show();
         }
 

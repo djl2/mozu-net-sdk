@@ -1,10 +1,4 @@
-﻿// ***********************************************************************
-// <copyright file="BaseDataFactory.cs" company="Volusion">
-//     Copyright (c) Volusion. All rights reserved.
-// </copyright>
-// <summary></summary>
-// ***********************************************************************
-using System;
+﻿using System;
 using Mozu.Api.Contracts.AppDev;
 using Mozu.Api.Security;
 using Newtonsoft.Json;

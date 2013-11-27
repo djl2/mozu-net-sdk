@@ -1,9 +1,3 @@
-// ***********************************************************************
-// <copyright file="Generator.cs" company="Volusion">
-//     Copyright (c) Volusion. All rights reserved.
-// </copyright>
-// <summary></summary>
-// ***********************************************************************
 using System;
 using Mozu.Api.Contracts.ProductAdmin;
 using System.Collections.Generic;
