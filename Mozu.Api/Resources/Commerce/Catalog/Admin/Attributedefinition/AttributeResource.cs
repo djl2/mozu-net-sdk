@@ -10,154 +10,167 @@
 
 using System;
 using System.Collections.Generic;
+using Mozu.Api.Security;
+
 
 namespace Mozu.Api.Resources.Commerce.Catalog.Admin.Attributedefinition
 {
 	/// <summary>
-	/// Use the Attribute Definition resource to manage the properties, options, and extras that uniquely describe products of a specific type. Attributes can be associated with a product type, assigned values by a merchant or shopper, and added as faceted search filters for a product category.Options are product attributes that describe unique configurations made by the shopper, such as size or color, and generate a new product variation (or unique SKU).Properties are product attributes that describe aspects of the product that do not represent an option configurable by the shopper, such as screen resolution or brand.Extras are product attributes that describe add-on configurations made by the shopper that do not represent a product variation, such as a monogram.
+	/// 
 	/// </summary>
-	public partial class AttributeResource : BaseResource 	{
+	public partial class AttributeResource  	{
 				///
 		/// <see cref="Mozu.Api.ApiContext"/>
 		///
-		private readonly ApiContext _apiContext;
-		public AttributeResource(ApiContext apiContext) 
+		private readonly IApiContext _apiContext;
+		public AttributeResource(IApiContext apiContext) 
 		{
 			_apiContext = apiContext;
 		}
 
 		
 		/// <summary>
-		/// Retrieves a paged list of attributes according to any specified filter criteria and sort options.
+		/// 
 		/// </summary>
+		/// <param name="dataViewMode">{<see cref="Mozu.Api.DataViewMode"/>}</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.ProductAdmin.AttributeCollection"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var attribute = new Attribute();
-		///   var attributeCollection = attribute.GetAttributes();
+		///   var attributeCollection = attribute.GetAttributes(dataViewMode);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.ProductAdmin.AttributeCollection GetAttributes()
+		public virtual Mozu.Api.Contracts.ProductAdmin.AttributeCollection GetAttributes(DataViewMode dataViewMode)
 		{
-			return GetAttributes( null,  null,  null,  null);
+			return GetAttributes(dataViewMode,  null,  null,  null,  null, null);
 		}
 
 		/// <summary>
-		/// Retrieves a paged list of attributes according to any specified filter criteria and sort options.
+		/// 
 		/// </summary>
-		/// <param name="filter">A set of expressions that consist of a field, operator, and value and represent search parameter syntax when filtering results of a query. Valid operators include equals (eq), does not equal (ne), greater than (gt), less than (lt), greater than or equal to (ge), less than or equal to (le), starts with (sw), or contains (cont). For example - "filter=IsDisplayed+eq+true"</param>
-		/// <param name="pageSize">Specifies the number of results to display on each page when creating paged results from a query. The maximum value is 200.</param>
+		/// <param name="filter"></param>
+		/// <param name="pageSize"></param>
 		/// <param name="sortBy"></param>
 		/// <param name="startIndex"></param>
+		/// <param name="dataViewMode">{<see cref="Mozu.Api.DataViewMode"/>}</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.ProductAdmin.AttributeCollection"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var attribute = new Attribute();
-		///   var attributeCollection = attribute.GetAttributes( filter,  pageSize,  sortBy,  startIndex);
+		///   var attributeCollection = attribute.GetAttributes(dataViewMode,  filter,  pageSize,  sortBy,  startIndex, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.ProductAdmin.AttributeCollection GetAttributes(string filter, int? pageSize, string sortBy, int? startIndex)
+		public virtual Mozu.Api.Contracts.ProductAdmin.AttributeCollection GetAttributes(DataViewMode dataViewMode, string filter =  null, int? pageSize =  null, string sortBy =  null, int? startIndex =  null, AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.ProductAdmin.AttributeCollection> response;
-			var client = Mozu.Api.Clients.Commerce.Catalog.Admin.Attributedefinition.AttributeClient.GetAttributesClient( filter,  pageSize,  sortBy,  startIndex);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.ProductAdmin.AttributeCollection> response;
+			var client = Mozu.Api.Clients.Commerce.Catalog.Admin.Attributedefinition.AttributeClient.GetAttributesClient(dataViewMode,  filter,  pageSize,  sortBy,  startIndex, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
 		}
 
 		/// <summary>
-		/// Retrieves the details of the specified product attribute.
+		/// 
 		/// </summary>
-		/// <param name="attributeFQN">The fully qualified name of the attribute, which is a user defined attribute identifier.</param>
+		/// <param name="attributeFQN"></param>
+		/// <param name="dataViewMode">{<see cref="Mozu.Api.DataViewMode"/>}</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.ProductAdmin.Attribute"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var attribute = new Attribute();
-		///   var attribute = attribute.GetAttribute( attributeFQN);
+		///   var attribute = attribute.GetAttribute(dataViewMode,  attributeFQN, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.ProductAdmin.Attribute GetAttribute(string attributeFQN)
+		public virtual Mozu.Api.Contracts.ProductAdmin.Attribute GetAttribute(DataViewMode dataViewMode, string attributeFQN, AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.ProductAdmin.Attribute> response;
-			var client = Mozu.Api.Clients.Commerce.Catalog.Admin.Attributedefinition.AttributeClient.GetAttributeClient( attributeFQN);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.ProductAdmin.Attribute> response;
+			var client = Mozu.Api.Clients.Commerce.Catalog.Admin.Attributedefinition.AttributeClient.GetAttributeClient(dataViewMode,  attributeFQN, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
 		}
 
 				/// <summary>
-		/// Creates a new attribute to describe one aspect of a product such as color or size, based on its defined product type. The attribute name, attribute type, input type, and data type are required.
+		/// 
 		/// </summary>
-		/// <param name="attribute">Properties of the new product attribute to create.</param>
+		/// <param name="dataViewMode">{<see cref="Mozu.Api.DataViewMode"/>}</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
+		/// <param name="attribute"></param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.ProductAdmin.Attribute"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var attribute = new Attribute();
-		///   var attribute = attribute.AddAttribute( attribute);
+		///   var attribute = attribute.AddAttribute(dataViewMode,  attribute, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.ProductAdmin.Attribute AddAttribute(Mozu.Api.Contracts.ProductAdmin.Attribute attribute)
+		public virtual Mozu.Api.Contracts.ProductAdmin.Attribute AddAttribute(DataViewMode dataViewMode, Mozu.Api.Contracts.ProductAdmin.Attribute attribute, AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.ProductAdmin.Attribute> response;
-			var client = Mozu.Api.Clients.Commerce.Catalog.Admin.Attributedefinition.AttributeClient.AddAttributeClient( attribute);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.ProductAdmin.Attribute> response;
+			var client = Mozu.Api.Clients.Commerce.Catalog.Admin.Attributedefinition.AttributeClient.AddAttributeClient(dataViewMode,  attribute, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
 		}
 
 				/// <summary>
-		/// Updates an existing attribute with attribute properties to set.
+		/// 
 		/// </summary>
-		/// <param name="attributeFQN">The fully qualified name of the attribute, which is a user defined attribute identifier.</param>
-		/// <param name="attribute">Any properties of the attribute that to update.</param>
+		/// <param name="attributeFQN"></param>
+		/// <param name="dataViewMode">{<see cref="Mozu.Api.DataViewMode"/>}</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
+		/// <param name="attribute"></param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.ProductAdmin.Attribute"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var attribute = new Attribute();
-		///   var attribute = attribute.UpdateAttribute( attributeFQN,  attribute);
+		///   var attribute = attribute.UpdateAttribute(dataViewMode,  attribute,  attributeFQN, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.ProductAdmin.Attribute UpdateAttribute(string attributeFQN, Mozu.Api.Contracts.ProductAdmin.Attribute attribute)
+		public virtual Mozu.Api.Contracts.ProductAdmin.Attribute UpdateAttribute(DataViewMode dataViewMode, Mozu.Api.Contracts.ProductAdmin.Attribute attribute, string attributeFQN, AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.ProductAdmin.Attribute> response;
-			var client = Mozu.Api.Clients.Commerce.Catalog.Admin.Attributedefinition.AttributeClient.UpdateAttributeClient( attributeFQN,  attribute);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.ProductAdmin.Attribute> response;
+			var client = Mozu.Api.Clients.Commerce.Catalog.Admin.Attributedefinition.AttributeClient.UpdateAttributeClient(dataViewMode,  attribute,  attributeFQN, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
 		}
 
 				/// <summary>
-		/// Deletes a defined product attribute. You cannot delete an attribute assigned a value for a product.
+		/// 
 		/// </summary>
-		/// <param name="attributeFQN">The fully qualified name of the attribute, which is a user defined attribute identifier.</param>
+		/// <param name="attributeFQN"></param>
+		/// <param name="dataViewMode">{<see cref="Mozu.Api.DataViewMode"/>}</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// 
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var attribute = new Attribute();
-		///   attribute.DeleteAttribute( attributeFQN);
+		///   attribute.DeleteAttribute(dataViewMode,  attributeFQN, authTicket);
 		/// </code>
 		/// </example>
-		public virtual void DeleteAttribute(string attributeFQN)
+		public virtual void DeleteAttribute(DataViewMode dataViewMode, string attributeFQN, AuthTicket authTicket= null)
 		{
-						MozuClient response;
-			var client = Mozu.Api.Clients.Commerce.Catalog.Admin.Attributedefinition.AttributeClient.DeleteAttributeClient( attributeFQN);
-			SetContext(_apiContext, ref client,true);
+			MozuClient response;
+			var client = Mozu.Api.Clients.Commerce.Catalog.Admin.Attributedefinition.AttributeClient.DeleteAttributeClient(dataViewMode,  attributeFQN, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 
 		}

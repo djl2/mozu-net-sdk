@@ -10,16 +10,18 @@
 
 using System;
 using System.Collections.Generic;
+using Mozu.Api.Security;
+
 
 namespace Mozu.Api.Clients.Commerce
 {
 	/// <summary>
-	/// Manage order processing, payment, and shipping. Includes getting customer payment details, shipping address and selected shipment method, processing payment transactions, and, once paid, shipping the order to the shopper.
+	/// 
 	/// </summary>
 	public partial class OrderClient 	{
 		
 		/// <summary>
-		/// Retrieves a list of orders according to any specified filter criteria and sort options.
+		/// 
 		/// </summary>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.CommerceRuntime.Orders.OrderCollection"/>}
@@ -32,250 +34,86 @@ namespace Mozu.Api.Clients.Commerce
 		/// </example>
 		public static MozuClient<Mozu.Api.Contracts.CommerceRuntime.Orders.OrderCollection> GetOrdersClient()
 		{
-			return GetOrdersClient( null,  null,  null,  null,  null,  null);
+			return GetOrdersClient( null,  null,  null,  null,  null,  null, null);
 		}
 
 		/// <summary>
-		/// Retrieves a list of orders according to any specified filter criteria and sort options.
+		/// 
 		/// </summary>
-		/// <param name="filter">A set of expressions that consist of a field, operator, and value and represent search parameter syntax when filtering results of a query. You can filter an order's search results by any of its properties, including status, contact information, or total. Valid operators include equals (eq), does not equal (ne), greater than (gt), less than (lt), greater than or equal to (ge), less than or equal to (le), starts with (sw), or contains (cont). <b>For example - "filter=Status+eq+Submitted"</b></param>
-		/// <param name="pageSize">Specifies the number of results to display on each page when creating paged results from a query. The maximum value is 200.</param>
-		/// <param name="q">A list of order search terms to use in the query when searching across order number and the name or email of the billing contact. Separate multiple search terms with a space character.</param>
-		/// <param name="qLimit">The maximum number of search results to return in the response. You can limit any range between 1-100.</param>
+		/// <param name="filter"></param>
+		/// <param name="pageSize"></param>
+		/// <param name="q"></param>
+		/// <param name="qLimit"></param>
 		/// <param name="sortBy"></param>
 		/// <param name="startIndex"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.CommerceRuntime.Orders.OrderCollection"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=GetOrders( filter,  pageSize,  q,  qLimit,  sortBy,  startIndex);
+		///   var mozuClient=GetOrders( filter,  pageSize,  q,  qLimit,  sortBy,  startIndex, authTicket);
 		///   var orderCollectionClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.CommerceRuntime.Orders.OrderCollection> GetOrdersClient(string filter, int? pageSize, string q, int? qLimit, string sortBy, int? startIndex)
+		public static MozuClient<Mozu.Api.Contracts.CommerceRuntime.Orders.OrderCollection> GetOrdersClient(string filter =  null, int? pageSize =  null, string q =  null, int? qLimit =  null, string sortBy =  null, int? startIndex =  null, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.OrderUrl.GetOrdersUrl(filter, pageSize, q, qLimit, sortBy, startIndex);
 			const string verb = "GET";
 			var mozuClient = new MozuClient<Mozu.Api.Contracts.CommerceRuntime.Orders.OrderCollection>().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 
 		/// <summary>
-		/// Retrieves available order actions which depends on the status of the order. Actions are "CreateOrder," "SubmitOrder," "SetOrderAsProcessing," "CloseOrder," or "CancelOrder."
+		/// 
 		/// </summary>
-		/// <param name="orderId">Unique identifier of the available order actions to get.</param>
+		/// <param name="orderId"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{List{string}}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=GetAvailableActions( orderId);
+		///   var mozuClient=GetAvailableActions( orderId, authTicket);
 		///   var stringClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<List<string>> GetAvailableActionsClient(string orderId)
+		public static MozuClient<List<string>> GetAvailableActionsClient(string orderId, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.OrderUrl.GetAvailableActionsUrl(orderId);
 			const string verb = "GET";
 			var mozuClient = new MozuClient<List<string>>().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 
 		/// <summary>
-		/// Retrieves the details of an order specified by the order ID.
+		/// 
 		/// </summary>
-		/// <param name="orderId">Unique identifier of the order details to get.</param>
+		/// <param name="orderId"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
-		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.CommerceRuntime.Orders.Order"/>}
+		///  <see cref="Mozu.Api.MozuClient" />{List{<see cref="Mozu.Api.Contracts.PricingRuntime.TaxableOrder"/>}}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=GetOrder( orderId);
-		///   var orderClient = mozuClient.WithBaseAddress(url).Execute().Result();
+		///   var mozuClient=GetTaxableOrders( orderId, authTicket);
+		///   var taxableOrderClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.CommerceRuntime.Orders.Order> GetOrderClient(string orderId)
+		public static MozuClient<List<Mozu.Api.Contracts.PricingRuntime.TaxableOrder>> GetTaxableOrdersClient(string orderId, AuthTicket authTicket= null)
 		{
-			return GetOrderClient( null,  orderId);
-		}
-
-		/// <summary>
-		/// Retrieves the details of an order specified by the order ID.
-		/// </summary>
-		/// <param name="draft">If true, retrieve the draft version of the order, which might include uncommitted changes to the order or its components.</param>
-		/// <param name="orderId">Unique identifier of the order details to get.</param>
-		/// <returns>
-		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.CommerceRuntime.Orders.Order"/>}
-		/// </returns>
-		/// <example>
-		/// <code>
-		///   var mozuClient=GetOrder( draft,  orderId);
-		///   var orderClient = mozuClient.WithBaseAddress(url).Execute().Result();
-		/// </code>
-		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.CommerceRuntime.Orders.Order> GetOrderClient(bool? draft, string orderId)
-		{
-			var url = Mozu.Api.Urls.Commerce.OrderUrl.GetOrderUrl(draft, orderId);
+			var url = Mozu.Api.Urls.Commerce.OrderUrl.GetTaxableOrdersUrl(orderId);
 			const string verb = "GET";
-			var mozuClient = new MozuClient<Mozu.Api.Contracts.CommerceRuntime.Orders.Order>().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
-
-		}
-
-				/// <summary>
-		/// Creates a new order for no-cart quick-ordering scenarios.
-		/// </summary>
-		/// <param name="order">All properties of the order to place.</param>
-		/// <returns>
-		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.CommerceRuntime.Orders.Order"/>}
-		/// </returns>
-		/// <example>
-		/// <code>
-		///   var mozuClient=CreateOrder( order);
-		///   var orderClient = mozuClient.WithBaseAddress(url).Execute().Result();
-		/// </code>
-		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.CommerceRuntime.Orders.Order> CreateOrderClient(Mozu.Api.Contracts.CommerceRuntime.Orders.Order order)
-		{
-			var url = Mozu.Api.Urls.Commerce.OrderUrl.CreateOrderUrl();
-			const string verb = "POST";
-			var mozuClient = new MozuClient<Mozu.Api.Contracts.CommerceRuntime.Orders.Order>().WithVerb(verb).WithResourceUrl(url).WithBody<Mozu.Api.Contracts.CommerceRuntime.Orders.Order>(order);
-		return mozuClient;
-
-		}
-
-		/// <summary>
-		/// Creates a new order from an existing cart when the customer chooses to proceed to checkout.
-		/// </summary>
-		/// <param name="cartId">Unique identifier of the cart. This is the original cart ID expressed as a GUID.</param>
-		/// <returns>
-		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.CommerceRuntime.Orders.Order"/>}
-		/// </returns>
-		/// <example>
-		/// <code>
-		///   var mozuClient=CreateOrderFromCart( cartId);
-		///   var orderClient = mozuClient.WithBaseAddress(url).Execute().Result();
-		/// </code>
-		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.CommerceRuntime.Orders.Order> CreateOrderFromCartClient(string cartId)
-		{
-			var url = Mozu.Api.Urls.Commerce.OrderUrl.CreateOrderFromCartUrl(cartId);
-			const string verb = "POST";
-			var mozuClient = new MozuClient<Mozu.Api.Contracts.CommerceRuntime.Orders.Order>().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
-
-		}
-
-		/// <summary>
-		/// Perform the specified action for an order. Available actions depend on the current status of the order. When in doubt, first get a list of available order actions.
-		/// </summary>
-		/// <param name="orderId">Unique identifier of the order.</param>
-		/// <param name="action">Action to perform, which can be "CreateOrder," "SubmitOrder," "SetOrderAsProcessing," "CloseOrder," or "CancelOrder."</param>
-		/// <returns>
-		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.CommerceRuntime.Orders.Order"/>}
-		/// </returns>
-		/// <example>
-		/// <code>
-		///   var mozuClient=PerformOrderAction( orderId,  action);
-		///   var orderClient = mozuClient.WithBaseAddress(url).Execute().Result();
-		/// </code>
-		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.CommerceRuntime.Orders.Order> PerformOrderActionClient(string orderId, Mozu.Api.Contracts.CommerceRuntime.Orders.OrderAction action)
-		{
-			var url = Mozu.Api.Urls.Commerce.OrderUrl.PerformOrderActionUrl(orderId);
-			const string verb = "POST";
-			var mozuClient = new MozuClient<Mozu.Api.Contracts.CommerceRuntime.Orders.Order>().WithVerb(verb).WithResourceUrl(url).WithBody<Mozu.Api.Contracts.CommerceRuntime.Orders.OrderAction>(action);
-		return mozuClient;
-
-		}
-
-				/// <summary>
-		/// Update the properties of a discount applied to an order.
-		/// </summary>
-		/// <param name="discountId">Unique identifier of the discount. System-supplied and read only.</param>
-		/// <param name="orderId">Unique identifier of the order discount. System-supplied and read only.</param>
-		/// <param name="discount">Properties of the order discount to update.</param>
-		/// <returns>
-		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.CommerceRuntime.Orders.Order"/>}
-		/// </returns>
-		/// <example>
-		/// <code>
-		///   var mozuClient=UpdateOrderDiscount( discountId,  orderId,  discount);
-		///   var orderClient = mozuClient.WithBaseAddress(url).Execute().Result();
-		/// </code>
-		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.CommerceRuntime.Orders.Order> UpdateOrderDiscountClient(int discountId, string orderId, Mozu.Api.Contracts.CommerceRuntime.Discounts.AppliedDiscount discount)
-		{
-			return UpdateOrderDiscountClient( discountId,  orderId,  null,  null,  discount);
-		}
-
-		/// <summary>
-		/// Update the properties of a discount applied to an order.
-		/// </summary>
-		/// <param name="discountId">Unique identifier of the discount. System-supplied and read only.</param>
-		/// <param name="orderId">Unique identifier of the order discount. System-supplied and read only.</param>
-		/// <param name="updateMode">Specifies whether to modify the discount by updating the original order, updating the order in draft mode, or updating the order in draft mode and then committing the changes to the original. Draft mode enables users to make incremental order changes before committing the changes to the original order. Valid values are "ApplyToOriginal", "ApplyToDraft", or "ApplyAndCommit".</param>
-		/// <param name="version">If applicable, the version of the order or draft for which to update the discount.</param>
-		/// <param name="discount">Properties of the order discount to update.</param>
-		/// <returns>
-		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.CommerceRuntime.Orders.Order"/>}
-		/// </returns>
-		/// <example>
-		/// <code>
-		///   var mozuClient=UpdateOrderDiscount( discountId,  orderId,  updateMode,  version,  discount);
-		///   var orderClient = mozuClient.WithBaseAddress(url).Execute().Result();
-		/// </code>
-		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.CommerceRuntime.Orders.Order> UpdateOrderDiscountClient(int discountId, string orderId, string updateMode, string version, Mozu.Api.Contracts.CommerceRuntime.Discounts.AppliedDiscount discount)
-		{
-			var url = Mozu.Api.Urls.Commerce.OrderUrl.UpdateOrderDiscountUrl(discountId, orderId, updateMode, version);
-			const string verb = "PUT";
-			var mozuClient = new MozuClient<Mozu.Api.Contracts.CommerceRuntime.Orders.Order>().WithVerb(verb).WithResourceUrl(url).WithBody<Mozu.Api.Contracts.CommerceRuntime.Discounts.AppliedDiscount>(discount);
-		return mozuClient;
-
-		}
-
-		/// <summary>
-		/// Deletes the current draft version of the order, which also deletes any uncommitted changes made to the order in draft mode.
-		/// </summary>
-		/// <param name="orderId">Unique identifier of the order associated with the draft to delete.</param>
-		/// <returns>
-		///  <see cref="Mozu.Api.MozuClient" />
-		/// </returns>
-		/// <example>
-		/// <code>
-		///   var mozuClient=DeleteOrderDraft( orderId);
-		///mozuClient.WithBaseAddress(url).Execute();
-		/// </code>
-		/// </example>
-		public static MozuClient DeleteOrderDraftClient(string orderId)
-		{
-			return DeleteOrderDraftClient( orderId,  null);
-		}
-
-		/// <summary>
-		/// Deletes the current draft version of the order, which also deletes any uncommitted changes made to the order in draft mode.
-		/// </summary>
-		/// <param name="orderId">Unique identifier of the order associated with the draft to delete.</param>
-		/// <param name="version">If applicable, the version of the order draft to delete.</param>
-		/// <returns>
-		///  <see cref="Mozu.Api.MozuClient" />
-		/// </returns>
-		/// <example>
-		/// <code>
-		///   var mozuClient=DeleteOrderDraft( orderId,  version);
-		///mozuClient.WithBaseAddress(url).Execute();
-		/// </code>
-		/// </example>
-		public static MozuClient DeleteOrderDraftClient(string orderId, string version)
-		{
-			var url = Mozu.Api.Urls.Commerce.OrderUrl.DeleteOrderDraftUrl(orderId, version);
-			const string verb = "PUT";
-			var mozuClient = new MozuClient().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			var mozuClient = new MozuClient<List<Mozu.Api.Contracts.PricingRuntime.TaxableOrder>>().WithVerb(verb).WithResourceUrl(url);
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 
@@ -288,60 +126,279 @@ namespace Mozu.Api.Clients.Commerce
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=ChangeOrderUserId( orderId);
+		///   var mozuClient=GetOrder( orderId);
 		///   var orderClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.CommerceRuntime.Orders.Order> ChangeOrderUserIdClient(string orderId)
+		public static MozuClient<Mozu.Api.Contracts.CommerceRuntime.Orders.Order> GetOrderClient(string orderId)
+		{
+			return GetOrderClient( orderId,  null, null);
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="draft"></param>
+		/// <param name="orderId"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
+		/// <returns>
+		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.CommerceRuntime.Orders.Order"/>}
+		/// </returns>
+		/// <example>
+		/// <code>
+		///   var mozuClient=GetOrder( orderId,  draft, authTicket);
+		///   var orderClient = mozuClient.WithBaseAddress(url).Execute().Result();
+		/// </code>
+		/// </example>
+		public static MozuClient<Mozu.Api.Contracts.CommerceRuntime.Orders.Order> GetOrderClient(string orderId, bool? draft =  null, AuthTicket authTicket= null)
+		{
+			var url = Mozu.Api.Urls.Commerce.OrderUrl.GetOrderUrl(draft, orderId);
+			const string verb = "GET";
+			var mozuClient = new MozuClient<Mozu.Api.Contracts.CommerceRuntime.Orders.Order>().WithVerb(verb).WithResourceUrl(url);
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
+
+		}
+
+				/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
+		/// <param name="order"></param>
+		/// <returns>
+		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.CommerceRuntime.Orders.Order"/>}
+		/// </returns>
+		/// <example>
+		/// <code>
+		///   var mozuClient=CreateOrder( order, authTicket);
+		///   var orderClient = mozuClient.WithBaseAddress(url).Execute().Result();
+		/// </code>
+		/// </example>
+		public static MozuClient<Mozu.Api.Contracts.CommerceRuntime.Orders.Order> CreateOrderClient(Mozu.Api.Contracts.CommerceRuntime.Orders.Order order, AuthTicket authTicket= null)
+		{
+			var url = Mozu.Api.Urls.Commerce.OrderUrl.CreateOrderUrl();
+			const string verb = "POST";
+			var mozuClient = new MozuClient<Mozu.Api.Contracts.CommerceRuntime.Orders.Order>().WithVerb(verb).WithResourceUrl(url).WithBody<Mozu.Api.Contracts.CommerceRuntime.Orders.Order>(order);
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
+
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="cartId"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
+		/// <returns>
+		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.CommerceRuntime.Orders.Order"/>}
+		/// </returns>
+		/// <example>
+		/// <code>
+		///   var mozuClient=CreateOrderFromCart( cartId, authTicket);
+		///   var orderClient = mozuClient.WithBaseAddress(url).Execute().Result();
+		/// </code>
+		/// </example>
+		public static MozuClient<Mozu.Api.Contracts.CommerceRuntime.Orders.Order> CreateOrderFromCartClient(string cartId, AuthTicket authTicket= null)
+		{
+			var url = Mozu.Api.Urls.Commerce.OrderUrl.CreateOrderFromCartUrl(cartId);
+			const string verb = "POST";
+			var mozuClient = new MozuClient<Mozu.Api.Contracts.CommerceRuntime.Orders.Order>().WithVerb(verb).WithResourceUrl(url);
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
+
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="orderId"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
+		/// <param name="action"></param>
+		/// <returns>
+		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.CommerceRuntime.Orders.Order"/>}
+		/// </returns>
+		/// <example>
+		/// <code>
+		///   var mozuClient=PerformOrderAction( action,  orderId, authTicket);
+		///   var orderClient = mozuClient.WithBaseAddress(url).Execute().Result();
+		/// </code>
+		/// </example>
+		public static MozuClient<Mozu.Api.Contracts.CommerceRuntime.Orders.Order> PerformOrderActionClient(Mozu.Api.Contracts.CommerceRuntime.Orders.OrderAction action, string orderId, AuthTicket authTicket= null)
+		{
+			var url = Mozu.Api.Urls.Commerce.OrderUrl.PerformOrderActionUrl(orderId);
+			const string verb = "POST";
+			var mozuClient = new MozuClient<Mozu.Api.Contracts.CommerceRuntime.Orders.Order>().WithVerb(verb).WithResourceUrl(url).WithBody<Mozu.Api.Contracts.CommerceRuntime.Orders.OrderAction>(action);
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
+
+		}
+
+				/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="discountId"></param>
+		/// <param name="orderId"></param>
+		/// <param name="discount"></param>
+		/// <returns>
+		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.CommerceRuntime.Orders.Order"/>}
+		/// </returns>
+		/// <example>
+		/// <code>
+		///   var mozuClient=UpdateOrderDiscount( discount,  discountId,  orderId);
+		///   var orderClient = mozuClient.WithBaseAddress(url).Execute().Result();
+		/// </code>
+		/// </example>
+		public static MozuClient<Mozu.Api.Contracts.CommerceRuntime.Orders.Order> UpdateOrderDiscountClient(Mozu.Api.Contracts.CommerceRuntime.Discounts.AppliedDiscount discount, int discountId, string orderId)
+		{
+			return UpdateOrderDiscountClient( discount,  discountId,  orderId,  null,  null, null);
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="discountId"></param>
+		/// <param name="orderId"></param>
+		/// <param name="updateMode"></param>
+		/// <param name="version"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
+		/// <param name="discount"></param>
+		/// <returns>
+		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.CommerceRuntime.Orders.Order"/>}
+		/// </returns>
+		/// <example>
+		/// <code>
+		///   var mozuClient=UpdateOrderDiscount( discount,  discountId,  orderId,  updateMode,  version, authTicket);
+		///   var orderClient = mozuClient.WithBaseAddress(url).Execute().Result();
+		/// </code>
+		/// </example>
+		public static MozuClient<Mozu.Api.Contracts.CommerceRuntime.Orders.Order> UpdateOrderDiscountClient(Mozu.Api.Contracts.CommerceRuntime.Discounts.AppliedDiscount discount, int discountId, string orderId, string updateMode =  null, string version =  null, AuthTicket authTicket= null)
+		{
+			var url = Mozu.Api.Urls.Commerce.OrderUrl.UpdateOrderDiscountUrl(discountId, orderId, updateMode, version);
+			const string verb = "PUT";
+			var mozuClient = new MozuClient<Mozu.Api.Contracts.CommerceRuntime.Orders.Order>().WithVerb(verb).WithResourceUrl(url).WithBody<Mozu.Api.Contracts.CommerceRuntime.Discounts.AppliedDiscount>(discount);
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
+
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="orderId"></param>
+		/// <returns>
+		///  <see cref="Mozu.Api.MozuClient" />
+		/// </returns>
+		/// <example>
+		/// <code>
+		///   var mozuClient=DeleteOrderDraft( orderId);
+		///mozuClient.WithBaseAddress(url).Execute();
+		/// </code>
+		/// </example>
+		public static MozuClient DeleteOrderDraftClient(string orderId)
+		{
+			return DeleteOrderDraftClient( orderId,  null, null);
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="orderId"></param>
+		/// <param name="version"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
+		/// <returns>
+		///  <see cref="Mozu.Api.MozuClient" />
+		/// </returns>
+		/// <example>
+		/// <code>
+		///   var mozuClient=DeleteOrderDraft( orderId,  version, authTicket);
+		///mozuClient.WithBaseAddress(url).Execute();
+		/// </code>
+		/// </example>
+		public static MozuClient DeleteOrderDraftClient(string orderId, string version =  null, AuthTicket authTicket= null)
+		{
+			var url = Mozu.Api.Urls.Commerce.OrderUrl.DeleteOrderDraftUrl(orderId, version);
+			const string verb = "PUT";
+			var mozuClient = new MozuClient().WithVerb(verb).WithResourceUrl(url);
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
+
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="orderId"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
+		/// <returns>
+		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.CommerceRuntime.Orders.Order"/>}
+		/// </returns>
+		/// <example>
+		/// <code>
+		///   var mozuClient=ChangeOrderUserId( orderId, authTicket);
+		///   var orderClient = mozuClient.WithBaseAddress(url).Execute().Result();
+		/// </code>
+		/// </example>
+		public static MozuClient<Mozu.Api.Contracts.CommerceRuntime.Orders.Order> ChangeOrderUserIdClient(string orderId, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.OrderUrl.ChangeOrderUserIdUrl(orderId);
 			const string verb = "PUT";
 			var mozuClient = new MozuClient<Mozu.Api.Contracts.CommerceRuntime.Orders.Order>().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 
 		/// <summary>
-		/// Updates the specified order when additional order information, such as shipping or billing information, is modified during the checkout process.
+		/// 
 		/// </summary>
-		/// <param name="orderId">Unique identifier of the order to update.</param>
-		/// <param name="order">The properties of the order to update.</param>
+		/// <param name="orderId"></param>
+		/// <param name="order"></param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.CommerceRuntime.Orders.Order"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=UpdateOrder( orderId,  order);
+		///   var mozuClient=UpdateOrder( order,  orderId);
 		///   var orderClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.CommerceRuntime.Orders.Order> UpdateOrderClient(string orderId, Mozu.Api.Contracts.CommerceRuntime.Orders.Order order)
+		public static MozuClient<Mozu.Api.Contracts.CommerceRuntime.Orders.Order> UpdateOrderClient(Mozu.Api.Contracts.CommerceRuntime.Orders.Order order, string orderId)
 		{
-			return UpdateOrderClient( orderId,  null,  null,  order);
+			return UpdateOrderClient( order,  orderId,  null,  null, null);
 		}
 
 		/// <summary>
-		/// Updates the specified order when additional order information, such as shipping or billing information, is modified during the checkout process.
+		/// 
 		/// </summary>
-		/// <param name="orderId">Unique identifier of the order to update.</param>
-		/// <param name="updateMode">Specifies whether to update the original order, update the order in draft mode, or update the order in draft mode and then commit the changes to the original. Draft mode enables users to make incremental order changes before committing the changes to the original order. Valid values are "ApplyToOriginal", "ApplyToDraft", or "ApplyAndCommit".</param>
-		/// <param name="version">If applicable, the version of the order or draft to update.</param>
-		/// <param name="order">The properties of the order to update.</param>
+		/// <param name="orderId"></param>
+		/// <param name="updateMode"></param>
+		/// <param name="version"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
+		/// <param name="order"></param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.CommerceRuntime.Orders.Order"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=UpdateOrder( orderId,  updateMode,  version,  order);
+		///   var mozuClient=UpdateOrder( order,  orderId,  updateMode,  version, authTicket);
 		///   var orderClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.CommerceRuntime.Orders.Order> UpdateOrderClient(string orderId, string updateMode, string version, Mozu.Api.Contracts.CommerceRuntime.Orders.Order order)
+		public static MozuClient<Mozu.Api.Contracts.CommerceRuntime.Orders.Order> UpdateOrderClient(Mozu.Api.Contracts.CommerceRuntime.Orders.Order order, string orderId, string updateMode =  null, string version =  null, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.OrderUrl.UpdateOrderUrl(orderId, updateMode, version);
 			const string verb = "PUT";
 			var mozuClient = new MozuClient<Mozu.Api.Contracts.CommerceRuntime.Orders.Order>().WithVerb(verb).WithResourceUrl(url).WithBody<Mozu.Api.Contracts.CommerceRuntime.Orders.Order>(order);
-		return mozuClient;
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 

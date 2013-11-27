@@ -13,16 +13,10 @@ using System.Collections.Generic;
 
 namespace Mozu.Api.Contracts.Customer
 {
-		///
-		///	Collection of credit cards defined for the customer account.
-		///
 		public class CardCollection
 		{
-			public int TotalCount { get; set; }
+			public long TotalCount { get; set; }
 
-			///
-			///An array list of objects in the returned collection.
-			///
 			public List<Card> Items { get; set; }
 
 		}

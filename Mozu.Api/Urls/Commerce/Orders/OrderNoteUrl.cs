@@ -13,83 +13,83 @@ using System;
 
 namespace Mozu.Api.Urls.Commerce.Orders
 {
-	public partial class OrderNoteUrl : BaseUrl
+	public partial class OrderNoteUrl : MozuUrl
 	{
 
 		/// <summary>
         /// Get Resource Url for GetOrderNotes
         /// </summary>
-        /// <param name="orderId">Unique identifier of the order whose notes are retrieved.</param>
+        /// <param name="orderId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string GetOrderNotesUrl(string orderId)
+        public static MozuUrl GetOrderNotesUrl(string orderId)
 		{
 			var url = "/api/commerce/orders/{orderId}/notes";
 			FormatUrl( ref url, "orderId", orderId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		/// <summary>
         /// Get Resource Url for GetOrderNote
         /// </summary>
-        /// <param name="noteId">Unique identifier of the note text to retrieve.</param>
-        /// <param name="orderId">Unique identifier of the order note to retrieve.</param>
+        /// <param name="noteId"></param>
+        /// <param name="orderId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string GetOrderNoteUrl(string noteId, string orderId)
+        public static MozuUrl GetOrderNoteUrl(string noteId, string orderId)
 		{
 			var url = "/api/commerce/orders/{orderId}/notes/{noteId}";
 			FormatUrl( ref url, "noteId", noteId);
 			FormatUrl( ref url, "orderId", orderId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				/// <summary>
         /// Get Resource Url for CreateOrderNote
         /// </summary>
-        /// <param name="orderId">Unique identifier of the order to add a note.</param>
+        /// <param name="orderId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string CreateOrderNoteUrl(string orderId)
+        public static MozuUrl CreateOrderNoteUrl(string orderId)
 		{
 			var url = "/api/commerce/orders/{orderId}/notes";
 			FormatUrl( ref url, "orderId", orderId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				/// <summary>
         /// Get Resource Url for UpdateOrderNote
         /// </summary>
-        /// <param name="noteId">Unique identifier of the note whose text is being updated.</param>
-        /// <param name="orderId">Unique identifier of the order whose note is being updated.</param>
+        /// <param name="noteId"></param>
+        /// <param name="orderId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string UpdateOrderNoteUrl(string noteId, string orderId)
+        public static MozuUrl UpdateOrderNoteUrl(string noteId, string orderId)
 		{
 			var url = "/api/commerce/orders/{orderId}/notes/{noteId}";
 			FormatUrl( ref url, "noteId", noteId);
 			FormatUrl( ref url, "orderId", orderId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				/// <summary>
         /// Get Resource Url for DeleteOrderNote
         /// </summary>
-        /// <param name="noteId">Unique identifier of the note text to delete.</param>
-        /// <param name="orderId">Unique identifier of the order note to delete.</param>
+        /// <param name="noteId"></param>
+        /// <param name="orderId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string DeleteOrderNoteUrl(string noteId, string orderId)
+        public static MozuUrl DeleteOrderNoteUrl(string noteId, string orderId)
 		{
 			var url = "/api/commerce/orders/{orderId}/notes/{noteId}";
 			FormatUrl( ref url, "noteId", noteId);
 			FormatUrl( ref url, "orderId", orderId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		

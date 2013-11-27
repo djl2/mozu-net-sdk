@@ -13,23 +13,23 @@ using System;
 
 namespace Mozu.Api.Urls.Commerce.Customer
 {
-	public partial class CustomerAccountUrl : BaseUrl
+	public partial class CustomerAccountUrl : MozuUrl
 	{
 
 		/// <summary>
         /// Get Resource Url for GetAccounts
         /// </summary>
-        /// <param name="fields">The fields to include in the response.</param>
-        /// <param name="filter">A set of expressions that consist of a field, operator, and value and represent search parameter syntax when filtering results of a query. Valid operators include equals (eq), does not equal (ne), greater than (gt), less than (lt), greater than or equal to (ge), less than or equal to (le), starts with (sw), or contains (cont). For example - "filter=IsDisplayed+eq+true"</param>
+        /// <param name="fields"></param>
+        /// <param name="filter"></param>
         /// <param name="pageSize"></param>
-        /// <param name="q">A list of customer account search terms to use in the query when searching across customer name and email. Separate multiple search terms with a space character.</param>
-        /// <param name="qLimit">The maximum number of search results to return in the response. You can limit any range between 1-100.</param>
+        /// <param name="q"></param>
+        /// <param name="qLimit"></param>
         /// <param name="sortBy"></param>
         /// <param name="startIndex"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string GetAccountsUrl(string fields, string filter, int? pageSize, string q, int? qLimit, string sortBy, int? startIndex)
+        public static MozuUrl GetAccountsUrl(string fields, string filter, int? pageSize, string q, int? qLimit, string sortBy, int? startIndex)
 		{
 			var url = "/api/commerce/customer/accounts/?startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&filter={filter}&fields={fields}&q={q}&qLimit={qLimit}";
 			FormatUrl( ref url, "fields", fields);
@@ -39,21 +39,59 @@ namespace Mozu.Api.Urls.Commerce.Customer
 			FormatUrl( ref url, "qLimit", qLimit);
 			FormatUrl( ref url, "sortBy", sortBy);
 			FormatUrl( ref url, "startIndex", startIndex);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		/// <summary>
         /// Get Resource Url for GetAccount
         /// </summary>
-        /// <param name="accountId">Unique identifier of the customer account to retrieve.</param>
+        /// <param name="accountId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string GetAccountUrl(int accountId)
+        public static MozuUrl GetAccountUrl(int accountId)
 		{
 			var url = "/api/commerce/customer/accounts/{accountId}";
 			FormatUrl( ref url, "accountId", accountId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+		}
+
+		/// <summary>
+        /// Get Resource Url for GetInStockNotification
+        /// </summary>
+        /// <param name="accountId"></param>
+        /// <param name="inStockNotificationSubscriptionId"></param>
+        /// <returns>
+        /// String - Resource Url
+        /// </returns>
+        public static MozuUrl GetInStockNotificationUrl(int accountId, int inStockNotificationSubscriptionId)
+		{
+			var url = "/api/commerce/customer/accounts/{accountId}/instocknotifications/{inStockNotificationSubscriptionId}";
+			FormatUrl( ref url, "accountId", accountId);
+			FormatUrl( ref url, "inStockNotificationSubscriptionId", inStockNotificationSubscriptionId);
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+		}
+
+		/// <summary>
+        /// Get Resource Url for GetInStockNotifications
+        /// </summary>
+        /// <param name="accountId"></param>
+        /// <param name="filter"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="sortBy"></param>
+        /// <param name="startIndex"></param>
+        /// <returns>
+        /// String - Resource Url
+        /// </returns>
+        public static MozuUrl GetInStockNotificationsUrl(int accountId, string filter, int? pageSize, string sortBy, int? startIndex)
+		{
+			var url = "/api/commerce/customer/accounts/{accountId}/instocknotifications?startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&filter={filter}";
+			FormatUrl( ref url, "accountId", accountId);
+			FormatUrl( ref url, "filter", filter);
+			FormatUrl( ref url, "pageSize", pageSize);
+			FormatUrl( ref url, "sortBy", sortBy);
+			FormatUrl( ref url, "startIndex", startIndex);
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				/// <summary>
@@ -62,38 +100,82 @@ namespace Mozu.Api.Urls.Commerce.Customer
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string AddAccountUrl()
+        public static MozuUrl AddAccountUrl()
 		{
 			var url = "/api/commerce/customer/accounts/";
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+		}
+
+		/// <summary>
+        /// Get Resource Url for AddInStockNotification
+        /// </summary>
+        /// <param name="accountId"></param>
+        /// <returns>
+        /// String - Resource Url
+        /// </returns>
+        public static MozuUrl AddInStockNotificationUrl(int accountId)
+		{
+			var url = "/api/commerce/customer/accounts/{accountId}/instocknotifications";
+			FormatUrl( ref url, "accountId", accountId);
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+		}
+
+		/// <summary>
+        /// Get Resource Url for RecomputeCustomerLifetimeValue
+        /// </summary>
+        /// <param name="accountId"></param>
+        /// <returns>
+        /// String - Resource Url
+        /// </returns>
+        public static MozuUrl RecomputeCustomerLifetimeValueUrl(int accountId)
+		{
+			var url = "/api/commerce/customer/accounts/{accountId}/recomputelifetimevalue";
+			FormatUrl( ref url, "accountId", accountId);
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				/// <summary>
         /// Get Resource Url for UpdateAccount
         /// </summary>
-        /// <param name="accountId">Unique identifier of the customer account.</param>
+        /// <param name="accountId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string UpdateAccountUrl(int accountId)
+        public static MozuUrl UpdateAccountUrl(int accountId)
 		{
 			var url = "/api/commerce/customer/accounts/{accountId}";
 			FormatUrl( ref url, "accountId", accountId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				/// <summary>
         /// Get Resource Url for DeleteAccount
         /// </summary>
-        /// <param name="accountId">Unique identifier of the customer account to delete.</param>
+        /// <param name="accountId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string DeleteAccountUrl(int accountId)
+        public static MozuUrl DeleteAccountUrl(int accountId)
 		{
 			var url = "/api/commerce/customer/accounts/{accountId}";
 			FormatUrl( ref url, "accountId", accountId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+		}
+
+		/// <summary>
+        /// Get Resource Url for DeleteInStockNotificationSubscription
+        /// </summary>
+        /// <param name="accountId"></param>
+        /// <param name="inStockNotificationSubscriptionId"></param>
+        /// <returns>
+        /// String - Resource Url
+        /// </returns>
+        public static MozuUrl DeleteInStockNotificationSubscriptionUrl(int accountId, int inStockNotificationSubscriptionId)
+		{
+			var url = "/api/commerce/customer/accounts/{accountId}/instocknotifications/{inStockNotificationSubscriptionId}";
+			FormatUrl( ref url, "accountId", accountId);
+			FormatUrl( ref url, "inStockNotificationSubscriptionId", inStockNotificationSubscriptionId);
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		

@@ -12,19 +12,10 @@ using System;
 
 namespace Mozu.Api.Contracts.SiteSettings.Shipping
 {
-		///
-		///	Properties of the shipment signature requirements for the specified site.
-		///
 		public class SiteShippingSignatureRequirement
 		{
-			///
-			///If true, this site requires signatures on shipments for orders that exceed the minimum value threshold.
-			///
 			public bool? IsSignatureRequired { get; set; }
 
-			///
-			///The minimum order amount that requires a signature on shipments. For example, if you want to require customer signatures on all orders over $5,000, the MinimumValueThreshold would be 5001.
-			///
 			public decimal? MinimumValueThreshold { get; set; }
 
 		}

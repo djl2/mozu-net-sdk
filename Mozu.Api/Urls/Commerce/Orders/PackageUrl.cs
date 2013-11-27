@@ -13,85 +13,101 @@ using System;
 
 namespace Mozu.Api.Urls.Commerce.Orders
 {
-	public partial class PackageUrl : BaseUrl
+	public partial class PackageUrl : MozuUrl
 	{
 
 		/// <summary>
         /// Get Resource Url for GetPackage
         /// </summary>
-        /// <param name="orderId">Unique identifier of the order associated with the package to retrieve.</param>
-        /// <param name="packageId">Unique identifier of the package to retrieve.</param>
+        /// <param name="orderId"></param>
+        /// <param name="packageId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string GetPackageUrl(string orderId, string packageId)
+        public static MozuUrl GetPackageUrl(string orderId, string packageId)
 		{
 			var url = "/api/commerce/orders/{orderId}/packages/{packageId}";
 			FormatUrl( ref url, "orderId", orderId);
 			FormatUrl( ref url, "packageId", packageId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+		}
+
+		/// <summary>
+        /// Get Resource Url for GetAvailablePackageFulfillmentActions
+        /// </summary>
+        /// <param name="orderId"></param>
+        /// <param name="packageId"></param>
+        /// <returns>
+        /// String - Resource Url
+        /// </returns>
+        public static MozuUrl GetAvailablePackageFulfillmentActionsUrl(string orderId, string packageId)
+		{
+			var url = "/api/commerce/orders/{orderId}/packages/{packageId}/actions";
+			FormatUrl( ref url, "orderId", orderId);
+			FormatUrl( ref url, "packageId", packageId);
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		/// <summary>
         /// Get Resource Url for GetPackageLabel
         /// </summary>
-        /// <param name="orderId">Unique identifier of the order associated with the package label to retrieve.</param>
-        /// <param name="packageId">Unique identifier of the package for which to retrieve the label.</param>
+        /// <param name="orderId"></param>
+        /// <param name="packageId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string GetPackageLabelUrl(string orderId, string packageId)
+        public static MozuUrl GetPackageLabelUrl(string orderId, string packageId)
 		{
 			var url = "/api/commerce/orders/{orderId}/packages/{packageId}/label";
 			FormatUrl( ref url, "orderId", orderId);
 			FormatUrl( ref url, "packageId", packageId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				/// <summary>
         /// Get Resource Url for CreatePackage
         /// </summary>
-        /// <param name="orderId">Unique identifier of the order associated with this package.</param>
+        /// <param name="orderId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string CreatePackageUrl(string orderId)
+        public static MozuUrl CreatePackageUrl(string orderId)
 		{
 			var url = "/api/commerce/orders/{orderId}/packages";
 			FormatUrl( ref url, "orderId", orderId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				/// <summary>
         /// Get Resource Url for UpdatePackage
         /// </summary>
-        /// <param name="orderId">Unique identifier of the order associated with the package to update.</param>
-        /// <param name="packageId">Unique identifier of the package of order items to update.</param>
+        /// <param name="orderId"></param>
+        /// <param name="packageId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string UpdatePackageUrl(string orderId, string packageId)
+        public static MozuUrl UpdatePackageUrl(string orderId, string packageId)
 		{
 			var url = "/api/commerce/orders/{orderId}/packages/{packageId}";
 			FormatUrl( ref url, "orderId", orderId);
 			FormatUrl( ref url, "packageId", packageId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				/// <summary>
         /// Get Resource Url for DeletePackage
         /// </summary>
-        /// <param name="orderId">Unique identifier of the order associated with the package to delete.</param>
-        /// <param name="packageId">Unique identifier of the package to delete.</param>
+        /// <param name="orderId"></param>
+        /// <param name="packageId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string DeletePackageUrl(string orderId, string packageId)
+        public static MozuUrl DeletePackageUrl(string orderId, string packageId)
 		{
 			var url = "/api/commerce/orders/{orderId}/packages/{packageId}";
 			FormatUrl( ref url, "orderId", orderId);
 			FormatUrl( ref url, "packageId", packageId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		

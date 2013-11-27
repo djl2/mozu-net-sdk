@@ -13,41 +13,41 @@ using System;
 
 namespace Mozu.Api.Urls.Commerce.Orders
 {
-	public partial class BillingInfoUrl : BaseUrl
+	public partial class BillingInfoUrl : MozuUrl
 	{
 
 		/// <summary>
         /// Get Resource Url for GetBillingInfo
         /// </summary>
-        /// <param name="draft">If true, retrieve the draft version of the order billing information, which might include uncommitted changes.</param>
-        /// <param name="orderId">Unique identifier of the order.</param>
+        /// <param name="draft"></param>
+        /// <param name="orderId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string GetBillingInfoUrl(bool? draft, string orderId)
+        public static MozuUrl GetBillingInfoUrl(bool? draft, string orderId)
 		{
 			var url = "/api/commerce/orders/{orderId}/billinginfo?draft={draft}";
 			FormatUrl( ref url, "draft", draft);
 			FormatUrl( ref url, "orderId", orderId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 						/// <summary>
         /// Get Resource Url for SetBillingInfo
         /// </summary>
-        /// <param name="orderId">Unique identifier of the order.</param>
-        /// <param name="updateMode">Specifies whether to set the billing information by updating the original order, updating the order in draft mode, or updating the order in draft mode and then committing the changes to the original. Draft mode enables users to make incremental order changes before committing the changes to the original order. Valid values are "ApplyToOriginal", "ApplyToDraft", or "ApplyAndCommit".</param>
-        /// <param name="version">If applicable, the version of the order or draft for which to set the billing information.</param>
+        /// <param name="orderId"></param>
+        /// <param name="updateMode"></param>
+        /// <param name="version"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string SetBillingInfoUrl(string orderId, string updateMode, string version)
+        public static MozuUrl SetBillingInfoUrl(string orderId, string updateMode, string version)
 		{
 			var url = "/api/commerce/orders/{orderId}/billinginfo?updatemode={updateMode}&version={version}";
 			FormatUrl( ref url, "orderId", orderId);
 			FormatUrl( ref url, "updateMode", updateMode);
 			FormatUrl( ref url, "version", version);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				

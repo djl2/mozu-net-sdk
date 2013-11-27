@@ -10,110 +10,116 @@
 
 using System;
 using System.Collections.Generic;
+using Mozu.Api.Security;
+
 
 namespace Mozu.Api.Resources.Platform
 {
 	/// <summary>
-	/// Use the user data subresource to store user-level data required for a third-party application in the Mozu database.
+	/// 
 	/// </summary>
-	public partial class UserDataResource : BaseResource 	{
+	public partial class UserDataResource  	{
 				///
 		/// <see cref="Mozu.Api.ApiContext"/>
 		///
-		private readonly ApiContext _apiContext;
-		public UserDataResource(ApiContext apiContext) 
+		private readonly IApiContext _apiContext;
+		public UserDataResource(IApiContext apiContext) 
 		{
 			_apiContext = apiContext;
 		}
 
 		
 		/// <summary>
-		/// Retrieves the value of a record in the Mozu database.
+		/// 
 		/// </summary>
-		/// <param name="dbEntryQuery">The database entry query string used to retrieve the record information.</param>
+		/// <param name="dbEntryQuery"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// string
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var userdata = new UserData();
-		///   var string = userdata.GetDBValue( dbEntryQuery);
+		///   var string = userdata.GetDBValue( dbEntryQuery, authTicket);
 		/// </code>
 		/// </example>
-		public virtual string GetDBValue(string dbEntryQuery)
+		public virtual string GetDBValue(string dbEntryQuery, AuthTicket authTicket= null)
 		{
-						MozuClient<string> response;
-			var client = Mozu.Api.Clients.Platform.UserDataClient.GetDBValueClient( dbEntryQuery);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<string> response;
+			var client = Mozu.Api.Clients.Platform.UserDataClient.GetDBValueClient( dbEntryQuery, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
 		}
 
 				/// <summary>
-		/// Creates a new record in the Mozu database based on the information supplied in the request.
+		/// 
 		/// </summary>
-		/// <param name="dbEntryQuery">The database entry string to create.</param>
-		/// <param name="value">The value string to create.</param>
+		/// <param name="dbEntryQuery"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
+		/// <param name="value"></param>
 		/// <returns>
 		/// 
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var userdata = new UserData();
-		///   userdata.CreateDBValue( dbEntryQuery,  value);
+		///   userdata.CreateDBValue( value,  dbEntryQuery, authTicket);
 		/// </code>
 		/// </example>
-		public virtual void CreateDBValue(string dbEntryQuery, string value)
+		public virtual void CreateDBValue(string value, string dbEntryQuery, AuthTicket authTicket= null)
 		{
-						MozuClient response;
-			var client = Mozu.Api.Clients.Platform.UserDataClient.CreateDBValueClient( dbEntryQuery,  value);
-			SetContext(_apiContext, ref client,true);
+			MozuClient response;
+			var client = Mozu.Api.Clients.Platform.UserDataClient.CreateDBValueClient( value,  dbEntryQuery, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 
 		}
 
 				/// <summary>
-		/// Updates a record in the Mozu database based on the information supplied in the request.
+		/// 
 		/// </summary>
-		/// <param name="dbEntryQuery">The database entry query string used to update the record information.</param>
-		/// <param name="value">The database value to update.</param>
+		/// <param name="dbEntryQuery"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
+		/// <param name="value"></param>
 		/// <returns>
 		/// 
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var userdata = new UserData();
-		///   userdata.UpdateDBValue( dbEntryQuery,  value);
+		///   userdata.UpdateDBValue( value,  dbEntryQuery, authTicket);
 		/// </code>
 		/// </example>
-		public virtual void UpdateDBValue(string dbEntryQuery, string value)
+		public virtual void UpdateDBValue(string value, string dbEntryQuery, AuthTicket authTicket= null)
 		{
-						MozuClient response;
-			var client = Mozu.Api.Clients.Platform.UserDataClient.UpdateDBValueClient( dbEntryQuery,  value);
-			SetContext(_apiContext, ref client,true);
+			MozuClient response;
+			var client = Mozu.Api.Clients.Platform.UserDataClient.UpdateDBValueClient( value,  dbEntryQuery, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 
 		}
 
 				/// <summary>
-		/// Removes a previously defined record in the Mozu database.
+		/// 
 		/// </summary>
-		/// <param name="dbEntryQuery">The database entry string to delete.</param>
+		/// <param name="dbEntryQuery"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// 
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var userdata = new UserData();
-		///   userdata.DeleteDBValue( dbEntryQuery);
+		///   userdata.DeleteDBValue( dbEntryQuery, authTicket);
 		/// </code>
 		/// </example>
-		public virtual void DeleteDBValue(string dbEntryQuery)
+		public virtual void DeleteDBValue(string dbEntryQuery, AuthTicket authTicket= null)
 		{
-						MozuClient response;
-			var client = Mozu.Api.Clients.Platform.UserDataClient.DeleteDBValueClient( dbEntryQuery);
-			SetContext(_apiContext, ref client,true);
+			MozuClient response;
+			var client = Mozu.Api.Clients.Platform.UserDataClient.DeleteDBValueClient( dbEntryQuery, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 
 		}

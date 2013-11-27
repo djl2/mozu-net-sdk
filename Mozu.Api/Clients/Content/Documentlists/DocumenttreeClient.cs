@@ -10,19 +10,21 @@
 
 using System;
 using System.Collections.Generic;
+using Mozu.Api.Security;
+
 
 namespace Mozu.Api.Clients.Content.Documentlists
 {
 	/// <summary>
-	/// Use the document tree subresource to retrieve documents and manage content within the document hierarchy.
+	/// 
 	/// </summary>
 	public partial class DocumentTreeClient 	{
 		
 		/// <summary>
-		/// Retrieve the content associated with the document, such as a product image or PDF specifications file.
+		/// 
 		/// </summary>
-		/// <param name="documentListName">The name of the document list associated with the document.</param>
-		/// <param name="documentName">The name of the document, which is unique within its folder.</param>
+		/// <param name="documentListName"></param>
+		/// <param name="documentName"></param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />
 		/// </returns>
@@ -34,40 +36,42 @@ namespace Mozu.Api.Clients.Content.Documentlists
 		/// </example>
 		public static MozuClient GetTreeDocumentContentClient(string documentListName, string documentName)
 		{
-			return GetTreeDocumentContentClient( documentListName,  documentName,  null,  null,  null);
+			return GetTreeDocumentContentClient( documentListName,  documentName,  null,  null, null);
 		}
 
 		/// <summary>
-		/// Retrieve the content associated with the document, such as a product image or PDF specifications file.
+		/// 
 		/// </summary>
-		/// <param name="documentListName">The name of the document list associated with the document.</param>
-		/// <param name="documentName">The name of the document, which is unique within its folder.</param>
-		/// <param name="folderId">If applicable, the unique identifier of the folder that contains the document.</param>
-		/// <param name="folderPath">If applicable, the path of the folder hierarchy location associated with the document.</param>
-		/// <param name="publishState">The current state of the document, which is Active, Draft, or Latest. Active documents are published and cannot be deleted. Querying Latest returns the most recent version of the document, regardless of whether it is published or a draft.</param>
+		/// <param name="documentListName"></param>
+		/// <param name="documentName"></param>
+		/// <param name="folderId"></param>
+		/// <param name="folderPath"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=GetTreeDocumentContent( documentListName,  documentName,  folderId,  folderPath,  publishState);
+		///   var mozuClient=GetTreeDocumentContent( documentListName,  documentName,  folderId,  folderPath, authTicket);
 		///mozuClient.WithBaseAddress(url).Execute();
 		/// </code>
 		/// </example>
-		public static MozuClient GetTreeDocumentContentClient(string documentListName, string documentName, string folderId, string folderPath, string publishState)
+		public static MozuClient GetTreeDocumentContentClient(string documentListName, string documentName, string folderId =  null, string folderPath =  null, AuthTicket authTicket= null)
 		{
-			var url = Mozu.Api.Urls.Content.Documentlists.DocumentTreeUrl.GetTreeDocumentContentUrl(documentListName, documentName, folderId, folderPath, publishState);
+			var url = Mozu.Api.Urls.Content.Documentlists.DocumentTreeUrl.GetTreeDocumentContentUrl(documentListName, documentName, folderId, folderPath);
 			const string verb = "GET";
 			var mozuClient = new MozuClient().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 
 		/// <summary>
-		/// Retrieves a document based on its document list and folder path in the document hierarchy.
+		/// 
 		/// </summary>
-		/// <param name="documentListName">The name of the document list associated with the document.</param>
-		/// <param name="documentName">The name of the document, which is unique within its folder.</param>
+		/// <param name="documentListName"></param>
+		/// <param name="documentName"></param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Content.Document"/>}
 		/// </returns>
@@ -79,120 +83,132 @@ namespace Mozu.Api.Clients.Content.Documentlists
 		/// </example>
 		public static MozuClient<Mozu.Api.Contracts.Content.Document> GetTreeDocumentClient(string documentListName, string documentName)
 		{
-			return GetTreeDocumentClient( documentListName,  documentName,  null,  null,  null);
+			return GetTreeDocumentClient( documentListName,  documentName,  null,  null, null);
 		}
 
 		/// <summary>
-		/// Retrieves a document based on its document list and folder path in the document hierarchy.
+		/// 
 		/// </summary>
-		/// <param name="documentListName">The name of the document list associated with the document.</param>
-		/// <param name="documentName">The name of the document, which is unique within its folder.</param>
-		/// <param name="folderId">If applicable, the unique identifier of the folder that contains the document.</param>
-		/// <param name="folderPath">If applicable, the path of the folder hierarchy location that contains the document.</param>
-		/// <param name="publishState">The current state of the document, which is Active, Draft, or Latest. Active documents are published and cannot be deleted. Querying Latest returns the most recent version of the document, regardless of whether it is published or a draft.</param>
+		/// <param name="documentListName"></param>
+		/// <param name="documentName"></param>
+		/// <param name="folderId"></param>
+		/// <param name="folderPath"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Content.Document"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=GetTreeDocument( documentListName,  documentName,  folderId,  folderPath,  publishState);
+		///   var mozuClient=GetTreeDocument( documentListName,  documentName,  folderId,  folderPath, authTicket);
 		///   var documentClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.Content.Document> GetTreeDocumentClient(string documentListName, string documentName, string folderId, string folderPath, string publishState)
+		public static MozuClient<Mozu.Api.Contracts.Content.Document> GetTreeDocumentClient(string documentListName, string documentName, string folderId =  null, string folderPath =  null, AuthTicket authTicket= null)
 		{
-			var url = Mozu.Api.Urls.Content.Documentlists.DocumentTreeUrl.GetTreeDocumentUrl(documentListName, documentName, folderId, folderPath, publishState);
+			var url = Mozu.Api.Urls.Content.Documentlists.DocumentTreeUrl.GetTreeDocumentUrl(documentListName, documentName, folderId, folderPath);
 			const string verb = "GET";
 			var mozuClient = new MozuClient<Mozu.Api.Contracts.Content.Document>().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 
 						/// <summary>
-		/// Updates the content associated with a document, such as a product image or PDF specifications file, based on the document's position in the document hierarchy.
+		/// 
 		/// </summary>
-		/// <param name="documentListName">The name of the document list associated with the document.</param>
-		/// <param name="documentName">The name of the document, which is unique within its folder.</param>
+		/// <param name="documentListName"></param>
+		/// <param name="documentName"></param>
+		/// <param name="stream"></param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=UpdateTreeDocumentContent( documentListName,  documentName);
+		///   var mozuClient=UpdateTreeDocumentContent( stream,  documentListName,  documentName);
 		///mozuClient.WithBaseAddress(url).Execute();
 		/// </code>
 		/// </example>
-		public static MozuClient UpdateTreeDocumentContentClient(string documentListName, string documentName)
+		public static MozuClient UpdateTreeDocumentContentClient(System.IO.Stream stream, string documentListName, string documentName)
 		{
-			return UpdateTreeDocumentContentClient( documentListName,  documentName,  null,  null);
+			return UpdateTreeDocumentContentClient( stream,  documentListName,  documentName,  null,  null, null);
 		}
 
 		/// <summary>
-		/// Updates the content associated with a document, such as a product image or PDF specifications file, based on the document's position in the document hierarchy.
+		/// 
 		/// </summary>
-		/// <param name="documentListName">The name of the document list associated with the document.</param>
-		/// <param name="documentName">The name of the document, which is unique within its folder.</param>
-		/// <param name="folderId">If applicable, the unique identifier of the folder that contains the document.</param>
-		/// <param name="folderPath">If applicable, the path of the folder hierarchy location associated with the document.</param>
+		/// <param name="documentListName"></param>
+		/// <param name="documentName"></param>
+		/// <param name="folderId"></param>
+		/// <param name="folderPath"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
+		/// <param name="stream"></param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=UpdateTreeDocumentContent( documentListName,  documentName,  folderId,  folderPath);
+		///   var mozuClient=UpdateTreeDocumentContent( stream,  documentListName,  documentName,  folderId,  folderPath, authTicket);
 		///mozuClient.WithBaseAddress(url).Execute();
 		/// </code>
 		/// </example>
-		public static MozuClient UpdateTreeDocumentContentClient(string documentListName, string documentName, string folderId, string folderPath)
+		public static MozuClient UpdateTreeDocumentContentClient(System.IO.Stream stream, string documentListName, string documentName, string folderId =  null, string folderPath =  null, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Content.Documentlists.DocumentTreeUrl.UpdateTreeDocumentContentUrl(documentListName, documentName, folderId, folderPath);
 			const string verb = "PUT";
-			var mozuClient = new MozuClient().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			var mozuClient = new MozuClient().WithVerb(verb).WithResourceUrl(url).WithBody(stream);
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 
 				/// <summary>
-		/// Deletes the content associated with a document, such as a product image or PDF specifications file.
+		/// 
 		/// </summary>
-		/// <param name="documentListName">The name of the document list associated with the document.</param>
-		/// <param name="documentName">The name of the document, which is unique within its folder.</param>
+		/// <param name="documentListName"></param>
+		/// <param name="documentName"></param>
+		/// <param name="stream"></param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=DeleteTreeDocumentContent( documentListName,  documentName);
+		///   var mozuClient=DeleteTreeDocumentContent( stream,  documentListName,  documentName);
 		///mozuClient.WithBaseAddress(url).Execute();
 		/// </code>
 		/// </example>
-		public static MozuClient DeleteTreeDocumentContentClient(string documentListName, string documentName)
+		public static MozuClient DeleteTreeDocumentContentClient(System.IO.Stream stream, string documentListName, string documentName)
 		{
-			return DeleteTreeDocumentContentClient( documentListName,  documentName,  null,  null);
+			return DeleteTreeDocumentContentClient( stream,  documentListName,  documentName,  null,  null, null);
 		}
 
 		/// <summary>
-		/// Deletes the content associated with a document, such as a product image or PDF specifications file.
+		/// 
 		/// </summary>
-		/// <param name="documentListName">The name of the document list associated with the document.</param>
-		/// <param name="documentName">The name of the document, which is unique within its folder.</param>
-		/// <param name="folderId">If applicable, the unique identifier of the folder that contains the document.</param>
-		/// <param name="folderPath">If applicable, the path of the folder hierarchy location associated with the document.</param>
+		/// <param name="documentListName"></param>
+		/// <param name="documentName"></param>
+		/// <param name="folderId"></param>
+		/// <param name="folderPath"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
+		/// <param name="stream"></param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=DeleteTreeDocumentContent( documentListName,  documentName,  folderId,  folderPath);
+		///   var mozuClient=DeleteTreeDocumentContent( stream,  documentListName,  documentName,  folderId,  folderPath, authTicket);
 		///mozuClient.WithBaseAddress(url).Execute();
 		/// </code>
 		/// </example>
-		public static MozuClient DeleteTreeDocumentContentClient(string documentListName, string documentName, string folderId, string folderPath)
+		public static MozuClient DeleteTreeDocumentContentClient(System.IO.Stream stream, string documentListName, string documentName, string folderId =  null, string folderPath =  null, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Content.Documentlists.DocumentTreeUrl.DeleteTreeDocumentContentUrl(documentListName, documentName, folderId, folderPath);
 			const string verb = "DELETE";
-			var mozuClient = new MozuClient().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			var mozuClient = new MozuClient().WithVerb(verb).WithResourceUrl(url).WithBody(stream);
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 

@@ -12,19 +12,12 @@ using System;
 
 namespace Mozu.Api.Contracts.Core
 {
-		///
-		///	Properties of the scope in which a user operates, which represents a developer account or Mozu tenant.
-		///
 		public class UserScope
 		{
-			///
-			///Identifier of the scope, which represents a developer account ID or tenant ID.
-			///
 			public int? Id { get; set; }
 
-			///
-			///The type of scope, which is a developer account or tenant.
-			///
+			public string Name { get; set; }
+
 			public string Type { get; set; }
 
 		}

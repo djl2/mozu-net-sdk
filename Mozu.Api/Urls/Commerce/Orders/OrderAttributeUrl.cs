@@ -13,67 +13,51 @@ using System;
 
 namespace Mozu.Api.Urls.Commerce.Orders
 {
-	public partial class OrderAttributeUrl : BaseUrl
+	public partial class OrderAttributeUrl : MozuUrl
 	{
 
 		/// <summary>
         /// Get Resource Url for GetOrderAttributes
         /// </summary>
-        /// <param name="orderId">Identifier of the order whose order attributes are being retrieved.</param>
+        /// <param name="orderId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string GetOrderAttributesUrl(string orderId)
+        public static MozuUrl GetOrderAttributesUrl(string orderId)
 		{
 			var url = "/api/commerce/orders/{orderId}/attributes";
 			FormatUrl( ref url, "orderId", orderId);
-			return url;
-		}
-
-		/// <summary>
-        /// Get Resource Url for GetOrderAttributeSet
-        /// </summary>
-        /// <param name="attributeSetId">Identifier of the attribute set whose order attribute set is being retrieved.</param>
-        /// <param name="orderId">Identifier of the order whose order attribute set is being retrieved.</param>
-        /// <returns>
-        /// String - Resource Url
-        /// </returns>
-        public static string GetOrderAttributeSetUrl(int attributeSetId, string orderId)
-		{
-			var url = "/api/commerce/orders/{orderId}/attributeSets/{attributeSetId}";
-			FormatUrl( ref url, "attributeSetId", attributeSetId);
-			FormatUrl( ref url, "orderId", orderId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				/// <summary>
         /// Get Resource Url for CreateOrderAttributes
         /// </summary>
-        /// <param name="orderId">Identifier of the order whose attributes are being created.</param>
+        /// <param name="orderId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string CreateOrderAttributesUrl(string orderId)
+        public static MozuUrl CreateOrderAttributesUrl(string orderId)
 		{
 			var url = "/api/commerce/orders/{orderId}/attributes";
 			FormatUrl( ref url, "orderId", orderId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				/// <summary>
         /// Get Resource Url for UpdateOrderAttributes
         /// </summary>
-        /// <param name="orderId">Identifier of the order whose order attributes are being updated.</param>
-        /// <param name="removeMissing">If true, the operation removes missing properties so that the updated order attributes will not show properties with a null value.</param>
+        /// <param name="orderId"></param>
+        /// <param name="removeMissing"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string UpdateOrderAttributesUrl(string orderId, bool? removeMissing)
+        public static MozuUrl UpdateOrderAttributesUrl(string orderId, bool? removeMissing)
 		{
 			var url = "/api/commerce/orders/{orderId}/attributes?removeMissing={removeMissing}";
 			FormatUrl( ref url, "orderId", orderId);
 			FormatUrl( ref url, "removeMissing", removeMissing);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				

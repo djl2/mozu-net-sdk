@@ -10,65 +10,69 @@
 
 using System;
 using System.Collections.Generic;
+using Mozu.Api.Security;
+
 
 namespace Mozu.Api.Resources.Commerce.Catalog.Admin.Discounts
 {
 	/// <summary>
-	/// Retrieves and modifies the products, categories, and shipping methods eligible for discounts in the form of a fixed dollar amount, percentage off a product price, or free shipping.
+	/// 
 	/// </summary>
-	public partial class DiscountTargetResource : BaseResource 	{
+	public partial class DiscountTargetResource  	{
 				///
 		/// <see cref="Mozu.Api.ApiContext"/>
 		///
-		private readonly ApiContext _apiContext;
-		public DiscountTargetResource(ApiContext apiContext) 
+		private readonly IApiContext _apiContext;
+		public DiscountTargetResource(IApiContext apiContext) 
 		{
 			_apiContext = apiContext;
 		}
 
 		
 		/// <summary>
-		/// Retrieves the discount target, that is which products, categories, or shipping methods are eligible for the discount.
+		/// 
 		/// </summary>
 		/// <param name="discountId"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.ProductAdmin.DiscountTarget"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var discounttarget = new DiscountTarget();
-		///   var discountTarget = discounttarget.GetDiscountTarget( discountId);
+		///   var discountTarget = discounttarget.GetDiscountTarget(dataViewMode,  discountId, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.ProductAdmin.DiscountTarget GetDiscountTarget(int discountId)
+		public virtual Mozu.Api.Contracts.ProductAdmin.DiscountTarget GetDiscountTarget(DataViewMode dataViewMode, int discountId, AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.ProductAdmin.DiscountTarget> response;
-			var client = Mozu.Api.Clients.Commerce.Catalog.Admin.Discounts.DiscountTargetClient.GetDiscountTargetClient( discountId);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.ProductAdmin.DiscountTarget> response;
+			var client = Mozu.Api.Clients.Commerce.Catalog.Admin.Discounts.DiscountTargetClient.GetDiscountTargetClient(dataViewMode,  discountId, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
 		}
 
 						/// <summary>
-		/// Modifies properties of the discount target, for example, the dollar amount, or precentage off the price.
+		/// 
 		/// </summary>
-		/// <param name="discountId">Unique identifier of the discount. System-supplied and read-only.</param>
-		/// <param name="discountTarget">Properties of the discount target to modify. Required properties: Target.Type. Any unspecified properties are set to null and boolean variables to false.</param>
+		/// <param name="discountId"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
+		/// <param name="discountTarget"></param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.ProductAdmin.DiscountTarget"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var discounttarget = new DiscountTarget();
-		///   var discountTarget = discounttarget.UpdateDiscountTarget( discountId,  discountTarget);
+		///   var discountTarget = discounttarget.UpdateDiscountTarget(dataViewMode,  discountTarget,  discountId, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.ProductAdmin.DiscountTarget UpdateDiscountTarget(int discountId, Mozu.Api.Contracts.ProductAdmin.DiscountTarget discountTarget)
+		public virtual Mozu.Api.Contracts.ProductAdmin.DiscountTarget UpdateDiscountTarget(DataViewMode dataViewMode, Mozu.Api.Contracts.ProductAdmin.DiscountTarget discountTarget, int discountId, AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.ProductAdmin.DiscountTarget> response;
-			var client = Mozu.Api.Clients.Commerce.Catalog.Admin.Discounts.DiscountTargetClient.UpdateDiscountTargetClient( discountId,  discountTarget);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.ProductAdmin.DiscountTarget> response;
+			var client = Mozu.Api.Clients.Commerce.Catalog.Admin.Discounts.DiscountTargetClient.UpdateDiscountTargetClient(dataViewMode,  discountTarget,  discountId, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 

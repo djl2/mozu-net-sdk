@@ -10,84 +10,89 @@
 
 using System;
 using System.Collections.Generic;
+using Mozu.Api.Security;
+
 
 namespace Mozu.Api.Resources.Commerce.Carts
 {
 	/// <summary>
-	/// System messages for live carts to notify the shopper about a product price or inventory change. System-supplied and read-only. For example: Product price is reduced due to a buy one, get one 50% off (BOGO) sale. A message may appear if the product is out of stock during the cart shopping process.
+	/// 
 	/// </summary>
-	public partial class ChangeMessageResource : BaseResource 	{
+	public partial class ChangeMessageResource  	{
 				///
 		/// <see cref="Mozu.Api.ApiContext"/>
 		///
-		private readonly ApiContext _apiContext;
-		public ChangeMessageResource(ApiContext apiContext) 
+		private readonly IApiContext _apiContext;
+		public ChangeMessageResource(IApiContext apiContext) 
 		{
 			_apiContext = apiContext;
 		}
 
 		
 		/// <summary>
-		/// Retrieves messages to and from the current shopper. These are messages supplied by the system to notify the shopper of price increases or decreases or product unavailability.
+		/// 
 		/// </summary>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Carts.CartChangeMessageCollection"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var changemessage = new ChangeMessage();
-		///   var cartChangeMessageCollection = changemessage.GetMessages();
+		///   var cartChangeMessageCollection = changemessage.GetMessages(authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.CommerceRuntime.Carts.CartChangeMessageCollection GetMessages()
+		public virtual Mozu.Api.Contracts.CommerceRuntime.Carts.CartChangeMessageCollection GetMessages(AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.CommerceRuntime.Carts.CartChangeMessageCollection> response;
-			var client = Mozu.Api.Clients.Commerce.Carts.ChangeMessageClient.GetMessagesClient();
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.CommerceRuntime.Carts.CartChangeMessageCollection> response;
+			var client = Mozu.Api.Clients.Commerce.Carts.ChangeMessageClient.GetMessagesClient(authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
 		}
 
 								/// <summary>
-		/// Deletes all messages associated with the cart of the current shopper.
+		/// 
 		/// </summary>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// 
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var changemessage = new ChangeMessage();
-		///   changemessage.RemoveAllMessages();
+		///   changemessage.RemoveAllMessages(authTicket);
 		/// </code>
 		/// </example>
-		public virtual void RemoveAllMessages()
+		public virtual void RemoveAllMessages(AuthTicket authTicket= null)
 		{
-						MozuClient response;
-			var client = Mozu.Api.Clients.Commerce.Carts.ChangeMessageClient.RemoveAllMessagesClient();
-			SetContext(_apiContext, ref client,true);
+			MozuClient response;
+			var client = Mozu.Api.Clients.Commerce.Carts.ChangeMessageClient.RemoveAllMessagesClient(authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 
 		}
 
 		/// <summary>
-		/// Removes a single message associated with the cart of the current shopper.
+		/// 
 		/// </summary>
-		/// <param name="messageId">Identifier of the message to remove from the cart.</param>
+		/// <param name="messageId"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// 
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var changemessage = new ChangeMessage();
-		///   changemessage.RemoveMessage( messageId);
+		///   changemessage.RemoveMessage( messageId, authTicket);
 		/// </code>
 		/// </example>
-		public virtual void RemoveMessage(string messageId)
+		public virtual void RemoveMessage(string messageId, AuthTicket authTicket= null)
 		{
-						MozuClient response;
-			var client = Mozu.Api.Clients.Commerce.Carts.ChangeMessageClient.RemoveMessageClient( messageId);
-			SetContext(_apiContext, ref client,true);
+			MozuClient response;
+			var client = Mozu.Api.Clients.Commerce.Carts.ChangeMessageClient.RemoveMessageClient( messageId, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 
 		}

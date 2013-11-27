@@ -10,117 +10,121 @@
 
 using System;
 using System.Collections.Generic;
+using Mozu.Api.Security;
+
 
 namespace Mozu.Api.Resources.Commerce.Orders
 {
 	/// <summary>
-	/// Use this subresource to manage ad-hoc order level price adjustments.
+	/// 
 	/// </summary>
-	public partial class AdjustmentResource : BaseResource 	{
+	public partial class AdjustmentResource  	{
 				///
 		/// <see cref="Mozu.Api.ApiContext"/>
 		///
-		private readonly ApiContext _apiContext;
-		public AdjustmentResource(ApiContext apiContext) 
+		private readonly IApiContext _apiContext;
+		public AdjustmentResource(IApiContext apiContext) 
 		{
 			_apiContext = apiContext;
 		}
 
 		
 						/// <summary>
-		/// Modify the amount charged for shipping the specified order.
+		/// 
 		/// </summary>
-		/// <param name="orderId">Unique identifier of the order associated with the shipping adjustment.</param>
-		/// <param name="adjustment">Properties of the shipping adjustment to apply to the order.</param>
+		/// <param name="orderId"></param>
+		/// <param name="adjustment"></param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Orders.Order"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var adjustment = new Adjustment();
-		///   var order = adjustment.ApplyShippingAdjustment( orderId,  adjustment);
+		///   var order = adjustment.ApplyShippingAdjustment( adjustment,  orderId);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.CommerceRuntime.Orders.Order ApplyShippingAdjustment(string orderId, Mozu.Api.Contracts.CommerceRuntime.Commerce.Adjustment adjustment)
+		public virtual Mozu.Api.Contracts.CommerceRuntime.Orders.Order ApplyShippingAdjustment(Mozu.Api.Contracts.CommerceRuntime.Commerce.Adjustment adjustment, string orderId)
 		{
-			return ApplyShippingAdjustment( orderId,  null,  null,  adjustment);
+			return ApplyShippingAdjustment( adjustment,  orderId,  null,  null, null);
 		}
 
 		/// <summary>
-		/// Modify the amount charged for shipping the specified order.
+		/// 
 		/// </summary>
-		/// <param name="orderId">Unique identifier of the order associated with the shipping adjustment.</param>
-		/// <param name="updateMode">Specifies whether to apply the shipping adjustment by updating the original order, updating the order in draft mode, or updating the order in draft mode and then committing the changes to the original. Draft mode enables users to make incremental order changes before committing the changes to the original order. Valid values are "ApplyToOriginal", "ApplyToDraft", or "ApplyAndCommit".</param>
-		/// <param name="version">If applicable, the version of the order or draft to which to apply the shipping adjustment.</param>
-		/// <param name="adjustment">Properties of the shipping adjustment to apply to the order.</param>
+		/// <param name="orderId"></param>
+		/// <param name="updateMode"></param>
+		/// <param name="version"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
+		/// <param name="adjustment"></param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Orders.Order"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var adjustment = new Adjustment();
-		///   var order = adjustment.ApplyShippingAdjustment( orderId,  updateMode,  version,  adjustment);
+		///   var order = adjustment.ApplyShippingAdjustment( adjustment,  orderId,  updateMode,  version, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.CommerceRuntime.Orders.Order ApplyShippingAdjustment(string orderId, string updateMode, string version, Mozu.Api.Contracts.CommerceRuntime.Commerce.Adjustment adjustment)
+		public virtual Mozu.Api.Contracts.CommerceRuntime.Orders.Order ApplyShippingAdjustment(Mozu.Api.Contracts.CommerceRuntime.Commerce.Adjustment adjustment, string orderId, string updateMode =  null, string version =  null, AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.CommerceRuntime.Orders.Order> response;
-			var client = Mozu.Api.Clients.Commerce.Orders.AdjustmentClient.ApplyShippingAdjustmentClient( orderId,  updateMode,  version,  adjustment);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.CommerceRuntime.Orders.Order> response;
+			var client = Mozu.Api.Clients.Commerce.Orders.AdjustmentClient.ApplyShippingAdjustmentClient( adjustment,  orderId,  updateMode,  version, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
 		}
 
 		/// <summary>
-		/// Applies a price adjustment to the specified order.
+		/// 
 		/// </summary>
-		/// <param name="orderId">Unique identifier of the order for which to apply the adjustment.</param>
-		/// <param name="adjustment">Properties of the price adjustment to apply to the order.</param>
+		/// <param name="orderId"></param>
+		/// <param name="adjustment"></param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Orders.Order"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var adjustment = new Adjustment();
-		///   var order = adjustment.ApplyAdjustment( orderId,  adjustment);
+		///   var order = adjustment.ApplyAdjustment( adjustment,  orderId);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.CommerceRuntime.Orders.Order ApplyAdjustment(string orderId, Mozu.Api.Contracts.CommerceRuntime.Commerce.Adjustment adjustment)
+		public virtual Mozu.Api.Contracts.CommerceRuntime.Orders.Order ApplyAdjustment(Mozu.Api.Contracts.CommerceRuntime.Commerce.Adjustment adjustment, string orderId)
 		{
-			return ApplyAdjustment( orderId,  null,  null,  adjustment);
+			return ApplyAdjustment( adjustment,  orderId,  null,  null, null);
 		}
 
 		/// <summary>
-		/// Applies a price adjustment to the specified order.
+		/// 
 		/// </summary>
-		/// <param name="orderId">Unique identifier of the order for which to apply the adjustment.</param>
-		/// <param name="updateMode">Specifies whether to apply the adjustment by updating the original order, updating the order in draft mode, or updating the order in draft mode and then committing the changes to the original. Draft mode enables users to make incremental order changes before committing the changes to the original order. Valid values are "ApplyToOriginal", "ApplyToDraft", or "ApplyAndCommit".</param>
-		/// <param name="version">If applicable, the version of the order or draft for which to apply the adjustment.</param>
-		/// <param name="adjustment">Properties of the price adjustment to apply to the order.</param>
+		/// <param name="orderId"></param>
+		/// <param name="updateMode"></param>
+		/// <param name="version"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
+		/// <param name="adjustment"></param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Orders.Order"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var adjustment = new Adjustment();
-		///   var order = adjustment.ApplyAdjustment( orderId,  updateMode,  version,  adjustment);
+		///   var order = adjustment.ApplyAdjustment( adjustment,  orderId,  updateMode,  version, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.CommerceRuntime.Orders.Order ApplyAdjustment(string orderId, string updateMode, string version, Mozu.Api.Contracts.CommerceRuntime.Commerce.Adjustment adjustment)
+		public virtual Mozu.Api.Contracts.CommerceRuntime.Orders.Order ApplyAdjustment(Mozu.Api.Contracts.CommerceRuntime.Commerce.Adjustment adjustment, string orderId, string updateMode =  null, string version =  null, AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.CommerceRuntime.Orders.Order> response;
-			var client = Mozu.Api.Clients.Commerce.Orders.AdjustmentClient.ApplyAdjustmentClient( orderId,  updateMode,  version,  adjustment);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.CommerceRuntime.Orders.Order> response;
+			var client = Mozu.Api.Clients.Commerce.Orders.AdjustmentClient.ApplyAdjustmentClient( adjustment,  orderId,  updateMode,  version, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
 		}
 
 				/// <summary>
-		/// Removes a shipping adjustment previously applied to an order or draft.
+		/// 
 		/// </summary>
-		/// <param name="orderId">Unique identifier of the order with the applied shipping adjustment.</param>
+		/// <param name="orderId"></param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Orders.Order"/>
 		/// </returns>
@@ -132,38 +136,39 @@ namespace Mozu.Api.Resources.Commerce.Orders
 		/// </example>
 		public virtual Mozu.Api.Contracts.CommerceRuntime.Orders.Order RemoveShippingAdjustment(string orderId)
 		{
-			return RemoveShippingAdjustment( orderId,  null,  null);
+			return RemoveShippingAdjustment( orderId,  null,  null, null);
 		}
 
 		/// <summary>
-		/// Removes a shipping adjustment previously applied to an order or draft.
+		/// 
 		/// </summary>
-		/// <param name="orderId">Unique identifier of the order with the applied shipping adjustment.</param>
-		/// <param name="updateMode">Specifies whether to remove the shipping adjustment by updating the original order, updating the order in draft mode, or updating the order in draft mode and then commit the changes to the original. Draft mode enables users to make incremental order changes before committing the changes to the original order. Valid values are "ApplyToOriginal", "ApplyToDraft", or "ApplyAndCommit".</param>
-		/// <param name="version">If applicable, the version of the order or draft from which to remove the shipping adjustment.</param>
+		/// <param name="orderId"></param>
+		/// <param name="updateMode"></param>
+		/// <param name="version"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Orders.Order"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var adjustment = new Adjustment();
-		///   var order = adjustment.RemoveShippingAdjustment( orderId,  updateMode,  version);
+		///   var order = adjustment.RemoveShippingAdjustment( orderId,  updateMode,  version, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.CommerceRuntime.Orders.Order RemoveShippingAdjustment(string orderId, string updateMode, string version)
+		public virtual Mozu.Api.Contracts.CommerceRuntime.Orders.Order RemoveShippingAdjustment(string orderId, string updateMode =  null, string version =  null, AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.CommerceRuntime.Orders.Order> response;
-			var client = Mozu.Api.Clients.Commerce.Orders.AdjustmentClient.RemoveShippingAdjustmentClient( orderId,  updateMode,  version);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.CommerceRuntime.Orders.Order> response;
+			var client = Mozu.Api.Clients.Commerce.Orders.AdjustmentClient.RemoveShippingAdjustmentClient( orderId,  updateMode,  version, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
 		}
 
 		/// <summary>
-		/// Removes a price adjustment from the specified order.
+		/// 
 		/// </summary>
-		/// <param name="orderId">Unique identifier of the order for which to delete the adjustment.</param>
+		/// <param name="orderId"></param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Orders.Order"/>
 		/// </returns>
@@ -175,29 +180,30 @@ namespace Mozu.Api.Resources.Commerce.Orders
 		/// </example>
 		public virtual Mozu.Api.Contracts.CommerceRuntime.Orders.Order RemoveAdjustment(string orderId)
 		{
-			return RemoveAdjustment( orderId,  null,  null);
+			return RemoveAdjustment( orderId,  null,  null, null);
 		}
 
 		/// <summary>
-		/// Removes a price adjustment from the specified order.
+		/// 
 		/// </summary>
-		/// <param name="orderId">Unique identifier of the order for which to delete the adjustment.</param>
-		/// <param name="updateMode">Specifies whether to remove the adjustment by updating the original order, updating the order in draft mode, or updating the order in draft mode and then committing the changes to the original. Draft mode enables users to make incremental order changes before committing the changes to the original order. Valid values are "ApplyToOriginal", "ApplyToDraft", or "ApplyAndCommit".</param>
-		/// <param name="version">If applicable, the version of the order or draft from which to remove the adjustment.</param>
+		/// <param name="orderId"></param>
+		/// <param name="updateMode"></param>
+		/// <param name="version"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Orders.Order"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var adjustment = new Adjustment();
-		///   var order = adjustment.RemoveAdjustment( orderId,  updateMode,  version);
+		///   var order = adjustment.RemoveAdjustment( orderId,  updateMode,  version, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.CommerceRuntime.Orders.Order RemoveAdjustment(string orderId, string updateMode, string version)
+		public virtual Mozu.Api.Contracts.CommerceRuntime.Orders.Order RemoveAdjustment(string orderId, string updateMode =  null, string version =  null, AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.CommerceRuntime.Orders.Order> response;
-			var client = Mozu.Api.Clients.Commerce.Orders.AdjustmentClient.RemoveAdjustmentClient( orderId,  updateMode,  version);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.CommerceRuntime.Orders.Order> response;
+			var client = Mozu.Api.Clients.Commerce.Orders.AdjustmentClient.RemoveAdjustmentClient( orderId,  updateMode,  version, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 

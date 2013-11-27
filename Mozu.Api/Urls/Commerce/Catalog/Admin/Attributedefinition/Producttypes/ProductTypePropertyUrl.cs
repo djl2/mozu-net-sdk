@@ -13,83 +13,83 @@ using System;
 
 namespace Mozu.Api.Urls.Commerce.Catalog.Admin.Attributedefinition.Producttypes
 {
-	public partial class ProductTypePropertyUrl : BaseUrl
+	public partial class ProductTypePropertyUrl : MozuUrl
 	{
 
 		/// <summary>
         /// Get Resource Url for GetProperties
         /// </summary>
-        /// <param name="productTypeId">Identifier of the product type.</param>
+        /// <param name="productTypeId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string GetPropertiesUrl(int productTypeId)
+        public static MozuUrl GetPropertiesUrl(int productTypeId)
 		{
 			var url = "/api/commerce/catalog/admin/attributedefinition/producttypes/{productTypeId}/Properties";
 			FormatUrl( ref url, "productTypeId", productTypeId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		/// <summary>
         /// Get Resource Url for GetProperty
         /// </summary>
-        /// <param name="attributeFQN">The fully qualified name of the attribute, which is a user defined attribute identifier.</param>
-        /// <param name="productTypeId">Identifier of the product type.</param>
+        /// <param name="attributeFQN"></param>
+        /// <param name="productTypeId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string GetPropertyUrl(string attributeFQN, int productTypeId)
+        public static MozuUrl GetPropertyUrl(string attributeFQN, int productTypeId)
 		{
 			var url = "/api/commerce/catalog/admin/attributedefinition/producttypes/{productTypeId}/Properties/{attributeFQN}";
 			FormatUrl( ref url, "attributeFQN", attributeFQN);
 			FormatUrl( ref url, "productTypeId", productTypeId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				/// <summary>
         /// Get Resource Url for AddProperty
         /// </summary>
-        /// <param name="productTypeId">Identifier of the product type.</param>
+        /// <param name="productTypeId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string AddPropertyUrl(int productTypeId)
+        public static MozuUrl AddPropertyUrl(int productTypeId)
 		{
 			var url = "/api/commerce/catalog/admin/attributedefinition/producttypes/{productTypeId}/Properties";
 			FormatUrl( ref url, "productTypeId", productTypeId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				/// <summary>
         /// Get Resource Url for UpdateProperty
         /// </summary>
-        /// <param name="attributeFQN">The fully qualified name of the attribute, which is a user defined attribute identifier.</param>
-        /// <param name="productTypeId">Identifier of the product type.</param>
+        /// <param name="attributeFQN"></param>
+        /// <param name="productTypeId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string UpdatePropertyUrl(string attributeFQN, int productTypeId)
+        public static MozuUrl UpdatePropertyUrl(string attributeFQN, int productTypeId)
 		{
 			var url = "/api/commerce/catalog/admin/attributedefinition/producttypes/{productTypeId}/Properties/{attributeFQN}";
 			FormatUrl( ref url, "attributeFQN", attributeFQN);
 			FormatUrl( ref url, "productTypeId", productTypeId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				/// <summary>
         /// Get Resource Url for DeleteProperty
         /// </summary>
-        /// <param name="attributeFQN">The fully qualified name of the attribute, which is a user defined attribute identifier.</param>
-        /// <param name="productTypeId">Identifier of the product type.</param>
+        /// <param name="attributeFQN"></param>
+        /// <param name="productTypeId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string DeletePropertyUrl(string attributeFQN, int productTypeId)
+        public static MozuUrl DeletePropertyUrl(string attributeFQN, int productTypeId)
 		{
 			var url = "/api/commerce/catalog/admin/attributedefinition/producttypes/{productTypeId}/Properties/{attributeFQN}";
 			FormatUrl( ref url, "attributeFQN", attributeFQN);
 			FormatUrl( ref url, "productTypeId", productTypeId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		

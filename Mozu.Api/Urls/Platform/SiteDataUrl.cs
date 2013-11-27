@@ -13,63 +13,63 @@ using System;
 
 namespace Mozu.Api.Urls.Platform
 {
-	public partial class SiteDataUrl : BaseUrl
+	public partial class SiteDataUrl : MozuUrl
 	{
 
 		/// <summary>
         /// Get Resource Url for GetDBValue
         /// </summary>
-        /// <param name="dbEntryQuery">The database entry query string used to retrieve the record information.</param>
+        /// <param name="dbEntryQuery"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string GetDBValueUrl(string dbEntryQuery)
+        public static MozuUrl GetDBValueUrl(string dbEntryQuery)
 		{
 			var url = "/api/platform/sitedata/{*dbEntryQuery}";
 			FormatUrl( ref url, "dbEntryQuery", dbEntryQuery);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				/// <summary>
         /// Get Resource Url for CreateDBValue
         /// </summary>
-        /// <param name="dbEntryQuery">The database entry string to create.</param>
+        /// <param name="dbEntryQuery"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string CreateDBValueUrl(string dbEntryQuery)
+        public static MozuUrl CreateDBValueUrl(string dbEntryQuery)
 		{
 			var url = "/api/platform/sitedata/{*dbEntryQuery}";
 			FormatUrl( ref url, "dbEntryQuery", dbEntryQuery);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				/// <summary>
         /// Get Resource Url for UpdateDBValue
         /// </summary>
-        /// <param name="dbEntryQuery">The database entry query string used to update the record information.</param>
+        /// <param name="dbEntryQuery"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string UpdateDBValueUrl(string dbEntryQuery)
+        public static MozuUrl UpdateDBValueUrl(string dbEntryQuery)
 		{
 			var url = "/api/platform/sitedata/{*dbEntryQuery}";
 			FormatUrl( ref url, "dbEntryQuery", dbEntryQuery);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				/// <summary>
         /// Get Resource Url for DeleteDBValue
         /// </summary>
-        /// <param name="dbEntryQuery">The database entry string to delete.</param>
+        /// <param name="dbEntryQuery"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string DeleteDBValueUrl(string dbEntryQuery)
+        public static MozuUrl DeleteDBValueUrl(string dbEntryQuery)
 		{
 			var url = "/api/platform/sitedata/{*dbEntryQuery}";
 			FormatUrl( ref url, "dbEntryQuery", dbEntryQuery);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		

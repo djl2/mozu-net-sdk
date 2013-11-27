@@ -10,16 +10,18 @@
 
 using System;
 using System.Collections.Generic;
+using Mozu.Api.Security;
+
 
 namespace Mozu.Api.Clients.Content
 {
 	/// <summary>
-	/// Use the document lists resource to organize your site's documents into a hierarchy. Document lists can contain documents, folders, and complete hierarchies of folders, which contain documents with unique names.
+	/// 
 	/// </summary>
 	public partial class DocumentListClient 	{
 		
 		/// <summary>
-		/// Retrieves a collection of document lists.
+		/// 
 		/// </summary>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Content.DocumentListCollection"/>}
@@ -32,52 +34,58 @@ namespace Mozu.Api.Clients.Content
 		/// </example>
 		public static MozuClient<Mozu.Api.Contracts.Content.DocumentListCollection> GetDocumentListsClient()
 		{
-			return GetDocumentListsClient( null,  null,  null);
+			return GetDocumentListsClient( null,  null,  null, null);
 		}
 
 		/// <summary>
-		/// Retrieves a collection of document lists.
+		/// 
 		/// </summary>
-		/// <param name="pageSize">Specifies the number of results to display on each page when creating paged results from a query. The maximum value is 200.</param>
+		/// <param name="pageSize"></param>
 		/// <param name="sort"></param>
 		/// <param name="startIndex"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Content.DocumentListCollection"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=GetDocumentLists( pageSize,  sort,  startIndex);
+		///   var mozuClient=GetDocumentLists( pageSize,  sort,  startIndex, authTicket);
 		///   var documentListCollectionClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.Content.DocumentListCollection> GetDocumentListsClient(long? pageSize, string sort, long? startIndex)
+		public static MozuClient<Mozu.Api.Contracts.Content.DocumentListCollection> GetDocumentListsClient(int? pageSize =  null, string sort =  null, int? startIndex =  null, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Content.DocumentListUrl.GetDocumentListsUrl(pageSize, sort, startIndex);
 			const string verb = "GET";
 			var mozuClient = new MozuClient<Mozu.Api.Contracts.Content.DocumentListCollection>().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 
 		/// <summary>
-		/// Retrieve the details of a document list by providing the list name.
+		/// 
 		/// </summary>
-		/// <param name="documentListName">The name of the document list.</param>
+		/// <param name="documentListName"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Content.DocumentList"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=GetDocumentList( documentListName);
+		///   var mozuClient=GetDocumentList( documentListName, authTicket);
 		///   var documentListClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.Content.DocumentList> GetDocumentListClient(string documentListName)
+		public static MozuClient<Mozu.Api.Contracts.Content.DocumentList> GetDocumentListClient(string documentListName, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Content.DocumentListUrl.GetDocumentListUrl(documentListName);
 			const string verb = "GET";
 			var mozuClient = new MozuClient<Mozu.Api.Contracts.Content.DocumentList>().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 

@@ -10,18 +10,20 @@
 
 using System;
 using System.Collections.Generic;
+using Mozu.Api.Security;
+
 
 namespace Mozu.Api.Clients.Platform
 {
 	/// <summary>
-	/// Use the tenant data resource to store tenant-level information required for a third-party application in the Mozu database.
+	/// 
 	/// </summary>
 	public partial class TenantDataClient 	{
 		
 		/// <summary>
-		/// Retrieves the value of a record in the Mozu database.
+		/// 
 		/// </summary>
-		/// <param name="dbEntryQuery">The database entry query string used to retrieve the record information.</param>
+		/// <param name="dbEntryQuery"></param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{string}
 		/// </returns>
@@ -36,60 +38,60 @@ namespace Mozu.Api.Clients.Platform
 			var url = Mozu.Api.Urls.Platform.TenantDataUrl.GetDBValueUrl(dbEntryQuery);
 			const string verb = "GET";
 			var mozuClient = new MozuClient<string>().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			return mozuClient;
 
 		}
 
 				/// <summary>
-		/// Creates a new record in the Mozu database based on the information supplied in the request.
+		/// 
 		/// </summary>
-		/// <param name="dbEntryQuery">The database entry string to create.</param>
-		/// <param name="value">The value string to create.</param>
+		/// <param name="dbEntryQuery"></param>
+		/// <param name="value"></param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=CreateDBValue( dbEntryQuery,  value);
+		///   var mozuClient=CreateDBValue( value,  dbEntryQuery);
 		///mozuClient.WithBaseAddress(url).Execute();
 		/// </code>
 		/// </example>
-		public static MozuClient CreateDBValueClient(string dbEntryQuery, string value)
+		public static MozuClient CreateDBValueClient(string value, string dbEntryQuery)
 		{
 			var url = Mozu.Api.Urls.Platform.TenantDataUrl.CreateDBValueUrl(dbEntryQuery);
 			const string verb = "POST";
-			var mozuClient = new MozuClient().WithVerb(verb).WithResourceUrl(url).WithBody<string>(value);
-		return mozuClient;
+			var mozuClient = new MozuClient().WithVerb(verb).WithResourceUrl(url).WithBody(value);
+			return mozuClient;
 
 		}
 
 				/// <summary>
-		/// Updates a record in the Mozu database based on the information supplied in the request.
+		/// 
 		/// </summary>
-		/// <param name="dbEntryQuery">The database entry query string used to update the record information.</param>
-		/// <param name="value">The database value to update.</param>
+		/// <param name="dbEntryQuery"></param>
+		/// <param name="value"></param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=UpdateDBValue( dbEntryQuery,  value);
+		///   var mozuClient=UpdateDBValue( value,  dbEntryQuery);
 		///mozuClient.WithBaseAddress(url).Execute();
 		/// </code>
 		/// </example>
-		public static MozuClient UpdateDBValueClient(string dbEntryQuery, string value)
+		public static MozuClient UpdateDBValueClient(string value, string dbEntryQuery)
 		{
 			var url = Mozu.Api.Urls.Platform.TenantDataUrl.UpdateDBValueUrl(dbEntryQuery);
 			const string verb = "PUT";
-			var mozuClient = new MozuClient().WithVerb(verb).WithResourceUrl(url).WithBody<string>(value);
-		return mozuClient;
+			var mozuClient = new MozuClient().WithVerb(verb).WithResourceUrl(url).WithBody(value);
+			return mozuClient;
 
 		}
 
 				/// <summary>
-		/// Removes a previously defined record in the Mozu database.
+		/// 
 		/// </summary>
-		/// <param name="dbEntryQuery">The database entry string to delete.</param>
+		/// <param name="dbEntryQuery"></param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />
 		/// </returns>
@@ -104,7 +106,7 @@ namespace Mozu.Api.Clients.Platform
 			var url = Mozu.Api.Urls.Platform.TenantDataUrl.DeleteDBValueUrl(dbEntryQuery);
 			const string verb = "DELETE";
 			var mozuClient = new MozuClient().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			return mozuClient;
 
 		}
 

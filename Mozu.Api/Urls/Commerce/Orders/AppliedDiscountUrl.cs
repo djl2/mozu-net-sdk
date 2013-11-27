@@ -13,65 +13,65 @@ using System;
 
 namespace Mozu.Api.Urls.Commerce.Orders
 {
-	public partial class AppliedDiscountUrl : BaseUrl
+	public partial class AppliedDiscountUrl : MozuUrl
 	{
 
 						/// <summary>
         /// Get Resource Url for ApplyCoupon
         /// </summary>
         /// <param name="couponCode"></param>
-        /// <param name="orderId">Unique identifier of the order to associate the coupon. System-supplied and read-only.</param>
-        /// <param name="updateMode">Specifies whether to apply the coupon by updating the original order, updating the order in draft mode, or updating the order in draft mode and then commit the changes to the original. Draft mode enables users to make incremental order changes before committing the changes to the original order. Valid values are "ApplyToOriginal", "ApplyToDraft", or "ApplyAndCommit".</param>
-        /// <param name="version">If applicable, the version of the order or order draft to which to apply the coupon.</param>
+        /// <param name="orderId"></param>
+        /// <param name="updateMode"></param>
+        /// <param name="version"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string ApplyCouponUrl(string couponCode, string orderId, string updateMode, string version)
+        public static MozuUrl ApplyCouponUrl(string couponCode, string orderId, string updateMode, string version)
 		{
 			var url = "/api/commerce/orders/{orderId}/coupons/{couponCode}?updatemode={updateMode}&version={version}";
 			FormatUrl( ref url, "couponCode", couponCode);
 			FormatUrl( ref url, "orderId", orderId);
 			FormatUrl( ref url, "updateMode", updateMode);
 			FormatUrl( ref url, "version", version);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				/// <summary>
         /// Get Resource Url for RemoveCoupon
         /// </summary>
         /// <param name="couponCode"></param>
-        /// <param name="orderId">Unique identifier of the order with the coupon to remove.</param>
-        /// <param name="updateMode">Specifies whether to remove the coupon by updating the original order, updating the order in draft mode, or updating the order in draft mode and then committing the changes to the original. Draft mode enables users to make incremental order changes before committing the changes to the original order. Valid values are "ApplyToOriginal", "ApplyToDraft", or "ApplyAndCommit".</param>
-        /// <param name="version">If applicable, the version of the order or order draft from which to remove the coupon.</param>
+        /// <param name="orderId"></param>
+        /// <param name="updateMode"></param>
+        /// <param name="version"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string RemoveCouponUrl(string couponCode, string orderId, string updateMode, string version)
+        public static MozuUrl RemoveCouponUrl(string couponCode, string orderId, string updateMode, string version)
 		{
 			var url = "/api/commerce/orders/{orderId}/coupons/{couponcode}?updatemode={updateMode}&version={version}";
 			FormatUrl( ref url, "couponCode", couponCode);
 			FormatUrl( ref url, "orderId", orderId);
 			FormatUrl( ref url, "updateMode", updateMode);
 			FormatUrl( ref url, "version", version);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		/// <summary>
         /// Get Resource Url for RemoveCoupons
         /// </summary>
-        /// <param name="orderId">Unique identifier of the order with the coupons to remove.</param>
-        /// <param name="updateMode">Specifies whether to remove coupons by updating the original order, updating the order in draft mode, or updating the order in draft mode and then committing the changes to the original. Draft mode enables users to make incremental order changes before committing the changes to the original order. Valid values are "ApplyToOriginal", "ApplyToDraft", or "ApplyAndCommit".</param>
-        /// <param name="version">If applicable, the version of the order or order draft from which to remove coupons.</param>
+        /// <param name="orderId"></param>
+        /// <param name="updateMode"></param>
+        /// <param name="version"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string RemoveCouponsUrl(string orderId, string updateMode, string version)
+        public static MozuUrl RemoveCouponsUrl(string orderId, string updateMode, string version)
 		{
 			var url = "/api/commerce/orders/{orderId}/coupons?updatemode={updateMode}&version={version}";
 			FormatUrl( ref url, "orderId", orderId);
 			FormatUrl( ref url, "updateMode", updateMode);
 			FormatUrl( ref url, "version", version);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		

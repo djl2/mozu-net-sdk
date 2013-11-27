@@ -13,37 +13,37 @@ using System;
 
 namespace Mozu.Api.Urls.Content
 {
-	public partial class PropertyTypeUrl : BaseUrl
+	public partial class PropertyTypeUrl : MozuUrl
 	{
 
 		/// <summary>
         /// Get Resource Url for GetList
         /// </summary>
-        /// <param name="pageSize">Specifies the number of results to display on each page when creating paged results from a query. The maximum value is 200.</param>
+        /// <param name="pageSize"></param>
         /// <param name="startIndex"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string GetListUrl(int? pageSize, int? startIndex)
+        public static MozuUrl GetListUrl(int? pageSize, int? startIndex)
 		{
 			var url = "/api/content/propertytypes/?pageSize={pageSize}&startIndex={startIndex}";
 			FormatUrl( ref url, "pageSize", pageSize);
 			FormatUrl( ref url, "startIndex", startIndex);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		/// <summary>
         /// Get Resource Url for Get
         /// </summary>
-        /// <param name="propertyTypeName">The name of the content property type.</param>
+        /// <param name="propertyTypeName"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string GetUrl(string propertyTypeName)
+        public static MozuUrl GetUrl(string propertyTypeName)
 		{
 			var url = "/api/content/propertytypes/{propertyTypeName}";
 			FormatUrl( ref url, "propertyTypeName", propertyTypeName);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		/// <summary>
@@ -52,10 +52,10 @@ namespace Mozu.Api.Urls.Content
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string PropertyValueTypesUrl()
+        public static MozuUrl PropertyValueTypesUrl()
 		{
 			var url = "/api/content/propertytypes/propertyvaluetypes";
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 								

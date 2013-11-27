@@ -13,83 +13,83 @@ using System;
 
 namespace Mozu.Api.Urls.Commerce.Orders
 {
-	public partial class PaymentUrl : BaseUrl
+	public partial class PaymentUrl : MozuUrl
 	{
 
 		/// <summary>
         /// Get Resource Url for GetPayments
         /// </summary>
-        /// <param name="orderId">Unique identifier of the order.</param>
+        /// <param name="orderId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string GetPaymentsUrl(string orderId)
+        public static MozuUrl GetPaymentsUrl(string orderId)
 		{
 			var url = "/api/commerce/orders/{orderId}/payments/";
 			FormatUrl( ref url, "orderId", orderId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		/// <summary>
         /// Get Resource Url for GetPayment
         /// </summary>
-        /// <param name="orderId">Unique identifier of the order associated with the payment transaction.</param>
-        /// <param name="paymentId">Unique identifier of the payment transaction submitted for the order.</param>
+        /// <param name="orderId"></param>
+        /// <param name="paymentId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string GetPaymentUrl(string orderId, string paymentId)
+        public static MozuUrl GetPaymentUrl(string orderId, string paymentId)
 		{
 			var url = "/api/commerce/orders/{orderId}/payments/{paymentId}";
 			FormatUrl( ref url, "orderId", orderId);
 			FormatUrl( ref url, "paymentId", paymentId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		/// <summary>
         /// Get Resource Url for GetAvailablePaymentActions
         /// </summary>
-        /// <param name="orderId">Unique identifier of the order associated with the payment.</param>
-        /// <param name="paymentId">Unique identifer of the payment for which to retrieve available actions.</param>
+        /// <param name="orderId"></param>
+        /// <param name="paymentId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string GetAvailablePaymentActionsUrl(string orderId, string paymentId)
+        public static MozuUrl GetAvailablePaymentActionsUrl(string orderId, string paymentId)
 		{
 			var url = "/api/commerce/orders/{orderId}/payments/{paymentId}/actions";
 			FormatUrl( ref url, "orderId", orderId);
 			FormatUrl( ref url, "paymentId", paymentId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				/// <summary>
         /// Get Resource Url for PerformPaymentAction
         /// </summary>
-        /// <param name="orderId">Unique identifier of the order associated with the payment.</param>
-        /// <param name="paymentId">Unique identifer of the payment for which to perform the action.</param>
+        /// <param name="orderId"></param>
+        /// <param name="paymentId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string PerformPaymentActionUrl(string orderId, string paymentId)
+        public static MozuUrl PerformPaymentActionUrl(string orderId, string paymentId)
 		{
 			var url = "/api/commerce/orders/{orderId}/payments/{paymentId}/actions";
 			FormatUrl( ref url, "orderId", orderId);
 			FormatUrl( ref url, "paymentId", paymentId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		/// <summary>
         /// Get Resource Url for CreatePaymentAction
         /// </summary>
-        /// <param name="orderId">Unique identifier of the order for which to apply the payment.</param>
+        /// <param name="orderId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string CreatePaymentActionUrl(string orderId)
+        public static MozuUrl CreatePaymentActionUrl(string orderId)
 		{
 			var url = "/api/commerce/orders/{orderId}/payments/actions";
 			FormatUrl( ref url, "orderId", orderId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 						

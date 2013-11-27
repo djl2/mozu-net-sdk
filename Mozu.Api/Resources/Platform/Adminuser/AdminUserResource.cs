@@ -10,64 +10,57 @@
 
 using System;
 using System.Collections.Generic;
+using Mozu.Api.Security;
+
 
 namespace Mozu.Api.Resources.Platform.Adminuser
 {
 	/// <summary>
-	/// Displays the user accounts and account details associated with a developer or Mozu tenant administrator. Email addresses uniquely identify admin user accounts.
+	/// 
 	/// </summary>
-	public partial class AdminUserResource : BaseResource 	{
-				///
-		/// <see cref="Mozu.Api.ApiContext"/>
-		///
-		private readonly ApiContext _apiContext;
-		public AdminUserResource(ApiContext apiContext) 
-		{
-			_apiContext = apiContext;
-		}
-
+	public partial class AdminUserResource  	{
 		
 		/// <summary>
-		/// Retrieves the details of the specified administrator user account.
+		/// 
 		/// </summary>
-		/// <param name="userId">Unique identifier of the administrator account to retrieve.</param>
+		/// <param name="userId"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.Core.User"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var adminuser = new AdminUser();
-		///   var user = adminuser.GetUser( userId);
+		///   var user = adminuser.GetUser( userId, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.Core.User GetUser(string userId)
+		public virtual Mozu.Api.Contracts.Core.User GetUser(string userId, AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.Core.User> response;
-			var client = Mozu.Api.Clients.Platform.Adminuser.AdminUserClient.GetUserClient( userId);
-			SetContext(_apiContext, ref client,false);
+			MozuClient<Mozu.Api.Contracts.Core.User> response;
+			var client = Mozu.Api.Clients.Platform.Adminuser.AdminUserClient.GetUserClient( userId, authTicket);
 			response= client.Execute();
 			return response.Result();
 
 		}
 
 		/// <summary>
-		/// Retrieves a list of the Mozu tenants or development stores for which the specified user has an assigned role.
+		/// 
 		/// </summary>
-		/// <param name="userId">Unique identifier of the user whose tenant scopes you want to retrieve.</param>
+		/// <param name="userId"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.Tenant.TenantCollection"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var adminuser = new AdminUser();
-		///   var tenantCollection = adminuser.GetTenantScopesForUser( userId);
+		///   var tenantCollection = adminuser.GetTenantScopesForUser( userId, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.Tenant.TenantCollection GetTenantScopesForUser(string userId)
+		public virtual Mozu.Api.Contracts.Tenant.TenantCollection GetTenantScopesForUser(string userId, AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.Tenant.TenantCollection> response;
-			var client = Mozu.Api.Clients.Platform.Adminuser.AdminUserClient.GetTenantScopesForUserClient( userId);
-			SetContext(_apiContext, ref client,false);
+			MozuClient<Mozu.Api.Contracts.Tenant.TenantCollection> response;
+			var client = Mozu.Api.Clients.Platform.Adminuser.AdminUserClient.GetTenantScopesForUserClient( userId, authTicket);
 			response= client.Execute();
 			return response.Result();
 

@@ -10,27 +10,20 @@
 
 using System;
 using System.Collections.Generic;
+using Mozu.Api.Security;
+
 
 namespace Mozu.Api.Resources.Platform.Adminuser
 {
 	/// <summary>
-	/// Use the Admin user Authtickets resource to generate and refresh authentication tickets for Mozu administrator or developer account users to access tenants or development stores.
+	/// 
 	/// </summary>
-	public partial class TenantAdminUserAuthTicketResource : BaseResource 	{
-				///
-		/// <see cref="Mozu.Api.ApiContext"/>
-		///
-		private readonly ApiContext _apiContext;
-		public TenantAdminUserAuthTicketResource(ApiContext apiContext) 
-		{
-			_apiContext = apiContext;
-		}
-
+	public partial class TenantAdminUserAuthTicketResource  	{
 		
 				/// <summary>
-		/// Creates an authentication ticket for the supplied user to specify in API requests associated with the supplied tenant.
+		/// 
 		/// </summary>
-		/// <param name="userAuthInfo">The user authentication information required to generate the user authentication ticket, which consists of a user name and password.</param>
+		/// <param name="userAuthInfo"></param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.AdminUser.TenantAdminUserAuthTicket"/>
 		/// </returns>
@@ -42,37 +35,37 @@ namespace Mozu.Api.Resources.Platform.Adminuser
 		/// </example>
 		public virtual Mozu.Api.Contracts.AdminUser.TenantAdminUserAuthTicket CreateUserAuthTicket(Mozu.Api.Contracts.Core.UserAuthInfo userAuthInfo)
 		{
-			return CreateUserAuthTicket( null,  userAuthInfo);
+			return CreateUserAuthTicket( userAuthInfo,  null, null);
 		}
 
 		/// <summary>
-		/// Creates an authentication ticket for the supplied user to specify in API requests associated with the supplied tenant.
+		/// 
 		/// </summary>
-		/// <param name="tenantId">Unique identifier of the Mozu tenant or development store for which to generate the user authentication ticket.</param>
-		/// <param name="userAuthInfo">The user authentication information required to generate the user authentication ticket, which consists of a user name and password.</param>
+		/// <param name="tenantId"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
+		/// <param name="userAuthInfo"></param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.AdminUser.TenantAdminUserAuthTicket"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var tenantadminuserauthticket = new TenantAdminUserAuthTicket();
-		///   var tenantAdminUserAuthTicket = tenantadminuserauthticket.CreateUserAuthTicket( tenantId,  userAuthInfo);
+		///   var tenantAdminUserAuthTicket = tenantadminuserauthticket.CreateUserAuthTicket( userAuthInfo,  tenantId, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.AdminUser.TenantAdminUserAuthTicket CreateUserAuthTicket(int? tenantId, Mozu.Api.Contracts.Core.UserAuthInfo userAuthInfo)
+		public virtual Mozu.Api.Contracts.AdminUser.TenantAdminUserAuthTicket CreateUserAuthTicket(Mozu.Api.Contracts.Core.UserAuthInfo userAuthInfo, int? tenantId =  null, AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.AdminUser.TenantAdminUserAuthTicket> response;
-			var client = Mozu.Api.Clients.Platform.Adminuser.TenantAdminUserAuthTicketClient.CreateUserAuthTicketClient( tenantId,  userAuthInfo);
-			SetContext(_apiContext, ref client,false);
+			MozuClient<Mozu.Api.Contracts.AdminUser.TenantAdminUserAuthTicket> response;
+			var client = Mozu.Api.Clients.Platform.Adminuser.TenantAdminUserAuthTicketClient.CreateUserAuthTicketClient( userAuthInfo,  tenantId, authTicket);
 			response= client.Execute();
 			return response.Result();
 
 		}
 
 				/// <summary>
-		/// Generates a new user authentication ticket for the specified tenant by supplying the user's existing refresh token information.
+		/// 
 		/// </summary>
-		/// <param name="existingAuthTicket">Properties of the authentication ticket to refresh. The refresh token is required to complete this request.</param>
+		/// <param name="existingAuthTicket"></param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.AdminUser.TenantAdminUserAuthTicket"/>
 		/// </returns>
@@ -84,51 +77,51 @@ namespace Mozu.Api.Resources.Platform.Adminuser
 		/// </example>
 		public virtual Mozu.Api.Contracts.AdminUser.TenantAdminUserAuthTicket RefreshAuthTicket(Mozu.Api.Contracts.AdminUser.TenantAdminUserAuthTicket existingAuthTicket)
 		{
-			return RefreshAuthTicket( null,  existingAuthTicket);
+			return RefreshAuthTicket( existingAuthTicket,  null, null);
 		}
 
 		/// <summary>
-		/// Generates a new user authentication ticket for the specified tenant by supplying the user's existing refresh token information.
+		/// 
 		/// </summary>
-		/// <param name="tenantId">Unique identifier of the Mozu tenant or development store for which to refresh the authentication ticket.</param>
-		/// <param name="existingAuthTicket">Properties of the authentication ticket to refresh. The refresh token is required to complete this request.</param>
+		/// <param name="tenantId"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
+		/// <param name="existingAuthTicket"></param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.AdminUser.TenantAdminUserAuthTicket"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var tenantadminuserauthticket = new TenantAdminUserAuthTicket();
-		///   var tenantAdminUserAuthTicket = tenantadminuserauthticket.RefreshAuthTicket( tenantId,  existingAuthTicket);
+		///   var tenantAdminUserAuthTicket = tenantadminuserauthticket.RefreshAuthTicket( existingAuthTicket,  tenantId, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.AdminUser.TenantAdminUserAuthTicket RefreshAuthTicket(int? tenantId, Mozu.Api.Contracts.AdminUser.TenantAdminUserAuthTicket existingAuthTicket)
+		public virtual Mozu.Api.Contracts.AdminUser.TenantAdminUserAuthTicket RefreshAuthTicket(Mozu.Api.Contracts.AdminUser.TenantAdminUserAuthTicket existingAuthTicket, int? tenantId =  null, AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.AdminUser.TenantAdminUserAuthTicket> response;
-			var client = Mozu.Api.Clients.Platform.Adminuser.TenantAdminUserAuthTicketClient.RefreshAuthTicketClient( tenantId,  existingAuthTicket);
-			SetContext(_apiContext, ref client,false);
+			MozuClient<Mozu.Api.Contracts.AdminUser.TenantAdminUserAuthTicket> response;
+			var client = Mozu.Api.Clients.Platform.Adminuser.TenantAdminUserAuthTicketClient.RefreshAuthTicketClient( existingAuthTicket,  tenantId, authTicket);
 			response= client.Execute();
 			return response.Result();
 
 		}
 
 				/// <summary>
-		/// Deletes the authentication ticket for the user by supplying the refresh token.
+		/// 
 		/// </summary>
-		/// <param name="refreshToken">Refresh token string associated with the user authentication ticket.</param>
+		/// <param name="refreshToken"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// 
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var tenantadminuserauthticket = new TenantAdminUserAuthTicket();
-		///   tenantadminuserauthticket.DeleteUserAuthTicket( refreshToken);
+		///   tenantadminuserauthticket.DeleteUserAuthTicket( refreshToken, authTicket);
 		/// </code>
 		/// </example>
-		public virtual void DeleteUserAuthTicket(string refreshToken)
+		public virtual void DeleteUserAuthTicket(string refreshToken, AuthTicket authTicket= null)
 		{
-						MozuClient response;
-			var client = Mozu.Api.Clients.Platform.Adminuser.TenantAdminUserAuthTicketClient.DeleteUserAuthTicketClient( refreshToken);
-			SetContext(_apiContext, ref client,false);
+			MozuClient response;
+			var client = Mozu.Api.Clients.Platform.Adminuser.TenantAdminUserAuthTicketClient.DeleteUserAuthTicketClient( refreshToken, authTicket);
 			response= client.Execute();
 
 		}

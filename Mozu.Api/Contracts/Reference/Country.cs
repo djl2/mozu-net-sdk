@@ -12,19 +12,10 @@ using System;
 
 namespace Mozu.Api.Contracts.Reference
 {
-		///
-		///	2-letter code and corresponding country name that the system supports.
-		///
 		public class Country
 		{
-			///
-			///2 letter geographic code representing the country for the physical or mailing address. Currently limited to the US.
-			///
 			public string Code { get; set; }
 
-			///
-			///The name of the country.
-			///
 			public string Name { get; set; }
 
 		}

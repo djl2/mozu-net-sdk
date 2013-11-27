@@ -13,8 +13,20 @@ using System;
 
 namespace Mozu.Api.Urls.Commerce.Settings
 {
-	public partial class ApplicationUrl : BaseUrl
+	public partial class ApplicationUrl : MozuUrl
 	{
+
+		/// <summary>
+        /// Get Resource Url for ThirdPartyGetApplication
+        /// </summary>
+        /// <returns>
+        /// String - Resource Url
+        /// </returns>
+        public static MozuUrl ThirdPartyGetApplicationUrl()
+		{
+			var url = "/api/commerce/settings/applications/";
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+		}
 
 						/// <summary>
         /// Get Resource Url for ThirdPartyUpdateApplication
@@ -22,10 +34,10 @@ namespace Mozu.Api.Urls.Commerce.Settings
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string ThirdPartyUpdateApplicationUrl()
+        public static MozuUrl ThirdPartyUpdateApplicationUrl()
 		{
 			var url = "/api/commerce/settings/applications/";
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				

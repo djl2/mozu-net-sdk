@@ -12,14 +12,8 @@ using System;
 
 namespace Mozu.Api.Contracts.User
 {
-		///
-		///	Information required to reset the user's password, which consists of an email address.
-		///
 		public class ResetPasswordInfo
 		{
-			///
-			///The email address of the specified user or the email address associated with the specified entity.
-			///
 			public string EmailAddress { get; set; }
 
 		}

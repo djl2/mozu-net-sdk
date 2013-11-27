@@ -10,40 +10,43 @@
 
 using System;
 using System.Collections.Generic;
+using Mozu.Api.Security;
+
 
 namespace Mozu.Api.Resources.Commerce.Settings
 {
 	/// <summary>
-	/// Specify sitewide settings to determine how checkout and order processing behaves. This service includes payment settings, customer checkout settings, and order processing settings.
+	/// 
 	/// </summary>
-	public partial class CheckoutSettingsResource : BaseResource 	{
+	public partial class CheckoutSettingsResource  	{
 				///
 		/// <see cref="Mozu.Api.ApiContext"/>
 		///
-		private readonly ApiContext _apiContext;
-		public CheckoutSettingsResource(ApiContext apiContext) 
+		private readonly IApiContext _apiContext;
+		public CheckoutSettingsResource(IApiContext apiContext) 
 		{
 			_apiContext = apiContext;
 		}
 
 		
 		/// <summary>
-		/// Retrieves all checkout settings defined for the site including payment settings (payment gateway ID and credentials), shopper checkout settings (login requirement or guest mode and custom attributes), and order processing settings (when payment is authorized and captured plus any custom attributes).
+		/// 
 		/// </summary>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.SiteSettings.Order.CheckoutSettings"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var checkoutsettings = new CheckoutSettings();
-		///   var checkoutSettings = checkoutsettings.GetCheckoutSettings();
+		///   var checkoutSettings = checkoutsettings.GetCheckoutSettings(authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.SiteSettings.Order.CheckoutSettings GetCheckoutSettings()
+		public virtual Mozu.Api.Contracts.SiteSettings.Order.CheckoutSettings GetCheckoutSettings(AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.SiteSettings.Order.CheckoutSettings> response;
-			var client = Mozu.Api.Clients.Commerce.Settings.CheckoutSettingsClient.GetCheckoutSettingsClient();
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.SiteSettings.Order.CheckoutSettings> response;
+			var client = Mozu.Api.Clients.Commerce.Settings.CheckoutSettingsClient.GetCheckoutSettingsClient(authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 

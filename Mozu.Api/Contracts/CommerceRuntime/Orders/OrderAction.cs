@@ -12,14 +12,8 @@ using System;
 
 namespace Mozu.Api.Contracts.CommerceRuntime.Orders
 {
-		///
-		///	The action to perform for the order.
-		///
 		public class OrderAction
 		{
-			///
-			///The name of the action for the order.
-			///
 			public string ActionName { get; set; }
 
 		}

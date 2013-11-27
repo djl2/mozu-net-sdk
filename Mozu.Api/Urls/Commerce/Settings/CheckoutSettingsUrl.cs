@@ -13,7 +13,7 @@ using System;
 
 namespace Mozu.Api.Urls.Commerce.Settings
 {
-	public partial class CheckoutSettingsUrl : BaseUrl
+	public partial class CheckoutSettingsUrl : MozuUrl
 	{
 
 		/// <summary>
@@ -22,10 +22,10 @@ namespace Mozu.Api.Urls.Commerce.Settings
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string GetCheckoutSettingsUrl()
+        public static MozuUrl GetCheckoutSettingsUrl()
 		{
 			var url = "/api/commerce/settings/checkout/";
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 								

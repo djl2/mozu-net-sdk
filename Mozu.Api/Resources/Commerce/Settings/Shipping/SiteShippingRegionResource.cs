@@ -10,18 +10,20 @@
 
 using System;
 using System.Collections.Generic;
+using Mozu.Api.Security;
+
 
 namespace Mozu.Api.Resources.Commerce.Settings.Shipping
 {
 	/// <summary>
 	/// Use the site shipping regions subresource to manage the territories to which the site will ship products. Currently, only domestic shipping is supported.
 	/// </summary>
-	public partial class SiteShippingRegionResource : BaseResource 	{
+	public partial class SiteShippingRegionResource  	{
 				///
 		/// <see cref="Mozu.Api.ApiContext"/>
 		///
-		private readonly ApiContext _apiContext;
-		public SiteShippingRegionResource(ApiContext apiContext) 
+		private readonly IApiContext _apiContext;
+		public SiteShippingRegionResource(IApiContext apiContext) 
 		{
 			_apiContext = apiContext;
 		}
@@ -30,20 +32,21 @@ namespace Mozu.Api.Resources.Commerce.Settings.Shipping
 		/// <summary>
 		/// Retrieves a list of the shipping regions configured for the site.
 		/// </summary>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// List{<see cref="Mozu.Api.Contracts.SiteSettings.Shipping.SiteShippingRegion"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var siteshippingregion = new SiteShippingRegion();
-		///   var siteShippingRegion = siteshippingregion.GetShippingRegions();
+		///   var siteShippingRegion = siteshippingregion.GetShippingRegions(authTicket);
 		/// </code>
 		/// </example>
-		public virtual List<Mozu.Api.Contracts.SiteSettings.Shipping.SiteShippingRegion> GetShippingRegions()
+		public virtual List<Mozu.Api.Contracts.SiteSettings.Shipping.SiteShippingRegion> GetShippingRegions(AuthTicket authTicket= null)
 		{
-						MozuClient<List<Mozu.Api.Contracts.SiteSettings.Shipping.SiteShippingRegion>> response;
-			var client = Mozu.Api.Clients.Commerce.Settings.Shipping.SiteShippingRegionClient.GetShippingRegionsClient();
-			SetContext(_apiContext, ref client,true);
+			MozuClient<List<Mozu.Api.Contracts.SiteSettings.Shipping.SiteShippingRegion>> response;
+			var client = Mozu.Api.Clients.Commerce.Settings.Shipping.SiteShippingRegionClient.GetShippingRegionsClient(authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
@@ -52,6 +55,7 @@ namespace Mozu.Api.Resources.Commerce.Settings.Shipping
 						/// <summary>
 		/// Updates the shipping regions configured for a site.
 		/// </summary>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <param name="siteShippingRegions">Properties of the shipping region configured for this site.</param>
 		/// <returns>
 		/// List{<see cref="Mozu.Api.Contracts.SiteSettings.Shipping.SiteShippingRegion"/>}
@@ -59,14 +63,14 @@ namespace Mozu.Api.Resources.Commerce.Settings.Shipping
 		/// <example>
 		/// <code>
 		///   var siteshippingregion = new SiteShippingRegion();
-		///   var siteShippingRegion = siteshippingregion.UpdateShippingRegions( siteShippingRegions);
+		///   var siteShippingRegion = siteshippingregion.UpdateShippingRegions( siteShippingRegions, authTicket);
 		/// </code>
 		/// </example>
-		public virtual List<Mozu.Api.Contracts.SiteSettings.Shipping.SiteShippingRegion> UpdateShippingRegions(List<Mozu.Api.Contracts.SiteSettings.Shipping.SiteShippingRegion> siteShippingRegions)
+		public virtual List<Mozu.Api.Contracts.SiteSettings.Shipping.SiteShippingRegion> UpdateShippingRegions(List<Mozu.Api.Contracts.SiteSettings.Shipping.SiteShippingRegion> siteShippingRegions, AuthTicket authTicket= null)
 		{
-						MozuClient<List<Mozu.Api.Contracts.SiteSettings.Shipping.SiteShippingRegion>> response;
-			var client = Mozu.Api.Clients.Commerce.Settings.Shipping.SiteShippingRegionClient.UpdateShippingRegionsClient( siteShippingRegions);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<List<Mozu.Api.Contracts.SiteSettings.Shipping.SiteShippingRegion>> response;
+			var client = Mozu.Api.Clients.Commerce.Settings.Shipping.SiteShippingRegionClient.UpdateShippingRegionsClient( siteShippingRegions, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
@@ -75,20 +79,21 @@ namespace Mozu.Api.Resources.Commerce.Settings.Shipping
 				/// <summary>
 		/// Deletes the shipping regions configured for this site.
 		/// </summary>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// 
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var siteshippingregion = new SiteShippingRegion();
-		///   siteshippingregion.DeleteShippingRegions();
+		///   siteshippingregion.DeleteShippingRegions(authTicket);
 		/// </code>
 		/// </example>
-		public virtual void DeleteShippingRegions()
+		public virtual void DeleteShippingRegions(AuthTicket authTicket= null)
 		{
-						MozuClient response;
-			var client = Mozu.Api.Clients.Commerce.Settings.Shipping.SiteShippingRegionClient.DeleteShippingRegionsClient();
-			SetContext(_apiContext, ref client,true);
+			MozuClient response;
+			var client = Mozu.Api.Clients.Commerce.Settings.Shipping.SiteShippingRegionClient.DeleteShippingRegionsClient(authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 
 		}

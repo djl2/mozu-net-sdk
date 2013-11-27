@@ -16,22 +16,15 @@ namespace Mozu.Api.Sample.OrderHandler
 
         private void button1_Click(object sender, EventArgs e)
         {
-            try
-            {
-                var orderResource = new OrderResource(_apiContext);
-                OrderCollection orders = orderResource.GetOrders();
+            var orderResource = new OrderResource(_apiContext);
+            OrderCollection orders = orderResource.GetOrders();
 
-                string orderInfo;
+            string orderInfo;
 
-                foreach (Order order in orders.Items)
-                {
-                    orderInfo = "Order ID: " + order.Id + " - Order Total: " + order.Total;
-                    ordersList.Items.Add(orderInfo);
-                }
-            }
-            catch (Exception exc)
+            foreach (Order order in orders.Items)
             {
-                MessageBox.Show(exc.Message);
+                orderInfo = "Order ID: " + order.Id + " - Order Total: " + order.Total;
+                ordersList.Items.Add(orderInfo);
             }
         }
 

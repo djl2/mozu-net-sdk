@@ -10,126 +10,148 @@
 
 using System;
 using System.Collections.Generic;
+using Mozu.Api.Security;
+
 
 namespace Mozu.Api.Clients.Commerce.Catalog.Admin.Attributedefinition.Producttypes
 {
 	/// <summary>
-	/// Use the Properties subresource to define how property product attributes are used for a specific product type. Product attribute definitions are unique for each associated product type.
+	/// 
 	/// </summary>
 	public partial class ProductTypePropertyClient 	{
 		
 		/// <summary>
-		/// Retrieves a list of product property attributes defined for a product type.
+		/// 
 		/// </summary>
-		/// <param name="productTypeId">Identifier of the product type.</param>
+		/// <param name="productTypeId"></param>
+		/// <param name="dataViewMode">{<see cref="Mozu.Api.DataViewMode"/>}</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{List{<see cref="Mozu.Api.Contracts.ProductAdmin.AttributeInProductType"/>}}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=GetProperties( productTypeId);
+		///   var mozuClient=GetProperties(dataViewMode,  productTypeId, authTicket);
 		///   var attributeInProductTypeClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<List<Mozu.Api.Contracts.ProductAdmin.AttributeInProductType>> GetPropertiesClient(int productTypeId)
+		public static MozuClient<List<Mozu.Api.Contracts.ProductAdmin.AttributeInProductType>> GetPropertiesClient(DataViewMode dataViewMode, int productTypeId, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Catalog.Admin.Attributedefinition.Producttypes.ProductTypePropertyUrl.GetPropertiesUrl(productTypeId);
 			const string verb = "GET";
-			var mozuClient = new MozuClient<List<Mozu.Api.Contracts.ProductAdmin.AttributeInProductType>>().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			var mozuClient = new MozuClient<List<Mozu.Api.Contracts.ProductAdmin.AttributeInProductType>>().WithVerb(verb).WithResourceUrl(url).WithHeader(Headers.X_VOL_DATAVIEW_MODE ,dataViewMode.ToString());
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 
 		/// <summary>
-		/// Retrieves a product property attribute definition for the specified product type.
+		/// 
 		/// </summary>
-		/// <param name="attributeFQN">The fully qualified name of the attribute, which is a user defined attribute identifier.</param>
-		/// <param name="productTypeId">Identifier of the product type.</param>
+		/// <param name="attributeFQN"></param>
+		/// <param name="productTypeId"></param>
+		/// <param name="dataViewMode">{<see cref="Mozu.Api.DataViewMode"/>}</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.ProductAdmin.AttributeInProductType"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=GetProperty( attributeFQN,  productTypeId);
+		///   var mozuClient=GetProperty(dataViewMode,  attributeFQN,  productTypeId, authTicket);
 		///   var attributeInProductTypeClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.ProductAdmin.AttributeInProductType> GetPropertyClient(string attributeFQN, int productTypeId)
+		public static MozuClient<Mozu.Api.Contracts.ProductAdmin.AttributeInProductType> GetPropertyClient(DataViewMode dataViewMode, string attributeFQN, int productTypeId, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Catalog.Admin.Attributedefinition.Producttypes.ProductTypePropertyUrl.GetPropertyUrl(attributeFQN, productTypeId);
 			const string verb = "GET";
-			var mozuClient = new MozuClient<Mozu.Api.Contracts.ProductAdmin.AttributeInProductType>().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			var mozuClient = new MozuClient<Mozu.Api.Contracts.ProductAdmin.AttributeInProductType>().WithVerb(verb).WithResourceUrl(url).WithHeader(Headers.X_VOL_DATAVIEW_MODE ,dataViewMode.ToString());
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 
 				/// <summary>
-		/// Assigns a property attribute to the specified product type, according to the information defined in the request.
+		/// 
 		/// </summary>
-		/// <param name="productTypeId">Identifier of the product type.</param>
-		/// <param name="attributeInProductType">Properties of the property attribute to define for the specified product type.</param>
+		/// <param name="productTypeId"></param>
+		/// <param name="dataViewMode">{<see cref="Mozu.Api.DataViewMode"/>}</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
+		/// <param name="attributeInProductType"></param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.ProductAdmin.AttributeInProductType"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=AddProperty( productTypeId,  attributeInProductType);
+		///   var mozuClient=AddProperty(dataViewMode,  attributeInProductType,  productTypeId, authTicket);
 		///   var attributeInProductTypeClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.ProductAdmin.AttributeInProductType> AddPropertyClient(int productTypeId, Mozu.Api.Contracts.ProductAdmin.AttributeInProductType attributeInProductType)
+		public static MozuClient<Mozu.Api.Contracts.ProductAdmin.AttributeInProductType> AddPropertyClient(DataViewMode dataViewMode, Mozu.Api.Contracts.ProductAdmin.AttributeInProductType attributeInProductType, int productTypeId, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Catalog.Admin.Attributedefinition.Producttypes.ProductTypePropertyUrl.AddPropertyUrl(productTypeId);
 			const string verb = "POST";
-			var mozuClient = new MozuClient<Mozu.Api.Contracts.ProductAdmin.AttributeInProductType>().WithVerb(verb).WithResourceUrl(url).WithBody<Mozu.Api.Contracts.ProductAdmin.AttributeInProductType>(attributeInProductType);
-		return mozuClient;
+			var mozuClient = new MozuClient<Mozu.Api.Contracts.ProductAdmin.AttributeInProductType>().WithVerb(verb).WithResourceUrl(url).WithBody<Mozu.Api.Contracts.ProductAdmin.AttributeInProductType>(attributeInProductType).WithHeader(Headers.X_VOL_DATAVIEW_MODE ,dataViewMode.ToString());
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 
 				/// <summary>
-		/// Updates the definition of a property attribute for the specified product type.
+		/// 
 		/// </summary>
-		/// <param name="attributeFQN">The fully qualified name of the attribute, which is a user defined attribute identifier.</param>
-		/// <param name="productTypeId">Identifier of the product type.</param>
-		/// <param name="attributeInProductType">Properties of the property attribute to define for the product type.</param>
+		/// <param name="attributeFQN"></param>
+		/// <param name="productTypeId"></param>
+		/// <param name="dataViewMode">{<see cref="Mozu.Api.DataViewMode"/>}</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
+		/// <param name="attributeInProductType"></param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.ProductAdmin.AttributeInProductType"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=UpdateProperty( attributeFQN,  productTypeId,  attributeInProductType);
+		///   var mozuClient=UpdateProperty(dataViewMode,  attributeInProductType,  attributeFQN,  productTypeId, authTicket);
 		///   var attributeInProductTypeClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.ProductAdmin.AttributeInProductType> UpdatePropertyClient(string attributeFQN, int productTypeId, Mozu.Api.Contracts.ProductAdmin.AttributeInProductType attributeInProductType)
+		public static MozuClient<Mozu.Api.Contracts.ProductAdmin.AttributeInProductType> UpdatePropertyClient(DataViewMode dataViewMode, Mozu.Api.Contracts.ProductAdmin.AttributeInProductType attributeInProductType, string attributeFQN, int productTypeId, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Catalog.Admin.Attributedefinition.Producttypes.ProductTypePropertyUrl.UpdatePropertyUrl(attributeFQN, productTypeId);
 			const string verb = "PUT";
-			var mozuClient = new MozuClient<Mozu.Api.Contracts.ProductAdmin.AttributeInProductType>().WithVerb(verb).WithResourceUrl(url).WithBody<Mozu.Api.Contracts.ProductAdmin.AttributeInProductType>(attributeInProductType);
-		return mozuClient;
+			var mozuClient = new MozuClient<Mozu.Api.Contracts.ProductAdmin.AttributeInProductType>().WithVerb(verb).WithResourceUrl(url).WithBody<Mozu.Api.Contracts.ProductAdmin.AttributeInProductType>(attributeInProductType).WithHeader(Headers.X_VOL_DATAVIEW_MODE ,dataViewMode.ToString());
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 
 				/// <summary>
-		/// Removes a property attribute previously defined for the specified product type.
+		/// 
 		/// </summary>
-		/// <param name="attributeFQN">The fully qualified name of the attribute, which is a user defined attribute identifier.</param>
-		/// <param name="productTypeId">Identifier of the product type.</param>
+		/// <param name="attributeFQN"></param>
+		/// <param name="productTypeId"></param>
+		/// <param name="dataViewMode">{<see cref="Mozu.Api.DataViewMode"/>}</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=DeleteProperty( attributeFQN,  productTypeId);
+		///   var mozuClient=DeleteProperty(dataViewMode,  attributeFQN,  productTypeId, authTicket);
 		///mozuClient.WithBaseAddress(url).Execute();
 		/// </code>
 		/// </example>
-		public static MozuClient DeletePropertyClient(string attributeFQN, int productTypeId)
+		public static MozuClient DeletePropertyClient(DataViewMode dataViewMode, string attributeFQN, int productTypeId, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Catalog.Admin.Attributedefinition.Producttypes.ProductTypePropertyUrl.DeletePropertyUrl(attributeFQN, productTypeId);
 			const string verb = "DELETE";
-			var mozuClient = new MozuClient().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			var mozuClient = new MozuClient().WithVerb(verb).WithResourceUrl(url).WithHeader(Headers.X_VOL_DATAVIEW_MODE ,dataViewMode.ToString());
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 

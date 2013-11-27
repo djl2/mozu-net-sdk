@@ -12,14 +12,8 @@ using System;
 
 namespace Mozu.Api.Contracts.SiteSettings.Shipping
 {
-		///
-		///	Properties of the handling fee to apply to order shipments for the site.
-		///
 		public class SiteShippingHandlingFee
 		{
-			///
-			///The amount of the order handling fee.
-			///
 			public decimal? Amount { get; set; }
 
 		}

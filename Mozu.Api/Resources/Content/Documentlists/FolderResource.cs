@@ -10,52 +10,55 @@
 
 using System;
 using System.Collections.Generic;
+using Mozu.Api.Security;
+
 
 namespace Mozu.Api.Resources.Content.Documentlists
 {
 	/// <summary>
-	/// Use the folders subresource to organize content into folders.
+	/// 
 	/// </summary>
-	public partial class FolderResource : BaseResource 	{
+	public partial class FolderResource  	{
 				///
 		/// <see cref="Mozu.Api.ApiContext"/>
 		///
-		private readonly ApiContext _apiContext;
-		public FolderResource(ApiContext apiContext) 
+		private readonly IApiContext _apiContext;
+		public FolderResource(IApiContext apiContext) 
 		{
 			_apiContext = apiContext;
 		}
 
 		
 		/// <summary>
-		/// Retrieves the properties of an existing folder.
+		/// 
 		/// </summary>
-		/// <param name="documentListName">The name of the document list associated with the folder to retrieve.</param>
-		/// <param name="folderId">The unique identifier of the folder to retrieve.</param>
+		/// <param name="documentListName"></param>
+		/// <param name="folderId"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.Content.Folder"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var folder = new Folder();
-		///   var folder = folder.GetFolder( documentListName,  folderId);
+		///   var folder = folder.GetFolder( documentListName,  folderId, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.Content.Folder GetFolder(string documentListName, string folderId)
+		public virtual Mozu.Api.Contracts.Content.Folder GetFolder(string documentListName, string folderId, AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.Content.Folder> response;
-			var client = Mozu.Api.Clients.Content.Documentlists.FolderClient.GetFolderClient( documentListName,  folderId);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.Content.Folder> response;
+			var client = Mozu.Api.Clients.Content.Documentlists.FolderClient.GetFolderClient( documentListName,  folderId, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
 		}
 
 		/// <summary>
-		/// Retrieve a list of content folders according to any filter and sort criteria.
+		/// 
 		/// </summary>
-		/// <param name="documentListName">The name of the document list that contains this folder.</param>
-		/// <param name="filter">A set of expressions that consist of a field, operator, and value and represent search parameter syntax when filtering results of a query. Valid operators include equals (eq), does not equal (ne), greater than (gt), less than (lt), greater than or equal to (ge), less than or equal to (le), starts with (sw), or contains (cont). For example - "filter=IsDisplayed+eq+true"</param>
+		/// <param name="documentListName"></param>
+		/// <param name="filter"></param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.Content.FolderCollection"/>
 		/// </returns>
@@ -67,104 +70,108 @@ namespace Mozu.Api.Resources.Content.Documentlists
 		/// </example>
 		public virtual Mozu.Api.Contracts.Content.FolderCollection GetFolders(string documentListName, string filter)
 		{
-			return GetFolders( documentListName,  filter,  null,  null,  null);
+			return GetFolders( documentListName,  filter,  null,  null,  null, null);
 		}
 
 		/// <summary>
-		/// Retrieve a list of content folders according to any filter and sort criteria.
+		/// 
 		/// </summary>
-		/// <param name="documentListName">The name of the document list that contains this folder.</param>
-		/// <param name="filter">A set of expressions that consist of a field, operator, and value and represent search parameter syntax when filtering results of a query. Valid operators include equals (eq), does not equal (ne), greater than (gt), less than (lt), greater than or equal to (ge), less than or equal to (le), starts with (sw), or contains (cont). For example - "filter=IsDisplayed+eq+true"</param>
-		/// <param name="pageSize">Specifies the number of results to display on each page when creating paged results from a query. The maximum value is 200.</param>
-		/// <param name="sort">The property by which to sort results and whether the results appear in ascending (a-z) order, represented by ASC or in descending (z-a) order, represented by DESC. The sortBy parameter follows an available property. For example: "sortBy=productCode+asc"</param>
-		/// <param name="startIndex">Indicates the zero-based offset in the complete result set where the returned entities begin, when creating paged results from a query. For example, with a PageSize of 25, to get the 51st through the 75th items, use startIndex=3.</param>
+		/// <param name="documentListName"></param>
+		/// <param name="filter"></param>
+		/// <param name="pageSize"></param>
+		/// <param name="sort"></param>
+		/// <param name="startIndex"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.Content.FolderCollection"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var folder = new Folder();
-		///   var folderCollection = folder.GetFolders( documentListName,  filter,  pageSize,  sort,  startIndex);
+		///   var folderCollection = folder.GetFolders( documentListName,  filter,  pageSize,  sort,  startIndex, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.Content.FolderCollection GetFolders(string documentListName, string filter, long? pageSize, string sort, long? startIndex)
+		public virtual Mozu.Api.Contracts.Content.FolderCollection GetFolders(string documentListName, string filter, int? pageSize =  null, string sort =  null, int? startIndex =  null, AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.Content.FolderCollection> response;
-			var client = Mozu.Api.Clients.Content.Documentlists.FolderClient.GetFoldersClient( documentListName,  filter,  pageSize,  sort,  startIndex);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.Content.FolderCollection> response;
+			var client = Mozu.Api.Clients.Content.Documentlists.FolderClient.GetFoldersClient( documentListName,  filter,  pageSize,  sort,  startIndex, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
 		}
 
 				/// <summary>
-		/// Creates a new folder.
+		/// 
 		/// </summary>
-		/// <param name="documentListName">The name of the document list for which to create a new folder.</param>
-		/// <param name="folder">The name of the newly created folder.</param>
+		/// <param name="documentListName"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
+		/// <param name="folder"></param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.Content.Folder"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var folder = new Folder();
-		///   var folder = folder.CreateFolder( documentListName,  folder);
+		///   var folder = folder.CreateFolder( folder,  documentListName, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.Content.Folder CreateFolder(string documentListName, Mozu.Api.Contracts.Content.Folder folder)
+		public virtual Mozu.Api.Contracts.Content.Folder CreateFolder(Mozu.Api.Contracts.Content.Folder folder, string documentListName, AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.Content.Folder> response;
-			var client = Mozu.Api.Clients.Content.Documentlists.FolderClient.CreateFolderClient( documentListName,  folder);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.Content.Folder> response;
+			var client = Mozu.Api.Clients.Content.Documentlists.FolderClient.CreateFolderClient( folder,  documentListName, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
 		}
 
 				/// <summary>
-		/// Updates an existing content folder in a document list.
+		/// 
 		/// </summary>
-		/// <param name="documentListName">The name of the document list that contains this folder.</param>
-		/// <param name="folderId">Unique identifier of the folder.</param>
-		/// <param name="folder">Properties of the folder to update.</param>
+		/// <param name="documentListName"></param>
+		/// <param name="folderId"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
+		/// <param name="folder"></param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.Content.Folder"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var folder = new Folder();
-		///   var folder = folder.UpdateFolder( documentListName,  folderId,  folder);
+		///   var folder = folder.UpdateFolder( folder,  documentListName,  folderId, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.Content.Folder UpdateFolder(string documentListName, string folderId, Mozu.Api.Contracts.Content.Folder folder)
+		public virtual Mozu.Api.Contracts.Content.Folder UpdateFolder(Mozu.Api.Contracts.Content.Folder folder, string documentListName, string folderId, AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.Content.Folder> response;
-			var client = Mozu.Api.Clients.Content.Documentlists.FolderClient.UpdateFolderClient( documentListName,  folderId,  folder);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.Content.Folder> response;
+			var client = Mozu.Api.Clients.Content.Documentlists.FolderClient.UpdateFolderClient( folder,  documentListName,  folderId, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
 		}
 
 				/// <summary>
-		/// Deletes a folder of documents from the specified document list.
+		/// 
 		/// </summary>
-		/// <param name="documentListName">The name of the document list associated with the folder to delete.</param>
-		/// <param name="folderId">The unique identifier of the folder to delete.</param>
+		/// <param name="documentListName"></param>
+		/// <param name="folderId"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// 
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var folder = new Folder();
-		///   folder.DeleteFolder( documentListName,  folderId);
+		///   folder.DeleteFolder( documentListName,  folderId, authTicket);
 		/// </code>
 		/// </example>
-		public virtual void DeleteFolder(string documentListName, string folderId)
+		public virtual void DeleteFolder(string documentListName, string folderId, AuthTicket authTicket= null)
 		{
-						MozuClient response;
-			var client = Mozu.Api.Clients.Content.Documentlists.FolderClient.DeleteFolderClient( documentListName,  folderId);
-			SetContext(_apiContext, ref client,true);
+			MozuClient response;
+			var client = Mozu.Api.Clients.Content.Documentlists.FolderClient.DeleteFolderClient( documentListName,  folderId, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 
 		}

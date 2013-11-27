@@ -10,62 +10,45 @@
 
 using System;
 using System.Collections.Generic;
+using Mozu.Api.Security;
+
 
 namespace Mozu.Api.Resources.Content.Documentlists
 {
 	/// <summary>
-	/// Use the facets subresource to allow a merchant to add information for product indexing and searching.
+	/// 
 	/// </summary>
-	public partial class FacetResource : BaseResource 	{
+	public partial class FacetResource  	{
 				///
 		/// <see cref="Mozu.Api.ApiContext"/>
 		///
-		private readonly ApiContext _apiContext;
-		public FacetResource(ApiContext apiContext) 
+		private readonly IApiContext _apiContext;
+		public FacetResource(IApiContext apiContext) 
 		{
 			_apiContext = apiContext;
 		}
 
 		
 		/// <summary>
-		/// Retrieves the properties of facets that aid in indexing and searching.
+		/// 
 		/// </summary>
-		/// <param name="documentListName">The document list associated with the facets to retrieve.</param>
-		/// <param name="propertyName">The property name associated with the facets to retrieve.</param>
+		/// <param name="documentListName"></param>
+		/// <param name="propertyName"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// List{<see cref="Mozu.Api.Contracts.Content.Facet"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var facet = new Facet();
-		///   var facet = facet.GetFacets( documentListName,  propertyName);
+		///   var facet = facet.GetFacets( documentListName,  propertyName, authTicket);
 		/// </code>
 		/// </example>
-		public virtual List<Mozu.Api.Contracts.Content.Facet> GetFacets(string documentListName, string propertyName)
+		public virtual List<Mozu.Api.Contracts.Content.Facet> GetFacets(string documentListName, string propertyName, AuthTicket authTicket= null)
 		{
-			return GetFacets( documentListName,  propertyName,  null);
-		}
-
-		/// <summary>
-		/// Retrieves the properties of facets that aid in indexing and searching.
-		/// </summary>
-		/// <param name="documentListName">The document list associated with the facets to retrieve.</param>
-		/// <param name="propertyName">The property name associated with the facets to retrieve.</param>
-		/// <param name="publishState">The current state of the document, which is Active, Draft, or Latest. Active documents are published and cannot be deleted. Querying Latest returns the most recent version of the document, regardless of whether it is published or a draft.</param>
-		/// <returns>
-		/// List{<see cref="Mozu.Api.Contracts.Content.Facet"/>}
-		/// </returns>
-		/// <example>
-		/// <code>
-		///   var facet = new Facet();
-		///   var facet = facet.GetFacets( documentListName,  propertyName,  publishState);
-		/// </code>
-		/// </example>
-		public virtual List<Mozu.Api.Contracts.Content.Facet> GetFacets(string documentListName, string propertyName, string publishState)
-		{
-						MozuClient<List<Mozu.Api.Contracts.Content.Facet>> response;
-			var client = Mozu.Api.Clients.Content.Documentlists.FacetClient.GetFacetsClient( documentListName,  propertyName,  publishState);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<List<Mozu.Api.Contracts.Content.Facet>> response;
+			var client = Mozu.Api.Clients.Content.Documentlists.FacetClient.GetFacetsClient( documentListName,  propertyName, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 

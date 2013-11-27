@@ -10,25 +10,27 @@
 
 using System;
 using System.Collections.Generic;
+using Mozu.Api.Security;
+
 
 namespace Mozu.Api.Resources.Content
 {
 	/// <summary>
-	/// The DocumentTypes resource is a part of the Content Service.
+	/// 
 	/// </summary>
-	public partial class DocumentTypeResource : BaseResource 	{
+	public partial class DocumentTypeResource  	{
 				///
 		/// <see cref="Mozu.Api.ApiContext"/>
 		///
-		private readonly ApiContext _apiContext;
-		public DocumentTypeResource(ApiContext apiContext) 
+		private readonly IApiContext _apiContext;
+		public DocumentTypeResource(IApiContext apiContext) 
 		{
 			_apiContext = apiContext;
 		}
 
 		
 		/// <summary>
-		/// Retrieves a paged list of DocumentTypes.
+		/// 
 		/// </summary>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.Content.DocumentTypeCollection"/>
@@ -41,51 +43,53 @@ namespace Mozu.Api.Resources.Content
 		/// </example>
 		public virtual Mozu.Api.Contracts.Content.DocumentTypeCollection List()
 		{
-			return List( null,  null);
+			return List( null,  null, null);
 		}
 
 		/// <summary>
-		/// Retrieves a paged list of DocumentTypes.
+		/// 
 		/// </summary>
 		/// <param name="pageSize"></param>
 		/// <param name="startIndex"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.Content.DocumentTypeCollection"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var documenttype = new DocumentType();
-		///   var documentTypeCollection = documenttype.List( pageSize,  startIndex);
+		///   var documentTypeCollection = documenttype.List( pageSize,  startIndex, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.Content.DocumentTypeCollection List(int? pageSize, int? startIndex)
+		public virtual Mozu.Api.Contracts.Content.DocumentTypeCollection List(int? pageSize =  null, int? startIndex =  null, AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.Content.DocumentTypeCollection> response;
-			var client = Mozu.Api.Clients.Content.DocumentTypeClient.ListClient( pageSize,  startIndex);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.Content.DocumentTypeCollection> response;
+			var client = Mozu.Api.Clients.Content.DocumentTypeClient.ListClient( pageSize,  startIndex, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
 		}
 
 		/// <summary>
-		/// Retrieves an existing DocumentType.
+		/// 
 		/// </summary>
-		/// <param name="documentTypeName">The documentType name being retrieved.</param>
+		/// <param name="documentTypeName"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.Content.DocumentType"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var documenttype = new DocumentType();
-		///   var documentType = documenttype.Get( documentTypeName);
+		///   var documentType = documenttype.Get( documentTypeName, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.Content.DocumentType Get(string documentTypeName)
+		public virtual Mozu.Api.Contracts.Content.DocumentType Get(string documentTypeName, AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.Content.DocumentType> response;
-			var client = Mozu.Api.Clients.Content.DocumentTypeClient.GetClient( documentTypeName);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.Content.DocumentType> response;
+			var client = Mozu.Api.Clients.Content.DocumentTypeClient.GetClient( documentTypeName, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 

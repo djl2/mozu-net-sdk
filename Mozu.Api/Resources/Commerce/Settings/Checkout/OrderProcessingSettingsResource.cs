@@ -10,63 +10,67 @@
 
 using System;
 using System.Collections.Generic;
+using Mozu.Api.Security;
+
 
 namespace Mozu.Api.Resources.Commerce.Settings.Checkout
 {
 	/// <summary>
-	/// Use the order processing settings resource to define how orders and payments are processed for the site.
+	/// 
 	/// </summary>
-	public partial class OrderProcessingSettingsResource : BaseResource 	{
+	public partial class OrderProcessingSettingsResource  	{
 				///
 		/// <see cref="Mozu.Api.ApiContext"/>
 		///
-		private readonly ApiContext _apiContext;
-		public OrderProcessingSettingsResource(ApiContext apiContext) 
+		private readonly IApiContext _apiContext;
+		public OrderProcessingSettingsResource(IApiContext apiContext) 
 		{
 			_apiContext = apiContext;
 		}
 
 		
 		/// <summary>
-		/// Retrieves a list of the order processing settings defined for the site.
+		/// 
 		/// </summary>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.SiteSettings.Order.OrderProcessingSettings"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var orderprocessingsettings = new OrderProcessingSettings();
-		///   var orderProcessingSettings = orderprocessingsettings.GetOrderProcessingSettings();
+		///   var orderProcessingSettings = orderprocessingsettings.GetOrderProcessingSettings(authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.SiteSettings.Order.OrderProcessingSettings GetOrderProcessingSettings()
+		public virtual Mozu.Api.Contracts.SiteSettings.Order.OrderProcessingSettings GetOrderProcessingSettings(AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.SiteSettings.Order.OrderProcessingSettings> response;
-			var client = Mozu.Api.Clients.Commerce.Settings.Checkout.OrderProcessingSettingsClient.GetOrderProcessingSettingsClient();
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.SiteSettings.Order.OrderProcessingSettings> response;
+			var client = Mozu.Api.Clients.Commerce.Settings.Checkout.OrderProcessingSettingsClient.GetOrderProcessingSettingsClient(authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
 		}
 
 						/// <summary>
-		/// Updates the order processing settings defined for the site.
+		/// 
 		/// </summary>
-		/// <param name="orderProcessingSettings">List of the order processing settings to define for the site.</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
+		/// <param name="orderProcessingSettings"></param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.SiteSettings.Order.OrderProcessingSettings"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var orderprocessingsettings = new OrderProcessingSettings();
-		///   var orderProcessingSettings = orderprocessingsettings.UpdateOrderProcessingSettings( orderProcessingSettings);
+		///   var orderProcessingSettings = orderprocessingsettings.UpdateOrderProcessingSettings( orderProcessingSettings, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.SiteSettings.Order.OrderProcessingSettings UpdateOrderProcessingSettings(Mozu.Api.Contracts.SiteSettings.Order.OrderProcessingSettings orderProcessingSettings)
+		public virtual Mozu.Api.Contracts.SiteSettings.Order.OrderProcessingSettings UpdateOrderProcessingSettings(Mozu.Api.Contracts.SiteSettings.Order.OrderProcessingSettings orderProcessingSettings, AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.SiteSettings.Order.OrderProcessingSettings> response;
-			var client = Mozu.Api.Clients.Commerce.Settings.Checkout.OrderProcessingSettingsClient.UpdateOrderProcessingSettingsClient( orderProcessingSettings);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.SiteSettings.Order.OrderProcessingSettings> response;
+			var client = Mozu.Api.Clients.Commerce.Settings.Checkout.OrderProcessingSettingsClient.UpdateOrderProcessingSettingsClient( orderProcessingSettings, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 

@@ -10,46 +10,25 @@
 
 using System;
 using System.Collections.Generic;
+using Mozu.Api.Security;
+
 
 namespace Mozu.Api.Resources.Commerce.Customer
 {
 	/// <summary>
 	/// 
 	/// </summary>
-	public partial class VisitResource : BaseResource 	{
+	public partial class VisitResource  	{
 				///
 		/// <see cref="Mozu.Api.ApiContext"/>
 		///
-		private readonly ApiContext _apiContext;
-		public VisitResource(ApiContext apiContext) 
+		private readonly IApiContext _apiContext;
+		public VisitResource(IApiContext apiContext) 
 		{
 			_apiContext = apiContext;
 		}
 
 		
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="visitId"></param>
-		/// <returns>
-		/// <see cref="Mozu.Api.Contracts.Customer.Visit"/>
-		/// </returns>
-		/// <example>
-		/// <code>
-		///   var visit = new Visit();
-		///   var visit = visit.GetVisit( visitId);
-		/// </code>
-		/// </example>
-		public virtual Mozu.Api.Contracts.Customer.Visit GetVisit(string visitId)
-		{
-						MozuClient<Mozu.Api.Contracts.Customer.Visit> response;
-			var client = Mozu.Api.Clients.Commerce.Customer.VisitClient.GetVisitClient( visitId);
-			SetContext(_apiContext, ref client,true);
-			response= client.Execute();
-			return response.Result();
-
-		}
-
 		/// <summary>
 		/// 
 		/// </summary>
@@ -64,7 +43,7 @@ namespace Mozu.Api.Resources.Commerce.Customer
 		/// </example>
 		public virtual Mozu.Api.Contracts.Customer.VisitCollection GetVisits()
 		{
-			return GetVisits( null,  null,  null,  null);
+			return GetVisits( null,  null,  null,  null, null);
 		}
 
 		/// <summary>
@@ -74,20 +53,45 @@ namespace Mozu.Api.Resources.Commerce.Customer
 		/// <param name="pageSize"></param>
 		/// <param name="sortBy"></param>
 		/// <param name="startIndex"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.Customer.VisitCollection"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var visit = new Visit();
-		///   var visitCollection = visit.GetVisits( filter,  pageSize,  sortBy,  startIndex);
+		///   var visitCollection = visit.GetVisits( filter,  pageSize,  sortBy,  startIndex, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.Customer.VisitCollection GetVisits(string filter, int? pageSize, string sortBy, int? startIndex)
+		public virtual Mozu.Api.Contracts.Customer.VisitCollection GetVisits(string filter =  null, int? pageSize =  null, string sortBy =  null, int? startIndex =  null, AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.Customer.VisitCollection> response;
-			var client = Mozu.Api.Clients.Commerce.Customer.VisitClient.GetVisitsClient( filter,  pageSize,  sortBy,  startIndex);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.Customer.VisitCollection> response;
+			var client = Mozu.Api.Clients.Commerce.Customer.VisitClient.GetVisitsClient( filter,  pageSize,  sortBy,  startIndex, authTicket);
+			client.WithContext(_apiContext);
+			response= client.Execute();
+			return response.Result();
+
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="visitId"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
+		/// <returns>
+		/// <see cref="Mozu.Api.Contracts.Customer.Visit"/>
+		/// </returns>
+		/// <example>
+		/// <code>
+		///   var visit = new Visit();
+		///   var visit = visit.GetVisit( visitId, authTicket);
+		/// </code>
+		/// </example>
+		public virtual Mozu.Api.Contracts.Customer.Visit GetVisit(string visitId, AuthTicket authTicket= null)
+		{
+			MozuClient<Mozu.Api.Contracts.Customer.Visit> response;
+			var client = Mozu.Api.Clients.Commerce.Customer.VisitClient.GetVisitClient( visitId, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
@@ -96,6 +100,7 @@ namespace Mozu.Api.Resources.Commerce.Customer
 				/// <summary>
 		/// 
 		/// </summary>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <param name="visit"></param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.Customer.Visit"/>
@@ -103,14 +108,14 @@ namespace Mozu.Api.Resources.Commerce.Customer
 		/// <example>
 		/// <code>
 		///   var visit = new Visit();
-		///   var visit = visit.AddVisit( visit);
+		///   var visit = visit.AddVisit( visit, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.Customer.Visit AddVisit(Mozu.Api.Contracts.Customer.Visit visit)
+		public virtual Mozu.Api.Contracts.Customer.Visit AddVisit(Mozu.Api.Contracts.Customer.Visit visit, AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.Customer.Visit> response;
-			var client = Mozu.Api.Clients.Commerce.Customer.VisitClient.AddVisitClient( visit);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.Customer.Visit> response;
+			var client = Mozu.Api.Clients.Commerce.Customer.VisitClient.AddVisitClient( visit, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
@@ -120,6 +125,7 @@ namespace Mozu.Api.Resources.Commerce.Customer
 		/// 
 		/// </summary>
 		/// <param name="visitId"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <param name="visit"></param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.Customer.Visit"/>
@@ -127,14 +133,14 @@ namespace Mozu.Api.Resources.Commerce.Customer
 		/// <example>
 		/// <code>
 		///   var visit = new Visit();
-		///   var visit = visit.UpdateVisit( visitId,  visit);
+		///   var visit = visit.UpdateVisit( visit,  visitId, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.Customer.Visit UpdateVisit(string visitId, Mozu.Api.Contracts.Customer.Visit visit)
+		public virtual Mozu.Api.Contracts.Customer.Visit UpdateVisit(Mozu.Api.Contracts.Customer.Visit visit, string visitId, AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.Customer.Visit> response;
-			var client = Mozu.Api.Clients.Commerce.Customer.VisitClient.UpdateVisitClient( visitId,  visit);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.Customer.Visit> response;
+			var client = Mozu.Api.Clients.Commerce.Customer.VisitClient.UpdateVisitClient( visit,  visitId, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 

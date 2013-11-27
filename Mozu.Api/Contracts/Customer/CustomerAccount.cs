@@ -14,75 +14,35 @@ using Mozu.Api.Contracts.Core;
 
 namespace Mozu.Api.Contracts.Customer
 {
-		///
-		///	Properties of the customer account.
-		///
 		public class CustomerAccount
 		{
-			///
-			///If true, the customer prefers to receive marketing material such as newsletters or email offers.
-			///
 			public bool AcceptsMarketing { get; set; }
 
-			///
-			///The legal or doing business as (DBA) or tradestyle name of the business or organization. The maximum character length is 200.
-			///
 			public string CompanyOrOrganization { get; set; }
 
-			///
-			///Identifier of the entity.
-			///
+			public string ExternalId { get; set; }
+
 			public int Id { get; set; }
 
-			///
-			///Unique identifier of the site.
-			///
-			public int SiteId { get; set; }
-
-			///
-			///If true, this customer account has tax exempt status.
-			///
 			public bool TaxExempt { get; set; }
 
-			///
-			///The tax identification number associated with the customer account.
-			///
 			public string TaxId { get; set; }
 
-			///
-			///Unique identifier of the user associated with the customer account.
-			///
 			public string UserId { get; set; }
 
-			///
-			///Collection of customer account attributes.
-			///
 			public List<CustomerAttribute> Attributes { get; set; }
 
-			///
-			///Identifier and datetime stamp information recorded when creating or updating a resource entity. This value is system-supplied and read-only.
-			///
 			public AuditInfo AuditInfo { get; set; }
 
-			///
-			///Contact information, including the contact's name, address, phone numbers, email addresses, and company (if supplied). Also indicates whether this is a billing, shipping, or billing and shipping contact.
-			///
+			public CommerceSummary CommerceSummary { get; set; }
+
 			public List<CustomerContact> Contacts { get; set; }
 
-			///
-			///List of groups associated with this customer account.
-			///
 			public List<CustomerGroup> Groups { get; set; }
 
-			///
-			///List of customer account notes.
-			///
-			public List<CustomerNote> Notes { get; set; }
+			public List<CustomerInStockNotificationSubscription> InStockNotificationSubscriptions { get; set; }
 
-			///
-			///The order summary includes the date of the most recent order, a list of the number of orders made, and the total monetary sum of all orders including cancellations and refunds associated with the customer account.
-			///
-			public OrderSummary OrderSummary { get; set; }
+			public List<CustomerNote> Notes { get; set; }
 
 		}
 

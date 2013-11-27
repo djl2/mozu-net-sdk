@@ -14,99 +14,48 @@ using Mozu.Api.Contracts.Core;
 
 namespace Mozu.Api.Contracts.SiteSettings.General
 {
-		///
-		///	General settings used on the storefront site.
-		///
 		public class GeneralSettings
 		{
-			///
-			///If true, the site allows entry of addresses not verified by an address validation service.
-			///
 			public bool? AllowInvalidAddresses { get; set; }
 
-			///
-			///The physical directory path or URL where the mobile favicon image file is stored. The favicon icon is generally 57x57 pixels. The icon appears on a mobile website or on the mobile device's OS Home.
-			///
 			public string FavIconMobilePath { get; set; }
 
-			///
-			///The physical directory path or URL where the mobile favicon image file is stored. The favicon icon is generally 16x16 pixels. The icon appears on a a browser tab as the website's mini logo or on a browser address bar, or next to the page name in a list of bookmarks.
-			///
 			public string FavIconPath { get; set; }
 
-			///
-			///The Google Analytics code associated with a particular store. This could be the web tracking code.
-			///
 			public string GoogleAnalyticsCode { get; set; }
 
-			///
-			///If true, a service to verify addresses as valid is enabled for the site.
-			///
 			public bool? IsAddressValidationEnabled { get; set; }
 
-			///
-			///If true, the Google analytics for eCommerce is enabled for this site. If false, the analytics are not enabled.
-			///
 			public bool? IsGoogleAnalyticsEcommerceEnabled { get; set; }
 
-			///
-			///If true, enable Google analytics for this site. If false, analytics are not enabled.
-			///
 			public bool? IsGoogleAnalyticsEnabled { get; set; }
 
-			///
-			///They physical directory path or URL where the website logo is stored.
-			///
+			public bool IsMozuWebSite { get; set; }
+
+			public bool? IsWishlistCreationEnabled { get; set; }
+
 			public string LogoPath { get; set; }
 
-			///
-			///The tagline or text that appears when hovering over the site logo.
-			///
 			public string LogoText { get; set; }
 
-			///
-			///The mobile theme is the storefront name for the theme.
-			///
 			public string MobileTheme { get; set; }
 
-			///
-			///Email address to display on email messages sent from the site.
-			///
 			public string ReplyToEmailAddress { get; set; }
 
-			///
-			///Email address to set up so that shoppers and users browsing the site can use to contact the merchant.
-			///
 			public string SenderEmailAddress { get; set; }
 
-			///
-			///Choose a format to use on the site: 12-hour (hh:mm:ss tt) or 24-hour format (HH:mm:ss).
-			///
 			public string SiteTimeFormat { get; set; }
 
-			///
-			///Choose the time zone to use for the site.
-			///
 			public string SiteTimeZone { get; set; }
 
-			///
-			///The name of the theme used on the storefront.
-			///
+			public int? TemplateSiteId { get; set; }
+
 			public string Theme { get; set; }
 
-			///
-			///The name of the website to display on the storefront with no spaces.
-			///
 			public string WebsiteName { get; set; }
 
-			///
-			///Identifier and datetime stamp information recorded when creating or updating a resource entity. This value is system-supplied and read-only.
-			///
 			public AuditInfo AuditInfo { get; set; }
 
-			///
-			///The territories configured for the site that are subject to sales tax.
-			///
 			public List<TaxableTerritory> TaxableTerritories { get; set; }
 
 		}

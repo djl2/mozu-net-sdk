@@ -13,61 +13,75 @@ using System;
 
 namespace Mozu.Api.Urls.Commerce
 {
-	public partial class OrderUrl : BaseUrl
+	public partial class OrderUrl : MozuUrl
 	{
 
 		/// <summary>
         /// Get Resource Url for GetOrders
         /// </summary>
-        /// <param name="filter">A set of expressions that consist of a field, operator, and value and represent search parameter syntax when filtering results of a query. You can filter an order's search results by any of its properties, including status, contact information, or total. Valid operators include equals (eq), does not equal (ne), greater than (gt), less than (lt), greater than or equal to (ge), less than or equal to (le), starts with (sw), or contains (cont). <b>For example - "filter=Status+eq+Submitted"</b></param>
-        /// <param name="pageSize">Specifies the number of results to display on each page when creating paged results from a query. The maximum value is 200.</param>
-        /// <param name="q">A list of order search terms to use in the query when searching across order number and the name or email of the billing contact. Separate multiple search terms with a space character.</param>
-        /// <param name="qLimit">The maximum number of search results to return in the response. You can limit any range between 1-100.</param>
+        /// <param name="filter"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="q"></param>
+        /// <param name="qLimit"></param>
         /// <param name="sortBy"></param>
         /// <param name="startIndex"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string GetOrdersUrl(string filter, int? pageSize, string q, int? qLimit, string sortBy, int? startIndex)
+        public static MozuUrl GetOrdersUrl(string filter, int? pageSize, string q, int? qLimit, string sortBy, int? startIndex)
 		{
-			var url = "/api/commerce/orders/?startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&filter={filter}&q={q}&qLimit={qLimit}&";
+			var url = "/api/commerce/orders/?startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&filter={filter}&q={q}&qLimit={qLimit}";
 			FormatUrl( ref url, "filter", filter);
 			FormatUrl( ref url, "pageSize", pageSize);
 			FormatUrl( ref url, "q", q);
 			FormatUrl( ref url, "qLimit", qLimit);
 			FormatUrl( ref url, "sortBy", sortBy);
 			FormatUrl( ref url, "startIndex", startIndex);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		/// <summary>
         /// Get Resource Url for GetAvailableActions
         /// </summary>
-        /// <param name="orderId">Unique identifier of the available order actions to get.</param>
+        /// <param name="orderId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string GetAvailableActionsUrl(string orderId)
+        public static MozuUrl GetAvailableActionsUrl(string orderId)
 		{
 			var url = "/api/commerce/orders/{orderId}/actions";
 			FormatUrl( ref url, "orderId", orderId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+		}
+
+		/// <summary>
+        /// Get Resource Url for GetTaxableOrders
+        /// </summary>
+        /// <param name="orderId"></param>
+        /// <returns>
+        /// String - Resource Url
+        /// </returns>
+        public static MozuUrl GetTaxableOrdersUrl(string orderId)
+		{
+			var url = "/api/commerce/orders/{orderId}/taxableorders";
+			FormatUrl( ref url, "orderId", orderId);
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		/// <summary>
         /// Get Resource Url for GetOrder
         /// </summary>
-        /// <param name="draft">If true, retrieve the draft version of the order, which might include uncommitted changes to the order or its components.</param>
-        /// <param name="orderId">Unique identifier of the order details to get.</param>
+        /// <param name="draft"></param>
+        /// <param name="orderId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string GetOrderUrl(bool? draft, string orderId)
+        public static MozuUrl GetOrderUrl(bool? draft, string orderId)
 		{
 			var url = "/api/commerce/orders/{orderId}?draft={draft}";
 			FormatUrl( ref url, "draft", draft);
 			FormatUrl( ref url, "orderId", orderId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				/// <summary>
@@ -76,74 +90,74 @@ namespace Mozu.Api.Urls.Commerce
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string CreateOrderUrl()
+        public static MozuUrl CreateOrderUrl()
 		{
 			var url = "/api/commerce/orders/";
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		/// <summary>
         /// Get Resource Url for CreateOrderFromCart
         /// </summary>
-        /// <param name="cartId">Unique identifier of the cart. This is the original cart ID expressed as a GUID.</param>
+        /// <param name="cartId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string CreateOrderFromCartUrl(string cartId)
+        public static MozuUrl CreateOrderFromCartUrl(string cartId)
 		{
 			var url = "/api/commerce/orders/?cartId={cartId}";
 			FormatUrl( ref url, "cartId", cartId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		/// <summary>
         /// Get Resource Url for PerformOrderAction
         /// </summary>
-        /// <param name="orderId">Unique identifier of the order.</param>
+        /// <param name="orderId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string PerformOrderActionUrl(string orderId)
+        public static MozuUrl PerformOrderActionUrl(string orderId)
 		{
 			var url = "/api/commerce/orders/{orderId}/actions";
 			FormatUrl( ref url, "orderId", orderId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				/// <summary>
         /// Get Resource Url for UpdateOrderDiscount
         /// </summary>
-        /// <param name="discountId">Unique identifier of the discount. System-supplied and read only.</param>
-        /// <param name="orderId">Unique identifier of the order discount. System-supplied and read only.</param>
-        /// <param name="updateMode">Specifies whether to modify the discount by updating the original order, updating the order in draft mode, or updating the order in draft mode and then committing the changes to the original. Draft mode enables users to make incremental order changes before committing the changes to the original order. Valid values are "ApplyToOriginal", "ApplyToDraft", or "ApplyAndCommit".</param>
-        /// <param name="version">If applicable, the version of the order or draft for which to update the discount.</param>
+        /// <param name="discountId"></param>
+        /// <param name="orderId"></param>
+        /// <param name="updateMode"></param>
+        /// <param name="version"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string UpdateOrderDiscountUrl(int discountId, string orderId, string updateMode, string version)
+        public static MozuUrl UpdateOrderDiscountUrl(int discountId, string orderId, string updateMode, string version)
 		{
 			var url = "/api/commerce/orders/{orderId}/discounts/{discountId}?updatemode={updateMode}&version={version}";
 			FormatUrl( ref url, "discountId", discountId);
 			FormatUrl( ref url, "orderId", orderId);
 			FormatUrl( ref url, "updateMode", updateMode);
 			FormatUrl( ref url, "version", version);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		/// <summary>
         /// Get Resource Url for DeleteOrderDraft
         /// </summary>
-        /// <param name="orderId">Unique identifier of the order associated with the draft to delete.</param>
-        /// <param name="version">If applicable, the version of the order draft to delete.</param>
+        /// <param name="orderId"></param>
+        /// <param name="version"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string DeleteOrderDraftUrl(string orderId, string version)
+        public static MozuUrl DeleteOrderDraftUrl(string orderId, string version)
 		{
 			var url = "/api/commerce/orders/{orderId}/draft?version={version}";
 			FormatUrl( ref url, "orderId", orderId);
 			FormatUrl( ref url, "version", version);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		/// <summary>
@@ -153,29 +167,29 @@ namespace Mozu.Api.Urls.Commerce
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string ChangeOrderUserIdUrl(string orderId)
+        public static MozuUrl ChangeOrderUserIdUrl(string orderId)
 		{
 			var url = "/api/commerce/orders/{orderId}/users";
 			FormatUrl( ref url, "orderId", orderId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		/// <summary>
         /// Get Resource Url for UpdateOrder
         /// </summary>
-        /// <param name="orderId">Unique identifier of the order to update.</param>
-        /// <param name="updateMode">Specifies whether to update the original order, update the order in draft mode, or update the order in draft mode and then commit the changes to the original. Draft mode enables users to make incremental order changes before committing the changes to the original order. Valid values are "ApplyToOriginal", "ApplyToDraft", or "ApplyAndCommit".</param>
-        /// <param name="version">If applicable, the version of the order or draft to update.</param>
+        /// <param name="orderId"></param>
+        /// <param name="updateMode"></param>
+        /// <param name="version"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string UpdateOrderUrl(string orderId, string updateMode, string version)
+        public static MozuUrl UpdateOrderUrl(string orderId, string updateMode, string version)
 		{
 			var url = "/api/commerce/orders/{orderId}?updatemode={updateMode}&version={version}";
 			FormatUrl( ref url, "orderId", orderId);
 			FormatUrl( ref url, "updateMode", updateMode);
 			FormatUrl( ref url, "version", version);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				

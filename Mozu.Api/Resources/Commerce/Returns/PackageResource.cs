@@ -10,138 +10,145 @@
 
 using System;
 using System.Collections.Generic;
+using Mozu.Api.Security;
+
 
 namespace Mozu.Api.Resources.Commerce.Returns
 {
 	/// <summary>
-	/// Use the return packages subresource to manage packages used to ship return replacement items.
+	/// 
 	/// </summary>
-	public partial class PackageResource : BaseResource 	{
+	public partial class PackageResource  	{
 				///
 		/// <see cref="Mozu.Api.ApiContext"/>
 		///
-		private readonly ApiContext _apiContext;
-		public PackageResource(ApiContext apiContext) 
+		private readonly IApiContext _apiContext;
+		public PackageResource(IApiContext apiContext) 
 		{
 			_apiContext = apiContext;
 		}
 
 		
 		/// <summary>
-		/// Retrieves the details of a package of return replacement items.
+		/// 
 		/// </summary>
-		/// <param name="packageId">Unique identifier of the return replacement package to retrieve.</param>
-		/// <param name="returnId">Unique identifier of the return associated with the replacement package to retrieve.</param>
+		/// <param name="packageId"></param>
+		/// <param name="returnId"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
-		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Shipping.Package"/>
+		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Fulfillment.Package"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var package = new Package();
-		///   var package = package.GetPackage( packageId,  returnId);
+		///   var package = package.GetPackage( packageId,  returnId, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.CommerceRuntime.Shipping.Package GetPackage(string packageId, string returnId)
+		public virtual Mozu.Api.Contracts.CommerceRuntime.Fulfillment.Package GetPackage(string packageId, string returnId, AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.CommerceRuntime.Shipping.Package> response;
-			var client = Mozu.Api.Clients.Commerce.Returns.PackageClient.GetPackageClient( packageId,  returnId);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.CommerceRuntime.Fulfillment.Package> response;
+			var client = Mozu.Api.Clients.Commerce.Returns.PackageClient.GetPackageClient( packageId,  returnId, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
 		}
 
 		/// <summary>
-		/// Retrieves the package label image supplied by the carrier for a return replacement.
+		/// 
 		/// </summary>
-		/// <param name="packageId">Unique identifier of the return replacement package for which to retrieve the label.</param>
-		/// <param name="returnId">Unique identifier of the return associated with the replacement package label to retrieve.</param>
+		/// <param name="packageId"></param>
+		/// <param name="returnId"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// 
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var package = new Package();
-		///   package.GetPackageLabel( packageId,  returnId);
+		///   package.GetPackageLabel( packageId,  returnId, authTicket);
 		/// </code>
 		/// </example>
-		public virtual void GetPackageLabel(string packageId, string returnId)
+		public virtual void GetPackageLabel(string packageId, string returnId, AuthTicket authTicket= null)
 		{
-						MozuClient response;
-			var client = Mozu.Api.Clients.Commerce.Returns.PackageClient.GetPackageLabelClient( packageId,  returnId);
-			SetContext(_apiContext, ref client,true);
+			MozuClient response;
+			var client = Mozu.Api.Clients.Commerce.Returns.PackageClient.GetPackageLabelClient( packageId,  returnId, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 
 		}
 
 				/// <summary>
-		/// Creates a new physical package of return replacement items.
+		/// 
 		/// </summary>
-		/// <param name="returnId">Unique identifier of the return for which to create a replacement package.</param>
-		/// <param name="package">Properties of the physical package for a return replacement.</param>
+		/// <param name="returnId"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
+		/// <param name="package"></param>
 		/// <returns>
-		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Shipping.Package"/>
+		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Fulfillment.Package"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var package = new Package();
-		///   var package = package.CreatePackage( returnId,  pkg);
+		///   var package = package.CreatePackage( pkg,  returnId, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.CommerceRuntime.Shipping.Package CreatePackage(string returnId, Mozu.Api.Contracts.CommerceRuntime.Shipping.Package pkg)
+		public virtual Mozu.Api.Contracts.CommerceRuntime.Fulfillment.Package CreatePackage(Mozu.Api.Contracts.CommerceRuntime.Fulfillment.Package pkg, string returnId, AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.CommerceRuntime.Shipping.Package> response;
-			var client = Mozu.Api.Clients.Commerce.Returns.PackageClient.CreatePackageClient( returnId,  pkg);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.CommerceRuntime.Fulfillment.Package> response;
+			var client = Mozu.Api.Clients.Commerce.Returns.PackageClient.CreatePackageClient( pkg,  returnId, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
 		}
 
 				/// <summary>
-		/// Updates one or more properties of a package associated with a return replacement.
+		/// 
 		/// </summary>
-		/// <param name="packageId">Unique identifier of the return replacement package to update.</param>
-		/// <param name="returnId">Unique identifier of the return associated with the replacement package to update.</param>
-		/// <param name="package">Properties of the return replacement package to update.</param>
+		/// <param name="packageId"></param>
+		/// <param name="returnId"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
+		/// <param name="package"></param>
 		/// <returns>
-		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Shipping.Package"/>
+		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Fulfillment.Package"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var package = new Package();
-		///   var package = package.UpdatePackage( packageId,  returnId,  pkg);
+		///   var package = package.UpdatePackage( pkg,  packageId,  returnId, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.CommerceRuntime.Shipping.Package UpdatePackage(string packageId, string returnId, Mozu.Api.Contracts.CommerceRuntime.Shipping.Package pkg)
+		public virtual Mozu.Api.Contracts.CommerceRuntime.Fulfillment.Package UpdatePackage(Mozu.Api.Contracts.CommerceRuntime.Fulfillment.Package pkg, string packageId, string returnId, AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.CommerceRuntime.Shipping.Package> response;
-			var client = Mozu.Api.Clients.Commerce.Returns.PackageClient.UpdatePackageClient( packageId,  returnId,  pkg);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.CommerceRuntime.Fulfillment.Package> response;
+			var client = Mozu.Api.Clients.Commerce.Returns.PackageClient.UpdatePackageClient( pkg,  packageId,  returnId, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
 		}
 
 				/// <summary>
-		/// Deletes a package associated with a return replacement.
+		/// 
 		/// </summary>
-		/// <param name="packageId">Unique identifier of the return replacement package to delete.</param>
-		/// <param name="returnId">Unique identifier of the return associated with the replacement package to delete.</param>
+		/// <param name="packageId"></param>
+		/// <param name="returnId"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// 
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var package = new Package();
-		///   package.DeletePackage( packageId,  returnId);
+		///   package.DeletePackage( packageId,  returnId, authTicket);
 		/// </code>
 		/// </example>
-		public virtual void DeletePackage(string packageId, string returnId)
+		public virtual void DeletePackage(string packageId, string returnId, AuthTicket authTicket= null)
 		{
-						MozuClient response;
-			var client = Mozu.Api.Clients.Commerce.Returns.PackageClient.DeletePackageClient( packageId,  returnId);
-			SetContext(_apiContext, ref client,true);
+			MozuClient response;
+			var client = Mozu.Api.Clients.Commerce.Returns.PackageClient.DeletePackageClient( packageId,  returnId, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 
 		}

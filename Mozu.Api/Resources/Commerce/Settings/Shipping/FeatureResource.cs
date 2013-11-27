@@ -10,18 +10,20 @@
 
 using System;
 using System.Collections.Generic;
+using Mozu.Api.Security;
+
 
 namespace Mozu.Api.Resources.Commerce.Settings.Shipping
 {
 	/// <summary>
 	/// Use the active rate providers subresource to manage entities that provide estimated shipping rate calculations. Active rate providers represent carrier configurations set up in the shipping admin service.
 	/// </summary>
-	public partial class FeatureResource : BaseResource 	{
+	public partial class FeatureResource  	{
 				///
 		/// <see cref="Mozu.Api.ApiContext"/>
 		///
-		private readonly ApiContext _apiContext;
-		public FeatureResource(ApiContext apiContext) 
+		private readonly IApiContext _apiContext;
+		public FeatureResource(IApiContext apiContext) 
 		{
 			_apiContext = apiContext;
 		}
@@ -30,20 +32,21 @@ namespace Mozu.Api.Resources.Commerce.Settings.Shipping
 		/// <summary>
 		/// Retrieves a list of the active rate providers configured for the site.
 		/// </summary>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// List{<see cref="Mozu.Api.Contracts.Core.Feature"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var feature = new Feature();
-		///   var feature = feature.GetActiveRateProviders();
+		///   var feature = feature.GetActiveRateProviders(authTicket);
 		/// </code>
 		/// </example>
-		public virtual List<Mozu.Api.Contracts.Core.Feature> GetActiveRateProviders()
+		public virtual List<Mozu.Api.Contracts.Core.Feature> GetActiveRateProviders(AuthTicket authTicket= null)
 		{
-						MozuClient<List<Mozu.Api.Contracts.Core.Feature>> response;
-			var client = Mozu.Api.Clients.Commerce.Settings.Shipping.FeatureClient.GetActiveRateProvidersClient();
-			SetContext(_apiContext, ref client,true);
+			MozuClient<List<Mozu.Api.Contracts.Core.Feature>> response;
+			var client = Mozu.Api.Clients.Commerce.Settings.Shipping.FeatureClient.GetActiveRateProvidersClient(authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
@@ -52,6 +55,7 @@ namespace Mozu.Api.Resources.Commerce.Settings.Shipping
 				/// <summary>
 		/// Creates a new active rate provider for the site.
 		/// </summary>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <param name="activeRateProvider">Properties of the active rate provider to create.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.Core.Feature"/>
@@ -59,14 +63,14 @@ namespace Mozu.Api.Resources.Commerce.Settings.Shipping
 		/// <example>
 		/// <code>
 		///   var feature = new Feature();
-		///   var feature = feature.AddActiveRateProvider( activeRateProvider);
+		///   var feature = feature.AddActiveRateProvider( activeRateProvider, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.Core.Feature AddActiveRateProvider(Mozu.Api.Contracts.Core.Feature activeRateProvider)
+		public virtual Mozu.Api.Contracts.Core.Feature AddActiveRateProvider(Mozu.Api.Contracts.Core.Feature activeRateProvider, AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.Core.Feature> response;
-			var client = Mozu.Api.Clients.Commerce.Settings.Shipping.FeatureClient.AddActiveRateProviderClient( activeRateProvider);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.Core.Feature> response;
+			var client = Mozu.Api.Clients.Commerce.Settings.Shipping.FeatureClient.AddActiveRateProviderClient( activeRateProvider, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
@@ -75,6 +79,7 @@ namespace Mozu.Api.Resources.Commerce.Settings.Shipping
 				/// <summary>
 		/// Updates the active rate providers configured for the site.
 		/// </summary>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <param name="activeRateProviders">Properties of the active rate provider to update.</param>
 		/// <returns>
 		/// List{<see cref="Mozu.Api.Contracts.Core.Feature"/>}
@@ -82,14 +87,14 @@ namespace Mozu.Api.Resources.Commerce.Settings.Shipping
 		/// <example>
 		/// <code>
 		///   var feature = new Feature();
-		///   var feature = feature.UpdateActiveRateProviders( activeRateProviders);
+		///   var feature = feature.UpdateActiveRateProviders( activeRateProviders, authTicket);
 		/// </code>
 		/// </example>
-		public virtual List<Mozu.Api.Contracts.Core.Feature> UpdateActiveRateProviders(List<Mozu.Api.Contracts.Core.Feature> activeRateProviders)
+		public virtual List<Mozu.Api.Contracts.Core.Feature> UpdateActiveRateProviders(List<Mozu.Api.Contracts.Core.Feature> activeRateProviders, AuthTicket authTicket= null)
 		{
-						MozuClient<List<Mozu.Api.Contracts.Core.Feature>> response;
-			var client = Mozu.Api.Clients.Commerce.Settings.Shipping.FeatureClient.UpdateActiveRateProvidersClient( activeRateProviders);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<List<Mozu.Api.Contracts.Core.Feature>> response;
+			var client = Mozu.Api.Clients.Commerce.Settings.Shipping.FeatureClient.UpdateActiveRateProvidersClient( activeRateProviders, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 

@@ -10,86 +10,91 @@
 
 using System;
 using System.Collections.Generic;
+using Mozu.Api.Security;
+
 
 namespace Mozu.Api.Resources.Commerce.Settings.Shipping
 {
 	/// <summary>
-	/// Use the Order Handling Fee subresource to configure any shipping and handling fees to apply to orders for this site.
+	/// 
 	/// </summary>
-	public partial class SiteShippingHandlingFeeResource : BaseResource 	{
+	public partial class SiteShippingHandlingFeeResource  	{
 				///
 		/// <see cref="Mozu.Api.ApiContext"/>
 		///
-		private readonly ApiContext _apiContext;
-		public SiteShippingHandlingFeeResource(ApiContext apiContext) 
+		private readonly IApiContext _apiContext;
+		public SiteShippingHandlingFeeResource(IApiContext apiContext) 
 		{
 			_apiContext = apiContext;
 		}
 
 		
 		/// <summary>
-		/// Retrieves the details of the order handling fee configured for the site.
+		/// 
 		/// </summary>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.SiteSettings.Shipping.SiteShippingHandlingFee"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var siteshippinghandlingfee = new SiteShippingHandlingFee();
-		///   var siteShippingHandlingFee = siteshippinghandlingfee.GetOrderHandlingFee();
+		///   var siteShippingHandlingFee = siteshippinghandlingfee.GetOrderHandlingFee(authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.SiteSettings.Shipping.SiteShippingHandlingFee GetOrderHandlingFee()
+		public virtual Mozu.Api.Contracts.SiteSettings.Shipping.SiteShippingHandlingFee GetOrderHandlingFee(AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.SiteSettings.Shipping.SiteShippingHandlingFee> response;
-			var client = Mozu.Api.Clients.Commerce.Settings.Shipping.SiteShippingHandlingFeeClient.GetOrderHandlingFeeClient();
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.SiteSettings.Shipping.SiteShippingHandlingFee> response;
+			var client = Mozu.Api.Clients.Commerce.Settings.Shipping.SiteShippingHandlingFeeClient.GetOrderHandlingFeeClient(authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
 		}
 
 				/// <summary>
-		/// Creates a new order handling fee for the site.
+		/// 
 		/// </summary>
-		/// <param name="orderHandlingFee">Properties of the order handling fee to assess for order shipment.</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
+		/// <param name="orderHandlingFee"></param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.SiteSettings.Shipping.SiteShippingHandlingFee"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var siteshippinghandlingfee = new SiteShippingHandlingFee();
-		///   var siteShippingHandlingFee = siteshippinghandlingfee.CreateOrderHandlingFee( orderHandlingFee);
+		///   var siteShippingHandlingFee = siteshippinghandlingfee.CreateOrderHandlingFee( orderHandlingFee, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.SiteSettings.Shipping.SiteShippingHandlingFee CreateOrderHandlingFee(Mozu.Api.Contracts.SiteSettings.Shipping.SiteShippingHandlingFee orderHandlingFee)
+		public virtual Mozu.Api.Contracts.SiteSettings.Shipping.SiteShippingHandlingFee CreateOrderHandlingFee(Mozu.Api.Contracts.SiteSettings.Shipping.SiteShippingHandlingFee orderHandlingFee, AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.SiteSettings.Shipping.SiteShippingHandlingFee> response;
-			var client = Mozu.Api.Clients.Commerce.Settings.Shipping.SiteShippingHandlingFeeClient.CreateOrderHandlingFeeClient( orderHandlingFee);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.SiteSettings.Shipping.SiteShippingHandlingFee> response;
+			var client = Mozu.Api.Clients.Commerce.Settings.Shipping.SiteShippingHandlingFeeClient.CreateOrderHandlingFeeClient( orderHandlingFee, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
 		}
 
 				/// <summary>
-		/// Updates the order handling fee amount for the site.
+		/// 
 		/// </summary>
-		/// <param name="orderHandlingFee">The combined price for all items in the order, including all selected options but excluding any discounts.</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
+		/// <param name="orderHandlingFee"></param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.SiteSettings.Shipping.SiteShippingHandlingFee"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var siteshippinghandlingfee = new SiteShippingHandlingFee();
-		///   var siteShippingHandlingFee = siteshippinghandlingfee.UpdateOrderHandlingFee( orderHandlingFee);
+		///   var siteShippingHandlingFee = siteshippinghandlingfee.UpdateOrderHandlingFee( orderHandlingFee, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.SiteSettings.Shipping.SiteShippingHandlingFee UpdateOrderHandlingFee(Mozu.Api.Contracts.SiteSettings.Shipping.SiteShippingHandlingFee orderHandlingFee)
+		public virtual Mozu.Api.Contracts.SiteSettings.Shipping.SiteShippingHandlingFee UpdateOrderHandlingFee(Mozu.Api.Contracts.SiteSettings.Shipping.SiteShippingHandlingFee orderHandlingFee, AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.SiteSettings.Shipping.SiteShippingHandlingFee> response;
-			var client = Mozu.Api.Clients.Commerce.Settings.Shipping.SiteShippingHandlingFeeClient.UpdateOrderHandlingFeeClient( orderHandlingFee);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.SiteSettings.Shipping.SiteShippingHandlingFee> response;
+			var client = Mozu.Api.Clients.Commerce.Settings.Shipping.SiteShippingHandlingFeeClient.UpdateOrderHandlingFeeClient( orderHandlingFee, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 

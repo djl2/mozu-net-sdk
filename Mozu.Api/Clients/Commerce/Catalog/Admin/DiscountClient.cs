@@ -10,270 +10,302 @@
 
 using System;
 using System.Collections.Generic;
+using Mozu.Api.Security;
+
 
 namespace Mozu.Api.Clients.Commerce.Catalog.Admin
 {
 	/// <summary>
-	/// Define and manage discounts to apply to products, product categories, or orders. The discounts can be a specified amount off the price, percentage off the price, or for free shipping. Create a coupon code that shoppers can use to redeem the discount.
+	/// 
 	/// </summary>
 	public partial class DiscountClient 	{
 		
 		/// <summary>
-		/// Retrieves a list of discounts according to any specified filter criteria and sort options.
+		/// 
 		/// </summary>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.ProductAdmin.DiscountCollection"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=GetDiscounts();
+		///   var mozuClient=GetDiscounts(dataViewMode);
 		///   var discountCollectionClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.ProductAdmin.DiscountCollection> GetDiscountsClient()
+		public static MozuClient<Mozu.Api.Contracts.ProductAdmin.DiscountCollection> GetDiscountsClient(DataViewMode dataViewMode)
 		{
-			return GetDiscountsClient( null,  null,  null,  null);
+			return GetDiscountsClient(dataViewMode,  null,  null,  null,  null, null);
 		}
 
 		/// <summary>
-		/// Retrieves a list of discounts according to any specified filter criteria and sort options.
+		/// 
 		/// </summary>
-		/// <param name="filter">A set of expressions that consist of a field, operator, and value and represent search parameter syntax when filtering results of a query. Valid operators include equals (eq), does not equal (ne), greater than (gt), less than (lt), greater than or equal to (ge), less than or equal to (le), starts with (sw), or contains (cont). For example - "filter=IsDisplayed+eq+true"</param>
-		/// <param name="pageSize">Specifies the number of results to display on each page when creating paged results from a query. The maximum value is 200.</param>
+		/// <param name="filter"></param>
+		/// <param name="pageSize"></param>
 		/// <param name="sortBy"></param>
 		/// <param name="startIndex"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.ProductAdmin.DiscountCollection"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=GetDiscounts( filter,  pageSize,  sortBy,  startIndex);
+		///   var mozuClient=GetDiscounts(dataViewMode,  filter,  pageSize,  sortBy,  startIndex, authTicket);
 		///   var discountCollectionClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.ProductAdmin.DiscountCollection> GetDiscountsClient(string filter, int? pageSize, string sortBy, int? startIndex)
+		public static MozuClient<Mozu.Api.Contracts.ProductAdmin.DiscountCollection> GetDiscountsClient(DataViewMode dataViewMode, string filter =  null, int? pageSize =  null, string sortBy =  null, int? startIndex =  null, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Catalog.Admin.DiscountUrl.GetDiscountsUrl(filter, pageSize, sortBy, startIndex);
 			const string verb = "GET";
-			var mozuClient = new MozuClient<Mozu.Api.Contracts.ProductAdmin.DiscountCollection>().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			var mozuClient = new MozuClient<Mozu.Api.Contracts.ProductAdmin.DiscountCollection>().WithVerb(verb).WithResourceUrl(url).WithHeader(Headers.X_VOL_DATAVIEW_MODE ,dataViewMode.ToString());
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 
 		/// <summary>
-		/// Retrieves the details of a single discount.
+		/// 
 		/// </summary>
-		/// <param name="discountId">Unique identifier of the discount. System-supplied and read-only.</param>
+		/// <param name="discountId"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.ProductAdmin.Discount"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=GetDiscount( discountId);
+		///   var mozuClient=GetDiscount(dataViewMode,  discountId, authTicket);
 		///   var discountClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.ProductAdmin.Discount> GetDiscountClient(int discountId)
+		public static MozuClient<Mozu.Api.Contracts.ProductAdmin.Discount> GetDiscountClient(DataViewMode dataViewMode, int discountId, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Catalog.Admin.DiscountUrl.GetDiscountUrl(discountId);
 			const string verb = "GET";
-			var mozuClient = new MozuClient<Mozu.Api.Contracts.ProductAdmin.Discount>().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			var mozuClient = new MozuClient<Mozu.Api.Contracts.ProductAdmin.Discount>().WithVerb(verb).WithResourceUrl(url).WithHeader(Headers.X_VOL_DATAVIEW_MODE ,dataViewMode.ToString());
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 
 		/// <summary>
-		/// Retrieves the localized content specified for the specified discount.
+		/// 
 		/// </summary>
-		/// <param name="discountId">Unique identifier of the discount. System-supplied and read-only.</param>
+		/// <param name="discountId"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.ProductAdmin.DiscountLocalizedContent"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=GetDiscountContent( discountId);
+		///   var mozuClient=GetDiscountContent(dataViewMode,  discountId, authTicket);
 		///   var discountLocalizedContentClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.ProductAdmin.DiscountLocalizedContent> GetDiscountContentClient(int discountId)
+		public static MozuClient<Mozu.Api.Contracts.ProductAdmin.DiscountLocalizedContent> GetDiscountContentClient(DataViewMode dataViewMode, int discountId, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Catalog.Admin.DiscountUrl.GetDiscountContentUrl(discountId);
 			const string verb = "GET";
-			var mozuClient = new MozuClient<Mozu.Api.Contracts.ProductAdmin.DiscountLocalizedContent>().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			var mozuClient = new MozuClient<Mozu.Api.Contracts.ProductAdmin.DiscountLocalizedContent>().WithVerb(verb).WithResourceUrl(url).WithHeader(Headers.X_VOL_DATAVIEW_MODE ,dataViewMode.ToString());
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 
 		/// <summary>
-		/// Generates a random code for a coupon.
+		/// 
 		/// </summary>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{string}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=GenerateRandomCoupon();
+		///   var mozuClient=GenerateRandomCoupon(dataViewMode, authTicket);
 		///   var stringClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<string> GenerateRandomCouponClient()
+		public static MozuClient<string> GenerateRandomCouponClient(DataViewMode dataViewMode, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Catalog.Admin.DiscountUrl.GenerateRandomCouponUrl();
 			const string verb = "GET";
-			var mozuClient = new MozuClient<string>().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			var mozuClient = new MozuClient<string>().WithVerb(verb).WithResourceUrl(url).WithHeader(Headers.X_VOL_DATAVIEW_MODE ,dataViewMode.ToString());
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 
 				/// <summary>
-		/// Creates a discount.
+		/// 
 		/// </summary>
-		/// <param name="discount">Properties of the discount to create. Required properties: Content.Name, AmountType, StartDate, and Target.Type.</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
+		/// <param name="discount"></param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.ProductAdmin.Discount"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=CreateDiscount( discount);
+		///   var mozuClient=CreateDiscount(dataViewMode,  discount, authTicket);
 		///   var discountClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.ProductAdmin.Discount> CreateDiscountClient(Mozu.Api.Contracts.ProductAdmin.Discount discount)
+		public static MozuClient<Mozu.Api.Contracts.ProductAdmin.Discount> CreateDiscountClient(DataViewMode dataViewMode, Mozu.Api.Contracts.ProductAdmin.Discount discount, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Catalog.Admin.DiscountUrl.CreateDiscountUrl();
 			const string verb = "POST";
-			var mozuClient = new MozuClient<Mozu.Api.Contracts.ProductAdmin.Discount>().WithVerb(verb).WithResourceUrl(url).WithBody<Mozu.Api.Contracts.ProductAdmin.Discount>(discount);
-		return mozuClient;
+			var mozuClient = new MozuClient<Mozu.Api.Contracts.ProductAdmin.Discount>().WithVerb(verb).WithResourceUrl(url).WithBody<Mozu.Api.Contracts.ProductAdmin.Discount>(discount).WithHeader(Headers.X_VOL_DATAVIEW_MODE ,dataViewMode.ToString());
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 
 		/// <summary>
-		/// Redeems a discount configured in the product admin.
+		/// 
 		/// </summary>
-		/// <param name="redemption">Properties of the product discount redemption.</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
+		/// <param name="redemption"></param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.ProductAdmin.Discounts.Redemption"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=RedeemDiscount( redemption);
+		///   var mozuClient=RedeemDiscount(dataViewMode,  redemption, authTicket);
 		///   var redemptionClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.ProductAdmin.Discounts.Redemption> RedeemDiscountClient(Mozu.Api.Contracts.ProductAdmin.Discounts.Redemption redemption)
+		public static MozuClient<Mozu.Api.Contracts.ProductAdmin.Discounts.Redemption> RedeemDiscountClient(DataViewMode dataViewMode, Mozu.Api.Contracts.ProductAdmin.Discounts.Redemption redemption, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Catalog.Admin.DiscountUrl.RedeemDiscountUrl();
 			const string verb = "POST";
-			var mozuClient = new MozuClient<Mozu.Api.Contracts.ProductAdmin.Discounts.Redemption>().WithVerb(verb).WithResourceUrl(url).WithBody<Mozu.Api.Contracts.ProductAdmin.Discounts.Redemption>(redemption);
-		return mozuClient;
+			var mozuClient = new MozuClient<Mozu.Api.Contracts.ProductAdmin.Discounts.Redemption>().WithVerb(verb).WithResourceUrl(url).WithBody<Mozu.Api.Contracts.ProductAdmin.Discounts.Redemption>(redemption).WithHeader(Headers.X_VOL_DATAVIEW_MODE ,dataViewMode.ToString());
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 
 				/// <summary>
-		/// Modifies a discount.
+		/// 
 		/// </summary>
-		/// <param name="discountId">Unique identifier of the discount. System-supplied and read-only.</param>
-		/// <param name="discount">Properties of the discount to update. Required properties: Content.Name, AmountType, StartDate, and Target.Type. Any unspecified properties are set to null and boolean variables are set to false.</param>
+		/// <param name="discountId"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
+		/// <param name="discount"></param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.ProductAdmin.Discount"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=UpdateDiscount( discountId,  discount);
+		///   var mozuClient=UpdateDiscount(dataViewMode,  discount,  discountId, authTicket);
 		///   var discountClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.ProductAdmin.Discount> UpdateDiscountClient(int discountId, Mozu.Api.Contracts.ProductAdmin.Discount discount)
+		public static MozuClient<Mozu.Api.Contracts.ProductAdmin.Discount> UpdateDiscountClient(DataViewMode dataViewMode, Mozu.Api.Contracts.ProductAdmin.Discount discount, int discountId, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Catalog.Admin.DiscountUrl.UpdateDiscountUrl(discountId);
 			const string verb = "PUT";
-			var mozuClient = new MozuClient<Mozu.Api.Contracts.ProductAdmin.Discount>().WithVerb(verb).WithResourceUrl(url).WithBody<Mozu.Api.Contracts.ProductAdmin.Discount>(discount);
-		return mozuClient;
+			var mozuClient = new MozuClient<Mozu.Api.Contracts.ProductAdmin.Discount>().WithVerb(verb).WithResourceUrl(url).WithBody<Mozu.Api.Contracts.ProductAdmin.Discount>(discount).WithHeader(Headers.X_VOL_DATAVIEW_MODE ,dataViewMode.ToString());
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 
 		/// <summary>
-		/// Modifies the localized content for the specified discount. Rename the discount without modifying any other discount properties.
+		/// 
 		/// </summary>
-		/// <param name="discountId">Unique identifier of the discount. System-supplied and read-only.</param>
-		/// <param name="content">New Name and/or LocaleCode. Properties of the content to update. Required property: Name.</param>
+		/// <param name="discountId"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
+		/// <param name="content"></param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.ProductAdmin.DiscountLocalizedContent"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=UpdateDiscountContent( discountId,  content);
+		///   var mozuClient=UpdateDiscountContent(dataViewMode,  content,  discountId, authTicket);
 		///   var discountLocalizedContentClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.ProductAdmin.DiscountLocalizedContent> UpdateDiscountContentClient(int discountId, Mozu.Api.Contracts.ProductAdmin.DiscountLocalizedContent content)
+		public static MozuClient<Mozu.Api.Contracts.ProductAdmin.DiscountLocalizedContent> UpdateDiscountContentClient(DataViewMode dataViewMode, Mozu.Api.Contracts.ProductAdmin.DiscountLocalizedContent content, int discountId, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Catalog.Admin.DiscountUrl.UpdateDiscountContentUrl(discountId);
 			const string verb = "PUT";
-			var mozuClient = new MozuClient<Mozu.Api.Contracts.ProductAdmin.DiscountLocalizedContent>().WithVerb(verb).WithResourceUrl(url).WithBody<Mozu.Api.Contracts.ProductAdmin.DiscountLocalizedContent>(content);
-		return mozuClient;
+			var mozuClient = new MozuClient<Mozu.Api.Contracts.ProductAdmin.DiscountLocalizedContent>().WithVerb(verb).WithResourceUrl(url).WithBody<Mozu.Api.Contracts.ProductAdmin.DiscountLocalizedContent>(content).WithHeader(Headers.X_VOL_DATAVIEW_MODE ,dataViewMode.ToString());
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 
 				/// <summary>
-		/// Deletes a discount specified by its discount ID.
+		/// 
 		/// </summary>
-		/// <param name="discountId">Unique identifier of the discount. System-supplied and read-only.</param>
+		/// <param name="discountId"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=DeleteDiscount( discountId);
+		///   var mozuClient=DeleteDiscount(dataViewMode,  discountId, authTicket);
 		///mozuClient.WithBaseAddress(url).Execute();
 		/// </code>
 		/// </example>
-		public static MozuClient DeleteDiscountClient(int discountId)
+		public static MozuClient DeleteDiscountClient(DataViewMode dataViewMode, int discountId, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Catalog.Admin.DiscountUrl.DeleteDiscountUrl(discountId);
 			const string verb = "DELETE";
-			var mozuClient = new MozuClient().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			var mozuClient = new MozuClient().WithVerb(verb).WithResourceUrl(url).WithHeader(Headers.X_VOL_DATAVIEW_MODE ,dataViewMode.ToString());
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 
 		/// <summary>
-		/// Deletes a previous discount redemption from an order.
+		/// 
 		/// </summary>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=UnRedeemDiscount();
+		///   var mozuClient=UnRedeemDiscount(dataViewMode);
 		///mozuClient.WithBaseAddress(url).Execute();
 		/// </code>
 		/// </example>
-		public static MozuClient UnRedeemDiscountClient()
+		public static MozuClient UnRedeemDiscountClient(DataViewMode dataViewMode)
 		{
-			return UnRedeemDiscountClient( null,  null);
+			return UnRedeemDiscountClient(dataViewMode,  null,  null, null);
 		}
 
 		/// <summary>
-		/// Deletes a previous discount redemption from an order.
+		/// 
 		/// </summary>
-		/// <param name="discountId">Unique identifier of the previously redeemed discount. System-supplied and read only.</param>
-		/// <param name="orderNumber">The number of the order associated with the redeemed product discount.</param>
+		/// <param name="discountId"></param>
+		/// <param name="orderNumber"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=UnRedeemDiscount( discountId,  orderNumber);
+		///   var mozuClient=UnRedeemDiscount(dataViewMode,  discountId,  orderNumber, authTicket);
 		///mozuClient.WithBaseAddress(url).Execute();
 		/// </code>
 		/// </example>
-		public static MozuClient UnRedeemDiscountClient(int? discountId, int? orderNumber)
+		public static MozuClient UnRedeemDiscountClient(DataViewMode dataViewMode, int? discountId =  null, int? orderNumber =  null, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Catalog.Admin.DiscountUrl.UnRedeemDiscountUrl(discountId, orderNumber);
 			const string verb = "DELETE";
-			var mozuClient = new MozuClient().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			var mozuClient = new MozuClient().WithVerb(verb).WithResourceUrl(url).WithHeader(Headers.X_VOL_DATAVIEW_MODE ,dataViewMode.ToString());
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 

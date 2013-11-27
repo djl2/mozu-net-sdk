@@ -13,19 +13,10 @@ using System.Collections.Generic;
 
 namespace Mozu.Api.Contracts.Reference
 {
-		///
-		///	The paged collection of all units of measure that the system currently supports.
-		///
 		public class UnitOfMeasureCollection
 		{
-			///
-			///The number of results listed in the query collection, represented by a signed 64-bit (8-byte) integer. This value is system-supplied and read-only.
-			///
 			public long TotalCount { get; set; }
 
-			///
-			///An array list of objects in the returned collection.
-			///
 			public List<UnitOfMeasure> Items { get; set; }
 
 		}

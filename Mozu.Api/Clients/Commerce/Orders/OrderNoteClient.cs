@@ -10,126 +10,143 @@
 
 using System;
 using System.Collections.Generic;
+using Mozu.Api.Security;
+
 
 namespace Mozu.Api.Clients.Commerce.Orders
 {
 	/// <summary>
-	/// Use this subresource to manage notes associated with an active order.
+	/// 
 	/// </summary>
 	public partial class OrderNoteClient 	{
 		
 		/// <summary>
-		/// Retrieves a list of all notes for an order.
+		/// 
 		/// </summary>
-		/// <param name="orderId">Unique identifier of the order whose notes are retrieved.</param>
+		/// <param name="orderId"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{List{<see cref="Mozu.Api.Contracts.CommerceRuntime.Orders.OrderNote"/>}}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=GetOrderNotes( orderId);
+		///   var mozuClient=GetOrderNotes( orderId, authTicket);
 		///   var orderNoteClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<List<Mozu.Api.Contracts.CommerceRuntime.Orders.OrderNote>> GetOrderNotesClient(string orderId)
+		public static MozuClient<List<Mozu.Api.Contracts.CommerceRuntime.Orders.OrderNote>> GetOrderNotesClient(string orderId, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Orders.OrderNoteUrl.GetOrderNotesUrl(orderId);
 			const string verb = "GET";
 			var mozuClient = new MozuClient<List<Mozu.Api.Contracts.CommerceRuntime.Orders.OrderNote>>().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 
 		/// <summary>
-		/// Retrieves a specific order note from an order.
+		/// 
 		/// </summary>
-		/// <param name="noteId">Unique identifier of the note text to retrieve.</param>
-		/// <param name="orderId">Unique identifier of the order note to retrieve.</param>
+		/// <param name="noteId"></param>
+		/// <param name="orderId"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.CommerceRuntime.Orders.OrderNote"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=GetOrderNote( noteId,  orderId);
+		///   var mozuClient=GetOrderNote( noteId,  orderId, authTicket);
 		///   var orderNoteClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.CommerceRuntime.Orders.OrderNote> GetOrderNoteClient(string noteId, string orderId)
+		public static MozuClient<Mozu.Api.Contracts.CommerceRuntime.Orders.OrderNote> GetOrderNoteClient(string noteId, string orderId, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Orders.OrderNoteUrl.GetOrderNoteUrl(noteId, orderId);
 			const string verb = "GET";
 			var mozuClient = new MozuClient<Mozu.Api.Contracts.CommerceRuntime.Orders.OrderNote>().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 
 				/// <summary>
-		/// Adds a note to the order. This is an internal note that the merchant can add to an order.
+		/// 
 		/// </summary>
-		/// <param name="orderId">Unique identifier of the order to add a note.</param>
-		/// <param name="orderNote">The Unicode alphanumeric text contained in the note. Max length: 256 characters.</param>
+		/// <param name="orderId"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
+		/// <param name="orderNote"></param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.CommerceRuntime.Orders.OrderNote"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=CreateOrderNote( orderId,  orderNote);
+		///   var mozuClient=CreateOrderNote( orderNote,  orderId, authTicket);
 		///   var orderNoteClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.CommerceRuntime.Orders.OrderNote> CreateOrderNoteClient(string orderId, Mozu.Api.Contracts.CommerceRuntime.Orders.OrderNote orderNote)
+		public static MozuClient<Mozu.Api.Contracts.CommerceRuntime.Orders.OrderNote> CreateOrderNoteClient(Mozu.Api.Contracts.CommerceRuntime.Orders.OrderNote orderNote, string orderId, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Orders.OrderNoteUrl.CreateOrderNoteUrl(orderId);
 			const string verb = "POST";
 			var mozuClient = new MozuClient<Mozu.Api.Contracts.CommerceRuntime.Orders.OrderNote>().WithVerb(verb).WithResourceUrl(url).WithBody<Mozu.Api.Contracts.CommerceRuntime.Orders.OrderNote>(orderNote);
-		return mozuClient;
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 
 				/// <summary>
-		/// Updates a specific order note for an order.
+		/// 
 		/// </summary>
-		/// <param name="noteId">Unique identifier of the note whose text is being updated.</param>
-		/// <param name="orderId">Unique identifier of the order whose note is being updated.</param>
-		/// <param name="orderNote">The Unicode alphanumeric text contained in the note.</param>
+		/// <param name="noteId"></param>
+		/// <param name="orderId"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
+		/// <param name="orderNote"></param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.CommerceRuntime.Orders.OrderNote"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=UpdateOrderNote( noteId,  orderId,  orderNote);
+		///   var mozuClient=UpdateOrderNote( orderNote,  noteId,  orderId, authTicket);
 		///   var orderNoteClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.CommerceRuntime.Orders.OrderNote> UpdateOrderNoteClient(string noteId, string orderId, Mozu.Api.Contracts.CommerceRuntime.Orders.OrderNote orderNote)
+		public static MozuClient<Mozu.Api.Contracts.CommerceRuntime.Orders.OrderNote> UpdateOrderNoteClient(Mozu.Api.Contracts.CommerceRuntime.Orders.OrderNote orderNote, string noteId, string orderId, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Orders.OrderNoteUrl.UpdateOrderNoteUrl(noteId, orderId);
 			const string verb = "PUT";
 			var mozuClient = new MozuClient<Mozu.Api.Contracts.CommerceRuntime.Orders.OrderNote>().WithVerb(verb).WithResourceUrl(url).WithBody<Mozu.Api.Contracts.CommerceRuntime.Orders.OrderNote>(orderNote);
-		return mozuClient;
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 
 				/// <summary>
-		/// Deletes a specific order note on an order.
+		/// 
 		/// </summary>
-		/// <param name="noteId">Unique identifier of the note text to delete.</param>
-		/// <param name="orderId">Unique identifier of the order note to delete.</param>
+		/// <param name="noteId"></param>
+		/// <param name="orderId"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=DeleteOrderNote( noteId,  orderId);
+		///   var mozuClient=DeleteOrderNote( noteId,  orderId, authTicket);
 		///mozuClient.WithBaseAddress(url).Execute();
 		/// </code>
 		/// </example>
-		public static MozuClient DeleteOrderNoteClient(string noteId, string orderId)
+		public static MozuClient DeleteOrderNoteClient(string noteId, string orderId, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Orders.OrderNoteUrl.DeleteOrderNoteUrl(noteId, orderId);
 			const string verb = "DELETE";
 			var mozuClient = new MozuClient().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 

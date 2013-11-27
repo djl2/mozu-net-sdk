@@ -10,122 +10,110 @@
 
 using System;
 using System.Collections.Generic;
+using Mozu.Api.Security;
+
 
 namespace Mozu.Api.Clients.Commerce.Orders
 {
 	/// <summary>
-	/// List of attributes that describe an order. An order attribute has content localized to the locale code of the site and several other properties that uniquely identify it to associate with an order.
+	/// 
 	/// </summary>
 	public partial class OrderAttributeClient 	{
 		
 		/// <summary>
-		/// Retrieves a list of order attributes.
+		/// 
 		/// </summary>
-		/// <param name="orderId">Identifier of the order whose order attributes are being retrieved.</param>
+		/// <param name="orderId"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{List{<see cref="Mozu.Api.Contracts.CommerceRuntime.Orders.OrderAttribute"/>}}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=GetOrderAttributes( orderId);
+		///   var mozuClient=GetOrderAttributes( orderId, authTicket);
 		///   var orderAttributeClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<List<Mozu.Api.Contracts.CommerceRuntime.Orders.OrderAttribute>> GetOrderAttributesClient(string orderId)
+		public static MozuClient<List<Mozu.Api.Contracts.CommerceRuntime.Orders.OrderAttribute>> GetOrderAttributesClient(string orderId, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Orders.OrderAttributeUrl.GetOrderAttributesUrl(orderId);
 			const string verb = "GET";
 			var mozuClient = new MozuClient<List<Mozu.Api.Contracts.CommerceRuntime.Orders.OrderAttribute>>().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
-
-		}
-
-		/// <summary>
-		/// Retrieves the order attribute set by providing the attribute set ID.
-		/// </summary>
-		/// <param name="attributeSetId">Identifier of the attribute set whose order attribute set is being retrieved.</param>
-		/// <param name="orderId">Identifier of the order whose order attribute set is being retrieved.</param>
-		/// <returns>
-		///  <see cref="Mozu.Api.MozuClient" />{List{<see cref="Mozu.Api.Contracts.CommerceRuntime.Orders.OrderAttribute"/>}}
-		/// </returns>
-		/// <example>
-		/// <code>
-		///   var mozuClient=GetOrderAttributeSet( attributeSetId,  orderId);
-		///   var orderAttributeClient = mozuClient.WithBaseAddress(url).Execute().Result();
-		/// </code>
-		/// </example>
-		public static MozuClient<List<Mozu.Api.Contracts.CommerceRuntime.Orders.OrderAttribute>> GetOrderAttributeSetClient(int attributeSetId, string orderId)
-		{
-			var url = Mozu.Api.Urls.Commerce.Orders.OrderAttributeUrl.GetOrderAttributeSetUrl(attributeSetId, orderId);
-			const string verb = "GET";
-			var mozuClient = new MozuClient<List<Mozu.Api.Contracts.CommerceRuntime.Orders.OrderAttribute>>().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 
 				/// <summary>
-		/// Create a new list of order attributes by providing the order ID.
+		/// 
 		/// </summary>
-		/// <param name="orderId">Identifier of the order whose attributes are being created.</param>
-		/// <param name="orderAttributes">The attribute properties to create to associate with the order ID.</param>
+		/// <param name="orderId"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
+		/// <param name="orderAttributes"></param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{List{<see cref="Mozu.Api.Contracts.CommerceRuntime.Orders.OrderAttribute"/>}}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=CreateOrderAttributes( orderId,  orderAttributes);
+		///   var mozuClient=CreateOrderAttributes( orderAttributes,  orderId, authTicket);
 		///   var orderAttributeClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<List<Mozu.Api.Contracts.CommerceRuntime.Orders.OrderAttribute>> CreateOrderAttributesClient(string orderId, List<Mozu.Api.Contracts.CommerceRuntime.Orders.OrderAttribute> orderAttributes)
+		public static MozuClient<List<Mozu.Api.Contracts.CommerceRuntime.Orders.OrderAttribute>> CreateOrderAttributesClient(List<Mozu.Api.Contracts.CommerceRuntime.Orders.OrderAttribute> orderAttributes, string orderId, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Orders.OrderAttributeUrl.CreateOrderAttributesUrl(orderId);
 			const string verb = "POST";
 			var mozuClient = new MozuClient<List<Mozu.Api.Contracts.CommerceRuntime.Orders.OrderAttribute>>().WithVerb(verb).WithResourceUrl(url).WithBody<List<Mozu.Api.Contracts.CommerceRuntime.Orders.OrderAttribute>>(orderAttributes);
-		return mozuClient;
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 
 				/// <summary>
-		/// Update the properties of an order's attributes by providing the order ID and by removing any missing properties if removeMissing is set to true.
+		/// 
 		/// </summary>
-		/// <param name="orderId">Identifier of the order whose order attributes are being updated.</param>
-		/// <param name="orderAttributes">List of order attributes being updated.</param>
+		/// <param name="orderId"></param>
+		/// <param name="orderAttributes"></param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{List{<see cref="Mozu.Api.Contracts.CommerceRuntime.Orders.OrderAttribute"/>}}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=UpdateOrderAttributes( orderId,  orderAttributes);
+		///   var mozuClient=UpdateOrderAttributes( orderAttributes,  orderId);
 		///   var orderAttributeClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<List<Mozu.Api.Contracts.CommerceRuntime.Orders.OrderAttribute>> UpdateOrderAttributesClient(string orderId, List<Mozu.Api.Contracts.CommerceRuntime.Orders.OrderAttribute> orderAttributes)
+		public static MozuClient<List<Mozu.Api.Contracts.CommerceRuntime.Orders.OrderAttribute>> UpdateOrderAttributesClient(List<Mozu.Api.Contracts.CommerceRuntime.Orders.OrderAttribute> orderAttributes, string orderId)
 		{
-			return UpdateOrderAttributesClient( orderId,  null,  orderAttributes);
+			return UpdateOrderAttributesClient( orderAttributes,  orderId,  null, null);
 		}
 
 		/// <summary>
-		/// Update the properties of an order's attributes by providing the order ID and by removing any missing properties if removeMissing is set to true.
+		/// 
 		/// </summary>
-		/// <param name="orderId">Identifier of the order whose order attributes are being updated.</param>
-		/// <param name="removeMissing">If true, the operation removes missing properties so that the updated order attributes will not show properties with a null value.</param>
-		/// <param name="orderAttributes">List of order attributes being updated.</param>
+		/// <param name="orderId"></param>
+		/// <param name="removeMissing"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
+		/// <param name="orderAttributes"></param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{List{<see cref="Mozu.Api.Contracts.CommerceRuntime.Orders.OrderAttribute"/>}}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=UpdateOrderAttributes( orderId,  removeMissing,  orderAttributes);
+		///   var mozuClient=UpdateOrderAttributes( orderAttributes,  orderId,  removeMissing, authTicket);
 		///   var orderAttributeClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<List<Mozu.Api.Contracts.CommerceRuntime.Orders.OrderAttribute>> UpdateOrderAttributesClient(string orderId, bool? removeMissing, List<Mozu.Api.Contracts.CommerceRuntime.Orders.OrderAttribute> orderAttributes)
+		public static MozuClient<List<Mozu.Api.Contracts.CommerceRuntime.Orders.OrderAttribute>> UpdateOrderAttributesClient(List<Mozu.Api.Contracts.CommerceRuntime.Orders.OrderAttribute> orderAttributes, string orderId, bool? removeMissing =  null, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Orders.OrderAttributeUrl.UpdateOrderAttributesUrl(orderId, removeMissing);
 			const string verb = "PUT";
 			var mozuClient = new MozuClient<List<Mozu.Api.Contracts.CommerceRuntime.Orders.OrderAttribute>>().WithVerb(verb).WithResourceUrl(url).WithBody<List<Mozu.Api.Contracts.CommerceRuntime.Orders.OrderAttribute>>(orderAttributes);
-		return mozuClient;
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 

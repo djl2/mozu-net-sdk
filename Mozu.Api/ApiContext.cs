@@ -4,86 +4,151 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Net.Http.Headers;
 using Mozu.Api.Contracts.Tenant;
+using Mozu.Api.Security;
 
 namespace Mozu.Api
 {
-    public class ApiContext
+	public interface IApiContext
+	{
+		int TenantId { get; }
+		int? SiteId { get; }
+		string TenantUrl { get; }
+		string SiteUrl { get; }
+		string CorrelationId { get; }
+		string HMACSha256 { get; }
+		string AppAuthTicket { get; }
+		int? MasterCatalogId { get; }
+		int? CatalogId { get; }
+	    string GetUrl(string domain);
+	}
+
+    public class ApiContext : IApiContext
     {
+		public int TenantId { get; protected set; }
+		public int? SiteId { get; protected set; }
+		public string TenantUrl { get; protected set; }
+		public string SiteUrl { get; protected set; }
+		public string CorrelationId { get; protected set; }
+		public string HMACSha256 { get; protected set; }
+		public string AppAuthTicket { get; protected set; }
+		public int? MasterCatalogId { get; protected set; }
+		public int? CatalogId { get; protected set; }
+        public Tenant Tenant { get; protected set; }
 
-        public string BaseUrl { get; set; }
+		public ApiContext()
+		{
+		}
 
-        public int TenantId = 0;
-        public int? SiteGroupId = null;
-        public int? SiteId = null;
-        public string TenantUrl { get; set; }
-        public string SiteUrl { get; set; }
-        public string CorrelationId { get; internal set; }
-        public string HMACSha256 { get; set; }
-        public string AppAuthTicket { get; set; }
+		public ApiContext(int tenantId, int? siteId = null, int? masterCatalogId = null, int? catalogId = null)
+		{
+			TenantId = tenantId;
+			SiteId = siteId;
+			MasterCatalogId = masterCatalogId;
+			CatalogId = catalogId;
+		}
 
-        public static string GetUrl(Domain domain)
-        {
-            return "Http://" + domain.DomainName;
-        }
+		public ApiContext(Tenant tenant, Site site = null, int? masterCatalogId = null, int? catalogId = null)
+		{
+            Tenant = tenant;
+			TenantId = tenant.Id;
+			TenantUrl = GetUrl(tenant.Domain);
+			MasterCatalogId = masterCatalogId;
+			CatalogId = catalogId;
 
-        public void SetContext(Tenant tenant)
-        {
-            TenantId = tenant.Id;
-            TenantUrl = GetUrl(tenant.Domain);
+            SetBySite(site);
 
-            if (SiteId != null && SiteId.Value >= 0)
+            if (!masterCatalogId.HasValue && Tenant.MasterCatalogs.Count == 1)
             {
-                var site = tenant.SiteGroups.SelectMany(x => x.Sites).SingleOrDefault(x => x.Id == SiteId.Value);
-                SiteGroupId = site.SiteGroupId;
-                SiteUrl = GetUrl(site.Domains.SingleOrDefault(x => x.IsSystemAssigned == true));
+                MasterCatalogId = Tenant.MasterCatalogs.First().Id;
+                if (Tenant.MasterCatalogs[0].Catalogs.Count == 1)
+                    CatalogId = Tenant.MasterCatalogs.First().Catalogs.First().Id;
             }
-                
+
         }
 
-        public void SetContext(Site site)
+		public ApiContext(Site site, int? masterCatalogId = null, int? catalogId = null)
+		{
+			TenantId = site.TenantId;
+			MasterCatalogId = masterCatalogId;
+			CatalogId = catalogId;
+		    SetBySite(site);
+
+		}
+
+		public ApiContext(NameValueCollection headers)
+		{
+			TenantUrl = headers.Get(Headers.X_VOL_TENANT_DOMAIN);
+			SiteUrl = headers.Get(Headers.X_VOL_SITE_DOMAIN);
+			TenantId = int.Parse(headers.Get(Headers.X_VOL_TENANT));
+			SiteId = int.Parse(headers.Get(Headers.X_VOL_SITE));
+			CorrelationId = headers.Get(Headers.X_VOL_CORRELATION);
+			HMACSha256 = headers.Get(Headers.X_VOL_HMAC_SHA256);
+			var masterCatalogStr = headers.Get(Headers.X_VOL_MASTER_CATALOG);
+			if (masterCatalogStr != null)
+			{
+				MasterCatalogId = int.Parse(masterCatalogStr);
+			}
+
+			var catalogStr = headers.Get(Headers.X_VOL_CATALOG);
+			if (catalogStr != null)
+			{
+				CatalogId = int.Parse(catalogStr);
+			}
+
+
+			if (!String.IsNullOrEmpty(TenantUrl))
+			{
+				TenantUrl = string.Format("Http://{0}", TenantUrl);
+			}
+
+			if (!String.IsNullOrEmpty(SiteUrl))
+			{
+				SiteUrl = String.Format("http://{0}", SiteUrl);
+			}
+
+		}
+
+		public ApiContext(HttpRequestHeaders headers)
+		{
+			TenantUrl = GetHeaderValue(Headers.X_VOL_TENANT_DOMAIN, headers);
+			SiteUrl = GetHeaderValue(Headers.X_VOL_SITE_DOMAIN, headers);
+			TenantId = ParseFirstValue(Headers.X_VOL_TENANT, headers).Value;
+			SiteId = ParseFirstValue(Headers.X_VOL_SITE, headers);
+			CorrelationId = GetHeaderValue(Headers.X_VOL_CORRELATION, headers);
+			HMACSha256 = GetHeaderValue(Headers.X_VOL_HMAC_SHA256, headers);
+			MasterCatalogId = ParseFirstValue(Headers.X_VOL_MASTER_CATALOG, headers);
+			CatalogId = ParseFirstValue(Headers.X_VOL_CATALOG, headers);
+			
+
+			if (!String.IsNullOrEmpty(TenantUrl))
+			{
+				TenantUrl = string.Format("Http://{0}", TenantUrl);
+			}
+
+			if (!String.IsNullOrEmpty(SiteUrl))
+			{
+				SiteUrl = String.Format("http://{0}", SiteUrl);
+			}
+
+		}
+
+        //TODO: need to replace with Meta information about SSL - Move to MozuClient and build on resource url properties?
+        public string GetUrl(string domain)
         {
-            SiteId = site.Id;
-            SiteGroupId = site.SiteGroupId;
-            TenantId = site.TenantId;
-
-            var siteDomain = site.Domains.SingleOrDefault(x => x.IsSystemAssigned == true);
-            if (siteDomain != null)
-                SiteUrl = siteDomain.DomainName;
+            //return (AppAuthenticator.UseSSL ? "Https://" : "http://" )+domain;
+            return  "http://" + domain;
         }
 
-        public void SetContextFromHeaders(NameValueCollection headers, string rootMozuUrl)
+        private void SetBySite(Site site)
         {
-            TenantUrl = headers.Get(Headers.X_VOL_TENANT_DOMAIN);
-            SiteUrl = headers.Get(Headers.X_VOL_SITE_DOMAIN);
-            TenantId = int.Parse(headers.Get(Headers.X_VOL_TENANT));
-            SiteId = int.Parse(headers.Get(Headers.X_VOL_SITE));
-            SiteGroupId = int.Parse(headers.Get(Headers.X_VOL_SITEGROUP));
-            CorrelationId =headers.Get(Headers.X_VOL_CORRELATION);
-            HMACSha256 = headers.Get(Headers.X_VOL_HMAC_SHA256);
-            if (!String.IsNullOrEmpty(TenantUrl))
-                TenantUrl = string.Format("Http://{0}", TenantUrl);
-
-            if (!String.IsNullOrEmpty(SiteUrl))
-                SiteUrl = String.Format("http://{0}", SiteUrl);
+            if (site != null && site.Id >= 0)
+            {
+                SiteId = site.Id;
+                SiteUrl = GetUrl(site.Domain);
+            }
         }
 
-        public void SetContextFromHeaders(HttpRequestHeaders headers, string rootMozuUrl)
-        {
-            TenantUrl = GetHeaderValue(Headers.X_VOL_TENANT_DOMAIN, headers);
-            SiteUrl = GetHeaderValue(Headers.X_VOL_SITE_DOMAIN, headers);
-            TenantId = ParseFirstValue(Headers.X_VOL_TENANT, headers).Value;
-            SiteId = ParseFirstValue(Headers.X_VOL_SITE, headers);
-            SiteGroupId = ParseFirstValue(Headers.X_VOL_SITEGROUP, headers);
-            CorrelationId = GetHeaderValue(Headers.X_VOL_CORRELATION, headers);
-            HMACSha256 = GetHeaderValue(Headers.X_VOL_HMAC_SHA256, headers);
-            if (!String.IsNullOrEmpty(TenantUrl))
-                TenantUrl = string.Format("Http://{0}", TenantUrl);
-
-            if (!String.IsNullOrEmpty(SiteUrl))
-                SiteUrl = String.Format("http://{0}", SiteUrl);
-        }
-
-        private static string GetHeaderValue(string header, HttpRequestHeaders headers)
+        protected string GetHeaderValue(string header, HttpRequestHeaders headers)
         {
 
 
@@ -98,7 +163,7 @@ namespace Mozu.Api
             return retVal;
         }
 
-        protected static int? ParseFirstValue(string header, HttpRequestHeaders headers)
+        protected int? ParseFirstValue(string header, HttpRequestHeaders headers)
         {
 
             IEnumerable<string> value = (headers.Contains(header) ? headers.GetValues(header) : null);
@@ -109,11 +174,17 @@ namespace Mozu.Api
                 {
                     int intVal;
                     if (int.TryParse(firstDataItem, out intVal))
+                    {
+                        if (intVal == 0)
+                            return null;
                         return intVal;
+                    }
+                        
                 }
             }
 
             return null;
         }
+
     }
 }

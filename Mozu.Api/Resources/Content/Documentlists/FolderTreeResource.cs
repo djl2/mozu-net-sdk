@@ -10,27 +10,29 @@
 
 using System;
 using System.Collections.Generic;
+using Mozu.Api.Security;
+
 
 namespace Mozu.Api.Resources.Content.Documentlists
 {
 	/// <summary>
-	/// Use the folder tree subresource to view individual folders in the document hierarchy.
+	/// 
 	/// </summary>
-	public partial class FolderTreeResource : BaseResource 	{
+	public partial class FolderTreeResource  	{
 				///
 		/// <see cref="Mozu.Api.ApiContext"/>
 		///
-		private readonly ApiContext _apiContext;
-		public FolderTreeResource(ApiContext apiContext) 
+		private readonly IApiContext _apiContext;
+		public FolderTreeResource(IApiContext apiContext) 
 		{
 			_apiContext = apiContext;
 		}
 
 		
 		/// <summary>
-		/// Retrieves the folder hierarchy used to organize documents in lists.
+		/// 
 		/// </summary>
-		/// <param name="documentListName">The name of the document list that contains this folder hierarchy.</param>
+		/// <param name="documentListName"></param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.Content.FolderTree"/>
 		/// </returns>
@@ -42,30 +44,31 @@ namespace Mozu.Api.Resources.Content.Documentlists
 		/// </example>
 		public virtual Mozu.Api.Contracts.Content.FolderTree GetFolderTree(string documentListName)
 		{
-			return GetFolderTree( documentListName,  null,  null,  null);
+			return GetFolderTree( documentListName,  null,  null,  null, null);
 		}
 
 		/// <summary>
-		/// Retrieves the folder hierarchy used to organize documents in lists.
+		/// 
 		/// </summary>
-		/// <param name="documentListName">The name of the document list that contains this folder hierarchy.</param>
-		/// <param name="levels">The number of levels in the folder hierarchy to return.</param>
-		/// <param name="rootFolderId">The unique identifier of the top-level folder in the document list.</param>
-		/// <param name="rootFolderPath">The location in the document hierarchy of the top-level folder in the document list.</param>
+		/// <param name="documentListName"></param>
+		/// <param name="levels"></param>
+		/// <param name="rootFolderId"></param>
+		/// <param name="rootFolderPath"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.Content.FolderTree"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var foldertree = new FolderTree();
-		///   var folderTree = foldertree.GetFolderTree( documentListName,  levels,  rootFolderId,  rootFolderPath);
+		///   var folderTree = foldertree.GetFolderTree( documentListName,  levels,  rootFolderId,  rootFolderPath, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.Content.FolderTree GetFolderTree(string documentListName, long? levels, string rootFolderId, string rootFolderPath)
+		public virtual Mozu.Api.Contracts.Content.FolderTree GetFolderTree(string documentListName, int? levels =  null, string rootFolderId =  null, string rootFolderPath =  null, AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.Content.FolderTree> response;
-			var client = Mozu.Api.Clients.Content.Documentlists.FolderTreeClient.GetFolderTreeClient( documentListName,  levels,  rootFolderId,  rootFolderPath);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.Content.FolderTree> response;
+			var client = Mozu.Api.Clients.Content.Documentlists.FolderTreeClient.GetFolderTreeClient( documentListName,  levels,  rootFolderId,  rootFolderPath, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 

@@ -14,49 +14,14 @@ using Mozu.Api.Contracts.Core;
 
 namespace Mozu.Api.Contracts.CommerceRuntime.Orders
 {
-		///
-		///	A characteristic of an order.
-		///
 		public class OrderAttribute
 		{
-			///
-			///Unique identifier of the attribute.
-			///
-			public int? AttributeId { get; set; }
+			public int AttributeDefinitionId { get; set; }
 
-			///
-			///Unique identifier of the attribute set associated with the order attribute.
-			///
-			public int? AttributeSetId { get; set; }
-
-			///
-			///The data type of the attribute. There are four valid data types: "Bool", "DateTime", "Number", "String"
-			///
-			public string DataType { get; set; }
-
-			///
-			///List of validation errors for the order attribute.
-			///
-			public List<string> Errors { get; set; }
-
-			///
-			///The fully qualified name of the attribute.
-			///
 			public string FullyQualifiedName { get; set; }
 
-			///
-			///Unique identifier of the order attribute.
-			///
-			public string Id { get; set; }
-
-			///
-			///The values of the order attribute.
-			///
 			public List<object> Values { get; set; }
 
-			///
-			///Identifier and datetime stamp information recorded when creating or updating a resource entity. This value is system-supplied and read-only.
-			///
 			public AuditInfo AuditInfo { get; set; }
 
 		}

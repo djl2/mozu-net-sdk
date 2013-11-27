@@ -12,14 +12,8 @@ using System;
 
 namespace Mozu.Api.Contracts.Core
 {
-		///
-		///	Information stored in the user token.
-		///
 		public class UserTokenInfo
 		{
-			///
-			///The access token associated with the user's authentication ticket.
-			///
 			public string AccessToken { get; set; }
 
 		}

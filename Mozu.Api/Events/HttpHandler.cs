@@ -32,8 +32,7 @@ namespace Mozu.Api.Events
 
             //get file path to use as comparison and determine when to take action on event
             //load headers into apicontext
-            ApiContext apiContext = new ApiContext();
-            apiContext.SetContextFromHeaders(request.Headers, request.Url.ToString());
+			var apiContext = new ApiContext(request.Headers);
 
             //read request into stream
             string jsonRequest = string.Empty;
@@ -43,19 +42,21 @@ namespace Mozu.Api.Events
                 jsonRequest = inputStream.ReadToEnd();
             }
 
-            if (MessageAuthentication.Generate(ConfigurationManager.AppSettings["SharedSecret"], jsonRequest) !=
+            response.Clear();
+            response.ClearHeaders();
+
+
+            if (Crypto.GetHash(AppAuthenticator.Instance.AppAuthInfo.SharedSecret, jsonRequest) !=
                 apiContext.HMACSha256)
             {
-                context.Response.StatusCode = 403;
+                response.StatusCode = 403;
             }
             else
             {
                 //get payload from json request
                 var eventPayload = JsonConvert.DeserializeObject<Event>(jsonRequest);
 
-                context.Response.Clear();
-                context.Response.ClearHeaders();
-
+              
                 try
                 {
                     //create and invoke user defined assembly and method
@@ -71,10 +72,11 @@ namespace Mozu.Api.Events
                     response.StatusCode = 500;
                     response.StatusDescription = exc.Message;
                     response.ContentType = context.Request.ContentType;
+                    response.Write(JsonConvert.SerializeObject(exc));
                 }
             }
 
-            context.Response.Flush();
+            response.Flush();
             context.ApplicationInstance.CompleteRequest();
 
 
@@ -99,21 +101,24 @@ namespace Mozu.Api.Events
                     string name = entityEvent.Name;
                     string type = entityEvent.Type;
                     string assembly = entityEvent.AssemblyName;
-                    InvokeMethod(assembly, type, action, apiContext, eventPayLoad);
+                    InvokeMethod(type, action, apiContext, eventPayLoad);
                 }
 
             }
         }
 
-        private void InvokeMethod(string assemblyName, string type, string action, ApiContext apiContext, Event mzEvent)
+        private void InvokeMethod(string type, string action, ApiContext apiContext, Event mzEvent)
         {
-            Type assemblyType = Assembly.Load(assemblyName).GetType(type);
+            Type assemblyType = Type.GetType(type);
 
             ConstructorInfo typeConstructor = assemblyType.GetConstructor(Type.EmptyTypes);
 
             object typeObject = typeConstructor.Invoke(new Object[] { });
 
             MethodInfo methodInfo = assemblyType.GetMethod(action);
+
+            if (methodInfo == null)
+                throw new Exception("Method : "+action+" not found in " +type );
             methodInfo.Invoke(typeObject, new Object[] { apiContext, mzEvent });
 
         }

@@ -13,19 +13,10 @@ using System.Collections.Generic;
 
 namespace Mozu.Api.Contracts.CommerceRuntime.Carts
 {
-		///
-		///	Collection of items in a cart.
-		///
 		public class CartItemCollection
 		{
-			///
-			///The number of results listed in the query collection, represented by a signed 64-bit (8-byte) integer. This value is system-supplied and read-only.
-			///
-			public int TotalCount { get; set; }
+			public long TotalCount { get; set; }
 
-			///
-			///An array list of objects in the returned collection.
-			///
 			public List<CartItem> Items { get; set; }
 
 		}

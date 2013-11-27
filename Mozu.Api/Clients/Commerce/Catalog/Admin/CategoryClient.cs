@@ -10,203 +10,223 @@
 
 using System;
 using System.Collections.Generic;
+using Mozu.Api.Security;
+
 
 namespace Mozu.Api.Clients.Commerce.Catalog.Admin
 {
 	/// <summary>
-	/// Use the Categories resource to organize products and control where they appear on the storefront. Create and maintain a hierarchy of categories and subcategories where the site will store properties.
+	/// 
 	/// </summary>
 	public partial class CategoryClient 	{
 		
 		/// <summary>
-		/// Retrieves a list of categories according to any specified filter criteria and sort options.
+		/// 
 		/// </summary>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.ProductAdmin.CategoryPagedCollection"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=GetCategories();
+		///   var mozuClient=GetCategories(dataViewMode);
 		///   var categoryPagedCollectionClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.ProductAdmin.CategoryPagedCollection> GetCategoriesClient()
+		public static MozuClient<Mozu.Api.Contracts.ProductAdmin.CategoryPagedCollection> GetCategoriesClient(DataViewMode dataViewMode)
 		{
-			return GetCategoriesClient( null,  null,  null,  null);
+			return GetCategoriesClient(dataViewMode,  null,  null,  null,  null, null);
 		}
 
 		/// <summary>
-		/// Retrieves a list of categories according to any specified filter criteria and sort options.
+		/// 
 		/// </summary>
-		/// <param name="filter">A set of expressions that consist of a field, operator, and value and represent search parameter syntax when filtering results of a query. You can filter product category search results by any of its properties, including its position in the category hierarchy. Valid operators include equals (eq), does not equal (ne), greater than (gt), less than (lt), greater than or equal to (ge), less than or equal to (le), starts with (sw), or contains (cont). For example - "filter=IsDisplayed+eq+true"</param>
-		/// <param name="pageSize">Specifies the number of results to display on each page when creating paged results from a query. The maximum value is 200.</param>
+		/// <param name="filter"></param>
+		/// <param name="pageSize"></param>
 		/// <param name="sortBy"></param>
 		/// <param name="startIndex"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.ProductAdmin.CategoryPagedCollection"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=GetCategories( filter,  pageSize,  sortBy,  startIndex);
+		///   var mozuClient=GetCategories(dataViewMode,  filter,  pageSize,  sortBy,  startIndex, authTicket);
 		///   var categoryPagedCollectionClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.ProductAdmin.CategoryPagedCollection> GetCategoriesClient(string filter, int? pageSize, string sortBy, int? startIndex)
+		public static MozuClient<Mozu.Api.Contracts.ProductAdmin.CategoryPagedCollection> GetCategoriesClient(DataViewMode dataViewMode, string filter =  null, int? pageSize =  null, string sortBy =  null, int? startIndex =  null, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Catalog.Admin.CategoryUrl.GetCategoriesUrl(filter, pageSize, sortBy, startIndex);
 			const string verb = "GET";
-			var mozuClient = new MozuClient<Mozu.Api.Contracts.ProductAdmin.CategoryPagedCollection>().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			var mozuClient = new MozuClient<Mozu.Api.Contracts.ProductAdmin.CategoryPagedCollection>().WithVerb(verb).WithResourceUrl(url).WithHeader(Headers.X_VOL_DATAVIEW_MODE ,dataViewMode.ToString());
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 
 		/// <summary>
-		/// Retrieves the details of a single category.
+		/// 
 		/// </summary>
-		/// <param name="categoryId">Unique identifier of the category to retrieve.</param>
+		/// <param name="categoryId"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.ProductAdmin.Category"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=GetCategory( categoryId);
+		///   var mozuClient=GetCategory(dataViewMode,  categoryId, authTicket);
 		///   var categoryClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.ProductAdmin.Category> GetCategoryClient(int categoryId)
+		public static MozuClient<Mozu.Api.Contracts.ProductAdmin.Category> GetCategoryClient(DataViewMode dataViewMode, int categoryId, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Catalog.Admin.CategoryUrl.GetCategoryUrl(categoryId);
 			const string verb = "GET";
-			var mozuClient = new MozuClient<Mozu.Api.Contracts.ProductAdmin.Category>().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			var mozuClient = new MozuClient<Mozu.Api.Contracts.ProductAdmin.Category>().WithVerb(verb).WithResourceUrl(url).WithHeader(Headers.X_VOL_DATAVIEW_MODE ,dataViewMode.ToString());
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 
 		/// <summary>
-		/// Retrieves the subcategories of a category. This is a list of subcategories at the same level (siblings). Use a list of siblings, for example, to display the categories in a horizontal list.
+		/// 
 		/// </summary>
-		/// <param name="categoryId">Unique identifier of the category whose subcategories are retrieved.</param>
+		/// <param name="categoryId"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.ProductAdmin.CategoryCollection"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=GetChildCategories( categoryId);
+		///   var mozuClient=GetChildCategories(dataViewMode,  categoryId, authTicket);
 		///   var categoryCollectionClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.ProductAdmin.CategoryCollection> GetChildCategoriesClient(int categoryId)
+		public static MozuClient<Mozu.Api.Contracts.ProductAdmin.CategoryCollection> GetChildCategoriesClient(DataViewMode dataViewMode, int categoryId, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Catalog.Admin.CategoryUrl.GetChildCategoriesUrl(categoryId);
 			const string verb = "GET";
-			var mozuClient = new MozuClient<Mozu.Api.Contracts.ProductAdmin.CategoryCollection>().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			var mozuClient = new MozuClient<Mozu.Api.Contracts.ProductAdmin.CategoryCollection>().WithVerb(verb).WithResourceUrl(url).WithHeader(Headers.X_VOL_DATAVIEW_MODE ,dataViewMode.ToString());
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 
 				/// <summary>
-		/// Adds a new category to the site's category hierarchy. Specify a ParentCategoryID to determine where to locate the category in the hierarchy. If a ParentCategoryID is not specified, the new category becomes a top-level category.
+		/// 
 		/// </summary>
-		/// <param name="category">Properties of the new category. Required properties: ParentCategoryID and Content.Name.</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
+		/// <param name="category"></param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.ProductAdmin.Category"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=AddCategory( category);
+		///   var mozuClient=AddCategory(dataViewMode,  category, authTicket);
 		///   var categoryClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.ProductAdmin.Category> AddCategoryClient(Mozu.Api.Contracts.ProductAdmin.Category category)
+		public static MozuClient<Mozu.Api.Contracts.ProductAdmin.Category> AddCategoryClient(DataViewMode dataViewMode, Mozu.Api.Contracts.ProductAdmin.Category category, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Catalog.Admin.CategoryUrl.AddCategoryUrl();
 			const string verb = "POST";
-			var mozuClient = new MozuClient<Mozu.Api.Contracts.ProductAdmin.Category>().WithVerb(verb).WithResourceUrl(url).WithBody<Mozu.Api.Contracts.ProductAdmin.Category>(category);
-		return mozuClient;
+			var mozuClient = new MozuClient<Mozu.Api.Contracts.ProductAdmin.Category>().WithVerb(verb).WithResourceUrl(url).WithBody<Mozu.Api.Contracts.ProductAdmin.Category>(category).WithHeader(Headers.X_VOL_DATAVIEW_MODE ,dataViewMode.ToString());
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 
 				/// <summary>
-		/// Modifies a category such as moving it to another location in the category tree, or changing whether it is visible on the storefront. This PUT replaces the existing resource, so be sure to include all the information to maintain for the category.
+		/// 
 		/// </summary>
-		/// <param name="categoryId">Unique identifier of the category to modify.</param>
-		/// <param name="category">Properties of the category to modify.</param>
+		/// <param name="categoryId"></param>
+		/// <param name="category"></param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.ProductAdmin.Category"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=UpdateCategory( categoryId,  category);
+		///   var mozuClient=UpdateCategory(dataViewMode,  category,  categoryId);
 		///   var categoryClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.ProductAdmin.Category> UpdateCategoryClient(int categoryId, Mozu.Api.Contracts.ProductAdmin.Category category)
+		public static MozuClient<Mozu.Api.Contracts.ProductAdmin.Category> UpdateCategoryClient(DataViewMode dataViewMode, Mozu.Api.Contracts.ProductAdmin.Category category, int categoryId)
 		{
-			return UpdateCategoryClient( null,  categoryId,  category);
+			return UpdateCategoryClient(dataViewMode,  category,  categoryId,  null, null);
 		}
 
 		/// <summary>
-		/// Modifies a category such as moving it to another location in the category tree, or changing whether it is visible on the storefront. This PUT replaces the existing resource, so be sure to include all the information to maintain for the category.
+		/// 
 		/// </summary>
-		/// <param name="cascadeVisibility">If true, when changing the display option for the category, change it for all subcategories also. Default: False.</param>
-		/// <param name="categoryId">Unique identifier of the category to modify.</param>
-		/// <param name="category">Properties of the category to modify.</param>
+		/// <param name="cascadeVisibility"></param>
+		/// <param name="categoryId"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
+		/// <param name="category"></param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.ProductAdmin.Category"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=UpdateCategory( cascadeVisibility,  categoryId,  category);
+		///   var mozuClient=UpdateCategory(dataViewMode,  category,  categoryId,  cascadeVisibility, authTicket);
 		///   var categoryClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.ProductAdmin.Category> UpdateCategoryClient(bool? cascadeVisibility, int categoryId, Mozu.Api.Contracts.ProductAdmin.Category category)
+		public static MozuClient<Mozu.Api.Contracts.ProductAdmin.Category> UpdateCategoryClient(DataViewMode dataViewMode, Mozu.Api.Contracts.ProductAdmin.Category category, int categoryId, bool? cascadeVisibility =  null, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Catalog.Admin.CategoryUrl.UpdateCategoryUrl(cascadeVisibility, categoryId);
 			const string verb = "PUT";
-			var mozuClient = new MozuClient<Mozu.Api.Contracts.ProductAdmin.Category>().WithVerb(verb).WithResourceUrl(url).WithBody<Mozu.Api.Contracts.ProductAdmin.Category>(category);
-		return mozuClient;
+			var mozuClient = new MozuClient<Mozu.Api.Contracts.ProductAdmin.Category>().WithVerb(verb).WithResourceUrl(url).WithBody<Mozu.Api.Contracts.ProductAdmin.Category>(category).WithHeader(Headers.X_VOL_DATAVIEW_MODE ,dataViewMode.ToString());
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 
 				/// <summary>
-		/// Deletes the category specified by its category ID.
+		/// 
 		/// </summary>
-		/// <param name="categoryId">Unique identifier of the category to delete.</param>
+		/// <param name="categoryId"></param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=DeleteCategoryById( categoryId);
+		///   var mozuClient=DeleteCategoryById(dataViewMode,  categoryId);
 		///mozuClient.WithBaseAddress(url).Execute();
 		/// </code>
 		/// </example>
-		public static MozuClient DeleteCategoryByIdClient(int categoryId)
+		public static MozuClient DeleteCategoryByIdClient(DataViewMode dataViewMode, int categoryId)
 		{
-			return DeleteCategoryByIdClient( null,  categoryId);
+			return DeleteCategoryByIdClient(dataViewMode,  categoryId,  null, null);
 		}
 
 		/// <summary>
-		/// Deletes the category specified by its category ID.
+		/// 
 		/// </summary>
-		/// <param name="cascadeDelete">If true, any subcategories of a category are deleted when this category is deleted. Default: False.</param>
-		/// <param name="categoryId">Unique identifier of the category to delete.</param>
+		/// <param name="cascadeDelete"></param>
+		/// <param name="categoryId"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=DeleteCategoryById( cascadeDelete,  categoryId);
+		///   var mozuClient=DeleteCategoryById(dataViewMode,  categoryId,  cascadeDelete, authTicket);
 		///mozuClient.WithBaseAddress(url).Execute();
 		/// </code>
 		/// </example>
-		public static MozuClient DeleteCategoryByIdClient(bool? cascadeDelete, int categoryId)
+		public static MozuClient DeleteCategoryByIdClient(DataViewMode dataViewMode, int categoryId, bool? cascadeDelete =  null, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Catalog.Admin.CategoryUrl.DeleteCategoryByIdUrl(cascadeDelete, categoryId);
 			const string verb = "DELETE";
-			var mozuClient = new MozuClient().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			var mozuClient = new MozuClient().WithVerb(verb).WithResourceUrl(url).WithHeader(Headers.X_VOL_DATAVIEW_MODE ,dataViewMode.ToString());
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
 
 		}
 

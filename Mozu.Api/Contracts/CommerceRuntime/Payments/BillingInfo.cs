@@ -13,34 +13,16 @@ using Mozu.Api.Contracts.Core;
 
 namespace Mozu.Api.Contracts.CommerceRuntime.Payments
 {
-		///
-		///	Properties of the billing information entered for a payment.
-		///
 		public class BillingInfo
 		{
-			///
-			///If true, the customer's shipping address is the same as the customer's billing address.
-			///
 			public bool IsSameBillingShippingAddress { get; set; }
 
-			///
-			///The type of payment, such as credit card or check. Additional payment types such as PayPal will be supported in future releases.
-			///
 			public string PaymentType { get; set; }
 
-			///
-			///Identifier and datetime stamp information recorded when creating or updating a resource entity. This value is system-supplied and read-only.
-			///
 			public AuditInfo AuditInfo { get; set; }
 
-			///
-			///The cardholder's billing address.
-			///
 			public Contact BillingContact { get; set; }
 
-			///
-			///If the customer is paying by card, the credit card information.
-			///
 			public PaymentCard Card { get; set; }
 
 		}

@@ -39,8 +39,7 @@ namespace Mozu.Api.HttpModules
             if (filePath.EndsWith("/api/mozu/events") && request.RequestType == "POST")
             {
                 //load headers into apicontext
-                ApiContext apiContext = new ApiContext();
-                apiContext.SetContextFromHeaders(request.Headers, request.Url.ToString());
+				var apiContext = new ApiContext(request.Headers);
 
                 //read request into stream
                 string jsonRequest = string.Empty;
@@ -50,7 +49,7 @@ namespace Mozu.Api.HttpModules
                    jsonRequest = inputStream.ReadToEnd();
                 }
 
-                if (MessageAuthentication.Generate(ConfigurationManager.AppSettings["SharedSecret"], jsonRequest) !=
+                if (Crypto.GetHash(AppAuthenticator.Instance.AppAuthInfo.SharedSecret, jsonRequest) !=
                     apiContext.HMACSha256)
                 {
                     context.Response.StatusCode = 403;
@@ -78,6 +77,7 @@ namespace Mozu.Api.HttpModules
                         context.Response.StatusCode = 500;
                         context.Response.StatusDescription = exc.Message;
                         context.Response.ContentType = context.Request.ContentType;
+                        context.Response.Write(JsonConvert.SerializeObject(exc));
                     }
                 }
 
@@ -126,6 +126,8 @@ namespace Mozu.Api.HttpModules
             object typeObject = typeConstructor.Invoke(new Object[] { });
 
             MethodInfo methodInfo = assemblyType.GetMethod(action);
+            if (methodInfo == null)
+                throw new Exception("Method : " + action + " not found in " + type);
             methodInfo.Invoke(typeObject, new Object[] { apiContext, mzEvent });
 
         }

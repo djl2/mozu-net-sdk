@@ -13,25 +13,23 @@ using System;
 
 namespace Mozu.Api.Urls.Content.Documentlists
 {
-	public partial class FacetUrl : BaseUrl
+	public partial class FacetUrl : MozuUrl
 	{
 
 		/// <summary>
         /// Get Resource Url for GetFacets
         /// </summary>
-        /// <param name="documentListName">The document list associated with the facets to retrieve.</param>
-        /// <param name="propertyName">The property name associated with the facets to retrieve.</param>
-        /// <param name="publishState">The current state of the document, which is Active, Draft, or Latest. Active documents are published and cannot be deleted. Querying Latest returns the most recent version of the document, regardless of whether it is published or a draft.</param>
+        /// <param name="documentListName"></param>
+        /// <param name="propertyName"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string GetFacetsUrl(string documentListName, string propertyName, string publishState)
+        public static MozuUrl GetFacetsUrl(string documentListName, string propertyName)
 		{
-			var url = "/api/content/documentlists/{documentListName}/facets/{propertyName}?publishState={publishState}";
+			var url = "/api/content/documentlists/{documentListName}/facets/{propertyName}";
 			FormatUrl( ref url, "documentListName", documentListName);
 			FormatUrl( ref url, "propertyName", propertyName);
-			FormatUrl( ref url, "publishState", publishState);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 								

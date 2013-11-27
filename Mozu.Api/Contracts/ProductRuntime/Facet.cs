@@ -13,29 +13,14 @@ using System.Collections.Generic;
 
 namespace Mozu.Api.Contracts.ProductRuntime
 {
-		///
-		///	Properties of the facet used to index product searches on a storefront.
-		///
 		public class Facet
 		{
-			///
-			///The type of facet. Valid values are "range," which enables creation of a range of values, or "value," which populates the facet values based on the associated attribute or category.
-			///
 			public string FacetType { get; set; }
 
-			///
-			///The field name associated with the facet.
-			///
 			public string Field { get; set; }
 
-			///
-			///The descriptive label for the facet.
-			///
 			public string Label { get; set; }
 
-			///
-			///The values associated with the facet.
-			///
 			public List<FacetValue> Values { get; set; }
 
 		}

@@ -13,19 +13,10 @@ using System.Collections.Generic;
 
 namespace Mozu.Api.Contracts.Content
 {
-		///
-		///	The hierarchical structure of the folders in a document list including root folder, parent folder, and subfolders.
-		///
 		public class FolderTree
 		{
-			///
-			///The name of the folder.
-			///
 			public Folder Folder { get; set; }
 
-			///
-			///The subfolders contained within a folder.
-			///
 			public List<FolderTree> Children { get; set; }
 
 		}

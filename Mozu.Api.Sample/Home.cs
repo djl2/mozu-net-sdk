@@ -8,6 +8,7 @@ using Mozu.Api.Resources.Platform;
 using Mozu.Api.Sample.Models;
 using Mozu.Api.Security;
 using System.Linq;
+using UserScope = Mozu.Api.Security.UserScope;
 
 namespace Mozu.Api.Sample
 {
@@ -20,13 +21,11 @@ namespace Mozu.Api.Sample
         }
 
         private ApiContext _apiContext;
-
+        private AuthenticationProfile _userInfo;
         private void SetEnvironments()
         {
             var environments = new List<Models.Environment>();
-            environments.Add(new Models.Environment{ Key = "Sandbox", Value="http://sandbox.mozu.com"});
             environments.Add(new Models.Environment { Key = "Production", Value="https://home.mozu.com" });
-            
             cbEnvironment.DataSource = environments;
         }
 
@@ -35,20 +34,14 @@ namespace Mozu.Api.Sample
             try
             {
                 var appAuthInfo = new AppAuthInfo { ApplicationId = txtApplicationID.Text, SharedSecret = txtSharedSecret.Text };
-                Authentication.Initialize(appAuthInfo,SelectedEnv);
+                AppAuthenticator.Initialize(appAuthInfo, SelectedEnv);
 
                 var userAuthInfo = new UserAuthInfo {EmailAddress = txtEmail.Text, Password = txtPassword.Text};
-                UserAuthentication.Initialize(userAuthInfo, SelectedEnv);
+                _userInfo = UserAuthenticator.Authenticate(userAuthInfo, UserScope.Tenant);
 
                 panelTenant.Visible = true;
 
-                if (UserAuthentication.Instance.UserAuthTicket.AvailableTenants == null)
-                {
-                    UserAuthentication.Instance.UserAuthTicket.AvailableTenants = new List<Tenant>();
-                    UserAuthentication.Instance.UserAuthTicket.AvailableTenants.Add(UserAuthentication.Instance.UserAuthTicket.Tenant);
-                }
-                    
-                cbTenant.DataSource = UserAuthentication.Instance.UserAuthTicket.AvailableTenants;
+                cbTenant.DataSource = _userInfo.AuthorizedScopes;
             }
             catch (ApiException exc)
             {
@@ -68,12 +61,16 @@ namespace Mozu.Api.Sample
             get { return ((Models.Environment) cbEnvironment.SelectedItem).Value; } 
         }
 
+        private Tenant _tenant;
         private void cbTenant_changed(object sender, EventArgs e)
         {
 
             cbSite.DataSource = null;
-            var tenant = (Tenant)cbTenant.SelectedItem;
-            var sites = tenant.SiteGroups.SelectMany(x => x.Sites).ToList();
+            var scope = (Scope)cbTenant.SelectedItem;
+            
+            var tenantResource = new TenantResource();
+            _tenant = tenantResource.GetTenant(scope.Id);
+            var sites = _tenant.Sites;
             cbSite.DataSource = sites;
             cbSite.DisplayMember = "Name";
             panelAPI.Show();
@@ -82,23 +79,27 @@ namespace Mozu.Api.Sample
         private void setContext()
         {
 
-            _apiContext = new ApiContext{BaseUrl = SelectedEnv};
             var site = (Site)cbSite.SelectedItem;
-            _apiContext.SetContext(site);
-            UserAuthentication.Instance.RefreshUserAuthTicket(site.TenantId);
+
+           var masterCatalog = (from mc in _tenant.MasterCatalogs
+            from c in mc.Catalogs
+            where c.Id == site.CatalogId
+            select mc).SingleOrDefault();
+
+            _apiContext = new ApiContext(site.TenantId, site.Id, masterCatalogId:masterCatalog.Id,catalogId:site.CatalogId);
         }
 
         private void btnOrder_Click(object sender, EventArgs e)
         {
             setContext();
-            var orderHome = new OrderHandler.Orders(_apiContext);
+            var orderHome = new OrderHandler.Orders(new ApiContext(tenantId:_apiContext.TenantId, siteId:_apiContext.SiteId));
             orderHome.Show();
         }
 
         private void btnProduct_Click(object sender, EventArgs e)
         {
             setContext();
-            var productHome = new ProductHandler.Home(_apiContext);
+            var productHome = new ProductHandler.Home(new ApiContext(_apiContext.TenantId, masterCatalogId:_apiContext.MasterCatalogId, catalogId:_apiContext.CatalogId));
             productHome.Show();
         }
 

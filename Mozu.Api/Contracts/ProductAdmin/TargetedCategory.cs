@@ -12,19 +12,10 @@ using System;
 
 namespace Mozu.Api.Contracts.ProductAdmin
 {
-		///
-		///	Properties of a product category targeted for a defined discount.
-		///
 		public class TargetedCategory
 		{
-			///
-			///Identifier of the product category associated with the targeted discount.
-			///
 			public int? Id { get; set; }
 
-			///
-			///Name of the product category associated with the targeted discount.
-			///
 			public string Name { get; set; }
 
 		}

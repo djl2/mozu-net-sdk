@@ -10,198 +10,208 @@
 
 using System;
 using System.Collections.Generic;
+using Mozu.Api.Security;
+
 
 namespace Mozu.Api.Resources.Commerce
 {
 	/// <summary>
-	/// Use the Carts resource to manage storefront shopping carts as items are added and removed. Each time a shopper's cart is modified, the Carts resource updates estimated prices, discounts, tax, and shipping.
+	/// 
 	/// </summary>
-	public partial class CartResource : BaseResource 	{
+	public partial class CartResource  	{
 				///
 		/// <see cref="Mozu.Api.ApiContext"/>
 		///
-		private readonly ApiContext _apiContext;
-		public CartResource(ApiContext apiContext) 
+		private readonly IApiContext _apiContext;
+		public CartResource(IApiContext apiContext) 
 		{
 			_apiContext = apiContext;
 		}
 
 		
 		/// <summary>
-		/// Retrieve a cart specified by its cart ID.
+		/// 
 		/// </summary>
-		/// <param name="cartId">Identifier of the cart being retrieved.</param>
+		/// <param name="cartId"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Carts.Cart"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var cart = new Cart();
-		///   var cart = cart.GetCart( cartId);
+		///   var cart = cart.GetCart( cartId, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.CommerceRuntime.Carts.Cart GetCart(string cartId)
+		public virtual Mozu.Api.Contracts.CommerceRuntime.Carts.Cart GetCart(string cartId, AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.CommerceRuntime.Carts.Cart> response;
-			var client = Mozu.Api.Clients.Commerce.CartClient.GetCartClient( cartId);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.CommerceRuntime.Carts.Cart> response;
+			var client = Mozu.Api.Clients.Commerce.CartClient.GetCartClient( cartId, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
 		}
 
 		/// <summary>
-		/// Retrieves a cart's contents for the current shopper. If the shopper does not have an active cart on the site, the service creates one.
+		/// 
 		/// </summary>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Carts.Cart"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var cart = new Cart();
-		///   var cart = cart.GetOrCreateCart();
+		///   var cart = cart.GetOrCreateCart(authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.CommerceRuntime.Carts.Cart GetOrCreateCart()
+		public virtual Mozu.Api.Contracts.CommerceRuntime.Carts.Cart GetOrCreateCart(AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.CommerceRuntime.Carts.Cart> response;
-			var client = Mozu.Api.Clients.Commerce.CartClient.GetOrCreateCartClient();
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.CommerceRuntime.Carts.Cart> response;
+			var client = Mozu.Api.Clients.Commerce.CartClient.GetOrCreateCartClient(authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
 		}
 
 		/// <summary>
-		/// Retrieves the number of items in the active cart and the status of the cart such as whether or not it has expired. Only an anonymous user's cart (guest that does not log in) that is emptied and idle will expire after 14 days. Note that the expiration counter is renewed each time action is made to the cart. For shoppers or users that are logged in, the cart does not expire.
+		/// 
 		/// </summary>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Carts.CartSummary"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var cart = new Cart();
-		///   var cartSummary = cart.GetCartSummary();
+		///   var cartSummary = cart.GetCartSummary(authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.CommerceRuntime.Carts.CartSummary GetCartSummary()
+		public virtual Mozu.Api.Contracts.CommerceRuntime.Carts.CartSummary GetCartSummary(AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.CommerceRuntime.Carts.CartSummary> response;
-			var client = Mozu.Api.Clients.Commerce.CartClient.GetCartSummaryClient();
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.CommerceRuntime.Carts.CartSummary> response;
+			var client = Mozu.Api.Clients.Commerce.CartClient.GetCartSummaryClient(authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
 		}
 
 		/// <summary>
-		/// Retrieve a user's cart by specifying the user ID.
+		/// 
 		/// </summary>
-		/// <param name="userId">Unique identifier of the user whose cart you want to retrieve.</param>
+		/// <param name="userId"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Carts.Cart"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var cart = new Cart();
-		///   var cart = cart.GetUserCart( userId);
+		///   var cart = cart.GetUserCart( userId, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.CommerceRuntime.Carts.Cart GetUserCart(string userId)
+		public virtual Mozu.Api.Contracts.CommerceRuntime.Carts.Cart GetUserCart(string userId, AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.CommerceRuntime.Carts.Cart> response;
-			var client = Mozu.Api.Clients.Commerce.CartClient.GetUserCartClient( userId);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.CommerceRuntime.Carts.Cart> response;
+			var client = Mozu.Api.Clients.Commerce.CartClient.GetUserCartClient( userId, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
 		}
 
 		/// <summary>
-		/// Retrieves the current status of the specified user's cart, including the number of items in the active cart.
+		/// 
 		/// </summary>
-		/// <param name="userId">Unique identifier of the user whose cart details you want to retrieve.</param>
+		/// <param name="userId"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Carts.CartSummary"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var cart = new Cart();
-		///   var cartSummary = cart.GetUserCartSummary( userId);
+		///   var cartSummary = cart.GetUserCartSummary( userId, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.CommerceRuntime.Carts.CartSummary GetUserCartSummary(string userId)
+		public virtual Mozu.Api.Contracts.CommerceRuntime.Carts.CartSummary GetUserCartSummary(string userId, AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.CommerceRuntime.Carts.CartSummary> response;
-			var client = Mozu.Api.Clients.Commerce.CartClient.GetUserCartSummaryClient( userId);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.CommerceRuntime.Carts.CartSummary> response;
+			var client = Mozu.Api.Clients.Commerce.CartClient.GetUserCartSummaryClient( userId, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
 		}
 
 						/// <summary>
-		/// Update the current shopper's cart.
+		/// 
 		/// </summary>
-		/// <param name="cart">All of the properties of the cart to update. The product code is required.</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
+		/// <param name="cart"></param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Carts.Cart"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var cart = new Cart();
-		///   var cart = cart.UpdateCart( cart);
+		///   var cart = cart.UpdateCart( cart, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.CommerceRuntime.Carts.Cart UpdateCart(Mozu.Api.Contracts.CommerceRuntime.Carts.Cart cart)
+		public virtual Mozu.Api.Contracts.CommerceRuntime.Carts.Cart UpdateCart(Mozu.Api.Contracts.CommerceRuntime.Carts.Cart cart, AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.CommerceRuntime.Carts.Cart> response;
-			var client = Mozu.Api.Clients.Commerce.CartClient.UpdateCartClient( cart);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.CommerceRuntime.Carts.Cart> response;
+			var client = Mozu.Api.Clients.Commerce.CartClient.UpdateCartClient( cart, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
 		}
 
 				/// <summary>
-		/// Delete the cart specified by its cart ID.
+		/// 
 		/// </summary>
-		/// <param name="cartId">Identifier of the cart being deleted.</param>
+		/// <param name="cartId"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// 
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var cart = new Cart();
-		///   cart.DeleteCart( cartId);
+		///   cart.DeleteCart( cartId, authTicket);
 		/// </code>
 		/// </example>
-		public virtual void DeleteCart(string cartId)
+		public virtual void DeleteCart(string cartId, AuthTicket authTicket= null)
 		{
-						MozuClient response;
-			var client = Mozu.Api.Clients.Commerce.CartClient.DeleteCartClient( cartId);
-			SetContext(_apiContext, ref client,true);
+			MozuClient response;
+			var client = Mozu.Api.Clients.Commerce.CartClient.DeleteCartClient( cartId, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 
 		}
 
 		/// <summary>
-		/// Deletes the cart of the currently active shopper.
+		/// 
 		/// </summary>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// 
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var cart = new Cart();
-		///   cart.DeleteCurrentCart();
+		///   cart.DeleteCurrentCart(authTicket);
 		/// </code>
 		/// </example>
-		public virtual void DeleteCurrentCart()
+		public virtual void DeleteCurrentCart(AuthTicket authTicket= null)
 		{
-						MozuClient response;
-			var client = Mozu.Api.Clients.Commerce.CartClient.DeleteCurrentCartClient();
-			SetContext(_apiContext, ref client,true);
+			MozuClient response;
+			var client = Mozu.Api.Clients.Commerce.CartClient.DeleteCurrentCartClient(authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 
 		}

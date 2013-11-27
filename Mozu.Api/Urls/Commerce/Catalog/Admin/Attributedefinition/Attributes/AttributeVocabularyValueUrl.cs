@@ -13,97 +13,97 @@ using System;
 
 namespace Mozu.Api.Urls.Commerce.Catalog.Admin.Attributedefinition.Attributes
 {
-	public partial class AttributeVocabularyValueUrl : BaseUrl
+	public partial class AttributeVocabularyValueUrl : MozuUrl
 	{
 
 		/// <summary>
         /// Get Resource Url for GetAttributeVocabularyValues
         /// </summary>
-        /// <param name="attributeFQN">The fully qualified name of the attribute, which is a user defined attribute identifier.</param>
+        /// <param name="attributeFQN"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string GetAttributeVocabularyValuesUrl(string attributeFQN)
+        public static MozuUrl GetAttributeVocabularyValuesUrl(string attributeFQN)
 		{
 			var url = "/api/commerce/catalog/admin/attributedefinition/attributes/{attributeFQN}/VocabularyValues";
 			FormatUrl( ref url, "attributeFQN", attributeFQN);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		/// <summary>
         /// Get Resource Url for GetAttributeVocabularyValue
         /// </summary>
-        /// <param name="attributeFQN">The fully qualified name of the attribute, which is a user defined attribute identifier.</param>
-        /// <param name="value">The actual unique value of the attribute vocabulary to retrieve. A single attribute must have a unique value and match the attribute's data type. If a string value returns null, the system will generate a value. The actual string content displayed shoud be stored as "Content" and actual content is required for string values.</param>
+        /// <param name="attributeFQN"></param>
+        /// <param name="value"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string GetAttributeVocabularyValueUrl(string attributeFQN, string value)
+        public static MozuUrl GetAttributeVocabularyValueUrl(string attributeFQN, string value)
 		{
 			var url = "/api/commerce/catalog/admin/attributedefinition/attributes/{attributeFQN}/VocabularyValues/{value}";
 			FormatUrl( ref url, "attributeFQN", attributeFQN);
 			FormatUrl( ref url, "value", value);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				/// <summary>
         /// Get Resource Url for AddAttributeVocabularyValue
         /// </summary>
-        /// <param name="attributeFQN">The fully qualified name of the attribute, which is a user defined attribute identifier.</param>
+        /// <param name="attributeFQN"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string AddAttributeVocabularyValueUrl(string attributeFQN)
+        public static MozuUrl AddAttributeVocabularyValueUrl(string attributeFQN)
 		{
 			var url = "/api/commerce/catalog/admin/attributedefinition/attributes/{attributeFQN}/VocabularyValues";
 			FormatUrl( ref url, "attributeFQN", attributeFQN);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				/// <summary>
         /// Get Resource Url for UpdateAttributeVocabularyValues
         /// </summary>
-        /// <param name="attributeFQN">The fully qualified name of the attribute, which is a user defined attribute identifier.</param>
+        /// <param name="attributeFQN"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string UpdateAttributeVocabularyValuesUrl(string attributeFQN)
+        public static MozuUrl UpdateAttributeVocabularyValuesUrl(string attributeFQN)
 		{
 			var url = "/api/commerce/catalog/admin/attributedefinition/attributes/{attributeFQN}/VocabularyValues";
 			FormatUrl( ref url, "attributeFQN", attributeFQN);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		/// <summary>
         /// Get Resource Url for UpdateAttributeVocabularyValue
         /// </summary>
-        /// <param name="attributeFQN">The fully qualified name of the attribute, which is a user defined attribute identifier.</param>
-        /// <param name="value">The actual unique value of the attribute vocabulary value to update. A single attribute must have a unique value and match the attribute's data type. If a string value returns null, the system will generate a value. The actual string content displayed shoud be stored as "Content" and actual content is required for string values.</param>
+        /// <param name="attributeFQN"></param>
+        /// <param name="value"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string UpdateAttributeVocabularyValueUrl(string attributeFQN, string value)
+        public static MozuUrl UpdateAttributeVocabularyValueUrl(string attributeFQN, string value)
 		{
 			var url = "/api/commerce/catalog/admin/attributedefinition/attributes/{attributeFQN}/VocabularyValues/{value}";
 			FormatUrl( ref url, "attributeFQN", attributeFQN);
 			FormatUrl( ref url, "value", value);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				/// <summary>
         /// Get Resource Url for DeleteAttributeVocabularyValue
         /// </summary>
-        /// <param name="attributeFQN">The fully qualified name of the attribute, which is a user defined attribute identifier.</param>
-        /// <param name="value">The actual unique value of the attribute vocabulary to delete. A single attribute must have a unique value and match the attribute's data type. If a string value returns null, the system will generate a value. The actual string content displayed shoud be stored as "Content" and actual content is required for string values.</param>
+        /// <param name="attributeFQN"></param>
+        /// <param name="value"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string DeleteAttributeVocabularyValueUrl(string attributeFQN, string value)
+        public static MozuUrl DeleteAttributeVocabularyValueUrl(string attributeFQN, string value)
 		{
 			var url = "/api/commerce/catalog/admin/attributedefinition/attributes/{attributeFQN}/VocabularyValues/{value}";
 			FormatUrl( ref url, "attributeFQN", attributeFQN);
 			FormatUrl( ref url, "value", value);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		

@@ -13,7 +13,7 @@ using System;
 
 namespace Mozu.Api.Urls.Commerce.Settings
 {
-	public partial class GeneralSettingsUrl : BaseUrl
+	public partial class GeneralSettingsUrl : MozuUrl
 	{
 
 		/// <summary>
@@ -22,10 +22,10 @@ namespace Mozu.Api.Urls.Commerce.Settings
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string GetGeneralSettingsUrl()
+        public static MozuUrl GetGeneralSettingsUrl()
 		{
 			var url = "/api/commerce/settings/general/";
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 						/// <summary>
@@ -34,10 +34,10 @@ namespace Mozu.Api.Urls.Commerce.Settings
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string UpdateGeneralSettingsUrl()
+        public static MozuUrl UpdateGeneralSettingsUrl()
 		{
 			var url = "/api/commerce/settings/general/";
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				

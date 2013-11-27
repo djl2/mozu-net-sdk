@@ -12,19 +12,10 @@ using System;
 
 namespace Mozu.Api.Contracts.Content
 {
-		///
-		///	The actual value for the content property.
-		///
 		public class PropertyValue
 		{
-			///
-			///A type of content property value.
-			///
 			public string PropertyType { get; set; }
 
-			///
-			///The actual value for the content property.
-			///
 			public object Value { get; set; }
 
 		}

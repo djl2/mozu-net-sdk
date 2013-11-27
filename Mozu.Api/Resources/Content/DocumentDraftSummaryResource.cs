@@ -10,25 +10,27 @@
 
 using System;
 using System.Collections.Generic;
+using Mozu.Api.Security;
+
 
 namespace Mozu.Api.Resources.Content
 {
 	/// <summary>
-	/// Use the document publishing subresource to manage and publish document drafts in the Content service.
+	/// 
 	/// </summary>
-	public partial class DocumentDraftSummaryResource : BaseResource 	{
+	public partial class DocumentDraftSummaryResource  	{
 				///
 		/// <see cref="Mozu.Api.ApiContext"/>
 		///
-		private readonly ApiContext _apiContext;
-		public DocumentDraftSummaryResource(ApiContext apiContext) 
+		private readonly IApiContext _apiContext;
+		public DocumentDraftSummaryResource(IApiContext apiContext) 
 		{
 			_apiContext = apiContext;
 		}
 
 		
 		/// <summary>
-		/// Retrieves a list of the documents currently in draft state, according to any defined filter and sort criteria.
+		/// 
 		/// </summary>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.Content.DocumentDraftSummaryPagedCollection"/>
@@ -41,38 +43,39 @@ namespace Mozu.Api.Resources.Content
 		/// </example>
 		public virtual Mozu.Api.Contracts.Content.DocumentDraftSummaryPagedCollection ListDocumentDraftSummaries()
 		{
-			return ListDocumentDraftSummaries( null,  null,  null);
+			return ListDocumentDraftSummaries( null,  null,  null, null);
 		}
 
 		/// <summary>
-		/// Retrieves a list of the documents currently in draft state, according to any defined filter and sort criteria.
+		/// 
 		/// </summary>
-		/// <param name="documentLists">Lists that contain the document drafts.</param>
-		/// <param name="pageSize">Specifies the number of results to display on each page when creating paged results from a query. The maximum value is 200.</param>
-		/// <param name="startIndex">Indicates the zero-based offset in the complete result set where the returned entities begin, when creating paged results from a query. For example, with a PageSize of 25, to get the 51st through the 75th items, use startIndex=3.</param>
+		/// <param name="documentLists"></param>
+		/// <param name="pageSize"></param>
+		/// <param name="startIndex"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.Content.DocumentDraftSummaryPagedCollection"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var documentdraftsummary = new DocumentDraftSummary();
-		///   var documentDraftSummaryPagedCollection = documentdraftsummary.ListDocumentDraftSummaries( documentLists,  pageSize,  startIndex);
+		///   var documentDraftSummaryPagedCollection = documentdraftsummary.ListDocumentDraftSummaries( documentLists,  pageSize,  startIndex, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.Content.DocumentDraftSummaryPagedCollection ListDocumentDraftSummaries(string documentLists, int? pageSize, int? startIndex)
+		public virtual Mozu.Api.Contracts.Content.DocumentDraftSummaryPagedCollection ListDocumentDraftSummaries(string documentLists =  null, int? pageSize =  null, int? startIndex =  null, AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.Content.DocumentDraftSummaryPagedCollection> response;
-			var client = Mozu.Api.Clients.Content.DocumentDraftSummaryClient.ListDocumentDraftSummariesClient( documentLists,  pageSize,  startIndex);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.Content.DocumentDraftSummaryPagedCollection> response;
+			var client = Mozu.Api.Clients.Content.DocumentDraftSummaryClient.ListDocumentDraftSummariesClient( documentLists,  pageSize,  startIndex, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
 		}
 
 						/// <summary>
-		/// Publish one or more document drafts to live content on the site.
+		/// 
 		/// </summary>
-		/// <param name="documentIds">List of unique identifiers of the document drafts to publish.</param>
+		/// <param name="documentIds"></param>
 		/// <returns>
 		/// 
 		/// </returns>
@@ -84,36 +87,37 @@ namespace Mozu.Api.Resources.Content
 		/// </example>
 		public virtual void PublishDocuments(List<string> documentIds)
 		{
-			PublishDocuments( null,  documentIds);
+			PublishDocuments( documentIds,  null, null);
 		}
 
 		/// <summary>
-		/// Publish one or more document drafts to live content on the site.
+		/// 
 		/// </summary>
-		/// <param name="documentLists">List of document lists that contain documents to publish.</param>
-		/// <param name="documentIds">List of unique identifiers of the document drafts to publish.</param>
+		/// <param name="documentLists"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
+		/// <param name="documentIds"></param>
 		/// <returns>
 		/// 
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var documentdraftsummary = new DocumentDraftSummary();
-		///   documentdraftsummary.PublishDocuments( documentLists,  documentIds);
+		///   documentdraftsummary.PublishDocuments( documentIds,  documentLists, authTicket);
 		/// </code>
 		/// </example>
-		public virtual void PublishDocuments(string documentLists, List<string> documentIds)
+		public virtual void PublishDocuments(List<string> documentIds, string documentLists =  null, AuthTicket authTicket= null)
 		{
-						MozuClient response;
-			var client = Mozu.Api.Clients.Content.DocumentDraftSummaryClient.PublishDocumentsClient( documentLists,  documentIds);
-			SetContext(_apiContext, ref client,true);
+			MozuClient response;
+			var client = Mozu.Api.Clients.Content.DocumentDraftSummaryClient.PublishDocumentsClient( documentIds,  documentLists, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 
 		}
 
 				/// <summary>
-		/// Deletes the drafts of the specified documents. Published documents cannot be deleted.
+		/// 
 		/// </summary>
-		/// <param name="documentIds">Unique identifiers of the documents to delete.</param>
+		/// <param name="documentIds"></param>
 		/// <returns>
 		/// 
 		/// </returns>
@@ -125,28 +129,29 @@ namespace Mozu.Api.Resources.Content
 		/// </example>
 		public virtual void DeleteDocumentDrafts(string documentIds)
 		{
-			DeleteDocumentDrafts( documentIds,  null);
+			DeleteDocumentDrafts( documentIds,  null, null);
 		}
 
 		/// <summary>
-		/// Deletes the drafts of the specified documents. Published documents cannot be deleted.
+		/// 
 		/// </summary>
-		/// <param name="documentIds">Unique identifiers of the documents to delete.</param>
-		/// <param name="documentLists">List of document lists that contain documents to delete.</param>
+		/// <param name="documentIds"></param>
+		/// <param name="documentLists"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// 
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var documentdraftsummary = new DocumentDraftSummary();
-		///   documentdraftsummary.DeleteDocumentDrafts( documentIds,  documentLists);
+		///   documentdraftsummary.DeleteDocumentDrafts( documentIds,  documentLists, authTicket);
 		/// </code>
 		/// </example>
-		public virtual void DeleteDocumentDrafts(string documentIds, string documentLists)
+		public virtual void DeleteDocumentDrafts(string documentIds, string documentLists =  null, AuthTicket authTicket= null)
 		{
-						MozuClient response;
-			var client = Mozu.Api.Clients.Content.DocumentDraftSummaryClient.DeleteDocumentDraftsClient( documentIds,  documentLists);
-			SetContext(_apiContext, ref client,true);
+			MozuClient response;
+			var client = Mozu.Api.Clients.Content.DocumentDraftSummaryClient.DeleteDocumentDraftsClient( documentIds,  documentLists, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 
 		}

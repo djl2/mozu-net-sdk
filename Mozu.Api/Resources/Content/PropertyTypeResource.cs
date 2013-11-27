@@ -10,25 +10,27 @@
 
 using System;
 using System.Collections.Generic;
+using Mozu.Api.Security;
+
 
 namespace Mozu.Api.Resources.Content
 {
 	/// <summary>
-	/// Use the property types subresource to manage content properties.
+	/// 
 	/// </summary>
-	public partial class PropertyTypeResource : BaseResource 	{
+	public partial class PropertyTypeResource  	{
 				///
 		/// <see cref="Mozu.Api.ApiContext"/>
 		///
-		private readonly ApiContext _apiContext;
-		public PropertyTypeResource(ApiContext apiContext) 
+		private readonly IApiContext _apiContext;
+		public PropertyTypeResource(IApiContext apiContext) 
 		{
 			_apiContext = apiContext;
 		}
 
 		
 		/// <summary>
-		/// Retrieves a list of the content property types.
+		/// 
 		/// </summary>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.Content.PropertyTypeCollection"/>
@@ -41,73 +43,76 @@ namespace Mozu.Api.Resources.Content
 		/// </example>
 		public virtual Mozu.Api.Contracts.Content.PropertyTypeCollection GetList()
 		{
-			return GetList( null,  null);
+			return GetList( null,  null, null);
 		}
 
 		/// <summary>
-		/// Retrieves a list of the content property types.
+		/// 
 		/// </summary>
-		/// <param name="pageSize">Specifies the number of results to display on each page when creating paged results from a query. The maximum value is 200.</param>
+		/// <param name="pageSize"></param>
 		/// <param name="startIndex"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.Content.PropertyTypeCollection"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var propertytype = new PropertyType();
-		///   var propertyTypeCollection = propertytype.GetList( pageSize,  startIndex);
+		///   var propertyTypeCollection = propertytype.GetList( pageSize,  startIndex, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.Content.PropertyTypeCollection GetList(int? pageSize, int? startIndex)
+		public virtual Mozu.Api.Contracts.Content.PropertyTypeCollection GetList(int? pageSize =  null, int? startIndex =  null, AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.Content.PropertyTypeCollection> response;
-			var client = Mozu.Api.Clients.Content.PropertyTypeClient.GetListClient( pageSize,  startIndex);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.Content.PropertyTypeCollection> response;
+			var client = Mozu.Api.Clients.Content.PropertyTypeClient.GetListClient( pageSize,  startIndex, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
 		}
 
 		/// <summary>
-		/// Retrieves the details of the content property type.
+		/// 
 		/// </summary>
-		/// <param name="propertyTypeName">The name of the content property type.</param>
+		/// <param name="propertyTypeName"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.Content.PropertyType"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var propertytype = new PropertyType();
-		///   var propertyType = propertytype.Get( propertyTypeName);
+		///   var propertyType = propertytype.Get( propertyTypeName, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.Content.PropertyType Get(string propertyTypeName)
+		public virtual Mozu.Api.Contracts.Content.PropertyType Get(string propertyTypeName, AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.Content.PropertyType> response;
-			var client = Mozu.Api.Clients.Content.PropertyTypeClient.GetClient( propertyTypeName);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.Content.PropertyType> response;
+			var client = Mozu.Api.Clients.Content.PropertyTypeClient.GetClient( propertyTypeName, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
 		}
 
 		/// <summary>
-		/// Retrieves the value types associated with a content property.
+		/// 
 		/// </summary>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// List{<see cref="Mozu.Api.Contracts.Content.PropertyValueType"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var propertytype = new PropertyType();
-		///   var propertyValueType = propertytype.PropertyValueTypes();
+		///   var propertyValueType = propertytype.PropertyValueTypes(authTicket);
 		/// </code>
 		/// </example>
-		public virtual List<Mozu.Api.Contracts.Content.PropertyValueType> PropertyValueTypes()
+		public virtual List<Mozu.Api.Contracts.Content.PropertyValueType> PropertyValueTypes(AuthTicket authTicket= null)
 		{
-						MozuClient<List<Mozu.Api.Contracts.Content.PropertyValueType>> response;
-			var client = Mozu.Api.Clients.Content.PropertyTypeClient.PropertyValueTypesClient();
-			SetContext(_apiContext, ref client,true);
+			MozuClient<List<Mozu.Api.Contracts.Content.PropertyValueType>> response;
+			var client = Mozu.Api.Clients.Content.PropertyTypeClient.PropertyValueTypesClient(authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 

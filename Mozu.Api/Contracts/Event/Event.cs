@@ -13,46 +13,24 @@ using Mozu.Api.Contracts.Core;
 
 namespace Mozu.Api.Contracts.Event
 {
-		///
-		///	When a create, read, update, or delete happens on an order, product, discount, or category.
-		///
 		public class Event
 		{
-			///
-			///The unique identifier of the entity that caused the event. For example, if the event is "ProductCreated", the entity ID value represents the product code of the product that was created.
-			///
+			public int? CatalogId { get; set; }
+
 			public string EntityId { get; set; }
 
-			///
-			///The unique identifier of the event.
-			///
 			public string Id { get; set; }
 
-			///
-			///If true, the event record was generated as a test request for an application.
-			///
 			public bool? IsTest { get; set; }
 
-			///
-			///Unique identifier of the site group.
-			///
-			public int? SiteGroupId { get; set; }
+			public int? MasterCatalogId { get; set; }
 
 			public int? SiteId { get; set; }
 
-			///
-			///Unique identifier of the Mozu tenant.
-			///
 			public int? TenantId { get; set; }
 
-			///
-			///The type of event that was performed, such as "product.created" or "category.deleted".
-			///
 			public string Topic { get; set; }
 
-			///
-			///Identifier and datetime stamp information recorded when creating or updating a resource entity. This value is system-supplied and read-only.
-			///
 			public AuditInfo AuditInfo { get; set; }
 
 		}

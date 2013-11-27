@@ -18,7 +18,6 @@ namespace Mozu.Api.Utilities
                 var exception = JsonConvert.DeserializeObject<ApiException>(content);
                 exception.HttpStatusCode = response.StatusCode;
                 throw exception;
-                //throw new ApplicationException(Exception.ExceptionDetail.Message, new Exception(Exception.ExceptionDetail.StackTrace));
             }
         }
     }

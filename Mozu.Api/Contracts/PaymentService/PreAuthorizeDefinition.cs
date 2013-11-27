@@ -14,9 +14,6 @@ namespace Mozu.Api.Contracts.PaymentService
 {
 		public class PreAuthorizeDefinition
 		{
-			///
-			///Identifier of the entity.
-			///
 			public int Id { get; set; }
 
 			public string PreAuthorizeProdUrl { get; set; }

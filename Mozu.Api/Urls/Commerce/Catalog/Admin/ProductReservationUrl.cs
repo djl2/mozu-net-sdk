@@ -13,41 +13,41 @@ using System;
 
 namespace Mozu.Api.Urls.Commerce.Catalog.Admin
 {
-	public partial class ProductReservationUrl : BaseUrl
+	public partial class ProductReservationUrl : MozuUrl
 	{
 
 		/// <summary>
         /// Get Resource Url for GetProductReservations
         /// </summary>
-        /// <param name="filter">A set of expressions that consist of a field, operator, and value and represent search parameter syntax when filtering results of a query. Valid operators include equals (eq), does not equal (ne), greater than (gt), less than (lt), greater than or equal to (ge), less than or equal to (le), starts with (sw), or contains (cont). For example - "filter=IsDisplayed+eq+true"</param>
-        /// <param name="pageSize">Specifies the number of results to display on each page when creating paged results from a query. The maximum value is 200.</param>
+        /// <param name="filter"></param>
+        /// <param name="pageSize"></param>
         /// <param name="sortBy"></param>
         /// <param name="startIndex"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string GetProductReservationsUrl(string filter, int? pageSize, string sortBy, int? startIndex)
+        public static MozuUrl GetProductReservationsUrl(string filter, int? pageSize, string sortBy, int? startIndex)
 		{
 			var url = "/api/commerce/catalog/admin/productreservations/?startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&filter={filter}";
 			FormatUrl( ref url, "filter", filter);
 			FormatUrl( ref url, "pageSize", pageSize);
 			FormatUrl( ref url, "sortBy", sortBy);
 			FormatUrl( ref url, "startIndex", startIndex);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		/// <summary>
         /// Get Resource Url for GetProductReservation
         /// </summary>
-        /// <param name="productReservationId">Unique identifier of the product reservation.</param>
+        /// <param name="productReservationId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string GetProductReservationUrl(int productReservationId)
+        public static MozuUrl GetProductReservationUrl(int productReservationId)
 		{
 			var url = "/api/commerce/catalog/admin/productreservations/{productReservationId}";
 			FormatUrl( ref url, "productReservationId", productReservationId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				/// <summary>
@@ -56,26 +56,26 @@ namespace Mozu.Api.Urls.Commerce.Catalog.Admin
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string AddProductReservationUrl()
+        public static MozuUrl AddProductReservationUrl()
 		{
 			var url = "/api/commerce/catalog/admin/productreservations/";
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		/// <summary>
         /// Get Resource Url for CommitReservation
         /// </summary>
-        /// <param name="productReservationId">Unique identifier of the reservation.</param>
-        /// <param name="qty">Number of product items to remove from inventory.</param>
+        /// <param name="productReservationId"></param>
+        /// <param name="qty"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string CommitReservationUrl(int productReservationId, int qty)
+        public static MozuUrl CommitReservationUrl(int productReservationId, int qty)
 		{
 			var url = "/api/commerce/catalog/admin/productreservations/{productReservationId}/commit/{qty}";
 			FormatUrl( ref url, "productReservationId", productReservationId);
 			FormatUrl( ref url, "qty", qty);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				/// <summary>
@@ -85,25 +85,25 @@ namespace Mozu.Api.Urls.Commerce.Catalog.Admin
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string UpdateProductReservationUrl(int productReservationId)
+        public static MozuUrl UpdateProductReservationUrl(int productReservationId)
 		{
 			var url = "/api/commerce/catalog/admin/productreservations/{productReservationId}";
 			FormatUrl( ref url, "productReservationId", productReservationId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				/// <summary>
         /// Get Resource Url for DeleteProductReservation
         /// </summary>
-        /// <param name="productReservationId">Unique identifier of the reservation.</param>
+        /// <param name="productReservationId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string DeleteProductReservationUrl(int productReservationId)
+        public static MozuUrl DeleteProductReservationUrl(int productReservationId)
 		{
 			var url = "/api/commerce/catalog/admin/productreservations/{productReservationId}";
 			FormatUrl( ref url, "productReservationId", productReservationId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		

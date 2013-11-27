@@ -12,39 +12,20 @@ using System;
 
 namespace Mozu.Api.Contracts.ProductRuntime
 {
-		///
-		///	Properties of an image defined for a product.
-		///
 		public class ProductImage
 		{
-			///
-			///Descriptive text associated with the image or video that appears on the storefront.
-			///
 			public string AltText { get; set; }
 
-			///
-			///Image title that appears on the storefront.
-			///
 			public string ImageLabel { get; set; }
 
-			///
-			///Directory path where the product image file is stored.
-			///
 			public string ImagePath { get; set; }
 
-			///
-			///URL of the product image.
-			///
 			public string ImageUrl { get; set; }
 
-			///
-			///The numeric value that denotes the place this entity occupies in the order of the entity list.
-			///
+			public string MediaType { get; set; }
+
 			public int? Sequence { get; set; }
 
-			///
-			///The file link or URL of the product video.
-			///
 			public string VideoUrl { get; set; }
 
 		}

@@ -10,18 +10,20 @@
 
 using System;
 using System.Collections.Generic;
+using Mozu.Api.Security;
+
 
 namespace Mozu.Api.Resources.Commerce.Settings.Shipping
 {
 	/// <summary>
 	/// Use this subresource to manage the physical address from which shipments for this site will originate.
 	/// </summary>
-	public partial class ContactResource : BaseResource 	{
+	public partial class ContactResource  	{
 				///
 		/// <see cref="Mozu.Api.ApiContext"/>
 		///
-		private readonly ApiContext _apiContext;
-		public ContactResource(ApiContext apiContext) 
+		private readonly IApiContext _apiContext;
+		public ContactResource(IApiContext apiContext) 
 		{
 			_apiContext = apiContext;
 		}
@@ -30,20 +32,21 @@ namespace Mozu.Api.Resources.Commerce.Settings.Shipping
 		/// <summary>
 		/// Retrieves the physical address from which shipments originate from the site's shipping settings.
 		/// </summary>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.Core.Contact"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var contact = new Contact();
-		///   var contact = contact.GetShippingOriginAddress();
+		///   var contact = contact.GetShippingOriginAddress(authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.Core.Contact GetShippingOriginAddress()
+		public virtual Mozu.Api.Contracts.Core.Contact GetShippingOriginAddress(AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.Core.Contact> response;
-			var client = Mozu.Api.Clients.Commerce.Settings.Shipping.ContactClient.GetShippingOriginAddressClient();
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.Core.Contact> response;
+			var client = Mozu.Api.Clients.Commerce.Settings.Shipping.ContactClient.GetShippingOriginAddressClient(authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
@@ -52,6 +55,7 @@ namespace Mozu.Api.Resources.Commerce.Settings.Shipping
 				/// <summary>
 		/// Creates the site's shipping origin address as it appears in shipping settings.
 		/// </summary>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <param name="siteShippingOriginAddress">New shipping origin address to create. Required properties: SiteShippingOriginAddress.Sender Name, .Address1, .CityOrTown, .StateOrProvince, .PostalOrZipCode, .Country.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.Core.Contact"/>
@@ -59,14 +63,14 @@ namespace Mozu.Api.Resources.Commerce.Settings.Shipping
 		/// <example>
 		/// <code>
 		///   var contact = new Contact();
-		///   var contact = contact.CreateShippingOriginAddress( siteShippingOriginAddress);
+		///   var contact = contact.CreateShippingOriginAddress( siteShippingOriginAddress, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.Core.Contact CreateShippingOriginAddress(Mozu.Api.Contracts.Core.Contact siteShippingOriginAddress)
+		public virtual Mozu.Api.Contracts.Core.Contact CreateShippingOriginAddress(Mozu.Api.Contracts.Core.Contact siteShippingOriginAddress, AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.Core.Contact> response;
-			var client = Mozu.Api.Clients.Commerce.Settings.Shipping.ContactClient.CreateShippingOriginAddressClient( siteShippingOriginAddress);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.Core.Contact> response;
+			var client = Mozu.Api.Clients.Commerce.Settings.Shipping.ContactClient.CreateShippingOriginAddressClient( siteShippingOriginAddress, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
@@ -75,6 +79,7 @@ namespace Mozu.Api.Resources.Commerce.Settings.Shipping
 				/// <summary>
 		/// Updates the site's shipping origin address as it appears in shipping settings.
 		/// </summary>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <param name="siteShippingOriginAddress">Properties of the site's shipping origin address. Required properties: SiteShippingOriginAddress.Sender Name, .Address1, .CityOrTown, .StateOrProvince, .PostalOrZipCode, .Country.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.Core.Contact"/>
@@ -82,14 +87,14 @@ namespace Mozu.Api.Resources.Commerce.Settings.Shipping
 		/// <example>
 		/// <code>
 		///   var contact = new Contact();
-		///   var contact = contact.UpdateShippingOriginAddress( siteShippingOriginAddress);
+		///   var contact = contact.UpdateShippingOriginAddress( siteShippingOriginAddress, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.Core.Contact UpdateShippingOriginAddress(Mozu.Api.Contracts.Core.Contact siteShippingOriginAddress)
+		public virtual Mozu.Api.Contracts.Core.Contact UpdateShippingOriginAddress(Mozu.Api.Contracts.Core.Contact siteShippingOriginAddress, AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.Core.Contact> response;
-			var client = Mozu.Api.Clients.Commerce.Settings.Shipping.ContactClient.UpdateShippingOriginAddressClient( siteShippingOriginAddress);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.Core.Contact> response;
+			var client = Mozu.Api.Clients.Commerce.Settings.Shipping.ContactClient.UpdateShippingOriginAddressClient( siteShippingOriginAddress, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 

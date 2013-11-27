@@ -10,25 +10,18 @@
 
 using System;
 using System.Collections.Generic;
+using Mozu.Api.Security;
+
 
 namespace Mozu.Api.Resources.Event
 {
 	/// <summary>
-	/// Use the events resource to retreive events, which are notifications about a create, read, update, or delete operation.
+	/// 
 	/// </summary>
-	public partial class EventNotificationResource : BaseResource 	{
-				///
-		/// <see cref="Mozu.Api.ApiContext"/>
-		///
-		private readonly ApiContext _apiContext;
-		public EventNotificationResource(ApiContext apiContext) 
-		{
-			_apiContext = apiContext;
-		}
-
+	public partial class EventNotificationResource  	{
 		
 		/// <summary>
-		/// Retrieves a list of events.
+		/// 
 		/// </summary>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.Event.EventCollection"/>
@@ -41,53 +34,53 @@ namespace Mozu.Api.Resources.Event
 		/// </example>
 		public virtual Mozu.Api.Contracts.Event.EventCollection GetEvents()
 		{
-			return GetEvents( null,  null,  null,  null);
+			return GetEvents( null,  null,  null,  null, null);
 		}
 
 		/// <summary>
-		/// Retrieves a list of events.
+		/// 
 		/// </summary>
-		/// <param name="filter">A set of expressions that consist of a field, operator, and value and represent search parameter syntax when filtering results of a query. Valid operators include equals (eq), does not equal (ne), greater than (gt), less than (lt), greater than or equal to (ge), less than or equal to (le), starts with (sw), or contains (cont). For example - "filter=IsDisplayed+eq+true"</param>
-		/// <param name="pageSize">Specifies the number of results to display on each page when creating paged results from a query. The maximum value is 200.</param>
+		/// <param name="filter"></param>
+		/// <param name="pageSize"></param>
 		/// <param name="sortBy"></param>
 		/// <param name="startIndex"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.Event.EventCollection"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var eventnotification = new EventNotification();
-		///   var eventCollection = eventnotification.GetEvents( filter,  pageSize,  sortBy,  startIndex);
+		///   var eventCollection = eventnotification.GetEvents( filter,  pageSize,  sortBy,  startIndex, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.Event.EventCollection GetEvents(string filter, int? pageSize, string sortBy, int? startIndex)
+		public virtual Mozu.Api.Contracts.Event.EventCollection GetEvents(string filter =  null, int? pageSize =  null, string sortBy =  null, int? startIndex =  null, AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.Event.EventCollection> response;
-			var client = Mozu.Api.Clients.Event.EventNotificationClient.GetEventsClient( filter,  pageSize,  sortBy,  startIndex);
-			SetContext(_apiContext, ref client,false);
+			MozuClient<Mozu.Api.Contracts.Event.EventCollection> response;
+			var client = Mozu.Api.Clients.Event.EventNotificationClient.GetEventsClient( filter,  pageSize,  sortBy,  startIndex, authTicket);
 			response= client.Execute();
 			return response.Result();
 
 		}
 
 		/// <summary>
-		/// Retrieves an event by providing the event ID.
+		/// 
 		/// </summary>
-		/// <param name="eventId">The unique identifier of the event being retrieved. An event is a notification about a create, read, update, or delete on an order, product, discount or category.</param>
+		/// <param name="eventId"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.Event.Event"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var eventnotification = new EventNotification();
-		///   var event = eventnotification.GetEvent( eventId);
+		///   var event = eventnotification.GetEvent( eventId, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.Event.Event GetEvent(string eventId)
+		public virtual Mozu.Api.Contracts.Event.Event GetEvent(string eventId, AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.Event.Event> response;
-			var client = Mozu.Api.Clients.Event.EventNotificationClient.GetEventClient( eventId);
-			SetContext(_apiContext, ref client,false);
+			MozuClient<Mozu.Api.Contracts.Event.Event> response;
+			var client = Mozu.Api.Clients.Event.EventNotificationClient.GetEventClient( eventId, authTicket);
 			response= client.Execute();
 			return response.Result();
 

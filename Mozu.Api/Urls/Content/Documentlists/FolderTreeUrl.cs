@@ -13,27 +13,27 @@ using System;
 
 namespace Mozu.Api.Urls.Content.Documentlists
 {
-	public partial class FolderTreeUrl : BaseUrl
+	public partial class FolderTreeUrl : MozuUrl
 	{
 
 		/// <summary>
         /// Get Resource Url for GetFolderTree
         /// </summary>
-        /// <param name="documentListName">The name of the document list that contains this folder hierarchy.</param>
-        /// <param name="levels">The number of levels in the folder hierarchy to return.</param>
-        /// <param name="rootFolderId">The unique identifier of the top-level folder in the document list.</param>
-        /// <param name="rootFolderPath">The location in the document hierarchy of the top-level folder in the document list.</param>
+        /// <param name="documentListName"></param>
+        /// <param name="levels"></param>
+        /// <param name="rootFolderId"></param>
+        /// <param name="rootFolderPath"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string GetFolderTreeUrl(string documentListName, long? levels, string rootFolderId, string rootFolderPath)
+        public static MozuUrl GetFolderTreeUrl(string documentListName, int? levels, string rootFolderId, string rootFolderPath)
 		{
 			var url = "/api/content/documentlists/{documentListName}/foldertree?levels={levels}&rootFolderId={rootFolderId}&rootFolderPath={rootFolderPath}";
 			FormatUrl( ref url, "documentListName", documentListName);
 			FormatUrl( ref url, "levels", levels);
 			FormatUrl( ref url, "rootFolderId", rootFolderId);
 			FormatUrl( ref url, "rootFolderPath", rootFolderPath);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 								

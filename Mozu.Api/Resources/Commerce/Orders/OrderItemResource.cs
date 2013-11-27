@@ -10,28 +10,30 @@
 
 using System;
 using System.Collections.Generic;
+using Mozu.Api.Security;
+
 
 namespace Mozu.Api.Resources.Commerce.Orders
 {
 	/// <summary>
-	/// Use this subresource to retrieve details about items in an active order.
+	/// 
 	/// </summary>
-	public partial class OrderItemResource : BaseResource 	{
+	public partial class OrderItemResource  	{
 				///
 		/// <see cref="Mozu.Api.ApiContext"/>
 		///
-		private readonly ApiContext _apiContext;
-		public OrderItemResource(ApiContext apiContext) 
+		private readonly IApiContext _apiContext;
+		public OrderItemResource(IApiContext apiContext) 
 		{
 			_apiContext = apiContext;
 		}
 
 		
 		/// <summary>
-		/// Retrieves the details of a single order item.
+		/// 
 		/// </summary>
-		/// <param name="orderId">Unique identifier of the order item to retrieve.</param>
-		/// <param name="orderItemId">Unique identifier of the order item details to retrieve.</param>
+		/// <param name="orderId"></param>
+		/// <param name="orderItemId"></param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Orders.OrderItem"/>
 		/// </returns>
@@ -43,38 +45,39 @@ namespace Mozu.Api.Resources.Commerce.Orders
 		/// </example>
 		public virtual Mozu.Api.Contracts.CommerceRuntime.Orders.OrderItem GetOrderItem(string orderId, string orderItemId)
 		{
-			return GetOrderItem( null,  orderId,  orderItemId);
+			return GetOrderItem( orderId,  orderItemId,  null, null);
 		}
 
 		/// <summary>
-		/// Retrieves the details of a single order item.
+		/// 
 		/// </summary>
-		/// <param name="draft">If true, retrieve the draft version of this order item, which might include uncommitted changes to the order item, the order, or other order components.</param>
-		/// <param name="orderId">Unique identifier of the order item to retrieve.</param>
-		/// <param name="orderItemId">Unique identifier of the order item details to retrieve.</param>
+		/// <param name="draft"></param>
+		/// <param name="orderId"></param>
+		/// <param name="orderItemId"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Orders.OrderItem"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var orderitem = new OrderItem();
-		///   var orderItem = orderitem.GetOrderItem( draft,  orderId,  orderItemId);
+		///   var orderItem = orderitem.GetOrderItem( orderId,  orderItemId,  draft, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.CommerceRuntime.Orders.OrderItem GetOrderItem(bool? draft, string orderId, string orderItemId)
+		public virtual Mozu.Api.Contracts.CommerceRuntime.Orders.OrderItem GetOrderItem(string orderId, string orderItemId, bool? draft =  null, AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.CommerceRuntime.Orders.OrderItem> response;
-			var client = Mozu.Api.Clients.Commerce.Orders.OrderItemClient.GetOrderItemClient( draft,  orderId,  orderItemId);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.CommerceRuntime.Orders.OrderItem> response;
+			var client = Mozu.Api.Clients.Commerce.Orders.OrderItemClient.GetOrderItemClient( orderId,  orderItemId,  draft, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
 		}
 
 		/// <summary>
-		/// Retrieves the details of all items in an order.
+		/// 
 		/// </summary>
-		/// <param name="orderId">Unique identifier of the order items to retrieve.</param>
+		/// <param name="orderId"></param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Orders.OrderItemCollection"/>
 		/// </returns>
@@ -86,133 +89,136 @@ namespace Mozu.Api.Resources.Commerce.Orders
 		/// </example>
 		public virtual Mozu.Api.Contracts.CommerceRuntime.Orders.OrderItemCollection GetOrderItems(string orderId)
 		{
-			return GetOrderItems( null,  orderId);
+			return GetOrderItems( orderId,  null, null);
 		}
 
 		/// <summary>
-		/// Retrieves the details of all items in an order.
+		/// 
 		/// </summary>
-		/// <param name="draft">If true, retrieve the draft version of the order's items, which might include uncommitted changes to one or more order items, the order itself, or other order components.</param>
-		/// <param name="orderId">Unique identifier of the order items to retrieve.</param>
+		/// <param name="draft"></param>
+		/// <param name="orderId"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Orders.OrderItemCollection"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var orderitem = new OrderItem();
-		///   var orderItemCollection = orderitem.GetOrderItems( draft,  orderId);
+		///   var orderItemCollection = orderitem.GetOrderItems( orderId,  draft, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.CommerceRuntime.Orders.OrderItemCollection GetOrderItems(bool? draft, string orderId)
+		public virtual Mozu.Api.Contracts.CommerceRuntime.Orders.OrderItemCollection GetOrderItems(string orderId, bool? draft =  null, AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.CommerceRuntime.Orders.OrderItemCollection> response;
-			var client = Mozu.Api.Clients.Commerce.Orders.OrderItemClient.GetOrderItemsClient( draft,  orderId);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.CommerceRuntime.Orders.OrderItemCollection> response;
+			var client = Mozu.Api.Clients.Commerce.Orders.OrderItemClient.GetOrderItemsClient( orderId,  draft, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
 		}
 
 				/// <summary>
-		/// Adds a new item to an existing order.
+		/// 
 		/// </summary>
-		/// <param name="orderId">Unique identifier of the order for which to add the item.</param>
-		/// <param name="orderItem">The properties of the item to create in the existing order.</param>
+		/// <param name="orderId"></param>
+		/// <param name="orderItem"></param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Orders.Order"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var orderitem = new OrderItem();
-		///   var order = orderitem.CreateOrderItem( orderId,  orderItem);
+		///   var order = orderitem.CreateOrderItem( orderItem,  orderId);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.CommerceRuntime.Orders.Order CreateOrderItem(string orderId, Mozu.Api.Contracts.CommerceRuntime.Orders.OrderItem orderItem)
+		public virtual Mozu.Api.Contracts.CommerceRuntime.Orders.Order CreateOrderItem(Mozu.Api.Contracts.CommerceRuntime.Orders.OrderItem orderItem, string orderId)
 		{
-			return CreateOrderItem( orderId,  null,  null,  orderItem);
+			return CreateOrderItem( orderItem,  orderId,  null,  null, null);
 		}
 
 		/// <summary>
-		/// Adds a new item to an existing order.
+		/// 
 		/// </summary>
-		/// <param name="orderId">Unique identifier of the order for which to add the item.</param>
-		/// <param name="updateMode">Specifies whether to add the item by updating the original order, updating the order in draft mode, or updating the order in draft mode and then committing the changes to the original. Draft mode enables users to make incremental order changes before committing the changes to the original order. Valid values are "ApplyToOriginal", "ApplyToDraft", or "ApplyAndCommit".</param>
-		/// <param name="version">If applicable, the version of the order or order draft for which to add the item.</param>
-		/// <param name="orderItem">The properties of the item to create in the existing order.</param>
+		/// <param name="orderId"></param>
+		/// <param name="updateMode"></param>
+		/// <param name="version"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
+		/// <param name="orderItem"></param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Orders.Order"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var orderitem = new OrderItem();
-		///   var order = orderitem.CreateOrderItem( orderId,  updateMode,  version,  orderItem);
+		///   var order = orderitem.CreateOrderItem( orderItem,  orderId,  updateMode,  version, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.CommerceRuntime.Orders.Order CreateOrderItem(string orderId, string updateMode, string version, Mozu.Api.Contracts.CommerceRuntime.Orders.OrderItem orderItem)
+		public virtual Mozu.Api.Contracts.CommerceRuntime.Orders.Order CreateOrderItem(Mozu.Api.Contracts.CommerceRuntime.Orders.OrderItem orderItem, string orderId, string updateMode =  null, string version =  null, AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.CommerceRuntime.Orders.Order> response;
-			var client = Mozu.Api.Clients.Commerce.Orders.OrderItemClient.CreateOrderItemClient( orderId,  updateMode,  version,  orderItem);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.CommerceRuntime.Orders.Order> response;
+			var client = Mozu.Api.Clients.Commerce.Orders.OrderItemClient.CreateOrderItemClient( orderItem,  orderId,  updateMode,  version, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
 		}
 
 				/// <summary>
-		/// Update the discount applied to an item in an order.
+		/// 
 		/// </summary>
-		/// <param name="discountId">Unique identifier of the discount. System-supplied and read only.</param>
-		/// <param name="orderId">Unique identifier of the order associated with the item discount.</param>
-		/// <param name="orderItemId">Unique identifier of the item in the order.</param>
-		/// <param name="discount">Properties of the discount to modify for the order item.</param>
+		/// <param name="discountId"></param>
+		/// <param name="orderId"></param>
+		/// <param name="orderItemId"></param>
+		/// <param name="discount"></param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Orders.Order"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var orderitem = new OrderItem();
-		///   var order = orderitem.UpdateOrderItemDiscount( discountId,  orderId,  orderItemId,  discount);
+		///   var order = orderitem.UpdateOrderItemDiscount( discount,  discountId,  orderId,  orderItemId);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.CommerceRuntime.Orders.Order UpdateOrderItemDiscount(int discountId, string orderId, string orderItemId, Mozu.Api.Contracts.CommerceRuntime.Discounts.AppliedDiscount discount)
+		public virtual Mozu.Api.Contracts.CommerceRuntime.Orders.Order UpdateOrderItemDiscount(Mozu.Api.Contracts.CommerceRuntime.Discounts.AppliedDiscount discount, int discountId, string orderId, string orderItemId)
 		{
-			return UpdateOrderItemDiscount( discountId,  orderId,  orderItemId,  null,  null,  discount);
+			return UpdateOrderItemDiscount( discount,  discountId,  orderId,  orderItemId,  null,  null, null);
 		}
 
 		/// <summary>
-		/// Update the discount applied to an item in an order.
+		/// 
 		/// </summary>
-		/// <param name="discountId">Unique identifier of the discount. System-supplied and read only.</param>
-		/// <param name="orderId">Unique identifier of the order associated with the item discount.</param>
-		/// <param name="orderItemId">Unique identifier of the item in the order.</param>
-		/// <param name="updateMode">Specifies whether to change the item discount by updating the original order, updating the order in draft mode, or updating the order in draft mode and then committing the changes to the original. Draft mode enables users to make incremental order changes before committing the changes to the original order. Valid values are "ApplyToOriginal", "ApplyToDraft", or "ApplyAndCommit".</param>
-		/// <param name="version">If applicable, the version of the order or order draft for which to update the item discount.</param>
-		/// <param name="discount">Properties of the discount to modify for the order item.</param>
+		/// <param name="discountId"></param>
+		/// <param name="orderId"></param>
+		/// <param name="orderItemId"></param>
+		/// <param name="updateMode"></param>
+		/// <param name="version"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
+		/// <param name="discount"></param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Orders.Order"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var orderitem = new OrderItem();
-		///   var order = orderitem.UpdateOrderItemDiscount( discountId,  orderId,  orderItemId,  updateMode,  version,  discount);
+		///   var order = orderitem.UpdateOrderItemDiscount( discount,  discountId,  orderId,  orderItemId,  updateMode,  version, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.CommerceRuntime.Orders.Order UpdateOrderItemDiscount(int discountId, string orderId, string orderItemId, string updateMode, string version, Mozu.Api.Contracts.CommerceRuntime.Discounts.AppliedDiscount discount)
+		public virtual Mozu.Api.Contracts.CommerceRuntime.Orders.Order UpdateOrderItemDiscount(Mozu.Api.Contracts.CommerceRuntime.Discounts.AppliedDiscount discount, int discountId, string orderId, string orderItemId, string updateMode =  null, string version =  null, AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.CommerceRuntime.Orders.Order> response;
-			var client = Mozu.Api.Clients.Commerce.Orders.OrderItemClient.UpdateOrderItemDiscountClient( discountId,  orderId,  orderItemId,  updateMode,  version,  discount);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.CommerceRuntime.Orders.Order> response;
+			var client = Mozu.Api.Clients.Commerce.Orders.OrderItemClient.UpdateOrderItemDiscountClient( discount,  discountId,  orderId,  orderItemId,  updateMode,  version, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
 		}
 
 		/// <summary>
-		/// Override the price of an individual product in the specified order.
+		/// 
 		/// </summary>
-		/// <param name="orderId">Unique identifier of the order containing the item to price override.</param>
-		/// <param name="orderItemId">Unique identifier of the item in the order to price override.</param>
-		/// <param name="price">The override price to specify for this item in the specified order.</param>
+		/// <param name="orderId"></param>
+		/// <param name="orderItemId"></param>
+		/// <param name="price"></param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Orders.Order"/>
 		/// </returns>
@@ -224,42 +230,43 @@ namespace Mozu.Api.Resources.Commerce.Orders
 		/// </example>
 		public virtual Mozu.Api.Contracts.CommerceRuntime.Orders.Order UpdateItemProductPrice(string orderId, string orderItemId, decimal price)
 		{
-			return UpdateItemProductPrice( orderId,  orderItemId,  price,  null,  null);
+			return UpdateItemProductPrice( orderId,  orderItemId,  price,  null,  null, null);
 		}
 
 		/// <summary>
-		/// Override the price of an individual product in the specified order.
+		/// 
 		/// </summary>
-		/// <param name="orderId">Unique identifier of the order containing the item to price override.</param>
-		/// <param name="orderItemId">Unique identifier of the item in the order to price override.</param>
-		/// <param name="price">The override price to specify for this item in the specified order.</param>
-		/// <param name="updateMode">Specifies whether to change the product price by updating the original order, updating the order in draft mode, or updating the order in draft mode and then committing the changes to the original. Draft mode enables users to make incremental order changes before committing the changes to the original order. Valid values are "ApplyToOriginal", "ApplyToDraft", or "ApplyAndCommit".</param>
-		/// <param name="version">If applicable, the version of the order or order draft for which to update the item price.</param>
+		/// <param name="orderId"></param>
+		/// <param name="orderItemId"></param>
+		/// <param name="price"></param>
+		/// <param name="updateMode"></param>
+		/// <param name="version"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Orders.Order"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var orderitem = new OrderItem();
-		///   var order = orderitem.UpdateItemProductPrice( orderId,  orderItemId,  price,  updateMode,  version);
+		///   var order = orderitem.UpdateItemProductPrice( orderId,  orderItemId,  price,  updateMode,  version, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.CommerceRuntime.Orders.Order UpdateItemProductPrice(string orderId, string orderItemId, decimal price, string updateMode, string version)
+		public virtual Mozu.Api.Contracts.CommerceRuntime.Orders.Order UpdateItemProductPrice(string orderId, string orderItemId, decimal price, string updateMode =  null, string version =  null, AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.CommerceRuntime.Orders.Order> response;
-			var client = Mozu.Api.Clients.Commerce.Orders.OrderItemClient.UpdateItemProductPriceClient( orderId,  orderItemId,  price,  updateMode,  version);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.CommerceRuntime.Orders.Order> response;
+			var client = Mozu.Api.Clients.Commerce.Orders.OrderItemClient.UpdateItemProductPriceClient( orderId,  orderItemId,  price,  updateMode,  version, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
 		}
 
 		/// <summary>
-		/// Update the quantity of an item in an order.
+		/// 
 		/// </summary>
-		/// <param name="orderId">Unique identifier of the order containing the item to update quantity.</param>
-		/// <param name="orderItemId">Unique identifier of the item in the order to update quantity.</param>
-		/// <param name="quantity">The quantity of the item in the order to update.</param>
+		/// <param name="orderId"></param>
+		/// <param name="orderItemId"></param>
+		/// <param name="quantity"></param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Orders.Order"/>
 		/// </returns>
@@ -271,41 +278,42 @@ namespace Mozu.Api.Resources.Commerce.Orders
 		/// </example>
 		public virtual Mozu.Api.Contracts.CommerceRuntime.Orders.Order UpdateItemQuantity(string orderId, string orderItemId, int quantity)
 		{
-			return UpdateItemQuantity( orderId,  orderItemId,  quantity,  null,  null);
+			return UpdateItemQuantity( orderId,  orderItemId,  quantity,  null,  null, null);
 		}
 
 		/// <summary>
-		/// Update the quantity of an item in an order.
+		/// 
 		/// </summary>
-		/// <param name="orderId">Unique identifier of the order containing the item to update quantity.</param>
-		/// <param name="orderItemId">Unique identifier of the item in the order to update quantity.</param>
-		/// <param name="quantity">The quantity of the item in the order to update.</param>
-		/// <param name="updateMode">Specifies whether to change the item quantity by updating the original order, updating the order in draft mode, or updating the order in draft mode and then committing the changes to the original. Draft mode enables users to make incremental order changes before committing the changes to the original order. Valid values are "ApplyToOriginal", "ApplyToDraft", or "ApplyAndCommit".</param>
-		/// <param name="version">If applicable, the version of the order or order draft for which to update the item quantity.</param>
+		/// <param name="orderId"></param>
+		/// <param name="orderItemId"></param>
+		/// <param name="quantity"></param>
+		/// <param name="updateMode"></param>
+		/// <param name="version"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Orders.Order"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var orderitem = new OrderItem();
-		///   var order = orderitem.UpdateItemQuantity( orderId,  orderItemId,  quantity,  updateMode,  version);
+		///   var order = orderitem.UpdateItemQuantity( orderId,  orderItemId,  quantity,  updateMode,  version, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.CommerceRuntime.Orders.Order UpdateItemQuantity(string orderId, string orderItemId, int quantity, string updateMode, string version)
+		public virtual Mozu.Api.Contracts.CommerceRuntime.Orders.Order UpdateItemQuantity(string orderId, string orderItemId, int quantity, string updateMode =  null, string version =  null, AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.CommerceRuntime.Orders.Order> response;
-			var client = Mozu.Api.Clients.Commerce.Orders.OrderItemClient.UpdateItemQuantityClient( orderId,  orderItemId,  quantity,  updateMode,  version);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.CommerceRuntime.Orders.Order> response;
+			var client = Mozu.Api.Clients.Commerce.Orders.OrderItemClient.UpdateItemQuantityClient( orderId,  orderItemId,  quantity,  updateMode,  version, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
 		}
 
 				/// <summary>
-		/// Removes a previously added item from an existing order.
+		/// 
 		/// </summary>
-		/// <param name="orderId">Unique identifier of the order with the item to remove.</param>
-		/// <param name="orderItemId">Unique identifier of the item to remove from the order.</param>
+		/// <param name="orderId"></param>
+		/// <param name="orderItemId"></param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Orders.Order"/>
 		/// </returns>
@@ -317,30 +325,31 @@ namespace Mozu.Api.Resources.Commerce.Orders
 		/// </example>
 		public virtual Mozu.Api.Contracts.CommerceRuntime.Orders.Order DeleteOrderItem(string orderId, string orderItemId)
 		{
-			return DeleteOrderItem( orderId,  orderItemId,  null,  null);
+			return DeleteOrderItem( orderId,  orderItemId,  null,  null, null);
 		}
 
 		/// <summary>
-		/// Removes a previously added item from an existing order.
+		/// 
 		/// </summary>
-		/// <param name="orderId">Unique identifier of the order with the item to remove.</param>
-		/// <param name="orderItemId">Unique identifier of the item to remove from the order.</param>
-		/// <param name="updateMode">Specifies whether to remove the item by updating the original order, updating the order in draft mode, or updating the order in draft mode and then committing the changes to the original. Draft mode enables users to make incremental order changes before committing the changes to the original order. Valid values are "ApplyToOriginal", "ApplyToDraft", or "ApplyAndCommit".</param>
-		/// <param name="version">If applicable, the version of the order or order draft from which to delete the item.</param>
+		/// <param name="orderId"></param>
+		/// <param name="orderItemId"></param>
+		/// <param name="updateMode"></param>
+		/// <param name="version"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Orders.Order"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var orderitem = new OrderItem();
-		///   var order = orderitem.DeleteOrderItem( orderId,  orderItemId,  updateMode,  version);
+		///   var order = orderitem.DeleteOrderItem( orderId,  orderItemId,  updateMode,  version, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.CommerceRuntime.Orders.Order DeleteOrderItem(string orderId, string orderItemId, string updateMode, string version)
+		public virtual Mozu.Api.Contracts.CommerceRuntime.Orders.Order DeleteOrderItem(string orderId, string orderItemId, string updateMode =  null, string version =  null, AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.CommerceRuntime.Orders.Order> response;
-			var client = Mozu.Api.Clients.Commerce.Orders.OrderItemClient.DeleteOrderItemClient( orderId,  orderItemId,  updateMode,  version);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.CommerceRuntime.Orders.Order> response;
+			var client = Mozu.Api.Clients.Commerce.Orders.OrderItemClient.DeleteOrderItemClient( orderId,  orderItemId,  updateMode,  version, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 

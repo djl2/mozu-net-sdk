@@ -13,53 +13,53 @@ using System;
 
 namespace Mozu.Api.Urls.Commerce.Returns
 {
-	public partial class ShipmentUrl : BaseUrl
+	public partial class ShipmentUrl : MozuUrl
 	{
 
 		/// <summary>
         /// Get Resource Url for GetShipment
         /// </summary>
-        /// <param name="returnId">Unique identifier of the return associated with the replacement shipment to retrieve.</param>
-        /// <param name="shipmentId">Unique identifier of the return replacement shipment to retrieve.</param>
+        /// <param name="returnId"></param>
+        /// <param name="shipmentId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string GetShipmentUrl(string returnId, string shipmentId)
+        public static MozuUrl GetShipmentUrl(string returnId, string shipmentId)
 		{
 			var url = "/api/commerce/returns/{returnId}/shipments/{shipmentId}";
 			FormatUrl( ref url, "returnId", returnId);
 			FormatUrl( ref url, "shipmentId", shipmentId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				/// <summary>
         /// Get Resource Url for CreatePackageShipments
         /// </summary>
-        /// <param name="returnId">Unique identifier of the return for which to create replacement package shipments.</param>
+        /// <param name="returnId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string CreatePackageShipmentsUrl(string returnId)
+        public static MozuUrl CreatePackageShipmentsUrl(string returnId)
 		{
 			var url = "/api/commerce/returns/{returnId}/shipments";
 			FormatUrl( ref url, "returnId", returnId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 						/// <summary>
         /// Get Resource Url for DeleteShipment
         /// </summary>
-        /// <param name="returnId">Unique identifier of the return associated with the replacement shipment to delete.</param>
-        /// <param name="shipmentId">Unique identifier of the return replacement shipment to delete.</param>
+        /// <param name="returnId"></param>
+        /// <param name="shipmentId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string DeleteShipmentUrl(string returnId, string shipmentId)
+        public static MozuUrl DeleteShipmentUrl(string returnId, string shipmentId)
 		{
 			var url = "/api/commerce/returns/{returnId}/shipments/{shipmentId}";
 			FormatUrl( ref url, "returnId", returnId);
 			FormatUrl( ref url, "shipmentId", shipmentId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 		

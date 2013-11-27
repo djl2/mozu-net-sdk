@@ -10,18 +10,20 @@
 
 using System;
 using System.Collections.Generic;
+using Mozu.Api.Security;
+
 
 namespace Mozu.Api.Clients.Platform.User
 {
 	/// <summary>
-	/// Manage the user authentication tickets used to perform operations in the Mozu API.
+	/// 
 	/// </summary>
 	public partial class UserAuthTicketClient 	{
 		
 				/// <summary>
-		/// Generates an authentication ticket for a user.
+		/// 
 		/// </summary>
-		/// <param name="userAuthInfo">The user authentication information, which consists of email address and password.</param>
+		/// <param name="userAuthInfo"></param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Core.UserAuthTicket"/>}
 		/// </returns>
@@ -36,14 +38,14 @@ namespace Mozu.Api.Clients.Platform.User
 			var url = Mozu.Api.Urls.Platform.User.UserAuthTicketUrl.CreateUserAuthTicketUrl();
 			const string verb = "POST";
 			var mozuClient = new MozuClient<Mozu.Api.Contracts.Core.UserAuthTicket>().WithVerb(verb).WithResourceUrl(url).WithBody<Mozu.Api.Contracts.Core.UserAuthInfo>(userAuthInfo);
-		return mozuClient;
+			return mozuClient;
 
 		}
 
 		/// <summary>
-		/// Generates an authentication ticket for a user that can be used for an individual site.
+		/// 
 		/// </summary>
-		/// <param name="userAuthInfo">The user authentication information, which consists of email address and password.</param>
+		/// <param name="userAuthInfo"></param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Core.UserAuthTicket"/>}
 		/// </returns>
@@ -58,14 +60,14 @@ namespace Mozu.Api.Clients.Platform.User
 			var url = Mozu.Api.Urls.Platform.User.UserAuthTicketUrl.CreateAuthTicketForSiteUrl();
 			const string verb = "POST";
 			var mozuClient = new MozuClient<Mozu.Api.Contracts.Core.UserAuthTicket>().WithVerb(verb).WithResourceUrl(url).WithBody<Mozu.Api.Contracts.Core.UserTokenInfo>(userAuthInfo);
-		return mozuClient;
+			return mozuClient;
 
 		}
 
 				/// <summary>
-		/// Refresh the user authentication ticket by supplying the refresh token.
+		/// 
 		/// </summary>
-		/// <param name="refreshToken">The refresh token generated in the user authentication ticket.</param>
+		/// <param name="refreshToken"></param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Core.UserAuthTicket"/>}
 		/// </returns>
@@ -80,7 +82,7 @@ namespace Mozu.Api.Clients.Platform.User
 			var url = Mozu.Api.Urls.Platform.User.UserAuthTicketUrl.RefreshUserAuthTicketUrl(refreshToken);
 			const string verb = "PUT";
 			var mozuClient = new MozuClient<Mozu.Api.Contracts.Core.UserAuthTicket>().WithVerb(verb).WithResourceUrl(url);
-		return mozuClient;
+			return mozuClient;
 
 		}
 

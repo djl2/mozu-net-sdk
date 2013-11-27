@@ -12,49 +12,26 @@ using System;
 
 namespace Mozu.Api.Contracts.CommerceRuntime.Payments
 {
-		///
-		///	Properties of the payment action performed for an order.
-		///
 		public class PaymentAction
 		{
-			///
-			///The name of the payment action, such as "AuthorizeAndCapture".
-			///
 			public string ActionName { get; set; }
 
-			///
-			///The total monetary amount of the payment transaction.
-			///
 			public decimal? Amount { get; set; }
 
-			///
-			///If applicable, the check number associated with the payment action.
-			///
+			public string CancelUrl { get; set; }
+
 			public string CheckNumber { get; set; }
 
-			///
-			///Date and time the payment gateway interaction was performed.
-			///
+			public string CurrencyCode { get; set; }
+
 			public DateTime? InteractionDate { get; set; }
 
-			///
-			///3-letter ISO 4217 standard global currency code. Currently, only "USD" (US Dollar) is supported.
-			///
-			public string ISOCurrencyCode { get; set; }
-
-			///
-			///Unique ID that references an original transaction in the event of a credit back.
-			///
 			public string ReferenceSourcePaymentId { get; set; }
 
-			///
-			///Properties of a manually performed interaction with the payment gateway.
-			///
+			public string ReturnUrl { get; set; }
+
 			public PaymentGatewayInteraction ManualGatewayInteraction { get; set; }
 
-			///
-			///The billing information associated with this payment action.
-			///
 			public BillingInfo NewBillingInfo { get; set; }
 
 		}

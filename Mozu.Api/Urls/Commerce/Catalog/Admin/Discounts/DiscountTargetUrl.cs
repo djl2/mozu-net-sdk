@@ -13,7 +13,7 @@ using System;
 
 namespace Mozu.Api.Urls.Commerce.Catalog.Admin.Discounts
 {
-	public partial class DiscountTargetUrl : BaseUrl
+	public partial class DiscountTargetUrl : MozuUrl
 	{
 
 		/// <summary>
@@ -23,25 +23,25 @@ namespace Mozu.Api.Urls.Commerce.Catalog.Admin.Discounts
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string GetDiscountTargetUrl(int discountId)
+        public static MozuUrl GetDiscountTargetUrl(int discountId)
 		{
 			var url = "/api/commerce/catalog/admin/discounts/{discountId}/target";
 			FormatUrl( ref url, "discountId", discountId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 						/// <summary>
         /// Get Resource Url for UpdateDiscountTarget
         /// </summary>
-        /// <param name="discountId">Unique identifier of the discount. System-supplied and read-only.</param>
+        /// <param name="discountId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string UpdateDiscountTargetUrl(int discountId)
+        public static MozuUrl UpdateDiscountTargetUrl(int discountId)
 		{
 			var url = "/api/commerce/catalog/admin/discounts/{discountId}/target";
 			FormatUrl( ref url, "discountId", discountId);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 				

@@ -10,40 +10,43 @@
 
 using System;
 using System.Collections.Generic;
+using Mozu.Api.Security;
+
 
 namespace Mozu.Api.Resources.Commerce.Settings
 {
 	/// <summary>
-	/// Use the shipping subresource to manage settings for the site shipping information, such as origin address information, carrier shipping methods, shipping rate providers, and regions available for shipping.
+	/// 
 	/// </summary>
-	public partial class SiteShippingSettingsResource : BaseResource 	{
+	public partial class SiteShippingSettingsResource  	{
 				///
 		/// <see cref="Mozu.Api.ApiContext"/>
 		///
-		private readonly ApiContext _apiContext;
-		public SiteShippingSettingsResource(ApiContext apiContext) 
+		private readonly IApiContext _apiContext;
+		public SiteShippingSettingsResource(IApiContext apiContext) 
 		{
 			_apiContext = apiContext;
 		}
 
 		
 		/// <summary>
-		/// Retrieves a list of the shipping settings configured for a site.
+		/// 
 		/// </summary>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.SiteSettings.Shipping.SiteShippingSettings"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var siteshippingsettings = new SiteShippingSettings();
-		///   var siteShippingSettings = siteshippingsettings.GetSiteShippingSettings();
+		///   var siteShippingSettings = siteshippingsettings.GetSiteShippingSettings(authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.SiteSettings.Shipping.SiteShippingSettings GetSiteShippingSettings()
+		public virtual Mozu.Api.Contracts.SiteSettings.Shipping.SiteShippingSettings GetSiteShippingSettings(AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.SiteSettings.Shipping.SiteShippingSettings> response;
-			var client = Mozu.Api.Clients.Commerce.Settings.SiteShippingSettingsClient.GetSiteShippingSettingsClient();
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.SiteSettings.Shipping.SiteShippingSettings> response;
+			var client = Mozu.Api.Clients.Commerce.Settings.SiteShippingSettingsClient.GetSiteShippingSettingsClient(authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 

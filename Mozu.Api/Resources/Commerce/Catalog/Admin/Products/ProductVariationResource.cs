@@ -10,160 +10,167 @@
 
 using System;
 using System.Collections.Generic;
+using Mozu.Api.Security;
+
 
 namespace Mozu.Api.Resources.Commerce.Catalog.Admin.Products
 {
 	/// <summary>
-	/// Use the product variations sub-resource to manage the variations of a product based on its attributes. For example, a t-shirt product could be offered in six variations: Small Black, Medium Black, Large Black, Small White, Medium White, and Large White.
+	/// 
 	/// </summary>
-	public partial class ProductVariationResource : BaseResource 	{
+	public partial class ProductVariationResource  	{
 				///
 		/// <see cref="Mozu.Api.ApiContext"/>
 		///
-		private readonly ApiContext _apiContext;
-		public ProductVariationResource(ApiContext apiContext) 
+		private readonly IApiContext _apiContext;
+		public ProductVariationResource(IApiContext apiContext) 
 		{
 			_apiContext = apiContext;
 		}
 
 		
 		/// <summary>
-		/// Retrieves the details of a product variation based on the supplied product code and variation key.
+		/// 
 		/// </summary>
-		/// <param name="productCode">Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only.</param>
-		/// <param name="variationKey">System-generated key that represents the attribute values that uniquely identify a specific product variation.</param>
+		/// <param name="productCode"></param>
+		/// <param name="variationKey"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.ProductAdmin.ProductVariation"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var productvariation = new ProductVariation();
-		///   var productVariation = productvariation.GetProductVariation( productCode,  variationKey);
+		///   var productVariation = productvariation.GetProductVariation(dataViewMode,  productCode,  variationKey, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.ProductAdmin.ProductVariation GetProductVariation(string productCode, string variationKey)
+		public virtual Mozu.Api.Contracts.ProductAdmin.ProductVariation GetProductVariation(DataViewMode dataViewMode, string productCode, string variationKey, AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.ProductAdmin.ProductVariation> response;
-			var client = Mozu.Api.Clients.Commerce.Catalog.Admin.Products.ProductVariationClient.GetProductVariationClient( productCode,  variationKey);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.ProductAdmin.ProductVariation> response;
+			var client = Mozu.Api.Clients.Commerce.Catalog.Admin.Products.ProductVariationClient.GetProductVariationClient(dataViewMode,  productCode,  variationKey, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
 		}
 
 		/// <summary>
-		/// Retrieves a list of the product variations configured for the specified product code.
+		/// 
 		/// </summary>
-		/// <param name="productCode">Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only.</param>
+		/// <param name="productCode"></param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.ProductAdmin.ProductVariationPagedCollection"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var productvariation = new ProductVariation();
-		///   var productVariationPagedCollection = productvariation.GetProductVariations( productCode);
+		///   var productVariationPagedCollection = productvariation.GetProductVariations(dataViewMode,  productCode);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.ProductAdmin.ProductVariationPagedCollection GetProductVariations(string productCode)
+		public virtual Mozu.Api.Contracts.ProductAdmin.ProductVariationPagedCollection GetProductVariations(DataViewMode dataViewMode, string productCode)
 		{
-			return GetProductVariations( null,  null,  productCode,  null,  null);
+			return GetProductVariations(dataViewMode,  productCode,  null,  null,  null,  null, null);
 		}
 
 		/// <summary>
-		/// Retrieves a list of the product variations configured for the specified product code.
+		/// 
 		/// </summary>
-		/// <param name="filter">A set of expressions that consist of a field, operator, and value and represent search parameter syntax when filtering results of a query. Valid operators include equals (eq), does not equal (ne), greater than (gt), less than (lt), greater than or equal to (ge), less than or equal to (le), starts with (sw), or contains (cont). For example - "filter=IsDisplayed+eq+true"</param>
-		/// <param name="pageSize">Specifies the number of results to display on each page when creating paged results from a query. The maximum value is 200.</param>
-		/// <param name="productCode">Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only.</param>
-		/// <param name="sortBy">The property by which to sort results and whether the results appear in ascending (a-z) order, represented by ASC or in descending (z-a) order, represented by DESC. The sortBy parameter follows an available property. For example: "sortBy=productCode+asc"</param>
-		/// <param name="startIndex">Indicates the zero-based offset in the complete result set where the returned entities begin, when creating paged results from a query. For example, with a PageSize of 25, to get the 51st through the 75th items, use startIndex=3.</param>
+		/// <param name="filter"></param>
+		/// <param name="pageSize"></param>
+		/// <param name="productCode"></param>
+		/// <param name="sortBy"></param>
+		/// <param name="startIndex"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.ProductAdmin.ProductVariationPagedCollection"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var productvariation = new ProductVariation();
-		///   var productVariationPagedCollection = productvariation.GetProductVariations( filter,  pageSize,  productCode,  sortBy,  startIndex);
+		///   var productVariationPagedCollection = productvariation.GetProductVariations(dataViewMode,  productCode,  filter,  pageSize,  sortBy,  startIndex, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.ProductAdmin.ProductVariationPagedCollection GetProductVariations(string filter, int? pageSize, string productCode, string sortBy, int? startIndex)
+		public virtual Mozu.Api.Contracts.ProductAdmin.ProductVariationPagedCollection GetProductVariations(DataViewMode dataViewMode, string productCode, string filter =  null, int? pageSize =  null, string sortBy =  null, int? startIndex =  null, AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.ProductAdmin.ProductVariationPagedCollection> response;
-			var client = Mozu.Api.Clients.Commerce.Catalog.Admin.Products.ProductVariationClient.GetProductVariationsClient( filter,  pageSize,  productCode,  sortBy,  startIndex);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.ProductAdmin.ProductVariationPagedCollection> response;
+			var client = Mozu.Api.Clients.Commerce.Catalog.Admin.Products.ProductVariationClient.GetProductVariationsClient(dataViewMode,  productCode,  filter,  pageSize,  sortBy,  startIndex, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
 		}
 
 						/// <summary>
-		/// Modifies the collection of variations for the specified product code. Because this PUT replaces the existing resource, supply all information necessary to maintain for the product variation.
+		/// 
 		/// </summary>
-		/// <param name="productCode">Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only.</param>
-		/// <param name="productVariations">Wrapper for the collection of variations configured for the specified product code.</param>
+		/// <param name="productCode"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
+		/// <param name="productVariations"></param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.ProductAdmin.ProductVariationCollection"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var productvariation = new ProductVariation();
-		///   var productVariationCollection = productvariation.UpdateProductVariations( productCode,  productVariations);
+		///   var productVariationCollection = productvariation.UpdateProductVariations(dataViewMode,  productVariations,  productCode, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.ProductAdmin.ProductVariationCollection UpdateProductVariations(string productCode, Mozu.Api.Contracts.ProductAdmin.ProductVariationCollection productVariations)
+		public virtual Mozu.Api.Contracts.ProductAdmin.ProductVariationCollection UpdateProductVariations(DataViewMode dataViewMode, Mozu.Api.Contracts.ProductAdmin.ProductVariationCollection productVariations, string productCode, AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.ProductAdmin.ProductVariationCollection> response;
-			var client = Mozu.Api.Clients.Commerce.Catalog.Admin.Products.ProductVariationClient.UpdateProductVariationsClient( productCode,  productVariations);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.ProductAdmin.ProductVariationCollection> response;
+			var client = Mozu.Api.Clients.Commerce.Catalog.Admin.Products.ProductVariationClient.UpdateProductVariationsClient(dataViewMode,  productVariations,  productCode, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
 		}
 
 		/// <summary>
-		/// Modifies the details of a variation, based on the supplied variation key, for the specified product code.
+		/// 
 		/// </summary>
-		/// <param name="productCode">Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only.</param>
-		/// <param name="variationKey">System-generated key that represents the attribute values that uniquely identify a specific product variation.</param>
-		/// <param name="productVariation">Wrapper for the properties of the specified product variation.</param>
+		/// <param name="productCode"></param>
+		/// <param name="variationKey"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
+		/// <param name="productVariation"></param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.ProductAdmin.ProductVariation"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var productvariation = new ProductVariation();
-		///   var productVariation = productvariation.UpdateProductVariation( productCode,  variationKey,  productVariation);
+		///   var productVariation = productvariation.UpdateProductVariation(dataViewMode,  productVariation,  productCode,  variationKey, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.ProductAdmin.ProductVariation UpdateProductVariation(string productCode, string variationKey, Mozu.Api.Contracts.ProductAdmin.ProductVariation productVariation)
+		public virtual Mozu.Api.Contracts.ProductAdmin.ProductVariation UpdateProductVariation(DataViewMode dataViewMode, Mozu.Api.Contracts.ProductAdmin.ProductVariation productVariation, string productCode, string variationKey, AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.ProductAdmin.ProductVariation> response;
-			var client = Mozu.Api.Clients.Commerce.Catalog.Admin.Products.ProductVariationClient.UpdateProductVariationClient( productCode,  variationKey,  productVariation);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.ProductAdmin.ProductVariation> response;
+			var client = Mozu.Api.Clients.Commerce.Catalog.Admin.Products.ProductVariationClient.UpdateProductVariationClient(dataViewMode,  productVariation,  productCode,  variationKey, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
 		}
 
 				/// <summary>
-		/// Deletes a variation, based on the supplied variation key, for the specified product code.
+		/// 
 		/// </summary>
-		/// <param name="productCode">Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only.</param>
-		/// <param name="variationKey">System-generated key that represents the attribute values that uniquely identify a specific product variation.</param>
+		/// <param name="productCode"></param>
+		/// <param name="variationKey"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// 
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var productvariation = new ProductVariation();
-		///   productvariation.DeleteProductVariation( productCode,  variationKey);
+		///   productvariation.DeleteProductVariation(dataViewMode,  productCode,  variationKey, authTicket);
 		/// </code>
 		/// </example>
-		public virtual void DeleteProductVariation(string productCode, string variationKey)
+		public virtual void DeleteProductVariation(DataViewMode dataViewMode, string productCode, string variationKey, AuthTicket authTicket= null)
 		{
-						MozuClient response;
-			var client = Mozu.Api.Clients.Commerce.Catalog.Admin.Products.ProductVariationClient.DeleteProductVariationClient( productCode,  variationKey);
-			SetContext(_apiContext, ref client,true);
+			MozuClient response;
+			var client = Mozu.Api.Clients.Commerce.Catalog.Admin.Products.ProductVariationClient.DeleteProductVariationClient(dataViewMode,  productCode,  variationKey, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 
 		}

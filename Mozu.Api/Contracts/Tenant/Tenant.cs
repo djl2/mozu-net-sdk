@@ -13,69 +13,19 @@ using System.Collections.Generic;
 
 namespace Mozu.Api.Contracts.Tenant
 {
-		///
-		///	A Mozu tenant is a scope that can create roles and assign behaviors to a role.
-		///
 		public class Tenant
 		{
-			///
-			///Date and time when the entity was created, represented in UTC Date/Time.
-			///
-			public DateTime CreateDate { get; set; }
+			public string Domain { get; set; }
 
-			///
-			///Alphanumeric identifier of the customer.
-			///
-			public int? CustomerId { get; set; }
-
-			public DateTime? DeleteDate { get; set; }
-
-			///
-			///Numeric identifier of the developer account.
-			///
-			public int? DevAccountId { get; set; }
-
-			///
-			///Identifier of the Mozu tenant.
-			///
 			public int Id { get; set; }
 
-			public bool IsDeleted { get; set; }
-
-			///
-			///If true, the tenant is a development store.
-			///
 			public bool IsDevTenant { get; set; }
 
-			///
-			///The name of the tenant, if applicable.
-			///
 			public string Name { get; set; }
 
-			///
-			///Identifier of the ZuKeeper scale unit this tenant belongs to.
-			///
-			public string ScaleUnitId { get; set; }
+			public List<MasterCatalog> MasterCatalogs { get; set; }
 
-			///
-			///Current status of this tenant.
-			///
-			public string Status { get; set; }
-
-			///
-			///Date and time when the entity was last updated, represented in UTC Date/Time.
-			///
-			public DateTime UpdateDate { get; set; }
-
-			///
-			///The domain information associated with the tenant.
-			///
-			public Domain Domain { get; set; }
-
-			///
-			///List of site groups associated with this tenant, if applicable.
-			///
-			public List<SiteGroup> SiteGroups { get; set; }
+			public List<Site> Sites { get; set; }
 
 		}
 

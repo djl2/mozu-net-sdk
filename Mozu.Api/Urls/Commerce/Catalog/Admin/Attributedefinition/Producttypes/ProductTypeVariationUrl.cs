@@ -13,22 +13,22 @@ using System;
 
 namespace Mozu.Api.Urls.Commerce.Catalog.Admin.Attributedefinition.Producttypes
 {
-	public partial class ProductTypeVariationUrl : BaseUrl
+	public partial class ProductTypeVariationUrl : MozuUrl
 	{
 
 				/// <summary>
         /// Get Resource Url for GenerateProductVariations
         /// </summary>
-        /// <param name="filter">A set of expressions that consist of a field, operator, and value and represent search parameter syntax when filtering results of a query. Valid operators include equals (eq), does not equal (ne), greater than (gt), less than (lt), greater than or equal to (ge), less than or equal to (le), starts with (sw), or contains (cont). For example - "filter=IsDisplayed+eq+true"</param>
-        /// <param name="pageSize">Specifies the number of results to display on each page when creating paged results from a query. The maximum value is 200.</param>
+        /// <param name="filter"></param>
+        /// <param name="pageSize"></param>
         /// <param name="productCode"></param>
-        /// <param name="productTypeId">Unique identifier of the product type.</param>
-        /// <param name="sortBy">The property by which to sort results and whether the results appear in ascending (a-z) order, represented by ASC or in descending (z-a) order, represented by DESC. The sortBy parameter follows an available property. For example: "sortBy=productCode+asc"</param>
-        /// <param name="startIndex">Indicates the zero-based offset in the complete result set where the returned entities begin, when creating paged results from a query. For example, with a PageSize of 25, to get the 51st through the 75th items, use startIndex=3.</param>
+        /// <param name="productTypeId"></param>
+        /// <param name="sortBy"></param>
+        /// <param name="startIndex"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static string GenerateProductVariationsUrl(string filter, int? pageSize, string productCode, int productTypeId, string sortBy, int? startIndex)
+        public static MozuUrl GenerateProductVariationsUrl(string filter, int? pageSize, string productCode, int productTypeId, string sortBy, int? startIndex)
 		{
 			var url = "/api/commerce/catalog/admin/attributedefinition/producttypes/{productTypeId}/variations?productCode={productCode}&startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&filter={filter}";
 			FormatUrl( ref url, "filter", filter);
@@ -37,7 +37,7 @@ namespace Mozu.Api.Urls.Commerce.Catalog.Admin.Attributedefinition.Producttypes
 			FormatUrl( ref url, "productTypeId", productTypeId);
 			FormatUrl( ref url, "sortBy", sortBy);
 			FormatUrl( ref url, "startIndex", startIndex);
-			return url;
+			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
 		}
 
 						

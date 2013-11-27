@@ -10,25 +10,27 @@
 
 using System;
 using System.Collections.Generic;
+using Mozu.Api.Security;
+
 
 namespace Mozu.Api.Resources.Commerce
 {
 	/// <summary>
-	/// Use the returns subresource to manage returned items for a completed order. Returns can include any number of items associated with the original order.
+	/// 
 	/// </summary>
-	public partial class ReturnResource : BaseResource 	{
+	public partial class ReturnResource  	{
 				///
 		/// <see cref="Mozu.Api.ApiContext"/>
 		///
-		private readonly ApiContext _apiContext;
-		public ReturnResource(ApiContext apiContext) 
+		private readonly IApiContext _apiContext;
+		public ReturnResource(IApiContext apiContext) 
 		{
 			_apiContext = apiContext;
 		}
 
 		
 		/// <summary>
-		/// Retrieves a list of all returns according to any filter and sort criteria.
+		/// 
 		/// </summary>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Returns.ReturnCollection"/>
@@ -41,289 +43,301 @@ namespace Mozu.Api.Resources.Commerce
 		/// </example>
 		public virtual Mozu.Api.Contracts.CommerceRuntime.Returns.ReturnCollection GetReturns()
 		{
-			return GetReturns( null,  null,  null,  null);
+			return GetReturns( null,  null,  null,  null, null);
 		}
 
 		/// <summary>
-		/// Retrieves a list of all returns according to any filter and sort criteria.
+		/// 
 		/// </summary>
 		/// <param name="filter"></param>
 		/// <param name="pageSize"></param>
 		/// <param name="sortBy"></param>
 		/// <param name="startIndex"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Returns.ReturnCollection"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var return = new Return();
-		///   var returnCollection = return.GetReturns( filter,  pageSize,  sortBy,  startIndex);
+		///   var returnCollection = return.GetReturns( filter,  pageSize,  sortBy,  startIndex, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.CommerceRuntime.Returns.ReturnCollection GetReturns(string filter, int? pageSize, string sortBy, int? startIndex)
+		public virtual Mozu.Api.Contracts.CommerceRuntime.Returns.ReturnCollection GetReturns(string filter =  null, int? pageSize =  null, string sortBy =  null, int? startIndex =  null, AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.CommerceRuntime.Returns.ReturnCollection> response;
-			var client = Mozu.Api.Clients.Commerce.ReturnClient.GetReturnsClient( filter,  pageSize,  sortBy,  startIndex);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.CommerceRuntime.Returns.ReturnCollection> response;
+			var client = Mozu.Api.Clients.Commerce.ReturnClient.GetReturnsClient( filter,  pageSize,  sortBy,  startIndex, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
 		}
 
 		/// <summary>
-		/// Retrieves a list of properties for the specified return.
+		/// 
 		/// </summary>
-		/// <param name="returnId">Returns the properties of the return specified in the request as well as system-supplied information.</param>
+		/// <param name="returnId"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Returns.Return"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var return = new Return();
-		///   var return = return.GetReturn( returnId);
+		///   var return = return.GetReturn( returnId, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.CommerceRuntime.Returns.Return GetReturn(string returnId)
+		public virtual Mozu.Api.Contracts.CommerceRuntime.Returns.Return GetReturn(string returnId, AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.CommerceRuntime.Returns.Return> response;
-			var client = Mozu.Api.Clients.Commerce.ReturnClient.GetReturnClient( returnId);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.CommerceRuntime.Returns.Return> response;
+			var client = Mozu.Api.Clients.Commerce.ReturnClient.GetReturnClient( returnId, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
 		}
 
 		/// <summary>
-		/// Retrieves a list of the actions available to perform for the specified return based on its current state.
+		/// 
 		/// </summary>
-		/// <param name="returnId">Retrieves a list of the actions available to perform for the specified return based on its current state.</param>
+		/// <param name="returnId"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// List{string}
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var return = new Return();
-		///   var string = return.GetAvailableReturnActions( returnId);
+		///   var string = return.GetAvailableReturnActions( returnId, authTicket);
 		/// </code>
 		/// </example>
-		public virtual List<string> GetAvailableReturnActions(string returnId)
+		public virtual List<string> GetAvailableReturnActions(string returnId, AuthTicket authTicket= null)
 		{
-						MozuClient<List<string>> response;
-			var client = Mozu.Api.Clients.Commerce.ReturnClient.GetAvailableReturnActionsClient( returnId);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<List<string>> response;
+			var client = Mozu.Api.Clients.Commerce.ReturnClient.GetAvailableReturnActionsClient( returnId, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
 		}
 
 		/// <summary>
-		/// Retrieves a list of all payments submitted as part of a refund associated with a customer return.
+		/// 
 		/// </summary>
-		/// <param name="returnId">Returns the details of the refund payment associated with the return specified in the request.</param>
+		/// <param name="returnId"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Payments.PaymentCollection"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var return = new Return();
-		///   var paymentCollection = return.GetPayments( returnId);
+		///   var paymentCollection = return.GetPayments( returnId, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.CommerceRuntime.Payments.PaymentCollection GetPayments(string returnId)
+		public virtual Mozu.Api.Contracts.CommerceRuntime.Payments.PaymentCollection GetPayments(string returnId, AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.CommerceRuntime.Payments.PaymentCollection> response;
-			var client = Mozu.Api.Clients.Commerce.ReturnClient.GetPaymentsClient( returnId);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.CommerceRuntime.Payments.PaymentCollection> response;
+			var client = Mozu.Api.Clients.Commerce.ReturnClient.GetPaymentsClient( returnId, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
 		}
 
 		/// <summary>
-		/// Retrieves the details of a payment submitted as part of a refund associated with a customer return.
+		/// 
 		/// </summary>
-		/// <param name="paymentId">Unique identifier of the return payment to retrieve.</param>
-		/// <param name="returnId">Unique identifier of the return associated with the payment.</param>
+		/// <param name="paymentId"></param>
+		/// <param name="returnId"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Payments.Payment"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var return = new Return();
-		///   var payment = return.GetPayment( paymentId,  returnId);
+		///   var payment = return.GetPayment( paymentId,  returnId, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.CommerceRuntime.Payments.Payment GetPayment(string paymentId, string returnId)
+		public virtual Mozu.Api.Contracts.CommerceRuntime.Payments.Payment GetPayment(string paymentId, string returnId, AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.CommerceRuntime.Payments.Payment> response;
-			var client = Mozu.Api.Clients.Commerce.ReturnClient.GetPaymentClient( paymentId,  returnId);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.CommerceRuntime.Payments.Payment> response;
+			var client = Mozu.Api.Clients.Commerce.ReturnClient.GetPaymentClient( paymentId,  returnId, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
 		}
 
 		/// <summary>
-		/// Retrieves a list of the payment actions available to perform for the specified return when a return results in a refund to the customer.
+		/// 
 		/// </summary>
-		/// <param name="paymentId">Unique identifier of the payment for which to perform the action.</param>
-		/// <param name="returnId">Unique identifier of the return associated with the payment.</param>
+		/// <param name="paymentId"></param>
+		/// <param name="returnId"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// List{string}
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var return = new Return();
-		///   var string = return.GetAvailablePaymentActionsForReturn( paymentId,  returnId);
+		///   var string = return.GetAvailablePaymentActionsForReturn( paymentId,  returnId, authTicket);
 		/// </code>
 		/// </example>
-		public virtual List<string> GetAvailablePaymentActionsForReturn(string paymentId, string returnId)
+		public virtual List<string> GetAvailablePaymentActionsForReturn(string paymentId, string returnId, AuthTicket authTicket= null)
 		{
-						MozuClient<List<string>> response;
-			var client = Mozu.Api.Clients.Commerce.ReturnClient.GetAvailablePaymentActionsForReturnClient( paymentId,  returnId);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<List<string>> response;
+			var client = Mozu.Api.Clients.Commerce.ReturnClient.GetAvailablePaymentActionsForReturnClient( paymentId,  returnId, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
 		}
 
 				/// <summary>
-		/// Creates a return for items previously shipped in a completed order.
+		/// 
 		/// </summary>
-		/// <param name="ret">Wrapper for the properties of the return to create.</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
+		/// <param name="ret"></param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Returns.Return"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var return = new Return();
-		///   var return = return.CreateReturn( ret);
+		///   var return = return.CreateReturn( ret, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.CommerceRuntime.Returns.Return CreateReturn(Mozu.Api.Contracts.CommerceRuntime.Returns.Return ret)
+		public virtual Mozu.Api.Contracts.CommerceRuntime.Returns.Return CreateReturn(Mozu.Api.Contracts.CommerceRuntime.Returns.Return ret, AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.CommerceRuntime.Returns.Return> response;
-			var client = Mozu.Api.Clients.Commerce.ReturnClient.CreateReturnClient( ret);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.CommerceRuntime.Returns.Return> response;
+			var client = Mozu.Api.Clients.Commerce.ReturnClient.CreateReturnClient( ret, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
 		}
 
 		/// <summary>
-		/// Updates a refund payment associated with a customer return by performing the specified action.
+		/// 
 		/// </summary>
-		/// <param name="paymentId">Unique identifier of the return payment to update.</param>
-		/// <param name="returnId">Unique identifier of the return associated with the refund payment.</param>
-		/// <param name="action">The payment action to perform for the refund payment.</param>
+		/// <param name="paymentId"></param>
+		/// <param name="returnId"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
+		/// <param name="action"></param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Returns.Return"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var return = new Return();
-		///   var return = return.PerformPaymentActionForReturn( paymentId,  returnId,  action);
+		///   var return = return.PerformPaymentActionForReturn( action,  paymentId,  returnId, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.CommerceRuntime.Returns.Return PerformPaymentActionForReturn(string paymentId, string returnId, Mozu.Api.Contracts.CommerceRuntime.Payments.PaymentAction action)
+		public virtual Mozu.Api.Contracts.CommerceRuntime.Returns.Return PerformPaymentActionForReturn(Mozu.Api.Contracts.CommerceRuntime.Payments.PaymentAction action, string paymentId, string returnId, AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.CommerceRuntime.Returns.Return> response;
-			var client = Mozu.Api.Clients.Commerce.ReturnClient.PerformPaymentActionForReturnClient( paymentId,  returnId,  action);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.CommerceRuntime.Returns.Return> response;
+			var client = Mozu.Api.Clients.Commerce.ReturnClient.PerformPaymentActionForReturnClient( action,  paymentId,  returnId, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
 		}
 
 		/// <summary>
-		/// Creates a new payment for a return that results in a refund to the customer.
+		/// 
 		/// </summary>
-		/// <param name="returnId">Unique identifier of the return associated with the payment action.</param>
-		/// <param name="action">The payment action to perform for the customer return.</param>
+		/// <param name="returnId"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
+		/// <param name="action"></param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Returns.Return"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var return = new Return();
-		///   var return = return.CreatePaymentActionForReturn( returnId,  action);
+		///   var return = return.CreatePaymentActionForReturn( action,  returnId, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.CommerceRuntime.Returns.Return CreatePaymentActionForReturn(string returnId, Mozu.Api.Contracts.CommerceRuntime.Payments.PaymentAction action)
+		public virtual Mozu.Api.Contracts.CommerceRuntime.Returns.Return CreatePaymentActionForReturn(Mozu.Api.Contracts.CommerceRuntime.Payments.PaymentAction action, string returnId, AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.CommerceRuntime.Returns.Return> response;
-			var client = Mozu.Api.Clients.Commerce.ReturnClient.CreatePaymentActionForReturnClient( returnId,  action);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.CommerceRuntime.Returns.Return> response;
+			var client = Mozu.Api.Clients.Commerce.ReturnClient.CreatePaymentActionForReturnClient( action,  returnId, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
 		}
 
 		/// <summary>
-		/// Updates the return by performing the specified action.
+		/// 
 		/// </summary>
-		/// <param name="action">The name of the return action to perform, such as "Refund" or "Replace".</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
+		/// <param name="action"></param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Returns.ReturnCollection"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var return = new Return();
-		///   var returnCollection = return.PerformReturnActions( action);
+		///   var returnCollection = return.PerformReturnActions( action, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.CommerceRuntime.Returns.ReturnCollection PerformReturnActions(Mozu.Api.Contracts.CommerceRuntime.Returns.ReturnAction action)
+		public virtual Mozu.Api.Contracts.CommerceRuntime.Returns.ReturnCollection PerformReturnActions(Mozu.Api.Contracts.CommerceRuntime.Returns.ReturnAction action, AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.CommerceRuntime.Returns.ReturnCollection> response;
-			var client = Mozu.Api.Clients.Commerce.ReturnClient.PerformReturnActionsClient( action);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.CommerceRuntime.Returns.ReturnCollection> response;
+			var client = Mozu.Api.Clients.Commerce.ReturnClient.PerformReturnActionsClient( action, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
 		}
 
 				/// <summary>
-		/// Updates one or more properties of a return for items previously shipped in a completed order.
+		/// 
 		/// </summary>
-		/// <param name="returnId">Unique identifier of the return.</param>
-		/// <param name="ret">Wrapper for the array of properties to update for the return.</param>
+		/// <param name="returnId"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
+		/// <param name="ret"></param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Returns.Return"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var return = new Return();
-		///   var return = return.UpdateReturn( returnId,  ret);
+		///   var return = return.UpdateReturn( ret,  returnId, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.CommerceRuntime.Returns.Return UpdateReturn(string returnId, Mozu.Api.Contracts.CommerceRuntime.Returns.Return ret)
+		public virtual Mozu.Api.Contracts.CommerceRuntime.Returns.Return UpdateReturn(Mozu.Api.Contracts.CommerceRuntime.Returns.Return ret, string returnId, AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.CommerceRuntime.Returns.Return> response;
-			var client = Mozu.Api.Clients.Commerce.ReturnClient.UpdateReturnClient( returnId,  ret);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.CommerceRuntime.Returns.Return> response;
+			var client = Mozu.Api.Clients.Commerce.ReturnClient.UpdateReturnClient( ret,  returnId, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
 		}
 
 				/// <summary>
-		/// Deletes a return previously configured for the specified order.
+		/// 
 		/// </summary>
-		/// <param name="returnId">Unique identifier of the return to delete from the order.</param>
+		/// <param name="returnId"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// 
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var return = new Return();
-		///   return.DeleteReturn( returnId);
+		///   return.DeleteReturn( returnId, authTicket);
 		/// </code>
 		/// </example>
-		public virtual void DeleteReturn(string returnId)
+		public virtual void DeleteReturn(string returnId, AuthTicket authTicket= null)
 		{
-						MozuClient response;
-			var client = Mozu.Api.Clients.Commerce.ReturnClient.DeleteReturnClient( returnId);
-			SetContext(_apiContext, ref client,true);
+			MozuClient response;
+			var client = Mozu.Api.Clients.Commerce.ReturnClient.DeleteReturnClient( returnId, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 
 		}

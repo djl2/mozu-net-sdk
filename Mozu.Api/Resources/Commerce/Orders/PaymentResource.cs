@@ -10,138 +10,145 @@
 
 using System;
 using System.Collections.Generic;
+using Mozu.Api.Security;
+
 
 namespace Mozu.Api.Resources.Commerce.Orders
 {
 	/// <summary>
-	/// Use the Payments subresource to manage payment transactions for orders. Each transaction performed for an order represents an individual payment. For example, if an order totals $75.00 but the shopper has a $50.00 gift certificate, both the gift certificate transaction and the credit card transaction for the remaining $25.00 are recorded as payments for the order.
+	/// 
 	/// </summary>
-	public partial class PaymentResource : BaseResource 	{
+	public partial class PaymentResource  	{
 				///
 		/// <see cref="Mozu.Api.ApiContext"/>
 		///
-		private readonly ApiContext _apiContext;
-		public PaymentResource(ApiContext apiContext) 
+		private readonly IApiContext _apiContext;
+		public PaymentResource(IApiContext apiContext) 
 		{
 			_apiContext = apiContext;
 		}
 
 		
 		/// <summary>
-		/// Retrieves information about all payment transactions submitted for the specified order.
+		/// 
 		/// </summary>
-		/// <param name="orderId">Unique identifier of the order.</param>
+		/// <param name="orderId"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Payments.PaymentCollection"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var payment = new Payment();
-		///   var paymentCollection = payment.GetPayments( orderId);
+		///   var paymentCollection = payment.GetPayments( orderId, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.CommerceRuntime.Payments.PaymentCollection GetPayments(string orderId)
+		public virtual Mozu.Api.Contracts.CommerceRuntime.Payments.PaymentCollection GetPayments(string orderId, AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.CommerceRuntime.Payments.PaymentCollection> response;
-			var client = Mozu.Api.Clients.Commerce.Orders.PaymentClient.GetPaymentsClient( orderId);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.CommerceRuntime.Payments.PaymentCollection> response;
+			var client = Mozu.Api.Clients.Commerce.Orders.PaymentClient.GetPaymentsClient( orderId, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
 		}
 
 		/// <summary>
-		/// Retrieves information about a specific payment transaction submitted for the specified order.
+		/// 
 		/// </summary>
-		/// <param name="orderId">Unique identifier of the order associated with the payment transaction.</param>
-		/// <param name="paymentId">Unique identifier of the payment transaction submitted for the order.</param>
+		/// <param name="orderId"></param>
+		/// <param name="paymentId"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Payments.Payment"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var payment = new Payment();
-		///   var payment = payment.GetPayment( orderId,  paymentId);
+		///   var payment = payment.GetPayment( orderId,  paymentId, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.CommerceRuntime.Payments.Payment GetPayment(string orderId, string paymentId)
+		public virtual Mozu.Api.Contracts.CommerceRuntime.Payments.Payment GetPayment(string orderId, string paymentId, AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.CommerceRuntime.Payments.Payment> response;
-			var client = Mozu.Api.Clients.Commerce.Orders.PaymentClient.GetPaymentClient( orderId,  paymentId);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.CommerceRuntime.Payments.Payment> response;
+			var client = Mozu.Api.Clients.Commerce.Orders.PaymentClient.GetPaymentClient( orderId,  paymentId, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
 		}
 
 		/// <summary>
-		/// Retrieves the list of all available payment actions dependent on the order payment status by specifying the order ID.
+		/// 
 		/// </summary>
-		/// <param name="orderId">Unique identifier of the order associated with the payment.</param>
-		/// <param name="paymentId">Unique identifer of the payment for which to retrieve available actions.</param>
+		/// <param name="orderId"></param>
+		/// <param name="paymentId"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// List{string}
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var payment = new Payment();
-		///   var string = payment.GetAvailablePaymentActions( orderId,  paymentId);
+		///   var string = payment.GetAvailablePaymentActions( orderId,  paymentId, authTicket);
 		/// </code>
 		/// </example>
-		public virtual List<string> GetAvailablePaymentActions(string orderId, string paymentId)
+		public virtual List<string> GetAvailablePaymentActions(string orderId, string paymentId, AuthTicket authTicket= null)
 		{
-						MozuClient<List<string>> response;
-			var client = Mozu.Api.Clients.Commerce.Orders.PaymentClient.GetAvailablePaymentActionsClient( orderId,  paymentId);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<List<string>> response;
+			var client = Mozu.Api.Clients.Commerce.Orders.PaymentClient.GetAvailablePaymentActionsClient( orderId,  paymentId, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
 		}
 
 				/// <summary>
-		/// Performs the specified action for an individual order payment transaction.
+		/// 
 		/// </summary>
-		/// <param name="orderId">Unique identifier of the order associated with the payment.</param>
-		/// <param name="paymentId">Unique identifer of the payment for which to perform the action.</param>
-		/// <param name="action">The action to perform for the payment. Possible values are AuthAndCapture, AuthorizePayment, CapturePayment, VoidPayment, CreditPayment, RequestCheck, ApplyCheck, DeclineCheck.</param>
+		/// <param name="orderId"></param>
+		/// <param name="paymentId"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
+		/// <param name="action"></param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Orders.Order"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var payment = new Payment();
-		///   var order = payment.PerformPaymentAction( orderId,  paymentId,  action);
+		///   var order = payment.PerformPaymentAction( action,  orderId,  paymentId, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.CommerceRuntime.Orders.Order PerformPaymentAction(string orderId, string paymentId, Mozu.Api.Contracts.CommerceRuntime.Payments.PaymentAction action)
+		public virtual Mozu.Api.Contracts.CommerceRuntime.Orders.Order PerformPaymentAction(Mozu.Api.Contracts.CommerceRuntime.Payments.PaymentAction action, string orderId, string paymentId, AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.CommerceRuntime.Orders.Order> response;
-			var client = Mozu.Api.Clients.Commerce.Orders.PaymentClient.PerformPaymentActionClient( orderId,  paymentId,  action);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.CommerceRuntime.Orders.Order> response;
+			var client = Mozu.Api.Clients.Commerce.Orders.PaymentClient.PerformPaymentActionClient( action,  orderId,  paymentId, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
 		}
 
 		/// <summary>
-		/// Creates a new payment transaction for the specified order and performs the specified action.
+		/// 
 		/// </summary>
-		/// <param name="orderId">Unique identifier of the order for which to apply the payment.</param>
-		/// <param name="action">To action to perform for the newly created payment. Possible values are AuthAndCapture, AuthorizePayment, CapturePayment, VoidPayment, CreditPayment, RequestCheck, ApplyCheck, DeclineCheck.</param>
+		/// <param name="orderId"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
+		/// <param name="action"></param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Orders.Order"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var payment = new Payment();
-		///   var order = payment.CreatePaymentAction( orderId,  action);
+		///   var order = payment.CreatePaymentAction( action,  orderId, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.CommerceRuntime.Orders.Order CreatePaymentAction(string orderId, Mozu.Api.Contracts.CommerceRuntime.Payments.PaymentAction action)
+		public virtual Mozu.Api.Contracts.CommerceRuntime.Orders.Order CreatePaymentAction(Mozu.Api.Contracts.CommerceRuntime.Payments.PaymentAction action, string orderId, AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.CommerceRuntime.Orders.Order> response;
-			var client = Mozu.Api.Clients.Commerce.Orders.PaymentClient.CreatePaymentActionClient( orderId,  action);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.CommerceRuntime.Orders.Order> response;
+			var client = Mozu.Api.Clients.Commerce.Orders.PaymentClient.CreatePaymentActionClient( action,  orderId, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 

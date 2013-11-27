@@ -10,25 +10,27 @@
 
 using System;
 using System.Collections.Generic;
+using Mozu.Api.Security;
+
 
 namespace Mozu.Api.Resources.Commerce.Customer
 {
 	/// <summary>
-	/// Merchants create, view, update and delete groups. Groups are useful to manage sets of customers, for example, to offer discounts to particular groups or assign VIP status to a set of customers. A customer account can have several groups or none at all.
+	/// 
 	/// </summary>
-	public partial class CustomerGroupResource : BaseResource 	{
+	public partial class CustomerGroupResource  	{
 				///
 		/// <see cref="Mozu.Api.ApiContext"/>
 		///
-		private readonly ApiContext _apiContext;
-		public CustomerGroupResource(ApiContext apiContext) 
+		private readonly IApiContext _apiContext;
+		public CustomerGroupResource(IApiContext apiContext) 
 		{
 			_apiContext = apiContext;
 		}
 
 		
 		/// <summary>
-		/// Retrieves a list of all customer groups defined for the site according to any specified filter criteria and sort options.
+		/// 
 		/// </summary>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.Customer.CustomerGroupCollection"/>
@@ -41,61 +43,64 @@ namespace Mozu.Api.Resources.Commerce.Customer
 		/// </example>
 		public virtual Mozu.Api.Contracts.Customer.CustomerGroupCollection GetGroups()
 		{
-			return GetGroups( null,  null,  null,  null);
+			return GetGroups( null,  null,  null,  null, null);
 		}
 
 		/// <summary>
-		/// Retrieves a list of all customer groups defined for the site according to any specified filter criteria and sort options.
+		/// 
 		/// </summary>
-		/// <param name="filter">A set of expressions that consist of a field, operator, and value and represent search parameter syntax when filtering results of a query. Valid operators include equals (eq), does not equal (ne), greater than (gt), less than (lt), greater than or equal to (ge), less than or equal to (le), starts with (sw), or contains (cont). For example - "filter=IsDisplayed+eq+true"</param>
-		/// <param name="pageSize">Specifies the number of results to display on each page when creating paged results from a query. The maximum value is 200.</param>
-		/// <param name="sortBy">The property by which to sort results and whether the results appear in ascending (a-z) order, represented by ASC or in descending (z-a) order, represented by DESC. The sortBy parameter follows an available property. For example: "sortBy=productCode+asc"</param>
-		/// <param name="startIndex">Indicates the zero-based offset in the complete result set where the returned entities begin, when creating paged results from a query. For example, with a PageSize of 25, to get the 51st through the 75th items, use startIndex=3.</param>
+		/// <param name="filter"></param>
+		/// <param name="pageSize"></param>
+		/// <param name="sortBy"></param>
+		/// <param name="startIndex"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.Customer.CustomerGroupCollection"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var customergroup = new CustomerGroup();
-		///   var customerGroupCollection = customergroup.GetGroups( filter,  pageSize,  sortBy,  startIndex);
+		///   var customerGroupCollection = customergroup.GetGroups( filter,  pageSize,  sortBy,  startIndex, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.Customer.CustomerGroupCollection GetGroups(string filter, int? pageSize, string sortBy, int? startIndex)
+		public virtual Mozu.Api.Contracts.Customer.CustomerGroupCollection GetGroups(string filter =  null, int? pageSize =  null, string sortBy =  null, int? startIndex =  null, AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.Customer.CustomerGroupCollection> response;
-			var client = Mozu.Api.Clients.Commerce.Customer.CustomerGroupClient.GetGroupsClient( filter,  pageSize,  sortBy,  startIndex);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.Customer.CustomerGroupCollection> response;
+			var client = Mozu.Api.Clients.Commerce.Customer.CustomerGroupClient.GetGroupsClient( filter,  pageSize,  sortBy,  startIndex, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
 		}
 
 		/// <summary>
-		/// Retrieves the name of a customer group specified the customer group ID.
+		/// 
 		/// </summary>
-		/// <param name="groupId">Identifier of the customer group to retrieve.</param>
+		/// <param name="groupId"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.Customer.CustomerGroup"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var customergroup = new CustomerGroup();
-		///   var customerGroup = customergroup.GetGroup( groupId);
+		///   var customerGroup = customergroup.GetGroup( groupId, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.Customer.CustomerGroup GetGroup(int groupId)
+		public virtual Mozu.Api.Contracts.Customer.CustomerGroup GetGroup(int groupId, AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.Customer.CustomerGroup> response;
-			var client = Mozu.Api.Clients.Commerce.Customer.CustomerGroupClient.GetGroupClient( groupId);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.Customer.CustomerGroup> response;
+			var client = Mozu.Api.Clients.Commerce.Customer.CustomerGroupClient.GetGroupClient( groupId, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
 		}
 
 				/// <summary>
-		/// Creates a new customer group. New customer groups do not have any associated customer accounts.
+		/// 
 		/// </summary>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <param name="group"></param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.Customer.CustomerGroup"/>
@@ -103,23 +108,24 @@ namespace Mozu.Api.Resources.Commerce.Customer
 		/// <example>
 		/// <code>
 		///   var customergroup = new CustomerGroup();
-		///   var customerGroup = customergroup.AddGroup( group);
+		///   var customerGroup = customergroup.AddGroup( group, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.Customer.CustomerGroup AddGroup(Mozu.Api.Contracts.Customer.CustomerGroup group)
+		public virtual Mozu.Api.Contracts.Customer.CustomerGroup AddGroup(Mozu.Api.Contracts.Customer.CustomerGroup group, AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.Customer.CustomerGroup> response;
-			var client = Mozu.Api.Clients.Commerce.Customer.CustomerGroupClient.AddGroupClient( group);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.Customer.CustomerGroup> response;
+			var client = Mozu.Api.Clients.Commerce.Customer.CustomerGroupClient.AddGroupClient( group, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
 		}
 
 				/// <summary>
-		/// Changes the name of an existing customer group.
+		/// 
 		/// </summary>
-		/// <param name="groupId">Identifier of the customer group to update.</param>
+		/// <param name="groupId"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <param name="group"></param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.Customer.CustomerGroup"/>
@@ -127,37 +133,38 @@ namespace Mozu.Api.Resources.Commerce.Customer
 		/// <example>
 		/// <code>
 		///   var customergroup = new CustomerGroup();
-		///   var customerGroup = customergroup.UpdateGroup( groupId,  group);
+		///   var customerGroup = customergroup.UpdateGroup( group,  groupId, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.Customer.CustomerGroup UpdateGroup(int groupId, Mozu.Api.Contracts.Customer.CustomerGroup group)
+		public virtual Mozu.Api.Contracts.Customer.CustomerGroup UpdateGroup(Mozu.Api.Contracts.Customer.CustomerGroup group, int groupId, AuthTicket authTicket= null)
 		{
-						MozuClient<Mozu.Api.Contracts.Customer.CustomerGroup> response;
-			var client = Mozu.Api.Clients.Commerce.Customer.CustomerGroupClient.UpdateGroupClient( groupId,  group);
-			SetContext(_apiContext, ref client,true);
+			MozuClient<Mozu.Api.Contracts.Customer.CustomerGroup> response;
+			var client = Mozu.Api.Clients.Commerce.Customer.CustomerGroupClient.UpdateGroupClient( group,  groupId, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
 		}
 
 				/// <summary>
-		/// Deletes a customer group specified by its unique identifier. Deleting a group removes any customer account associations, but does not delete the customer account itself.
+		/// 
 		/// </summary>
-		/// <param name="groupId">Identifier of the customer group to delete.</param>
+		/// <param name="groupId"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// 
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var customergroup = new CustomerGroup();
-		///   customergroup.DeleteGroup( groupId);
+		///   customergroup.DeleteGroup( groupId, authTicket);
 		/// </code>
 		/// </example>
-		public virtual void DeleteGroup(int groupId)
+		public virtual void DeleteGroup(int groupId, AuthTicket authTicket= null)
 		{
-						MozuClient response;
-			var client = Mozu.Api.Clients.Commerce.Customer.CustomerGroupClient.DeleteGroupClient( groupId);
-			SetContext(_apiContext, ref client,true);
+			MozuClient response;
+			var client = Mozu.Api.Clients.Commerce.Customer.CustomerGroupClient.DeleteGroupClient( groupId, authTicket);
+			client.WithContext(_apiContext);
 			response= client.Execute();
 
 		}
