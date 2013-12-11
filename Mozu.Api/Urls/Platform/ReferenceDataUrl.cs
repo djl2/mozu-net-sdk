@@ -13,21 +13,22 @@ using System;
 
 namespace Mozu.Api.Urls.Platform
 {
-	public partial class ReferenceDataUrl : MozuUrl
+	public partial class ReferenceDataUrl 
 	{
 
 		/// <summary>
         /// Get Resource Url for GetAddressSchema
         /// </summary>
-        /// <param name="countryCode"></param>
+        /// <param name="countryCode">The 2-letter geographic code representing the country for the physical or mailing address. Currently limited to the US.</param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
         public static MozuUrl GetAddressSchemaUrl(string countryCode)
 		{
 			var url = "/api/platform/reference/addressschema/{countryCode}";
-			FormatUrl( ref url, "countryCode", countryCode);
-			return new MozuUrl(url, MozuUrl.UrlLocation.HOME_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.HOME_POD, false) ;
+			mozuUrl.FormatUrl( "countryCode", countryCode);
+			return mozuUrl;
 		}
 
 		/// <summary>
@@ -39,21 +40,23 @@ namespace Mozu.Api.Urls.Platform
         public static MozuUrl GetAddressSchemasUrl()
 		{
 			var url = "/api/platform/reference/addressschemas";
-			return new MozuUrl(url, MozuUrl.UrlLocation.HOME_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.HOME_POD, false) ;
+			return mozuUrl;
 		}
 
 		/// <summary>
         /// Get Resource Url for GetBehavior
         /// </summary>
-        /// <param name="behaviorId"></param>
+        /// <param name="behaviorId">***Always private and should not be published.***</param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
         public static MozuUrl GetBehaviorUrl(int behaviorId)
 		{
 			var url = "/api/platform/reference/behaviors/{behaviorId}";
-			FormatUrl( ref url, "behaviorId", behaviorId);
-			return new MozuUrl(url, MozuUrl.UrlLocation.HOME_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.HOME_POD, false) ;
+			mozuUrl.FormatUrl( "behaviorId", behaviorId);
+			return mozuUrl;
 		}
 
 		/// <summary>
@@ -65,21 +68,23 @@ namespace Mozu.Api.Urls.Platform
         public static MozuUrl GetBehaviorCategoriesUrl()
 		{
 			var url = "/api/platform/reference/behaviors/categories";
-			return new MozuUrl(url, MozuUrl.UrlLocation.HOME_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.HOME_POD, false) ;
+			return mozuUrl;
 		}
 
 		/// <summary>
         /// Get Resource Url for GetBehaviorCategory
         /// </summary>
-        /// <param name="categoryId"></param>
+        /// <param name="categoryId">***Always private and should not be published.***</param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
         public static MozuUrl GetBehaviorCategoryUrl(int categoryId)
 		{
 			var url = "/api/platform/reference/behaviors/categories/{categoryId}";
-			FormatUrl( ref url, "categoryId", categoryId);
-			return new MozuUrl(url, MozuUrl.UrlLocation.HOME_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.HOME_POD, false) ;
+			mozuUrl.FormatUrl( "categoryId", categoryId);
+			return mozuUrl;
 		}
 
 		/// <summary>
@@ -92,8 +97,9 @@ namespace Mozu.Api.Urls.Platform
         public static MozuUrl GetBehaviorsUrl(string userType)
 		{
 			var url = "/api/platform/reference/behaviors?userType={userType}";
-			FormatUrl( ref url, "userType", userType);
-			return new MozuUrl(url, MozuUrl.UrlLocation.HOME_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.HOME_POD, false) ;
+			mozuUrl.FormatUrl( "userType", userType);
+			return mozuUrl;
 		}
 
 		/// <summary>
@@ -105,7 +111,8 @@ namespace Mozu.Api.Urls.Platform
         public static MozuUrl GetContentLocalesUrl()
 		{
 			var url = "/api/platform/reference/contentLocales";
-			return new MozuUrl(url, MozuUrl.UrlLocation.HOME_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.HOME_POD, false) ;
+			return mozuUrl;
 		}
 
 		/// <summary>
@@ -117,7 +124,8 @@ namespace Mozu.Api.Urls.Platform
         public static MozuUrl GetCountriesUrl()
 		{
 			var url = "/api/platform/reference/countries";
-			return new MozuUrl(url, MozuUrl.UrlLocation.HOME_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.HOME_POD, false) ;
+			return mozuUrl;
 		}
 
 		/// <summary>
@@ -129,7 +137,8 @@ namespace Mozu.Api.Urls.Platform
         public static MozuUrl GetCurrenciesUrl()
 		{
 			var url = "/api/platform/reference/currencies";
-			return new MozuUrl(url, MozuUrl.UrlLocation.HOME_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.HOME_POD, false) ;
+			return mozuUrl;
 		}
 
 		/// <summary>
@@ -141,7 +150,8 @@ namespace Mozu.Api.Urls.Platform
         public static MozuUrl GetTimeZonesUrl()
 		{
 			var url = "/api/platform/reference/timezones";
-			return new MozuUrl(url, MozuUrl.UrlLocation.HOME_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.HOME_POD, false) ;
+			return mozuUrl;
 		}
 
 		/// <summary>
@@ -153,21 +163,23 @@ namespace Mozu.Api.Urls.Platform
         public static MozuUrl GetTopLevelDomainsUrl()
 		{
 			var url = "/api/platform/reference/topleveldomains";
-			return new MozuUrl(url, MozuUrl.UrlLocation.HOME_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.HOME_POD, false) ;
+			return mozuUrl;
 		}
 
 		/// <summary>
         /// Get Resource Url for GetUnitsOfMeasure
         /// </summary>
-        /// <param name="filter"></param>
+        /// <param name="filter">A set of expressions that consist of a field, operator, and value and represent search parameter syntax when filtering results of a query. Valid operators include equals (eq), does not equal (ne), greater than (gt), less than (lt), greater than or equal to (ge), less than or equal to (le), starts with (sw), or contains (cont). For example - "filter=IsDisplayed+eq+true"</param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
         public static MozuUrl GetUnitsOfMeasureUrl(string filter)
 		{
 			var url = "/api/platform/reference/unitsofmeasure?filter={filter}";
-			FormatUrl( ref url, "filter", filter);
-			return new MozuUrl(url, MozuUrl.UrlLocation.HOME_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.HOME_POD, false) ;
+			mozuUrl.FormatUrl( "filter", filter);
+			return mozuUrl;
 		}
 
 								

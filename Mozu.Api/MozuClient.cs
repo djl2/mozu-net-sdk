@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using Mozu.Api.Contracts;
+using Mozu.Api.Contracts.Location;
 using Mozu.Api.Resources.Platform;
 using Mozu.Api.Security;
 using Mozu.Api.Utilities;
@@ -166,7 +167,7 @@ namespace Mozu.Api
         private StringContent _httpContent = null;
         private StreamContent _streamContent = null;
         private string _verb = string.Empty;
-		private MozuUrl _resourceUrl = new MozuUrl() { Url = "", Location = MozuUrl.UrlLocation.TENANT_POD };
+		private MozuUrl _resourceUrl = null;
         private NameValueCollection _headers = new NameValueCollection();
         private static ConcurrentDictionary<string, HttpClient> _clientsByHostName;
 
@@ -177,11 +178,15 @@ namespace Mozu.Api
 
         protected virtual void SetUserClaims(AuthTicket authTicket)
         {
-            var userInfo = UserAuthenticator.EnsureAuthTicket(authTicket);
-            if (userInfo != null)
+            AuthTicket newAuthTicket = null;
+            if (authTicket.AuthenticationScope == AuthenticationScope.Customer)
+                newAuthTicket = CustomerAuthenticator.EnsureAuthTicket(authTicket);
+            else
+                newAuthTicket = UserAuthenticator.EnsureAuthTicket(authTicket);
+            if (newAuthTicket != null)
             {
-                authTicket.AccessToken = userInfo.AuthTicket.AccessToken;
-                authTicket.AccessTokenExpiration = userInfo.AuthTicket.AccessTokenExpiration;
+                authTicket.AccessToken = newAuthTicket.AccessToken;
+                authTicket.AccessTokenExpiration = newAuthTicket.AccessTokenExpiration;
             }
                 
             _headers.Add(Headers.X_VOL_USER_CLAIMS, authTicket.AccessToken);
@@ -233,7 +238,8 @@ namespace Mozu.Api
             _resourceUrl = resourceUrl;
         }
 
-        private readonly JsonSerializerSettings _jsonSerializerSettings = new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore };
+        private readonly JsonSerializerSettings _jsonSerializerSettings = new JsonSerializerSettings { 
+            NullValueHandling = NullValueHandling.Ignore};
         protected void SetBody(TBody body)
         {
             var stringContent = JsonConvert.SerializeObject(body, _jsonSerializerSettings);
@@ -267,8 +273,15 @@ namespace Mozu.Api
 
                 client.BaseAddress = new Uri(_baseAddress);
 
+
                 if (_headers[Headers.X_VOL_APP_CLAIMS] == null)
-                    AppAuthenticator.AddHeader(client);
+                {
+                    if (_apiContext == null || string.IsNullOrEmpty(_apiContext.AppAuthClaim))
+                        AppAuthenticator.AddHeader(client);
+                    else
+                        _headers.Add(Headers.X_VOL_APP_CLAIMS, _apiContext.AppAuthClaim);
+                }
+
 
                 AddHeader(Headers.X_VOL_VERSION, Version.ApiVersion);
 
@@ -290,11 +303,15 @@ namespace Mozu.Api
 		public virtual ApiException ApiException { get; set; }
 
 		public virtual TResult Result()
-        {
-            return JsonConvert.DeserializeObject<TResult>(HttpResponse.Content.ReadAsStringAsync().Result);
-        }
+		{
+		    if (typeof(TResult) == typeof(System.IO.Stream))
+                return (TResult)(object)HttpResponse.Content.ReadAsStreamAsync().Result;
+		    
+            return JsonConvert.DeserializeObject<TResult>(HttpResponse.Content.ReadAsStringAsync().Result,new JsonSerializerSettings { 
+		        DateTimeZoneHandling = DateTimeZoneHandling.Utc});
+		}
 
-		protected void ValidateContext()
+        protected void ValidateContext()
 		{
 			if (_resourceUrl.Location == MozuUrl.UrlLocation.TENANT_POD)
 			{
@@ -308,10 +325,10 @@ namespace Mozu.Api
 
 					if (tenant == null)
 						throw new ApiException("Tenant " + _apiContext.TenantId + " Not found");
-                    _baseAddress = _apiContext.GetUrl(tenant.Domain);
+                    _baseAddress = HttpHelper.GetUrl(tenant.Domain);
 				}
                 else
-                    _baseAddress = _apiContext.TenantUrl;
+                    _baseAddress = HttpHelper.GetUrl(_apiContext.TenantUrl);
 			}
 			else
 			{
@@ -335,7 +352,7 @@ namespace Mozu.Api
             var requestMessage = new HttpRequestMessage { RequestUri = new Uri(_baseAddress+_resourceUrl.Url) };
             requestMessage.Method = GetMethod();
 
-            if (requestMessage.Method == HttpMethod.Post || requestMessage.Method == HttpMethod.Put)
+            if ( (requestMessage.Method == HttpMethod.Post || requestMessage.Method == HttpMethod.Put) && (_httpContent != null || _streamContent != null))
             {
                 if (_httpContent != null)
                     requestMessage.Content = _httpContent;
@@ -345,8 +362,13 @@ namespace Mozu.Api
             }
 
             if (_headers[Headers.X_VOL_APP_CLAIMS] == null)
-                AppAuthenticator.AddHeader(requestMessage);
-
+            {
+                if (_apiContext == null || string.IsNullOrEmpty(_apiContext.AppAuthClaim))
+                    AppAuthenticator.AddHeader(requestMessage);
+                else
+                    _headers.Add(Headers.X_VOL_APP_CLAIMS, _apiContext.AppAuthClaim);
+            }
+            
             AddHeader(Headers.X_VOL_VERSION, Version.ApiVersion);
 
             foreach (var key in _headers.AllKeys)

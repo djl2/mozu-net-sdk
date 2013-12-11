@@ -11,5 +11,6 @@ namespace Mozu.Api.Events
     {
         void Created(ApiContext apiContext, Event mzEvent);
         void Updated(ApiContext apiContext, Event mzEvent);
+        void Deleted(ApiContext apiContext, Event mzEvent);
     }
 }

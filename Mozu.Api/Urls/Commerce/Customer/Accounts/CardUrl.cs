@@ -13,65 +13,88 @@ using System;
 
 namespace Mozu.Api.Urls.Commerce.Customer.Accounts
 {
-	public partial class CardUrl : MozuUrl
+	public partial class CardUrl 
 	{
 
 		/// <summary>
         /// Get Resource Url for GetAccountCards
         /// </summary>
-        /// <param name="accountId"></param>
+        /// <param name="accountId">Unique identifier of the customer account.</param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
         public static MozuUrl GetAccountCardsUrl(int accountId)
 		{
 			var url = "/api/commerce/customer/accounts/{accountId}/cards";
-			FormatUrl( ref url, "accountId", accountId);
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "accountId", accountId);
+			return mozuUrl;
 		}
 
-				/// <summary>
-        /// Get Resource Url for AddAccountCard
-        /// </summary>
-        /// <param name="accountId"></param>
-        /// <returns>
-        /// String - Resource Url
-        /// </returns>
-        public static MozuUrl AddAccountCardUrl(int accountId)
-		{
-			var url = "/api/commerce/customer/accounts/{accountId}/cards";
-			FormatUrl( ref url, "accountId", accountId);
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
-		}
-
-				/// <summary>
-        /// Get Resource Url for UpdateAccountCard
-        /// </summary>
-        /// <param name="accountId"></param>
-        /// <returns>
-        /// String - Resource Url
-        /// </returns>
-        public static MozuUrl UpdateAccountCardUrl(int accountId)
-		{
-			var url = "/api/commerce/customer/accounts/{accountId}/cards";
-			FormatUrl( ref url, "accountId", accountId);
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
-		}
-
-				/// <summary>
-        /// Get Resource Url for DeleteAccountCard
+		/// <summary>
+        /// Get Resource Url for GetAccountCard
         /// </summary>
         /// <param name="accountId"></param>
         /// <param name="cardId"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
+        public static MozuUrl GetAccountCardUrl(int accountId, string cardId)
+		{
+			var url = "/api/commerce/customer/accounts/{accountId}/cards/{cardId}";
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "accountId", accountId);
+			mozuUrl.FormatUrl( "cardId", cardId);
+			return mozuUrl;
+		}
+
+				/// <summary>
+        /// Get Resource Url for AddAccountCard
+        /// </summary>
+        /// <param name="accountId">Unique identifier of the customer account.</param>
+        /// <returns>
+        /// String - Resource Url
+        /// </returns>
+        public static MozuUrl AddAccountCardUrl(int accountId)
+		{
+			var url = "/api/commerce/customer/accounts/{accountId}/cards";
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "accountId", accountId);
+			return mozuUrl;
+		}
+
+				/// <summary>
+        /// Get Resource Url for UpdateAccountCard
+        /// </summary>
+        /// <param name="accountId">Unique identifier of the customer account.</param>
+        /// <param name="cardId"></param>
+        /// <returns>
+        /// String - Resource Url
+        /// </returns>
+        public static MozuUrl UpdateAccountCardUrl(int accountId, string cardId)
+		{
+			var url = "/api/commerce/customer/accounts/{accountId}/cards/{cardId}";
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "accountId", accountId);
+			mozuUrl.FormatUrl( "cardId", cardId);
+			return mozuUrl;
+		}
+
+				/// <summary>
+        /// Get Resource Url for DeleteAccountCard
+        /// </summary>
+        /// <param name="accountId">Unique identifier of the customer account.</param>
+        /// <param name="cardId">Unique identifier of the credit card to delete.</param>
+        /// <returns>
+        /// String - Resource Url
+        /// </returns>
         public static MozuUrl DeleteAccountCardUrl(int accountId, string cardId)
 		{
 			var url = "/api/commerce/customer/accounts/{accountId}/cards/{cardId}";
-			FormatUrl( ref url, "accountId", accountId);
-			FormatUrl( ref url, "cardId", cardId);
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "accountId", accountId);
+			mozuUrl.FormatUrl( "cardId", cardId);
+			return mozuUrl;
 		}
 
 		

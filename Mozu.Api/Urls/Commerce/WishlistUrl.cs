@@ -13,45 +13,64 @@ using System;
 
 namespace Mozu.Api.Urls.Commerce
 {
-	public partial class WishlistUrl : MozuUrl
+	public partial class WishlistUrl 
 	{
 
 		/// <summary>
         /// Get Resource Url for GetWishlists
         /// </summary>
-        /// <param name="filter"></param>
-        /// <param name="pageSize"></param>
-        /// <param name="q"></param>
-        /// <param name="qLimit"></param>
-        /// <param name="sortBy"></param>
-        /// <param name="startIndex"></param>
+        /// <param name="filter">A set of expressions that consist of a field, operator, and value and represent search parameter syntax when filtering results of a query. Valid operators include equals (eq), does not equal (ne), greater than (gt), less than (lt), greater than or equal to (ge), less than or equal to (le), starts with (sw), or contains (cont). For example - "filter=IsDisplayed+eq+true"</param>
+        /// <param name="pageSize">The number of results to display on each page when creating paged results from a query. The maximum value is 200.</param>
+        /// <param name="q">A list of search terms to use in the query when searching across wish list name. Separate multiple search terms with a space character.</param>
+        /// <param name="qLimit">The maximum number of search results to return in the response. You can limit any range between 1-100.</param>
+        /// <param name="sortBy">The property by which to sort results and whether the results appear in ascending (a-z) order, represented by ASC or in descending (z-a) order, represented by DESC. The sortBy parameter follows an available property. For example: "sortBy=productCode+asc"</param>
+        /// <param name="startIndex">When creating paged results from a query, this value indicates the zero-based offset in the complete result set where the returned entities begin. For example, with a PageSize of 25, to get the 51st through the 75th items, use startIndex=3.</param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
         public static MozuUrl GetWishlistsUrl(string filter, int? pageSize, string q, int? qLimit, string sortBy, int? startIndex)
 		{
 			var url = "/api/commerce/wishlists/?startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&filter={filter}&q={q}&qLimit={qLimit}";
-			FormatUrl( ref url, "filter", filter);
-			FormatUrl( ref url, "pageSize", pageSize);
-			FormatUrl( ref url, "q", q);
-			FormatUrl( ref url, "qLimit", qLimit);
-			FormatUrl( ref url, "sortBy", sortBy);
-			FormatUrl( ref url, "startIndex", startIndex);
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "filter", filter);
+			mozuUrl.FormatUrl( "pageSize", pageSize);
+			mozuUrl.FormatUrl( "q", q);
+			mozuUrl.FormatUrl( "qLimit", qLimit);
+			mozuUrl.FormatUrl( "sortBy", sortBy);
+			mozuUrl.FormatUrl( "startIndex", startIndex);
+			return mozuUrl;
 		}
 
 		/// <summary>
         /// Get Resource Url for GetWishlist
         /// </summary>
-        /// <param name="wishlistId"></param>
+        /// <param name="wishlistId">Unique identifier of the shopper wish list to retrieve.</param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
         public static MozuUrl GetWishlistUrl(string wishlistId)
 		{
 			var url = "/api/commerce/wishlists/{wishlistId}";
-			FormatUrl( ref url, "wishlistId", wishlistId);
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "wishlistId", wishlistId);
+			return mozuUrl;
+		}
+
+		/// <summary>
+        /// Get Resource Url for GetWishlistByName
+        /// </summary>
+        /// <param name="customerAccountId"></param>
+        /// <param name="wishlistName"></param>
+        /// <returns>
+        /// String - Resource Url
+        /// </returns>
+        public static MozuUrl GetWishlistByNameUrl(int customerAccountId, string wishlistName)
+		{
+			var url = "/api/commerce/wishlists/customers/{customerAccountId}/{wishlistName}";
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "customerAccountId", customerAccountId);
+			mozuUrl.FormatUrl( "wishlistName", wishlistName);
+			return mozuUrl;
 		}
 
 				/// <summary>
@@ -63,35 +82,38 @@ namespace Mozu.Api.Urls.Commerce
         public static MozuUrl CreateWishlistUrl()
 		{
 			var url = "/api/commerce/wishlists/";
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			return mozuUrl;
 		}
 
 				/// <summary>
         /// Get Resource Url for UpdateWishlist
         /// </summary>
-        /// <param name="wishlistId"></param>
+        /// <param name="wishlistId">Unique identifier of the shopper wish list to update.</param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
         public static MozuUrl UpdateWishlistUrl(string wishlistId)
 		{
 			var url = "/api/commerce/wishlists/{wishlistId}";
-			FormatUrl( ref url, "wishlistId", wishlistId);
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "wishlistId", wishlistId);
+			return mozuUrl;
 		}
 
 				/// <summary>
         /// Get Resource Url for DeleteWishlist
         /// </summary>
-        /// <param name="wishlistId"></param>
+        /// <param name="wishlistId">Unique identifier of the wish list to delete.</param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
         public static MozuUrl DeleteWishlistUrl(string wishlistId)
 		{
 			var url = "/api/commerce/wishlists/{wishlistId}";
-			FormatUrl( ref url, "wishlistId", wishlistId);
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "wishlistId", wishlistId);
+			return mozuUrl;
 		}
 
 		

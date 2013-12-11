@@ -22,29 +22,36 @@ using Mozu.Api.Test.Helpers;
 namespace Mozu.Api.Test.Factories
 {
 	/// <summary>
-	/// 
+	/// Define global site settings such as the site name, shipping and email addresses, and logo images. Block undesirable IP addresses using this resource.
 	/// </summary>
 	public partial class GeneralSettingsFactory : BaseDataFactory
 	{
 
 		/// <summary> 
-		/// 
+		/// Retrieve a site's general global settings.
 		/// <example> 
 		///  <code> 
-		//// var result = GeneralSettingsFactory.GetGeneralSettings(handler : handler,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<GeneralSettings>(result); 
-		//// return optionalCasting;
+		/// var result = GeneralSettingsFactory.GetGeneralSettings(handler : handler,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<GeneralSettings/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.SiteSettings.General.GeneralSettings GetGeneralSettings(ServiceClientMessageHandler handler, 
- 		  AuthTicket authTicket= null, 
+ 		  AuthTicket authTicket = null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Settings.GeneralSettingsClient.GetGeneralSettingsClient(
 				 authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -52,23 +59,30 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// Updates a site's general global settings.
 		/// <example> 
 		///  <code> 
-		//// var result = GeneralSettingsFactory.UpdateGeneralSettings(handler : handler,  generalSettings :  generalSettings, authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<GeneralSettings>(result); 
-		//// return optionalCasting;
+		/// var result = GeneralSettingsFactory.UpdateGeneralSettings(handler : handler,  generalSettings :  generalSettings, authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<GeneralSettings/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.SiteSettings.General.GeneralSettings UpdateGeneralSettings(ServiceClientMessageHandler handler, 
- 		 Mozu.Api.Contracts.SiteSettings.General.GeneralSettings generalSettings, AuthTicket authTicket= null, 
+ 		 Mozu.Api.Contracts.SiteSettings.General.GeneralSettings generalSettings, AuthTicket authTicket = null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Settings.GeneralSettingsClient.UpdateGeneralSettingsClient(
 				 generalSettings :  generalSettings, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;

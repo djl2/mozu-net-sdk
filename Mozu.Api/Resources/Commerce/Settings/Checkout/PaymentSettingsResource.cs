@@ -16,10 +16,10 @@ using Mozu.Api.Security;
 namespace Mozu.Api.Resources.Commerce.Settings.Checkout
 {
 	/// <summary>
-	/// 
+	/// Specify settings when creating payments for order checkout on the site.
 	/// </summary>
 	public partial class PaymentSettingsResource  	{
-				///
+		///
 		/// <see cref="Mozu.Api.ApiContext"/>
 		///
 		private readonly IApiContext _apiContext;
@@ -30,101 +30,7 @@ namespace Mozu.Api.Resources.Commerce.Settings.Checkout
 
 		
 		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <returns>
-		/// <see cref="Mozu.Api.Contracts.SiteSettings.Order.PaymentSettings"/>
-		/// </returns>
-		/// <example>
-		/// <code>
-		///   var paymentsettings = new PaymentSettings();
-		///   var paymentSettings = paymentsettings.GetPaymentSettings(authTicket);
-		/// </code>
-		/// </example>
-		public virtual Mozu.Api.Contracts.SiteSettings.Order.PaymentSettings GetPaymentSettings(AuthTicket authTicket= null)
-		{
-			MozuClient<Mozu.Api.Contracts.SiteSettings.Order.PaymentSettings> response;
-			var client = Mozu.Api.Clients.Commerce.Settings.Checkout.PaymentSettingsClient.GetPaymentSettingsClient(authTicket);
-			client.WithContext(_apiContext);
-			response= client.Execute();
-			return response.Result();
-
-		}
-
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="countryCode"></param>
-		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <returns>
-		/// <see cref="Mozu.Api.Contracts.SiteSettings.Order.Gateway"/>
-		/// </returns>
-		/// <example>
-		/// <code>
-		///   var paymentsettings = new PaymentSettings();
-		///   var gateway = paymentsettings.GetActiveGatewayForCountry( countryCode, authTicket);
-		/// </code>
-		/// </example>
-		public virtual Mozu.Api.Contracts.SiteSettings.Order.Gateway GetActiveGatewayForCountry(string countryCode, AuthTicket authTicket= null)
-		{
-			MozuClient<Mozu.Api.Contracts.SiteSettings.Order.Gateway> response;
-			var client = Mozu.Api.Clients.Commerce.Settings.Checkout.PaymentSettingsClient.GetActiveGatewayForCountryClient( countryCode, authTicket);
-			client.WithContext(_apiContext);
-			response= client.Execute();
-			return response.Result();
-
-		}
-
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <returns>
-		/// List{<see cref="Mozu.Api.Contracts.PaymentService.GatewayDefinition"/>}
-		/// </returns>
-		/// <example>
-		/// <code>
-		///   var paymentsettings = new PaymentSettings();
-		///   var gatewayDefinition = paymentsettings.GetGatewayDefinitions(authTicket);
-		/// </code>
-		/// </example>
-		public virtual List<Mozu.Api.Contracts.PaymentService.GatewayDefinition> GetGatewayDefinitions(AuthTicket authTicket= null)
-		{
-			MozuClient<List<Mozu.Api.Contracts.PaymentService.GatewayDefinition>> response;
-			var client = Mozu.Api.Clients.Commerce.Settings.Checkout.PaymentSettingsClient.GetGatewayDefinitionsClient(authTicket);
-			client.WithContext(_apiContext);
-			response= client.Execute();
-			return response.Result();
-
-		}
-
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="gatewayId"></param>
-		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <returns>
-		/// <see cref="Mozu.Api.Contracts.SiteSettings.Order.Gateway"/>
-		/// </returns>
-		/// <example>
-		/// <code>
-		///   var paymentsettings = new PaymentSettings();
-		///   var gateway = paymentsettings.GetGateway( gatewayId, authTicket);
-		/// </code>
-		/// </example>
-		public virtual Mozu.Api.Contracts.SiteSettings.Order.Gateway GetGateway(string gatewayId, AuthTicket authTicket= null)
-		{
-			MozuClient<Mozu.Api.Contracts.SiteSettings.Order.Gateway> response;
-			var client = Mozu.Api.Clients.Commerce.Settings.Checkout.PaymentSettingsClient.GetGatewayClient( gatewayId, authTicket);
-			client.WithContext(_apiContext);
-			response= client.Execute();
-			return response.Result();
-
-		}
-
-		/// <summary>
-		/// 
+		/// Retrieves the details of the third-party payment service workflows configured for the site.
 		/// </summary>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
@@ -146,80 +52,7 @@ namespace Mozu.Api.Resources.Commerce.Settings.Checkout
 
 		}
 
-				/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="gateway"></param>
-		/// <returns>
-		/// <see cref="Mozu.Api.Contracts.SiteSettings.Order.Gateway"/>
-		/// </returns>
-		/// <example>
-		/// <code>
-		///   var paymentsettings = new PaymentSettings();
-		///   var gateway = paymentsettings.CreateGateway( gateway, authTicket);
-		/// </code>
-		/// </example>
-		public virtual Mozu.Api.Contracts.SiteSettings.Order.Gateway CreateGateway(Mozu.Api.Contracts.SiteSettings.Order.Gateway gateway, AuthTicket authTicket= null)
-		{
-			MozuClient<Mozu.Api.Contracts.SiteSettings.Order.Gateway> response;
-			var client = Mozu.Api.Clients.Commerce.Settings.Checkout.PaymentSettingsClient.CreateGatewayClient( gateway, authTicket);
-			client.WithContext(_apiContext);
-			response= client.Execute();
-			return response.Result();
 
-		}
-
-				/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="paymentSettings"></param>
-		/// <returns>
-		/// <see cref="Mozu.Api.Contracts.SiteSettings.Order.PaymentSettings"/>
-		/// </returns>
-		/// <example>
-		/// <code>
-		///   var paymentsettings = new PaymentSettings();
-		///   var paymentSettings = paymentsettings.UpdatePaymentSettings( paymentSettings, authTicket);
-		/// </code>
-		/// </example>
-		public virtual Mozu.Api.Contracts.SiteSettings.Order.PaymentSettings UpdatePaymentSettings(Mozu.Api.Contracts.SiteSettings.Order.PaymentSettings paymentSettings, AuthTicket authTicket= null)
-		{
-			MozuClient<Mozu.Api.Contracts.SiteSettings.Order.PaymentSettings> response;
-			var client = Mozu.Api.Clients.Commerce.Settings.Checkout.PaymentSettingsClient.UpdatePaymentSettingsClient( paymentSettings, authTicket);
-			client.WithContext(_apiContext);
-			response= client.Execute();
-			return response.Result();
-
-		}
-
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="gatewayId"></param>
-		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="gateway"></param>
-		/// <returns>
-		/// <see cref="Mozu.Api.Contracts.SiteSettings.Order.Gateway"/>
-		/// </returns>
-		/// <example>
-		/// <code>
-		///   var paymentsettings = new PaymentSettings();
-		///   var gateway = paymentsettings.UpdateGateway( gateway,  gatewayId, authTicket);
-		/// </code>
-		/// </example>
-		public virtual Mozu.Api.Contracts.SiteSettings.Order.Gateway UpdateGateway(Mozu.Api.Contracts.SiteSettings.Order.Gateway gateway, string gatewayId, AuthTicket authTicket= null)
-		{
-			MozuClient<Mozu.Api.Contracts.SiteSettings.Order.Gateway> response;
-			var client = Mozu.Api.Clients.Commerce.Settings.Checkout.PaymentSettingsClient.UpdateGatewayClient( gateway,  gatewayId, authTicket);
-			client.WithContext(_apiContext);
-			response= client.Execute();
-			return response.Result();
-
-		}
-
-				
 	}
 
 }

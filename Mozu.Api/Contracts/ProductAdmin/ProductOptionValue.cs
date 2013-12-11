@@ -12,10 +12,19 @@ using System;
 
 namespace Mozu.Api.Contracts.ProductAdmin
 {
+		///
+		///	Properties of a value associated with a product option attribute.
+		///
 		public class ProductOptionValue
 		{
+			///
+			///Value of the product option attribute.
+			///
 			public object Value { get; set; }
 
+			///
+			///Detailed properties of the product option attribute's vocabulary value.
+			///
 			public AttributeVocabularyValue AttributeVocabularyValueDetail { get; set; }
 
 		}

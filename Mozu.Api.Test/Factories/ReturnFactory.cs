@@ -22,45 +22,36 @@ using Mozu.Api.Test.Helpers;
 namespace Mozu.Api.Test.Factories
 {
 	/// <summary>
-	/// 
+	/// Use the returns subresource to manage returned items that were previously fufilled. Returns can include any number of items associated with an original Mozu order. Each return must either be associated with an original order or a product definition to represent each returned item.
 	/// </summary>
 	public partial class ReturnFactory : BaseDataFactory
 	{
 
 		/// <summary> 
-		/// 
+		/// Retrieves a list of all returns according to any filter and sort criteria.
 		/// <example> 
 		///  <code> 
-		//// ReturnFactory.GetReturns(handler : handler,  expectedCode: expectedCode, successCode: successCode);
+		/// var result = ReturnFactory.GetReturns(handler : handler,  startIndex :  startIndex,  pageSize :  pageSize,  sortBy :  sortBy,  filter :  filter,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<ReturnCollection/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.CommerceRuntime.Returns.ReturnCollection GetReturns(ServiceClientMessageHandler handler, 
- 		 
-		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
-		{
-			return GetReturns(handler : handler,  filter :  null,  pageSize :  null,  sortBy :  null,  startIndex :  null,authTicket : null, 
-				expectedCode: expectedCode, successCode: successCode);
-		}
-  
-		/// <summary> 
-		/// 
-		/// <example> 
-		///  <code> 
-		//// var result = ReturnFactory.GetReturns(handler : handler,  filter :  filter,  pageSize :  pageSize,  sortBy :  sortBy,  startIndex :  startIndex,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<ReturnCollection>(result); 
-		//// return optionalCasting;
-		///  </code> 
-		/// </example> 
-		/// </summary>
-		public static Mozu.Api.Contracts.CommerceRuntime.Returns.ReturnCollection GetReturns(ServiceClientMessageHandler handler, 
- 		 string filter, int? pageSize, string sortBy, int? startIndex,  AuthTicket authTicket= null, 
+ 		 int? startIndex = null, int? pageSize = null, string sortBy = null, string filter = null,  AuthTicket authTicket = null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.ReturnClient.GetReturnsClient(
-				 filter :  filter,  pageSize :  pageSize,  sortBy :  sortBy,  startIndex :  startIndex, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+				 startIndex :  startIndex,  pageSize :  pageSize,  sortBy :  sortBy,  filter :  filter, authTicket : authTicket		);
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -68,23 +59,30 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// Retrieves a list of properties for the specified return.
 		/// <example> 
 		///  <code> 
-		//// var result = ReturnFactory.GetReturn(handler : handler,  returnId :  returnId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<Return>(result); 
-		//// return optionalCasting;
+		/// var result = ReturnFactory.GetReturn(handler : handler,  returnId :  returnId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<Return/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.CommerceRuntime.Returns.Return GetReturn(ServiceClientMessageHandler handler, 
- 		 string returnId,  AuthTicket authTicket= null, 
+ 		 string returnId,  AuthTicket authTicket = null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.ReturnClient.GetReturnClient(
 				 returnId :  returnId, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -92,23 +90,30 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// Retrieves a list of the actions available to perform for the specified return based on its current state.
 		/// <example> 
 		///  <code> 
-		//// var result = ReturnFactory.GetAvailableReturnActions(handler : handler,  returnId :  returnId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<List<string>>(result); 
-		//// return optionalCasting;
+		/// var result = ReturnFactory.GetAvailableReturnActions(handler : handler,  returnId :  returnId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<List<string>/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static List<string> GetAvailableReturnActions(ServiceClientMessageHandler handler, 
- 		 string returnId,  AuthTicket authTicket= null, 
+ 		 string returnId,  AuthTicket authTicket = null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.ReturnClient.GetAvailableReturnActionsClient(
 				 returnId :  returnId, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -116,23 +121,30 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// Retrieves a list of all payments submitted as part of a refund associated with a customer return.
 		/// <example> 
 		///  <code> 
-		//// var result = ReturnFactory.GetPayments(handler : handler,  returnId :  returnId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<PaymentCollection>(result); 
-		//// return optionalCasting;
+		/// var result = ReturnFactory.GetPayments(handler : handler,  returnId :  returnId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<PaymentCollection/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.CommerceRuntime.Payments.PaymentCollection GetPayments(ServiceClientMessageHandler handler, 
- 		 string returnId,  AuthTicket authTicket= null, 
+ 		 string returnId,  AuthTicket authTicket = null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.ReturnClient.GetPaymentsClient(
 				 returnId :  returnId, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -140,23 +152,30 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// Retrieves the details of a payment submitted as part of a refund associated with a customer return.
 		/// <example> 
 		///  <code> 
-		//// var result = ReturnFactory.GetPayment(handler : handler,  paymentId :  paymentId,  returnId :  returnId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<Payment>(result); 
-		//// return optionalCasting;
+		/// var result = ReturnFactory.GetPayment(handler : handler,  returnId :  returnId,  paymentId :  paymentId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<Payment/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.CommerceRuntime.Payments.Payment GetPayment(ServiceClientMessageHandler handler, 
- 		 string paymentId, string returnId,  AuthTicket authTicket= null, 
+ 		 string returnId, string paymentId,  AuthTicket authTicket = null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.ReturnClient.GetPaymentClient(
-				 paymentId :  paymentId,  returnId :  returnId, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+				 returnId :  returnId,  paymentId :  paymentId, authTicket : authTicket		);
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -164,23 +183,30 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// Retrieves a list of the payment actions available to perform for the specified return when a return results in a refund to the customer.
 		/// <example> 
 		///  <code> 
-		//// var result = ReturnFactory.GetAvailablePaymentActionsForReturn(handler : handler,  paymentId :  paymentId,  returnId :  returnId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<List<string>>(result); 
-		//// return optionalCasting;
+		/// var result = ReturnFactory.GetAvailablePaymentActionsForReturn(handler : handler,  returnId :  returnId,  paymentId :  paymentId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<List<string>/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static List<string> GetAvailablePaymentActionsForReturn(ServiceClientMessageHandler handler, 
- 		 string paymentId, string returnId,  AuthTicket authTicket= null, 
+ 		 string returnId, string paymentId,  AuthTicket authTicket = null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.ReturnClient.GetAvailablePaymentActionsForReturnClient(
-				 paymentId :  paymentId,  returnId :  returnId, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+				 returnId :  returnId,  paymentId :  paymentId, authTicket : authTicket		);
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -188,23 +214,30 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// Creates a return for previously fulfilled items. Each return must either be associated with an original order or a product definition to represent each returned item.
 		/// <example> 
 		///  <code> 
-		//// var result = ReturnFactory.CreateReturn(handler : handler,  ret :  ret, authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<Return>(result); 
-		//// return optionalCasting;
+		/// var result = ReturnFactory.CreateReturn(handler : handler,  ret :  ret, authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<Return/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.CommerceRuntime.Returns.Return CreateReturn(ServiceClientMessageHandler handler, 
- 		 Mozu.Api.Contracts.CommerceRuntime.Returns.Return ret, AuthTicket authTicket= null, 
-		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
+ 		 Mozu.Api.Contracts.CommerceRuntime.Returns.Return ret, AuthTicket authTicket = null, 
+		 int expectedCode = (int)HttpStatusCode.Created, int successCode = (int)HttpStatusCode.Created)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.ReturnClient.CreateReturnClient(
 				 ret :  ret, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -212,23 +245,30 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// Updates a refund payment associated with a customer return by performing the specified action.
 		/// <example> 
 		///  <code> 
-		//// var result = ReturnFactory.PerformPaymentActionForReturn(handler : handler,  paymentId :  paymentId,  returnId :  returnId,  action :  action, authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<Return>(result); 
-		//// return optionalCasting;
+		/// var result = ReturnFactory.PerformPaymentActionForReturn(handler : handler,  action :  action,  returnId :  returnId,  paymentId :  paymentId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<Return/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.CommerceRuntime.Returns.Return PerformPaymentActionForReturn(ServiceClientMessageHandler handler, 
- 		 string paymentId, string returnId, Mozu.Api.Contracts.CommerceRuntime.Payments.PaymentAction action, AuthTicket authTicket= null, 
+ 		 Mozu.Api.Contracts.CommerceRuntime.Payments.PaymentAction action, string returnId, string paymentId,  AuthTicket authTicket = null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.ReturnClient.PerformPaymentActionForReturnClient(
-				 paymentId :  paymentId,  returnId :  returnId,  action :  action, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+				 action :  action,  returnId :  returnId,  paymentId :  paymentId, authTicket : authTicket		);
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -236,23 +276,30 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// Creates a new payment for a return that results in a refund to the customer.
 		/// <example> 
 		///  <code> 
-		//// var result = ReturnFactory.CreatePaymentActionForReturn(handler : handler,  returnId :  returnId,  action :  action, authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<Return>(result); 
-		//// return optionalCasting;
+		/// var result = ReturnFactory.CreatePaymentActionForReturn(handler : handler,  action :  action,  returnId :  returnId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<Return/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.CommerceRuntime.Returns.Return CreatePaymentActionForReturn(ServiceClientMessageHandler handler, 
- 		 string returnId, Mozu.Api.Contracts.CommerceRuntime.Payments.PaymentAction action, AuthTicket authTicket= null, 
-		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
+ 		 Mozu.Api.Contracts.CommerceRuntime.Payments.PaymentAction action, string returnId,  AuthTicket authTicket = null, 
+		 int expectedCode = (int)HttpStatusCode.Created, int successCode = (int)HttpStatusCode.Created)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.ReturnClient.CreatePaymentActionForReturnClient(
-				 returnId :  returnId,  action :  action, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+				 action :  action,  returnId :  returnId, authTicket : authTicket		);
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -260,23 +307,30 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// Updates the return by performing the specified action.
 		/// <example> 
 		///  <code> 
-		//// var result = ReturnFactory.PerformReturnActions(handler : handler,  action :  action, authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<ReturnCollection>(result); 
-		//// return optionalCasting;
+		/// var result = ReturnFactory.PerformReturnActions(handler : handler,  action :  action, authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<ReturnCollection/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.CommerceRuntime.Returns.ReturnCollection PerformReturnActions(ServiceClientMessageHandler handler, 
- 		 Mozu.Api.Contracts.CommerceRuntime.Returns.ReturnAction action, AuthTicket authTicket= null, 
+ 		 Mozu.Api.Contracts.CommerceRuntime.Returns.ReturnAction action, AuthTicket authTicket = null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.ReturnClient.PerformReturnActionsClient(
 				 action :  action, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -284,23 +338,30 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// Updates one or more properties of a return for items previously shipped in a completed order.
 		/// <example> 
 		///  <code> 
-		//// var result = ReturnFactory.UpdateReturn(handler : handler,  returnId :  returnId,  ret :  ret, authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<Return>(result); 
-		//// return optionalCasting;
+		/// var result = ReturnFactory.UpdateReturn(handler : handler,  ret :  ret,  returnId :  returnId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<Return/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.CommerceRuntime.Returns.Return UpdateReturn(ServiceClientMessageHandler handler, 
- 		 string returnId, Mozu.Api.Contracts.CommerceRuntime.Returns.Return ret, AuthTicket authTicket= null, 
+ 		 Mozu.Api.Contracts.CommerceRuntime.Returns.Return ret, string returnId,  AuthTicket authTicket = null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.ReturnClient.UpdateReturnClient(
-				 returnId :  returnId,  ret :  ret, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+				 ret :  ret,  returnId :  returnId, authTicket : authTicket		);
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -308,23 +369,30 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// Deletes the return specified in the request.
 		/// <example> 
 		///  <code> 
-		//// var result = ReturnFactory.DeleteReturn(handler : handler,  returnId :  returnId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<void>(result); 
-		//// return optionalCasting;
+		/// var result = ReturnFactory.DeleteReturn(handler : handler,  returnId :  returnId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<void/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static void DeleteReturn(ServiceClientMessageHandler handler, 
- 		string returnId,  AuthTicket authTicket= null, 
+ 		string returnId,  AuthTicket authTicket = null, 
 		 int expectedCode = (int)HttpStatusCode.NoContent, int successCode = (int)HttpStatusCode.NoContent)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.ReturnClient.DeleteReturnClient(
 				 returnId :  returnId, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			var noResponse = ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;

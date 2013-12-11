@@ -133,7 +133,7 @@ namespace Mozu.Api.Test.NunitCases
                                                          });
             var getUserCart = CartFactory.GetUserCart(ApiMsgHandler, createdCart.UserId);
             var order = OrderFactory.CreateOrderFromCart(AnonShopperMsgHandler, createdCart.Id);
-            var billing = BillingInfoFactory.SetBillingInfo(AnonShopperMsgHandler, order.Id, new BillingInfo()
+            var billing = BillingInfoFactory.SetBillingInfo(AnonShopperMsgHandler, new BillingInfo()
                                                         {
                                                             PaymentType = "Check",
                                                             BillingContact = new Mozu.Api.Contracts.Core.Contact
@@ -168,9 +168,9 @@ namespace Mozu.Api.Test.NunitCases
                                                                     }
                                                             },
                                                             IsSameBillingShippingAddress = true
-                                                        });
+                                                        }, order.Id);
 
-            var shipping = FulfillmentInfoFactory.SetFulFillmentInfo(AnonShopperMsgHandler, order.Id, new FulfillmentInfo(){ IsDestinationCommercial = false,
+            var shipping = FulfillmentInfoFactory.SetFulFillmentInfo(AnonShopperMsgHandler, new FulfillmentInfo(){ IsDestinationCommercial = false,
                                                             FulfillmentContact = new Mozu.Api.Contracts.Core.Contact
                                                              {
                                                                 Address = new Address
@@ -204,7 +204,7 @@ namespace Mozu.Api.Test.NunitCases
                                                             },
                                                             ShippingMethodCode = "CUSTOM_FLAT_RATE_PER_ORDER_EXACT_AMOUNT",
                                                             ShippingMethodName = "Flat Rate"
-                    });
+            }, order.Id);
             var getOrder = OrderFactory.GetOrder(AnonShopperMsgHandler, order.Id);
             Assert.IsTrue(billing.PaymentType.Equals("Check"));
             Assert.IsTrue(billing.BillingContact.Address.StateOrProvince.Equals("TX"));
@@ -242,7 +242,7 @@ namespace Mozu.Api.Test.NunitCases
                                                              Quantity = itemQty
                                                          });
             var order = OrderFactory.CreateOrderFromCart(AnonShopperMsgHandler, createdCart.Id);
-            var billing = BillingInfoFactory.SetBillingInfo(AnonShopperMsgHandler, order.Id, new BillingInfo()
+            var billing = BillingInfoFactory.SetBillingInfo(AnonShopperMsgHandler, new BillingInfo()
                                                         {
                                                             PaymentType = "Check",
                                                             BillingContact = new Mozu.Api.Contracts.Core.Contact
@@ -277,9 +277,9 @@ namespace Mozu.Api.Test.NunitCases
                                                                     }
                                                             },
                                                             IsSameBillingShippingAddress = true
-                                                        });
+                                                        }, order.Id);
 
-            var shipping = FulfillmentInfoFactory.SetFulFillmentInfo(AnonShopperMsgHandler, order.Id, new FulfillmentInfo(){ IsDestinationCommercial = false,
+            var shipping = FulfillmentInfoFactory.SetFulFillmentInfo(AnonShopperMsgHandler, new FulfillmentInfo(){ IsDestinationCommercial = false,
                                                             FulfillmentContact = new Mozu.Api.Contracts.Core.Contact
                                                              {
                                                                 Address = new Address
@@ -313,11 +313,11 @@ namespace Mozu.Api.Test.NunitCases
                                                             },
                                                             ShippingMethodCode = "CUSTOM_FLAT_RATE_PER_ORDER_EXACT_AMOUNT",
                                                             ShippingMethodName = "Flat Rate"
-                    });
+            }, order.Id);
             var getOrderActions = OrderFactory.GetAvailableActions(ApiMsgHandler, order.Id);
             Assert.AreEqual(getOrderActions.Count, 1);
             Assert.IsTrue(getOrderActions[0].Equals("SubmitOrder"));
-            var status = OrderFactory.PerformOrderAction(AnonShopperMsgHandler, order.Id, new OrderAction(){ActionName = "SubmitOrder"});
+            var status = OrderFactory.PerformOrderAction(AnonShopperMsgHandler, new OrderAction() { ActionName = "SubmitOrder" }, order.Id);
             var getOrder = OrderFactory.GetOrder(ApiMsgHandler, order.Id);
             Assert.AreEqual(getOrder.Status, "Submitted");
             Assert.AreEqual(getOrder.PaymentStatus, "Pending");
@@ -354,7 +354,7 @@ namespace Mozu.Api.Test.NunitCases
                                                              Quantity = itemQty
                                                          });
             var order = OrderFactory.CreateOrderFromCart(AnonShopperMsgHandler, createdCart.Id);
-            var billing = BillingInfoFactory.SetBillingInfo(AnonShopperMsgHandler, order.Id, new BillingInfo()
+            var billing = BillingInfoFactory.SetBillingInfo(AnonShopperMsgHandler, new BillingInfo()
                                                         {
                                                             PaymentType = "Check",
                                                             BillingContact = new Mozu.Api.Contracts.Core.Contact
@@ -389,9 +389,9 @@ namespace Mozu.Api.Test.NunitCases
                                                                     }
                                                             },
                                                             IsSameBillingShippingAddress = true
-                                                        });
+                                                        }, order.Id);
 
-            var shipping = FulfillmentInfoFactory.SetFulFillmentInfo(AnonShopperMsgHandler, order.Id, new FulfillmentInfo(){ IsDestinationCommercial = false,
+            var shipping = FulfillmentInfoFactory.SetFulFillmentInfo(AnonShopperMsgHandler, new FulfillmentInfo(){ IsDestinationCommercial = false,
                                                             FulfillmentContact = new Mozu.Api.Contracts.Core.Contact
                                                              {
                                                                 Address = new Address
@@ -425,11 +425,11 @@ namespace Mozu.Api.Test.NunitCases
                                                             },
                                                             ShippingMethodCode = "CUSTOM_FLAT_RATE_PER_ORDER_EXACT_AMOUNT",
                                                             ShippingMethodName = "Flat Rate"
-                    });
+            }, order.Id);
             var getOrderActions = OrderFactory.GetAvailableActions(ApiMsgHandler, order.Id);
             Assert.AreEqual(getOrderActions.Count, 1);
             Assert.IsTrue(getOrderActions[0].Equals("SubmitOrder"));
-            var status = OrderFactory.PerformOrderAction(AnonShopperMsgHandler, order.Id, new OrderAction(){ActionName = "SubmitOrder"});
+            var status = OrderFactory.PerformOrderAction(AnonShopperMsgHandler, new OrderAction() { ActionName = "SubmitOrder" }, order.Id);
             var getOrder = OrderFactory.GetOrder(ApiMsgHandler, order.Id);
             var getPaymentActions = PaymentFactory.GetAvailablePaymentActions(ApiMsgHandler, order.Id, getOrder.Payments[0].Id);
             Assert.AreEqual(getPaymentActions.Count, 3);
@@ -441,8 +441,8 @@ namespace Mozu.Api.Test.NunitCases
                 ActionName = "ApplyCheck",
                 CheckNumber = "12345",
                 Amount = Convert.ToDecimal(getOrder.Total)
-            }; 
-            var orderPayment1 = PaymentFactory.PerformPaymentAction(ApiMsgHandler, order.Id, getOrder.Payments[0].Id, paymentAction);
+            };
+            var orderPayment1 = PaymentFactory.PerformPaymentAction(ApiMsgHandler, paymentAction, order.Id, getOrder.Payments[0].Id);
             Assert.AreEqual(orderPayment1.PaymentStatus, "Paid");
             Assert.AreEqual(orderPayment1.Payments[0].Status, "Collected");
             Assert.AreEqual(orderPayment1.Payments[0].AmountCollected, getOrder.Total);

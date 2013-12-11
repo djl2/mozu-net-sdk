@@ -13,7 +13,7 @@ using System;
 
 namespace Mozu.Api.Urls.Commerce.Carts
 {
-	public partial class ChangeMessageUrl : MozuUrl
+	public partial class ChangeMessageUrl 
 	{
 
 		/// <summary>
@@ -25,7 +25,8 @@ namespace Mozu.Api.Urls.Commerce.Carts
         public static MozuUrl GetMessagesUrl()
 		{
 			var url = "/api/commerce/carts/current/messages";
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			return mozuUrl;
 		}
 
 								/// <summary>
@@ -37,21 +38,23 @@ namespace Mozu.Api.Urls.Commerce.Carts
         public static MozuUrl RemoveAllMessagesUrl()
 		{
 			var url = "/api/commerce/carts/current/messages";
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			return mozuUrl;
 		}
 
 		/// <summary>
         /// Get Resource Url for RemoveMessage
         /// </summary>
-        /// <param name="messageId"></param>
+        /// <param name="messageId">Identifier of the message to remove from the cart.</param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
         public static MozuUrl RemoveMessageUrl(string messageId)
 		{
 			var url = "/api/commerce/carts/current/messages/{messageId}";
-			FormatUrl( ref url, "messageId", messageId);
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "messageId", messageId);
+			return mozuUrl;
 		}
 
 		

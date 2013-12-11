@@ -16,10 +16,10 @@ using Mozu.Api.Security;
 namespace Mozu.Api.Resources.Commerce.Catalog.Admin
 {
 	/// <summary>
-	/// 
+	/// Use the Product Publishing resource to publish or discard pending changes to product definitions in the master catalog.
 	/// </summary>
 	public partial class PublishingScopeResource  	{
-				///
+		///
 		/// <see cref="Mozu.Api.ApiContext"/>
 		///
 		private readonly IApiContext _apiContext;
@@ -29,12 +29,12 @@ namespace Mozu.Api.Resources.Commerce.Catalog.Admin
 		}
 
 		
-				/// <summary>
-		/// 
+		/// <summary>
+		/// Deletes the draft version of product changes for each product code specified in the request.
 		/// </summary>
 		/// <param name="dataViewMode">{<see cref="Mozu.Api.DataViewMode"/>}</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="publishScope"></param>
+		/// <param name="publishScope">Properties of the pending product changes to include in this operation.</param>
 		/// <returns>
 		/// 
 		/// </returns>
@@ -54,11 +54,11 @@ namespace Mozu.Api.Resources.Commerce.Catalog.Admin
 		}
 
 		/// <summary>
-		/// 
+		/// Publishes the draft version of product changes for each product code specified in the request, and changes the product publish state to "live".
 		/// </summary>
 		/// <param name="dataViewMode">{<see cref="Mozu.Api.DataViewMode"/>}</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="publishScope"></param>
+		/// <param name="publishScope">Properties of the pending product changes to include in this operation.</param>
 		/// <returns>
 		/// 
 		/// </returns>
@@ -77,7 +77,7 @@ namespace Mozu.Api.Resources.Commerce.Catalog.Admin
 
 		}
 
-						
+
 	}
 
 }

@@ -22,53 +22,36 @@ using Mozu.Api.Test.Helpers;
 namespace Mozu.Api.Test.Factories
 {
 	/// <summary>
-	/// 
+	/// Use the Attributes subresource to manage the attributes used to uniquely identify shopper accounts, such as gender or age.
 	/// </summary>
 	public partial class CustomerAttributeFactory : BaseDataFactory
 	{
 
 		/// <summary> 
-		/// 
+		/// Retrieves the contents of an attribute associated with the specified customer account.
 		/// <example> 
 		///  <code> 
-		//// var result = CustomerAttributeFactory.GetAccountAttributeByFqn(handler : handler,  accountId :  accountId,  attributeFQN :  attributeFQN,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<CustomerAttribute>(result); 
-		//// return optionalCasting;
-		///  </code> 
-		/// </example> 
-		/// </summary>
-		public static Mozu.Api.Contracts.Customer.CustomerAttribute GetAccountAttributeByFqn(ServiceClientMessageHandler handler, 
- 		 int accountId, string attributeFQN,  AuthTicket authTicket= null, 
-		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
-		{
-			SetSdKparameters();
-			var apiClient = Mozu.Api.Clients.Commerce.Customer.Accounts.CustomerAttributeClient.GetAccountAttributeByFqnClient(
-				 accountId :  accountId,  attributeFQN :  attributeFQN, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
-			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
-					 ? (apiClient.Result()) 
-					 : null;
-
-		}
-  
-		/// <summary> 
-		/// 
-		/// <example> 
-		///  <code> 
-		//// var result = CustomerAttributeFactory.GetAccountAttribute(handler : handler,  accountId :  accountId,  attributeId :  attributeId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<CustomerAttribute>(result); 
-		//// return optionalCasting;
+		/// var result = CustomerAttributeFactory.GetAccountAttribute(handler : handler,  accountId :  accountId,  attributeFQN :  attributeFQN,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<CustomerAttribute/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.Customer.CustomerAttribute GetAccountAttribute(ServiceClientMessageHandler handler, 
- 		 int accountId, int attributeId,  AuthTicket authTicket= null, 
+ 		 int accountId, string attributeFQN,  AuthTicket authTicket = null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Customer.Accounts.CustomerAttributeClient.GetAccountAttributeClient(
-				 accountId :  accountId,  attributeId :  attributeId, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+				 accountId :  accountId,  attributeFQN :  attributeFQN, authTicket : authTicket		);
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -76,39 +59,30 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// Retrieves the list of customer account attributes.
 		/// <example> 
 		///  <code> 
-		//// CustomerAttributeFactory.GetAccountAttributes(handler : handler,  accountId :  accountId,  expectedCode: expectedCode, successCode: successCode);
+		/// var result = CustomerAttributeFactory.GetAccountAttributes(handler : handler,  accountId :  accountId,  startIndex :  startIndex,  pageSize :  pageSize,  sortBy :  sortBy,  filter :  filter,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<CustomerAttributeCollection/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.Customer.CustomerAttributeCollection GetAccountAttributes(ServiceClientMessageHandler handler, 
- 		 int accountId, 
-		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
-		{
-			return GetAccountAttributes(handler : handler,  accountId :  accountId,  filter :  null,  pageSize :  null,  sortBy :  null,  startIndex :  null,authTicket : null, 
-				expectedCode: expectedCode, successCode: successCode);
-		}
-  
-		/// <summary> 
-		/// 
-		/// <example> 
-		///  <code> 
-		//// var result = CustomerAttributeFactory.GetAccountAttributes(handler : handler,  accountId :  accountId,  filter :  filter,  pageSize :  pageSize,  sortBy :  sortBy,  startIndex :  startIndex,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<CustomerAttributeCollection>(result); 
-		//// return optionalCasting;
-		///  </code> 
-		/// </example> 
-		/// </summary>
-		public static Mozu.Api.Contracts.Customer.CustomerAttributeCollection GetAccountAttributes(ServiceClientMessageHandler handler, 
- 		 int accountId, string filter, int? pageSize, string sortBy, int? startIndex,  AuthTicket authTicket= null, 
+ 		 int accountId, int? startIndex = null, int? pageSize = null, string sortBy = null, string filter = null,  AuthTicket authTicket = null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Customer.Accounts.CustomerAttributeClient.GetAccountAttributesClient(
-				 accountId :  accountId,  filter :  filter,  pageSize :  pageSize,  sortBy :  sortBy,  startIndex :  startIndex, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+				 accountId :  accountId,  startIndex :  startIndex,  pageSize :  pageSize,  sortBy :  sortBy,  filter :  filter, authTicket : authTicket		);
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -116,23 +90,30 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// Applies a defined attribute to the customer account specified in the request and assigns a value to the customer attribute.
 		/// <example> 
 		///  <code> 
-		//// var result = CustomerAttributeFactory.AddAccountAttribute(handler : handler,  accountId :  accountId,  customerAccountAttribute :  customerAccountAttribute, authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<CustomerAttribute>(result); 
-		//// return optionalCasting;
+		/// var result = CustomerAttributeFactory.AddAccountAttribute(handler : handler,  customerAccountAttribute :  customerAccountAttribute,  accountId :  accountId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<CustomerAttribute/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.Customer.CustomerAttribute AddAccountAttribute(ServiceClientMessageHandler handler, 
- 		 int accountId, Mozu.Api.Contracts.Customer.CustomerAttribute customerAccountAttribute, AuthTicket authTicket= null, 
+ 		 Mozu.Api.Contracts.Customer.CustomerAttribute customerAccountAttribute, int accountId,  AuthTicket authTicket = null, 
 		 int expectedCode = (int)HttpStatusCode.Created, int successCode = (int)HttpStatusCode.Created)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Customer.Accounts.CustomerAttributeClient.AddAccountAttributeClient(
-				 accountId :  accountId,  customerAccountAttribute :  customerAccountAttribute, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+				 customerAccountAttribute :  customerAccountAttribute,  accountId :  accountId, authTicket : authTicket		);
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -140,23 +121,30 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// Updates one or more details of a customer account attribute.
 		/// <example> 
 		///  <code> 
-		//// var result = CustomerAttributeFactory.UpdateAccountAttribute(handler : handler,  accountId :  accountId,  customerAccountAttribute :  customerAccountAttribute, authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<CustomerAttribute>(result); 
-		//// return optionalCasting;
+		/// var result = CustomerAttributeFactory.UpdateAccountAttribute(handler : handler,  customerAccountAttribute :  customerAccountAttribute,  accountId :  accountId,  removeMissing :  removeMissing,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<CustomerAttribute/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.Customer.CustomerAttribute UpdateAccountAttribute(ServiceClientMessageHandler handler, 
- 		 int accountId, Mozu.Api.Contracts.Customer.CustomerAttribute customerAccountAttribute, AuthTicket authTicket= null, 
+ 		 Mozu.Api.Contracts.Customer.CustomerAttribute customerAccountAttribute, int accountId, bool? removeMissing = null,  AuthTicket authTicket = null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Customer.Accounts.CustomerAttributeClient.UpdateAccountAttributeClient(
-				 accountId :  accountId,  customerAccountAttribute :  customerAccountAttribute, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+				 customerAccountAttribute :  customerAccountAttribute,  accountId :  accountId,  removeMissing :  removeMissing, authTicket : authTicket		);
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;

@@ -12,10 +12,19 @@ using System;
 
 namespace Mozu.Api.Contracts.AppDev
 {
+		///
+		///	Properties of a developer account under which a company builds applications and themes.
+		///
 		public class DeveloperAccount
 		{
+			///
+			///Unique identifier of the developer account.
+			///
 			public int Id { get; set; }
 
+			///
+			///The name of the developer account.
+			///
 			public string Name { get; set; }
 
 		}

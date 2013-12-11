@@ -22,29 +22,36 @@ using Mozu.Api.Test.Helpers;
 namespace Mozu.Api.Test.Factories
 {
 	/// <summary>
-	/// 
+	/// Use this subresource to manage documents in a document list.
 	/// </summary>
 	public partial class DocumentFactory : BaseDataFactory
 	{
 
 		/// <summary> 
-		/// 
+		/// Retrieves a specific document within the specified document list by providing the document ID.
 		/// <example> 
 		///  <code> 
-		//// var result = DocumentFactory.GetDocument(handler : handler,  documentId :  documentId,  documentListName :  documentListName,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<Document>(result); 
-		//// return optionalCasting;
+		/// var result = DocumentFactory.GetDocument(handler : handler,  documentListName :  documentListName,  documentId :  documentId,  authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<Document/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.Content.Document GetDocument(ServiceClientMessageHandler handler, 
- 		 string documentId, string documentListName,  AuthTicket authTicket= null, 
+ 		 string documentListName, string documentId,  AuthTicket authTicket = null, DataViewMode dataViewMode= DataViewMode.Live, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Content.Documentlists.DocumentClient.GetDocumentClient(
-				 documentId :  documentId,  documentListName :  documentListName, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+				 documentListName :  documentListName,  documentId :  documentId, authTicket : authTicket, dataViewMode: dataViewMode		);
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -52,63 +59,61 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// Retrieve the content associated with a document, such as a product image or PDF specifications file, by supplying the document ID.
 		/// <example> 
 		///  <code> 
-		//// var result = DocumentFactory.GetDocumentContent(handler : handler,  documentId :  documentId,  documentListName :  documentListName,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<void>(result); 
-		//// return optionalCasting;
+		/// var result = DocumentFactory.GetDocumentContent(handler : handler,  documentListName :  documentListName,  documentId :  documentId,  authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<Stream/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
-		public static void GetDocumentContent(ServiceClientMessageHandler handler, 
- 		string documentId, string documentListName,  AuthTicket authTicket= null, 
-		 int expectedCode = (int)HttpStatusCode.NoContent, int successCode = (int)HttpStatusCode.NoContent)
+		public static System.IO.Stream GetDocumentContent(ServiceClientMessageHandler handler, 
+ 		 string documentListName, string documentId,  AuthTicket authTicket = null, DataViewMode dataViewMode= DataViewMode.Live, 
+		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Content.Documentlists.DocumentClient.GetDocumentContentClient(
-				 documentId :  documentId,  documentListName :  documentListName, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
-			var noResponse = ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
+				 documentListName :  documentListName,  documentId :  documentId, authTicket : authTicket, dataViewMode: dataViewMode		);
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
+			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
   
 		/// <summary> 
-		/// 
+		/// Retrieves a collection of documents according to any filter and sort criteria.
 		/// <example> 
 		///  <code> 
-		//// DocumentFactory.GetDocuments(handler : handler,  documentListName :  documentListName,  expectedCode: expectedCode, successCode: successCode);
+		/// var result = DocumentFactory.GetDocuments(handler : handler,  documentListName :  documentListName,  filter :  filter,  sortBy :  sortBy,  pageSize :  pageSize,  startIndex :  startIndex,  authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<DocumentCollection/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.Content.DocumentCollection GetDocuments(ServiceClientMessageHandler handler, 
- 		 string documentListName, 
-		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
-		{
-			return GetDocuments(handler : handler,  documentListName :  documentListName,  filter :  null,  pageSize :  null,  sortBy :  null,  startIndex :  null,authTicket : null, 
-				expectedCode: expectedCode, successCode: successCode);
-		}
-  
-		/// <summary> 
-		/// 
-		/// <example> 
-		///  <code> 
-		//// var result = DocumentFactory.GetDocuments(handler : handler,  documentListName :  documentListName,  filter :  filter,  pageSize :  pageSize,  sortBy :  sortBy,  startIndex :  startIndex,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<DocumentCollection>(result); 
-		//// return optionalCasting;
-		///  </code> 
-		/// </example> 
-		/// </summary>
-		public static Mozu.Api.Contracts.Content.DocumentCollection GetDocuments(ServiceClientMessageHandler handler, 
- 		 string documentListName, string filter, int? pageSize, string sortBy, int? startIndex,  AuthTicket authTicket= null, 
+ 		 string documentListName, string filter = null, string sortBy = null, int? pageSize = null, int? startIndex = null,  AuthTicket authTicket = null, DataViewMode dataViewMode= DataViewMode.Live, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Content.Documentlists.DocumentClient.GetDocumentsClient(
-				 documentListName :  documentListName,  filter :  filter,  pageSize :  pageSize,  sortBy :  sortBy,  startIndex :  startIndex, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+				 documentListName :  documentListName,  filter :  filter,  sortBy :  sortBy,  pageSize :  pageSize,  startIndex :  startIndex, authTicket : authTicket, dataViewMode: dataViewMode		);
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -116,23 +121,30 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// Creates a new document in an existing list.
 		/// <example> 
 		///  <code> 
-		//// var result = DocumentFactory.CreateDocument(handler : handler,  documentListName :  documentListName,  document :  document, authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<Document>(result); 
-		//// return optionalCasting;
+		/// var result = DocumentFactory.CreateDocument(handler : handler,  document :  document,  documentListName :  documentListName,  authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<Document/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.Content.Document CreateDocument(ServiceClientMessageHandler handler, 
- 		 string documentListName, Mozu.Api.Contracts.Content.Document document, AuthTicket authTicket= null, 
-		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
+ 		 Mozu.Api.Contracts.Content.Document document, string documentListName,  AuthTicket authTicket = null, DataViewMode dataViewMode= DataViewMode.Live, 
+		 int expectedCode = (int)HttpStatusCode.Created, int successCode = (int)HttpStatusCode.Created)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Content.Documentlists.DocumentClient.CreateDocumentClient(
-				 documentListName :  documentListName,  document :  document, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+				 document :  document,  documentListName :  documentListName, authTicket : authTicket, dataViewMode: dataViewMode		);
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -140,23 +152,30 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// Updates a document in a document list.
 		/// <example> 
 		///  <code> 
-		//// var result = DocumentFactory.UpdateDocument(handler : handler,  documentId :  documentId,  documentListName :  documentListName,  document :  document, authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<Document>(result); 
-		//// return optionalCasting;
+		/// var result = DocumentFactory.UpdateDocument(handler : handler,  document :  document,  documentListName :  documentListName,  documentId :  documentId,  authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<Document/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.Content.Document UpdateDocument(ServiceClientMessageHandler handler, 
- 		 string documentId, string documentListName, Mozu.Api.Contracts.Content.Document document, AuthTicket authTicket= null, 
+ 		 Mozu.Api.Contracts.Content.Document document, string documentListName, string documentId,  AuthTicket authTicket = null, DataViewMode dataViewMode= DataViewMode.Live, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Content.Documentlists.DocumentClient.UpdateDocumentClient(
-				 documentId :  documentId,  documentListName :  documentListName,  document :  document, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+				 document :  document,  documentListName :  documentListName,  documentId :  documentId, authTicket : authTicket, dataViewMode: dataViewMode		);
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -164,23 +183,30 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// Updates the content associated with a document, such as a product image or PDF specifications file, by supplying the document ID.
 		/// <example> 
 		///  <code> 
-		//// var result = DocumentFactory.UpdateDocumentContent(handler : handler,  documentId :  documentId,  documentListName :  documentListName,  stream :  stream, authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<void>(result); 
-		//// return optionalCasting;
+		/// var result = DocumentFactory.UpdateDocumentContent(handler : handler,  stream :  stream,  documentListName :  documentListName,  documentId :  documentId,  authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<void/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static void UpdateDocumentContent(ServiceClientMessageHandler handler, 
- 		string documentId, string documentListName, System.IO.Stream stream, AuthTicket authTicket= null, 
+ 		System.IO.Stream stream, string documentListName, string documentId,  AuthTicket authTicket = null, DataViewMode dataViewMode= DataViewMode.Live, 
 		 int expectedCode = (int)HttpStatusCode.NoContent, int successCode = (int)HttpStatusCode.NoContent)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Content.Documentlists.DocumentClient.UpdateDocumentContentClient(
-				 documentId :  documentId,  documentListName :  documentListName,  stream :  stream, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+				 stream :  stream,  documentListName :  documentListName,  documentId :  documentId, authTicket : authTicket, dataViewMode: dataViewMode		);
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			var noResponse = ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -188,23 +214,30 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// Deletes a specific document based on the specified document ID.
 		/// <example> 
 		///  <code> 
-		//// var result = DocumentFactory.DeleteDocument(handler : handler,  documentId :  documentId,  documentListName :  documentListName,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<void>(result); 
-		//// return optionalCasting;
+		/// var result = DocumentFactory.DeleteDocument(handler : handler,  documentListName :  documentListName,  documentId :  documentId,  authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<void/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static void DeleteDocument(ServiceClientMessageHandler handler, 
- 		string documentId, string documentListName,  AuthTicket authTicket= null, 
+ 		string documentListName, string documentId,  AuthTicket authTicket = null, DataViewMode dataViewMode= DataViewMode.Live, 
 		 int expectedCode = (int)HttpStatusCode.NoContent, int successCode = (int)HttpStatusCode.NoContent)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Content.Documentlists.DocumentClient.DeleteDocumentClient(
-				 documentId :  documentId,  documentListName :  documentListName, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+				 documentListName :  documentListName,  documentId :  documentId, authTicket : authTicket, dataViewMode: dataViewMode		);
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			var noResponse = ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -212,23 +245,30 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// Deletes the content associated with a document, such as a product image or PDF specification, by supplying the document ID.
 		/// <example> 
 		///  <code> 
-		//// var result = DocumentFactory.DeleteDocumentContent(handler : handler,  documentId :  documentId,  documentListName :  documentListName,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<void>(result); 
-		//// return optionalCasting;
+		/// var result = DocumentFactory.DeleteDocumentContent(handler : handler,  documentListName :  documentListName,  documentId :  documentId,  authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<void/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static void DeleteDocumentContent(ServiceClientMessageHandler handler, 
- 		string documentId, string documentListName,  AuthTicket authTicket= null, 
+ 		string documentListName, string documentId,  AuthTicket authTicket = null, DataViewMode dataViewMode= DataViewMode.Live, 
 		 int expectedCode = (int)HttpStatusCode.NoContent, int successCode = (int)HttpStatusCode.NoContent)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Content.Documentlists.DocumentClient.DeleteDocumentContentClient(
-				 documentId :  documentId,  documentListName :  documentListName, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+				 documentListName :  documentListName,  documentId :  documentId, authTicket : authTicket, dataViewMode: dataViewMode		);
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			var noResponse = ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;

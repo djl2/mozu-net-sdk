@@ -12,12 +12,24 @@ using System;
 
 namespace Mozu.Api.Contracts.ProductRuntime
 {
+		///
+		///	The price of the product in the specified currency code (USD). This price can either be the sale price or the price for which the merchant intends to sell the product.
+		///
 		public class ProductPrice
 		{
+			///
+			///The price the merchant intends to charge for the product.
+			///
 			public decimal? Price { get; set; }
 
+			///
+			///The sale price defined for the product.
+			///
 			public decimal? SalePrice { get; set; }
 
+			///
+			///The discount applied to the product price.
+			///
 			public AppliedDiscount Discount { get; set; }
 
 		}

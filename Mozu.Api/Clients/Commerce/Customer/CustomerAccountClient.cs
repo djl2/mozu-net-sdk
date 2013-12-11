@@ -16,12 +16,12 @@ using Mozu.Api.Security;
 namespace Mozu.Api.Clients.Commerce.Customer
 {
 	/// <summary>
-	/// 
+	/// Use the Customer Accounts resource to manage the components of shopper accounts, including attributes, contact information, company notes, and groups associated with the customer account.
 	/// </summary>
 	public partial class CustomerAccountClient 	{
 		
 		/// <summary>
-		/// 
+		/// Retrieves a list of customer accounts.
 		/// </summary>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Customer.CustomerAccountCollection"/>}
@@ -38,13 +38,13 @@ namespace Mozu.Api.Clients.Commerce.Customer
 		}
 
 		/// <summary>
-		/// 
+		/// Retrieves a list of customer accounts.
 		/// </summary>
-		/// <param name="fields"></param>
-		/// <param name="filter"></param>
+		/// <param name="fields">The fields to include in the response.</param>
+		/// <param name="filter">A set of expressions that consist of a field, operator, and value and represent search parameter syntax when filtering results of a query. Valid operators include equals (eq), does not equal (ne), greater than (gt), less than (lt), greater than or equal to (ge), less than or equal to (le), starts with (sw), or contains (cont). For example - "filter=IsDisplayed+eq+true"</param>
 		/// <param name="pageSize"></param>
-		/// <param name="q"></param>
-		/// <param name="qLimit"></param>
+		/// <param name="q">A list of customer account search terms to use in the query when searching across customer name and email. Separate multiple search terms with a space character.</param>
+		/// <param name="qLimit">The maximum number of search results to return in the response. You can limit any range between 1-100.</param>
 		/// <param name="sortBy"></param>
 		/// <param name="startIndex"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
@@ -53,11 +53,11 @@ namespace Mozu.Api.Clients.Commerce.Customer
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=GetAccounts( fields,  filter,  pageSize,  q,  qLimit,  sortBy,  startIndex, authTicket);
+		///   var mozuClient=GetAccounts( startIndex,  pageSize,  sortBy,  filter,  fields,  q,  qLimit, authTicket);
 		///   var customerAccountCollectionClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.Customer.CustomerAccountCollection> GetAccountsClient(string fields =  null, string filter =  null, int? pageSize =  null, string q =  null, int? qLimit =  null, string sortBy =  null, int? startIndex =  null, AuthTicket authTicket= null)
+		public static MozuClient<Mozu.Api.Contracts.Customer.CustomerAccountCollection> GetAccountsClient(int? startIndex =  null, int? pageSize =  null, string sortBy =  null, string filter =  null, string fields =  null, string q =  null, int? qLimit =  null, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Customer.CustomerAccountUrl.GetAccountsUrl(fields, filter, pageSize, q, qLimit, sortBy, startIndex);
 			const string verb = "GET";
@@ -69,9 +69,9 @@ namespace Mozu.Api.Clients.Commerce.Customer
 		}
 
 		/// <summary>
-		/// 
+		/// Retrieve details of a customer account.
 		/// </summary>
-		/// <param name="accountId"></param>
+		/// <param name="accountId">Unique identifier of the customer account to retrieve.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Customer.CustomerAccount"/>}
@@ -97,22 +97,21 @@ namespace Mozu.Api.Clients.Commerce.Customer
 		/// 
 		/// </summary>
 		/// <param name="accountId"></param>
-		/// <param name="inStockNotificationSubscriptionId"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
-		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Customer.CustomerInStockNotificationSubscription"/>}
+		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Customer.LoginState"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=GetInStockNotification( accountId,  inStockNotificationSubscriptionId, authTicket);
-		///   var customerInStockNotificationSubscriptionClient = mozuClient.WithBaseAddress(url).Execute().Result();
+		///   var mozuClient=GetLoginState( accountId, authTicket);
+		///   var loginStateClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.Customer.CustomerInStockNotificationSubscription> GetInStockNotificationClient(int accountId, int inStockNotificationSubscriptionId, AuthTicket authTicket= null)
+		public static MozuClient<Mozu.Api.Contracts.Customer.LoginState> GetLoginStateClient(int accountId, AuthTicket authTicket= null)
 		{
-			var url = Mozu.Api.Urls.Commerce.Customer.CustomerAccountUrl.GetInStockNotificationUrl(accountId, inStockNotificationSubscriptionId);
+			var url = Mozu.Api.Urls.Commerce.Customer.CustomerAccountUrl.GetLoginStateUrl(accountId);
 			const string verb = "GET";
-			var mozuClient = new MozuClient<Mozu.Api.Contracts.Customer.CustomerInStockNotificationSubscription>().WithVerb(verb).WithResourceUrl(url);
+			var mozuClient = new MozuClient<Mozu.Api.Contracts.Customer.LoginState>().WithVerb(verb).WithResourceUrl(url);
 			if (authTicket != null)
 				mozuClient = mozuClient.WithUserAuth(authTicket);
 			return mozuClient;
@@ -122,55 +121,58 @@ namespace Mozu.Api.Clients.Commerce.Customer
 		/// <summary>
 		/// 
 		/// </summary>
-		/// <param name="accountId"></param>
-		/// <returns>
-		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Customer.CustomerInStockNotificationSubscriptionCollection"/>}
-		/// </returns>
-		/// <example>
-		/// <code>
-		///   var mozuClient=GetInStockNotifications( accountId);
-		///   var customerInStockNotificationSubscriptionCollectionClient = mozuClient.WithBaseAddress(url).Execute().Result();
-		/// </code>
-		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.Customer.CustomerInStockNotificationSubscriptionCollection> GetInStockNotificationsClient(int accountId)
-		{
-			return GetInStockNotificationsClient( accountId,  null,  null,  null,  null, null);
-		}
-
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="accountId"></param>
-		/// <param name="filter"></param>
-		/// <param name="pageSize"></param>
-		/// <param name="sortBy"></param>
-		/// <param name="startIndex"></param>
+		/// <param name="emailAddress"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
-		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Customer.CustomerInStockNotificationSubscriptionCollection"/>}
+		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Customer.LoginState"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=GetInStockNotifications( accountId,  filter,  pageSize,  sortBy,  startIndex, authTicket);
-		///   var customerInStockNotificationSubscriptionCollectionClient = mozuClient.WithBaseAddress(url).Execute().Result();
+		///   var mozuClient=GetLoginStateByEmailAddress( emailAddress, authTicket);
+		///   var loginStateClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.Customer.CustomerInStockNotificationSubscriptionCollection> GetInStockNotificationsClient(int accountId, string filter =  null, int? pageSize =  null, string sortBy =  null, int? startIndex =  null, AuthTicket authTicket= null)
+		public static MozuClient<Mozu.Api.Contracts.Customer.LoginState> GetLoginStateByEmailAddressClient(string emailAddress, AuthTicket authTicket= null)
 		{
-			var url = Mozu.Api.Urls.Commerce.Customer.CustomerAccountUrl.GetInStockNotificationsUrl(accountId, filter, pageSize, sortBy, startIndex);
+			var url = Mozu.Api.Urls.Commerce.Customer.CustomerAccountUrl.GetLoginStateByEmailAddressUrl(emailAddress);
 			const string verb = "GET";
-			var mozuClient = new MozuClient<Mozu.Api.Contracts.Customer.CustomerInStockNotificationSubscriptionCollection>().WithVerb(verb).WithResourceUrl(url);
+			var mozuClient = new MozuClient<Mozu.Api.Contracts.Customer.LoginState>().WithVerb(verb).WithResourceUrl(url);
 			if (authTicket != null)
 				mozuClient = mozuClient.WithUserAuth(authTicket);
 			return mozuClient;
 
 		}
 
-				/// <summary>
+		/// <summary>
 		/// 
 		/// </summary>
+		/// <param name="userName"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="account"></param>
+		/// <returns>
+		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Customer.LoginState"/>}
+		/// </returns>
+		/// <example>
+		/// <code>
+		///   var mozuClient=GetLoginStateByUserName( userName, authTicket);
+		///   var loginStateClient = mozuClient.WithBaseAddress(url).Execute().Result();
+		/// </code>
+		/// </example>
+		public static MozuClient<Mozu.Api.Contracts.Customer.LoginState> GetLoginStateByUserNameClient(string userName, AuthTicket authTicket= null)
+		{
+			var url = Mozu.Api.Urls.Commerce.Customer.CustomerAccountUrl.GetLoginStateByUserNameUrl(userName);
+			const string verb = "GET";
+			var mozuClient = new MozuClient<Mozu.Api.Contracts.Customer.LoginState>().WithVerb(verb).WithResourceUrl(url);
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
+
+		}
+
+		/// <summary>
+		/// Creates a new customer account based on the information specified in the request.
+		/// </summary>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
+		/// <param name="account">Properties of the customer account to update.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Customer.CustomerAccount"/>}
 		/// </returns>
@@ -196,21 +198,21 @@ namespace Mozu.Api.Clients.Commerce.Customer
 		/// </summary>
 		/// <param name="accountId"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="inStockNotificationSubscription"></param>
+		/// <param name="customerAuthInfo"></param>
 		/// <returns>
-		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Customer.CustomerInStockNotificationSubscription"/>}
+		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Customer.CustomerAuthTicket"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=AddInStockNotification( inStockNotificationSubscription,  accountId, authTicket);
-		///   var customerInStockNotificationSubscriptionClient = mozuClient.WithBaseAddress(url).Execute().Result();
+		///   var mozuClient=AddLoginToExistingCustomer( customerAuthInfo,  accountId, authTicket);
+		///   var customerAuthTicketClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.Customer.CustomerInStockNotificationSubscription> AddInStockNotificationClient(Mozu.Api.Contracts.Customer.CustomerInStockNotificationSubscription inStockNotificationSubscription, int accountId, AuthTicket authTicket= null)
+		public static MozuClient<Mozu.Api.Contracts.Customer.CustomerAuthTicket> AddLoginToExistingCustomerClient(Mozu.Api.Contracts.Customer.CustomerLoginInfo customerAuthInfo, int accountId, AuthTicket authTicket= null)
 		{
-			var url = Mozu.Api.Urls.Commerce.Customer.CustomerAccountUrl.AddInStockNotificationUrl(accountId);
+			var url = Mozu.Api.Urls.Commerce.Customer.CustomerAccountUrl.AddLoginToExistingCustomerUrl(accountId);
 			const string verb = "POST";
-			var mozuClient = new MozuClient<Mozu.Api.Contracts.Customer.CustomerInStockNotificationSubscription>().WithVerb(verb).WithResourceUrl(url).WithBody<Mozu.Api.Contracts.Customer.CustomerInStockNotificationSubscription>(inStockNotificationSubscription);
+			var mozuClient = new MozuClient<Mozu.Api.Contracts.Customer.CustomerAuthTicket>().WithVerb(verb).WithResourceUrl(url).WithBody<Mozu.Api.Contracts.Customer.CustomerLoginInfo>(customerAuthInfo);
 			if (authTicket != null)
 				mozuClient = mozuClient.WithUserAuth(authTicket);
 			return mozuClient;
@@ -242,12 +244,139 @@ namespace Mozu.Api.Clients.Commerce.Customer
 
 		}
 
-				/// <summary>
+		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="accountId"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="account"></param>
+		/// <param name="isLocked"></param>
+		/// <returns>
+		///  <see cref="Mozu.Api.MozuClient" />
+		/// </returns>
+		/// <example>
+		/// <code>
+		///   var mozuClient=SetLoginLocked( isLocked,  accountId, authTicket);
+		///mozuClient.WithBaseAddress(url).Execute();
+		/// </code>
+		/// </example>
+		public static MozuClient SetLoginLockedClient(bool isLocked, int accountId, AuthTicket authTicket= null)
+		{
+			var url = Mozu.Api.Urls.Commerce.Customer.CustomerAccountUrl.SetLoginLockedUrl(accountId);
+			const string verb = "POST";
+			var mozuClient = new MozuClient().WithVerb(verb).WithResourceUrl(url).WithBody(isLocked);
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
+
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="accountId"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
+		/// <param name="isPasswordChangeRequired"></param>
+		/// <returns>
+		///  <see cref="Mozu.Api.MozuClient" />
+		/// </returns>
+		/// <example>
+		/// <code>
+		///   var mozuClient=SetPasswordChangeRequired( isPasswordChangeRequired,  accountId, authTicket);
+		///mozuClient.WithBaseAddress(url).Execute();
+		/// </code>
+		/// </example>
+		public static MozuClient SetPasswordChangeRequiredClient(bool isPasswordChangeRequired, int accountId, AuthTicket authTicket= null)
+		{
+			var url = Mozu.Api.Urls.Commerce.Customer.CustomerAccountUrl.SetPasswordChangeRequiredUrl(accountId);
+			const string verb = "POST";
+			var mozuClient = new MozuClient().WithVerb(verb).WithResourceUrl(url).WithBody(isPasswordChangeRequired);
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
+
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
+		/// <param name="accountAndAuthInfo"></param>
+		/// <returns>
+		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Customer.CustomerAuthTicket"/>}
+		/// </returns>
+		/// <example>
+		/// <code>
+		///   var mozuClient=AddAccountAndLogin( accountAndAuthInfo, authTicket);
+		///   var customerAuthTicketClient = mozuClient.WithBaseAddress(url).Execute().Result();
+		/// </code>
+		/// </example>
+		public static MozuClient<Mozu.Api.Contracts.Customer.CustomerAuthTicket> AddAccountAndLoginClient(Mozu.Api.Contracts.Customer.CustomerAccountAndAuthInfo accountAndAuthInfo, AuthTicket authTicket= null)
+		{
+			var url = Mozu.Api.Urls.Commerce.Customer.CustomerAccountUrl.AddAccountAndLoginUrl();
+			const string verb = "POST";
+			var mozuClient = new MozuClient<Mozu.Api.Contracts.Customer.CustomerAuthTicket>().WithVerb(verb).WithResourceUrl(url).WithBody<Mozu.Api.Contracts.Customer.CustomerAccountAndAuthInfo>(accountAndAuthInfo);
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
+
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
+		/// <param name="customers"></param>
+		/// <returns>
+		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Customer.CustomerAccountCollection"/>}
+		/// </returns>
+		/// <example>
+		/// <code>
+		///   var mozuClient=AddAccounts( customers, authTicket);
+		///   var customerAccountCollectionClient = mozuClient.WithBaseAddress(url).Execute().Result();
+		/// </code>
+		/// </example>
+		public static MozuClient<Mozu.Api.Contracts.Customer.CustomerAccountCollection> AddAccountsClient(List<Mozu.Api.Contracts.Customer.CustomerAccountAndAuthInfo> customers, AuthTicket authTicket= null)
+		{
+			var url = Mozu.Api.Urls.Commerce.Customer.CustomerAccountUrl.AddAccountsUrl();
+			const string verb = "POST";
+			var mozuClient = new MozuClient<Mozu.Api.Contracts.Customer.CustomerAccountCollection>().WithVerb(verb).WithResourceUrl(url).WithBody<List<Mozu.Api.Contracts.Customer.CustomerAccountAndAuthInfo>>(customers);
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
+
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
+		/// <param name="resetPasswordInfo"></param>
+		/// <returns>
+		///  <see cref="Mozu.Api.MozuClient" />
+		/// </returns>
+		/// <example>
+		/// <code>
+		///   var mozuClient=ResetPassword( resetPasswordInfo, authTicket);
+		///mozuClient.WithBaseAddress(url).Execute();
+		/// </code>
+		/// </example>
+		public static MozuClient ResetPasswordClient(Mozu.Api.Contracts.Customer.ResetPasswordInfo resetPasswordInfo, AuthTicket authTicket= null)
+		{
+			var url = Mozu.Api.Urls.Commerce.Customer.CustomerAccountUrl.ResetPasswordUrl();
+			const string verb = "POST";
+			var mozuClient = new MozuClient().WithVerb(verb).WithResourceUrl(url).WithBody<Mozu.Api.Contracts.Customer.ResetPasswordInfo>(resetPasswordInfo);
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
+
+		}
+
+		/// <summary>
+		/// Updates a customer account.
+		/// </summary>
+		/// <param name="accountId">Unique identifier of the customer account.</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
+		/// <param name="account">Properties of the customer account to update.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Customer.CustomerAccount"/>}
 		/// </returns>
@@ -268,10 +397,10 @@ namespace Mozu.Api.Clients.Commerce.Customer
 
 		}
 
-				/// <summary>
-		/// 
+		/// <summary>
+		/// Deletes a customer account. A customer account cannot be deleted if any orders exist, past or present.
 		/// </summary>
-		/// <param name="accountId"></param>
+		/// <param name="accountId">Unique identifier of the customer account to delete.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />
@@ -293,33 +422,7 @@ namespace Mozu.Api.Clients.Commerce.Customer
 
 		}
 
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="accountId"></param>
-		/// <param name="inStockNotificationSubscriptionId"></param>
-		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <returns>
-		///  <see cref="Mozu.Api.MozuClient" />
-		/// </returns>
-		/// <example>
-		/// <code>
-		///   var mozuClient=DeleteInStockNotificationSubscription( accountId,  inStockNotificationSubscriptionId, authTicket);
-		///mozuClient.WithBaseAddress(url).Execute();
-		/// </code>
-		/// </example>
-		public static MozuClient DeleteInStockNotificationSubscriptionClient(int accountId, int inStockNotificationSubscriptionId, AuthTicket authTicket= null)
-		{
-			var url = Mozu.Api.Urls.Commerce.Customer.CustomerAccountUrl.DeleteInStockNotificationSubscriptionUrl(accountId, inStockNotificationSubscriptionId);
-			const string verb = "DELETE";
-			var mozuClient = new MozuClient().WithVerb(verb).WithResourceUrl(url);
-			if (authTicket != null)
-				mozuClient = mozuClient.WithUserAuth(authTicket);
-			return mozuClient;
 
-		}
-
-		
 	}
 
 }

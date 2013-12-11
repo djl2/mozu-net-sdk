@@ -22,45 +22,36 @@ using Mozu.Api.Test.Helpers;
 namespace Mozu.Api.Test.Factories
 {
 	/// <summary>
-	/// 
+	/// Use the folder tree subresource to view individual folders in the document hierarchy.
 	/// </summary>
 	public partial class FolderTreeFactory : BaseDataFactory
 	{
 
 		/// <summary> 
-		/// 
+		/// Retrieves the folder hierarchy used to organize documents in lists.
 		/// <example> 
 		///  <code> 
-		//// FolderTreeFactory.GetFolderTree(handler : handler,  documentListName :  documentListName,  expectedCode: expectedCode, successCode: successCode);
+		/// var result = FolderTreeFactory.GetFolderTree(handler : handler,  documentListName :  documentListName,  levels :  levels,  rootFolderId :  rootFolderId,  rootFolderPath :  rootFolderPath,  authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<FolderTree/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.Content.FolderTree GetFolderTree(ServiceClientMessageHandler handler, 
- 		 string documentListName, 
-		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
-		{
-			return GetFolderTree(handler : handler,  documentListName :  documentListName,  levels :  null,  rootFolderId :  null,  rootFolderPath :  null,authTicket : null, 
-				expectedCode: expectedCode, successCode: successCode);
-		}
-  
-		/// <summary> 
-		/// 
-		/// <example> 
-		///  <code> 
-		//// var result = FolderTreeFactory.GetFolderTree(handler : handler,  documentListName :  documentListName,  levels :  levels,  rootFolderId :  rootFolderId,  rootFolderPath :  rootFolderPath,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<FolderTree>(result); 
-		//// return optionalCasting;
-		///  </code> 
-		/// </example> 
-		/// </summary>
-		public static Mozu.Api.Contracts.Content.FolderTree GetFolderTree(ServiceClientMessageHandler handler, 
- 		 string documentListName, int? levels, string rootFolderId, string rootFolderPath,  AuthTicket authTicket= null, 
+ 		 string documentListName, int? levels = null, string rootFolderId = null, string rootFolderPath = null,  AuthTicket authTicket = null, DataViewMode dataViewMode= DataViewMode.Live, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Content.Documentlists.FolderTreeClient.GetFolderTreeClient(
-				 documentListName :  documentListName,  levels :  levels,  rootFolderId :  rootFolderId,  rootFolderPath :  rootFolderPath, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+				 documentListName :  documentListName,  levels :  levels,  rootFolderId :  rootFolderId,  rootFolderPath :  rootFolderPath, authTicket : authTicket, dataViewMode: dataViewMode		);
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;

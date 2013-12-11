@@ -16,10 +16,10 @@ using Mozu.Api.Security;
 namespace Mozu.Api.Resources.Commerce.Catalog.Admin
 {
 	/// <summary>
-	/// 
+	/// Use the Master Catalog resource to view details of the master catalogs associated with a tenant and to manage the product publishing mode for each master catalog.
 	/// </summary>
 	public partial class MasterCatalogResource  	{
-				///
+		///
 		/// <see cref="Mozu.Api.ApiContext"/>
 		///
 		private readonly IApiContext _apiContext;
@@ -30,7 +30,7 @@ namespace Mozu.Api.Resources.Commerce.Catalog.Admin
 
 		
 		/// <summary>
-		/// 
+		/// Retrieve the details of all master catalog associated with a tenant.
 		/// </summary>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
@@ -53,10 +53,9 @@ namespace Mozu.Api.Resources.Commerce.Catalog.Admin
 		}
 
 		/// <summary>
-		/// 
+		/// Retrieve the details of the master catalog specified in the request.
 		/// </summary>
 		/// <param name="masterCatalogId"></param>
-		/// <param name="dataViewMode">{<see cref="Mozu.Api.DataViewMode"/>}</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.ProductAdmin.MasterCatalog"/>
@@ -77,13 +76,12 @@ namespace Mozu.Api.Resources.Commerce.Catalog.Admin
 
 		}
 
-						/// <summary>
-		/// 
+		/// <summary>
+		/// Updates the product publishing mode for the master catalog specified in the request.
 		/// </summary>
 		/// <param name="masterCatalogId"></param>
-		/// <param name="dataViewMode">{<see cref="Mozu.Api.DataViewMode"/>}</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="masterCatalog"></param>
+		/// <param name="masterCatalog">Properties of the master catalog to update, which consists of the product publishing mode. Possible values are "Pending" which saves product updates in draft mode until they are published, and "Live" which publishes all product changes immediately.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.ProductAdmin.MasterCatalog"/>
 		/// </returns>
@@ -103,7 +101,7 @@ namespace Mozu.Api.Resources.Commerce.Catalog.Admin
 
 		}
 
-				
+
 	}
 
 }

@@ -13,35 +13,37 @@ using System;
 
 namespace Mozu.Api.Urls.Commerce.Catalog.Admin.Discounts
 {
-	public partial class DiscountTargetUrl : MozuUrl
+	public partial class DiscountTargetUrl 
 	{
 
 		/// <summary>
         /// Get Resource Url for GetDiscountTarget
         /// </summary>
-        /// <param name="discountId"></param>
+        /// <param name="discountId">Unique identifier of the discount. System-supplied and read only.</param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
         public static MozuUrl GetDiscountTargetUrl(int discountId)
 		{
 			var url = "/api/commerce/catalog/admin/discounts/{discountId}/target";
-			FormatUrl( ref url, "discountId", discountId);
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "discountId", discountId);
+			return mozuUrl;
 		}
 
 						/// <summary>
         /// Get Resource Url for UpdateDiscountTarget
         /// </summary>
-        /// <param name="discountId"></param>
+        /// <param name="discountId">Unique identifier of the discount. System-supplied and read-only.</param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
         public static MozuUrl UpdateDiscountTargetUrl(int discountId)
 		{
 			var url = "/api/commerce/catalog/admin/discounts/{discountId}/target";
-			FormatUrl( ref url, "discountId", discountId);
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "discountId", discountId);
+			return mozuUrl;
 		}
 
 				

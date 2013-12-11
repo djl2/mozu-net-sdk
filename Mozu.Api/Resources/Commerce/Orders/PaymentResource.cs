@@ -16,10 +16,10 @@ using Mozu.Api.Security;
 namespace Mozu.Api.Resources.Commerce.Orders
 {
 	/// <summary>
-	/// 
+	/// Use the Payments subresource to manage payment transactions for orders. Each transaction performed for an order represents an individual payment. For example, if an order totals $75.00 but the shopper has a $50.00 gift certificate, both the gift certificate transaction and the credit card transaction for the remaining $25.00 are recorded as payments for the order.
 	/// </summary>
 	public partial class PaymentResource  	{
-				///
+		///
 		/// <see cref="Mozu.Api.ApiContext"/>
 		///
 		private readonly IApiContext _apiContext;
@@ -30,9 +30,9 @@ namespace Mozu.Api.Resources.Commerce.Orders
 
 		
 		/// <summary>
-		/// 
+		/// Retrieves information about all payment transactions submitted for the specified order.
 		/// </summary>
-		/// <param name="orderId"></param>
+		/// <param name="orderId">Unique identifier of the order.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Payments.PaymentCollection"/>
@@ -54,10 +54,10 @@ namespace Mozu.Api.Resources.Commerce.Orders
 		}
 
 		/// <summary>
-		/// 
+		/// Retrieves information about a specific payment transaction submitted for the specified order.
 		/// </summary>
-		/// <param name="orderId"></param>
-		/// <param name="paymentId"></param>
+		/// <param name="orderId">Unique identifier of the order associated with the payment transaction.</param>
+		/// <param name="paymentId">Unique identifier of the payment transaction submitted for the order.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Payments.Payment"/>
@@ -79,10 +79,10 @@ namespace Mozu.Api.Resources.Commerce.Orders
 		}
 
 		/// <summary>
-		/// 
+		/// Retrieves the list of all available payment actions dependent on the order payment status by specifying the order ID.
 		/// </summary>
-		/// <param name="orderId"></param>
-		/// <param name="paymentId"></param>
+		/// <param name="orderId">Unique identifier of the order associated with the payment.</param>
+		/// <param name="paymentId">Unique identifer of the payment for which to retrieve available actions.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// List{string}
@@ -103,13 +103,13 @@ namespace Mozu.Api.Resources.Commerce.Orders
 
 		}
 
-				/// <summary>
-		/// 
+		/// <summary>
+		/// Performs the specified action for an individual order payment transaction.
 		/// </summary>
-		/// <param name="orderId"></param>
-		/// <param name="paymentId"></param>
+		/// <param name="orderId">Unique identifier of the order associated with the payment.</param>
+		/// <param name="paymentId">Unique identifer of the payment for which to perform the action.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="action"></param>
+		/// <param name="action">The action to perform for the payment. Possible values are AuthAndCapture, AuthorizePayment, CapturePayment, VoidPayment, CreditPayment, RequestCheck, ApplyCheck, DeclineCheck.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Orders.Order"/>
 		/// </returns>
@@ -130,11 +130,11 @@ namespace Mozu.Api.Resources.Commerce.Orders
 		}
 
 		/// <summary>
-		/// 
+		/// Creates a new payment transaction for the specified order and performs the specified action.
 		/// </summary>
-		/// <param name="orderId"></param>
+		/// <param name="orderId">Unique identifier of the order for which to apply the payment.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="action"></param>
+		/// <param name="action">To action to perform for the newly created payment. Possible values are AuthAndCapture, AuthorizePayment, CapturePayment, VoidPayment, CreditPayment, RequestCheck, ApplyCheck, DeclineCheck.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Orders.Order"/>
 		/// </returns>
@@ -154,7 +154,7 @@ namespace Mozu.Api.Resources.Commerce.Orders
 
 		}
 
-						
+
 	}
 
 }

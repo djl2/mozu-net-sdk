@@ -13,10 +13,19 @@ using System.Collections.Generic;
 
 namespace Mozu.Api.Contracts.ProductAdmin
 {
+		///
+		///	The container for a non-paged list of related site-specific product category properties.
+		///
 		public class CategoryCollection
 		{
+			///
+			///The number of results listed in the query collection, represented by a signed 64-bit (8-byte) integer. This value is system-supplied and read-only.
+			///
 			public long TotalCount { get; set; }
 
+			///
+			///An array list of objects in the returned collection.
+			///
 			public List<Category> Items { get; set; }
 
 		}

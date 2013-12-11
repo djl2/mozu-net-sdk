@@ -4,12 +4,12 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Mozu.Api.Contracts.Core;
 using Mozu.Api.Resources.Commerce.Catalog.Admin;
 using Mozu.Api.Resources.Commerce.Settings;
+using Mozu.Api.Resources.Platform;
 using Mozu.Api.Resources.Platform.Developer;
 using Mozu.Api.Security;
 using System;
 using Mozu.Api.Test.Factories;
 using Mozu.Api.Test.Helpers;
-using UserScope = Mozu.Api.Security.UserScope;
 
 namespace Mozu.Api.Test.MsTestCases
 {
@@ -90,13 +90,12 @@ namespace Mozu.Api.Test.MsTestCases
         [Description("Simpliest way of testing Auth and checking for correct user/pass")]
         public void SimpleAuthLoginTest()
         {
-            //BaseDataFactory.SetSdKparameters();
-            var emailAddress = Mozu.Api.Test.Helpers.Environment.GetConfigValueByEnvironment("devOwnerEmail");
+             var emailAddress = Mozu.Api.Test.Helpers.Environment.GetConfigValueByEnvironment("devOwnerEmail");
             var password = Mozu.Api.Test.Helpers.Environment.GetConfigValueByEnvironment("devOwnerPassword");
 
             var userAuthInfo = new UserAuthInfo { EmailAddress = emailAddress, Password = password };
 
-            var userInfo = UserAuthenticator.Authenticate(userAuthInfo, UserScope.Developer);
+            var userInfo = UserAuthenticator.Authenticate(userAuthInfo, AuthenticationScope.Developer);
 
             Assert.IsNotNull(userInfo);
             Assert.IsNotNull(userInfo.AuthTicket);

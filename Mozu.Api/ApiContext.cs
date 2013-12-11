@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net.Http.Headers;
 using Mozu.Api.Contracts.Tenant;
 using Mozu.Api.Security;
+using Mozu.Api.Utilities;
 
 namespace Mozu.Api
 {
@@ -16,10 +17,9 @@ namespace Mozu.Api
 		string SiteUrl { get; }
 		string CorrelationId { get; }
 		string HMACSha256 { get; }
-		string AppAuthTicket { get; }
+        string AppAuthClaim { get; set; }
 		int? MasterCatalogId { get; }
 		int? CatalogId { get; }
-	    string GetUrl(string domain);
 	}
 
     public class ApiContext : IApiContext
@@ -30,7 +30,7 @@ namespace Mozu.Api
 		public string SiteUrl { get; protected set; }
 		public string CorrelationId { get; protected set; }
 		public string HMACSha256 { get; protected set; }
-		public string AppAuthTicket { get; protected set; }
+		public string AppAuthClaim { get; set; }
 		public int? MasterCatalogId { get; protected set; }
 		public int? CatalogId { get; protected set; }
         public Tenant Tenant { get; protected set; }
@@ -51,7 +51,7 @@ namespace Mozu.Api
 		{
             Tenant = tenant;
 			TenantId = tenant.Id;
-			TenantUrl = GetUrl(tenant.Domain);
+			TenantUrl = tenant.Domain;
 			MasterCatalogId = masterCatalogId;
 			CatalogId = catalogId;
 
@@ -98,12 +98,12 @@ namespace Mozu.Api
 
 			if (!String.IsNullOrEmpty(TenantUrl))
 			{
-				TenantUrl = string.Format("Http://{0}", TenantUrl);
+				TenantUrl = TenantUrl;
 			}
 
 			if (!String.IsNullOrEmpty(SiteUrl))
 			{
-				SiteUrl = String.Format("http://{0}", SiteUrl);
+				SiteUrl = SiteUrl;
 			}
 
 		}
@@ -122,36 +122,33 @@ namespace Mozu.Api
 
 			if (!String.IsNullOrEmpty(TenantUrl))
 			{
-				TenantUrl = string.Format("Http://{0}", TenantUrl);
+				TenantUrl = TenantUrl;
 			}
 
 			if (!String.IsNullOrEmpty(SiteUrl))
 			{
-				SiteUrl = String.Format("http://{0}", SiteUrl);
+				SiteUrl = SiteUrl;
 			}
 
 		}
 
-        //TODO: need to replace with Meta information about SSL - Move to MozuClient and build on resource url properties?
-        public string GetUrl(string domain)
+       /* public string GetUrl(string domain)
         {
-            //return (AppAuthenticator.UseSSL ? "Https://" : "http://" )+domain;
-            return  "http://" + domain;
-        }
+            return (AppAuthenticator.UseSSL ? "Https://" : "http://" )+domain;
+            //return  "http://" + domain;
+        }*/
 
         private void SetBySite(Site site)
         {
             if (site != null && site.Id >= 0)
             {
                 SiteId = site.Id;
-                SiteUrl = GetUrl(site.Domain);
+                SiteUrl = site.Domain;
             }
         }
 
         protected string GetHeaderValue(string header, HttpRequestHeaders headers)
         {
-
-
             var retVal = String.Empty;
             IEnumerable<string> value = (headers.Contains(header) ? headers.GetValues(header) : null);
 

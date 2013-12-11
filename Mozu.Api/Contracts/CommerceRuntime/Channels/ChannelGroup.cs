@@ -13,14 +13,29 @@ using Mozu.Api.Contracts.Core;
 
 namespace Mozu.Api.Contracts.CommerceRuntime.Channels
 {
+		///
+		///	Properties of a group of channels that share common information.
+		///
 		public class ChannelGroup
 		{
+			///
+			///User-defined code that identifies the channel group.
+			///
 			public string Code { get; set; }
 
+			///
+			///User-defined name of the channel group.
+			///
 			public string Name { get; set; }
 
+			///
+			///Unique identifier of the Mozu tenant.
+			///
 			public int TenantId { get; set; }
 
+			///
+			///Identifier and datetime stamp information recorded when a user or application creates, updates, or deletes a resource entity. This value is system-supplied and read-only.
+			///
 			public AuditInfo AuditInfo { get; set; }
 
 		}

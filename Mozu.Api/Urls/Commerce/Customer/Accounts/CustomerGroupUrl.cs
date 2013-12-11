@@ -13,15 +13,15 @@ using System;
 
 namespace Mozu.Api.Urls.Commerce.Customer.Accounts
 {
-	public partial class CustomerGroupUrl : MozuUrl
+	public partial class CustomerGroupUrl 
 	{
 
 		/// <summary>
         /// Get Resource Url for GetAccountGroups
         /// </summary>
-        /// <param name="accountId"></param>
-        /// <param name="filter"></param>
-        /// <param name="pageSize"></param>
+        /// <param name="accountId">Unique identifier of the customer account.</param>
+        /// <param name="filter">A set of expressions that consist of a field, operator, and value and represent search parameter syntax when filtering results of a query. Valid operators include equals (eq), does not equal (ne), greater than (gt), less than (lt), greater than or equal to (ge), less than or equal to (le), starts with (sw), or contains (cont). For example - "filter=IsDisplayed+eq+true"</param>
+        /// <param name="pageSize">The number of results to display on each page when creating paged results from a query. The maximum value is 200.</param>
         /// <param name="sortBy"></param>
         /// <param name="startIndex"></param>
         /// <returns>
@@ -30,60 +30,64 @@ namespace Mozu.Api.Urls.Commerce.Customer.Accounts
         public static MozuUrl GetAccountGroupsUrl(int accountId, string filter, int? pageSize, string sortBy, int? startIndex)
 		{
 			var url = "/api/commerce/customer/accounts/{accountId}/groups/?startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&filter={filter}";
-			FormatUrl( ref url, "accountId", accountId);
-			FormatUrl( ref url, "filter", filter);
-			FormatUrl( ref url, "pageSize", pageSize);
-			FormatUrl( ref url, "sortBy", sortBy);
-			FormatUrl( ref url, "startIndex", startIndex);
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "accountId", accountId);
+			mozuUrl.FormatUrl( "filter", filter);
+			mozuUrl.FormatUrl( "pageSize", pageSize);
+			mozuUrl.FormatUrl( "sortBy", sortBy);
+			mozuUrl.FormatUrl( "startIndex", startIndex);
+			return mozuUrl;
 		}
 
 		/// <summary>
         /// Get Resource Url for GetAccountGroup
         /// </summary>
-        /// <param name="accountId"></param>
-        /// <param name="groupId"></param>
+        /// <param name="accountId">Unique identifier of the customer account.</param>
+        /// <param name="groupId">Unique identifier of the customer group.</param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
         public static MozuUrl GetAccountGroupUrl(int accountId, int groupId)
 		{
 			var url = "/api/commerce/customer/accounts/{accountId}/groups/{groupId}";
-			FormatUrl( ref url, "accountId", accountId);
-			FormatUrl( ref url, "groupId", groupId);
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "accountId", accountId);
+			mozuUrl.FormatUrl( "groupId", groupId);
+			return mozuUrl;
 		}
 
 				/// <summary>
         /// Get Resource Url for AddAccountGroup
         /// </summary>
-        /// <param name="accountId"></param>
-        /// <param name="groupId"></param>
+        /// <param name="accountId">Unique identifier of the customer account to add to a group.</param>
+        /// <param name="groupId">Unique identifier of the customer group to add the customer to.</param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
         public static MozuUrl AddAccountGroupUrl(int accountId, int groupId)
 		{
 			var url = "/api/commerce/customer/accounts/{accountId}/groups/{groupId}";
-			FormatUrl( ref url, "accountId", accountId);
-			FormatUrl( ref url, "groupId", groupId);
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "accountId", accountId);
+			mozuUrl.FormatUrl( "groupId", groupId);
+			return mozuUrl;
 		}
 
 						/// <summary>
         /// Get Resource Url for DeleteAccountGroup
         /// </summary>
-        /// <param name="accountId"></param>
-        /// <param name="groupId"></param>
+        /// <param name="accountId">Unique identifier of the customer account to remove from the group.</param>
+        /// <param name="groupId">Unique identifier of the customer group.</param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
         public static MozuUrl DeleteAccountGroupUrl(int accountId, int groupId)
 		{
 			var url = "/api/commerce/customer/accounts/{accountId}/groups/{groupId}";
-			FormatUrl( ref url, "accountId", accountId);
-			FormatUrl( ref url, "groupId", groupId);
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "accountId", accountId);
+			mozuUrl.FormatUrl( "groupId", groupId);
+			return mozuUrl;
 		}
 
 		

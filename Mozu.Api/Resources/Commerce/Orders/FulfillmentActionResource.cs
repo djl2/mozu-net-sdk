@@ -16,10 +16,10 @@ using Mozu.Api.Security;
 namespace Mozu.Api.Resources.Commerce.Orders
 {
 	/// <summary>
-	/// 
+	/// Use the Fulfillment resource to manage shipments or pickups of collections of packages for an order.
 	/// </summary>
 	public partial class FulfillmentActionResource  	{
-				///
+		///
 		/// <see cref="Mozu.Api.ApiContext"/>
 		///
 		private readonly IApiContext _apiContext;
@@ -29,12 +29,12 @@ namespace Mozu.Api.Resources.Commerce.Orders
 		}
 
 		
-				/// <summary>
-		/// 
+		/// <summary>
+		/// Sets the fulfillment action to "Ship" or "PickUp". To ship an order or prepare it for in-store pickup, the order must have a customer name, the "Open" or "OpenAndProcessing" status. To ship the order, it must also have the full shipping address and shipping method. Shipping all packages or picking up all pickups for an order will complete a paid order.
 		/// </summary>
-		/// <param name="orderId"></param>
+		/// <param name="orderId">Unique identifier of the order for which to perform the fulfillment action.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="action"></param>
+		/// <param name="action">The action to perform for the order fulfillment.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Orders.Order"/>
 		/// </returns>
@@ -54,7 +54,7 @@ namespace Mozu.Api.Resources.Commerce.Orders
 
 		}
 
-						
+
 	}
 
 }

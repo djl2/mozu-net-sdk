@@ -12,26 +12,50 @@ using System;
 
 namespace Mozu.Api.Contracts.Tenant
 {
+		///
+		///	Properties of a site associated with a tenant.
+		///
 		public class Site
 		{
 			public int CatalogId { get; set; }
 
 			public string CountryCode { get; set; }
 
+			///
+			///Date and time when the entity was created, represented in UTC Date/Time.
+			///
 			public DateTime CreateDate { get; set; }
 
+			///
+			///3-letter ISO 4217 standard global currency code. Currently, only "USD" (US Dollar) is supported.
+			///
 			public string CurrencyCode { get; set; }
 
+			///
+			///The domain associated with the site.
+			///
 			public string Domain { get; set; }
 
 			public int Id { get; set; }
 
+			///
+			///Language used for the entity. Currently, only "en-US" is supported.
+			///
 			public string LocaleCode { get; set; }
 
+			///
+			///The name of the site.
+			///
 			public string Name { get; set; }
 
+			///
+			///The primary custom domain of the site.
+			///
 			public string PrimaryCustomDomain { get; set; }
 
+			///
+			///Unique identifier of the Mozu tenant.
+			///
 			public int TenantId { get; set; }
 
 		}

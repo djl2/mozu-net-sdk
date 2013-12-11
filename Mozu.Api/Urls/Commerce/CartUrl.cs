@@ -13,21 +13,22 @@ using System;
 
 namespace Mozu.Api.Urls.Commerce
 {
-	public partial class CartUrl : MozuUrl
+	public partial class CartUrl 
 	{
 
 		/// <summary>
         /// Get Resource Url for GetCart
         /// </summary>
-        /// <param name="cartId"></param>
+        /// <param name="cartId">Identifier of the cart to retrieve.</param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
         public static MozuUrl GetCartUrl(string cartId)
 		{
 			var url = "/api/commerce/carts/{cartId}";
-			FormatUrl( ref url, "cartId", cartId);
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "cartId", cartId);
+			return mozuUrl;
 		}
 
 		/// <summary>
@@ -39,7 +40,8 @@ namespace Mozu.Api.Urls.Commerce
         public static MozuUrl GetOrCreateCartUrl()
 		{
 			var url = "/api/commerce/carts/current";
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			return mozuUrl;
 		}
 
 		/// <summary>
@@ -51,35 +53,38 @@ namespace Mozu.Api.Urls.Commerce
         public static MozuUrl GetCartSummaryUrl()
 		{
 			var url = "/api/commerce/carts/summary";
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			return mozuUrl;
 		}
 
 		/// <summary>
         /// Get Resource Url for GetUserCart
         /// </summary>
-        /// <param name="userId"></param>
+        /// <param name="userId">Unique identifier of the user whose cart you want to retrieve.</param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
         public static MozuUrl GetUserCartUrl(string userId)
 		{
 			var url = "/api/commerce/carts/user/{userId}";
-			FormatUrl( ref url, "userId", userId);
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "userId", userId);
+			return mozuUrl;
 		}
 
 		/// <summary>
         /// Get Resource Url for GetUserCartSummary
         /// </summary>
-        /// <param name="userId"></param>
+        /// <param name="userId">Unique identifier of the user whose cart details you want to retrieve.</param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
         public static MozuUrl GetUserCartSummaryUrl(string userId)
 		{
 			var url = "/api/commerce/carts/user/{userId}/summary";
-			FormatUrl( ref url, "userId", userId);
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "userId", userId);
+			return mozuUrl;
 		}
 
 						/// <summary>
@@ -91,21 +96,23 @@ namespace Mozu.Api.Urls.Commerce
         public static MozuUrl UpdateCartUrl()
 		{
 			var url = "/api/commerce/carts/current";
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			return mozuUrl;
 		}
 
 				/// <summary>
         /// Get Resource Url for DeleteCart
         /// </summary>
-        /// <param name="cartId"></param>
+        /// <param name="cartId">Identifier of the cart to delete.</param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
         public static MozuUrl DeleteCartUrl(string cartId)
 		{
 			var url = "/api/commerce/carts/{cartId}";
-			FormatUrl( ref url, "cartId", cartId);
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "cartId", cartId);
+			return mozuUrl;
 		}
 
 		/// <summary>
@@ -117,7 +124,8 @@ namespace Mozu.Api.Urls.Commerce
         public static MozuUrl DeleteCurrentCartUrl()
 		{
 			var url = "/api/commerce/carts/current";
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			return mozuUrl;
 		}
 
 		

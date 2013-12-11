@@ -22,197 +22,36 @@ using Mozu.Api.Test.Helpers;
 namespace Mozu.Api.Test.Factories
 {
 	/// <summary>
-	/// 
+	/// Specify settings when creating payments for order checkout on the site.
 	/// </summary>
 	public partial class PaymentSettingsFactory : BaseDataFactory
 	{
 
 		/// <summary> 
-		/// 
+		/// Retrieves the details of the third-party payment service workflows configured for the site.
 		/// <example> 
 		///  <code> 
-		//// var result = PaymentSettingsFactory.GetPaymentSettings(handler : handler,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<PaymentSettings>(result); 
-		//// return optionalCasting;
-		///  </code> 
-		/// </example> 
-		/// </summary>
-		public static Mozu.Api.Contracts.SiteSettings.Order.PaymentSettings GetPaymentSettings(ServiceClientMessageHandler handler, 
- 		  AuthTicket authTicket= null, 
-		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
-		{
-			SetSdKparameters();
-			var apiClient = Mozu.Api.Clients.Commerce.Settings.Checkout.PaymentSettingsClient.GetPaymentSettingsClient(
-				 authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
-			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
-					 ? (apiClient.Result()) 
-					 : null;
-
-		}
-  
-		/// <summary> 
-		/// 
-		/// <example> 
-		///  <code> 
-		//// var result = PaymentSettingsFactory.GetActiveGatewayForCountry(handler : handler,  countryCode :  countryCode,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<Gateway>(result); 
-		//// return optionalCasting;
-		///  </code> 
-		/// </example> 
-		/// </summary>
-		public static Mozu.Api.Contracts.SiteSettings.Order.Gateway GetActiveGatewayForCountry(ServiceClientMessageHandler handler, 
- 		 string countryCode,  AuthTicket authTicket= null, 
-		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
-		{
-			SetSdKparameters();
-			var apiClient = Mozu.Api.Clients.Commerce.Settings.Checkout.PaymentSettingsClient.GetActiveGatewayForCountryClient(
-				 countryCode :  countryCode, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
-			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
-					 ? (apiClient.Result()) 
-					 : null;
-
-		}
-  
-		/// <summary> 
-		/// 
-		/// <example> 
-		///  <code> 
-		//// var result = PaymentSettingsFactory.GetGatewayDefinitions(handler : handler,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<List<GatewayDefinition>>(result); 
-		//// return optionalCasting;
-		///  </code> 
-		/// </example> 
-		/// </summary>
-		public static List<Mozu.Api.Contracts.PaymentService.GatewayDefinition> GetGatewayDefinitions(ServiceClientMessageHandler handler, 
- 		  AuthTicket authTicket= null, 
-		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
-		{
-			SetSdKparameters();
-			var apiClient = Mozu.Api.Clients.Commerce.Settings.Checkout.PaymentSettingsClient.GetGatewayDefinitionsClient(
-				 authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
-			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
-					 ? (apiClient.Result()) 
-					 : null;
-
-		}
-  
-		/// <summary> 
-		/// 
-		/// <example> 
-		///  <code> 
-		//// var result = PaymentSettingsFactory.GetGateway(handler : handler,  gatewayId :  gatewayId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<Gateway>(result); 
-		//// return optionalCasting;
-		///  </code> 
-		/// </example> 
-		/// </summary>
-		public static Mozu.Api.Contracts.SiteSettings.Order.Gateway GetGateway(ServiceClientMessageHandler handler, 
- 		 string gatewayId,  AuthTicket authTicket= null, 
-		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
-		{
-			SetSdKparameters();
-			var apiClient = Mozu.Api.Clients.Commerce.Settings.Checkout.PaymentSettingsClient.GetGatewayClient(
-				 gatewayId :  gatewayId, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
-			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
-					 ? (apiClient.Result()) 
-					 : null;
-
-		}
-  
-		/// <summary> 
-		/// 
-		/// <example> 
-		///  <code> 
-		//// var result = PaymentSettingsFactory.GetThirdPartyPaymentWorkflows(handler : handler,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<List<ExternalPaymentWorkflowDefinition>>(result); 
-		//// return optionalCasting;
+		/// var result = PaymentSettingsFactory.GetThirdPartyPaymentWorkflows(handler : handler,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<List<ExternalPaymentWorkflowDefinition>/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static List<Mozu.Api.Contracts.SiteSettings.Order.ExternalPaymentWorkflowDefinition> GetThirdPartyPaymentWorkflows(ServiceClientMessageHandler handler, 
- 		  AuthTicket authTicket= null, 
+ 		  AuthTicket authTicket = null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Settings.Checkout.PaymentSettingsClient.GetThirdPartyPaymentWorkflowsClient(
 				 authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
-			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
-					 ? (apiClient.Result()) 
-					 : null;
-
-		}
-  
-		/// <summary> 
-		/// 
-		/// <example> 
-		///  <code> 
-		//// var result = PaymentSettingsFactory.CreateGateway(handler : handler,  gateway :  gateway, authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<Gateway>(result); 
-		//// return optionalCasting;
-		///  </code> 
-		/// </example> 
-		/// </summary>
-		public static Mozu.Api.Contracts.SiteSettings.Order.Gateway CreateGateway(ServiceClientMessageHandler handler, 
- 		 Mozu.Api.Contracts.SiteSettings.Order.Gateway gateway, AuthTicket authTicket= null, 
-		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
-		{
-			SetSdKparameters();
-			var apiClient = Mozu.Api.Clients.Commerce.Settings.Checkout.PaymentSettingsClient.CreateGatewayClient(
-				 gateway :  gateway, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
-			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
-					 ? (apiClient.Result()) 
-					 : null;
-
-		}
-  
-		/// <summary> 
-		/// 
-		/// <example> 
-		///  <code> 
-		//// var result = PaymentSettingsFactory.UpdatePaymentSettings(handler : handler,  paymentSettings :  paymentSettings, authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<PaymentSettings>(result); 
-		//// return optionalCasting;
-		///  </code> 
-		/// </example> 
-		/// </summary>
-		public static Mozu.Api.Contracts.SiteSettings.Order.PaymentSettings UpdatePaymentSettings(ServiceClientMessageHandler handler, 
- 		 Mozu.Api.Contracts.SiteSettings.Order.PaymentSettings paymentSettings, AuthTicket authTicket= null, 
-		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
-		{
-			SetSdKparameters();
-			var apiClient = Mozu.Api.Clients.Commerce.Settings.Checkout.PaymentSettingsClient.UpdatePaymentSettingsClient(
-				 paymentSettings :  paymentSettings, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
-			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
-					 ? (apiClient.Result()) 
-					 : null;
-
-		}
-  
-		/// <summary> 
-		/// 
-		/// <example> 
-		///  <code> 
-		//// var result = PaymentSettingsFactory.UpdateGateway(handler : handler,  gatewayId :  gatewayId,  gateway :  gateway, authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<Gateway>(result); 
-		//// return optionalCasting;
-		///  </code> 
-		/// </example> 
-		/// </summary>
-		public static Mozu.Api.Contracts.SiteSettings.Order.Gateway UpdateGateway(ServiceClientMessageHandler handler, 
- 		 string gatewayId, Mozu.Api.Contracts.SiteSettings.Order.Gateway gateway, AuthTicket authTicket= null, 
-		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
-		{
-			SetSdKparameters();
-			var apiClient = Mozu.Api.Clients.Commerce.Settings.Checkout.PaymentSettingsClient.UpdateGatewayClient(
-				 gatewayId :  gatewayId,  gateway :  gateway, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;

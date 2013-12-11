@@ -12,12 +12,24 @@ using System;
 
 namespace Mozu.Api.Contracts.ProductAdmin
 {
+		///
+		///	The actual vocabulary value of the attribute that exists as a part of the product type.
+		///
 		public class AttributeVocabularyValueInProductType
 		{
+			///
+			///Sequence of the attribute value within the product type.
+			///
 			public int? Order { get; set; }
 
+			///
+			///The vocabulary value of an attribute defined for a product type.
+			///
 			public object Value { get; set; }
 
+			///
+			///Navigates vocabulary value details for an attribute defined for a product type.
+			///
 			public AttributeVocabularyValue VocabularyValueDetail { get; set; }
 
 		}

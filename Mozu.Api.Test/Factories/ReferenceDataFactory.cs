@@ -22,45 +22,36 @@ using Mozu.Api.Test.Helpers;
 namespace Mozu.Api.Test.Factories
 {
 	/// <summary>
-	/// 
+	/// The Reference resource retrieves collections of standards the Mozu system currently supports. This includes content locales, top-level domains, units of measure, countries, currencies, time zones, and shipping or billing address schemas.
 	/// </summary>
 	public partial class ReferenceDataFactory : BaseDataFactory
 	{
 
 		/// <summary> 
-		/// 
+		/// Retrieves a specific address schema based on the country code provided. This operation allows the creation of custom shipping and billing address fields.
 		/// <example> 
 		///  <code> 
-		//// ReferenceDataFactory.GetAddressSchema(handler : handler,  expectedCode: expectedCode, successCode: successCode);
+		/// var result = ReferenceDataFactory.GetAddressSchema(handler : handler,  countryCode :  countryCode,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<AddressSchema/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.Reference.AddressSchema GetAddressSchema(ServiceClientMessageHandler handler, 
- 		 
-		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
-		{
-			return GetAddressSchema(handler : handler,  countryCode :  null, 
-				expectedCode: expectedCode, successCode: successCode);
-		}
-  
-		/// <summary> 
-		/// 
-		/// <example> 
-		///  <code> 
-		//// var result = ReferenceDataFactory.GetAddressSchema(handler : handler,  countryCode :  countryCode,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<AddressSchema>(result); 
-		//// return optionalCasting;
-		///  </code> 
-		/// </example> 
-		/// </summary>
-		public static Mozu.Api.Contracts.Reference.AddressSchema GetAddressSchema(ServiceClientMessageHandler handler, 
- 		 string countryCode, 
+ 		 string countryCode = null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Platform.ReferenceDataClient.GetAddressSchemaClient(
 				 countryCode :  countryCode		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -68,12 +59,12 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// Retrieves the entire list of address schemas that the system supports.
 		/// <example> 
 		///  <code> 
-		//// var result = ReferenceDataFactory.GetAddressSchemas(handler : handler,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<AddressSchemaCollection>(result); 
-		//// return optionalCasting;
+		/// var result = ReferenceDataFactory.GetAddressSchemas(handler : handler,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<AddressSchemaCollection/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
@@ -84,7 +75,14 @@ namespace Mozu.Api.Test.Factories
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Platform.ReferenceDataClient.GetAddressSchemasClient(
 						);
-			apiClient.WithContext(handler.ApiContext).Execute();
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -92,12 +90,12 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// ***Always private and should not be published.***
 		/// <example> 
 		///  <code> 
-		//// var result = ReferenceDataFactory.GetBehavior(handler : handler,  behaviorId :  behaviorId,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<Behavior>(result); 
-		//// return optionalCasting;
+		/// var result = ReferenceDataFactory.GetBehavior(handler : handler,  behaviorId :  behaviorId,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<Behavior/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
@@ -108,7 +106,14 @@ namespace Mozu.Api.Test.Factories
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Platform.ReferenceDataClient.GetBehaviorClient(
 				 behaviorId :  behaviorId		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -116,12 +121,12 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// ***Always private and should not be published.***
 		/// <example> 
 		///  <code> 
-		//// var result = ReferenceDataFactory.GetBehaviorCategories(handler : handler,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<BehaviorCategoryCollection>(result); 
-		//// return optionalCasting;
+		/// var result = ReferenceDataFactory.GetBehaviorCategories(handler : handler,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<BehaviorCategoryCollection/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
@@ -132,7 +137,14 @@ namespace Mozu.Api.Test.Factories
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Platform.ReferenceDataClient.GetBehaviorCategoriesClient(
 						);
-			apiClient.WithContext(handler.ApiContext).Execute();
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -140,12 +152,12 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// ***Always private and should not be published.***
 		/// <example> 
 		///  <code> 
-		//// var result = ReferenceDataFactory.GetBehaviorCategory(handler : handler,  categoryId :  categoryId,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<BehaviorCategory>(result); 
-		//// return optionalCasting;
+		/// var result = ReferenceDataFactory.GetBehaviorCategory(handler : handler,  categoryId :  categoryId,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<BehaviorCategory/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
@@ -156,7 +168,14 @@ namespace Mozu.Api.Test.Factories
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Platform.ReferenceDataClient.GetBehaviorCategoryClient(
 				 categoryId :  categoryId		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -164,39 +183,30 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// ***Always private and should not be published.***
 		/// <example> 
 		///  <code> 
-		//// ReferenceDataFactory.GetBehaviors(handler : handler,  expectedCode: expectedCode, successCode: successCode);
+		/// var result = ReferenceDataFactory.GetBehaviors(handler : handler,  userType :  userType,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<BehaviorCollection/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.Core.BehaviorCollection GetBehaviors(ServiceClientMessageHandler handler, 
- 		 
-		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
-		{
-			return GetBehaviors(handler : handler,  userType :  null, 
-				expectedCode: expectedCode, successCode: successCode);
-		}
-  
-		/// <summary> 
-		/// 
-		/// <example> 
-		///  <code> 
-		//// var result = ReferenceDataFactory.GetBehaviors(handler : handler,  userType :  userType,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<BehaviorCollection>(result); 
-		//// return optionalCasting;
-		///  </code> 
-		/// </example> 
-		/// </summary>
-		public static Mozu.Api.Contracts.Core.BehaviorCollection GetBehaviors(ServiceClientMessageHandler handler, 
- 		 string userType, 
+ 		 string userType = null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Platform.ReferenceDataClient.GetBehaviorsClient(
 				 userType :  userType		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -204,12 +214,12 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// Retrieves the list of content locales the system supports. Content locales indicate the language used and the country where the language is used.
 		/// <example> 
 		///  <code> 
-		//// var result = ReferenceDataFactory.GetContentLocales(handler : handler,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<ContentLocaleCollection>(result); 
-		//// return optionalCasting;
+		/// var result = ReferenceDataFactory.GetContentLocales(handler : handler,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<ContentLocaleCollection/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
@@ -220,7 +230,14 @@ namespace Mozu.Api.Test.Factories
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Platform.ReferenceDataClient.GetContentLocalesClient(
 						);
-			apiClient.WithContext(handler.ApiContext).Execute();
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -228,12 +245,12 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// Retrieves the entire list of countries that the system supports.
 		/// <example> 
 		///  <code> 
-		//// var result = ReferenceDataFactory.GetCountries(handler : handler,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<CountryCollection>(result); 
-		//// return optionalCasting;
+		/// var result = ReferenceDataFactory.GetCountries(handler : handler,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<CountryCollection/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
@@ -244,7 +261,14 @@ namespace Mozu.Api.Test.Factories
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Platform.ReferenceDataClient.GetCountriesClient(
 						);
-			apiClient.WithContext(handler.ApiContext).Execute();
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -252,12 +276,12 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// Retrieves the entire list of currencies that the system supports.
 		/// <example> 
 		///  <code> 
-		//// var result = ReferenceDataFactory.GetCurrencies(handler : handler,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<CurrencyCollection>(result); 
-		//// return optionalCasting;
+		/// var result = ReferenceDataFactory.GetCurrencies(handler : handler,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<CurrencyCollection/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
@@ -268,7 +292,14 @@ namespace Mozu.Api.Test.Factories
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Platform.ReferenceDataClient.GetCurrenciesClient(
 						);
-			apiClient.WithContext(handler.ApiContext).Execute();
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -276,12 +307,12 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// Retrieves the entire list of time zones that the system supports.
 		/// <example> 
 		///  <code> 
-		//// var result = ReferenceDataFactory.GetTimeZones(handler : handler,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<TimeZoneCollection>(result); 
-		//// return optionalCasting;
+		/// var result = ReferenceDataFactory.GetTimeZones(handler : handler,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<TimeZoneCollection/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
@@ -292,7 +323,14 @@ namespace Mozu.Api.Test.Factories
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Platform.ReferenceDataClient.GetTimeZonesClient(
 						);
-			apiClient.WithContext(handler.ApiContext).Execute();
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -300,12 +338,12 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// Retrieves the entire list of top-level internet domains that the system supports.
 		/// <example> 
 		///  <code> 
-		//// var result = ReferenceDataFactory.GetTopLevelDomains(handler : handler,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<TopLevelDomainCollection>(result); 
-		//// return optionalCasting;
+		/// var result = ReferenceDataFactory.GetTopLevelDomains(handler : handler,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<TopLevelDomainCollection/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
@@ -316,7 +354,14 @@ namespace Mozu.Api.Test.Factories
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Platform.ReferenceDataClient.GetTopLevelDomainsClient(
 						);
-			apiClient.WithContext(handler.ApiContext).Execute();
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -324,39 +369,30 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// Retrieves an array list of all units of measure the system supports.
 		/// <example> 
 		///  <code> 
-		//// ReferenceDataFactory.GetUnitsOfMeasure(handler : handler,  expectedCode: expectedCode, successCode: successCode);
+		/// var result = ReferenceDataFactory.GetUnitsOfMeasure(handler : handler,  filter :  filter,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<UnitOfMeasureCollection/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.Reference.UnitOfMeasureCollection GetUnitsOfMeasure(ServiceClientMessageHandler handler, 
- 		 
-		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
-		{
-			return GetUnitsOfMeasure(handler : handler,  filter :  null, 
-				expectedCode: expectedCode, successCode: successCode);
-		}
-  
-		/// <summary> 
-		/// 
-		/// <example> 
-		///  <code> 
-		//// var result = ReferenceDataFactory.GetUnitsOfMeasure(handler : handler,  filter :  filter,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<UnitOfMeasureCollection>(result); 
-		//// return optionalCasting;
-		///  </code> 
-		/// </example> 
-		/// </summary>
-		public static Mozu.Api.Contracts.Reference.UnitOfMeasureCollection GetUnitsOfMeasure(ServiceClientMessageHandler handler, 
- 		 string filter, 
+ 		 string filter = null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Platform.ReferenceDataClient.GetUnitsOfMeasureClient(
 				 filter :  filter		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;

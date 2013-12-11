@@ -12,10 +12,19 @@ using System;
 
 namespace Mozu.Api.Contracts.CommerceRuntime.Discounts
 {
+		///
+		///	Properties of a discount that can apply to shipping an order.
+		///
 		public class ShippingDiscount
 		{
+			///
+			///Carrier-supplied code that represents the shipping method service type associated with the shipping discount.
+			///
 			public string MethodCode { get; set; }
 
+			///
+			///Properties of the shipping discount.
+			///
 			public AppliedDiscount Discount { get; set; }
 
 		}

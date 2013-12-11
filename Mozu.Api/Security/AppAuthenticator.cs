@@ -48,14 +48,20 @@ namespace Mozu.Api.Security
 
         public static AppAuthenticator Initialize(AppAuthInfo appAuthInfo, string baseAppAuthUrl, RefreshInterval refreshInterval = null)
         {
-            if (_auth == null)
+            if (appAuthInfo == null || string.IsNullOrEmpty(baseAppAuthUrl))
+                throw new Exception("AppAuthInfo or Base App auth Url cannot be null or empty");
+
+            if (String.IsNullOrEmpty(appAuthInfo.ApplicationId) || String.IsNullOrEmpty(appAuthInfo.SharedSecret))
+                throw new Exception("ApplicationId or Shared Secret is missing");
+
+            if (_auth == null || (_auth != null && _auth.AppAuthInfo.ApplicationId != appAuthInfo.ApplicationId))
             {
                 lock (_lockObj)
                 {
                     try
                     {
                         var uri = new Uri(baseAppAuthUrl);
-                        UseSSL = (uri.Scheme.ToLower() == "https" ? true : false);
+                        HttpHelper.UrlScheme = uri.Scheme;
                         _auth = new AppAuthenticator(appAuthInfo, baseAppAuthUrl, refreshInterval);
                         _auth.AuthenticateApp();
 
@@ -85,7 +91,7 @@ namespace Mozu.Api.Security
         /// <summary>
         /// Do application authentication
         /// </summary>
-        public void AuthenticateApp()
+        private void AuthenticateApp()
         {
             var resourceUrl = AuthTicketUrl.AuthenticateAppUrl();
             var client = new HttpClient { BaseAddress = new Uri(BaseUrl) };
@@ -104,7 +110,7 @@ namespace Mozu.Api.Security
         /// <summary>
         /// Refresh the application auth ticket using the refresh token
         /// </summary>
-        public void RefreshAppAuthTicket()
+        private void RefreshAppAuthTicket()
         {
 
             var resourceUrl = AuthTicketUrl.RefreshAppAuthTicketUrl();

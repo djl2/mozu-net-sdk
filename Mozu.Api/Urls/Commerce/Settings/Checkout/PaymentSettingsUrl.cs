@@ -13,60 +13,8 @@ using System;
 
 namespace Mozu.Api.Urls.Commerce.Settings.Checkout
 {
-	public partial class PaymentSettingsUrl : MozuUrl
+	public partial class PaymentSettingsUrl 
 	{
-
-		/// <summary>
-        /// Get Resource Url for GetPaymentSettings
-        /// </summary>
-        /// <returns>
-        /// String - Resource Url
-        /// </returns>
-        public static MozuUrl GetPaymentSettingsUrl()
-		{
-			var url = "/api/commerce/settings/checkout/paymentsettings";
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
-		}
-
-		/// <summary>
-        /// Get Resource Url for GetActiveGatewayForCountry
-        /// </summary>
-        /// <param name="countryCode"></param>
-        /// <returns>
-        /// String - Resource Url
-        /// </returns>
-        public static MozuUrl GetActiveGatewayForCountryUrl(string countryCode)
-		{
-			var url = "/api/commerce/settings/checkout/paymentsettings/activeForCountry/{countryCode}";
-			FormatUrl( ref url, "countryCode", countryCode);
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
-		}
-
-		/// <summary>
-        /// Get Resource Url for GetGatewayDefinitions
-        /// </summary>
-        /// <returns>
-        /// String - Resource Url
-        /// </returns>
-        public static MozuUrl GetGatewayDefinitionsUrl()
-		{
-			var url = "/api/commerce/settings/checkout/paymentsettings/gatewayDefinitions";
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
-		}
-
-		/// <summary>
-        /// Get Resource Url for GetGateway
-        /// </summary>
-        /// <param name="gatewayId"></param>
-        /// <returns>
-        /// String - Resource Url
-        /// </returns>
-        public static MozuUrl GetGatewayUrl(string gatewayId)
-		{
-			var url = "/api/commerce/settings/checkout/paymentsettings/gateways/{gatewayId}";
-			FormatUrl( ref url, "gatewayId", gatewayId);
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
-		}
 
 		/// <summary>
         /// Get Resource Url for GetThirdPartyPaymentWorkflows
@@ -77,48 +25,11 @@ namespace Mozu.Api.Urls.Commerce.Settings.Checkout
         public static MozuUrl GetThirdPartyPaymentWorkflowsUrl()
 		{
 			var url = "/api/commerce/settings/checkout/paymentsettings/thirdpartyworkflows";
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			return mozuUrl;
 		}
 
-				/// <summary>
-        /// Get Resource Url for CreateGateway
-        /// </summary>
-        /// <returns>
-        /// String - Resource Url
-        /// </returns>
-        public static MozuUrl CreateGatewayUrl()
-		{
-			var url = "/api/commerce/settings/checkout/paymentsettings/gateways";
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
-		}
-
-				/// <summary>
-        /// Get Resource Url for UpdatePaymentSettings
-        /// </summary>
-        /// <returns>
-        /// String - Resource Url
-        /// </returns>
-        public static MozuUrl UpdatePaymentSettingsUrl()
-		{
-			var url = "/api/commerce/settings/checkout/paymentsettings";
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
-		}
-
-		/// <summary>
-        /// Get Resource Url for UpdateGateway
-        /// </summary>
-        /// <param name="gatewayId"></param>
-        /// <returns>
-        /// String - Resource Url
-        /// </returns>
-        public static MozuUrl UpdateGatewayUrl(string gatewayId)
-		{
-			var url = "/api/commerce/settings/checkout/paymentsettings/gateways/{gatewayId}";
-			FormatUrl( ref url, "gatewayId", gatewayId);
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
-		}
-
-				
+								
 	}
 }
 

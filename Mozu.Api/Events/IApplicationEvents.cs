@@ -13,6 +13,5 @@ namespace Mozu.Api.Events
         void Enabled(ApiContext apiContext, Event eventPayLoad);
         void Disabled(ApiContext apiContext, Event eventPayLoad);
         void Upgraded(ApiContext apiContext, Event eventPayLoad);
-        void All();
     }
 }

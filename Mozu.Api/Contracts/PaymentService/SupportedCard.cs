@@ -12,10 +12,19 @@ using System;
 
 namespace Mozu.Api.Contracts.PaymentService
 {
+		///
+		///	Properties of a supported credit card for the site's payment gateway.
+		///
 		public class SupportedCard
 		{
+			///
+			///Company-defined friendly name that identifies the supported card.
+			///
 			public string FriendlyName { get; set; }
 
+			///
+			///The card type of the supported payment card, such as Visa or Amex.
+			///
 			public string Type { get; set; }
 
 		}

@@ -16,10 +16,10 @@ using Mozu.Api.Security;
 namespace Mozu.Api.Resources.Commerce.Catalog.Admin.Products
 {
 	/// <summary>
-	/// 
+	/// Use the Options resource to configure the option attributes and vocabulary values for an individual product associated with the product type that uses the option attribute. Options are used to generate variations of a product.
 	/// </summary>
 	public partial class ProductOptionResource  	{
-				///
+		///
 		/// <see cref="Mozu.Api.ApiContext"/>
 		///
 		private readonly IApiContext _apiContext;
@@ -30,9 +30,9 @@ namespace Mozu.Api.Resources.Commerce.Catalog.Admin.Products
 
 		
 		/// <summary>
-		/// 
+		/// Retrieves a list of all option attributes configured for the product specified in the request.
 		/// </summary>
-		/// <param name="productCode"></param>
+		/// <param name="productCode">Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// List{<see cref="Mozu.Api.Contracts.ProductAdmin.ProductOption"/>}
@@ -54,10 +54,10 @@ namespace Mozu.Api.Resources.Commerce.Catalog.Admin.Products
 		}
 
 		/// <summary>
-		/// 
+		/// Retrieves the details of an option attribute configuration for the specified product.
 		/// </summary>
-		/// <param name="attributeFQN"></param>
-		/// <param name="productCode"></param>
+		/// <param name="attributeFQN">The fully qualified name of the attribute, which is a user defined attribute identifier.</param>
+		/// <param name="productCode">Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.ProductAdmin.ProductOption"/>
@@ -65,25 +65,25 @@ namespace Mozu.Api.Resources.Commerce.Catalog.Admin.Products
 		/// <example>
 		/// <code>
 		///   var productoption = new ProductOption();
-		///   var productOption = productoption.GetOption(dataViewMode,  attributeFQN,  productCode, authTicket);
+		///   var productOption = productoption.GetOption(dataViewMode,  productCode,  attributeFQN, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.ProductAdmin.ProductOption GetOption(DataViewMode dataViewMode, string attributeFQN, string productCode, AuthTicket authTicket= null)
+		public virtual Mozu.Api.Contracts.ProductAdmin.ProductOption GetOption(DataViewMode dataViewMode, string productCode, string attributeFQN, AuthTicket authTicket= null)
 		{
 			MozuClient<Mozu.Api.Contracts.ProductAdmin.ProductOption> response;
-			var client = Mozu.Api.Clients.Commerce.Catalog.Admin.Products.ProductOptionClient.GetOptionClient(dataViewMode,  attributeFQN,  productCode, authTicket);
+			var client = Mozu.Api.Clients.Commerce.Catalog.Admin.Products.ProductOptionClient.GetOptionClient(dataViewMode,  productCode,  attributeFQN, authTicket);
 			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
 		}
 
-				/// <summary>
-		/// 
+		/// <summary>
+		/// Configures an option attribute for the product specified in the request.
 		/// </summary>
-		/// <param name="productCode"></param>
+		/// <param name="productCode">Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="productOption"></param>
+		/// <param name="productOption">Properties of the option attribute to define for the product.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.ProductAdmin.ProductOption"/>
 		/// </returns>
@@ -103,37 +103,37 @@ namespace Mozu.Api.Resources.Commerce.Catalog.Admin.Products
 
 		}
 
-				/// <summary>
-		/// 
+		/// <summary>
+		/// Updates one or more properties of an option attribute configured for a product.
 		/// </summary>
-		/// <param name="attributeFQN"></param>
-		/// <param name="productCode"></param>
+		/// <param name="attributeFQN">The fully qualified name of the attribute, which is a user defined attribute identifier.</param>
+		/// <param name="productCode">Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="productOption"></param>
+		/// <param name="productOption">Properties of the product option attribute configuration to update.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.ProductAdmin.ProductOption"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var productoption = new ProductOption();
-		///   var productOption = productoption.UpdateOption(dataViewMode,  productOption,  attributeFQN,  productCode, authTicket);
+		///   var productOption = productoption.UpdateOption(dataViewMode,  productOption,  productCode,  attributeFQN, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.ProductAdmin.ProductOption UpdateOption(DataViewMode dataViewMode, Mozu.Api.Contracts.ProductAdmin.ProductOption productOption, string attributeFQN, string productCode, AuthTicket authTicket= null)
+		public virtual Mozu.Api.Contracts.ProductAdmin.ProductOption UpdateOption(DataViewMode dataViewMode, Mozu.Api.Contracts.ProductAdmin.ProductOption productOption, string productCode, string attributeFQN, AuthTicket authTicket= null)
 		{
 			MozuClient<Mozu.Api.Contracts.ProductAdmin.ProductOption> response;
-			var client = Mozu.Api.Clients.Commerce.Catalog.Admin.Products.ProductOptionClient.UpdateOptionClient(dataViewMode,  productOption,  attributeFQN,  productCode, authTicket);
+			var client = Mozu.Api.Clients.Commerce.Catalog.Admin.Products.ProductOptionClient.UpdateOptionClient(dataViewMode,  productOption,  productCode,  attributeFQN, authTicket);
 			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
 		}
 
-				/// <summary>
-		/// 
+		/// <summary>
+		/// Deletes the configuration of an option attribute for the product specified in the request.
 		/// </summary>
-		/// <param name="attributeFQN"></param>
-		/// <param name="productCode"></param>
+		/// <param name="attributeFQN">The fully qualified name of the attribute, which is a user defined attribute identifier.</param>
+		/// <param name="productCode">Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// 
@@ -141,19 +141,19 @@ namespace Mozu.Api.Resources.Commerce.Catalog.Admin.Products
 		/// <example>
 		/// <code>
 		///   var productoption = new ProductOption();
-		///   productoption.DeleteOption(dataViewMode,  attributeFQN,  productCode, authTicket);
+		///   productoption.DeleteOption(dataViewMode,  productCode,  attributeFQN, authTicket);
 		/// </code>
 		/// </example>
-		public virtual void DeleteOption(DataViewMode dataViewMode, string attributeFQN, string productCode, AuthTicket authTicket= null)
+		public virtual void DeleteOption(DataViewMode dataViewMode, string productCode, string attributeFQN, AuthTicket authTicket= null)
 		{
 			MozuClient response;
-			var client = Mozu.Api.Clients.Commerce.Catalog.Admin.Products.ProductOptionClient.DeleteOptionClient(dataViewMode,  attributeFQN,  productCode, authTicket);
+			var client = Mozu.Api.Clients.Commerce.Catalog.Admin.Products.ProductOptionClient.DeleteOptionClient(dataViewMode,  productCode,  attributeFQN, authTicket);
 			client.WithContext(_apiContext);
 			response= client.Execute();
 
 		}
 
-		
+
 	}
 
 }

@@ -16,10 +16,10 @@ using Mozu.Api.Security;
 namespace Mozu.Api.Resources.Commerce.Settings
 {
 	/// <summary>
-	/// 
+	/// Define global site settings such as the site name, shipping and email addresses, and logo images. Block undesirable IP addresses using this resource.
 	/// </summary>
 	public partial class GeneralSettingsResource  	{
-				///
+		///
 		/// <see cref="Mozu.Api.ApiContext"/>
 		///
 		private readonly IApiContext _apiContext;
@@ -30,7 +30,7 @@ namespace Mozu.Api.Resources.Commerce.Settings
 
 		
 		/// <summary>
-		/// 
+		/// Retrieve a site's general global settings.
 		/// </summary>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
@@ -52,11 +52,11 @@ namespace Mozu.Api.Resources.Commerce.Settings
 
 		}
 
-						/// <summary>
-		/// 
+		/// <summary>
+		/// Updates a site's general global settings.
 		/// </summary>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="generalSettings"></param>
+		/// <param name="generalSettings">The properties of the site's general settings to update.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.SiteSettings.General.GeneralSettings"/>
 		/// </returns>
@@ -76,7 +76,7 @@ namespace Mozu.Api.Resources.Commerce.Settings
 
 		}
 
-				
+
 	}
 
 }

@@ -13,51 +13,54 @@ using System;
 
 namespace Mozu.Api.Urls.Commerce.Orders
 {
-	public partial class OrderAttributeUrl : MozuUrl
+	public partial class OrderAttributeUrl 
 	{
 
 		/// <summary>
         /// Get Resource Url for GetOrderAttributes
         /// </summary>
-        /// <param name="orderId"></param>
+        /// <param name="orderId">Unique identifier of the order for which to retrieve a list of defined attributes.</param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
         public static MozuUrl GetOrderAttributesUrl(string orderId)
 		{
 			var url = "/api/commerce/orders/{orderId}/attributes";
-			FormatUrl( ref url, "orderId", orderId);
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "orderId", orderId);
+			return mozuUrl;
 		}
 
 				/// <summary>
         /// Get Resource Url for CreateOrderAttributes
         /// </summary>
-        /// <param name="orderId"></param>
+        /// <param name="orderId">Unique identifier of the order for which to assign the attributes.</param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
         public static MozuUrl CreateOrderAttributesUrl(string orderId)
 		{
 			var url = "/api/commerce/orders/{orderId}/attributes";
-			FormatUrl( ref url, "orderId", orderId);
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "orderId", orderId);
+			return mozuUrl;
 		}
 
 				/// <summary>
         /// Get Resource Url for UpdateOrderAttributes
         /// </summary>
-        /// <param name="orderId"></param>
-        /// <param name="removeMissing"></param>
+        /// <param name="orderId">Identifier of the order for which to update attributes.</param>
+        /// <param name="removeMissing">If true, the operation removes missing properties so that the updated order attributes will not show properties with a null value.</param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
         public static MozuUrl UpdateOrderAttributesUrl(string orderId, bool? removeMissing)
 		{
 			var url = "/api/commerce/orders/{orderId}/attributes?removeMissing={removeMissing}";
-			FormatUrl( ref url, "orderId", orderId);
-			FormatUrl( ref url, "removeMissing", removeMissing);
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "orderId", orderId);
+			mozuUrl.FormatUrl( "removeMissing", removeMissing);
+			return mozuUrl;
 		}
 
 				

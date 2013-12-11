@@ -16,12 +16,12 @@ using Mozu.Api.Security;
 namespace Mozu.Api.Clients.Commerce.Catalog.Admin.Attributedefinition
 {
 	/// <summary>
-	/// 
+	/// Use the Attribute Definition resource to manage the properties, options, and extras that uniquely describe products of a specific type. Attributes can be associated with a product type, assigned values by a merchant or shopper, and added as faceted search filters for a product category. Options are product attributes that describe unique configurations made by the shopper, such as size or color, and generate a new product variation (or unique SKU). Properties are product attributes that describe aspects of the product that do not represent an option configurable by the shopper, such as screen resolution or brand. Extras are product attributes that describe add-on configurations made by the shopper that do not represent a product variation, such as a monogram.
 	/// </summary>
 	public partial class AttributeClient 	{
 		
 		/// <summary>
-		/// 
+		/// Retrieves a paged list of attributes according to any specified filter criteria and sort options.
 		/// </summary>
 		/// <param name="dataViewMode">{<see cref="Mozu.Api.DataViewMode"/>}</param>
 		/// <returns>
@@ -39,10 +39,10 @@ namespace Mozu.Api.Clients.Commerce.Catalog.Admin.Attributedefinition
 		}
 
 		/// <summary>
-		/// 
+		/// Retrieves a paged list of attributes according to any specified filter criteria and sort options.
 		/// </summary>
-		/// <param name="filter"></param>
-		/// <param name="pageSize"></param>
+		/// <param name="filter">A set of expressions that consist of a field, operator, and value and represent search parameter syntax when filtering results of a query. Valid operators include equals (eq), does not equal (ne), greater than (gt), less than (lt), greater than or equal to (ge), less than or equal to (le), starts with (sw), or contains (cont). For example - "filter=IsDisplayed+eq+true"</param>
+		/// <param name="pageSize">The number of results to display on each page when creating paged results from a query. The maximum value is 200.</param>
 		/// <param name="sortBy"></param>
 		/// <param name="startIndex"></param>
 		/// <param name="dataViewMode">{<see cref="Mozu.Api.DataViewMode"/>}</param>
@@ -52,11 +52,11 @@ namespace Mozu.Api.Clients.Commerce.Catalog.Admin.Attributedefinition
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=GetAttributes(dataViewMode,  filter,  pageSize,  sortBy,  startIndex, authTicket);
+		///   var mozuClient=GetAttributes(dataViewMode,  startIndex,  pageSize,  sortBy,  filter, authTicket);
 		///   var attributeCollectionClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.ProductAdmin.AttributeCollection> GetAttributesClient(DataViewMode dataViewMode, string filter =  null, int? pageSize =  null, string sortBy =  null, int? startIndex =  null, AuthTicket authTicket= null)
+		public static MozuClient<Mozu.Api.Contracts.ProductAdmin.AttributeCollection> GetAttributesClient(DataViewMode dataViewMode, int? startIndex =  null, int? pageSize =  null, string sortBy =  null, string filter =  null, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Catalog.Admin.Attributedefinition.AttributeUrl.GetAttributesUrl(filter, pageSize, sortBy, startIndex);
 			const string verb = "GET";
@@ -68,9 +68,9 @@ namespace Mozu.Api.Clients.Commerce.Catalog.Admin.Attributedefinition
 		}
 
 		/// <summary>
-		/// 
+		/// Retrieves the details of the specified product attribute.
 		/// </summary>
-		/// <param name="attributeFQN"></param>
+		/// <param name="attributeFQN">The fully qualified name of the attribute, which is a user defined attribute identifier.</param>
 		/// <param name="dataViewMode">{<see cref="Mozu.Api.DataViewMode"/>}</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
@@ -93,12 +93,12 @@ namespace Mozu.Api.Clients.Commerce.Catalog.Admin.Attributedefinition
 
 		}
 
-				/// <summary>
-		/// 
+		/// <summary>
+		/// Creates a new attribute to describe one aspect of a product such as color or size, based on its defined product type. The attribute name, attribute type, input type, and data type are required.
 		/// </summary>
 		/// <param name="dataViewMode">{<see cref="Mozu.Api.DataViewMode"/>}</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="attribute"></param>
+		/// <param name="attribute">Properties of the new product attribute to create.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.ProductAdmin.Attribute"/>}
 		/// </returns>
@@ -119,13 +119,13 @@ namespace Mozu.Api.Clients.Commerce.Catalog.Admin.Attributedefinition
 
 		}
 
-				/// <summary>
-		/// 
+		/// <summary>
+		/// Updates an existing attribute with attribute properties to set.
 		/// </summary>
-		/// <param name="attributeFQN"></param>
+		/// <param name="attributeFQN">The fully qualified name of the attribute, which is a user defined attribute identifier.</param>
 		/// <param name="dataViewMode">{<see cref="Mozu.Api.DataViewMode"/>}</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="attribute"></param>
+		/// <param name="attribute">Any properties of the attribute that to update.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.ProductAdmin.Attribute"/>}
 		/// </returns>
@@ -146,10 +146,10 @@ namespace Mozu.Api.Clients.Commerce.Catalog.Admin.Attributedefinition
 
 		}
 
-				/// <summary>
-		/// 
+		/// <summary>
+		/// Deletes a defined product attribute. You cannot delete an attribute assigned a value for a product.
 		/// </summary>
-		/// <param name="attributeFQN"></param>
+		/// <param name="attributeFQN">The fully qualified name of the attribute, which is a user defined attribute identifier.</param>
 		/// <param name="dataViewMode">{<see cref="Mozu.Api.DataViewMode"/>}</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
@@ -172,7 +172,7 @@ namespace Mozu.Api.Clients.Commerce.Catalog.Admin.Attributedefinition
 
 		}
 
-		
+
 	}
 
 }

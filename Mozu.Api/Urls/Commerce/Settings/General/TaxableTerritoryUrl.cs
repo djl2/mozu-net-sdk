@@ -13,7 +13,7 @@ using System;
 
 namespace Mozu.Api.Urls.Commerce.Settings.General
 {
-	public partial class TaxableTerritoryUrl : MozuUrl
+	public partial class TaxableTerritoryUrl 
 	{
 
 		/// <summary>
@@ -25,7 +25,8 @@ namespace Mozu.Api.Urls.Commerce.Settings.General
         public static MozuUrl GetTaxableTerritoriesUrl()
 		{
 			var url = "/api/commerce/settings/general/taxableterritories";
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			return mozuUrl;
 		}
 
 				/// <summary>
@@ -37,7 +38,8 @@ namespace Mozu.Api.Urls.Commerce.Settings.General
         public static MozuUrl AddTaxableTerritoryUrl()
 		{
 			var url = "/api/commerce/settings/general/taxableterritories";
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			return mozuUrl;
 		}
 
 				/// <summary>
@@ -49,7 +51,8 @@ namespace Mozu.Api.Urls.Commerce.Settings.General
         public static MozuUrl UpdateTaxableTerritoriesUrl()
 		{
 			var url = "/api/commerce/settings/general/taxableterritories";
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			return mozuUrl;
 		}
 
 				

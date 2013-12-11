@@ -13,14 +13,29 @@ using Mozu.Api.Contracts.Core;
 
 namespace Mozu.Api.Contracts.ProductRuntime
 {
+		///
+		///	Dimensions of the packaged product.
+		///
 		public class PackageMeasurements
 		{
+			///
+			///Height of the package in imperial units of feet and inches.
+			///
 			public Measurement PackageHeight { get; set; }
 
+			///
+			///Length of the package in imperial units of feet and inches.
+			///
 			public Measurement PackageLength { get; set; }
 
+			///
+			///Weight of the package in imperial units of pounds and ounces.
+			///
 			public Measurement PackageWeight { get; set; }
 
+			///
+			///Width of the package in imperial units of feet and inches.
+			///
 			public Measurement PackageWidth { get; set; }
 
 		}

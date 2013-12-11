@@ -13,16 +13,34 @@ using System.Collections.Generic;
 
 namespace Mozu.Api.Contracts.Reference
 {
+		///
+		///	A property that is a wrapper for additional properties pertaining to the schema such as the type, label, any associated data, an ID, and the order of the response.
+		///
 		public class Field
 		{
+			///
+			///Identifier of the field.
+			///
 			public int Id { get; set; }
 
+			///
+			///Label for the field.
+			///
 			public string Label { get; set; }
 
+			///
+			///Sequence of the field.
+			///
 			public int Order { get; set; }
 
+			///
+			///Type of field.
+			///
 			public string Type { get; set; }
 
+			///
+			///Data for the field property.
+			///
 			public List<FieldData> Data { get; set; }
 
 		}

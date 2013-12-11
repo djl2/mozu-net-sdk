@@ -12,10 +12,19 @@ using System;
 
 namespace Mozu.Api.Contracts.Core
 {
+		///
+		///	Dimensions of the packaged product.
+		///
 		public class Measurement
 		{
+			///
+			///The unit of measurement, such as length or weight.
+			///
 			public string Unit { get; set; }
 
+			///
+			///The value of the measured unit.
+			///
 			public decimal? Value { get; set; }
 
 		}

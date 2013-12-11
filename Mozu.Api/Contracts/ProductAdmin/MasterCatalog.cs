@@ -12,12 +12,21 @@ using System;
 
 namespace Mozu.Api.Contracts.ProductAdmin
 {
+		///
+		///	Properties of a master catalog associated with a tenant.
+		///
 		public class MasterCatalog
 		{
 			public int Id { get; set; }
 
+			///
+			///The name of the master catalog.
+			///
 			public string Name { get; set; }
 
+			///
+			///The mode this master catalog uses for product updates. Possible values are "Pending" which saves product updates as a draft until they are published, and "Live" which publishes all product updates immediately.
+			///
 			public string ProductPublishingMode { get; set; }
 
 		}

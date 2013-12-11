@@ -22,18 +22,18 @@ using Mozu.Api.Test.Helpers;
 namespace Mozu.Api.Test.Factories
 {
 	/// <summary>
-	/// 
+	/// Use this resource to manage authentication tickets for your applications.
 	/// </summary>
 	public partial class AuthTicketFactory : BaseDataFactory
 	{
 
 		/// <summary> 
-		/// 
+		/// Generate an authentication ticket for an application.
 		/// <example> 
 		///  <code> 
-		//// var result = AuthTicketFactory.AuthenticateApp(handler : handler,  appAuthInfo :  appAuthInfo,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<AuthTicket>(result); 
-		//// return optionalCasting;
+		/// var result = AuthTicketFactory.AuthenticateApp(handler : handler,  appAuthInfo :  appAuthInfo,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<AuthTicket/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
@@ -44,7 +44,14 @@ namespace Mozu.Api.Test.Factories
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Platform.Applications.AuthTicketClient.AuthenticateAppClient(
 				 appAuthInfo :  appAuthInfo		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -52,12 +59,12 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// Refreshes the application's authentication ticket and generates a new access token by providing the refresh token string.
 		/// <example> 
 		///  <code> 
-		//// var result = AuthTicketFactory.RefreshAppAuthTicket(handler : handler,  authTicketRequest :  authTicketRequest,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<AuthTicket>(result); 
-		//// return optionalCasting;
+		/// var result = AuthTicketFactory.RefreshAppAuthTicket(handler : handler,  authTicketRequest :  authTicketRequest,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<AuthTicket/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
@@ -68,7 +75,14 @@ namespace Mozu.Api.Test.Factories
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Platform.Applications.AuthTicketClient.RefreshAppAuthTicketClient(
 				 authTicketRequest :  authTicketRequest		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -76,12 +90,12 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// Deletes an authentication for an application based on the specified refresh token.
 		/// <example> 
 		///  <code> 
-		//// var result = AuthTicketFactory.DeleteAppAuthTicket(handler : handler,  refreshToken :  refreshToken,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<void>(result); 
-		//// return optionalCasting;
+		/// var result = AuthTicketFactory.DeleteAppAuthTicket(handler : handler,  refreshToken :  refreshToken,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<void/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
@@ -92,7 +106,14 @@ namespace Mozu.Api.Test.Factories
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Platform.Applications.AuthTicketClient.DeleteAppAuthTicketClient(
 				 refreshToken :  refreshToken		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			var noResponse = ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;

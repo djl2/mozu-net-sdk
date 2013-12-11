@@ -12,10 +12,16 @@ using System;
 
 namespace Mozu.Api.Contracts.CommerceRuntime.Fulfillment
 {
+		///
+		///	Properties of an item in an in-store pickup.
+		///
 		public class PickupItem
 		{
-			public string OrderItemId { get; set; }
+			public string ProductCode { get; set; }
 
+			///
+			///The quantity of the item in the in-store pickup.
+			///
 			public int Quantity { get; set; }
 
 		}

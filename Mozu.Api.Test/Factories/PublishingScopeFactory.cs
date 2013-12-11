@@ -22,29 +22,36 @@ using Mozu.Api.Test.Helpers;
 namespace Mozu.Api.Test.Factories
 {
 	/// <summary>
-	/// 
+	/// Use the Product Publishing resource to publish or discard pending changes to product definitions in the master catalog.
 	/// </summary>
 	public partial class PublishingScopeFactory : BaseDataFactory
 	{
 
 		/// <summary> 
-		/// 
+		/// Deletes the draft version of product changes for each product code specified in the request.
 		/// <example> 
 		///  <code> 
-		//// var result = PublishingScopeFactory.DiscardDrafts(handler : handler,  publishScope :  publishScope, authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<void>(result); 
-		//// return optionalCasting;
+		/// var result = PublishingScopeFactory.DiscardDrafts(handler : handler,  publishScope :  publishScope, authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<void/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static void DiscardDrafts(ServiceClientMessageHandler handler, 
- 		Mozu.Api.Contracts.ProductAdmin.PublishingScope publishScope, AuthTicket authTicket= null, DataViewMode dataViewMode= DataViewMode.Live, 
+ 		Mozu.Api.Contracts.ProductAdmin.PublishingScope publishScope, AuthTicket authTicket = null, DataViewMode dataViewMode= DataViewMode.Live, 
 		 int expectedCode = (int)HttpStatusCode.NoContent, int successCode = (int)HttpStatusCode.NoContent)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Admin.PublishingScopeClient.DiscardDraftsClient(
 				 publishScope :  publishScope, authTicket : authTicket, dataViewMode: dataViewMode		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			var noResponse = ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -52,23 +59,30 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// Publishes the draft version of product changes for each product code specified in the request, and changes the product publish state to "live".
 		/// <example> 
 		///  <code> 
-		//// var result = PublishingScopeFactory.PublishDrafts(handler : handler,  publishScope :  publishScope, authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<void>(result); 
-		//// return optionalCasting;
+		/// var result = PublishingScopeFactory.PublishDrafts(handler : handler,  publishScope :  publishScope, authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<void/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static void PublishDrafts(ServiceClientMessageHandler handler, 
- 		Mozu.Api.Contracts.ProductAdmin.PublishingScope publishScope, AuthTicket authTicket= null, DataViewMode dataViewMode= DataViewMode.Live, 
+ 		Mozu.Api.Contracts.ProductAdmin.PublishingScope publishScope, AuthTicket authTicket = null, DataViewMode dataViewMode= DataViewMode.Live, 
 		 int expectedCode = (int)HttpStatusCode.NoContent, int successCode = (int)HttpStatusCode.NoContent)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Admin.PublishingScopeClient.PublishDraftsClient(
 				 publishScope :  publishScope, authTicket : authTicket, dataViewMode: dataViewMode		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			var noResponse = ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;

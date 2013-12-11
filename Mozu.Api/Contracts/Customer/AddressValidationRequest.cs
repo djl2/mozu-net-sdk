@@ -13,8 +13,14 @@ using Mozu.Api.Contracts.Core;
 
 namespace Mozu.Api.Contracts.Customer
 {
+		///
+		///	Properties of the address to validate.
+		///
 		public class AddressValidationRequest
 		{
+			///
+			///Properties of the address to validate.
+			///
 			public Address Address { get; set; }
 
 		}

@@ -12,10 +12,19 @@ using System;
 
 namespace Mozu.Api.Contracts.CommerceRuntime.Products
 {
+		///
+		///	The category into which products are classified.
+		///
 		public class Category
 		{
+			///
+			///Identifier of the category.
+			///
 			public int? Id { get; set; }
 
+			///
+			///If applicable, the parent category in the category tree.
+			///
 			public Category Parent { get; set; }
 
 		}

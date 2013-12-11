@@ -16,12 +16,12 @@ using Mozu.Api.Security;
 namespace Mozu.Api.Resources.Platform
 {
 	/// <summary>
-	/// 
+	/// The Reference resource retrieves collections of standards the Mozu system currently supports. This includes content locales, top-level domains, units of measure, countries, currencies, time zones, and shipping or billing address schemas.
 	/// </summary>
 	public partial class ReferenceDataResource  	{
 		
 		/// <summary>
-		/// 
+		/// Retrieves a specific address schema based on the country code provided. This operation allows the creation of custom shipping and billing address fields.
 		/// </summary>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.Reference.AddressSchema"/>
@@ -38,9 +38,9 @@ namespace Mozu.Api.Resources.Platform
 		}
 
 		/// <summary>
-		/// 
+		/// Retrieves a specific address schema based on the country code provided. This operation allows the creation of custom shipping and billing address fields.
 		/// </summary>
-		/// <param name="countryCode"></param>
+		/// <param name="countryCode">The 2-letter geographic code representing the country for the physical or mailing address. Currently limited to the US.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.Reference.AddressSchema"/>
 		/// </returns>
@@ -60,7 +60,7 @@ namespace Mozu.Api.Resources.Platform
 		}
 
 		/// <summary>
-		/// 
+		/// Retrieves the entire list of address schemas that the system supports.
 		/// </summary>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.Reference.AddressSchemaCollection"/>
@@ -81,9 +81,9 @@ namespace Mozu.Api.Resources.Platform
 		}
 
 		/// <summary>
-		/// 
+		/// ***Always private and should not be published.***
 		/// </summary>
-		/// <param name="behaviorId"></param>
+		/// <param name="behaviorId">***Always private and should not be published.***</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.Core.Behavior"/>
 		/// </returns>
@@ -103,7 +103,7 @@ namespace Mozu.Api.Resources.Platform
 		}
 
 		/// <summary>
-		/// 
+		/// ***Always private and should not be published.***
 		/// </summary>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.Core.BehaviorCategoryCollection"/>
@@ -124,9 +124,9 @@ namespace Mozu.Api.Resources.Platform
 		}
 
 		/// <summary>
-		/// 
+		/// ***Always private and should not be published.***
 		/// </summary>
-		/// <param name="categoryId"></param>
+		/// <param name="categoryId">***Always private and should not be published.***</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.Core.BehaviorCategory"/>
 		/// </returns>
@@ -146,7 +146,7 @@ namespace Mozu.Api.Resources.Platform
 		}
 
 		/// <summary>
-		/// 
+		/// ***Always private and should not be published.***
 		/// </summary>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.Core.BehaviorCollection"/>
@@ -163,7 +163,7 @@ namespace Mozu.Api.Resources.Platform
 		}
 
 		/// <summary>
-		/// 
+		/// ***Always private and should not be published.***
 		/// </summary>
 		/// <param name="userType"></param>
 		/// <returns>
@@ -185,7 +185,7 @@ namespace Mozu.Api.Resources.Platform
 		}
 
 		/// <summary>
-		/// 
+		/// Retrieves the list of content locales the system supports. Content locales indicate the language used and the country where the language is used.
 		/// </summary>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.Reference.ContentLocaleCollection"/>
@@ -206,7 +206,7 @@ namespace Mozu.Api.Resources.Platform
 		}
 
 		/// <summary>
-		/// 
+		/// Retrieves the entire list of countries that the system supports.
 		/// </summary>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.Reference.CountryCollection"/>
@@ -227,7 +227,7 @@ namespace Mozu.Api.Resources.Platform
 		}
 
 		/// <summary>
-		/// 
+		/// Retrieves the entire list of currencies that the system supports.
 		/// </summary>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.Reference.CurrencyCollection"/>
@@ -248,7 +248,7 @@ namespace Mozu.Api.Resources.Platform
 		}
 
 		/// <summary>
-		/// 
+		/// Retrieves the entire list of time zones that the system supports.
 		/// </summary>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.Reference.TimeZoneCollection"/>
@@ -269,7 +269,7 @@ namespace Mozu.Api.Resources.Platform
 		}
 
 		/// <summary>
-		/// 
+		/// Retrieves the entire list of top-level internet domains that the system supports.
 		/// </summary>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.Reference.TopLevelDomainCollection"/>
@@ -290,7 +290,7 @@ namespace Mozu.Api.Resources.Platform
 		}
 
 		/// <summary>
-		/// 
+		/// Retrieves an array list of all units of measure the system supports.
 		/// </summary>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.Reference.UnitOfMeasureCollection"/>
@@ -307,9 +307,9 @@ namespace Mozu.Api.Resources.Platform
 		}
 
 		/// <summary>
-		/// 
+		/// Retrieves an array list of all units of measure the system supports.
 		/// </summary>
-		/// <param name="filter"></param>
+		/// <param name="filter">A set of expressions that consist of a field, operator, and value and represent search parameter syntax when filtering results of a query. Valid operators include equals (eq), does not equal (ne), greater than (gt), less than (lt), greater than or equal to (ge), less than or equal to (le), starts with (sw), or contains (cont). For example - "filter=IsDisplayed+eq+true"</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.Reference.UnitOfMeasureCollection"/>
 		/// </returns>
@@ -328,7 +328,7 @@ namespace Mozu.Api.Resources.Platform
 
 		}
 
-								
+
 	}
 
 }

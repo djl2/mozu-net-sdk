@@ -14,14 +14,29 @@ using Mozu.Api.Contracts.PaymentService;
 
 namespace Mozu.Api.Contracts.SiteSettings.Order
 {
+		///
+		///	Properties of a payment gateway defined for the site.
+		///
 		public class Gateway
 		{
+			///
+			///If true, the credential fields for the gateway are configured with valid values. For security purposes, Mozu does not return the credential fields for the gateway subresource.
+			///
 			public bool AreGatewayCredentialFieldsSet { get; set; }
 
+			///
+			///The types of credit cards the merchant supports using this payment gateway.
+			///
 			public List<string> SupportedCards { get; set; }
 
+			///
+			///Account information associated with the specified payment gateway.
+			///
 			public GatewayAccount GatewayAccount { get; set; }
 
+			///
+			///Properties of the payment gateway definition.
+			///
 			public GatewayDefinition GatewayDefinition { get; set; }
 
 		}

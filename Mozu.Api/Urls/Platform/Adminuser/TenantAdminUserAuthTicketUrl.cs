@@ -13,21 +13,22 @@ using System;
 
 namespace Mozu.Api.Urls.Platform.Adminuser
 {
-	public partial class TenantAdminUserAuthTicketUrl : MozuUrl
+	public partial class TenantAdminUserAuthTicketUrl 
 	{
 
 				/// <summary>
         /// Get Resource Url for CreateUserAuthTicket
         /// </summary>
-        /// <param name="tenantId"></param>
+        /// <param name="tenantId">Unique identifier of the development or production tenant for which to generate the user authentication ticket.</param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
         public static MozuUrl CreateUserAuthTicketUrl(int? tenantId)
 		{
 			var url = "/api/platform/adminuser/authtickets/tenants?tenantId={tenantId}";
-			FormatUrl( ref url, "tenantId", tenantId);
-			return new MozuUrl(url, MozuUrl.UrlLocation.HOME_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.HOME_POD, false) ;
+			mozuUrl.FormatUrl( "tenantId", tenantId);
+			return mozuUrl;
 		}
 
 				/// <summary>
@@ -40,22 +41,24 @@ namespace Mozu.Api.Urls.Platform.Adminuser
         public static MozuUrl RefreshAuthTicketUrl(int? tenantId)
 		{
 			var url = "/api/platform/adminuser/authtickets/tenants?tenantId={tenantId}";
-			FormatUrl( ref url, "tenantId", tenantId);
-			return new MozuUrl(url, MozuUrl.UrlLocation.HOME_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.HOME_POD, false) ;
+			mozuUrl.FormatUrl( "tenantId", tenantId);
+			return mozuUrl;
 		}
 
 				/// <summary>
         /// Get Resource Url for DeleteUserAuthTicket
         /// </summary>
-        /// <param name="refreshToken"></param>
+        /// <param name="refreshToken">Refresh token string associated with the user authentication ticket.</param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
         public static MozuUrl DeleteUserAuthTicketUrl(string refreshToken)
 		{
 			var url = "/api/platform/adminuser/authtickets/?refreshToken={refreshToken}";
-			FormatUrl( ref url, "refreshToken", refreshToken);
-			return new MozuUrl(url, MozuUrl.UrlLocation.HOME_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.HOME_POD, false) ;
+			mozuUrl.FormatUrl( "refreshToken", refreshToken);
+			return mozuUrl;
 		}
 
 		

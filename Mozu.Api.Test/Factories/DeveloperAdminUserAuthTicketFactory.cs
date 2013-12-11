@@ -22,45 +22,36 @@ using Mozu.Api.Test.Helpers;
 namespace Mozu.Api.Test.Factories
 {
 	/// <summary>
-	/// 
+	/// Use this resource to manage authentication tickets for your developer account.
 	/// </summary>
 	public partial class DeveloperAdminUserAuthTicketFactory : BaseDataFactory
 	{
 
 		/// <summary> 
-		/// 
+		/// Generate an authentication ticket for a developer account.
 		/// <example> 
 		///  <code> 
-		//// DeveloperAdminUserAuthTicketFactory.CreateDeveloperUserAuthTicket(handler : handler,  userAuthInfo :  userAuthInfo,  expectedCode: expectedCode, successCode: successCode);
+		/// var result = DeveloperAdminUserAuthTicketFactory.CreateDeveloperUserAuthTicket(handler : handler,  userAuthInfo :  userAuthInfo,  developerAccountId :  developerAccountId,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<DeveloperAdminUserAuthTicket/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.AdminUser.DeveloperAdminUserAuthTicket CreateDeveloperUserAuthTicket(ServiceClientMessageHandler handler, 
- 		 Mozu.Api.Contracts.Core.UserAuthInfo userAuthInfo, 
-		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
-		{
-			return CreateDeveloperUserAuthTicket(handler : handler,  developerAccountId :  null,  userAuthInfo :  userAuthInfo, 
-				expectedCode: expectedCode, successCode: successCode);
-		}
-  
-		/// <summary> 
-		/// 
-		/// <example> 
-		///  <code> 
-		//// var result = DeveloperAdminUserAuthTicketFactory.CreateDeveloperUserAuthTicket(handler : handler,  developerAccountId :  developerAccountId,  userAuthInfo :  userAuthInfo,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<DeveloperAdminUserAuthTicket>(result); 
-		//// return optionalCasting;
-		///  </code> 
-		/// </example> 
-		/// </summary>
-		public static Mozu.Api.Contracts.AdminUser.DeveloperAdminUserAuthTicket CreateDeveloperUserAuthTicket(ServiceClientMessageHandler handler, 
- 		 int? developerAccountId, Mozu.Api.Contracts.Core.UserAuthInfo userAuthInfo, 
-		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
+ 		 Mozu.Api.Contracts.Core.UserAuthInfo userAuthInfo, int? developerAccountId = null, 
+		 int expectedCode = (int)HttpStatusCode.Created, int successCode = (int)HttpStatusCode.Created)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Platform.Developer.DeveloperAdminUserAuthTicketClient.CreateDeveloperUserAuthTicketClient(
-				 developerAccountId :  developerAccountId,  userAuthInfo :  userAuthInfo		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+				 userAuthInfo :  userAuthInfo,  developerAccountId :  developerAccountId		);
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -68,39 +59,30 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// Generates a new developer account authentication ticket for the specified tenant by supplying the defined refresh token information.
 		/// <example> 
 		///  <code> 
-		//// DeveloperAdminUserAuthTicketFactory.RefreshDeveloperAuthTicket(handler : handler,  existingAuthTicket :  existingAuthTicket,  expectedCode: expectedCode, successCode: successCode);
+		/// var result = DeveloperAdminUserAuthTicketFactory.RefreshDeveloperAuthTicket(handler : handler,  existingAuthTicket :  existingAuthTicket,  developerAccountId :  developerAccountId,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<DeveloperAdminUserAuthTicket/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.AdminUser.DeveloperAdminUserAuthTicket RefreshDeveloperAuthTicket(ServiceClientMessageHandler handler, 
- 		 Mozu.Api.Contracts.AdminUser.DeveloperAdminUserAuthTicket existingAuthTicket, 
-		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
-		{
-			return RefreshDeveloperAuthTicket(handler : handler,  developerAccountId :  null,  existingAuthTicket :  existingAuthTicket, 
-				expectedCode: expectedCode, successCode: successCode);
-		}
-  
-		/// <summary> 
-		/// 
-		/// <example> 
-		///  <code> 
-		//// var result = DeveloperAdminUserAuthTicketFactory.RefreshDeveloperAuthTicket(handler : handler,  developerAccountId :  developerAccountId,  existingAuthTicket :  existingAuthTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<DeveloperAdminUserAuthTicket>(result); 
-		//// return optionalCasting;
-		///  </code> 
-		/// </example> 
-		/// </summary>
-		public static Mozu.Api.Contracts.AdminUser.DeveloperAdminUserAuthTicket RefreshDeveloperAuthTicket(ServiceClientMessageHandler handler, 
- 		 int? developerAccountId, Mozu.Api.Contracts.AdminUser.DeveloperAdminUserAuthTicket existingAuthTicket, 
+ 		 Mozu.Api.Contracts.AdminUser.DeveloperAdminUserAuthTicket existingAuthTicket, int? developerAccountId = null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Platform.Developer.DeveloperAdminUserAuthTicketClient.RefreshDeveloperAuthTicketClient(
-				 developerAccountId :  developerAccountId,  existingAuthTicket :  existingAuthTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+				 existingAuthTicket :  existingAuthTicket,  developerAccountId :  developerAccountId		);
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -108,12 +90,12 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// Deletes the authentication ticket for the developer account by supplying the refresh token.
 		/// <example> 
 		///  <code> 
-		//// var result = DeveloperAdminUserAuthTicketFactory.DeleteUserAuthTicket(handler : handler,  refreshToken :  refreshToken,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<void>(result); 
-		//// return optionalCasting;
+		/// var result = DeveloperAdminUserAuthTicketFactory.DeleteUserAuthTicket(handler : handler,  refreshToken :  refreshToken,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<void/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
@@ -124,7 +106,14 @@ namespace Mozu.Api.Test.Factories
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Platform.Developer.DeveloperAdminUserAuthTicketClient.DeleteUserAuthTicketClient(
 				 refreshToken :  refreshToken		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			var noResponse = ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;

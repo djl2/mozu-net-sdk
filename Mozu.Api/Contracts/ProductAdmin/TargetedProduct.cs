@@ -12,11 +12,12 @@ using System;
 
 namespace Mozu.Api.Contracts.ProductAdmin
 {
+		///
+		///	Product definition targeted for a defined discount.
+		///
 		public class TargetedProduct
 		{
-			public string Code { get; set; }
-
-			public string Name { get; set; }
+			public string ProductCode { get; set; }
 
 		}
 

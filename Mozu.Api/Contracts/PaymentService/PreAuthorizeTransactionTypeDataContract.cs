@@ -16,6 +16,9 @@ namespace Mozu.Api.Contracts.PaymentService
 		{
 			public string Description { get; set; }
 
+			///
+			///Identifier of the entity.
+			///
 			public int Id { get; set; }
 
 			public string Type { get; set; }

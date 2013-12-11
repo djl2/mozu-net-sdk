@@ -16,14 +16,14 @@ using Mozu.Api.Security;
 namespace Mozu.Api.Clients.Commerce.Catalog.Admin.Products
 {
 	/// <summary>
-	/// 
+	/// Use the Extras resource to configure an extra product attribute for products associated with the product type that uses the extra attribute.
 	/// </summary>
 	public partial class ProductExtraClient 	{
 		
 		/// <summary>
-		/// 
+		/// Retrieves a list of extras configured for the product according to any defined filter and sort criteria.
 		/// </summary>
-		/// <param name="productCode"></param>
+		/// <param name="productCode">Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{List{<see cref="Mozu.Api.Contracts.ProductAdmin.ProductExtra"/>}}
@@ -46,21 +46,21 @@ namespace Mozu.Api.Clients.Commerce.Catalog.Admin.Products
 		}
 
 		/// <summary>
-		/// 
+		/// Retrieves the details of an extra attribute configuration for the product specified in the request.
 		/// </summary>
-		/// <param name="attributeFQN"></param>
-		/// <param name="productCode"></param>
+		/// <param name="attributeFQN">The fully qualified name of the attribute, which is a user defined attribute identifier.</param>
+		/// <param name="productCode">Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.ProductAdmin.ProductExtra"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=GetExtra(dataViewMode,  attributeFQN,  productCode, authTicket);
+		///   var mozuClient=GetExtra(dataViewMode,  productCode,  attributeFQN, authTicket);
 		///   var productExtraClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.ProductAdmin.ProductExtra> GetExtraClient(DataViewMode dataViewMode, string attributeFQN, string productCode, AuthTicket authTicket= null)
+		public static MozuClient<Mozu.Api.Contracts.ProductAdmin.ProductExtra> GetExtraClient(DataViewMode dataViewMode, string productCode, string attributeFQN, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Catalog.Admin.Products.ProductExtraUrl.GetExtraUrl(attributeFQN, productCode);
 			const string verb = "GET";
@@ -71,12 +71,12 @@ namespace Mozu.Api.Clients.Commerce.Catalog.Admin.Products
 
 		}
 
-				/// <summary>
-		/// 
+		/// <summary>
+		/// Configure an extra attribute for the product specified in the request.
 		/// </summary>
-		/// <param name="productCode"></param>
+		/// <param name="productCode">Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="productExtra"></param>
+		/// <param name="productExtra">Properties of the product extra to configure for the specified product.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.ProductAdmin.ProductExtra"/>}
 		/// </returns>
@@ -97,23 +97,23 @@ namespace Mozu.Api.Clients.Commerce.Catalog.Admin.Products
 
 		}
 
-				/// <summary>
-		/// 
+		/// <summary>
+		/// Updates the configuration of an extra attribute for the product specified in the request.
 		/// </summary>
-		/// <param name="attributeFQN"></param>
-		/// <param name="productCode"></param>
+		/// <param name="attributeFQN">The fully qualified name of the attribute, which is a user defined attribute identifier.</param>
+		/// <param name="productCode">Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="productExtra"></param>
+		/// <param name="productExtra">Properties of the extra attribute to update for the specified product.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.ProductAdmin.ProductExtra"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=UpdateExtra(dataViewMode,  productExtra,  attributeFQN,  productCode, authTicket);
+		///   var mozuClient=UpdateExtra(dataViewMode,  productExtra,  productCode,  attributeFQN, authTicket);
 		///   var productExtraClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.ProductAdmin.ProductExtra> UpdateExtraClient(DataViewMode dataViewMode, Mozu.Api.Contracts.ProductAdmin.ProductExtra productExtra, string attributeFQN, string productCode, AuthTicket authTicket= null)
+		public static MozuClient<Mozu.Api.Contracts.ProductAdmin.ProductExtra> UpdateExtraClient(DataViewMode dataViewMode, Mozu.Api.Contracts.ProductAdmin.ProductExtra productExtra, string productCode, string attributeFQN, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Catalog.Admin.Products.ProductExtraUrl.UpdateExtraUrl(attributeFQN, productCode);
 			const string verb = "PUT";
@@ -124,22 +124,22 @@ namespace Mozu.Api.Clients.Commerce.Catalog.Admin.Products
 
 		}
 
-				/// <summary>
-		/// 
+		/// <summary>
+		/// Delete a product extra configuration for the product specified in the request.
 		/// </summary>
-		/// <param name="attributeFQN"></param>
-		/// <param name="productCode"></param>
+		/// <param name="attributeFQN">The fully qualified name of the attribute, which is a user defined attribute identifier.</param>
+		/// <param name="productCode">Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=DeleteExtra(dataViewMode,  attributeFQN,  productCode, authTicket);
+		///   var mozuClient=DeleteExtra(dataViewMode,  productCode,  attributeFQN, authTicket);
 		///mozuClient.WithBaseAddress(url).Execute();
 		/// </code>
 		/// </example>
-		public static MozuClient DeleteExtraClient(DataViewMode dataViewMode, string attributeFQN, string productCode, AuthTicket authTicket= null)
+		public static MozuClient DeleteExtraClient(DataViewMode dataViewMode, string productCode, string attributeFQN, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Catalog.Admin.Products.ProductExtraUrl.DeleteExtraUrl(attributeFQN, productCode);
 			const string verb = "DELETE";
@@ -150,7 +150,7 @@ namespace Mozu.Api.Clients.Commerce.Catalog.Admin.Products
 
 		}
 
-		
+
 	}
 
 }

@@ -13,21 +13,22 @@ using System;
 
 namespace Mozu.Api.Urls.Platform.Developer
 {
-	public partial class DeveloperAccountUrl : MozuUrl
+	public partial class DeveloperAccountUrl 
 	{
 
 		/// <summary>
         /// Get Resource Url for GetDeveloperAccount
         /// </summary>
-        /// <param name="accountId"></param>
+        /// <param name="accountId">Unique identifier of the developer account to retrieve.</param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
         public static MozuUrl GetDeveloperAccountUrl(int? accountId)
 		{
 			var url = "/api/platform/developer/accounts/{accountId}";
-			FormatUrl( ref url, "accountId", accountId);
-			return new MozuUrl(url, MozuUrl.UrlLocation.HOME_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.HOME_POD, false) ;
+			mozuUrl.FormatUrl( "accountId", accountId);
+			return mozuUrl;
 		}
 
 								

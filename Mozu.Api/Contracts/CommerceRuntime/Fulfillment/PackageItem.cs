@@ -12,10 +12,16 @@ using System;
 
 namespace Mozu.Api.Contracts.CommerceRuntime.Fulfillment
 {
+		///
+		///	Properties of an item shipped in a physical package.
+		///
 		public class PackageItem
 		{
-			public string OrderItemId { get; set; }
+			public string ProductCode { get; set; }
 
+			///
+			///The quantity of an item shipped in the specified package.
+			///
 			public int Quantity { get; set; }
 
 		}

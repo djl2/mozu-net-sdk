@@ -16,14 +16,14 @@ using Mozu.Api.Security;
 namespace Mozu.Api.Clients.Commerce.Customer.Accounts
 {
 	/// <summary>
-	/// 
+	/// Use the Cards subresource to manage stored credit cards for customer accounts. Mozu stores limited card data in the Customer service for expedited ordering purposes; however, the complete card data is stored in the Payment service.
 	/// </summary>
 	public partial class CardClient 	{
 		
 		/// <summary>
-		/// 
+		/// Retrieves all stored credit cards for the customer account.
 		/// </summary>
-		/// <param name="accountId"></param>
+		/// <param name="accountId">Unique identifier of the customer account.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Customer.CardCollection"/>}
@@ -45,12 +45,38 @@ namespace Mozu.Api.Clients.Commerce.Customer.Accounts
 
 		}
 
-				/// <summary>
+		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="accountId"></param>
+		/// <param name="cardId"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="card"></param>
+		/// <returns>
+		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Customer.Card"/>}
+		/// </returns>
+		/// <example>
+		/// <code>
+		///   var mozuClient=GetAccountCard( accountId,  cardId, authTicket);
+		///   var cardClient = mozuClient.WithBaseAddress(url).Execute().Result();
+		/// </code>
+		/// </example>
+		public static MozuClient<Mozu.Api.Contracts.Customer.Card> GetAccountCardClient(int accountId, string cardId, AuthTicket authTicket= null)
+		{
+			var url = Mozu.Api.Urls.Commerce.Customer.Accounts.CardUrl.GetAccountCardUrl(accountId, cardId);
+			const string verb = "GET";
+			var mozuClient = new MozuClient<Mozu.Api.Contracts.Customer.Card>().WithVerb(verb).WithResourceUrl(url);
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
+
+		}
+
+		/// <summary>
+		/// Creates a new credit card record and stores it for the customer account.
+		/// </summary>
+		/// <param name="accountId">Unique identifier of the customer account.</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
+		/// <param name="card">Properties of the customer credit card to add to the account.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Customer.Card"/>}
 		/// </returns>
@@ -71,24 +97,25 @@ namespace Mozu.Api.Clients.Commerce.Customer.Accounts
 
 		}
 
-				/// <summary>
-		/// 
+		/// <summary>
+		/// Update one or more properties of a credit card defined for a customer account.
 		/// </summary>
-		/// <param name="accountId"></param>
+		/// <param name="accountId">Unique identifier of the customer account.</param>
+		/// <param name="cardId"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="card"></param>
+		/// <param name="card">Properties of the customer account credit card to update.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Customer.Card"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=UpdateAccountCard( card,  accountId, authTicket);
+		///   var mozuClient=UpdateAccountCard( card,  accountId,  cardId, authTicket);
 		///   var cardClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.Customer.Card> UpdateAccountCardClient(Mozu.Api.Contracts.Customer.Card card, int accountId, AuthTicket authTicket= null)
+		public static MozuClient<Mozu.Api.Contracts.Customer.Card> UpdateAccountCardClient(Mozu.Api.Contracts.Customer.Card card, int accountId, string cardId, AuthTicket authTicket= null)
 		{
-			var url = Mozu.Api.Urls.Commerce.Customer.Accounts.CardUrl.UpdateAccountCardUrl(accountId);
+			var url = Mozu.Api.Urls.Commerce.Customer.Accounts.CardUrl.UpdateAccountCardUrl(accountId, cardId);
 			const string verb = "PUT";
 			var mozuClient = new MozuClient<Mozu.Api.Contracts.Customer.Card>().WithVerb(verb).WithResourceUrl(url).WithBody<Mozu.Api.Contracts.Customer.Card>(card);
 			if (authTicket != null)
@@ -97,11 +124,11 @@ namespace Mozu.Api.Clients.Commerce.Customer.Accounts
 
 		}
 
-				/// <summary>
-		/// 
+		/// <summary>
+		/// Removes a stored credit card from a customer account.
 		/// </summary>
-		/// <param name="accountId"></param>
-		/// <param name="cardId"></param>
+		/// <param name="accountId">Unique identifier of the customer account.</param>
+		/// <param name="cardId">Unique identifier of the credit card to delete.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />
@@ -123,7 +150,7 @@ namespace Mozu.Api.Clients.Commerce.Customer.Accounts
 
 		}
 
-		
+
 	}
 
 }

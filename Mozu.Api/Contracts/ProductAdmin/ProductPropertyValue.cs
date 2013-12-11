@@ -12,12 +12,24 @@ using System;
 
 namespace Mozu.Api.Contracts.ProductAdmin
 {
+		///
+		///	Value details for a product property attribute.
+		///
 		public class ProductPropertyValue
 		{
+			///
+			///Value details for a product property attribute.
+			///
 			public object Value { get; set; }
 
+			///
+			///Details of the vocabulary value for predefined product property attributes.
+			///
 			public AttributeVocabularyValue AttributeVocabularyValueDetail { get; set; }
 
+			///
+			///Content of the product property value.
+			///
 			public ProductPropertyValueLocalizedContent Content { get; set; }
 
 		}

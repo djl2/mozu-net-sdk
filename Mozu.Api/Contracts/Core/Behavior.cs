@@ -13,16 +13,28 @@ using System.Collections.Generic;
 
 namespace Mozu.Api.Contracts.Core
 {
+		///
+		///	***Always private and should not be published.***
+		///
 		public class Behavior
 		{
+			///
+			///Unique identifier for the storefront container used to organize products.
+			///
 			public int CategoryId { get; set; }
 
+			///
+			///Identifier of the entity.
+			///
 			public int Id { get; set; }
 
 			public bool IsPrivate { get; set; }
 
 			public string Name { get; set; }
 
+			///
+			///For validation purposes, the integer value must be a list of behavior Id's.
+			///
 			public List<int> RequiresBehaviorIds { get; set; }
 
 			public List<string> ValidUserTypes { get; set; }

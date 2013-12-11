@@ -22,29 +22,36 @@ using Mozu.Api.Test.Helpers;
 namespace Mozu.Api.Test.Factories
 {
 	/// <summary>
-	/// 
+	/// Use the Order Notes subresource to manage merchant-level notes associated with an active order.
 	/// </summary>
 	public partial class OrderNoteFactory : BaseDataFactory
 	{
 
 		/// <summary> 
-		/// 
+		/// Retrieves a list of all notes for an order.
 		/// <example> 
 		///  <code> 
-		//// var result = OrderNoteFactory.GetOrderNotes(handler : handler,  orderId :  orderId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<List<OrderNote>>(result); 
-		//// return optionalCasting;
+		/// var result = OrderNoteFactory.GetOrderNotes(handler : handler,  orderId :  orderId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<List<OrderNote>/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static List<Mozu.Api.Contracts.CommerceRuntime.Orders.OrderNote> GetOrderNotes(ServiceClientMessageHandler handler, 
- 		 string orderId,  AuthTicket authTicket= null, 
+ 		 string orderId,  AuthTicket authTicket = null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Orders.OrderNoteClient.GetOrderNotesClient(
 				 orderId :  orderId, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -52,23 +59,30 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// Retrieves the details of a specific order note.
 		/// <example> 
 		///  <code> 
-		//// var result = OrderNoteFactory.GetOrderNote(handler : handler,  noteId :  noteId,  orderId :  orderId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<OrderNote>(result); 
-		//// return optionalCasting;
+		/// var result = OrderNoteFactory.GetOrderNote(handler : handler,  orderId :  orderId,  noteId :  noteId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<OrderNote/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.CommerceRuntime.Orders.OrderNote GetOrderNote(ServiceClientMessageHandler handler, 
- 		 string noteId, string orderId,  AuthTicket authTicket= null, 
+ 		 string orderId, string noteId,  AuthTicket authTicket = null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Orders.OrderNoteClient.GetOrderNoteClient(
-				 noteId :  noteId,  orderId :  orderId, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+				 orderId :  orderId,  noteId :  noteId, authTicket : authTicket		);
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -76,23 +90,30 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// Creates a new merchant note for the specified order.
 		/// <example> 
 		///  <code> 
-		//// var result = OrderNoteFactory.CreateOrderNote(handler : handler,  orderId :  orderId,  orderNote :  orderNote, authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<OrderNote>(result); 
-		//// return optionalCasting;
+		/// var result = OrderNoteFactory.CreateOrderNote(handler : handler,  orderNote :  orderNote,  orderId :  orderId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<OrderNote/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.CommerceRuntime.Orders.OrderNote CreateOrderNote(ServiceClientMessageHandler handler, 
- 		 string orderId, Mozu.Api.Contracts.CommerceRuntime.Orders.OrderNote orderNote, AuthTicket authTicket= null, 
-		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
+ 		 Mozu.Api.Contracts.CommerceRuntime.Orders.OrderNote orderNote, string orderId,  AuthTicket authTicket = null, 
+		 int expectedCode = (int)HttpStatusCode.Created, int successCode = (int)HttpStatusCode.Created)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Orders.OrderNoteClient.CreateOrderNoteClient(
-				 orderId :  orderId,  orderNote :  orderNote, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+				 orderNote :  orderNote,  orderId :  orderId, authTicket : authTicket		);
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -100,23 +121,30 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// Updates a specific note for an order.
 		/// <example> 
 		///  <code> 
-		//// var result = OrderNoteFactory.UpdateOrderNote(handler : handler,  noteId :  noteId,  orderId :  orderId,  orderNote :  orderNote, authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<OrderNote>(result); 
-		//// return optionalCasting;
+		/// var result = OrderNoteFactory.UpdateOrderNote(handler : handler,  orderNote :  orderNote,  orderId :  orderId,  noteId :  noteId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<OrderNote/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.CommerceRuntime.Orders.OrderNote UpdateOrderNote(ServiceClientMessageHandler handler, 
- 		 string noteId, string orderId, Mozu.Api.Contracts.CommerceRuntime.Orders.OrderNote orderNote, AuthTicket authTicket= null, 
+ 		 Mozu.Api.Contracts.CommerceRuntime.Orders.OrderNote orderNote, string orderId, string noteId,  AuthTicket authTicket = null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Orders.OrderNoteClient.UpdateOrderNoteClient(
-				 noteId :  noteId,  orderId :  orderId,  orderNote :  orderNote, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+				 orderNote :  orderNote,  orderId :  orderId,  noteId :  noteId, authTicket : authTicket		);
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -124,23 +152,30 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// Deletes the specified order note.
 		/// <example> 
 		///  <code> 
-		//// var result = OrderNoteFactory.DeleteOrderNote(handler : handler,  noteId :  noteId,  orderId :  orderId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<void>(result); 
-		//// return optionalCasting;
+		/// var result = OrderNoteFactory.DeleteOrderNote(handler : handler,  orderId :  orderId,  noteId :  noteId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<void/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static void DeleteOrderNote(ServiceClientMessageHandler handler, 
- 		string noteId, string orderId,  AuthTicket authTicket= null, 
+ 		string orderId, string noteId,  AuthTicket authTicket = null, 
 		 int expectedCode = (int)HttpStatusCode.NoContent, int successCode = (int)HttpStatusCode.NoContent)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Orders.OrderNoteClient.DeleteOrderNoteClient(
-				 noteId :  noteId,  orderId :  orderId, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+				 orderId :  orderId,  noteId :  noteId, authTicket : authTicket		);
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			var noResponse = ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;

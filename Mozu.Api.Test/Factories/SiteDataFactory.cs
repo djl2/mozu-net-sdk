@@ -22,18 +22,18 @@ using Mozu.Api.Test.Helpers;
 namespace Mozu.Api.Test.Factories
 {
 	/// <summary>
-	/// 
+	/// Use the site data resource to store site-level information required for a third-party application in the Mozu database.
 	/// </summary>
 	public partial class SiteDataFactory : BaseDataFactory
 	{
 
 		/// <summary> 
-		/// 
+		/// Retrieves the value of a record in the Mozu database.
 		/// <example> 
 		///  <code> 
-		//// var result = SiteDataFactory.GetDBValue(handler : handler,  dbEntryQuery :  dbEntryQuery,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<string>(result); 
-		//// return optionalCasting;
+		/// var result = SiteDataFactory.GetDBValue(handler : handler,  dbEntryQuery :  dbEntryQuery,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<string/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
@@ -44,7 +44,14 @@ namespace Mozu.Api.Test.Factories
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Platform.SiteDataClient.GetDBValueClient(
 				 dbEntryQuery :  dbEntryQuery		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -52,23 +59,30 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// Creates a new record in the Mozu database based on the information supplied in the request.
 		/// <example> 
 		///  <code> 
-		//// var result = SiteDataFactory.CreateDBValue(handler : handler,  dbEntryQuery :  dbEntryQuery,  value :  value,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<void>(result); 
-		//// return optionalCasting;
+		/// var result = SiteDataFactory.CreateDBValue(handler : handler,  value :  value,  dbEntryQuery :  dbEntryQuery,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<void/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static void CreateDBValue(ServiceClientMessageHandler handler, 
- 		string dbEntryQuery, string value, 
+ 		string value, string dbEntryQuery, 
 		 int expectedCode = (int)HttpStatusCode.NoContent, int successCode = (int)HttpStatusCode.NoContent)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Platform.SiteDataClient.CreateDBValueClient(
-				 dbEntryQuery :  dbEntryQuery,  value :  value		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+				 value :  value,  dbEntryQuery :  dbEntryQuery		);
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			var noResponse = ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -76,23 +90,30 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// Updates a record in the Mozu database based on the information supplied in the request.
 		/// <example> 
 		///  <code> 
-		//// var result = SiteDataFactory.UpdateDBValue(handler : handler,  dbEntryQuery :  dbEntryQuery,  value :  value,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<void>(result); 
-		//// return optionalCasting;
+		/// var result = SiteDataFactory.UpdateDBValue(handler : handler,  value :  value,  dbEntryQuery :  dbEntryQuery,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<void/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static void UpdateDBValue(ServiceClientMessageHandler handler, 
- 		string dbEntryQuery, string value, 
+ 		string value, string dbEntryQuery, 
 		 int expectedCode = (int)HttpStatusCode.NoContent, int successCode = (int)HttpStatusCode.NoContent)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Platform.SiteDataClient.UpdateDBValueClient(
-				 dbEntryQuery :  dbEntryQuery,  value :  value		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+				 value :  value,  dbEntryQuery :  dbEntryQuery		);
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			var noResponse = ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -100,12 +121,12 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// Removes a previously defined record in the Mozu database.
 		/// <example> 
 		///  <code> 
-		//// var result = SiteDataFactory.DeleteDBValue(handler : handler,  dbEntryQuery :  dbEntryQuery,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<void>(result); 
-		//// return optionalCasting;
+		/// var result = SiteDataFactory.DeleteDBValue(handler : handler,  dbEntryQuery :  dbEntryQuery,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<void/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
@@ -116,7 +137,14 @@ namespace Mozu.Api.Test.Factories
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Platform.SiteDataClient.DeleteDBValueClient(
 				 dbEntryQuery :  dbEntryQuery		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			var noResponse = ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;

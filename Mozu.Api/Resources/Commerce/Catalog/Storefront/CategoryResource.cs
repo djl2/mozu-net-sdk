@@ -16,10 +16,10 @@ using Mozu.Api.Security;
 namespace Mozu.Api.Resources.Commerce.Catalog.Storefront
 {
 	/// <summary>
-	/// 
+	/// Get the product category hierarchy as it appears to shoppers who are browsing the storefront. The hierarchy can be returned as a flat list or as a category tree.
 	/// </summary>
 	public partial class CategoryResource  	{
-				///
+		///
 		/// <see cref="Mozu.Api.ApiContext"/>
 		///
 		private readonly IApiContext _apiContext;
@@ -30,7 +30,7 @@ namespace Mozu.Api.Resources.Commerce.Catalog.Storefront
 
 		
 		/// <summary>
-		/// 
+		/// Retrieves a list of categories according to any specified filter criteria and sort options.
 		/// </summary>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.ProductRuntime.CategoryPagedCollection"/>
@@ -47,10 +47,10 @@ namespace Mozu.Api.Resources.Commerce.Catalog.Storefront
 		}
 
 		/// <summary>
-		/// 
+		/// Retrieves a list of categories according to any specified filter criteria and sort options.
 		/// </summary>
-		/// <param name="filter"></param>
-		/// <param name="pageSize"></param>
+		/// <param name="filter">A set of expressions that consist of a field, operator, and value and represent search parameter syntax when filtering results of a query. You can filter product category search results by any of its properties, including its position in the category hierarchy. Valid operators include equals (eq), does not equal (ne), greater than (gt), less than (lt), greater than or equal to (ge), less than or equal to (le), starts with (sw), or contains (cont). For example - "filter=IsDisplayed+eq+true"</param>
+		/// <param name="pageSize">The number of results to display on each page when creating paged results from a query. The maximum value is 200.</param>
 		/// <param name="sortBy"></param>
 		/// <param name="startIndex"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
@@ -60,13 +60,13 @@ namespace Mozu.Api.Resources.Commerce.Catalog.Storefront
 		/// <example>
 		/// <code>
 		///   var category = new Category();
-		///   var categoryPagedCollection = category.GetCategories( filter,  pageSize,  sortBy,  startIndex, authTicket);
+		///   var categoryPagedCollection = category.GetCategories( filter,  startIndex,  pageSize,  sortBy, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.ProductRuntime.CategoryPagedCollection GetCategories(string filter =  null, int? pageSize =  null, string sortBy =  null, int? startIndex =  null, AuthTicket authTicket= null)
+		public virtual Mozu.Api.Contracts.ProductRuntime.CategoryPagedCollection GetCategories(string filter =  null, int? startIndex =  null, int? pageSize =  null, string sortBy =  null, AuthTicket authTicket= null)
 		{
 			MozuClient<Mozu.Api.Contracts.ProductRuntime.CategoryPagedCollection> response;
-			var client = Mozu.Api.Clients.Commerce.Catalog.Storefront.CategoryClient.GetCategoriesClient( filter,  pageSize,  sortBy,  startIndex, authTicket);
+			var client = Mozu.Api.Clients.Commerce.Catalog.Storefront.CategoryClient.GetCategoriesClient( filter,  startIndex,  pageSize,  sortBy, authTicket);
 			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
@@ -74,9 +74,9 @@ namespace Mozu.Api.Resources.Commerce.Catalog.Storefront
 		}
 
 		/// <summary>
-		/// 
+		/// Retrieves the details of a single category.
 		/// </summary>
-		/// <param name="categoryId"></param>
+		/// <param name="categoryId">Unique identifier for the storefront container used to organize products.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.ProductRuntime.Category"/>
 		/// </returns>
@@ -92,10 +92,10 @@ namespace Mozu.Api.Resources.Commerce.Catalog.Storefront
 		}
 
 		/// <summary>
-		/// 
+		/// Retrieves the details of a single category.
 		/// </summary>
-		/// <param name="allowInactive"></param>
-		/// <param name="categoryId"></param>
+		/// <param name="allowInactive">If true, allow inactive categories to be retrieved in the category list response. If false, the categories retrieved will not include ones marked inactive.</param>
+		/// <param name="categoryId">Unique identifier for the storefront container used to organize products.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.ProductRuntime.Category"/>
@@ -117,7 +117,7 @@ namespace Mozu.Api.Resources.Commerce.Catalog.Storefront
 		}
 
 		/// <summary>
-		/// 
+		/// Retrieves the list of product categories that appear on the storefront organized in a hierarchical format. Hidden categories do not appear in the list.
 		/// </summary>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
@@ -139,7 +139,7 @@ namespace Mozu.Api.Resources.Commerce.Catalog.Storefront
 
 		}
 
-								
+
 	}
 
 }

@@ -16,15 +16,15 @@ using Mozu.Api.Security;
 namespace Mozu.Api.Clients.Commerce.Orders
 {
 	/// <summary>
-	/// 
+	/// Use the Pickups resource to organize items submitted in an order into pickups that enable the shopper to fulfill the order items using the in-store pickup method.
 	/// </summary>
 	public partial class PickupClient 	{
 		
 		/// <summary>
-		/// 
+		/// Retrieves the details of the in-store pickup specified in the request.
 		/// </summary>
-		/// <param name="orderId"></param>
-		/// <param name="pickupId"></param>
+		/// <param name="orderId">Unique identifier of the order associated with the pickup.</param>
+		/// <param name="pickupId">Unique identifier of the pickup to retrieve.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.CommerceRuntime.Fulfillment.Pickup"/>}
@@ -47,10 +47,10 @@ namespace Mozu.Api.Clients.Commerce.Orders
 		}
 
 		/// <summary>
-		/// 
+		/// Retrieves a list of the actions available to perform for the pickup specified in the request.
 		/// </summary>
-		/// <param name="orderId"></param>
-		/// <param name="pickupId"></param>
+		/// <param name="orderId">Unique identifier of the order associated with the pickup.</param>
+		/// <param name="pickupId">Unique identifier of the pickup for which to retrieve available actions.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{List{string}}
@@ -72,12 +72,12 @@ namespace Mozu.Api.Clients.Commerce.Orders
 
 		}
 
-				/// <summary>
-		/// 
+		/// <summary>
+		/// Create a new pickup for the order specified in the request for in-store fufillment.
 		/// </summary>
-		/// <param name="orderId"></param>
+		/// <param name="orderId">Unique identifier of the order.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="pickup"></param>
+		/// <param name="pickup">Properties of the in-store pickup to create.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.CommerceRuntime.Fulfillment.Pickup"/>}
 		/// </returns>
@@ -98,13 +98,13 @@ namespace Mozu.Api.Clients.Commerce.Orders
 
 		}
 
-				/// <summary>
-		/// 
+		/// <summary>
+		/// Updates one or more details of a defined in-store pickup.
 		/// </summary>
-		/// <param name="orderId"></param>
-		/// <param name="pickupId"></param>
+		/// <param name="orderId">Unique identifier of the order associated with the in-store pickup.</param>
+		/// <param name="pickupId">Unique identifier of the pickup to update.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="pickup"></param>
+		/// <param name="pickup">Properties of the in-store pickup to update.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.CommerceRuntime.Fulfillment.Pickup"/>}
 		/// </returns>
@@ -125,11 +125,11 @@ namespace Mozu.Api.Clients.Commerce.Orders
 
 		}
 
-				/// <summary>
-		/// 
+		/// <summary>
+		/// Removes a pickup previously defined for order item in-store pickup fulfillment.
 		/// </summary>
-		/// <param name="orderId"></param>
-		/// <param name="pickupId"></param>
+		/// <param name="orderId">Unique identifier of the order associated with the pickup.</param>
+		/// <param name="pickupId">Unique identifier of the pickup to remove.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />
@@ -151,7 +151,7 @@ namespace Mozu.Api.Clients.Commerce.Orders
 
 		}
 
-		
+
 	}
 
 }

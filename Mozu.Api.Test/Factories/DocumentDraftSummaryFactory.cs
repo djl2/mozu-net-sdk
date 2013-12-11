@@ -22,45 +22,36 @@ using Mozu.Api.Test.Helpers;
 namespace Mozu.Api.Test.Factories
 {
 	/// <summary>
-	/// 
+	/// Use the document publishing subresource to manage and publish document drafts in the Content service.
 	/// </summary>
 	public partial class DocumentDraftSummaryFactory : BaseDataFactory
 	{
 
 		/// <summary> 
-		/// 
+		/// Retrieves a list of the documents currently in draft state, according to any defined filter and sort criteria.
 		/// <example> 
 		///  <code> 
-		//// DocumentDraftSummaryFactory.ListDocumentDraftSummaries(handler : handler,  expectedCode: expectedCode, successCode: successCode);
+		/// var result = DocumentDraftSummaryFactory.ListDocumentDraftSummaries(handler : handler,  pageSize :  pageSize,  startIndex :  startIndex,  documentLists :  documentLists,  authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<DocumentDraftSummaryPagedCollection/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.Content.DocumentDraftSummaryPagedCollection ListDocumentDraftSummaries(ServiceClientMessageHandler handler, 
- 		 
-		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
-		{
-			return ListDocumentDraftSummaries(handler : handler,  documentLists :  null,  pageSize :  null,  startIndex :  null,authTicket : null, 
-				expectedCode: expectedCode, successCode: successCode);
-		}
-  
-		/// <summary> 
-		/// 
-		/// <example> 
-		///  <code> 
-		//// var result = DocumentDraftSummaryFactory.ListDocumentDraftSummaries(handler : handler,  documentLists :  documentLists,  pageSize :  pageSize,  startIndex :  startIndex,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<DocumentDraftSummaryPagedCollection>(result); 
-		//// return optionalCasting;
-		///  </code> 
-		/// </example> 
-		/// </summary>
-		public static Mozu.Api.Contracts.Content.DocumentDraftSummaryPagedCollection ListDocumentDraftSummaries(ServiceClientMessageHandler handler, 
- 		 string documentLists, int? pageSize, int? startIndex,  AuthTicket authTicket= null, 
+ 		 int? pageSize = null, int? startIndex = null, string documentLists = null,  AuthTicket authTicket = null, DataViewMode dataViewMode= DataViewMode.Live, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Content.DocumentDraftSummaryClient.ListDocumentDraftSummariesClient(
-				 documentLists :  documentLists,  pageSize :  pageSize,  startIndex :  startIndex, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+				 pageSize :  pageSize,  startIndex :  startIndex,  documentLists :  documentLists, authTicket : authTicket, dataViewMode: dataViewMode		);
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -68,39 +59,30 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// Publish one or more document drafts to live content on the site.
 		/// <example> 
 		///  <code> 
-		//// DocumentDraftSummaryFactory.PublishDocuments(handler : handler,  documentIds :  documentIds,  expectedCode: expectedCode, successCode: successCode);
+		/// var result = DocumentDraftSummaryFactory.PublishDocuments(handler : handler,  documentIds :  documentIds,  documentLists :  documentLists,  authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<void/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static void PublishDocuments(ServiceClientMessageHandler handler, 
- 		List<string> documentIds, 
-		 int expectedCode = (int)HttpStatusCode.NoContent, int successCode = (int)HttpStatusCode.NoContent)
-		{
-PublishDocuments(handler : handler,  documentLists :  null,  documentIds :  documentIds,authTicket : null, 
-				expectedCode: expectedCode, successCode: successCode);
-		}
-  
-		/// <summary> 
-		/// 
-		/// <example> 
-		///  <code> 
-		//// var result = DocumentDraftSummaryFactory.PublishDocuments(handler : handler,  documentLists :  documentLists,  documentIds :  documentIds, authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<void>(result); 
-		//// return optionalCasting;
-		///  </code> 
-		/// </example> 
-		/// </summary>
-		public static void PublishDocuments(ServiceClientMessageHandler handler, 
- 		string documentLists, List<string> documentIds, AuthTicket authTicket= null, 
+ 		List<string> documentIds, string documentLists = null,  AuthTicket authTicket = null, DataViewMode dataViewMode= DataViewMode.Live, 
 		 int expectedCode = (int)HttpStatusCode.NoContent, int successCode = (int)HttpStatusCode.NoContent)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Content.DocumentDraftSummaryClient.PublishDocumentsClient(
-				 documentLists :  documentLists,  documentIds :  documentIds, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+				 documentIds :  documentIds,  documentLists :  documentLists, authTicket : authTicket, dataViewMode: dataViewMode		);
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			var noResponse = ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -108,39 +90,30 @@ PublishDocuments(handler : handler,  documentLists :  null,  documentIds :  docu
 		}
   
 		/// <summary> 
-		/// 
+		/// Deletes the drafts of the specified documents. Published documents cannot be deleted.
 		/// <example> 
 		///  <code> 
-		//// DocumentDraftSummaryFactory.DeleteDocumentDrafts(handler : handler,  documentIds :  documentIds,  expectedCode: expectedCode, successCode: successCode);
+		/// var result = DocumentDraftSummaryFactory.DeleteDocumentDrafts(handler : handler,  documentIds :  documentIds,  documentLists :  documentLists,  authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<void/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static void DeleteDocumentDrafts(ServiceClientMessageHandler handler, 
- 		string documentIds, 
-		 int expectedCode = (int)HttpStatusCode.NoContent, int successCode = (int)HttpStatusCode.NoContent)
-		{
-DeleteDocumentDrafts(handler : handler,  documentIds :  documentIds,  documentLists :  null,authTicket : null, 
-				expectedCode: expectedCode, successCode: successCode);
-		}
-  
-		/// <summary> 
-		/// 
-		/// <example> 
-		///  <code> 
-		//// var result = DocumentDraftSummaryFactory.DeleteDocumentDrafts(handler : handler,  documentIds :  documentIds,  documentLists :  documentLists,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<void>(result); 
-		//// return optionalCasting;
-		///  </code> 
-		/// </example> 
-		/// </summary>
-		public static void DeleteDocumentDrafts(ServiceClientMessageHandler handler, 
- 		string documentIds, string documentLists,  AuthTicket authTicket= null, 
+ 		string documentIds, string documentLists = null,  AuthTicket authTicket = null, DataViewMode dataViewMode= DataViewMode.Live, 
 		 int expectedCode = (int)HttpStatusCode.NoContent, int successCode = (int)HttpStatusCode.NoContent)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Content.DocumentDraftSummaryClient.DeleteDocumentDraftsClient(
-				 documentIds :  documentIds,  documentLists :  documentLists, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+				 documentIds :  documentIds,  documentLists :  documentLists, authTicket : authTicket, dataViewMode: dataViewMode		);
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			var noResponse = ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;

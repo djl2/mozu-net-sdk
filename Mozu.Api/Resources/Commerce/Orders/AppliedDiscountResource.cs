@@ -16,10 +16,10 @@ using Mozu.Api.Security;
 namespace Mozu.Api.Resources.Commerce.Orders
 {
 	/// <summary>
-	/// 
+	/// Use this subresource to apply coupons to or remove coupons from an order based on a supplied coupon code.
 	/// </summary>
 	public partial class AppliedDiscountResource  	{
-				///
+		///
 		/// <see cref="Mozu.Api.ApiContext"/>
 		///
 		private readonly IApiContext _apiContext;
@@ -29,32 +29,32 @@ namespace Mozu.Api.Resources.Commerce.Orders
 		}
 
 		
-						/// <summary>
-		/// 
+		/// <summary>
+		/// Apply a coupon to the order.
 		/// </summary>
-		/// <param name="couponCode"></param>
-		/// <param name="orderId"></param>
+		/// <param name="couponCode">Alphanumeric code associated with the coupon or promotion that results in a discounted price.</param>
+		/// <param name="orderId">Unique identifier of the order to associate the coupon. System-supplied and read-only.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Orders.Order"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var applieddiscount = new AppliedDiscount();
-		///   var order = applieddiscount.ApplyCoupon( couponCode,  orderId);
+		///   var order = applieddiscount.ApplyCoupon( orderId,  couponCode);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.CommerceRuntime.Orders.Order ApplyCoupon(string couponCode, string orderId)
+		public virtual Mozu.Api.Contracts.CommerceRuntime.Orders.Order ApplyCoupon(string orderId, string couponCode)
 		{
-			return ApplyCoupon( couponCode,  orderId,  null,  null, null);
+			return ApplyCoupon( orderId,  couponCode,  null,  null, null);
 		}
 
 		/// <summary>
-		/// 
+		/// Apply a coupon to the order.
 		/// </summary>
-		/// <param name="couponCode"></param>
-		/// <param name="orderId"></param>
-		/// <param name="updateMode"></param>
-		/// <param name="version"></param>
+		/// <param name="couponCode">Alphanumeric code associated with the coupon or promotion that results in a discounted price.</param>
+		/// <param name="orderId">Unique identifier of the order to associate the coupon. System-supplied and read-only.</param>
+		/// <param name="updateMode">Specifies whether to apply the coupon by updating the original order, updating the order in draft mode, or updating the order in draft mode and then commit the changes to the original. Draft mode enables users to make incremental order changes before committing the changes to the original order. Valid values are "ApplyToOriginal," "ApplyToDraft," or "ApplyAndCommit."</param>
+		/// <param name="version">System-supplied integer that represents the current version of the order, which prevents users from unintentionally overriding changes to the order. When a user performs an operation for a defined order, the system validates that the version of the updated order matches the version of the order on the server. After the operation completes successfully, the system increments the version number by one.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Orders.Order"/>
@@ -62,45 +62,45 @@ namespace Mozu.Api.Resources.Commerce.Orders
 		/// <example>
 		/// <code>
 		///   var applieddiscount = new AppliedDiscount();
-		///   var order = applieddiscount.ApplyCoupon( couponCode,  orderId,  updateMode,  version, authTicket);
+		///   var order = applieddiscount.ApplyCoupon( orderId,  couponCode,  updateMode,  version, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.CommerceRuntime.Orders.Order ApplyCoupon(string couponCode, string orderId, string updateMode =  null, string version =  null, AuthTicket authTicket= null)
+		public virtual Mozu.Api.Contracts.CommerceRuntime.Orders.Order ApplyCoupon(string orderId, string couponCode, string updateMode =  null, string version =  null, AuthTicket authTicket= null)
 		{
 			MozuClient<Mozu.Api.Contracts.CommerceRuntime.Orders.Order> response;
-			var client = Mozu.Api.Clients.Commerce.Orders.AppliedDiscountClient.ApplyCouponClient( couponCode,  orderId,  updateMode,  version, authTicket);
+			var client = Mozu.Api.Clients.Commerce.Orders.AppliedDiscountClient.ApplyCouponClient( orderId,  couponCode,  updateMode,  version, authTicket);
 			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
 		}
 
-				/// <summary>
-		/// 
+		/// <summary>
+		/// Removes a coupon previously applied to the order.
 		/// </summary>
-		/// <param name="couponCode"></param>
-		/// <param name="orderId"></param>
+		/// <param name="couponCode">Alphanumeric code associated with the coupon or promotion that results in a discounted price.</param>
+		/// <param name="orderId">Unique identifier of the order with the coupon to remove.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Orders.Order"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var applieddiscount = new AppliedDiscount();
-		///   var order = applieddiscount.RemoveCoupon( couponCode,  orderId);
+		///   var order = applieddiscount.RemoveCoupon( orderId,  couponCode);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.CommerceRuntime.Orders.Order RemoveCoupon(string couponCode, string orderId)
+		public virtual Mozu.Api.Contracts.CommerceRuntime.Orders.Order RemoveCoupon(string orderId, string couponCode)
 		{
-			return RemoveCoupon( couponCode,  orderId,  null,  null, null);
+			return RemoveCoupon( orderId,  couponCode,  null,  null, null);
 		}
 
 		/// <summary>
-		/// 
+		/// Removes a coupon previously applied to the order.
 		/// </summary>
-		/// <param name="couponCode"></param>
-		/// <param name="orderId"></param>
-		/// <param name="updateMode"></param>
-		/// <param name="version"></param>
+		/// <param name="couponCode">Alphanumeric code associated with the coupon or promotion that results in a discounted price.</param>
+		/// <param name="orderId">Unique identifier of the order with the coupon to remove.</param>
+		/// <param name="updateMode">Specifies whether to remove the coupon by updating the original order, updating the order in draft mode, or updating the order in draft mode and then committing the changes to the original. Draft mode enables users to make incremental order changes before committing the changes to the original order. Valid values are "ApplyToOriginal," "ApplyToDraft," or "ApplyAndCommit."</param>
+		/// <param name="version">System-supplied integer that represents the current version of the order, which prevents users from unintentionally overriding changes to the order. When a user performs an operation for a defined order, the system validates that the version of the updated order matches the version of the order on the server. After the operation completes successfully, the system increments the version number by one.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Orders.Order"/>
@@ -108,13 +108,13 @@ namespace Mozu.Api.Resources.Commerce.Orders
 		/// <example>
 		/// <code>
 		///   var applieddiscount = new AppliedDiscount();
-		///   var order = applieddiscount.RemoveCoupon( couponCode,  orderId,  updateMode,  version, authTicket);
+		///   var order = applieddiscount.RemoveCoupon( orderId,  couponCode,  updateMode,  version, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.CommerceRuntime.Orders.Order RemoveCoupon(string couponCode, string orderId, string updateMode =  null, string version =  null, AuthTicket authTicket= null)
+		public virtual Mozu.Api.Contracts.CommerceRuntime.Orders.Order RemoveCoupon(string orderId, string couponCode, string updateMode =  null, string version =  null, AuthTicket authTicket= null)
 		{
 			MozuClient<Mozu.Api.Contracts.CommerceRuntime.Orders.Order> response;
-			var client = Mozu.Api.Clients.Commerce.Orders.AppliedDiscountClient.RemoveCouponClient( couponCode,  orderId,  updateMode,  version, authTicket);
+			var client = Mozu.Api.Clients.Commerce.Orders.AppliedDiscountClient.RemoveCouponClient( orderId,  couponCode,  updateMode,  version, authTicket);
 			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
@@ -122,9 +122,9 @@ namespace Mozu.Api.Resources.Commerce.Orders
 		}
 
 		/// <summary>
-		/// 
+		/// Removes all coupons previously applied to the order.
 		/// </summary>
-		/// <param name="orderId"></param>
+		/// <param name="orderId">Unique identifier of the order with the coupons to remove.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Orders.Order"/>
 		/// </returns>
@@ -140,11 +140,11 @@ namespace Mozu.Api.Resources.Commerce.Orders
 		}
 
 		/// <summary>
-		/// 
+		/// Removes all coupons previously applied to the order.
 		/// </summary>
-		/// <param name="orderId"></param>
-		/// <param name="updateMode"></param>
-		/// <param name="version"></param>
+		/// <param name="orderId">Unique identifier of the order with the coupons to remove.</param>
+		/// <param name="updateMode">Specifies whether to remove coupons by updating the original order, updating the order in draft mode, or updating the order in draft mode and then committing the changes to the original. Draft mode enables users to make incremental order changes before committing the changes to the original order. Valid values are "ApplyToOriginal," "ApplyToDraft," or "ApplyAndCommit."</param>
+		/// <param name="version">System-supplied integer that represents the current version of the order, which prevents users from unintentionally overriding changes to the order. When a user performs an operation for a defined order, the system validates that the version of the updated order matches the version of the order on the server. After the operation completes successfully, the system increments the version number by one.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Orders.Order"/>
@@ -165,7 +165,7 @@ namespace Mozu.Api.Resources.Commerce.Orders
 
 		}
 
-		
+
 	}
 
 }

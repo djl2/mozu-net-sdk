@@ -13,139 +13,147 @@ using System;
 
 namespace Mozu.Api.Urls.Content.Documentlists
 {
-	public partial class DocumentUrl : MozuUrl
+	public partial class DocumentUrl 
 	{
 
 		/// <summary>
         /// Get Resource Url for GetDocument
         /// </summary>
-        /// <param name="documentId"></param>
-        /// <param name="documentListName"></param>
+        /// <param name="documentId">Identifier of the document being retrieved.</param>
+        /// <param name="documentListName">The name of the document list associated with the document to retrieve.</param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
         public static MozuUrl GetDocumentUrl(string documentId, string documentListName)
 		{
 			var url = "/api/content/documentlists/{documentListName}/documents/{documentId}";
-			FormatUrl( ref url, "documentId", documentId);
-			FormatUrl( ref url, "documentListName", documentListName);
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "documentId", documentId);
+			mozuUrl.FormatUrl( "documentListName", documentListName);
+			return mozuUrl;
 		}
 
 		/// <summary>
         /// Get Resource Url for GetDocumentContent
         /// </summary>
-        /// <param name="documentId"></param>
-        /// <param name="documentListName"></param>
+        /// <param name="documentId">Unique identifier of the document.</param>
+        /// <param name="documentListName">The name of the document list associated with the document.</param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
         public static MozuUrl GetDocumentContentUrl(string documentId, string documentListName)
 		{
 			var url = "/api/content/documentlists/{documentListName}/documents/{documentId}/content";
-			FormatUrl( ref url, "documentId", documentId);
-			FormatUrl( ref url, "documentListName", documentListName);
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "documentId", documentId);
+			mozuUrl.FormatUrl( "documentListName", documentListName);
+			return mozuUrl;
 		}
 
 		/// <summary>
         /// Get Resource Url for GetDocuments
         /// </summary>
-        /// <param name="documentListName"></param>
-        /// <param name="filter"></param>
-        /// <param name="pageSize"></param>
-        /// <param name="sortBy"></param>
-        /// <param name="startIndex"></param>
+        /// <param name="documentListName">The name of the document list.</param>
+        /// <param name="filter">A set of expressions that consist of a field, operator, and value and represent search parameter syntax when filtering results of a query. You can filter a document's search results by any of its properties, including its name or folder path. Valid operators include equals (eq), does not equal (ne), greater than (gt), less than (lt), greater than or equal to (ge), less than or equal to (le), starts with (sw), or contains (cont). For example - "filter=Name+sw+Events"</param>
+        /// <param name="pageSize">The number of results to display on each page when creating paged results from a query. The maximum value is 200.</param>
+        /// <param name="sortBy">The property by which to sort results and whether the results appear in ascending (a-z) order, represented by ASC or in descending (z-a) order, represented by DESC. The sortBy parameter follows an available property. For example: "sortBy=productCode+asc"</param>
+        /// <param name="startIndex">When creating paged results from a query, this value indicates the zero-based offset in the complete result set where the returned entities begin. For example, with a PageSize of 25, to get the 51st through the 75th items, use startIndex=3.</param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
         public static MozuUrl GetDocumentsUrl(string documentListName, string filter, int? pageSize, string sortBy, int? startIndex)
 		{
 			var url = "/api/content/documentlists/{documentListName}/documents?filter={filter}&sortBy={sortBy}&pageSize={pageSize}&startIndex={startIndex}";
-			FormatUrl( ref url, "documentListName", documentListName);
-			FormatUrl( ref url, "filter", filter);
-			FormatUrl( ref url, "pageSize", pageSize);
-			FormatUrl( ref url, "sortBy", sortBy);
-			FormatUrl( ref url, "startIndex", startIndex);
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "documentListName", documentListName);
+			mozuUrl.FormatUrl( "filter", filter);
+			mozuUrl.FormatUrl( "pageSize", pageSize);
+			mozuUrl.FormatUrl( "sortBy", sortBy);
+			mozuUrl.FormatUrl( "startIndex", startIndex);
+			return mozuUrl;
 		}
 
 				/// <summary>
         /// Get Resource Url for CreateDocument
         /// </summary>
-        /// <param name="documentListName"></param>
+        /// <param name="documentListName">The descriptive alphanumeric document list name being created.</param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
         public static MozuUrl CreateDocumentUrl(string documentListName)
 		{
 			var url = "/api/content/documentlists/{documentListName}/documents";
-			FormatUrl( ref url, "documentListName", documentListName);
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "documentListName", documentListName);
+			return mozuUrl;
 		}
 
 				/// <summary>
         /// Get Resource Url for UpdateDocument
         /// </summary>
-        /// <param name="documentId"></param>
-        /// <param name="documentListName"></param>
+        /// <param name="documentId">Unique identifier of the document to update.</param>
+        /// <param name="documentListName">Name of the document list associated with the document.</param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
         public static MozuUrl UpdateDocumentUrl(string documentId, string documentListName)
 		{
 			var url = "/api/content/documentlists/{documentListName}/documents/{documentId}";
-			FormatUrl( ref url, "documentId", documentId);
-			FormatUrl( ref url, "documentListName", documentListName);
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "documentId", documentId);
+			mozuUrl.FormatUrl( "documentListName", documentListName);
+			return mozuUrl;
 		}
 
 		/// <summary>
         /// Get Resource Url for UpdateDocumentContent
         /// </summary>
-        /// <param name="documentId"></param>
-        /// <param name="documentListName"></param>
+        /// <param name="documentId">Unique identifier of the document.</param>
+        /// <param name="documentListName">The name of the document list associated with the document.</param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
         public static MozuUrl UpdateDocumentContentUrl(string documentId, string documentListName)
 		{
 			var url = "/api/content/documentlists/{documentListName}/documents/{documentId}/content";
-			FormatUrl( ref url, "documentId", documentId);
-			FormatUrl( ref url, "documentListName", documentListName);
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "documentId", documentId);
+			mozuUrl.FormatUrl( "documentListName", documentListName);
+			return mozuUrl;
 		}
 
 				/// <summary>
         /// Get Resource Url for DeleteDocument
         /// </summary>
-        /// <param name="documentId"></param>
-        /// <param name="documentListName"></param>
+        /// <param name="documentId">Identifier of the document being deleted.</param>
+        /// <param name="documentListName">The name of the document list associated with the document list being deleted.</param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
         public static MozuUrl DeleteDocumentUrl(string documentId, string documentListName)
 		{
 			var url = "/api/content/documentlists/{documentListName}/documents/{documentId}";
-			FormatUrl( ref url, "documentId", documentId);
-			FormatUrl( ref url, "documentListName", documentListName);
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "documentId", documentId);
+			mozuUrl.FormatUrl( "documentListName", documentListName);
+			return mozuUrl;
 		}
 
 		/// <summary>
         /// Get Resource Url for DeleteDocumentContent
         /// </summary>
-        /// <param name="documentId"></param>
-        /// <param name="documentListName"></param>
+        /// <param name="documentId">Unique identifier of the document.</param>
+        /// <param name="documentListName">The name of the document list associated with the document.</param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
         public static MozuUrl DeleteDocumentContentUrl(string documentId, string documentListName)
 		{
 			var url = "/api/content/documentlists/{documentListName}/documents/{documentId}/content";
-			FormatUrl( ref url, "documentId", documentId);
-			FormatUrl( ref url, "documentListName", documentListName);
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "documentId", documentId);
+			mozuUrl.FormatUrl( "documentListName", documentListName);
+			return mozuUrl;
 		}
 
 		

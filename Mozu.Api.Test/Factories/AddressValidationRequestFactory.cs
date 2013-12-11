@@ -22,29 +22,36 @@ using Mozu.Api.Test.Helpers;
 namespace Mozu.Api.Test.Factories
 {
 	/// <summary>
-	/// 
+	/// Use the Address Validation resource to validate addresses associated with a customer account contact.
 	/// </summary>
 	public partial class AddressValidationRequestFactory : BaseDataFactory
 	{
 
 		/// <summary> 
-		/// 
+		/// Validates the customer address supplied in the request.
 		/// <example> 
 		///  <code> 
-		//// var result = AddressValidationRequestFactory.ValidateAddress(handler : handler,  addressValidationRequest :  addressValidationRequest, authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<AddressValidationResponse>(result); 
-		//// return optionalCasting;
+		/// var result = AddressValidationRequestFactory.ValidateAddress(handler : handler,  addressValidationRequest :  addressValidationRequest, authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<AddressValidationResponse/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.Customer.AddressValidationResponse ValidateAddress(ServiceClientMessageHandler handler, 
- 		 Mozu.Api.Contracts.Customer.AddressValidationRequest addressValidationRequest, AuthTicket authTicket= null, 
+ 		 Mozu.Api.Contracts.Customer.AddressValidationRequest addressValidationRequest, AuthTicket authTicket = null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Customer.AddressValidationRequestClient.ValidateAddressClient(
 				 addressValidationRequest :  addressValidationRequest, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;

@@ -12,10 +12,19 @@ using System;
 
 namespace Mozu.Api.Contracts.Reference
 {
+		///
+		///	Properties of a content locale that determines the language and format used for a site.
+		///
 		public class ContentLocale
 		{
+			///
+			///Language used for the entity. Currently, only "en-US" is supported.
+			///
 			public string Code { get; set; }
 
+			///
+			///The name of the content locale.
+			///
 			public string Name { get; set; }
 
 		}

@@ -13,7 +13,7 @@ using System;
 
 namespace Mozu.Api.Urls.Commerce.Settings.Shipping
 {
-	public partial class SiteShippingHandlingFeeUrl : MozuUrl
+	public partial class SiteShippingHandlingFeeUrl 
 	{
 
 		/// <summary>
@@ -25,7 +25,8 @@ namespace Mozu.Api.Urls.Commerce.Settings.Shipping
         public static MozuUrl GetOrderHandlingFeeUrl()
 		{
 			var url = "/api/commerce/settings/shipping/orderhandlingfee";
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			return mozuUrl;
 		}
 
 				/// <summary>
@@ -37,7 +38,8 @@ namespace Mozu.Api.Urls.Commerce.Settings.Shipping
         public static MozuUrl CreateOrderHandlingFeeUrl()
 		{
 			var url = "/api/commerce/settings/shipping/orderhandlingfee";
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			return mozuUrl;
 		}
 
 				/// <summary>
@@ -49,7 +51,8 @@ namespace Mozu.Api.Urls.Commerce.Settings.Shipping
         public static MozuUrl UpdateOrderHandlingFeeUrl()
 		{
 			var url = "/api/commerce/settings/shipping/orderhandlingfee";
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			return mozuUrl;
 		}
 
 				

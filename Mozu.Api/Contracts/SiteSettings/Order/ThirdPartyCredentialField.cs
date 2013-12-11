@@ -12,12 +12,24 @@ using System;
 
 namespace Mozu.Api.Contracts.SiteSettings.Order
 {
+		///
+		///	The properties of the credentials required to communicate with the external payment processor.
+		///
 		public class ThirdPartyCredentialField
 		{
+			///
+			///System-supplied API name required to communicate with the external payment processor.
+			///
 			public string ApiName { get; set; }
 
+			///
+			///System-supplied name that displays for the third party credential field.
+			///
 			public string DisplayName { get; set; }
 
+			///
+			///The value supplied for the third party credential.
+			///
 			public string Value { get; set; }
 
 		}

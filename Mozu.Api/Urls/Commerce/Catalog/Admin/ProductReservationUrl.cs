@@ -13,14 +13,14 @@ using System;
 
 namespace Mozu.Api.Urls.Commerce.Catalog.Admin
 {
-	public partial class ProductReservationUrl : MozuUrl
+	public partial class ProductReservationUrl 
 	{
 
 		/// <summary>
         /// Get Resource Url for GetProductReservations
         /// </summary>
-        /// <param name="filter"></param>
-        /// <param name="pageSize"></param>
+        /// <param name="filter">A set of expressions that consist of a field, operator, and value and represent search parameter syntax when filtering results of a query. Valid operators include equals (eq), does not equal (ne), greater than (gt), less than (lt), greater than or equal to (ge), less than or equal to (le), starts with (sw), or contains (cont). For example - "filter=IsDisplayed+eq+true"</param>
+        /// <param name="pageSize">The number of results to display on each page when creating paged results from a query. The maximum value is 200.</param>
         /// <param name="sortBy"></param>
         /// <param name="startIndex"></param>
         /// <returns>
@@ -29,81 +29,85 @@ namespace Mozu.Api.Urls.Commerce.Catalog.Admin
         public static MozuUrl GetProductReservationsUrl(string filter, int? pageSize, string sortBy, int? startIndex)
 		{
 			var url = "/api/commerce/catalog/admin/productreservations/?startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&filter={filter}";
-			FormatUrl( ref url, "filter", filter);
-			FormatUrl( ref url, "pageSize", pageSize);
-			FormatUrl( ref url, "sortBy", sortBy);
-			FormatUrl( ref url, "startIndex", startIndex);
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "filter", filter);
+			mozuUrl.FormatUrl( "pageSize", pageSize);
+			mozuUrl.FormatUrl( "sortBy", sortBy);
+			mozuUrl.FormatUrl( "startIndex", startIndex);
+			return mozuUrl;
 		}
 
 		/// <summary>
         /// Get Resource Url for GetProductReservation
         /// </summary>
-        /// <param name="productReservationId"></param>
+        /// <param name="productReservationId">Unique identifier of the product reservation.</param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
         public static MozuUrl GetProductReservationUrl(int productReservationId)
 		{
 			var url = "/api/commerce/catalog/admin/productreservations/{productReservationId}";
-			FormatUrl( ref url, "productReservationId", productReservationId);
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "productReservationId", productReservationId);
+			return mozuUrl;
 		}
 
 				/// <summary>
-        /// Get Resource Url for AddProductReservation
+        /// Get Resource Url for AddProductReservations
         /// </summary>
+        /// <param name="skipInventoryCheck"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static MozuUrl AddProductReservationUrl()
+        public static MozuUrl AddProductReservationsUrl(bool? skipInventoryCheck)
 		{
-			var url = "/api/commerce/catalog/admin/productreservations/";
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var url = "/api/commerce/catalog/admin/productreservations/?skipInventoryCheck={skipInventoryCheck}";
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "skipInventoryCheck", skipInventoryCheck);
+			return mozuUrl;
 		}
 
 		/// <summary>
-        /// Get Resource Url for CommitReservation
+        /// Get Resource Url for CommitReservations
         /// </summary>
-        /// <param name="productReservationId"></param>
-        /// <param name="qty"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static MozuUrl CommitReservationUrl(int productReservationId, int qty)
+        public static MozuUrl CommitReservationsUrl()
 		{
-			var url = "/api/commerce/catalog/admin/productreservations/{productReservationId}/commit/{qty}";
-			FormatUrl( ref url, "productReservationId", productReservationId);
-			FormatUrl( ref url, "qty", qty);
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var url = "/api/commerce/catalog/admin/productreservations/commit";
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			return mozuUrl;
 		}
 
 				/// <summary>
-        /// Get Resource Url for UpdateProductReservation
+        /// Get Resource Url for UpdateProductReservations
         /// </summary>
-        /// <param name="productReservationId">Unique identifier of the product reservation to update. </param>
+        /// <param name="skipInventoryCheck"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static MozuUrl UpdateProductReservationUrl(int productReservationId)
+        public static MozuUrl UpdateProductReservationsUrl(bool? skipInventoryCheck)
 		{
-			var url = "/api/commerce/catalog/admin/productreservations/{productReservationId}";
-			FormatUrl( ref url, "productReservationId", productReservationId);
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var url = "/api/commerce/catalog/admin/productreservations/?skipInventoryCheck={skipInventoryCheck}";
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "skipInventoryCheck", skipInventoryCheck);
+			return mozuUrl;
 		}
 
 				/// <summary>
         /// Get Resource Url for DeleteProductReservation
         /// </summary>
-        /// <param name="productReservationId"></param>
+        /// <param name="productReservationId">Unique identifier of the reservation.</param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
         public static MozuUrl DeleteProductReservationUrl(int productReservationId)
 		{
 			var url = "/api/commerce/catalog/admin/productreservations/{productReservationId}";
-			FormatUrl( ref url, "productReservationId", productReservationId);
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "productReservationId", productReservationId);
+			return mozuUrl;
 		}
 
 		

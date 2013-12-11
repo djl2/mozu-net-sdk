@@ -13,7 +13,7 @@ using System;
 
 namespace Mozu.Api.Urls.Platform.Applications
 {
-	public partial class AuthTicketUrl : MozuUrl
+	public partial class AuthTicketUrl 
 	{
 
 				/// <summary>
@@ -25,7 +25,8 @@ namespace Mozu.Api.Urls.Platform.Applications
         public static MozuUrl AuthenticateAppUrl()
 		{
 			var url = "/api/platform/applications/authtickets/";
-			return new MozuUrl(url, MozuUrl.UrlLocation.HOME_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.HOME_POD, false) ;
+			return mozuUrl;
 		}
 
 				/// <summary>
@@ -37,21 +38,23 @@ namespace Mozu.Api.Urls.Platform.Applications
         public static MozuUrl RefreshAppAuthTicketUrl()
 		{
 			var url = "/api/platform/applications/authtickets/refresh-ticket";
-			return new MozuUrl(url, MozuUrl.UrlLocation.HOME_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.HOME_POD, false) ;
+			return mozuUrl;
 		}
 
 				/// <summary>
         /// Get Resource Url for DeleteAppAuthTicket
         /// </summary>
-        /// <param name="refreshToken"></param>
+        /// <param name="refreshToken">The refresh token string from the application's authentication ticket.</param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
         public static MozuUrl DeleteAppAuthTicketUrl(string refreshToken)
 		{
 			var url = "/api/platform/applications/authtickets/{refreshToken}";
-			FormatUrl( ref url, "refreshToken", refreshToken);
-			return new MozuUrl(url, MozuUrl.UrlLocation.HOME_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.HOME_POD, false) ;
+			mozuUrl.FormatUrl( "refreshToken", refreshToken);
+			return mozuUrl;
 		}
 
 		

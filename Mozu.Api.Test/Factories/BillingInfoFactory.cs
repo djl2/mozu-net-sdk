@@ -22,45 +22,36 @@ using Mozu.Api.Test.Helpers;
 namespace Mozu.Api.Test.Factories
 {
 	/// <summary>
-	/// 
+	/// Use the Billing Info subresource to manage the billing information stored for an order.
 	/// </summary>
 	public partial class BillingInfoFactory : BaseDataFactory
 	{
 
 		/// <summary> 
-		/// 
+		/// Retrieves the billing information associated with an order.
 		/// <example> 
 		///  <code> 
-		//// BillingInfoFactory.GetBillingInfo(handler : handler,  orderId :  orderId,  expectedCode: expectedCode, successCode: successCode);
+		/// var result = BillingInfoFactory.GetBillingInfo(handler : handler,  orderId :  orderId,  draft :  draft,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<BillingInfo/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.CommerceRuntime.Payments.BillingInfo GetBillingInfo(ServiceClientMessageHandler handler, 
- 		 string orderId, 
-		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
-		{
-			return GetBillingInfo(handler : handler,  draft :  null,  orderId :  orderId, authTicket : null, 
-				expectedCode: expectedCode, successCode: successCode);
-		}
-  
-		/// <summary> 
-		/// 
-		/// <example> 
-		///  <code> 
-		//// var result = BillingInfoFactory.GetBillingInfo(handler : handler,  draft :  draft,  orderId :  orderId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<BillingInfo>(result); 
-		//// return optionalCasting;
-		///  </code> 
-		/// </example> 
-		/// </summary>
-		public static Mozu.Api.Contracts.CommerceRuntime.Payments.BillingInfo GetBillingInfo(ServiceClientMessageHandler handler, 
- 		 bool? draft, string orderId,  AuthTicket authTicket= null, 
+ 		 string orderId, bool? draft = null,  AuthTicket authTicket = null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Orders.BillingInfoClient.GetBillingInfoClient(
-				 draft :  draft,  orderId :  orderId, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+				 orderId :  orderId,  draft :  draft, authTicket : authTicket		);
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -68,39 +59,30 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// Updates the billing information supplied for an order.
 		/// <example> 
 		///  <code> 
-		//// BillingInfoFactory.SetBillingInfo(handler : handler,  orderId :  orderId,  billingInfo :  billingInfo,  expectedCode: expectedCode, successCode: successCode);
+		/// var result = BillingInfoFactory.SetBillingInfo(handler : handler,  billingInfo :  billingInfo,  orderId :  orderId,  updateMode :  updateMode,  version :  version,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<BillingInfo/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.CommerceRuntime.Payments.BillingInfo SetBillingInfo(ServiceClientMessageHandler handler, 
- 		 string orderId, Mozu.Api.Contracts.CommerceRuntime.Payments.BillingInfo billingInfo, 
-		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
-		{
-			return SetBillingInfo(handler : handler,  orderId :  orderId,  updateMode :  null,  version :  null,  billingInfo :  billingInfo,authTicket : null, 
-				expectedCode: expectedCode, successCode: successCode);
-		}
-  
-		/// <summary> 
-		/// 
-		/// <example> 
-		///  <code> 
-		//// var result = BillingInfoFactory.SetBillingInfo(handler : handler,  orderId :  orderId,  updateMode :  updateMode,  version :  version,  billingInfo :  billingInfo, authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<BillingInfo>(result); 
-		//// return optionalCasting;
-		///  </code> 
-		/// </example> 
-		/// </summary>
-		public static Mozu.Api.Contracts.CommerceRuntime.Payments.BillingInfo SetBillingInfo(ServiceClientMessageHandler handler, 
- 		 string orderId, string updateMode, string version, Mozu.Api.Contracts.CommerceRuntime.Payments.BillingInfo billingInfo, AuthTicket authTicket= null, 
+ 		 Mozu.Api.Contracts.CommerceRuntime.Payments.BillingInfo billingInfo, string orderId, string updateMode = null, string version = null,  AuthTicket authTicket = null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Orders.BillingInfoClient.SetBillingInfoClient(
-				 orderId :  orderId,  updateMode :  updateMode,  version :  version,  billingInfo :  billingInfo, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+				 billingInfo :  billingInfo,  orderId :  orderId,  updateMode :  updateMode,  version :  version, authTicket : authTicket		);
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;

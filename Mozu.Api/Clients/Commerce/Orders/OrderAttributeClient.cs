@@ -16,14 +16,14 @@ using Mozu.Api.Security;
 namespace Mozu.Api.Clients.Commerce.Orders
 {
 	/// <summary>
-	/// 
+	/// Use the Order Attributes resource to define how an order attribute definition applies to a specific order.
 	/// </summary>
 	public partial class OrderAttributeClient 	{
 		
 		/// <summary>
-		/// 
+		/// Retrieves a list of the attributes defined for the order specified in the request.
 		/// </summary>
-		/// <param name="orderId"></param>
+		/// <param name="orderId">Unique identifier of the order for which to retrieve a list of defined attributes.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{List{<see cref="Mozu.Api.Contracts.CommerceRuntime.Orders.OrderAttribute"/>}}
@@ -45,12 +45,12 @@ namespace Mozu.Api.Clients.Commerce.Orders
 
 		}
 
-				/// <summary>
-		/// 
+		/// <summary>
+		/// Applies a list of attributes to the order specified in the request and defines a value for each attribute in the request body.
 		/// </summary>
-		/// <param name="orderId"></param>
+		/// <param name="orderId">Unique identifier of the order for which to assign the attributes.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="orderAttributes"></param>
+		/// <param name="orderAttributes">The list of attributes to associate with the order, and the properties of each attribute to define for the order.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{List{<see cref="Mozu.Api.Contracts.CommerceRuntime.Orders.OrderAttribute"/>}}
 		/// </returns>
@@ -71,11 +71,11 @@ namespace Mozu.Api.Clients.Commerce.Orders
 
 		}
 
-				/// <summary>
-		/// 
+		/// <summary>
+		/// Updates one or more properties of an attribute defined for the order specified in the request.
 		/// </summary>
-		/// <param name="orderId"></param>
-		/// <param name="orderAttributes"></param>
+		/// <param name="orderId">Identifier of the order for which to update attributes.</param>
+		/// <param name="orderAttributes">List of order attributes to update, including the properties of each defined attribute in the list.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{List{<see cref="Mozu.Api.Contracts.CommerceRuntime.Orders.OrderAttribute"/>}}
 		/// </returns>
@@ -91,12 +91,12 @@ namespace Mozu.Api.Clients.Commerce.Orders
 		}
 
 		/// <summary>
-		/// 
+		/// Updates one or more properties of an attribute defined for the order specified in the request.
 		/// </summary>
-		/// <param name="orderId"></param>
-		/// <param name="removeMissing"></param>
+		/// <param name="orderId">Identifier of the order for which to update attributes.</param>
+		/// <param name="removeMissing">If true, the operation removes missing properties so that the updated order attributes will not show properties with a null value.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="orderAttributes"></param>
+		/// <param name="orderAttributes">List of order attributes to update, including the properties of each defined attribute in the list.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{List{<see cref="Mozu.Api.Contracts.CommerceRuntime.Orders.OrderAttribute"/>}}
 		/// </returns>
@@ -117,7 +117,7 @@ namespace Mozu.Api.Clients.Commerce.Orders
 
 		}
 
-				
+
 	}
 
 }

@@ -13,12 +13,24 @@ using System.Collections.Generic;
 
 namespace Mozu.Api.Contracts.Core.ThirdParty
 {
+		///
+		///	Property value that can be initialized for a capability that uses shipping countries.
+		///
 		public class InitializableShippingCountryPropertyValue
 		{
+			///
+			///If true, the property value is initialized.
+			///
 			public bool Initialized { get; set; }
 
+			///
+			///Value of the initializable third-party capability property.
+			///
 			public string Value { get; set; }
 
+			///
+			///Child value in a hierarchy of shipping country properties.
+			///
 			public List<InitializablePropertyValue> Child { get; set; }
 
 		}

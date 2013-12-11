@@ -13,14 +13,14 @@ using System;
 
 namespace Mozu.Api.Urls.Commerce.Catalog.Admin.Attributedefinition
 {
-	public partial class ProductTypeUrl : MozuUrl
+	public partial class ProductTypeUrl 
 	{
 
 		/// <summary>
         /// Get Resource Url for GetProductTypes
         /// </summary>
-        /// <param name="filter"></param>
-        /// <param name="pageSize"></param>
+        /// <param name="filter">A set of expressions that consist of a field, operator, and value and represent search parameter syntax when filtering results of a query. You can filter product type search results by any of its properties. Valid operators include equals (eq), does not equal (ne), greater than (gt), less than (lt), greater than or equal to (ge), less than or equal to (le), starts with (sw), or contains (cont). For example - "filter=Name+cont+shoes"</param>
+        /// <param name="pageSize">The number of results to display on each page when creating paged results from a query. The maximum value is 200.</param>
         /// <param name="sortBy"></param>
         /// <param name="startIndex"></param>
         /// <returns>
@@ -29,25 +29,27 @@ namespace Mozu.Api.Urls.Commerce.Catalog.Admin.Attributedefinition
         public static MozuUrl GetProductTypesUrl(string filter, int? pageSize, string sortBy, int? startIndex)
 		{
 			var url = "/api/commerce/catalog/admin/attributedefinition/producttypes/?startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&filter={filter}";
-			FormatUrl( ref url, "filter", filter);
-			FormatUrl( ref url, "pageSize", pageSize);
-			FormatUrl( ref url, "sortBy", sortBy);
-			FormatUrl( ref url, "startIndex", startIndex);
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "filter", filter);
+			mozuUrl.FormatUrl( "pageSize", pageSize);
+			mozuUrl.FormatUrl( "sortBy", sortBy);
+			mozuUrl.FormatUrl( "startIndex", startIndex);
+			return mozuUrl;
 		}
 
 		/// <summary>
         /// Get Resource Url for GetProductType
         /// </summary>
-        /// <param name="productTypeId"></param>
+        /// <param name="productTypeId">Identifier of the product type to retrieve.</param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
         public static MozuUrl GetProductTypeUrl(int productTypeId)
 		{
 			var url = "/api/commerce/catalog/admin/attributedefinition/producttypes/{productTypeId}";
-			FormatUrl( ref url, "productTypeId", productTypeId);
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "productTypeId", productTypeId);
+			return mozuUrl;
 		}
 
 				/// <summary>
@@ -59,35 +61,38 @@ namespace Mozu.Api.Urls.Commerce.Catalog.Admin.Attributedefinition
         public static MozuUrl AddProductTypeUrl()
 		{
 			var url = "/api/commerce/catalog/admin/attributedefinition/producttypes/";
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			return mozuUrl;
 		}
 
 				/// <summary>
         /// Get Resource Url for UpdateProductType
         /// </summary>
-        /// <param name="productTypeId"></param>
+        /// <param name="productTypeId">Identifier of the product type to update.</param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
         public static MozuUrl UpdateProductTypeUrl(int productTypeId)
 		{
 			var url = "/api/commerce/catalog/admin/attributedefinition/producttypes/{productTypeId}";
-			FormatUrl( ref url, "productTypeId", productTypeId);
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "productTypeId", productTypeId);
+			return mozuUrl;
 		}
 
 				/// <summary>
         /// Get Resource Url for DeleteProductType
         /// </summary>
-        /// <param name="productTypeId"></param>
+        /// <param name="productTypeId">Identifier of the product type to delete.</param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
         public static MozuUrl DeleteProductTypeUrl(int productTypeId)
 		{
 			var url = "/api/commerce/catalog/admin/attributedefinition/producttypes/{productTypeId}";
-			FormatUrl( ref url, "productTypeId", productTypeId);
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "productTypeId", productTypeId);
+			return mozuUrl;
 		}
 
 		

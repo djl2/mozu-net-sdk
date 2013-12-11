@@ -16,10 +16,10 @@ using Mozu.Api.Security;
 namespace Mozu.Api.Resources.Content
 {
 	/// <summary>
-	/// 
+	/// Use the document lists resource to organize your site's documents into a hierarchy. Document lists can contain documents, folders, and complete hierarchies of folders, which contain documents with unique names.
 	/// </summary>
 	public partial class DocumentListResource  	{
-				///
+		///
 		/// <see cref="Mozu.Api.ApiContext"/>
 		///
 		private readonly IApiContext _apiContext;
@@ -30,7 +30,7 @@ namespace Mozu.Api.Resources.Content
 
 		
 		/// <summary>
-		/// 
+		/// Retrieves a collection of document lists.
 		/// </summary>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.Content.DocumentListCollection"/>
@@ -38,18 +38,18 @@ namespace Mozu.Api.Resources.Content
 		/// <example>
 		/// <code>
 		///   var documentlist = new DocumentList();
-		///   var documentListCollection = documentlist.GetDocumentLists();
+		///   var documentListCollection = documentlist.GetDocumentLists(dataViewMode);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.Content.DocumentListCollection GetDocumentLists()
+		public virtual Mozu.Api.Contracts.Content.DocumentListCollection GetDocumentLists(DataViewMode dataViewMode)
 		{
-			return GetDocumentLists( null,  null,  null, null);
+			return GetDocumentLists(dataViewMode,  null,  null,  null, null);
 		}
 
 		/// <summary>
-		/// 
+		/// Retrieves a collection of document lists.
 		/// </summary>
-		/// <param name="pageSize"></param>
+		/// <param name="pageSize">The number of results to display on each page when creating paged results from a query. The maximum value is 200.</param>
 		/// <param name="sort"></param>
 		/// <param name="startIndex"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
@@ -59,13 +59,13 @@ namespace Mozu.Api.Resources.Content
 		/// <example>
 		/// <code>
 		///   var documentlist = new DocumentList();
-		///   var documentListCollection = documentlist.GetDocumentLists( pageSize,  sort,  startIndex, authTicket);
+		///   var documentListCollection = documentlist.GetDocumentLists(dataViewMode,  pageSize,  startIndex,  sort, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.Content.DocumentListCollection GetDocumentLists(int? pageSize =  null, string sort =  null, int? startIndex =  null, AuthTicket authTicket= null)
+		public virtual Mozu.Api.Contracts.Content.DocumentListCollection GetDocumentLists(DataViewMode dataViewMode, int? pageSize =  null, int? startIndex =  null, string sort =  null, AuthTicket authTicket= null)
 		{
 			MozuClient<Mozu.Api.Contracts.Content.DocumentListCollection> response;
-			var client = Mozu.Api.Clients.Content.DocumentListClient.GetDocumentListsClient( pageSize,  sort,  startIndex, authTicket);
+			var client = Mozu.Api.Clients.Content.DocumentListClient.GetDocumentListsClient(dataViewMode,  pageSize,  startIndex,  sort, authTicket);
 			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
@@ -73,9 +73,9 @@ namespace Mozu.Api.Resources.Content
 		}
 
 		/// <summary>
-		/// 
+		/// Retrieve the details of a document list by providing the list name.
 		/// </summary>
-		/// <param name="documentListName"></param>
+		/// <param name="documentListName">The name of the document list.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.Content.DocumentList"/>
@@ -83,20 +83,20 @@ namespace Mozu.Api.Resources.Content
 		/// <example>
 		/// <code>
 		///   var documentlist = new DocumentList();
-		///   var documentList = documentlist.GetDocumentList( documentListName, authTicket);
+		///   var documentList = documentlist.GetDocumentList(dataViewMode,  documentListName, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.Content.DocumentList GetDocumentList(string documentListName, AuthTicket authTicket= null)
+		public virtual Mozu.Api.Contracts.Content.DocumentList GetDocumentList(DataViewMode dataViewMode, string documentListName, AuthTicket authTicket= null)
 		{
 			MozuClient<Mozu.Api.Contracts.Content.DocumentList> response;
-			var client = Mozu.Api.Clients.Content.DocumentListClient.GetDocumentListClient( documentListName, authTicket);
+			var client = Mozu.Api.Clients.Content.DocumentListClient.GetDocumentListClient(dataViewMode,  documentListName, authTicket);
 			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
 		}
 
-								
+
 	}
 
 }

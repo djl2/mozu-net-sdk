@@ -13,7 +13,7 @@ using System;
 
 namespace Mozu.Api.Urls.Commerce.Carts
 {
-	public partial class CartItemUrl : MozuUrl
+	public partial class CartItemUrl 
 	{
 
 		/// <summary>
@@ -25,21 +25,23 @@ namespace Mozu.Api.Urls.Commerce.Carts
         public static MozuUrl GetCartItemsUrl()
 		{
 			var url = "/api/commerce/carts/current/items";
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			return mozuUrl;
 		}
 
 		/// <summary>
         /// Get Resource Url for GetCartItem
         /// </summary>
-        /// <param name="cartItemId"></param>
+        /// <param name="cartItemId">Identifier of the cart item to retrieve.</param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
         public static MozuUrl GetCartItemUrl(string cartItemId)
 		{
 			var url = "/api/commerce/carts/current/items/{cartItemId}";
-			FormatUrl( ref url, "cartItemId", cartItemId);
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "cartItemId", cartItemId);
+			return mozuUrl;
 		}
 
 				/// <summary>
@@ -51,37 +53,40 @@ namespace Mozu.Api.Urls.Commerce.Carts
         public static MozuUrl AddItemToCartUrl()
 		{
 			var url = "/api/commerce/carts/current/items";
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			return mozuUrl;
 		}
 
 				/// <summary>
         /// Get Resource Url for UpdateCartItem
         /// </summary>
-        /// <param name="cartItemId"></param>
+        /// <param name="cartItemId">Identifier of the cart item to update.</param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
         public static MozuUrl UpdateCartItemUrl(string cartItemId)
 		{
 			var url = "/api/commerce/carts/current/items/{cartItemId}";
-			FormatUrl( ref url, "cartItemId", cartItemId);
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "cartItemId", cartItemId);
+			return mozuUrl;
 		}
 
 		/// <summary>
         /// Get Resource Url for UpdateCartItemQuantity
         /// </summary>
-        /// <param name="cartItemId"></param>
-        /// <param name="quantity"></param>
+        /// <param name="cartItemId">Identifier of the cart item to update quantity.</param>
+        /// <param name="quantity">The number of cart items in the shopper's active cart.</param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
         public static MozuUrl UpdateCartItemQuantityUrl(string cartItemId, int quantity)
 		{
 			var url = "/api/commerce/carts/current/items/{cartItemId}/{quantity}";
-			FormatUrl( ref url, "cartItemId", cartItemId);
-			FormatUrl( ref url, "quantity", quantity);
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "cartItemId", cartItemId);
+			mozuUrl.FormatUrl( "quantity", quantity);
+			return mozuUrl;
 		}
 
 				/// <summary>
@@ -93,21 +98,23 @@ namespace Mozu.Api.Urls.Commerce.Carts
         public static MozuUrl RemoveAllCartItemsUrl()
 		{
 			var url = "/api/commerce/carts/current/items";
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			return mozuUrl;
 		}
 
 		/// <summary>
         /// Get Resource Url for DeleteCartItem
         /// </summary>
-        /// <param name="cartItemId"></param>
+        /// <param name="cartItemId">Identifier of the cart item to delete.</param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
         public static MozuUrl DeleteCartItemUrl(string cartItemId)
 		{
 			var url = "/api/commerce/carts/current/items/{cartItemId}";
-			FormatUrl( ref url, "cartItemId", cartItemId);
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "cartItemId", cartItemId);
+			return mozuUrl;
 		}
 
 		
