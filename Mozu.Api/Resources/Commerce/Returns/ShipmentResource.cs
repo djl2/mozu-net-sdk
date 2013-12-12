@@ -16,10 +16,10 @@ using Mozu.Api.Security;
 namespace Mozu.Api.Resources.Commerce.Returns
 {
 	/// <summary>
-	/// 
+	/// Use the return shipments subresource to manage shipments for a return replacement.
 	/// </summary>
 	public partial class ShipmentResource  	{
-				///
+		///
 		/// <see cref="Mozu.Api.ApiContext"/>
 		///
 		private readonly IApiContext _apiContext;
@@ -30,10 +30,10 @@ namespace Mozu.Api.Resources.Commerce.Returns
 
 		
 		/// <summary>
-		/// 
+		/// Retrieves the details of the specified return replacement shipment.
 		/// </summary>
-		/// <param name="returnId"></param>
-		/// <param name="shipmentId"></param>
+		/// <param name="returnId">Unique identifier of the return associated with the replacement shipment to retrieve.</param>
+		/// <param name="shipmentId">Unique identifier of the return replacement shipment to retrieve.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Fulfillment.Shipment"/>
@@ -54,12 +54,12 @@ namespace Mozu.Api.Resources.Commerce.Returns
 
 		}
 
-				/// <summary>
-		/// 
+		/// <summary>
+		/// Creates a shipment from one or more packages associated with a return replacement.
 		/// </summary>
-		/// <param name="returnId"></param>
+		/// <param name="returnId">Unique identifier of the return for which to create replacement package shipments.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="packageIds"></param>
+		/// <param name="packageIds">List of packages in the return replacement shipment.</param>
 		/// <returns>
 		/// List{<see cref="Mozu.Api.Contracts.CommerceRuntime.Fulfillment.Package"/>}
 		/// </returns>
@@ -79,11 +79,11 @@ namespace Mozu.Api.Resources.Commerce.Returns
 
 		}
 
-						/// <summary>
-		/// 
+		/// <summary>
+		/// Deletes a shipment for a return replacement.
 		/// </summary>
-		/// <param name="returnId"></param>
-		/// <param name="shipmentId"></param>
+		/// <param name="returnId">Unique identifier of the return associated with the replacement shipment to delete.</param>
+		/// <param name="shipmentId">Unique identifier of the return replacement shipment to delete.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// 
@@ -103,7 +103,7 @@ namespace Mozu.Api.Resources.Commerce.Returns
 
 		}
 
-		
+
 	}
 
 }

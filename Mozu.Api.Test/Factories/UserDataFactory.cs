@@ -22,29 +22,36 @@ using Mozu.Api.Test.Helpers;
 namespace Mozu.Api.Test.Factories
 {
 	/// <summary>
-	/// 
+	/// Use the user data subresource to store user-level data required for a third-party application in the Mozu database.
 	/// </summary>
 	public partial class UserDataFactory : BaseDataFactory
 	{
 
 		/// <summary> 
-		/// 
+		/// Retrieves the value of a record in the Mozu database.
 		/// <example> 
 		///  <code> 
-		//// var result = UserDataFactory.GetDBValue(handler : handler,  dbEntryQuery :  dbEntryQuery,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<string>(result); 
-		//// return optionalCasting;
+		/// var result = UserDataFactory.GetDBValue(handler : handler,  dbEntryQuery :  dbEntryQuery,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<string/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static string GetDBValue(ServiceClientMessageHandler handler, 
- 		 string dbEntryQuery,  AuthTicket authTicket= null, 
+ 		 string dbEntryQuery,  AuthTicket authTicket = null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Platform.UserDataClient.GetDBValueClient(
 				 dbEntryQuery :  dbEntryQuery, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -52,23 +59,30 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// Creates a new record in the Mozu database based on the information supplied in the request.
 		/// <example> 
 		///  <code> 
-		//// var result = UserDataFactory.CreateDBValue(handler : handler,  dbEntryQuery :  dbEntryQuery,  value :  value, authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<void>(result); 
-		//// return optionalCasting;
+		/// var result = UserDataFactory.CreateDBValue(handler : handler,  value :  value,  dbEntryQuery :  dbEntryQuery,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<void/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static void CreateDBValue(ServiceClientMessageHandler handler, 
- 		string dbEntryQuery, string value, AuthTicket authTicket= null, 
+ 		string value, string dbEntryQuery,  AuthTicket authTicket = null, 
 		 int expectedCode = (int)HttpStatusCode.NoContent, int successCode = (int)HttpStatusCode.NoContent)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Platform.UserDataClient.CreateDBValueClient(
-				 dbEntryQuery :  dbEntryQuery,  value :  value, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+				 value :  value,  dbEntryQuery :  dbEntryQuery, authTicket : authTicket		);
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			var noResponse = ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -76,23 +90,30 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// Updates a record in the Mozu database based on the information supplied in the request.
 		/// <example> 
 		///  <code> 
-		//// var result = UserDataFactory.UpdateDBValue(handler : handler,  dbEntryQuery :  dbEntryQuery,  value :  value, authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<void>(result); 
-		//// return optionalCasting;
+		/// var result = UserDataFactory.UpdateDBValue(handler : handler,  value :  value,  dbEntryQuery :  dbEntryQuery,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<void/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static void UpdateDBValue(ServiceClientMessageHandler handler, 
- 		string dbEntryQuery, string value, AuthTicket authTicket= null, 
+ 		string value, string dbEntryQuery,  AuthTicket authTicket = null, 
 		 int expectedCode = (int)HttpStatusCode.NoContent, int successCode = (int)HttpStatusCode.NoContent)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Platform.UserDataClient.UpdateDBValueClient(
-				 dbEntryQuery :  dbEntryQuery,  value :  value, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+				 value :  value,  dbEntryQuery :  dbEntryQuery, authTicket : authTicket		);
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			var noResponse = ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -100,23 +121,30 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// Removes a previously defined record in the Mozu database.
 		/// <example> 
 		///  <code> 
-		//// var result = UserDataFactory.DeleteDBValue(handler : handler,  dbEntryQuery :  dbEntryQuery,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<void>(result); 
-		//// return optionalCasting;
+		/// var result = UserDataFactory.DeleteDBValue(handler : handler,  dbEntryQuery :  dbEntryQuery,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<void/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static void DeleteDBValue(ServiceClientMessageHandler handler, 
- 		string dbEntryQuery,  AuthTicket authTicket= null, 
+ 		string dbEntryQuery,  AuthTicket authTicket = null, 
 		 int expectedCode = (int)HttpStatusCode.NoContent, int successCode = (int)HttpStatusCode.NoContent)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Platform.UserDataClient.DeleteDBValueClient(
 				 dbEntryQuery :  dbEntryQuery, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			var noResponse = ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;

@@ -16,14 +16,14 @@ using Mozu.Api.Security;
 namespace Mozu.Api.Clients.Commerce.Customer.Accounts
 {
 	/// <summary>
-	/// 
+	/// Use the Attributes subresource to manage the attributes used to uniquely identify shopper accounts, such as gender or age.
 	/// </summary>
 	public partial class CustomerAttributeClient 	{
 		
 		/// <summary>
-		/// 
+		/// Retrieves the contents of an attribute associated with the specified customer account.
 		/// </summary>
-		/// <param name="accountId"></param>
+		/// <param name="accountId">Identifier of the customer account associated with the attribute to retrieve.</param>
 		/// <param name="attributeFQN"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
@@ -31,13 +31,13 @@ namespace Mozu.Api.Clients.Commerce.Customer.Accounts
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=GetAccountAttributeByFqn( accountId,  attributeFQN, authTicket);
+		///   var mozuClient=GetAccountAttribute( accountId,  attributeFQN, authTicket);
 		///   var customerAttributeClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.Customer.CustomerAttribute> GetAccountAttributeByFqnClient(int accountId, string attributeFQN, AuthTicket authTicket= null)
+		public static MozuClient<Mozu.Api.Contracts.Customer.CustomerAttribute> GetAccountAttributeClient(int accountId, string attributeFQN, AuthTicket authTicket= null)
 		{
-			var url = Mozu.Api.Urls.Commerce.Customer.Accounts.CustomerAttributeUrl.GetAccountAttributeByFqnUrl(accountId, attributeFQN);
+			var url = Mozu.Api.Urls.Commerce.Customer.Accounts.CustomerAttributeUrl.GetAccountAttributeUrl(accountId, attributeFQN);
 			const string verb = "GET";
 			var mozuClient = new MozuClient<Mozu.Api.Contracts.Customer.CustomerAttribute>().WithVerb(verb).WithResourceUrl(url);
 			if (authTicket != null)
@@ -47,35 +47,9 @@ namespace Mozu.Api.Clients.Commerce.Customer.Accounts
 		}
 
 		/// <summary>
-		/// 
+		/// Retrieves the list of customer account attributes.
 		/// </summary>
-		/// <param name="accountId"></param>
-		/// <param name="attributeId"></param>
-		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <returns>
-		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Customer.CustomerAttribute"/>}
-		/// </returns>
-		/// <example>
-		/// <code>
-		///   var mozuClient=GetAccountAttribute( accountId,  attributeId, authTicket);
-		///   var customerAttributeClient = mozuClient.WithBaseAddress(url).Execute().Result();
-		/// </code>
-		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.Customer.CustomerAttribute> GetAccountAttributeClient(int accountId, int attributeId, AuthTicket authTicket= null)
-		{
-			var url = Mozu.Api.Urls.Commerce.Customer.Accounts.CustomerAttributeUrl.GetAccountAttributeUrl(accountId, attributeId);
-			const string verb = "GET";
-			var mozuClient = new MozuClient<Mozu.Api.Contracts.Customer.CustomerAttribute>().WithVerb(verb).WithResourceUrl(url);
-			if (authTicket != null)
-				mozuClient = mozuClient.WithUserAuth(authTicket);
-			return mozuClient;
-
-		}
-
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="accountId"></param>
+		/// <param name="accountId">Identifier of the customer account associated with the attributes to retrieve.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Customer.CustomerAttributeCollection"/>}
 		/// </returns>
@@ -91,9 +65,9 @@ namespace Mozu.Api.Clients.Commerce.Customer.Accounts
 		}
 
 		/// <summary>
-		/// 
+		/// Retrieves the list of customer account attributes.
 		/// </summary>
-		/// <param name="accountId"></param>
+		/// <param name="accountId">Identifier of the customer account associated with the attributes to retrieve.</param>
 		/// <param name="filter"></param>
 		/// <param name="pageSize"></param>
 		/// <param name="sortBy"></param>
@@ -104,11 +78,11 @@ namespace Mozu.Api.Clients.Commerce.Customer.Accounts
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=GetAccountAttributes( accountId,  filter,  pageSize,  sortBy,  startIndex, authTicket);
+		///   var mozuClient=GetAccountAttributes( accountId,  startIndex,  pageSize,  sortBy,  filter, authTicket);
 		///   var customerAttributeCollectionClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.Customer.CustomerAttributeCollection> GetAccountAttributesClient(int accountId, string filter =  null, int? pageSize =  null, string sortBy =  null, int? startIndex =  null, AuthTicket authTicket= null)
+		public static MozuClient<Mozu.Api.Contracts.Customer.CustomerAttributeCollection> GetAccountAttributesClient(int accountId, int? startIndex =  null, int? pageSize =  null, string sortBy =  null, string filter =  null, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Customer.Accounts.CustomerAttributeUrl.GetAccountAttributesUrl(accountId, filter, pageSize, sortBy, startIndex);
 			const string verb = "GET";
@@ -119,12 +93,12 @@ namespace Mozu.Api.Clients.Commerce.Customer.Accounts
 
 		}
 
-				/// <summary>
-		/// 
+		/// <summary>
+		/// Applies a defined attribute to the customer account specified in the request and assigns a value to the customer attribute.
 		/// </summary>
-		/// <param name="accountId"></param>
+		/// <param name="accountId">Unique identifier of the customer account.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="customerAccountAttribute"></param>
+		/// <param name="customerAccountAttribute">Properties of the customer account attribute to create.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Customer.CustomerAttribute"/>}
 		/// </returns>
@@ -145,24 +119,44 @@ namespace Mozu.Api.Clients.Commerce.Customer.Accounts
 
 		}
 
-				/// <summary>
-		/// 
+		/// <summary>
+		/// Updates one or more details of a customer account attribute.
 		/// </summary>
-		/// <param name="accountId"></param>
-		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="customerAccountAttribute"></param>
+		/// <param name="accountId">Identifier of the customer account associated with the attribute.</param>
+		/// <param name="customerAccountAttribute">The properties of the customer account attribute to update.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Customer.CustomerAttribute"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=UpdateAccountAttribute( customerAccountAttribute,  accountId, authTicket);
+		///   var mozuClient=UpdateAccountAttribute( customerAccountAttribute,  accountId);
 		///   var customerAttributeClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.Customer.CustomerAttribute> UpdateAccountAttributeClient(Mozu.Api.Contracts.Customer.CustomerAttribute customerAccountAttribute, int accountId, AuthTicket authTicket= null)
+		public static MozuClient<Mozu.Api.Contracts.Customer.CustomerAttribute> UpdateAccountAttributeClient(Mozu.Api.Contracts.Customer.CustomerAttribute customerAccountAttribute, int accountId)
 		{
-			var url = Mozu.Api.Urls.Commerce.Customer.Accounts.CustomerAttributeUrl.UpdateAccountAttributeUrl(accountId);
+			return UpdateAccountAttributeClient( customerAccountAttribute,  accountId,  null, null);
+		}
+
+		/// <summary>
+		/// Updates one or more details of a customer account attribute.
+		/// </summary>
+		/// <param name="accountId">Identifier of the customer account associated with the attribute.</param>
+		/// <param name="removeMissing">If true, remove the items missing from the collection.</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
+		/// <param name="customerAccountAttribute">The properties of the customer account attribute to update.</param>
+		/// <returns>
+		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Customer.CustomerAttribute"/>}
+		/// </returns>
+		/// <example>
+		/// <code>
+		///   var mozuClient=UpdateAccountAttribute( customerAccountAttribute,  accountId,  removeMissing, authTicket);
+		///   var customerAttributeClient = mozuClient.WithBaseAddress(url).Execute().Result();
+		/// </code>
+		/// </example>
+		public static MozuClient<Mozu.Api.Contracts.Customer.CustomerAttribute> UpdateAccountAttributeClient(Mozu.Api.Contracts.Customer.CustomerAttribute customerAccountAttribute, int accountId, bool? removeMissing =  null, AuthTicket authTicket= null)
+		{
+			var url = Mozu.Api.Urls.Commerce.Customer.Accounts.CustomerAttributeUrl.UpdateAccountAttributeUrl(accountId, removeMissing);
 			const string verb = "PUT";
 			var mozuClient = new MozuClient<Mozu.Api.Contracts.Customer.CustomerAttribute>().WithVerb(verb).WithResourceUrl(url).WithBody<Mozu.Api.Contracts.Customer.CustomerAttribute>(customerAccountAttribute);
 			if (authTicket != null)
@@ -171,7 +165,7 @@ namespace Mozu.Api.Clients.Commerce.Customer.Accounts
 
 		}
 
-				
+
 	}
 
 }

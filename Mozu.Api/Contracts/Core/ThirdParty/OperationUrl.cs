@@ -12,10 +12,19 @@ using System;
 
 namespace Mozu.Api.Contracts.Core.ThirdParty
 {
+		///
+		///	Properties of a URL endpoint associated with a capability operation.
+		///
 		public class OperationUrl
 		{
+			///
+			///The name of the URL endpoint.
+			///
 			public string Name { get; set; }
 
+			///
+			///The URL endpoint address.
+			///
 			public string Url { get; set; }
 
 		}

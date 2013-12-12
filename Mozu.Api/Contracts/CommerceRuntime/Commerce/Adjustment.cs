@@ -12,12 +12,24 @@ using System;
 
 namespace Mozu.Api.Contracts.CommerceRuntime.Commerce
 {
+		///
+		///	Properties of an ad-hoc price adjustment for an order.
+		///
 		public class Adjustment
 		{
+			///
+			///The amount of the order-level adjustment, which can be a positive or negative amount.
+			///
 			public decimal? Amount { get; set; }
 
+			///
+			///The shopper-facing description of the order-level adjustment.
+			///
 			public string Description { get; set; }
 
+			///
+			///Administrator notes associated with the order adjustment. These comments are not shopper facing.
+			///
 			public string InternalComment { get; set; }
 
 		}

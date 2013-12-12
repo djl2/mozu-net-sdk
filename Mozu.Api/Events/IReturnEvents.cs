@@ -12,6 +12,5 @@ namespace Mozu.Api.Events
         void Closed(ApiContext apiContext, Event eventPayLoad);
         void Cancelled(ApiContext apiContext, Event eventPayLoad);
         void Updated(ApiContext apiContext, Event eventPayLoad);
-        void All(ApiContext apiContext, Event eventPayLoad);
     }
 }

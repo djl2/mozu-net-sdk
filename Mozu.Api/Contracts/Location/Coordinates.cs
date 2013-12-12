@@ -12,10 +12,19 @@ using System;
 
 namespace Mozu.Api.Contracts.Location
 {
+		///
+		///	Properties of the geographical coordinates associated with a specific location.
+		///
 		public class Coordinates
 		{
+			///
+			///The latitude coordinate of the location.
+			///
 			public double Lat { get; set; }
 
+			///
+			///The longitude coordinate of the location.
+			///
 			public double Lng { get; set; }
 
 		}

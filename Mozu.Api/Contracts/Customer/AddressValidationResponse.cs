@@ -14,8 +14,14 @@ using Mozu.Api.Contracts.Core;
 
 namespace Mozu.Api.Contracts.Customer
 {
+		///
+		///	Array list of possible valid address matches based on the entry supplied in the request.
+		///
 		public class AddressValidationResponse
 		{
+			///
+			///Array list of possible valid address matches based on the entry supplied in the request.
+			///
 			public List<Address> AddressCandidates { get; set; }
 
 		}

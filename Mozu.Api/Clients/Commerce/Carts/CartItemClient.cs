@@ -16,12 +16,12 @@ using Mozu.Api.Security;
 namespace Mozu.Api.Clients.Commerce.Carts
 {
 	/// <summary>
-	/// 
+	/// Use the cart items subresource to manage a collection of items in an active shopping cart.
 	/// </summary>
 	public partial class CartItemClient 	{
 		
 		/// <summary>
-		/// 
+		/// Retrieves a list of cart items including the total number of items in the cart.
 		/// </summary>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
@@ -45,9 +45,9 @@ namespace Mozu.Api.Clients.Commerce.Carts
 		}
 
 		/// <summary>
-		/// 
+		/// Retrieves a particular cart item by providing the cart item ID.
 		/// </summary>
-		/// <param name="cartItemId"></param>
+		/// <param name="cartItemId">Identifier of the cart item to retrieve.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.CommerceRuntime.Carts.CartItem"/>}
@@ -69,11 +69,11 @@ namespace Mozu.Api.Clients.Commerce.Carts
 
 		}
 
-				/// <summary>
-		/// 
+		/// <summary>
+		/// Adds a product to the current shopper's cart.
 		/// </summary>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="cartItem"></param>
+		/// <param name="cartItem">All properties of the new cart item. The product code is required.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.CommerceRuntime.Carts.CartItem"/>}
 		/// </returns>
@@ -94,12 +94,12 @@ namespace Mozu.Api.Clients.Commerce.Carts
 
 		}
 
-				/// <summary>
-		/// 
+		/// <summary>
+		/// Update the product or product quantity of an item in the current shopper's cart.
 		/// </summary>
-		/// <param name="cartItemId"></param>
+		/// <param name="cartItemId">Identifier of the cart item to update.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="cartItem"></param>
+		/// <param name="cartItem">The properties of the cart item to update.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.CommerceRuntime.Carts.CartItem"/>}
 		/// </returns>
@@ -121,10 +121,10 @@ namespace Mozu.Api.Clients.Commerce.Carts
 		}
 
 		/// <summary>
-		/// 
+		/// Update the quantity of an individual cart item in the cart of the current shopper.
 		/// </summary>
-		/// <param name="cartItemId"></param>
-		/// <param name="quantity"></param>
+		/// <param name="cartItemId">Identifier of the cart item to update quantity.</param>
+		/// <param name="quantity">The number of cart items in the shopper's active cart.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.CommerceRuntime.Carts.CartItem"/>}
@@ -146,8 +146,8 @@ namespace Mozu.Api.Clients.Commerce.Carts
 
 		}
 
-				/// <summary>
-		/// 
+		/// <summary>
+		/// Removes all items in the current shopper's active cart.
 		/// </summary>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
@@ -171,9 +171,9 @@ namespace Mozu.Api.Clients.Commerce.Carts
 		}
 
 		/// <summary>
-		/// 
+		/// Deletes a specific cart item by providing the cart item ID.
 		/// </summary>
-		/// <param name="cartItemId"></param>
+		/// <param name="cartItemId">Identifier of the cart item to delete.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />
@@ -195,7 +195,7 @@ namespace Mozu.Api.Clients.Commerce.Carts
 
 		}
 
-		
+
 	}
 
 }

@@ -16,36 +16,38 @@ namespace Mozu.Api
 
 		public string Url { get; set; }
 		public UrlLocation Location { get; set; }
-		
-		public MozuUrl()
+        public bool UseSSL { get; set; }
+		/*public MozuUrl()
 		{
 
-		}
+		}*/ 
 
-		public MozuUrl(string url, UrlLocation location)
+		public MozuUrl(string url, UrlLocation location, bool useSSL)
 		{
-			Url = url;
+			Url = url.ToLower();
 			Location = location;
+            UseSSL = useSSL;
 		}
 
-		public static void FormatUrl(ref string url, string paramName, object value)
+		public void FormatUrl(string paramName, object value)
 		{
-			url = url.Replace("{" + paramName + "}", value == null ? "" : value.ToString());
-			url = url.Replace("{*" + paramName + "}", value == null ? "" : value.ToString());
+		    paramName = paramName.ToLower();
+            Url = Url.Replace("{" + paramName + "}", value == null ? "" : value.ToString());
+            Url = Url.Replace("{*" + paramName + "}", value == null ? "" : value.ToString());
 			var removeString = "&" + paramName + "=";
-			if (value == null && url.Contains(removeString)) url = url.Replace(removeString, "");
+            if (value == null && Url.Contains(removeString)) Url = Url.Replace(removeString, "");
 
 			removeString = paramName + "=";
-			if (value == null && url.Contains(removeString)) url = url.Replace(removeString, "");
+            if (value == null && Url.Contains(removeString)) Url = Url.Replace(removeString, "");
 
 			removeString = "/?";
-			if (url.EndsWith(removeString)) url = url.Replace(removeString, "");
-			if (url.EndsWith(removeString + "&")) url = url.Replace(removeString + "&", "");
-			if (url.EndsWith("&")) url = url.Substring(0, url.Length - 1);
+            if (Url.EndsWith(removeString)) Url = Url.Replace(removeString, "");
+            if (Url.EndsWith(removeString + "&")) Url = Url.Replace(removeString + "&", "");
+            if (Url.EndsWith("&")) Url = Url.Substring(0, Url.Length - 1);
 
-			if (url.Contains("/?&")) url = url.Replace("/?&", "/?");
+            if (Url.Contains("/?&")) Url = Url.Replace("/?&", "/?");
 
-            if (url.EndsWith("?")) url = url.Replace("?", "");
+            if (Url.EndsWith("?")) Url = Url.Replace("?", "");
 		}
 	}
 }

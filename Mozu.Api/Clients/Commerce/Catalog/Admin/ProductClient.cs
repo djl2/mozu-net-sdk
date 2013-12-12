@@ -16,12 +16,12 @@ using Mozu.Api.Security;
 namespace Mozu.Api.Clients.Commerce.Catalog.Admin
 {
 	/// <summary>
-	/// 
+	/// Use this resource to create products, view the attributes associated with existing products, and determine which sites feature a specific product.
 	/// </summary>
 	public partial class ProductClient 	{
 		
 		/// <summary>
-		/// 
+		/// Retrieves a list of products according to any specified facets, filter criteria, and sort options.
 		/// </summary>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.ProductAdmin.ProductCollection"/>}
@@ -38,13 +38,13 @@ namespace Mozu.Api.Clients.Commerce.Catalog.Admin
 		}
 
 		/// <summary>
-		/// 
+		/// Retrieves a list of products according to any specified facets, filter criteria, and sort options.
 		/// </summary>
-		/// <param name="filter"></param>
-		/// <param name="noCount"></param>
-		/// <param name="pageSize"></param>
-		/// <param name="q"></param>
-		/// <param name="qLimit"></param>
+		/// <param name="filter">A set of expressions that consist of a field, operator, and value and represent search parameter syntax when filtering results of a query. Valid operators include equals (eq), does not equal (ne), greater than (gt), less than (lt), greater than or equal to (ge), less than or equal to (le), starts with (sw), or contains (cont). For example - "filter=IsDisplayed+eq+true"</param>
+		/// <param name="noCount">If true, the operation does not return the TotalCount number of results.</param>
+		/// <param name="pageSize">The number of results to display on each page when creating paged results from a query. The maximum value is 200.</param>
+		/// <param name="q">A list of product search terms to use in the query when searching across product code and product name. Separate multiple search terms with a space character.</param>
+		/// <param name="qLimit">The maximum number of search results to return in the response. You can limit any range between 1-100.</param>
 		/// <param name="sortBy"></param>
 		/// <param name="startIndex"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
@@ -53,11 +53,11 @@ namespace Mozu.Api.Clients.Commerce.Catalog.Admin
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=GetProducts(dataViewMode,  filter,  noCount,  pageSize,  q,  qLimit,  sortBy,  startIndex, authTicket);
+		///   var mozuClient=GetProducts(dataViewMode,  startIndex,  pageSize,  sortBy,  filter,  q,  qLimit,  noCount, authTicket);
 		///   var productCollectionClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.ProductAdmin.ProductCollection> GetProductsClient(DataViewMode dataViewMode, string filter =  null, bool? noCount =  null, int? pageSize =  null, string q =  null, int? qLimit =  null, string sortBy =  null, int? startIndex =  null, AuthTicket authTicket= null)
+		public static MozuClient<Mozu.Api.Contracts.ProductAdmin.ProductCollection> GetProductsClient(DataViewMode dataViewMode, int? startIndex =  null, int? pageSize =  null, string sortBy =  null, string filter =  null, string q =  null, int? qLimit =  null, bool? noCount =  null, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Catalog.Admin.ProductUrl.GetProductsUrl(filter, noCount, pageSize, q, qLimit, sortBy, startIndex);
 			const string verb = "GET";
@@ -69,9 +69,9 @@ namespace Mozu.Api.Clients.Commerce.Catalog.Admin
 		}
 
 		/// <summary>
-		/// 
+		/// Retrieves an existing product.
 		/// </summary>
-		/// <param name="productCode"></param>
+		/// <param name="productCode">Merchant-created code associated with the product such as a SKU. Max length: 30. Accepts a to z, A to Z, Ãƒâ€¹-ÃƒËœ, 0 to 9, #, semicolon, commas, apostrophes, and Spaces, but no punctuation or other characters.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.ProductAdmin.Product"/>}
@@ -94,9 +94,9 @@ namespace Mozu.Api.Clients.Commerce.Catalog.Admin
 		}
 
 		/// <summary>
-		/// 
+		/// Retrieves a product that is associated with one or more specific catalogs.
 		/// </summary>
-		/// <param name="productCode"></param>
+		/// <param name="productCode">Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{List{<see cref="Mozu.Api.Contracts.ProductAdmin.ProductInCatalogInfo"/>}}
@@ -119,21 +119,21 @@ namespace Mozu.Api.Clients.Commerce.Catalog.Admin
 		}
 
 		/// <summary>
-		/// 
+		/// Retrieves the details of a product associated with a specific catalog.
 		/// </summary>
 		/// <param name="catalogId"></param>
-		/// <param name="productCode"></param>
+		/// <param name="productCode">Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.ProductAdmin.ProductInCatalogInfo"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=GetProductInCatalog(dataViewMode,  catalogId,  productCode, authTicket);
+		///   var mozuClient=GetProductInCatalog(dataViewMode,  productCode,  catalogId, authTicket);
 		///   var productInCatalogInfoClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.ProductAdmin.ProductInCatalogInfo> GetProductInCatalogClient(DataViewMode dataViewMode, int catalogId, string productCode, AuthTicket authTicket= null)
+		public static MozuClient<Mozu.Api.Contracts.ProductAdmin.ProductInCatalogInfo> GetProductInCatalogClient(DataViewMode dataViewMode, string productCode, int catalogId, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Catalog.Admin.ProductUrl.GetProductInCatalogUrl(catalogId, productCode);
 			const string verb = "GET";
@@ -144,11 +144,11 @@ namespace Mozu.Api.Clients.Commerce.Catalog.Admin
 
 		}
 
-				/// <summary>
-		/// 
+		/// <summary>
+		/// Creates a new product definition in the specified master catalog.
 		/// </summary>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="product"></param>
+		/// <param name="product">Properties of the new product. You must supply values for the product code, product name, and price.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.ProductAdmin.Product"/>}
 		/// </returns>
@@ -170,11 +170,11 @@ namespace Mozu.Api.Clients.Commerce.Catalog.Admin
 		}
 
 		/// <summary>
-		/// 
+		/// Associates a new product defined in the master catalog with a specific catalog.
 		/// </summary>
-		/// <param name="productCode"></param>
+		/// <param name="productCode">Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="productInCatalogInfoIn"></param>
+		/// <param name="productInCatalogInfoIn">Properties of the product to define for the specific catalog association.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.ProductAdmin.ProductInCatalogInfo"/>}
 		/// </returns>
@@ -195,12 +195,12 @@ namespace Mozu.Api.Clients.Commerce.Catalog.Admin
 
 		}
 
-				/// <summary>
-		/// 
+		/// <summary>
+		/// Updates one or more properties of a product definition in a master catalog.
 		/// </summary>
-		/// <param name="productCode"></param>
+		/// <param name="productCode">Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="product"></param>
+		/// <param name="product">Properties of the product definition to update in the master catalog.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.ProductAdmin.Product"/>}
 		/// </returns>
@@ -222,11 +222,11 @@ namespace Mozu.Api.Clients.Commerce.Catalog.Admin
 		}
 
 		/// <summary>
-		/// 
+		/// Updates the properties of a product specific to each catalog associated with the product.
 		/// </summary>
-		/// <param name="productCode"></param>
+		/// <param name="productCode">Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="productInCatalogsIn"></param>
+		/// <param name="productInCatalogsIn">Properties of the product to update for each associated catalog.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{List{<see cref="Mozu.Api.Contracts.ProductAdmin.ProductInCatalogInfo"/>}}
 		/// </returns>
@@ -248,22 +248,22 @@ namespace Mozu.Api.Clients.Commerce.Catalog.Admin
 		}
 
 		/// <summary>
-		/// 
+		/// Updates one or more properties of a product associated with a specific catalog.
 		/// </summary>
 		/// <param name="catalogId"></param>
-		/// <param name="productCode"></param>
+		/// <param name="productCode">Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="productInCatalogInfoIn"></param>
+		/// <param name="productInCatalogInfoIn">Properties of the product associated with the catalog specified in the request.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.ProductAdmin.ProductInCatalogInfo"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=UpdateProductInCatalog(dataViewMode,  productInCatalogInfoIn,  catalogId,  productCode, authTicket);
+		///   var mozuClient=UpdateProductInCatalog(dataViewMode,  productInCatalogInfoIn,  productCode,  catalogId, authTicket);
 		///   var productInCatalogInfoClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.ProductAdmin.ProductInCatalogInfo> UpdateProductInCatalogClient(DataViewMode dataViewMode, Mozu.Api.Contracts.ProductAdmin.ProductInCatalogInfo productInCatalogInfoIn, int catalogId, string productCode, AuthTicket authTicket= null)
+		public static MozuClient<Mozu.Api.Contracts.ProductAdmin.ProductInCatalogInfo> UpdateProductInCatalogClient(DataViewMode dataViewMode, Mozu.Api.Contracts.ProductAdmin.ProductInCatalogInfo productInCatalogInfoIn, string productCode, int catalogId, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Catalog.Admin.ProductUrl.UpdateProductInCatalogUrl(catalogId, productCode);
 			const string verb = "PUT";
@@ -274,8 +274,8 @@ namespace Mozu.Api.Clients.Commerce.Catalog.Admin
 
 		}
 
-				/// <summary>
-		/// 
+		/// <summary>
+		/// Deletes the specified product from a master catalog.
 		/// </summary>
 		/// <param name="productCode"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
@@ -300,21 +300,21 @@ namespace Mozu.Api.Clients.Commerce.Catalog.Admin
 		}
 
 		/// <summary>
-		/// 
+		/// Removes the product association defined for a specific catalog.
 		/// </summary>
 		/// <param name="catalogId"></param>
-		/// <param name="productCode"></param>
+		/// <param name="productCode">Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=DeleteProductInCatalog(dataViewMode,  catalogId,  productCode, authTicket);
+		///   var mozuClient=DeleteProductInCatalog(dataViewMode,  productCode,  catalogId, authTicket);
 		///mozuClient.WithBaseAddress(url).Execute();
 		/// </code>
 		/// </example>
-		public static MozuClient DeleteProductInCatalogClient(DataViewMode dataViewMode, int catalogId, string productCode, AuthTicket authTicket= null)
+		public static MozuClient DeleteProductInCatalogClient(DataViewMode dataViewMode, string productCode, int catalogId, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Catalog.Admin.ProductUrl.DeleteProductInCatalogUrl(catalogId, productCode);
 			const string verb = "DELETE";
@@ -325,7 +325,7 @@ namespace Mozu.Api.Clients.Commerce.Catalog.Admin
 
 		}
 
-		
+
 	}
 
 }

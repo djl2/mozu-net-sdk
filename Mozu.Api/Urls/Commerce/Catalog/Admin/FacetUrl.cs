@@ -13,41 +13,43 @@ using System;
 
 namespace Mozu.Api.Urls.Commerce.Catalog.Admin
 {
-	public partial class FacetUrl : MozuUrl
+	public partial class FacetUrl 
 	{
 
 		/// <summary>
         /// Get Resource Url for GetFacet
         /// </summary>
-        /// <param name="facetId"></param>
-        /// <param name="validate"></param>
+        /// <param name="facetId">Unique identifier of the facet to retrieve.</param>
+        /// <param name="validate">Validates that the product category associated with a facet is active. System-supplied and read only.</param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
         public static MozuUrl GetFacetUrl(int facetId, bool? validate)
 		{
 			var url = "/api/commerce/catalog/admin/facets/{facetId}?validate={validate}";
-			FormatUrl( ref url, "facetId", facetId);
-			FormatUrl( ref url, "validate", validate);
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "facetId", facetId);
+			mozuUrl.FormatUrl( "validate", validate);
+			return mozuUrl;
 		}
 
 		/// <summary>
         /// Get Resource Url for GetFacetCategoryList
         /// </summary>
-        /// <param name="categoryId"></param>
-        /// <param name="includeAvailable"></param>
-        /// <param name="validate"></param>
+        /// <param name="categoryId">Unique identifier of the category associated with the facets to retrieve.</param>
+        /// <param name="includeAvailable">If true, returns a list of the attributes and categories associated with a product type that have not been defined as a facet for the category.</param>
+        /// <param name="validate">Validates that the product category associated with a facet is active. System-supplied and read only.</param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
         public static MozuUrl GetFacetCategoryListUrl(int categoryId, bool? includeAvailable, bool? validate)
 		{
 			var url = "/api/commerce/catalog/admin/facets/category/{categoryId}?includAvaliable={includeAvailable}&validate={validate}";
-			FormatUrl( ref url, "categoryId", categoryId);
-			FormatUrl( ref url, "includeAvailable", includeAvailable);
-			FormatUrl( ref url, "validate", validate);
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "categoryId", categoryId);
+			mozuUrl.FormatUrl( "includeAvailable", includeAvailable);
+			mozuUrl.FormatUrl( "validate", validate);
+			return mozuUrl;
 		}
 
 				/// <summary>
@@ -59,35 +61,38 @@ namespace Mozu.Api.Urls.Commerce.Catalog.Admin
         public static MozuUrl AddFacetUrl()
 		{
 			var url = "/api/commerce/catalog/admin/facets/";
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			return mozuUrl;
 		}
 
 				/// <summary>
         /// Get Resource Url for UpdateFacet
         /// </summary>
-        /// <param name="facetId"></param>
+        /// <param name="facetId">Unique identifier of the facet to modify.</param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
         public static MozuUrl UpdateFacetUrl(int facetId)
 		{
 			var url = "/api/commerce/catalog/admin/facets/{facetId}";
-			FormatUrl( ref url, "facetId", facetId);
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "facetId", facetId);
+			return mozuUrl;
 		}
 
 				/// <summary>
         /// Get Resource Url for DeleteFacetById
         /// </summary>
-        /// <param name="facetId"></param>
+        /// <param name="facetId">Unique identifier of the facet to delete.</param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
         public static MozuUrl DeleteFacetByIdUrl(int facetId)
 		{
 			var url = "/api/commerce/catalog/admin/facets/{facetId}";
-			FormatUrl( ref url, "facetId", facetId);
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "facetId", facetId);
+			return mozuUrl;
 		}
 
 		

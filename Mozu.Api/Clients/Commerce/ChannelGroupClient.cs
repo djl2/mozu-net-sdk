@@ -16,12 +16,12 @@ using Mozu.Api.Security;
 namespace Mozu.Api.Clients.Commerce
 {
 	/// <summary>
-	/// 
+	/// Use the Channel Groups resource to manage groups of channels with common information.
 	/// </summary>
 	public partial class ChannelGroupClient 	{
 		
 		/// <summary>
-		/// 
+		/// Retrieves a list of defined channel groups according to any filter and sort criteria specified in the request.
 		/// </summary>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.CommerceRuntime.Channels.ChannelGroupCollection"/>}
@@ -38,23 +38,23 @@ namespace Mozu.Api.Clients.Commerce
 		}
 
 		/// <summary>
-		/// 
+		/// Retrieves a list of defined channel groups according to any filter and sort criteria specified in the request.
 		/// </summary>
-		/// <param name="filter"></param>
-		/// <param name="pageSize"></param>
-		/// <param name="sortBy"></param>
-		/// <param name="startIndex"></param>
+		/// <param name="filter">FilterSetAll</param>
+		/// <param name="pageSize">The number of results to display on each page when creating paged results from a query. The maximum value is 200.</param>
+		/// <param name="sortBy">The property by which to sort results and whether the results appear in ascending (a-z) order, represented by ASC or in descending (z-a) order, represented by DESC. The sortBy parameter follows an available property. For example: "sortBy=productCode+asc"</param>
+		/// <param name="startIndex">When creating paged results from a query, this value indicates the zero-based offset in the complete result set where the returned entities begin. For example, with a PageSize of 25, to get the 51st through the 75th items, use startIndex=3.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.CommerceRuntime.Channels.ChannelGroupCollection"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=GetChannelGroups( filter,  pageSize,  sortBy,  startIndex, authTicket);
+		///   var mozuClient=GetChannelGroups( startIndex,  pageSize,  sortBy,  filter, authTicket);
 		///   var channelGroupCollectionClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.CommerceRuntime.Channels.ChannelGroupCollection> GetChannelGroupsClient(string filter =  null, int? pageSize =  null, string sortBy =  null, int? startIndex =  null, AuthTicket authTicket= null)
+		public static MozuClient<Mozu.Api.Contracts.CommerceRuntime.Channels.ChannelGroupCollection> GetChannelGroupsClient(int? startIndex =  null, int? pageSize =  null, string sortBy =  null, string filter =  null, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.ChannelGroupUrl.GetChannelGroupsUrl(filter, pageSize, sortBy, startIndex);
 			const string verb = "GET";
@@ -66,9 +66,9 @@ namespace Mozu.Api.Clients.Commerce
 		}
 
 		/// <summary>
-		/// 
+		/// Retrieves the details of a defined channel group.
 		/// </summary>
-		/// <param name="code"></param>
+		/// <param name="code">The code that uniquely identifies the channel group.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.CommerceRuntime.Channels.ChannelGroup"/>}
@@ -90,11 +90,11 @@ namespace Mozu.Api.Clients.Commerce
 
 		}
 
-				/// <summary>
-		/// 
+		/// <summary>
+		/// Creates a new group of channels with common information.
 		/// </summary>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="channelGroup"></param>
+		/// <param name="channelGroup">Properties of the channel group to create.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.CommerceRuntime.Channels.ChannelGroup"/>}
 		/// </returns>
@@ -115,12 +115,12 @@ namespace Mozu.Api.Clients.Commerce
 
 		}
 
-				/// <summary>
-		/// 
+		/// <summary>
+		/// Updates one or more properties of a defined channel group.
 		/// </summary>
-		/// <param name="code"></param>
+		/// <param name="code">Code that identifies the channel group.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="channelGroup"></param>
+		/// <param name="channelGroup">Properties of the channel group to update.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.CommerceRuntime.Channels.ChannelGroup"/>}
 		/// </returns>
@@ -141,10 +141,10 @@ namespace Mozu.Api.Clients.Commerce
 
 		}
 
-				/// <summary>
-		/// 
+		/// <summary>
+		/// Deletes a defined group of channels, which removes the group association with each channel in the group but does not delete the channel definitions themselves.
 		/// </summary>
-		/// <param name="code"></param>
+		/// <param name="code">User-defined code that uniqely identifies the channel group.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />
@@ -166,7 +166,7 @@ namespace Mozu.Api.Clients.Commerce
 
 		}
 
-		
+
 	}
 
 }

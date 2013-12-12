@@ -16,10 +16,10 @@ using Mozu.Api.Security;
 namespace Mozu.Api.Resources.Commerce.Wishlists
 {
 	/// <summary>
-	/// 
+	/// Use the Wish List Items subresource to manage items in a shopper wish list. The same product can be defined as an item in any number of wish lists for the customer account. Use the Wish Lists resource to manage shopper wish lists.
 	/// </summary>
 	public partial class WishlistItemResource  	{
-				///
+		///
 		/// <see cref="Mozu.Api.ApiContext"/>
 		///
 		private readonly IApiContext _apiContext;
@@ -30,10 +30,10 @@ namespace Mozu.Api.Resources.Commerce.Wishlists
 
 		
 		/// <summary>
-		/// 
+		/// Retrieves the details of an item in a shopper wish list.
 		/// </summary>
-		/// <param name="wishlistId"></param>
-		/// <param name="wishlistItemId"></param>
+		/// <param name="wishlistId">Unique identifier of the wish list item to retrieve.</param>
+		/// <param name="wishlistItemId">Unique identifier of the wish list associated with the item to retrieve.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Wishlists.WishlistItem"/>
@@ -55,9 +55,9 @@ namespace Mozu.Api.Resources.Commerce.Wishlists
 		}
 
 		/// <summary>
-		/// 
+		/// Retrieves a list of items in a shopper wish list according to any specified filter and sort criteria.
 		/// </summary>
-		/// <param name="wishlistId"></param>
+		/// <param name="wishlistId">Unique identifier of the wish list associated with the items to retrieve.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Wishlists.WishlistItemCollection"/>
 		/// </returns>
@@ -73,13 +73,13 @@ namespace Mozu.Api.Resources.Commerce.Wishlists
 		}
 
 		/// <summary>
-		/// 
+		/// Retrieves a list of items in a shopper wish list according to any specified filter and sort criteria.
 		/// </summary>
-		/// <param name="filter"></param>
-		/// <param name="pageSize"></param>
-		/// <param name="sortBy"></param>
-		/// <param name="startIndex"></param>
-		/// <param name="wishlistId"></param>
+		/// <param name="filter">A set of expressions that consist of a field, operator, and value and represent search parameter syntax when filtering results of a query. Valid operators include equals (eq), does not equal (ne), greater than (gt), less than (lt), greater than or equal to (ge), less than or equal to (le), starts with (sw), or contains (cont). For example - "filter=IsDisplayed+eq+true"</param>
+		/// <param name="pageSize">The number of results to display on each page when creating paged results from a query. The maximum value is 200.</param>
+		/// <param name="sortBy">The property by which to sort results and whether the results appear in ascending (a-z) order, represented by ASC or in descending (z-a) order, represented by DESC. The sortBy parameter follows an available property. For example: "sortBy=productCode+asc"</param>
+		/// <param name="startIndex">When creating paged results from a query, this value indicates the zero-based offset in the complete result set where the returned entities begin. For example, with a PageSize of 25, to get the 51st through the 75th items, use startIndex=3.</param>
+		/// <param name="wishlistId">Unique identifier of the wish list associated with the items to retrieve.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Wishlists.WishlistItemCollection"/>
@@ -87,25 +87,73 @@ namespace Mozu.Api.Resources.Commerce.Wishlists
 		/// <example>
 		/// <code>
 		///   var wishlistitem = new WishlistItem();
-		///   var wishlistItemCollection = wishlistitem.GetWishlistItems( wishlistId,  filter,  pageSize,  sortBy,  startIndex, authTicket);
+		///   var wishlistItemCollection = wishlistitem.GetWishlistItems( wishlistId,  startIndex,  pageSize,  sortBy,  filter, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.CommerceRuntime.Wishlists.WishlistItemCollection GetWishlistItems(string wishlistId, string filter =  null, int? pageSize =  null, string sortBy =  null, int? startIndex =  null, AuthTicket authTicket= null)
+		public virtual Mozu.Api.Contracts.CommerceRuntime.Wishlists.WishlistItemCollection GetWishlistItems(string wishlistId, int? startIndex =  null, int? pageSize =  null, string sortBy =  null, string filter =  null, AuthTicket authTicket= null)
 		{
 			MozuClient<Mozu.Api.Contracts.CommerceRuntime.Wishlists.WishlistItemCollection> response;
-			var client = Mozu.Api.Clients.Commerce.Wishlists.WishlistItemClient.GetWishlistItemsClient( wishlistId,  filter,  pageSize,  sortBy,  startIndex, authTicket);
+			var client = Mozu.Api.Clients.Commerce.Wishlists.WishlistItemClient.GetWishlistItemsClient( wishlistId,  startIndex,  pageSize,  sortBy,  filter, authTicket);
 			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
 		}
 
-				/// <summary>
+		/// <summary>
 		/// 
 		/// </summary>
-		/// <param name="wishlistId"></param>
+		/// <param name="customerAccountId"></param>
+		/// <param name="wishlistName"></param>
+		/// <returns>
+		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Wishlists.WishlistItemCollection"/>
+		/// </returns>
+		/// <example>
+		/// <code>
+		///   var wishlistitem = new WishlistItem();
+		///   var wishlistItemCollection = wishlistitem.GetWishlistItemsByWishlistName( customerAccountId,  wishlistName);
+		/// </code>
+		/// </example>
+		public virtual Mozu.Api.Contracts.CommerceRuntime.Wishlists.WishlistItemCollection GetWishlistItemsByWishlistName(int customerAccountId, string wishlistName)
+		{
+			return GetWishlistItemsByWishlistName( customerAccountId,  wishlistName,  null,  null,  null,  null, null);
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="customerAccountId"></param>
+		/// <param name="filter"></param>
+		/// <param name="pageSize"></param>
+		/// <param name="sortBy"></param>
+		/// <param name="startIndex"></param>
+		/// <param name="wishlistName"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="wishlistItem"></param>
+		/// <returns>
+		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Wishlists.WishlistItemCollection"/>
+		/// </returns>
+		/// <example>
+		/// <code>
+		///   var wishlistitem = new WishlistItem();
+		///   var wishlistItemCollection = wishlistitem.GetWishlistItemsByWishlistName( customerAccountId,  wishlistName,  startIndex,  pageSize,  sortBy,  filter, authTicket);
+		/// </code>
+		/// </example>
+		public virtual Mozu.Api.Contracts.CommerceRuntime.Wishlists.WishlistItemCollection GetWishlistItemsByWishlistName(int customerAccountId, string wishlistName, int? startIndex =  null, int? pageSize =  null, string sortBy =  null, string filter =  null, AuthTicket authTicket= null)
+		{
+			MozuClient<Mozu.Api.Contracts.CommerceRuntime.Wishlists.WishlistItemCollection> response;
+			var client = Mozu.Api.Clients.Commerce.Wishlists.WishlistItemClient.GetWishlistItemsByWishlistNameClient( customerAccountId,  wishlistName,  startIndex,  pageSize,  sortBy,  filter, authTicket);
+			client.WithContext(_apiContext);
+			response= client.Execute();
+			return response.Result();
+
+		}
+
+		/// <summary>
+		/// Adds a product in a site's catalog as an item in a shopper wish list.
+		/// </summary>
+		/// <param name="wishlistId">Unique identifier of the wish list associated with the item to add.</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
+		/// <param name="wishlistItem">Properties of the item to add to the wish list.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Wishlists.WishlistItem"/>
 		/// </returns>
@@ -125,13 +173,13 @@ namespace Mozu.Api.Resources.Commerce.Wishlists
 
 		}
 
-				/// <summary>
-		/// 
+		/// <summary>
+		/// Updates the details of an item in a shopper wish list.
 		/// </summary>
-		/// <param name="wishlistId"></param>
-		/// <param name="wishlistItemId"></param>
+		/// <param name="wishlistId">Unique identifier of the wish list associated with the item to update.</param>
+		/// <param name="wishlistItemId">Unique identifier of the item in the shopper wish list to update.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="wishlistItem"></param>
+		/// <param name="wishlistItem">Properties of the shopper wish list item to update.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Wishlists.WishlistItem"/>
 		/// </returns>
@@ -152,11 +200,11 @@ namespace Mozu.Api.Resources.Commerce.Wishlists
 		}
 
 		/// <summary>
-		/// 
+		/// Updates the quantity of an item in a shopper wish list.
 		/// </summary>
-		/// <param name="quantity"></param>
-		/// <param name="wishlistId"></param>
-		/// <param name="wishlistItemId"></param>
+		/// <param name="quantity">The quantity of the item in the wish list.</param>
+		/// <param name="wishlistId">Unique identifier of the wish list associated with the item quantity to update.</param>
+		/// <param name="wishlistItemId">Unique identifier of the item in the wish list to update quantity.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Wishlists.WishlistItem"/>
@@ -164,23 +212,23 @@ namespace Mozu.Api.Resources.Commerce.Wishlists
 		/// <example>
 		/// <code>
 		///   var wishlistitem = new WishlistItem();
-		///   var wishlistItem = wishlistitem.UpdateWishlistItemQuantity( quantity,  wishlistId,  wishlistItemId, authTicket);
+		///   var wishlistItem = wishlistitem.UpdateWishlistItemQuantity( wishlistId,  wishlistItemId,  quantity, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.CommerceRuntime.Wishlists.WishlistItem UpdateWishlistItemQuantity(int quantity, string wishlistId, string wishlistItemId, AuthTicket authTicket= null)
+		public virtual Mozu.Api.Contracts.CommerceRuntime.Wishlists.WishlistItem UpdateWishlistItemQuantity(string wishlistId, string wishlistItemId, int quantity, AuthTicket authTicket= null)
 		{
 			MozuClient<Mozu.Api.Contracts.CommerceRuntime.Wishlists.WishlistItem> response;
-			var client = Mozu.Api.Clients.Commerce.Wishlists.WishlistItemClient.UpdateWishlistItemQuantityClient( quantity,  wishlistId,  wishlistItemId, authTicket);
+			var client = Mozu.Api.Clients.Commerce.Wishlists.WishlistItemClient.UpdateWishlistItemQuantityClient( wishlistId,  wishlistItemId,  quantity, authTicket);
 			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
 		}
 
-				/// <summary>
-		/// 
+		/// <summary>
+		/// Removes all items associated with a shopper wish list.
 		/// </summary>
-		/// <param name="wishlistId"></param>
+		/// <param name="wishlistId">Unique identifier of the wish list associated with the items to remove.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Wishlists.Wishlist"/>
@@ -202,10 +250,10 @@ namespace Mozu.Api.Resources.Commerce.Wishlists
 		}
 
 		/// <summary>
-		/// 
+		/// Removes an item from the wish list specified in the request.
 		/// </summary>
-		/// <param name="wishlistId"></param>
-		/// <param name="wishlistItemId"></param>
+		/// <param name="wishlistId">Unique identifier of the wish list associated with the item to remove.</param>
+		/// <param name="wishlistItemId">Unique identifier of the item to remove from the shopper wish list.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// 
@@ -225,7 +273,7 @@ namespace Mozu.Api.Resources.Commerce.Wishlists
 
 		}
 
-		
+
 	}
 
 }

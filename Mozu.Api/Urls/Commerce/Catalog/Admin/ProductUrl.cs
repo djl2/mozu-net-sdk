@@ -13,17 +13,17 @@ using System;
 
 namespace Mozu.Api.Urls.Commerce.Catalog.Admin
 {
-	public partial class ProductUrl : MozuUrl
+	public partial class ProductUrl 
 	{
 
 		/// <summary>
         /// Get Resource Url for GetProducts
         /// </summary>
-        /// <param name="filter"></param>
-        /// <param name="noCount"></param>
-        /// <param name="pageSize"></param>
-        /// <param name="q"></param>
-        /// <param name="qLimit"></param>
+        /// <param name="filter">A set of expressions that consist of a field, operator, and value and represent search parameter syntax when filtering results of a query. Valid operators include equals (eq), does not equal (ne), greater than (gt), less than (lt), greater than or equal to (ge), less than or equal to (le), starts with (sw), or contains (cont). For example - "filter=IsDisplayed+eq+true"</param>
+        /// <param name="noCount">If true, the operation does not return the TotalCount number of results.</param>
+        /// <param name="pageSize">The number of results to display on each page when creating paged results from a query. The maximum value is 200.</param>
+        /// <param name="q">A list of product search terms to use in the query when searching across product code and product name. Separate multiple search terms with a space character.</param>
+        /// <param name="qLimit">The maximum number of search results to return in the response. You can limit any range between 1-100.</param>
         /// <param name="sortBy"></param>
         /// <param name="startIndex"></param>
         /// <returns>
@@ -32,58 +32,62 @@ namespace Mozu.Api.Urls.Commerce.Catalog.Admin
         public static MozuUrl GetProductsUrl(string filter, bool? noCount, int? pageSize, string q, int? qLimit, string sortBy, int? startIndex)
 		{
 			var url = "/api/commerce/catalog/admin/products/?startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&filter={filter}&q={q}&qLimit={qLimit}&noCount={noCount}";
-			FormatUrl( ref url, "filter", filter);
-			FormatUrl( ref url, "noCount", noCount);
-			FormatUrl( ref url, "pageSize", pageSize);
-			FormatUrl( ref url, "q", q);
-			FormatUrl( ref url, "qLimit", qLimit);
-			FormatUrl( ref url, "sortBy", sortBy);
-			FormatUrl( ref url, "startIndex", startIndex);
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "filter", filter);
+			mozuUrl.FormatUrl( "noCount", noCount);
+			mozuUrl.FormatUrl( "pageSize", pageSize);
+			mozuUrl.FormatUrl( "q", q);
+			mozuUrl.FormatUrl( "qLimit", qLimit);
+			mozuUrl.FormatUrl( "sortBy", sortBy);
+			mozuUrl.FormatUrl( "startIndex", startIndex);
+			return mozuUrl;
 		}
 
 		/// <summary>
         /// Get Resource Url for GetProduct
         /// </summary>
-        /// <param name="productCode"></param>
+        /// <param name="productCode">Merchant-created code associated with the product such as a SKU. Max length: 30. Accepts a to z, A to Z, Ãƒâ€¹-ÃƒËœ, 0 to 9, #, semicolon, commas, apostrophes, and Spaces, but no punctuation or other characters.</param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
         public static MozuUrl GetProductUrl(string productCode)
 		{
 			var url = "/api/commerce/catalog/admin/products/{productCode}";
-			FormatUrl( ref url, "productCode", productCode);
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "productCode", productCode);
+			return mozuUrl;
 		}
 
 		/// <summary>
         /// Get Resource Url for GetProductInCatalogs
         /// </summary>
-        /// <param name="productCode"></param>
+        /// <param name="productCode">Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only.</param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
         public static MozuUrl GetProductInCatalogsUrl(string productCode)
 		{
 			var url = "/api/commerce/catalog/admin/products/{productCode}/ProductInCatalogs";
-			FormatUrl( ref url, "productCode", productCode);
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "productCode", productCode);
+			return mozuUrl;
 		}
 
 		/// <summary>
         /// Get Resource Url for GetProductInCatalog
         /// </summary>
         /// <param name="catalogId"></param>
-        /// <param name="productCode"></param>
+        /// <param name="productCode">Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only.</param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
         public static MozuUrl GetProductInCatalogUrl(int catalogId, string productCode)
 		{
 			var url = "/api/commerce/catalog/admin/products/{productCode}/ProductInCatalogs/{catalogId}";
-			FormatUrl( ref url, "catalogId", catalogId);
-			FormatUrl( ref url, "productCode", productCode);
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "catalogId", catalogId);
+			mozuUrl.FormatUrl( "productCode", productCode);
+			return mozuUrl;
 		}
 
 				/// <summary>
@@ -95,65 +99,70 @@ namespace Mozu.Api.Urls.Commerce.Catalog.Admin
         public static MozuUrl AddProductUrl()
 		{
 			var url = "/api/commerce/catalog/admin/products/";
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			return mozuUrl;
 		}
 
 		/// <summary>
         /// Get Resource Url for AddProductInCatalog
         /// </summary>
-        /// <param name="productCode"></param>
+        /// <param name="productCode">Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only.</param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
         public static MozuUrl AddProductInCatalogUrl(string productCode)
 		{
 			var url = "/api/commerce/catalog/admin/products/{productCode}/ProductInCatalogs";
-			FormatUrl( ref url, "productCode", productCode);
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "productCode", productCode);
+			return mozuUrl;
 		}
 
 				/// <summary>
         /// Get Resource Url for UpdateProduct
         /// </summary>
-        /// <param name="productCode"></param>
+        /// <param name="productCode">Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only.</param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
         public static MozuUrl UpdateProductUrl(string productCode)
 		{
 			var url = "/api/commerce/catalog/admin/products/{productCode}";
-			FormatUrl( ref url, "productCode", productCode);
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "productCode", productCode);
+			return mozuUrl;
 		}
 
 		/// <summary>
         /// Get Resource Url for UpdateProductInCatalogs
         /// </summary>
-        /// <param name="productCode"></param>
+        /// <param name="productCode">Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only.</param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
         public static MozuUrl UpdateProductInCatalogsUrl(string productCode)
 		{
 			var url = "/api/commerce/catalog/admin/products/{productCode}/ProductInCatalogs";
-			FormatUrl( ref url, "productCode", productCode);
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "productCode", productCode);
+			return mozuUrl;
 		}
 
 		/// <summary>
         /// Get Resource Url for UpdateProductInCatalog
         /// </summary>
         /// <param name="catalogId"></param>
-        /// <param name="productCode"></param>
+        /// <param name="productCode">Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only.</param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
         public static MozuUrl UpdateProductInCatalogUrl(int catalogId, string productCode)
 		{
 			var url = "/api/commerce/catalog/admin/products/{productCode}/ProductInCatalogs/{catalogId}";
-			FormatUrl( ref url, "catalogId", catalogId);
-			FormatUrl( ref url, "productCode", productCode);
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "catalogId", catalogId);
+			mozuUrl.FormatUrl( "productCode", productCode);
+			return mozuUrl;
 		}
 
 				/// <summary>
@@ -166,24 +175,26 @@ namespace Mozu.Api.Urls.Commerce.Catalog.Admin
         public static MozuUrl DeleteProductUrl(string productCode)
 		{
 			var url = "/api/commerce/catalog/admin/products/{productCode}";
-			FormatUrl( ref url, "productCode", productCode);
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "productCode", productCode);
+			return mozuUrl;
 		}
 
 		/// <summary>
         /// Get Resource Url for DeleteProductInCatalog
         /// </summary>
         /// <param name="catalogId"></param>
-        /// <param name="productCode"></param>
+        /// <param name="productCode">Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only.</param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
         public static MozuUrl DeleteProductInCatalogUrl(int catalogId, string productCode)
 		{
 			var url = "/api/commerce/catalog/admin/products/{productCode}/ProductInCatalogs/{catalogId}";
-			FormatUrl( ref url, "catalogId", catalogId);
-			FormatUrl( ref url, "productCode", productCode);
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "catalogId", catalogId);
+			mozuUrl.FormatUrl( "productCode", productCode);
+			return mozuUrl;
 		}
 
 		

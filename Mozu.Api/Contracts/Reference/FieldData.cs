@@ -12,10 +12,19 @@ using System;
 
 namespace Mozu.Api.Contracts.Reference
 {
+		///
+		///	The field property that describes the type of information pertaining to how the field renders and functions.
+		///
 		public class FieldData
 		{
+			///
+			///Code of the field.
+			///
 			public string Code { get; set; }
 
+			///
+			///The field value.
+			///
 			public string Value { get; set; }
 
 		}

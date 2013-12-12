@@ -22,29 +22,36 @@ using Mozu.Api.Test.Helpers;
 namespace Mozu.Api.Test.Factories
 {
 	/// <summary>
-	/// 
+	/// Use the Master Catalog resource to view details of the master catalogs associated with a tenant and to manage the product publishing mode for each master catalog.
 	/// </summary>
 	public partial class MasterCatalogFactory : BaseDataFactory
 	{
 
 		/// <summary> 
-		/// 
+		/// Retrieve the details of all master catalog associated with a tenant.
 		/// <example> 
 		///  <code> 
-		//// var result = MasterCatalogFactory.GetMasterCatalogs(handler : handler,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<MasterCatalogCollection>(result); 
-		//// return optionalCasting;
+		/// var result = MasterCatalogFactory.GetMasterCatalogs(handler : handler,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<MasterCatalogCollection/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.ProductAdmin.MasterCatalogCollection GetMasterCatalogs(ServiceClientMessageHandler handler, 
- 		  AuthTicket authTicket= null, 
+ 		  AuthTicket authTicket = null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Admin.MasterCatalogClient.GetMasterCatalogsClient(
 				 authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -52,23 +59,30 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// Retrieve the details of the master catalog specified in the request.
 		/// <example> 
 		///  <code> 
-		//// var result = MasterCatalogFactory.GetMasterCatalog(handler : handler,  masterCatalogId :  masterCatalogId,  authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<MasterCatalog>(result); 
-		//// return optionalCasting;
+		/// var result = MasterCatalogFactory.GetMasterCatalog(handler : handler,  masterCatalogId :  masterCatalogId,  authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<MasterCatalog/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.ProductAdmin.MasterCatalog GetMasterCatalog(ServiceClientMessageHandler handler, 
- 		 int masterCatalogId,  AuthTicket authTicket= null, DataViewMode dataViewMode= DataViewMode.Live, 
+ 		 int masterCatalogId,  AuthTicket authTicket = null, DataViewMode dataViewMode= DataViewMode.Live, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Admin.MasterCatalogClient.GetMasterCatalogClient(
 				 masterCatalogId :  masterCatalogId, authTicket : authTicket, dataViewMode: dataViewMode		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -76,23 +90,30 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// Updates the product publishing mode for the master catalog specified in the request.
 		/// <example> 
 		///  <code> 
-		//// var result = MasterCatalogFactory.UpdateMasterCatalog(handler : handler,  masterCatalogId :  masterCatalogId,  masterCatalog :  masterCatalog, authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<MasterCatalog>(result); 
-		//// return optionalCasting;
+		/// var result = MasterCatalogFactory.UpdateMasterCatalog(handler : handler,  masterCatalog :  masterCatalog,  masterCatalogId :  masterCatalogId,  authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<MasterCatalog/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.ProductAdmin.MasterCatalog UpdateMasterCatalog(ServiceClientMessageHandler handler, 
- 		 int masterCatalogId, Mozu.Api.Contracts.ProductAdmin.MasterCatalog masterCatalog, AuthTicket authTicket= null, DataViewMode dataViewMode= DataViewMode.Live, 
+ 		 Mozu.Api.Contracts.ProductAdmin.MasterCatalog masterCatalog, int masterCatalogId,  AuthTicket authTicket = null, DataViewMode dataViewMode= DataViewMode.Live, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Admin.MasterCatalogClient.UpdateMasterCatalogClient(
-				 masterCatalogId :  masterCatalogId,  masterCatalog :  masterCatalog, authTicket : authTicket, dataViewMode: dataViewMode		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+				 masterCatalog :  masterCatalog,  masterCatalogId :  masterCatalogId, authTicket : authTicket, dataViewMode: dataViewMode		);
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;

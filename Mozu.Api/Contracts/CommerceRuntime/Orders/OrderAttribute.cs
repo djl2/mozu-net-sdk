@@ -14,14 +14,29 @@ using Mozu.Api.Contracts.Core;
 
 namespace Mozu.Api.Contracts.CommerceRuntime.Orders
 {
+		///
+		///	Properties of an attribute applied to an order.
+		///
 		public class OrderAttribute
 		{
+			///
+			///Unique identifier of the order attribute definition.
+			///
 			public int AttributeDefinitionId { get; set; }
 
+			///
+			///The fully qualified name of the attribute, which is a user defined attribute identifier.
+			///
 			public string FullyQualifiedName { get; set; }
 
+			///
+			///The values defined for the order attribute.
+			///
 			public List<object> Values { get; set; }
 
+			///
+			///Identifier and datetime stamp information recorded when a user or application creates, updates, or deletes a resource entity. This value is system-supplied and read-only.
+			///
 			public AuditInfo AuditInfo { get; set; }
 
 		}

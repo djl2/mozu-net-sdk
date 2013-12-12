@@ -102,8 +102,8 @@ namespace Mozu.Api.Test.MsTestCases
         public void GetDataTest()
         {
             //var prods = TenantDataFactory.GetDBValue(handler: ApiMsgHandler,dbEntryQuery: "test", expectedCode: 404, successCode:404 );
-            var tenantDataResource = new TenantDataResource(ApiMsgHandler.ApiContext);
-            tenantDataResource.GetDBValue("test");
+            var data = SiteDataFactory.GetDBValue(handler: ApiMsgHandler, dbEntryQuery:"test", expectedCode: 404, successCode: 404);
+
         }
     }
 }

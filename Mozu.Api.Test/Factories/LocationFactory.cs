@@ -22,29 +22,36 @@ using Mozu.Api.Test.Helpers;
 namespace Mozu.Api.Test.Factories
 {
 	/// <summary>
-	/// 
+	/// Use the Location resource to retrieve details about a location from a Mozu hosted storefront.
 	/// </summary>
 	public partial class LocationFactory : BaseDataFactory
 	{
 
 		/// <summary> 
-		/// 
+		/// Retrieves the details of the location specified in the request.
 		/// <example> 
 		///  <code> 
-		//// var result = LocationFactory.GetLocation(handler : handler,  code :  code,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<Location>(result); 
-		//// return optionalCasting;
+		/// var result = LocationFactory.GetLocation(handler : handler,  code :  code,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<Location/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.Location.Location GetLocation(ServiceClientMessageHandler handler, 
- 		 string code,  AuthTicket authTicket= null, 
+ 		 string code,  AuthTicket authTicket = null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Location.LocationClient.GetLocationClient(
 				 code :  code, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -52,23 +59,30 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// Retrieves the details of a location associated with a defined location usage type for the site specified in the request.
 		/// <example> 
 		///  <code> 
-		//// var result = LocationFactory.GetLocationInUsageType(handler : handler,  code :  code,  locationUsageType :  locationUsageType,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<Location>(result); 
-		//// return optionalCasting;
+		/// var result = LocationFactory.GetLocationInUsageType(handler : handler,  locationUsageType :  locationUsageType,  code :  code,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<Location/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.Location.Location GetLocationInUsageType(ServiceClientMessageHandler handler, 
- 		 string code, string locationUsageType,  AuthTicket authTicket= null, 
+ 		 string locationUsageType, string code,  AuthTicket authTicket = null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Location.LocationClient.GetLocationInUsageTypeClient(
-				 code :  code,  locationUsageType :  locationUsageType, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+				 locationUsageType :  locationUsageType,  code :  code, authTicket : authTicket		);
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -76,39 +90,30 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// Retrieves a list of the locations configured for a specified location usage type for the specified site, according to any defined filter or sort criteria.
 		/// <example> 
 		///  <code> 
-		//// LocationFactory.GetLocationsInUsageType(handler : handler,  locationUsageType :  locationUsageType,  expectedCode: expectedCode, successCode: successCode);
+		/// var result = LocationFactory.GetLocationsInUsageType(handler : handler,  locationUsageType :  locationUsageType,  startIndex :  startIndex,  pageSize :  pageSize,  sortBy :  sortBy,  filter :  filter,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<LocationCollection/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.Location.LocationCollection GetLocationsInUsageType(ServiceClientMessageHandler handler, 
- 		 string locationUsageType, 
-		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
-		{
-			return GetLocationsInUsageType(handler : handler,  filter :  null,  locationUsageType :  locationUsageType,  pageSize :  null,  sortBy :  null,  startIndex :  null,authTicket : null, 
-				expectedCode: expectedCode, successCode: successCode);
-		}
-  
-		/// <summary> 
-		/// 
-		/// <example> 
-		///  <code> 
-		//// var result = LocationFactory.GetLocationsInUsageType(handler : handler,  filter :  filter,  locationUsageType :  locationUsageType,  pageSize :  pageSize,  sortBy :  sortBy,  startIndex :  startIndex,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<LocationCollection>(result); 
-		//// return optionalCasting;
-		///  </code> 
-		/// </example> 
-		/// </summary>
-		public static Mozu.Api.Contracts.Location.LocationCollection GetLocationsInUsageType(ServiceClientMessageHandler handler, 
- 		 string filter, string locationUsageType, int? pageSize, string sortBy, int? startIndex,  AuthTicket authTicket= null, 
+ 		 string locationUsageType, int? startIndex = null, int? pageSize = null, string sortBy = null, string filter = null,  AuthTicket authTicket = null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Location.LocationClient.GetLocationsInUsageTypeClient(
-				 filter :  filter,  locationUsageType :  locationUsageType,  pageSize :  pageSize,  sortBy :  sortBy,  startIndex :  startIndex, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+				 locationUsageType :  locationUsageType,  startIndex :  startIndex,  pageSize :  pageSize,  sortBy :  sortBy,  filter :  filter, authTicket : authTicket		);
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -116,23 +121,30 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// Retrieves the details of the location configured for the direct shipping (DS) location usage type for the site specified in the request. This location acts as an origin address from which order packages will ship, as well as the location where product reservations are created when order items are submitted with the direct ship fulfillment type (DS). If the direct ship location usage type is not configured for this site, the operation returns an error.
 		/// <example> 
 		///  <code> 
-		//// var result = LocationFactory.GetDirectShipLocation(handler : handler,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<Location>(result); 
-		//// return optionalCasting;
+		/// var result = LocationFactory.GetDirectShipLocation(handler : handler,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<Location/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.Location.Location GetDirectShipLocation(ServiceClientMessageHandler handler, 
- 		  AuthTicket authTicket= null, 
+ 		  AuthTicket authTicket = null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Location.LocationClient.GetDirectShipLocationClient(
 				 authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -140,23 +152,30 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// Retrieves the details of the location configured for the in-store pickup (SP) location usage type for the site specified in the request. If the location is not associated with a location type configured for the in-store pickup location usage type (SP), the operation returns an error.
 		/// <example> 
 		///  <code> 
-		//// var result = LocationFactory.GetInStorePickupLocation(handler : handler,  code :  code,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<Location>(result); 
-		//// return optionalCasting;
+		/// var result = LocationFactory.GetInStorePickupLocation(handler : handler,  code :  code,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<Location/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.Location.Location GetInStorePickupLocation(ServiceClientMessageHandler handler, 
- 		 string code,  AuthTicket authTicket= null, 
+ 		 string code,  AuthTicket authTicket = null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Location.LocationClient.GetInStorePickupLocationClient(
 				 code :  code, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -164,39 +183,30 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// Retrieves a list of locations valid for in-store pickup of an item in an order according to any filter and sort criteria. For example, an application could use this operation to provide a store finder feature based on the shopper's GPS coordinates. If the location types for the in-store pickup location usage type are not configured for the site, this operation returns an error.
 		/// <example> 
 		///  <code> 
-		//// LocationFactory.GetInStorePickupLocations(handler : handler,  expectedCode: expectedCode, successCode: successCode);
+		/// var result = LocationFactory.GetInStorePickupLocations(handler : handler,  startIndex :  startIndex,  pageSize :  pageSize,  sortBy :  sortBy,  filter :  filter,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<LocationCollection/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.Location.LocationCollection GetInStorePickupLocations(ServiceClientMessageHandler handler, 
- 		 
-		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
-		{
-			return GetInStorePickupLocations(handler : handler,  filter :  null,  pageSize :  null,  sortBy :  null,  startIndex :  null,authTicket : null, 
-				expectedCode: expectedCode, successCode: successCode);
-		}
-  
-		/// <summary> 
-		/// 
-		/// <example> 
-		///  <code> 
-		//// var result = LocationFactory.GetInStorePickupLocations(handler : handler,  filter :  filter,  pageSize :  pageSize,  sortBy :  sortBy,  startIndex :  startIndex,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<LocationCollection>(result); 
-		//// return optionalCasting;
-		///  </code> 
-		/// </example> 
-		/// </summary>
-		public static Mozu.Api.Contracts.Location.LocationCollection GetInStorePickupLocations(ServiceClientMessageHandler handler, 
- 		 string filter, int? pageSize, string sortBy, int? startIndex,  AuthTicket authTicket= null, 
+ 		 int? startIndex = null, int? pageSize = null, string sortBy = null, string filter = null,  AuthTicket authTicket = null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Location.LocationClient.GetInStorePickupLocationsClient(
-				 filter :  filter,  pageSize :  pageSize,  sortBy :  sortBy,  startIndex :  startIndex, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+				 startIndex :  startIndex,  pageSize :  pageSize,  sortBy :  sortBy,  filter :  filter, authTicket : authTicket		);
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;

@@ -22,29 +22,36 @@ using Mozu.Api.Test.Helpers;
 namespace Mozu.Api.Test.Factories
 {
 	/// <summary>
-	/// 
+	/// Use the Options subresource to define how an option attribute is used for a specific product type. Product attribute definitions are unique for each associated product type.
 	/// </summary>
 	public partial class ProductTypeOptionFactory : BaseDataFactory
 	{
 
 		/// <summary> 
-		/// 
+		/// Retrieves a list of option product attributes defined for the specified product type.
 		/// <example> 
 		///  <code> 
-		//// var result = ProductTypeOptionFactory.GetOptions(handler : handler,  productTypeId :  productTypeId,  authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<List<AttributeInProductType>>(result); 
-		//// return optionalCasting;
+		/// var result = ProductTypeOptionFactory.GetOptions(handler : handler,  productTypeId :  productTypeId,  authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<List<AttributeInProductType>/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static List<Mozu.Api.Contracts.ProductAdmin.AttributeInProductType> GetOptions(ServiceClientMessageHandler handler, 
- 		 int productTypeId,  AuthTicket authTicket= null, DataViewMode dataViewMode= DataViewMode.Live, 
+ 		 int productTypeId,  AuthTicket authTicket = null, DataViewMode dataViewMode= DataViewMode.Live, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Admin.Attributedefinition.Producttypes.ProductTypeOptionClient.GetOptionsClient(
 				 productTypeId :  productTypeId, authTicket : authTicket, dataViewMode: dataViewMode		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -52,23 +59,30 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// Retrieves the details of an option attribute defined for the specified product type.
 		/// <example> 
 		///  <code> 
-		//// var result = ProductTypeOptionFactory.GetOption(handler : handler,  attributeFQN :  attributeFQN,  productTypeId :  productTypeId,  authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<AttributeInProductType>(result); 
-		//// return optionalCasting;
+		/// var result = ProductTypeOptionFactory.GetOption(handler : handler,  productTypeId :  productTypeId,  attributeFQN :  attributeFQN,  authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<AttributeInProductType/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.ProductAdmin.AttributeInProductType GetOption(ServiceClientMessageHandler handler, 
- 		 string attributeFQN, int productTypeId,  AuthTicket authTicket= null, DataViewMode dataViewMode= DataViewMode.Live, 
+ 		 int productTypeId, string attributeFQN,  AuthTicket authTicket = null, DataViewMode dataViewMode= DataViewMode.Live, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Admin.Attributedefinition.Producttypes.ProductTypeOptionClient.GetOptionClient(
-				 attributeFQN :  attributeFQN,  productTypeId :  productTypeId, authTicket : authTicket, dataViewMode: dataViewMode		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+				 productTypeId :  productTypeId,  attributeFQN :  attributeFQN, authTicket : authTicket, dataViewMode: dataViewMode		);
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -76,23 +90,30 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// Assigns an option attribute to the product type based on the information supplied in the request.
 		/// <example> 
 		///  <code> 
-		//// var result = ProductTypeOptionFactory.AddOption(handler : handler,  productTypeId :  productTypeId,  attributeInProductType :  attributeInProductType, authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<AttributeInProductType>(result); 
-		//// return optionalCasting;
+		/// var result = ProductTypeOptionFactory.AddOption(handler : handler,  attributeInProductType :  attributeInProductType,  productTypeId :  productTypeId,  authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<AttributeInProductType/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.ProductAdmin.AttributeInProductType AddOption(ServiceClientMessageHandler handler, 
- 		 int productTypeId, Mozu.Api.Contracts.ProductAdmin.AttributeInProductType attributeInProductType, AuthTicket authTicket= null, DataViewMode dataViewMode= DataViewMode.Live, 
+ 		 Mozu.Api.Contracts.ProductAdmin.AttributeInProductType attributeInProductType, int productTypeId,  AuthTicket authTicket = null, DataViewMode dataViewMode= DataViewMode.Live, 
 		 int expectedCode = (int)HttpStatusCode.Created, int successCode = (int)HttpStatusCode.Created)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Admin.Attributedefinition.Producttypes.ProductTypeOptionClient.AddOptionClient(
-				 productTypeId :  productTypeId,  attributeInProductType :  attributeInProductType, authTicket : authTicket, dataViewMode: dataViewMode		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+				 attributeInProductType :  attributeInProductType,  productTypeId :  productTypeId, authTicket : authTicket, dataViewMode: dataViewMode		);
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -100,23 +121,30 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// Updates an option attribute definition for the specified product type.
 		/// <example> 
 		///  <code> 
-		//// var result = ProductTypeOptionFactory.UpdateOption(handler : handler,  attributeFQN :  attributeFQN,  productTypeId :  productTypeId,  attributeInProductType :  attributeInProductType, authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<AttributeInProductType>(result); 
-		//// return optionalCasting;
+		/// var result = ProductTypeOptionFactory.UpdateOption(handler : handler,  attributeInProductType :  attributeInProductType,  productTypeId :  productTypeId,  attributeFQN :  attributeFQN,  authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<AttributeInProductType/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.ProductAdmin.AttributeInProductType UpdateOption(ServiceClientMessageHandler handler, 
- 		 string attributeFQN, int productTypeId, Mozu.Api.Contracts.ProductAdmin.AttributeInProductType attributeInProductType, AuthTicket authTicket= null, DataViewMode dataViewMode= DataViewMode.Live, 
+ 		 Mozu.Api.Contracts.ProductAdmin.AttributeInProductType attributeInProductType, int productTypeId, string attributeFQN,  AuthTicket authTicket = null, DataViewMode dataViewMode= DataViewMode.Live, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Admin.Attributedefinition.Producttypes.ProductTypeOptionClient.UpdateOptionClient(
-				 attributeFQN :  attributeFQN,  productTypeId :  productTypeId,  attributeInProductType :  attributeInProductType, authTicket : authTicket, dataViewMode: dataViewMode		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+				 attributeInProductType :  attributeInProductType,  productTypeId :  productTypeId,  attributeFQN :  attributeFQN, authTicket : authTicket, dataViewMode: dataViewMode		);
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -124,23 +152,30 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// Removes an option attribute definition for the specified product type.
 		/// <example> 
 		///  <code> 
-		//// var result = ProductTypeOptionFactory.DeleteOption(handler : handler,  attributeFQN :  attributeFQN,  productTypeId :  productTypeId,  authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<void>(result); 
-		//// return optionalCasting;
+		/// var result = ProductTypeOptionFactory.DeleteOption(handler : handler,  productTypeId :  productTypeId,  attributeFQN :  attributeFQN,  authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<void/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static void DeleteOption(ServiceClientMessageHandler handler, 
- 		string attributeFQN, int productTypeId,  AuthTicket authTicket= null, DataViewMode dataViewMode= DataViewMode.Live, 
+ 		int productTypeId, string attributeFQN,  AuthTicket authTicket = null, DataViewMode dataViewMode= DataViewMode.Live, 
 		 int expectedCode = (int)HttpStatusCode.NoContent, int successCode = (int)HttpStatusCode.NoContent)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Admin.Attributedefinition.Producttypes.ProductTypeOptionClient.DeleteOptionClient(
-				 attributeFQN :  attributeFQN,  productTypeId :  productTypeId, authTicket : authTicket, dataViewMode: dataViewMode		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+				 productTypeId :  productTypeId,  attributeFQN :  attributeFQN, authTicket : authTicket, dataViewMode: dataViewMode		);
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			var noResponse = ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;

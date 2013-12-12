@@ -22,45 +22,36 @@ using Mozu.Api.Test.Helpers;
 namespace Mozu.Api.Test.Factories
 {
 	/// <summary>
-	/// 
+	/// Use the Channels resource to manage the channels a company uses to create logical commercial business divisions based on region or types of sales, such as "US Online," "Amazon," or "EMEA Retail." All orders include a channel association that enables the company to perform financial reporting for each defined channel. Because channels are managed at the tenant level, you must associate all the tenant's sites with a channel. Sites that do not have a defined channel association cannot successfully submit orders.
 	/// </summary>
 	public partial class ChannelFactory : BaseDataFactory
 	{
 
 		/// <summary> 
-		/// 
+		/// Retrieves a list of channels defined for a tenant according to any filter or sort criteria specified in the request.
 		/// <example> 
 		///  <code> 
-		//// ChannelFactory.GetChannels(handler : handler,  expectedCode: expectedCode, successCode: successCode);
+		/// var result = ChannelFactory.GetChannels(handler : handler,  startIndex :  startIndex,  pageSize :  pageSize,  sortBy :  sortBy,  filter :  filter,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<ChannelCollection/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.CommerceRuntime.Channels.ChannelCollection GetChannels(ServiceClientMessageHandler handler, 
- 		 
-		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
-		{
-			return GetChannels(handler : handler,  filter :  null,  pageSize :  null,  sortBy :  null,  startIndex :  null,authTicket : null, 
-				expectedCode: expectedCode, successCode: successCode);
-		}
-  
-		/// <summary> 
-		/// 
-		/// <example> 
-		///  <code> 
-		//// var result = ChannelFactory.GetChannels(handler : handler,  filter :  filter,  pageSize :  pageSize,  sortBy :  sortBy,  startIndex :  startIndex,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<ChannelCollection>(result); 
-		//// return optionalCasting;
-		///  </code> 
-		/// </example> 
-		/// </summary>
-		public static Mozu.Api.Contracts.CommerceRuntime.Channels.ChannelCollection GetChannels(ServiceClientMessageHandler handler, 
- 		 string filter, int? pageSize, string sortBy, int? startIndex,  AuthTicket authTicket= null, 
+ 		 int? startIndex = null, int? pageSize = null, string sortBy = null, string filter = null,  AuthTicket authTicket = null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.ChannelClient.GetChannelsClient(
-				 filter :  filter,  pageSize :  pageSize,  sortBy :  sortBy,  startIndex :  startIndex, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+				 startIndex :  startIndex,  pageSize :  pageSize,  sortBy :  sortBy,  filter :  filter, authTicket : authTicket		);
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -68,23 +59,30 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// Retrieves the details of the channel specified in the request.
 		/// <example> 
 		///  <code> 
-		//// var result = ChannelFactory.GetChannel(handler : handler,  code :  code,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<Channel>(result); 
-		//// return optionalCasting;
+		/// var result = ChannelFactory.GetChannel(handler : handler,  code :  code,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<Channel/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.CommerceRuntime.Channels.Channel GetChannel(ServiceClientMessageHandler handler, 
- 		 string code,  AuthTicket authTicket= null, 
+ 		 string code,  AuthTicket authTicket = null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.ChannelClient.GetChannelClient(
 				 code :  code, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -92,23 +90,30 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// Creates a new channel that defines a new logical business division to use for financial reporting.
 		/// <example> 
 		///  <code> 
-		//// var result = ChannelFactory.CreateChannel(handler : handler,  channel :  channel, authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<Channel>(result); 
-		//// return optionalCasting;
+		/// var result = ChannelFactory.CreateChannel(handler : handler,  channel :  channel, authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<Channel/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.CommerceRuntime.Channels.Channel CreateChannel(ServiceClientMessageHandler handler, 
- 		 Mozu.Api.Contracts.CommerceRuntime.Channels.Channel channel, AuthTicket authTicket= null, 
-		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
+ 		 Mozu.Api.Contracts.CommerceRuntime.Channels.Channel channel, AuthTicket authTicket = null, 
+		 int expectedCode = (int)HttpStatusCode.Created, int successCode = (int)HttpStatusCode.Created)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.ChannelClient.CreateChannelClient(
 				 channel :  channel, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -116,23 +121,30 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// Updates one or more details of a defined channel, including the associated sites.
 		/// <example> 
 		///  <code> 
-		//// var result = ChannelFactory.UpdateChannel(handler : handler,  code :  code,  channel :  channel, authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<Channel>(result); 
-		//// return optionalCasting;
+		/// var result = ChannelFactory.UpdateChannel(handler : handler,  channel :  channel,  code :  code,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<Channel/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.CommerceRuntime.Channels.Channel UpdateChannel(ServiceClientMessageHandler handler, 
- 		 string code, Mozu.Api.Contracts.CommerceRuntime.Channels.Channel channel, AuthTicket authTicket= null, 
+ 		 Mozu.Api.Contracts.CommerceRuntime.Channels.Channel channel, string code,  AuthTicket authTicket = null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.ChannelClient.UpdateChannelClient(
-				 code :  code,  channel :  channel, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+				 channel :  channel,  code :  code, authTicket : authTicket		);
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -140,23 +152,30 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// Deletes a defined channel for the tenant and removes the defined site associations. After deleting this channel, assign its associated sites to another channel.
 		/// <example> 
 		///  <code> 
-		//// var result = ChannelFactory.DeleteChannel(handler : handler,  code :  code,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<void>(result); 
-		//// return optionalCasting;
+		/// var result = ChannelFactory.DeleteChannel(handler : handler,  code :  code,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<void/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static void DeleteChannel(ServiceClientMessageHandler handler, 
- 		string code,  AuthTicket authTicket= null, 
+ 		string code,  AuthTicket authTicket = null, 
 		 int expectedCode = (int)HttpStatusCode.NoContent, int successCode = (int)HttpStatusCode.NoContent)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.ChannelClient.DeleteChannelClient(
 				 code :  code, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			var noResponse = ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;

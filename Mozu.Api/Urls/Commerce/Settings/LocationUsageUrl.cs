@@ -13,7 +13,7 @@ using System;
 
 namespace Mozu.Api.Urls.Commerce.Settings
 {
-	public partial class LocationUsageUrl : MozuUrl
+	public partial class LocationUsageUrl 
 	{
 
 		/// <summary>
@@ -25,35 +25,38 @@ namespace Mozu.Api.Urls.Commerce.Settings
         public static MozuUrl GetLocationUsagesUrl()
 		{
 			var url = "/api/commerce/settings/locationUsages/";
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			return mozuUrl;
 		}
 
 		/// <summary>
         /// Get Resource Url for GetLocationUsage
         /// </summary>
-        /// <param name="code"></param>
+        /// <param name="code">Code that identifies the location usage type, which is "DS" for direct ship, "SP" for in-store pickup, or "storeFinder" for store finder.</param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
         public static MozuUrl GetLocationUsageUrl(string code)
 		{
 			var url = "/api/commerce/settings/locationUsages/{code}";
-			FormatUrl( ref url, "code", code);
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "code", code);
+			return mozuUrl;
 		}
 
 						/// <summary>
         /// Get Resource Url for UpdateLocationUsage
         /// </summary>
-        /// <param name="code"></param>
+        /// <param name="code">Code that identifies the location usage type, which is "DS" for direct ship, "SP" for in-store pickup, or "storeFinder" for store finder.</param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
         public static MozuUrl UpdateLocationUsageUrl(string code)
 		{
 			var url = "/api/commerce/settings/locationUsages/{code}";
-			FormatUrl( ref url, "code", code);
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "code", code);
+			return mozuUrl;
 		}
 
 				

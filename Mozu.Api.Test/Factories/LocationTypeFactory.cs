@@ -22,29 +22,36 @@ using Mozu.Api.Test.Helpers;
 namespace Mozu.Api.Test.Factories
 {
 	/// <summary>
-	/// 
+	/// Use the Location Types resource to manage the types of locations your tenant maintains, such as warehouses, physical storefronts, and kiosks.
 	/// </summary>
 	public partial class LocationTypeFactory : BaseDataFactory
 	{
 
 		/// <summary> 
-		/// 
+		/// Retrieve a list of all location types defined for the tenant.
 		/// <example> 
 		///  <code> 
-		//// var result = LocationTypeFactory.GetLocationTypes(handler : handler,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<List<LocationType>>(result); 
-		//// return optionalCasting;
+		/// var result = LocationTypeFactory.GetLocationTypes(handler : handler,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<List<LocationType>/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static List<Mozu.Api.Contracts.Location.LocationType> GetLocationTypes(ServiceClientMessageHandler handler, 
- 		  AuthTicket authTicket= null, 
+ 		  AuthTicket authTicket = null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Location.Admin.LocationTypeClient.GetLocationTypesClient(
 				 authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -52,23 +59,30 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// Retrieves the details of the location type specified in the request.
 		/// <example> 
 		///  <code> 
-		//// var result = LocationTypeFactory.GetLocationType(handler : handler,  locationTypeCode :  locationTypeCode,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<LocationType>(result); 
-		//// return optionalCasting;
+		/// var result = LocationTypeFactory.GetLocationType(handler : handler,  locationTypeCode :  locationTypeCode,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<LocationType/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.Location.LocationType GetLocationType(ServiceClientMessageHandler handler, 
- 		 string locationTypeCode,  AuthTicket authTicket= null, 
+ 		 string locationTypeCode,  AuthTicket authTicket = null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Location.Admin.LocationTypeClient.GetLocationTypeClient(
 				 locationTypeCode :  locationTypeCode, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -76,23 +90,30 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// Creates a new location type based on the information specified in the request.
 		/// <example> 
 		///  <code> 
-		//// var result = LocationTypeFactory.AddLocationType(handler : handler,  locationType :  locationType, authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<LocationType>(result); 
-		//// return optionalCasting;
+		/// var result = LocationTypeFactory.AddLocationType(handler : handler,  locationType :  locationType, authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<LocationType/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.Location.LocationType AddLocationType(ServiceClientMessageHandler handler, 
- 		 Mozu.Api.Contracts.Location.LocationType locationType, AuthTicket authTicket= null, 
+ 		 Mozu.Api.Contracts.Location.LocationType locationType, AuthTicket authTicket = null, 
 		 int expectedCode = (int)HttpStatusCode.Created, int successCode = (int)HttpStatusCode.Created)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Location.Admin.LocationTypeClient.AddLocationTypeClient(
 				 locationType :  locationType, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -100,23 +121,30 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// Updates the name of a defined location type.
 		/// <example> 
 		///  <code> 
-		//// var result = LocationTypeFactory.UpdateLocationType(handler : handler,  locationTypeCode :  locationTypeCode,  locationType :  locationType, authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<LocationType>(result); 
-		//// return optionalCasting;
+		/// var result = LocationTypeFactory.UpdateLocationType(handler : handler,  locationType :  locationType,  locationTypeCode :  locationTypeCode,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<LocationType/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.Location.LocationType UpdateLocationType(ServiceClientMessageHandler handler, 
- 		 string locationTypeCode, Mozu.Api.Contracts.Location.LocationType locationType, AuthTicket authTicket= null, 
+ 		 Mozu.Api.Contracts.Location.LocationType locationType, string locationTypeCode,  AuthTicket authTicket = null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Location.Admin.LocationTypeClient.UpdateLocationTypeClient(
-				 locationTypeCode :  locationTypeCode,  locationType :  locationType, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+				 locationType :  locationType,  locationTypeCode :  locationTypeCode, authTicket : authTicket		);
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -124,23 +152,30 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// Deletes the location type specified in the request.
 		/// <example> 
 		///  <code> 
-		//// var result = LocationTypeFactory.DeleteLocationType(handler : handler,  locationTypeCode :  locationTypeCode,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<void>(result); 
-		//// return optionalCasting;
+		/// var result = LocationTypeFactory.DeleteLocationType(handler : handler,  locationTypeCode :  locationTypeCode,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<void/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static void DeleteLocationType(ServiceClientMessageHandler handler, 
- 		string locationTypeCode,  AuthTicket authTicket= null, 
+ 		string locationTypeCode,  AuthTicket authTicket = null, 
 		 int expectedCode = (int)HttpStatusCode.NoContent, int successCode = (int)HttpStatusCode.NoContent)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Location.Admin.LocationTypeClient.DeleteLocationTypeClient(
 				 locationTypeCode :  locationTypeCode, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			var noResponse = ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;

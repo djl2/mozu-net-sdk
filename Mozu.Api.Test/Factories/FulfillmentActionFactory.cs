@@ -22,29 +22,36 @@ using Mozu.Api.Test.Helpers;
 namespace Mozu.Api.Test.Factories
 {
 	/// <summary>
-	/// 
+	/// Use the Fulfillment resource to manage shipments or pickups of collections of packages for an order.
 	/// </summary>
 	public partial class FulfillmentActionFactory : BaseDataFactory
 	{
 
 		/// <summary> 
-		/// 
+		/// Sets the fulfillment action to "Ship" or "PickUp". To ship an order or prepare it for in-store pickup, the order must have a customer name, the "Open" or "OpenAndProcessing" status. To ship the order, it must also have the full shipping address and shipping method. Shipping all packages or picking up all pickups for an order will complete a paid order.
 		/// <example> 
 		///  <code> 
-		//// var result = FulfillmentActionFactory.PerformFulfillmentAction(handler : handler,  orderId :  orderId,  action :  action, authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<Order>(result); 
-		//// return optionalCasting;
+		/// var result = FulfillmentActionFactory.PerformFulfillmentAction(handler : handler,  action :  action,  orderId :  orderId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<Order/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.CommerceRuntime.Orders.Order PerformFulfillmentAction(ServiceClientMessageHandler handler, 
- 		 string orderId, Mozu.Api.Contracts.CommerceRuntime.Fulfillment.FulfillmentAction action, AuthTicket authTicket= null, 
+ 		 Mozu.Api.Contracts.CommerceRuntime.Fulfillment.FulfillmentAction action, string orderId,  AuthTicket authTicket = null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Orders.FulfillmentActionClient.PerformFulfillmentActionClient(
-				 orderId :  orderId,  action :  action, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+				 action :  action,  orderId :  orderId, authTicket : authTicket		);
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;

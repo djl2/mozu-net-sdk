@@ -12,18 +12,39 @@ using System;
 
 namespace Mozu.Api.Contracts.CommerceRuntime.Discounts
 {
+		///
+		///	Properties of a discount applied to a product on a storefront.
+		///
 		public class AppliedProductDiscount
 		{
+			///
+			///Alphanumeric code associated with the coupon or promotion that results in a discounted price.
+			///
 			public string CouponCode { get; set; }
 
+			///
+			///If true, the system ignores this discount when pricing the order.
+			///
 			public bool? Excluded { get; set; }
 
+			///
+			///The value of the discount.
+			///
 			public decimal? Impact { get; set; }
 
+			///
+			///The value of the discount for a single product unit.
+			///
 			public decimal? ImpactPerUnit { get; set; }
 
+			///
+			///The number of product units priced with the associated discount.
+			///
 			public int? ProductQuantity { get; set; }
 
+			///
+			///Properties of a discount applied to a product on a storefront.
+			///
 			public Discount Discount { get; set; }
 
 		}

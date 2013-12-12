@@ -16,14 +16,14 @@ using Mozu.Api.Security;
 namespace Mozu.Api.Resources.Platform.Applications
 {
 	/// <summary>
-	/// 
+	/// Use this resource to manage authentication tickets for your applications.
 	/// </summary>
 	public partial class AuthTicketResource  	{
 		
-				/// <summary>
-		/// 
+		/// <summary>
+		/// Generate an authentication ticket for an application.
 		/// </summary>
-		/// <param name="appAuthInfo"></param>
+		/// <param name="appAuthInfo">Authentication information required to generate an authentication ticket includes the application id and the shared secret.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.AppDev.AuthTicket"/>
 		/// </returns>
@@ -42,10 +42,10 @@ namespace Mozu.Api.Resources.Platform.Applications
 
 		}
 
-				/// <summary>
-		/// 
+		/// <summary>
+		/// Refreshes the application's authentication ticket and generates a new access token by providing the refresh token string.
 		/// </summary>
-		/// <param name="authTicketRequest"></param>
+		/// <param name="authTicketRequest">The refresh token string required to update the application authentication ticket.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.AppDev.AuthTicket"/>
 		/// </returns>
@@ -64,10 +64,10 @@ namespace Mozu.Api.Resources.Platform.Applications
 
 		}
 
-				/// <summary>
-		/// 
+		/// <summary>
+		/// Deletes an authentication for an application based on the specified refresh token.
 		/// </summary>
-		/// <param name="refreshToken"></param>
+		/// <param name="refreshToken">The refresh token string from the application's authentication ticket.</param>
 		/// <returns>
 		/// 
 		/// </returns>
@@ -85,7 +85,7 @@ namespace Mozu.Api.Resources.Platform.Applications
 
 		}
 
-		
+
 	}
 
 }

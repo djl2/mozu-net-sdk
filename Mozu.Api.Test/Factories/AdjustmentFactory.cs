@@ -22,45 +22,36 @@ using Mozu.Api.Test.Helpers;
 namespace Mozu.Api.Test.Factories
 {
 	/// <summary>
-	/// 
+	/// Use this subresource to manage ad-hoc order level price adjustments.
 	/// </summary>
 	public partial class AdjustmentFactory : BaseDataFactory
 	{
 
 		/// <summary> 
-		/// 
+		/// Applies a shipping adjustment to the specified order.
 		/// <example> 
 		///  <code> 
-		//// AdjustmentFactory.ApplyShippingAdjustment(handler : handler,  orderId :  orderId,  adjustment :  adjustment,  expectedCode: expectedCode, successCode: successCode);
+		/// var result = AdjustmentFactory.ApplyShippingAdjustment(handler : handler,  adjustment :  adjustment,  orderId :  orderId,  updateMode :  updateMode,  version :  version,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<Order/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.CommerceRuntime.Orders.Order ApplyShippingAdjustment(ServiceClientMessageHandler handler, 
- 		 string orderId, Mozu.Api.Contracts.CommerceRuntime.Commerce.Adjustment adjustment, 
-		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
-		{
-			return ApplyShippingAdjustment(handler : handler,  orderId :  orderId,  updateMode :  null,  version :  null,  adjustment :  adjustment,authTicket : null, 
-				expectedCode: expectedCode, successCode: successCode);
-		}
-  
-		/// <summary> 
-		/// 
-		/// <example> 
-		///  <code> 
-		//// var result = AdjustmentFactory.ApplyShippingAdjustment(handler : handler,  orderId :  orderId,  updateMode :  updateMode,  version :  version,  adjustment :  adjustment, authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<Order>(result); 
-		//// return optionalCasting;
-		///  </code> 
-		/// </example> 
-		/// </summary>
-		public static Mozu.Api.Contracts.CommerceRuntime.Orders.Order ApplyShippingAdjustment(ServiceClientMessageHandler handler, 
- 		 string orderId, string updateMode, string version, Mozu.Api.Contracts.CommerceRuntime.Commerce.Adjustment adjustment, AuthTicket authTicket= null, 
+ 		 Mozu.Api.Contracts.CommerceRuntime.Commerce.Adjustment adjustment, string orderId, string updateMode = null, string version = null,  AuthTicket authTicket = null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Orders.AdjustmentClient.ApplyShippingAdjustmentClient(
-				 orderId :  orderId,  updateMode :  updateMode,  version :  version,  adjustment :  adjustment, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+				 adjustment :  adjustment,  orderId :  orderId,  updateMode :  updateMode,  version :  version, authTicket : authTicket		);
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -68,39 +59,30 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// Applies a price adjustment to the specified order.
 		/// <example> 
 		///  <code> 
-		//// AdjustmentFactory.ApplyAdjustment(handler : handler,  orderId :  orderId,  adjustment :  adjustment,  expectedCode: expectedCode, successCode: successCode);
+		/// var result = AdjustmentFactory.ApplyAdjustment(handler : handler,  adjustment :  adjustment,  orderId :  orderId,  updateMode :  updateMode,  version :  version,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<Order/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.CommerceRuntime.Orders.Order ApplyAdjustment(ServiceClientMessageHandler handler, 
- 		 string orderId, Mozu.Api.Contracts.CommerceRuntime.Commerce.Adjustment adjustment, 
-		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
-		{
-			return ApplyAdjustment(handler : handler,  orderId :  orderId,  updateMode :  null,  version :  null,  adjustment :  adjustment,authTicket : null, 
-				expectedCode: expectedCode, successCode: successCode);
-		}
-  
-		/// <summary> 
-		/// 
-		/// <example> 
-		///  <code> 
-		//// var result = AdjustmentFactory.ApplyAdjustment(handler : handler,  orderId :  orderId,  updateMode :  updateMode,  version :  version,  adjustment :  adjustment, authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<Order>(result); 
-		//// return optionalCasting;
-		///  </code> 
-		/// </example> 
-		/// </summary>
-		public static Mozu.Api.Contracts.CommerceRuntime.Orders.Order ApplyAdjustment(ServiceClientMessageHandler handler, 
- 		 string orderId, string updateMode, string version, Mozu.Api.Contracts.CommerceRuntime.Commerce.Adjustment adjustment, AuthTicket authTicket= null, 
+ 		 Mozu.Api.Contracts.CommerceRuntime.Commerce.Adjustment adjustment, string orderId, string updateMode = null, string version = null,  AuthTicket authTicket = null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Orders.AdjustmentClient.ApplyAdjustmentClient(
-				 orderId :  orderId,  updateMode :  updateMode,  version :  version,  adjustment :  adjustment, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+				 adjustment :  adjustment,  orderId :  orderId,  updateMode :  updateMode,  version :  version, authTicket : authTicket		);
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -108,39 +90,30 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// Removes a shipping adjustment previously applied to an order or draft.
 		/// <example> 
 		///  <code> 
-		//// AdjustmentFactory.RemoveShippingAdjustment(handler : handler,  orderId :  orderId,  expectedCode: expectedCode, successCode: successCode);
+		/// var result = AdjustmentFactory.RemoveShippingAdjustment(handler : handler,  orderId :  orderId,  updateMode :  updateMode,  version :  version,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<Order/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.CommerceRuntime.Orders.Order RemoveShippingAdjustment(ServiceClientMessageHandler handler, 
- 		 string orderId, 
-		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
-		{
-			return RemoveShippingAdjustment(handler : handler,  orderId :  orderId,  updateMode :  null,  version :  null,authTicket : null, 
-				expectedCode: expectedCode, successCode: successCode);
-		}
-  
-		/// <summary> 
-		/// 
-		/// <example> 
-		///  <code> 
-		//// var result = AdjustmentFactory.RemoveShippingAdjustment(handler : handler,  orderId :  orderId,  updateMode :  updateMode,  version :  version,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<Order>(result); 
-		//// return optionalCasting;
-		///  </code> 
-		/// </example> 
-		/// </summary>
-		public static Mozu.Api.Contracts.CommerceRuntime.Orders.Order RemoveShippingAdjustment(ServiceClientMessageHandler handler, 
- 		 string orderId, string updateMode, string version,  AuthTicket authTicket= null, 
+ 		 string orderId, string updateMode = null, string version = null,  AuthTicket authTicket = null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Orders.AdjustmentClient.RemoveShippingAdjustmentClient(
 				 orderId :  orderId,  updateMode :  updateMode,  version :  version, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -148,39 +121,30 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// Removes a price adjustment from the specified order.
 		/// <example> 
 		///  <code> 
-		//// AdjustmentFactory.RemoveAdjustment(handler : handler,  orderId :  orderId,  expectedCode: expectedCode, successCode: successCode);
+		/// var result = AdjustmentFactory.RemoveAdjustment(handler : handler,  orderId :  orderId,  updateMode :  updateMode,  version :  version,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<Order/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.CommerceRuntime.Orders.Order RemoveAdjustment(ServiceClientMessageHandler handler, 
- 		 string orderId, 
-		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
-		{
-			return RemoveAdjustment(handler : handler,  orderId :  orderId,  updateMode :  null,  version :  null,authTicket : null, 
-				expectedCode: expectedCode, successCode: successCode);
-		}
-  
-		/// <summary> 
-		/// 
-		/// <example> 
-		///  <code> 
-		//// var result = AdjustmentFactory.RemoveAdjustment(handler : handler,  orderId :  orderId,  updateMode :  updateMode,  version :  version,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<Order>(result); 
-		//// return optionalCasting;
-		///  </code> 
-		/// </example> 
-		/// </summary>
-		public static Mozu.Api.Contracts.CommerceRuntime.Orders.Order RemoveAdjustment(ServiceClientMessageHandler handler, 
- 		 string orderId, string updateMode, string version,  AuthTicket authTicket= null, 
+ 		 string orderId, string updateMode = null, string version = null,  AuthTicket authTicket = null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Orders.AdjustmentClient.RemoveAdjustmentClient(
 				 orderId :  orderId,  updateMode :  updateMode,  version :  version, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;

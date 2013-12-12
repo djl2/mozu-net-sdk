@@ -16,15 +16,15 @@ using Mozu.Api.Security;
 namespace Mozu.Api.Clients.Commerce.Customer.Accounts
 {
 	/// <summary>
-	/// 
+	/// Merchants and customers can create, view, update, and delete a contact for a customer account. A customer account may have multiple contacts for billing and shipping addresses.
 	/// </summary>
 	public partial class CustomerContactClient 	{
 		
 		/// <summary>
-		/// 
+		/// Retrieves the specified contact for a customer account such as a billing or shipping contact.
 		/// </summary>
-		/// <param name="accountId"></param>
-		/// <param name="contactId"></param>
+		/// <param name="accountId">Unique identifier of the customer account whose contact information is being retrieved.</param>
+		/// <param name="contactId">Unique identifier of the customer account contact to retrieve.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Customer.CustomerContact"/>}
@@ -47,9 +47,9 @@ namespace Mozu.Api.Clients.Commerce.Customer.Accounts
 		}
 
 		/// <summary>
-		/// 
+		/// Retrieves a list of contacts for a customer according to any specified filter criteria and sort options.
 		/// </summary>
-		/// <param name="accountId"></param>
+		/// <param name="accountId">Unique identifier of the customer account associated with the contact information to retrieve.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Customer.CustomerContactCollection"/>}
 		/// </returns>
@@ -65,11 +65,11 @@ namespace Mozu.Api.Clients.Commerce.Customer.Accounts
 		}
 
 		/// <summary>
-		/// 
+		/// Retrieves a list of contacts for a customer according to any specified filter criteria and sort options.
 		/// </summary>
-		/// <param name="accountId"></param>
-		/// <param name="filter"></param>
-		/// <param name="pageSize"></param>
+		/// <param name="accountId">Unique identifier of the customer account associated with the contact information to retrieve.</param>
+		/// <param name="filter">A set of expressions that consist of a field, operator, and value and represent search parameter syntax when filtering results of a query. Valid operators include equals (eq), does not equal (ne), greater than (gt), less than (lt), greater than or equal to (ge), less than or equal to (le), starts with (sw), or contains (cont). For example - "filter=IsDisplayed+eq+true"</param>
+		/// <param name="pageSize">The number of results to display on each page when creating paged results from a query. The maximum value is 200.</param>
 		/// <param name="sortBy"></param>
 		/// <param name="startIndex"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
@@ -78,11 +78,11 @@ namespace Mozu.Api.Clients.Commerce.Customer.Accounts
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=GetAccountContacts( accountId,  filter,  pageSize,  sortBy,  startIndex, authTicket);
+		///   var mozuClient=GetAccountContacts( accountId,  startIndex,  pageSize,  sortBy,  filter, authTicket);
 		///   var customerContactCollectionClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.Customer.CustomerContactCollection> GetAccountContactsClient(int accountId, string filter =  null, int? pageSize =  null, string sortBy =  null, int? startIndex =  null, AuthTicket authTicket= null)
+		public static MozuClient<Mozu.Api.Contracts.Customer.CustomerContactCollection> GetAccountContactsClient(int accountId, int? startIndex =  null, int? pageSize =  null, string sortBy =  null, string filter =  null, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Customer.Accounts.CustomerContactUrl.GetAccountContactsUrl(accountId, filter, pageSize, sortBy, startIndex);
 			const string verb = "GET";
@@ -93,12 +93,12 @@ namespace Mozu.Api.Clients.Commerce.Customer.Accounts
 
 		}
 
-				/// <summary>
-		/// 
+		/// <summary>
+		/// Creates a new contact for a customer account such as a new shipping address.
 		/// </summary>
-		/// <param name="accountId"></param>
+		/// <param name="accountId">Unique identifier of the customer account containing the new contact.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="contact"></param>
+		/// <param name="contact">Properties of the new contact. Required properties: Contact.Email, ContactType.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Customer.CustomerContact"/>}
 		/// </returns>
@@ -119,13 +119,13 @@ namespace Mozu.Api.Clients.Commerce.Customer.Accounts
 
 		}
 
-				/// <summary>
-		/// 
+		/// <summary>
+		/// Updates a contact for a specified customer account such as to update addresses or change which contact is the primary contact for billing.
 		/// </summary>
-		/// <param name="accountId"></param>
-		/// <param name="contactId"></param>
+		/// <param name="accountId">Unique identifier of the customer account whose contact information is being updated.</param>
+		/// <param name="contactId">Unique identifer of the customer account contact being updated.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="contact"></param>
+		/// <param name="contact">All properties the updated contact will have. Required properties: Name and email address.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Customer.CustomerContact"/>}
 		/// </returns>
@@ -146,11 +146,11 @@ namespace Mozu.Api.Clients.Commerce.Customer.Accounts
 
 		}
 
-				/// <summary>
-		/// 
+		/// <summary>
+		/// Deletes a contact for the specified customer account.
 		/// </summary>
-		/// <param name="accountId"></param>
-		/// <param name="contactId"></param>
+		/// <param name="accountId">Unique identifier of the customer account.</param>
+		/// <param name="contactId">Unique identifier of the customer account contact to delete.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />
@@ -172,7 +172,7 @@ namespace Mozu.Api.Clients.Commerce.Customer.Accounts
 
 		}
 
-		
+
 	}
 
 }

@@ -14,16 +14,34 @@ using Mozu.Api.Contracts.Core;
 
 namespace Mozu.Api.Contracts.AppDev
 {
+		///
+		///	Properties of an application registered in Dev Center.
+		///
 		public class Application
 		{
+			///
+			///The type of application, which is "Capability" or "Extension."
+			///
 			public string ApplicationType { get; set; }
 
+			///
+			///Unique identifier of the application. The application ID is required to generate an authentication ticket.
+			///
 			public int Id { get; set; }
 
+			///
+			///The name of the application.
+			///
 			public string Name { get; set; }
 
+			///
+			///Identifier and datetime stamp information recorded when a user or application creates, updates, or deletes a resource entity. This value is system-supplied and read-only.
+			///
 			public AuditInfo AuditInfo { get; set; }
 
+			///
+			///Array list of the versions defined for an application.
+			///
 			public List<ApplicationVersion> Versions { get; set; }
 
 		}

@@ -13,7 +13,7 @@ using System;
 
 namespace Mozu.Api.Urls.Commerce.Catalog.Admin
 {
-	public partial class PublishingScopeUrl : MozuUrl
+	public partial class PublishingScopeUrl 
 	{
 
 				/// <summary>
@@ -25,7 +25,8 @@ namespace Mozu.Api.Urls.Commerce.Catalog.Admin
         public static MozuUrl DiscardDraftsUrl()
 		{
 			var url = "/api/commerce/catalog/admin/publishing/discarddrafts";
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			return mozuUrl;
 		}
 
 		/// <summary>
@@ -37,7 +38,8 @@ namespace Mozu.Api.Urls.Commerce.Catalog.Admin
         public static MozuUrl PublishDraftsUrl()
 		{
 			var url = "/api/commerce/catalog/admin/publishing/publishdrafts";
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			return mozuUrl;
 		}
 
 						

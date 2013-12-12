@@ -13,41 +13,43 @@ using System;
 
 namespace Mozu.Api.Urls.Commerce.Customer
 {
-	public partial class CustomerGroupUrl : MozuUrl
+	public partial class CustomerGroupUrl 
 	{
 
 		/// <summary>
         /// Get Resource Url for GetGroups
         /// </summary>
-        /// <param name="filter"></param>
-        /// <param name="pageSize"></param>
-        /// <param name="sortBy"></param>
-        /// <param name="startIndex"></param>
+        /// <param name="filter">A set of expressions that consist of a field, operator, and value and represent search parameter syntax when filtering results of a query. Valid operators include equals (eq), does not equal (ne), greater than (gt), less than (lt), greater than or equal to (ge), less than or equal to (le), starts with (sw), or contains (cont). For example - "filter=IsDisplayed+eq+true"</param>
+        /// <param name="pageSize">The number of results to display on each page when creating paged results from a query. The maximum value is 200.</param>
+        /// <param name="sortBy">The property by which to sort results and whether the results appear in ascending (a-z) order, represented by ASC or in descending (z-a) order, represented by DESC. The sortBy parameter follows an available property. For example: "sortBy=productCode+asc"</param>
+        /// <param name="startIndex">When creating paged results from a query, this value indicates the zero-based offset in the complete result set where the returned entities begin. For example, with a PageSize of 25, to get the 51st through the 75th items, use startIndex=3.</param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
         public static MozuUrl GetGroupsUrl(string filter, int? pageSize, string sortBy, int? startIndex)
 		{
 			var url = "/api/commerce/customer/groups/?startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&filter={filter}";
-			FormatUrl( ref url, "filter", filter);
-			FormatUrl( ref url, "pageSize", pageSize);
-			FormatUrl( ref url, "sortBy", sortBy);
-			FormatUrl( ref url, "startIndex", startIndex);
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "filter", filter);
+			mozuUrl.FormatUrl( "pageSize", pageSize);
+			mozuUrl.FormatUrl( "sortBy", sortBy);
+			mozuUrl.FormatUrl( "startIndex", startIndex);
+			return mozuUrl;
 		}
 
 		/// <summary>
         /// Get Resource Url for GetGroup
         /// </summary>
-        /// <param name="groupId"></param>
+        /// <param name="groupId">Identifier of the customer group to retrieve.</param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
         public static MozuUrl GetGroupUrl(int groupId)
 		{
 			var url = "/api/commerce/customer/groups/{groupId}";
-			FormatUrl( ref url, "groupId", groupId);
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "groupId", groupId);
+			return mozuUrl;
 		}
 
 				/// <summary>
@@ -59,35 +61,38 @@ namespace Mozu.Api.Urls.Commerce.Customer
         public static MozuUrl AddGroupUrl()
 		{
 			var url = "/api/commerce/customer/groups/";
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			return mozuUrl;
 		}
 
 				/// <summary>
         /// Get Resource Url for UpdateGroup
         /// </summary>
-        /// <param name="groupId"></param>
+        /// <param name="groupId">Identifier of the customer group to update.</param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
         public static MozuUrl UpdateGroupUrl(int groupId)
 		{
 			var url = "/api/commerce/customer/groups/{groupId}";
-			FormatUrl( ref url, "groupId", groupId);
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "groupId", groupId);
+			return mozuUrl;
 		}
 
 				/// <summary>
         /// Get Resource Url for DeleteGroup
         /// </summary>
-        /// <param name="groupId"></param>
+        /// <param name="groupId">Identifier of the customer group to delete.</param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
         public static MozuUrl DeleteGroupUrl(int groupId)
 		{
 			var url = "/api/commerce/customer/groups/{groupId}";
-			FormatUrl( ref url, "groupId", groupId);
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "groupId", groupId);
+			return mozuUrl;
 		}
 
 		

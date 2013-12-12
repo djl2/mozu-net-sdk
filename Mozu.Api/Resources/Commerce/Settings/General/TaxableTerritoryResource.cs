@@ -16,10 +16,10 @@ using Mozu.Api.Security;
 namespace Mozu.Api.Resources.Commerce.Settings.General
 {
 	/// <summary>
-	/// 
+	/// Use the taxable territories subresource to manage the regional territories for this site that are subejct to sales tax.
 	/// </summary>
 	public partial class TaxableTerritoryResource  	{
-				///
+		///
 		/// <see cref="Mozu.Api.ApiContext"/>
 		///
 		private readonly IApiContext _apiContext;
@@ -30,7 +30,7 @@ namespace Mozu.Api.Resources.Commerce.Settings.General
 
 		
 		/// <summary>
-		/// 
+		/// Retrieves a list of the taxable territories configured for the site.
 		/// </summary>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
@@ -52,11 +52,11 @@ namespace Mozu.Api.Resources.Commerce.Settings.General
 
 		}
 
-				/// <summary>
-		/// 
+		/// <summary>
+		/// Creates a new territory for which to calculate sales tax.
 		/// </summary>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="taxableTerritory"></param>
+		/// <param name="taxableTerritory">Properties of the taxable territory to create.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.SiteSettings.General.TaxableTerritory"/>
 		/// </returns>
@@ -76,11 +76,11 @@ namespace Mozu.Api.Resources.Commerce.Settings.General
 
 		}
 
-				/// <summary>
-		/// 
+		/// <summary>
+		/// Updates one or more taxable territories configured for a site.
 		/// </summary>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="taxableterritories"></param>
+		/// <param name="taxableterritories">Properties of the taxable territories to update.</param>
 		/// <returns>
 		/// List{<see cref="Mozu.Api.Contracts.SiteSettings.General.TaxableTerritory"/>}
 		/// </returns>
@@ -100,7 +100,7 @@ namespace Mozu.Api.Resources.Commerce.Settings.General
 
 		}
 
-				
+
 	}
 
 }

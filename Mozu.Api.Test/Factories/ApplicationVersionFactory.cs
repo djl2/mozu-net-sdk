@@ -22,29 +22,36 @@ using Mozu.Api.Test.Helpers;
 namespace Mozu.Api.Test.Factories
 {
 	/// <summary>
-	/// 
+	/// Use the Applications resource to manage the applications associated with a developer account.
 	/// </summary>
 	public partial class ApplicationVersionFactory : BaseDataFactory
 	{
 
 		/// <summary> 
-		/// 
+		/// Retrieves the list of applications associated with the developer account scoped to the user claim specified in the request.
 		/// <example> 
 		///  <code> 
-		//// var result = ApplicationVersionFactory.GetAllApplications(handler : handler,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<ApplicationCollection>(result); 
-		//// return optionalCasting;
+		/// var result = ApplicationVersionFactory.GetAllApplications(handler : handler,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<ApplicationCollection/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.AppDev.ApplicationCollection GetAllApplications(ServiceClientMessageHandler handler, 
- 		  AuthTicket authTicket= null, 
+ 		  AuthTicket authTicket = null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Platform.Developer.ApplicationVersionClient.GetAllApplicationsClient(
 				 authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -52,39 +59,30 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// Retrieves the details of the application specified in the request. The application specified in the request must be associated with the developer account scoped to the user claim specified in the request header, otherwise the operation returns an error.
 		/// <example> 
 		///  <code> 
-		//// ApplicationVersionFactory.GetApplication(handler : handler,  expectedCode: expectedCode, successCode: successCode);
+		/// var result = ApplicationVersionFactory.GetApplication(handler : handler,  applicationId :  applicationId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<Application/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.AppDev.Application GetApplication(ServiceClientMessageHandler handler, 
- 		 
-		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
-		{
-			return GetApplication(handler : handler,  applicationId :  null,authTicket : null, 
-				expectedCode: expectedCode, successCode: successCode);
-		}
-  
-		/// <summary> 
-		/// 
-		/// <example> 
-		///  <code> 
-		//// var result = ApplicationVersionFactory.GetApplication(handler : handler,  applicationId :  applicationId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<Application>(result); 
-		//// return optionalCasting;
-		///  </code> 
-		/// </example> 
-		/// </summary>
-		public static Mozu.Api.Contracts.AppDev.Application GetApplication(ServiceClientMessageHandler handler, 
- 		 int? applicationId,  AuthTicket authTicket= null, 
+ 		 int? applicationId = null,  AuthTicket authTicket = null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Platform.Developer.ApplicationVersionClient.GetApplicationClient(
 				 applicationId :  applicationId, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -92,23 +90,30 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// Retrieves the details of a specific version of an application associated with the developer account scoped to the user claim specified in the request.
 		/// <example> 
 		///  <code> 
-		//// var result = ApplicationVersionFactory.GetApplicationVersion(handler : handler,  applicationVersionId :  applicationVersionId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<ApplicationVersion>(result); 
-		//// return optionalCasting;
+		/// var result = ApplicationVersionFactory.GetApplicationVersion(handler : handler,  applicationVersionId :  applicationVersionId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<ApplicationVersion/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.AppDev.ApplicationVersion GetApplicationVersion(ServiceClientMessageHandler handler, 
- 		 int applicationVersionId,  AuthTicket authTicket= null, 
+ 		 int applicationVersionId,  AuthTicket authTicket = null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Platform.Developer.ApplicationVersionClient.GetApplicationVersionClient(
 				 applicationVersionId :  applicationVersionId, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -116,23 +121,30 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// Retrieves a list of the package definitions created for an application version, including all development packages and release packages. The application must be associated with the developer account scoped to the user claim specified in the request.
 		/// <example> 
 		///  <code> 
-		//// var result = ApplicationVersionFactory.GetPackages(handler : handler,  applicationVersionId :  applicationVersionId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<PackageCollection>(result); 
-		//// return optionalCasting;
+		/// var result = ApplicationVersionFactory.GetPackages(handler : handler,  applicationVersionId :  applicationVersionId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<PackageCollection/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.AppDev.PackageCollection GetPackages(ServiceClientMessageHandler handler, 
- 		 int applicationVersionId,  AuthTicket authTicket= null, 
+ 		 int applicationVersionId,  AuthTicket authTicket = null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Platform.Developer.ApplicationVersionClient.GetPackagesClient(
 				 applicationVersionId :  applicationVersionId, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -140,23 +152,30 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// Retrieves the details of a package definition associated with an application version. The application ust be associated with the developer account scoped to the user claim specified in the request. 
 		/// <example> 
 		///  <code> 
-		//// var result = ApplicationVersionFactory.GetPackage(handler : handler,  applicationVersionId :  applicationVersionId,  packageId :  packageId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<Package>(result); 
-		//// return optionalCasting;
+		/// var result = ApplicationVersionFactory.GetPackage(handler : handler,  applicationVersionId :  applicationVersionId,  packageId :  packageId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<Package/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.AppDev.Package GetPackage(ServiceClientMessageHandler handler, 
- 		 int applicationVersionId, int packageId,  AuthTicket authTicket= null, 
+ 		 int applicationVersionId, int packageId,  AuthTicket authTicket = null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Platform.Developer.ApplicationVersionClient.GetPackageClient(
 				 applicationVersionId :  applicationVersionId,  packageId :  packageId, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -164,23 +183,30 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// Retrieves the metadata for items in a package associated with an application version, including a list of all files and subfolders. The application must be associated with the developer account acoped to the user claim specified in the request.
 		/// <example> 
 		///  <code> 
-		//// var result = ApplicationVersionFactory.GetPackageItemsMetadata(handler : handler,  applicationVersionId :  applicationVersionId,  packageId :  packageId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<FolderMetadata>(result); 
-		//// return optionalCasting;
+		/// var result = ApplicationVersionFactory.GetPackageItemsMetadata(handler : handler,  applicationVersionId :  applicationVersionId,  packageId :  packageId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<FolderMetadata/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.AppDev.FolderMetadata GetPackageItemsMetadata(ServiceClientMessageHandler handler, 
- 		 int applicationVersionId, int packageId,  AuthTicket authTicket= null, 
+ 		 int applicationVersionId, int packageId,  AuthTicket authTicket = null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Platform.Developer.ApplicationVersionClient.GetPackageItemsMetadataClient(
 				 applicationVersionId :  applicationVersionId,  packageId :  packageId, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -188,23 +214,30 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// Retrieves the metadata of a file in a package for an application version. The application must be associated with the developer account scoped to the user claim specified in the request.
 		/// <example> 
 		///  <code> 
-		//// var result = ApplicationVersionFactory.GetPackageItemMetadata(handler : handler,  applicationVersionId :  applicationVersionId,  itempath :  itempath,  packageId :  packageId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<FileMetadata>(result); 
-		//// return optionalCasting;
+		/// var result = ApplicationVersionFactory.GetPackageItemMetadata(handler : handler,  applicationVersionId :  applicationVersionId,  packageId :  packageId,  itempath :  itempath,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<FileMetadata/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.AppDev.FileMetadata GetPackageItemMetadata(ServiceClientMessageHandler handler, 
- 		 int applicationVersionId, string itempath, int packageId,  AuthTicket authTicket= null, 
+ 		 int applicationVersionId, int packageId, string itempath,  AuthTicket authTicket = null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Platform.Developer.ApplicationVersionClient.GetPackageItemMetadataClient(
-				 applicationVersionId :  applicationVersionId,  itempath :  itempath,  packageId :  packageId, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+				 applicationVersionId :  applicationVersionId,  packageId :  packageId,  itempath :  itempath, authTicket : authTicket		);
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -215,44 +248,58 @@ namespace Mozu.Api.Test.Factories
 		/// 
 		/// <example> 
 		///  <code> 
-		//// var result = ApplicationVersionFactory.GetPackageFilesZip(handler : handler,  applicationVersionId :  applicationVersionId,  packageId :  packageId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<void>(result); 
-		//// return optionalCasting;
+		/// var result = ApplicationVersionFactory.GetPackageFilesZip(handler : handler,  applicationVersionId :  applicationVersionId,  packageId :  packageId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<Stream/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
-		public static void GetPackageFilesZip(ServiceClientMessageHandler handler, 
- 		int applicationVersionId, int packageId,  AuthTicket authTicket= null, 
-		 int expectedCode = (int)HttpStatusCode.NoContent, int successCode = (int)HttpStatusCode.NoContent)
+		public static System.IO.Stream GetPackageFilesZip(ServiceClientMessageHandler handler, 
+ 		 int applicationVersionId, int packageId,  AuthTicket authTicket = null, 
+		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Platform.Developer.ApplicationVersionClient.GetPackageFilesZipClient(
 				 applicationVersionId :  applicationVersionId,  packageId :  packageId, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
-			var noResponse = ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
+			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
 
 		}
   
 		/// <summary> 
-		/// 
+		/// Creates a new development or release package for the application version specified in the request.
 		/// <example> 
 		///  <code> 
-		//// var result = ApplicationVersionFactory.AddPackage(handler : handler,  applicationVersionId :  applicationVersionId,  pkg :  pkg, authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<Package>(result); 
-		//// return optionalCasting;
+		/// var result = ApplicationVersionFactory.AddPackage(handler : handler,  pkg :  pkg,  applicationVersionId :  applicationVersionId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<Package/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.AppDev.Package AddPackage(ServiceClientMessageHandler handler, 
- 		 int applicationVersionId, Mozu.Api.Contracts.AppDev.Package pkg, AuthTicket authTicket= null, 
+ 		 Mozu.Api.Contracts.AppDev.Package pkg, int applicationVersionId,  AuthTicket authTicket = null, 
 		 int expectedCode = (int)HttpStatusCode.Created, int successCode = (int)HttpStatusCode.Created)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Platform.Developer.ApplicationVersionClient.AddPackageClient(
-				 applicationVersionId :  applicationVersionId,  pkg :  pkg, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+				 pkg :  pkg,  applicationVersionId :  applicationVersionId, authTicket : authTicket		);
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -260,23 +307,30 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// Uploads a file to a defined package for an application version in the file location specified in the request.
 		/// <example> 
 		///  <code> 
-		//// var result = ApplicationVersionFactory.AddPackageFile(handler : handler,  applicationVersionId :  applicationVersionId,  filepath :  filepath,  packageId :  packageId,  stream :  stream, authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<FileMetadata>(result); 
-		//// return optionalCasting;
+		/// var result = ApplicationVersionFactory.AddPackageFile(handler : handler,  stream :  stream,  applicationVersionId :  applicationVersionId,  packageId :  packageId,  filepath :  filepath,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<FileMetadata/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.AppDev.FileMetadata AddPackageFile(ServiceClientMessageHandler handler, 
- 		 int applicationVersionId, string filepath, int packageId, System.IO.Stream stream, AuthTicket authTicket= null, 
+ 		 System.IO.Stream stream, int applicationVersionId, int packageId, string filepath,  AuthTicket authTicket = null, 
 		 int expectedCode = (int)HttpStatusCode.Created, int successCode = (int)HttpStatusCode.Created)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Platform.Developer.ApplicationVersionClient.AddPackageFileClient(
-				 applicationVersionId :  applicationVersionId,  filepath :  filepath,  packageId :  packageId,  stream :  stream, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+				 stream :  stream,  applicationVersionId :  applicationVersionId,  packageId :  packageId,  filepath :  filepath, authTicket : authTicket		);
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -287,20 +341,27 @@ namespace Mozu.Api.Test.Factories
 		/// 
 		/// <example> 
 		///  <code> 
-		//// var result = ApplicationVersionFactory.ChangePackageFileNameOrPath(handler : handler,  applicationVersionId :  applicationVersionId,  packageId :  packageId,  renameInfo :  renameInfo, authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<FileMetadata>(result); 
-		//// return optionalCasting;
+		/// var result = ApplicationVersionFactory.ChangePackageFileNameOrPath(handler : handler,  renameInfo :  renameInfo,  applicationVersionId :  applicationVersionId,  packageId :  packageId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<FileMetadata/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.AppDev.FileMetadata ChangePackageFileNameOrPath(ServiceClientMessageHandler handler, 
- 		 int applicationVersionId, int packageId, Mozu.Api.Contracts.AppDev.RenameInfo renameInfo, AuthTicket authTicket= null, 
+ 		 Mozu.Api.Contracts.AppDev.RenameInfo renameInfo, int applicationVersionId, int packageId,  AuthTicket authTicket = null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Platform.Developer.ApplicationVersionClient.ChangePackageFileNameOrPathClient(
-				 applicationVersionId :  applicationVersionId,  packageId :  packageId,  renameInfo :  renameInfo, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+				 renameInfo :  renameInfo,  applicationVersionId :  applicationVersionId,  packageId :  packageId, authTicket : authTicket		);
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -308,23 +369,30 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// Updates one or more properties of a file in a package associated with an application version.
 		/// <example> 
 		///  <code> 
-		//// var result = ApplicationVersionFactory.UpdatePackageFile(handler : handler,  applicationVersionId :  applicationVersionId,  filepath :  filepath,  packageId :  packageId,  stream :  stream, authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<FileMetadata>(result); 
-		//// return optionalCasting;
+		/// var result = ApplicationVersionFactory.UpdatePackageFile(handler : handler,  stream :  stream,  applicationVersionId :  applicationVersionId,  packageId :  packageId,  filepath :  filepath,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<FileMetadata/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.AppDev.FileMetadata UpdatePackageFile(ServiceClientMessageHandler handler, 
- 		 int applicationVersionId, string filepath, int packageId, System.IO.Stream stream, AuthTicket authTicket= null, 
+ 		 System.IO.Stream stream, int applicationVersionId, int packageId, string filepath,  AuthTicket authTicket = null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Platform.Developer.ApplicationVersionClient.UpdatePackageFileClient(
-				 applicationVersionId :  applicationVersionId,  filepath :  filepath,  packageId :  packageId,  stream :  stream, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+				 stream :  stream,  applicationVersionId :  applicationVersionId,  packageId :  packageId,  filepath :  filepath, authTicket : authTicket		);
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -332,23 +400,30 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// Deletes the specified file from a package associated with an application version.
 		/// <example> 
 		///  <code> 
-		//// var result = ApplicationVersionFactory.DeletePackageFile(handler : handler,  applicationVersionId :  applicationVersionId,  filepath :  filepath,  packageId :  packageId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<void>(result); 
-		//// return optionalCasting;
+		/// var result = ApplicationVersionFactory.DeletePackageFile(handler : handler,  applicationVersionId :  applicationVersionId,  packageId :  packageId,  filepath :  filepath,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<void/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static void DeletePackageFile(ServiceClientMessageHandler handler, 
- 		int applicationVersionId, string filepath, int packageId,  AuthTicket authTicket= null, 
+ 		int applicationVersionId, int packageId, string filepath,  AuthTicket authTicket = null, 
 		 int expectedCode = (int)HttpStatusCode.NoContent, int successCode = (int)HttpStatusCode.NoContent)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Platform.Developer.ApplicationVersionClient.DeletePackageFileClient(
-				 applicationVersionId :  applicationVersionId,  filepath :  filepath,  packageId :  packageId, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+				 applicationVersionId :  applicationVersionId,  packageId :  packageId,  filepath :  filepath, authTicket : authTicket		);
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			var noResponse = ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;

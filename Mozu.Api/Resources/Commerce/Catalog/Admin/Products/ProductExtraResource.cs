@@ -16,10 +16,10 @@ using Mozu.Api.Security;
 namespace Mozu.Api.Resources.Commerce.Catalog.Admin.Products
 {
 	/// <summary>
-	/// 
+	/// Use the Extras resource to configure an extra product attribute for products associated with the product type that uses the extra attribute.
 	/// </summary>
 	public partial class ProductExtraResource  	{
-				///
+		///
 		/// <see cref="Mozu.Api.ApiContext"/>
 		///
 		private readonly IApiContext _apiContext;
@@ -30,9 +30,9 @@ namespace Mozu.Api.Resources.Commerce.Catalog.Admin.Products
 
 		
 		/// <summary>
-		/// 
+		/// Retrieves a list of extras configured for the product according to any defined filter and sort criteria.
 		/// </summary>
-		/// <param name="productCode"></param>
+		/// <param name="productCode">Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// List{<see cref="Mozu.Api.Contracts.ProductAdmin.ProductExtra"/>}
@@ -54,10 +54,10 @@ namespace Mozu.Api.Resources.Commerce.Catalog.Admin.Products
 		}
 
 		/// <summary>
-		/// 
+		/// Retrieves the details of an extra attribute configuration for the product specified in the request.
 		/// </summary>
-		/// <param name="attributeFQN"></param>
-		/// <param name="productCode"></param>
+		/// <param name="attributeFQN">The fully qualified name of the attribute, which is a user defined attribute identifier.</param>
+		/// <param name="productCode">Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.ProductAdmin.ProductExtra"/>
@@ -65,25 +65,25 @@ namespace Mozu.Api.Resources.Commerce.Catalog.Admin.Products
 		/// <example>
 		/// <code>
 		///   var productextra = new ProductExtra();
-		///   var productExtra = productextra.GetExtra(dataViewMode,  attributeFQN,  productCode, authTicket);
+		///   var productExtra = productextra.GetExtra(dataViewMode,  productCode,  attributeFQN, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.ProductAdmin.ProductExtra GetExtra(DataViewMode dataViewMode, string attributeFQN, string productCode, AuthTicket authTicket= null)
+		public virtual Mozu.Api.Contracts.ProductAdmin.ProductExtra GetExtra(DataViewMode dataViewMode, string productCode, string attributeFQN, AuthTicket authTicket= null)
 		{
 			MozuClient<Mozu.Api.Contracts.ProductAdmin.ProductExtra> response;
-			var client = Mozu.Api.Clients.Commerce.Catalog.Admin.Products.ProductExtraClient.GetExtraClient(dataViewMode,  attributeFQN,  productCode, authTicket);
+			var client = Mozu.Api.Clients.Commerce.Catalog.Admin.Products.ProductExtraClient.GetExtraClient(dataViewMode,  productCode,  attributeFQN, authTicket);
 			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
 		}
 
-				/// <summary>
-		/// 
+		/// <summary>
+		/// Configure an extra attribute for the product specified in the request.
 		/// </summary>
-		/// <param name="productCode"></param>
+		/// <param name="productCode">Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="productExtra"></param>
+		/// <param name="productExtra">Properties of the product extra to configure for the specified product.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.ProductAdmin.ProductExtra"/>
 		/// </returns>
@@ -103,37 +103,37 @@ namespace Mozu.Api.Resources.Commerce.Catalog.Admin.Products
 
 		}
 
-				/// <summary>
-		/// 
+		/// <summary>
+		/// Updates the configuration of an extra attribute for the product specified in the request.
 		/// </summary>
-		/// <param name="attributeFQN"></param>
-		/// <param name="productCode"></param>
+		/// <param name="attributeFQN">The fully qualified name of the attribute, which is a user defined attribute identifier.</param>
+		/// <param name="productCode">Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="productExtra"></param>
+		/// <param name="productExtra">Properties of the extra attribute to update for the specified product.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.ProductAdmin.ProductExtra"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var productextra = new ProductExtra();
-		///   var productExtra = productextra.UpdateExtra(dataViewMode,  productExtra,  attributeFQN,  productCode, authTicket);
+		///   var productExtra = productextra.UpdateExtra(dataViewMode,  productExtra,  productCode,  attributeFQN, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.ProductAdmin.ProductExtra UpdateExtra(DataViewMode dataViewMode, Mozu.Api.Contracts.ProductAdmin.ProductExtra productExtra, string attributeFQN, string productCode, AuthTicket authTicket= null)
+		public virtual Mozu.Api.Contracts.ProductAdmin.ProductExtra UpdateExtra(DataViewMode dataViewMode, Mozu.Api.Contracts.ProductAdmin.ProductExtra productExtra, string productCode, string attributeFQN, AuthTicket authTicket= null)
 		{
 			MozuClient<Mozu.Api.Contracts.ProductAdmin.ProductExtra> response;
-			var client = Mozu.Api.Clients.Commerce.Catalog.Admin.Products.ProductExtraClient.UpdateExtraClient(dataViewMode,  productExtra,  attributeFQN,  productCode, authTicket);
+			var client = Mozu.Api.Clients.Commerce.Catalog.Admin.Products.ProductExtraClient.UpdateExtraClient(dataViewMode,  productExtra,  productCode,  attributeFQN, authTicket);
 			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
 		}
 
-				/// <summary>
-		/// 
+		/// <summary>
+		/// Delete a product extra configuration for the product specified in the request.
 		/// </summary>
-		/// <param name="attributeFQN"></param>
-		/// <param name="productCode"></param>
+		/// <param name="attributeFQN">The fully qualified name of the attribute, which is a user defined attribute identifier.</param>
+		/// <param name="productCode">Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// 
@@ -141,19 +141,19 @@ namespace Mozu.Api.Resources.Commerce.Catalog.Admin.Products
 		/// <example>
 		/// <code>
 		///   var productextra = new ProductExtra();
-		///   productextra.DeleteExtra(dataViewMode,  attributeFQN,  productCode, authTicket);
+		///   productextra.DeleteExtra(dataViewMode,  productCode,  attributeFQN, authTicket);
 		/// </code>
 		/// </example>
-		public virtual void DeleteExtra(DataViewMode dataViewMode, string attributeFQN, string productCode, AuthTicket authTicket= null)
+		public virtual void DeleteExtra(DataViewMode dataViewMode, string productCode, string attributeFQN, AuthTicket authTicket= null)
 		{
 			MozuClient response;
-			var client = Mozu.Api.Clients.Commerce.Catalog.Admin.Products.ProductExtraClient.DeleteExtraClient(dataViewMode,  attributeFQN,  productCode, authTicket);
+			var client = Mozu.Api.Clients.Commerce.Catalog.Admin.Products.ProductExtraClient.DeleteExtraClient(dataViewMode,  productCode,  attributeFQN, authTicket);
 			client.WithContext(_apiContext);
 			response= client.Execute();
 
 		}
 
-		
+
 	}
 
 }

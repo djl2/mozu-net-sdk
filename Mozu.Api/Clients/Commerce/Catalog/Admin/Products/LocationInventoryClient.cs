@@ -16,14 +16,14 @@ using Mozu.Api.Security;
 namespace Mozu.Api.Clients.Commerce.Catalog.Admin.Products
 {
 	/// <summary>
-	/// 
+	/// Use the Product Location Inventory resource to manage the levels of active product inventory to maintain across defined locations at the product level.
 	/// </summary>
 	public partial class LocationInventoryClient 	{
 		
 		/// <summary>
-		/// 
+		/// Retrieves all locations for which a product has inventory defined and displays the inventory definition properties of each location.
 		/// </summary>
-		/// <param name="productCode"></param>
+		/// <param name="productCode">Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.ProductAdmin.LocationInventoryCollection"/>}
 		/// </returns>
@@ -39,24 +39,24 @@ namespace Mozu.Api.Clients.Commerce.Catalog.Admin.Products
 		}
 
 		/// <summary>
-		/// 
+		/// Retrieves all locations for which a product has inventory defined and displays the inventory definition properties of each location.
 		/// </summary>
-		/// <param name="filter"></param>
-		/// <param name="pageSize"></param>
-		/// <param name="productCode"></param>
-		/// <param name="sortBy"></param>
-		/// <param name="startIndex"></param>
+		/// <param name="filter">A set of expressions that consist of a field, operator, and value and represent search parameter syntax when filtering results of a query. Valid operators include equals (eq), does not equal (ne), greater than (gt), less than (lt), greater than or equal to (ge), less than or equal to (le), starts with (sw), or contains (cont). For example - "filter=IsDisplayed+eq+true"</param>
+		/// <param name="pageSize">The number of results to display on each page when creating paged results from a query. The maximum value is 200.</param>
+		/// <param name="productCode">Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only.</param>
+		/// <param name="sortBy">The property by which to sort results and whether the results appear in ascending (a-z) order, represented by ASC or in descending (z-a) order, represented by DESC. The sortBy parameter follows an available property. For example: "sortBy=productCode+asc"</param>
+		/// <param name="startIndex">When creating paged results from a query, this value indicates the zero-based offset in the complete result set where the returned entities begin. For example, with a PageSize of 25, to get the 51st through the 75th items, use startIndex=3.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.ProductAdmin.LocationInventoryCollection"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=GetLocationInventories(dataViewMode,  productCode,  filter,  pageSize,  sortBy,  startIndex, authTicket);
+		///   var mozuClient=GetLocationInventories(dataViewMode,  productCode,  startIndex,  pageSize,  sortBy,  filter, authTicket);
 		///   var locationInventoryCollectionClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.ProductAdmin.LocationInventoryCollection> GetLocationInventoriesClient(DataViewMode dataViewMode, string productCode, string filter =  null, int? pageSize =  null, string sortBy =  null, int? startIndex =  null, AuthTicket authTicket= null)
+		public static MozuClient<Mozu.Api.Contracts.ProductAdmin.LocationInventoryCollection> GetLocationInventoriesClient(DataViewMode dataViewMode, string productCode, int? startIndex =  null, int? pageSize =  null, string sortBy =  null, string filter =  null, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Catalog.Admin.Products.LocationInventoryUrl.GetLocationInventoriesUrl(filter, pageSize, productCode, sortBy, startIndex);
 			const string verb = "GET";
@@ -68,9 +68,9 @@ namespace Mozu.Api.Clients.Commerce.Catalog.Admin.Products
 		}
 
 		/// <summary>
-		/// 
+		/// Retrieves the details of the inventory of the product in the location specified in the request.
 		/// </summary>
-		/// <param name="locationCode"></param>
+		/// <param name="locationCode">User-defined code that identifies the location.</param>
 		/// <param name="productCode"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
@@ -78,11 +78,11 @@ namespace Mozu.Api.Clients.Commerce.Catalog.Admin.Products
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=GetLocationInventory(dataViewMode,  locationCode,  productCode, authTicket);
+		///   var mozuClient=GetLocationInventory(dataViewMode,  productCode,  locationCode, authTicket);
 		///   var locationInventoryClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.ProductAdmin.LocationInventory> GetLocationInventoryClient(DataViewMode dataViewMode, string locationCode, string productCode, AuthTicket authTicket= null)
+		public static MozuClient<Mozu.Api.Contracts.ProductAdmin.LocationInventory> GetLocationInventoryClient(DataViewMode dataViewMode, string productCode, string locationCode, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Catalog.Admin.Products.LocationInventoryUrl.GetLocationInventoryUrl(locationCode, productCode);
 			const string verb = "GET";
@@ -93,12 +93,12 @@ namespace Mozu.Api.Clients.Commerce.Catalog.Admin.Products
 
 		}
 
-				/// <summary>
-		/// 
+		/// <summary>
+		/// Creates a new location inventory definition for the product code specified in the request.
 		/// </summary>
-		/// <param name="productCode"></param>
+		/// <param name="productCode">ProductCodeBase</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="locationInventoryList"></param>
+		/// <param name="locationInventoryList">Array list of the location inventory definitions associated with the product code specified in the request. For each location, you must define the locationCode value and the stockOnHand value. All other properties in the array are system-supplied and read only.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{List{<see cref="Mozu.Api.Contracts.ProductAdmin.LocationInventory"/>}}
 		/// </returns>
@@ -119,10 +119,10 @@ namespace Mozu.Api.Clients.Commerce.Catalog.Admin.Products
 
 		}
 
-				/// <summary>
-		/// 
+		/// <summary>
+		/// Updates the current level of stock at each location associated with the product code specified in the request.
 		/// </summary>
-		/// <param name="productCode"></param>
+		/// <param name="productCode">The product code of the product for which to update active stock on hand inventory at a specified location.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <param name="locationInventoryAdjustments"></param>
 		/// <returns>
@@ -145,22 +145,22 @@ namespace Mozu.Api.Clients.Commerce.Catalog.Admin.Products
 
 		}
 
-				/// <summary>
-		/// 
+		/// <summary>
+		/// Deletes the location inventory definition for the product code specified in the request.
 		/// </summary>
-		/// <param name="locationCode"></param>
-		/// <param name="productCode"></param>
+		/// <param name="locationCode">The code that identifies the location for which to delete product inventory.</param>
+		/// <param name="productCode">The product code for which to delete a location's inventory.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=DeleteLocationInventory(dataViewMode,  locationCode,  productCode, authTicket);
+		///   var mozuClient=DeleteLocationInventory(dataViewMode,  productCode,  locationCode, authTicket);
 		///mozuClient.WithBaseAddress(url).Execute();
 		/// </code>
 		/// </example>
-		public static MozuClient DeleteLocationInventoryClient(DataViewMode dataViewMode, string locationCode, string productCode, AuthTicket authTicket= null)
+		public static MozuClient DeleteLocationInventoryClient(DataViewMode dataViewMode, string productCode, string locationCode, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Catalog.Admin.Products.LocationInventoryUrl.DeleteLocationInventoryUrl(locationCode, productCode);
 			const string verb = "DELETE";
@@ -171,7 +171,7 @@ namespace Mozu.Api.Clients.Commerce.Catalog.Admin.Products
 
 		}
 
-		
+
 	}
 
 }

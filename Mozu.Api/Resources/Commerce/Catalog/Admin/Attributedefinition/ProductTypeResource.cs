@@ -16,10 +16,10 @@ using Mozu.Api.Security;
 namespace Mozu.Api.Resources.Commerce.Catalog.Admin.Attributedefinition
 {
 	/// <summary>
-	/// 
+	/// Use the Product Types resource to manage the types for your product catalog. Product types act as configuration templates, which store a set of attributes common to all products associated with that type. Unlike categories, products can only be associated with a single product type.
 	/// </summary>
 	public partial class ProductTypeResource  	{
-				///
+		///
 		/// <see cref="Mozu.Api.ApiContext"/>
 		///
 		private readonly IApiContext _apiContext;
@@ -30,7 +30,7 @@ namespace Mozu.Api.Resources.Commerce.Catalog.Admin.Attributedefinition
 
 		
 		/// <summary>
-		/// 
+		/// Retrieves a list of product types according to any specified filter criteria and sort options.
 		/// </summary>
 		/// <param name="dataViewMode">{<see cref="Mozu.Api.DataViewMode"/>}</param>
 		/// <returns>
@@ -48,10 +48,10 @@ namespace Mozu.Api.Resources.Commerce.Catalog.Admin.Attributedefinition
 		}
 
 		/// <summary>
-		/// 
+		/// Retrieves a list of product types according to any specified filter criteria and sort options.
 		/// </summary>
-		/// <param name="filter"></param>
-		/// <param name="pageSize"></param>
+		/// <param name="filter">A set of expressions that consist of a field, operator, and value and represent search parameter syntax when filtering results of a query. You can filter product type search results by any of its properties. Valid operators include equals (eq), does not equal (ne), greater than (gt), less than (lt), greater than or equal to (ge), less than or equal to (le), starts with (sw), or contains (cont). For example - "filter=Name+cont+shoes"</param>
+		/// <param name="pageSize">The number of results to display on each page when creating paged results from a query. The maximum value is 200.</param>
 		/// <param name="sortBy"></param>
 		/// <param name="startIndex"></param>
 		/// <param name="dataViewMode">{<see cref="Mozu.Api.DataViewMode"/>}</param>
@@ -62,13 +62,13 @@ namespace Mozu.Api.Resources.Commerce.Catalog.Admin.Attributedefinition
 		/// <example>
 		/// <code>
 		///   var producttype = new ProductType();
-		///   var productTypeCollection = producttype.GetProductTypes(dataViewMode,  filter,  pageSize,  sortBy,  startIndex, authTicket);
+		///   var productTypeCollection = producttype.GetProductTypes(dataViewMode,  startIndex,  pageSize,  sortBy,  filter, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.ProductAdmin.ProductTypeCollection GetProductTypes(DataViewMode dataViewMode, string filter =  null, int? pageSize =  null, string sortBy =  null, int? startIndex =  null, AuthTicket authTicket= null)
+		public virtual Mozu.Api.Contracts.ProductAdmin.ProductTypeCollection GetProductTypes(DataViewMode dataViewMode, int? startIndex =  null, int? pageSize =  null, string sortBy =  null, string filter =  null, AuthTicket authTicket= null)
 		{
 			MozuClient<Mozu.Api.Contracts.ProductAdmin.ProductTypeCollection> response;
-			var client = Mozu.Api.Clients.Commerce.Catalog.Admin.Attributedefinition.ProductTypeClient.GetProductTypesClient(dataViewMode,  filter,  pageSize,  sortBy,  startIndex, authTicket);
+			var client = Mozu.Api.Clients.Commerce.Catalog.Admin.Attributedefinition.ProductTypeClient.GetProductTypesClient(dataViewMode,  startIndex,  pageSize,  sortBy,  filter, authTicket);
 			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
@@ -76,9 +76,9 @@ namespace Mozu.Api.Resources.Commerce.Catalog.Admin.Attributedefinition
 		}
 
 		/// <summary>
-		/// 
+		/// Retrieves the details of the product type specified in the request.
 		/// </summary>
-		/// <param name="productTypeId"></param>
+		/// <param name="productTypeId">Identifier of the product type to retrieve.</param>
 		/// <param name="dataViewMode">{<see cref="Mozu.Api.DataViewMode"/>}</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
@@ -100,12 +100,12 @@ namespace Mozu.Api.Resources.Commerce.Catalog.Admin.Attributedefinition
 
 		}
 
-				/// <summary>
-		/// 
+		/// <summary>
+		/// Creates a new product type based on the information supplied in the request.
 		/// </summary>
 		/// <param name="dataViewMode">{<see cref="Mozu.Api.DataViewMode"/>}</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="productType"></param>
+		/// <param name="productType">Properties of the product type to create.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.ProductAdmin.ProductType"/>
 		/// </returns>
@@ -125,13 +125,13 @@ namespace Mozu.Api.Resources.Commerce.Catalog.Admin.Attributedefinition
 
 		}
 
-				/// <summary>
-		/// 
+		/// <summary>
+		/// Updates one or more properties of a product type.
 		/// </summary>
-		/// <param name="productTypeId"></param>
+		/// <param name="productTypeId">Identifier of the product type to update.</param>
 		/// <param name="dataViewMode">{<see cref="Mozu.Api.DataViewMode"/>}</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="productType"></param>
+		/// <param name="productType">The details of the product type to update.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.ProductAdmin.ProductType"/>
 		/// </returns>
@@ -151,10 +151,10 @@ namespace Mozu.Api.Resources.Commerce.Catalog.Admin.Attributedefinition
 
 		}
 
-				/// <summary>
-		/// 
+		/// <summary>
+		/// Deletes the product type by providing the product type ID.
 		/// </summary>
-		/// <param name="productTypeId"></param>
+		/// <param name="productTypeId">Identifier of the product type to delete.</param>
 		/// <param name="dataViewMode">{<see cref="Mozu.Api.DataViewMode"/>}</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
@@ -175,7 +175,7 @@ namespace Mozu.Api.Resources.Commerce.Catalog.Admin.Attributedefinition
 
 		}
 
-		
+
 	}
 
 }

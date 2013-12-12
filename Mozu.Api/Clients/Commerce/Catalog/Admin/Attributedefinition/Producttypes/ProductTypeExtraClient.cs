@@ -16,14 +16,14 @@ using Mozu.Api.Security;
 namespace Mozu.Api.Clients.Commerce.Catalog.Admin.Attributedefinition.Producttypes
 {
 	/// <summary>
-	/// 
+	/// Use the Extras subresource to define how a product attribute classified as an "extra" is used for a specific product type. Product attribute defintions are unique for each associated product type.
 	/// </summary>
 	public partial class ProductTypeExtraClient 	{
 		
 		/// <summary>
-		/// 
+		/// Retrieves a list of extra attributes defined for the specified product type.
 		/// </summary>
-		/// <param name="productTypeId"></param>
+		/// <param name="productTypeId">Identifier of the product type.</param>
 		/// <param name="dataViewMode">{<see cref="Mozu.Api.DataViewMode"/>}</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
@@ -47,10 +47,10 @@ namespace Mozu.Api.Clients.Commerce.Catalog.Admin.Attributedefinition.Producttyp
 		}
 
 		/// <summary>
-		/// 
+		/// Retrieves the details of an extra attribute definition for the specified product type.
 		/// </summary>
-		/// <param name="attributeFQN"></param>
-		/// <param name="productTypeId"></param>
+		/// <param name="attributeFQN">The fully qualified name of the attribute, which is a user defined attribute identifier.</param>
+		/// <param name="productTypeId">Identifier of the product type whose extra is being retrieved.</param>
 		/// <param name="dataViewMode">{<see cref="Mozu.Api.DataViewMode"/>}</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
@@ -58,11 +58,11 @@ namespace Mozu.Api.Clients.Commerce.Catalog.Admin.Attributedefinition.Producttyp
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=GetExtra(dataViewMode,  attributeFQN,  productTypeId, authTicket);
+		///   var mozuClient=GetExtra(dataViewMode,  productTypeId,  attributeFQN, authTicket);
 		///   var attributeInProductTypeClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.ProductAdmin.AttributeInProductType> GetExtraClient(DataViewMode dataViewMode, string attributeFQN, int productTypeId, AuthTicket authTicket= null)
+		public static MozuClient<Mozu.Api.Contracts.ProductAdmin.AttributeInProductType> GetExtraClient(DataViewMode dataViewMode, int productTypeId, string attributeFQN, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Catalog.Admin.Attributedefinition.Producttypes.ProductTypeExtraUrl.GetExtraUrl(attributeFQN, productTypeId);
 			const string verb = "GET";
@@ -73,13 +73,13 @@ namespace Mozu.Api.Clients.Commerce.Catalog.Admin.Attributedefinition.Producttyp
 
 		}
 
-				/// <summary>
-		/// 
+		/// <summary>
+		/// Assigns a defined extra attribute to the product type based on the information supplied in the request.
 		/// </summary>
-		/// <param name="productTypeId"></param>
+		/// <param name="productTypeId">Identifier of the product type.</param>
 		/// <param name="dataViewMode">{<see cref="Mozu.Api.DataViewMode"/>}</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="attributeInProductType"></param>
+		/// <param name="attributeInProductType">The properties of the extra attribute definition for this product type assignment.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.ProductAdmin.AttributeInProductType"/>}
 		/// </returns>
@@ -100,24 +100,24 @@ namespace Mozu.Api.Clients.Commerce.Catalog.Admin.Attributedefinition.Producttyp
 
 		}
 
-				/// <summary>
-		/// 
+		/// <summary>
+		/// Update the definition of an extra attribute for the specified product type.
 		/// </summary>
-		/// <param name="attributeFQN"></param>
-		/// <param name="productTypeId"></param>
+		/// <param name="attributeFQN">The fully qualified name of the attribute, which is a user defined attribute identifier.</param>
+		/// <param name="productTypeId">Identifier of the product type.</param>
 		/// <param name="dataViewMode">{<see cref="Mozu.Api.DataViewMode"/>}</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="attributeInProductType"></param>
+		/// <param name="attributeInProductType">The properties of the extra attribute definition to update for the product type.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.ProductAdmin.AttributeInProductType"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=UpdateExtra(dataViewMode,  attributeInProductType,  attributeFQN,  productTypeId, authTicket);
+		///   var mozuClient=UpdateExtra(dataViewMode,  attributeInProductType,  productTypeId,  attributeFQN, authTicket);
 		///   var attributeInProductTypeClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.ProductAdmin.AttributeInProductType> UpdateExtraClient(DataViewMode dataViewMode, Mozu.Api.Contracts.ProductAdmin.AttributeInProductType attributeInProductType, string attributeFQN, int productTypeId, AuthTicket authTicket= null)
+		public static MozuClient<Mozu.Api.Contracts.ProductAdmin.AttributeInProductType> UpdateExtraClient(DataViewMode dataViewMode, Mozu.Api.Contracts.ProductAdmin.AttributeInProductType attributeInProductType, int productTypeId, string attributeFQN, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Catalog.Admin.Attributedefinition.Producttypes.ProductTypeExtraUrl.UpdateExtraUrl(attributeFQN, productTypeId);
 			const string verb = "PUT";
@@ -128,11 +128,11 @@ namespace Mozu.Api.Clients.Commerce.Catalog.Admin.Attributedefinition.Producttyp
 
 		}
 
-				/// <summary>
-		/// 
+		/// <summary>
+		/// Removes an extra attribute definition from the specified product type.
 		/// </summary>
-		/// <param name="attributeFQN"></param>
-		/// <param name="productTypeId"></param>
+		/// <param name="attributeFQN">The fully qualified name of the attribute, which is a user defined attribute identifier.</param>
+		/// <param name="productTypeId">Identifier of the product type.</param>
 		/// <param name="dataViewMode">{<see cref="Mozu.Api.DataViewMode"/>}</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
@@ -140,11 +140,11 @@ namespace Mozu.Api.Clients.Commerce.Catalog.Admin.Attributedefinition.Producttyp
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=DeleteExtra(dataViewMode,  attributeFQN,  productTypeId, authTicket);
+		///   var mozuClient=DeleteExtra(dataViewMode,  productTypeId,  attributeFQN, authTicket);
 		///mozuClient.WithBaseAddress(url).Execute();
 		/// </code>
 		/// </example>
-		public static MozuClient DeleteExtraClient(DataViewMode dataViewMode, string attributeFQN, int productTypeId, AuthTicket authTicket= null)
+		public static MozuClient DeleteExtraClient(DataViewMode dataViewMode, int productTypeId, string attributeFQN, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Catalog.Admin.Attributedefinition.Producttypes.ProductTypeExtraUrl.DeleteExtraUrl(attributeFQN, productTypeId);
 			const string verb = "DELETE";
@@ -155,7 +155,7 @@ namespace Mozu.Api.Clients.Commerce.Catalog.Admin.Attributedefinition.Producttyp
 
 		}
 
-		
+
 	}
 
 }

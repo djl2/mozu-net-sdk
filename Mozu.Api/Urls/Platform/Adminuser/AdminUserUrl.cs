@@ -13,35 +13,37 @@ using System;
 
 namespace Mozu.Api.Urls.Platform.Adminuser
 {
-	public partial class AdminUserUrl : MozuUrl
+	public partial class AdminUserUrl 
 	{
 
 		/// <summary>
         /// Get Resource Url for GetUser
         /// </summary>
-        /// <param name="userId"></param>
+        /// <param name="userId">Unique identifier of the administrator account to retrieve.</param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
         public static MozuUrl GetUserUrl(string userId)
 		{
 			var url = "/api/platform/adminuser/accounts/{userId}";
-			FormatUrl( ref url, "userId", userId);
-			return new MozuUrl(url, MozuUrl.UrlLocation.HOME_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.HOME_POD, false) ;
+			mozuUrl.FormatUrl( "userId", userId);
+			return mozuUrl;
 		}
 
 		/// <summary>
         /// Get Resource Url for GetTenantScopesForUser
         /// </summary>
-        /// <param name="userId"></param>
+        /// <param name="userId">Unique identifier of the user whose tenant scopes you want to retrieve.</param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
         public static MozuUrl GetTenantScopesForUserUrl(string userId)
 		{
 			var url = "/api/platform/adminuser/accounts/{userId}/tenants";
-			FormatUrl( ref url, "userId", userId);
-			return new MozuUrl(url, MozuUrl.UrlLocation.HOME_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.HOME_POD, false) ;
+			mozuUrl.FormatUrl( "userId", userId);
+			return mozuUrl;
 		}
 
 								

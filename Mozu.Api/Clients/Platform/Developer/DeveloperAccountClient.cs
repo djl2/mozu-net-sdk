@@ -16,12 +16,12 @@ using Mozu.Api.Security;
 namespace Mozu.Api.Clients.Platform.Developer
 {
 	/// <summary>
-	/// 
+	/// Use the Developer Accounts resource to retrieve details about the developer account a company uses to test applications and themes.
 	/// </summary>
 	public partial class DeveloperAccountClient 	{
 		
 		/// <summary>
-		/// 
+		/// Retrieves the details of the developer account specified in the request.
 		/// </summary>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.AppDev.DeveloperAccount"/>}
@@ -38,9 +38,9 @@ namespace Mozu.Api.Clients.Platform.Developer
 		}
 
 		/// <summary>
-		/// 
+		/// Retrieves the details of the developer account specified in the request.
 		/// </summary>
-		/// <param name="accountId"></param>
+		/// <param name="accountId">Unique identifier of the developer account to retrieve.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.AppDev.DeveloperAccount"/>}
@@ -62,7 +62,7 @@ namespace Mozu.Api.Clients.Platform.Developer
 
 		}
 
-								
+
 	}
 
 }

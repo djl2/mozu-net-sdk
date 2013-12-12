@@ -22,29 +22,36 @@ using Mozu.Api.Test.Helpers;
 namespace Mozu.Api.Test.Factories
 {
 	/// <summary>
-	/// 
+	/// Use the Location Usages resource to define the locations and location types that interact with the specified site. The system creates three default location usage types for each site after provisioning a new tenant - one for direct ship (DS), one for in-store pickup (SP), and one for store finder (storeFinder). Each site can only use a single location for the direct ship location usage type, and the location must support the direct ship fulfillment type (DS). For the in-store pickup location usage type, each site can use one or more location types. The location service identifies all locations of the specified type that support the in-store pickup fulfillment type (SP). For the store finder location usage type, each site can use one or more location types. The location service identifies all locations of the type. Locations configured for the store finder type do not typically maintain inventory. You cannot create additional location usage types at this time.
 	/// </summary>
 	public partial class LocationUsageFactory : BaseDataFactory
 	{
 
 		/// <summary> 
-		/// 
+		/// Retrieves the configured site location usages for the location usage code specified in the request.
 		/// <example> 
 		///  <code> 
-		//// var result = LocationUsageFactory.GetLocationUsages(handler : handler,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<LocationUsageCollection>(result); 
-		//// return optionalCasting;
+		/// var result = LocationUsageFactory.GetLocationUsages(handler : handler,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<LocationUsageCollection/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.Location.LocationUsageCollection GetLocationUsages(ServiceClientMessageHandler handler, 
- 		  AuthTicket authTicket= null, 
+ 		  AuthTicket authTicket = null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Settings.LocationUsageClient.GetLocationUsagesClient(
 				 authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -52,23 +59,30 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// Retrieves the location usages for the site specified in the request header.
 		/// <example> 
 		///  <code> 
-		//// var result = LocationUsageFactory.GetLocationUsage(handler : handler,  code :  code,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<LocationUsage>(result); 
-		//// return optionalCasting;
+		/// var result = LocationUsageFactory.GetLocationUsage(handler : handler,  code :  code,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<LocationUsage/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.Location.LocationUsage GetLocationUsage(ServiceClientMessageHandler handler, 
- 		 string code,  AuthTicket authTicket= null, 
+ 		 string code,  AuthTicket authTicket = null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Settings.LocationUsageClient.GetLocationUsageClient(
 				 code :  code, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -76,23 +90,30 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// Updates the location usage for the site based on the location usage code specified in the request.
 		/// <example> 
 		///  <code> 
-		//// var result = LocationUsageFactory.UpdateLocationUsage(handler : handler,  code :  code,  usage :  usage, authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<LocationUsage>(result); 
-		//// return optionalCasting;
+		/// var result = LocationUsageFactory.UpdateLocationUsage(handler : handler,  usage :  usage,  code :  code,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<LocationUsage/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.Location.LocationUsage UpdateLocationUsage(ServiceClientMessageHandler handler, 
- 		 string code, Mozu.Api.Contracts.Location.LocationUsage usage, AuthTicket authTicket= null, 
+ 		 Mozu.Api.Contracts.Location.LocationUsage usage, string code,  AuthTicket authTicket = null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Settings.LocationUsageClient.UpdateLocationUsageClient(
-				 code :  code,  usage :  usage, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+				 usage :  usage,  code :  code, authTicket : authTicket		);
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;

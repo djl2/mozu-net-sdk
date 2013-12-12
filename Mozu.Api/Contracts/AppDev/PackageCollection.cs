@@ -13,10 +13,19 @@ using System.Collections.Generic;
 
 namespace Mozu.Api.Contracts.AppDev
 {
+		///
+		///	Paged collection of development or release packages associated with an application version.
+		///
 		public class PackageCollection
 		{
+			///
+			///The number of results listed in the query collection, represented by a signed 64-bit (8-byte) integer. This value is system-supplied and read-only.
+			///
 			public long TotalCount { get; set; }
 
+			///
+			///An array list of objects in the returned collection.
+			///
 			public List<Package> Items { get; set; }
 
 		}

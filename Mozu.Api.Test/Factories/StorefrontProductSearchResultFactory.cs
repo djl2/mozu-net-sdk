@@ -22,45 +22,36 @@ using Mozu.Api.Test.Helpers;
 namespace Mozu.Api.Test.Factories
 {
 	/// <summary>
-	/// 
+	/// Provide dynamic search results to shoppers as they browse and search for products on the storefront. Suggest possible search terms as the shopper enters text.
 	/// </summary>
 	public partial class StorefrontProductSearchResultFactory : BaseDataFactory
 	{
 
 		/// <summary> 
-		/// 
+		/// Searches the categories displayed on the storefront for products or product options that the shopper types in a search query.
 		/// <example> 
 		///  <code> 
-		//// ProductSearchResultFactory.Search(handler : handler,  expectedCode: expectedCode, successCode: successCode);
+		/// var result = ProductSearchResultFactory.Search(handler : handler,  query :  query,  filter :  filter,  facetTemplate :  facetTemplate,  facetTemplateSubset :  facetTemplateSubset,  facet :  facet,  facetFieldRangeQuery :  facetFieldRangeQuery,  facetHierPrefix :  facetHierPrefix,  facetHierValue :  facetHierValue,  facetHierDepth :  facetHierDepth,  facetStartIndex :  facetStartIndex,  facetPageSize :  facetPageSize,  facetSettings :  facetSettings,  facetValueFilter :  facetValueFilter,  sortBy :  sortBy,  pageSize :  pageSize,  startIndex :  startIndex,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<ProductSearchResult/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.ProductRuntime.ProductSearchResult Search(ServiceClientMessageHandler handler, 
- 		 
-		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
-		{
-			return Search(handler : handler,  facet :  null,  facetFieldRangeQuery :  null,  facetHierDepth :  null,  facetHierPrefix :  null,  facetHierValue :  null,  facetPageSize :  null,  facetSettings :  null,  facetStartIndex :  null,  facetTemplate :  null,  facetTemplateSubset :  null,  facetValueFilter :  null,  filter :  null,  pageSize :  null,  query :  null,  sortBy :  null,  startIndex :  null,authTicket : null, 
-				expectedCode: expectedCode, successCode: successCode);
-		}
-  
-		/// <summary> 
-		/// 
-		/// <example> 
-		///  <code> 
-		//// var result = ProductSearchResultFactory.Search(handler : handler,  facet :  facet,  facetFieldRangeQuery :  facetFieldRangeQuery,  facetHierDepth :  facetHierDepth,  facetHierPrefix :  facetHierPrefix,  facetHierValue :  facetHierValue,  facetPageSize :  facetPageSize,  facetSettings :  facetSettings,  facetStartIndex :  facetStartIndex,  facetTemplate :  facetTemplate,  facetTemplateSubset :  facetTemplateSubset,  facetValueFilter :  facetValueFilter,  filter :  filter,  pageSize :  pageSize,  query :  query,  sortBy :  sortBy,  startIndex :  startIndex,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<ProductSearchResult>(result); 
-		//// return optionalCasting;
-		///  </code> 
-		/// </example> 
-		/// </summary>
-		public static Mozu.Api.Contracts.ProductRuntime.ProductSearchResult Search(ServiceClientMessageHandler handler, 
- 		 string facet, string facetFieldRangeQuery, string facetHierDepth, string facetHierPrefix, string facetHierValue, string facetPageSize, string facetSettings, string facetStartIndex, string facetTemplate, string facetTemplateSubset, string facetValueFilter, string filter, int? pageSize, string query, string sortBy, int? startIndex,  AuthTicket authTicket= null, 
+ 		 string query = null, string filter = null, string facetTemplate = null, string facetTemplateSubset = null, string facet = null, string facetFieldRangeQuery = null, string facetHierPrefix = null, string facetHierValue = null, string facetHierDepth = null, string facetStartIndex = null, string facetPageSize = null, string facetSettings = null, string facetValueFilter = null, string sortBy = null, int? pageSize = null, int? startIndex = null,  AuthTicket authTicket = null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Storefront.ProductSearchResultClient.SearchClient(
-				 facet :  facet,  facetFieldRangeQuery :  facetFieldRangeQuery,  facetHierDepth :  facetHierDepth,  facetHierPrefix :  facetHierPrefix,  facetHierValue :  facetHierValue,  facetPageSize :  facetPageSize,  facetSettings :  facetSettings,  facetStartIndex :  facetStartIndex,  facetTemplate :  facetTemplate,  facetTemplateSubset :  facetTemplateSubset,  facetValueFilter :  facetValueFilter,  filter :  filter,  pageSize :  pageSize,  query :  query,  sortBy :  sortBy,  startIndex :  startIndex, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+				 query :  query,  filter :  filter,  facetTemplate :  facetTemplate,  facetTemplateSubset :  facetTemplateSubset,  facet :  facet,  facetFieldRangeQuery :  facetFieldRangeQuery,  facetHierPrefix :  facetHierPrefix,  facetHierValue :  facetHierValue,  facetHierDepth :  facetHierDepth,  facetStartIndex :  facetStartIndex,  facetPageSize :  facetPageSize,  facetSettings :  facetSettings,  facetValueFilter :  facetValueFilter,  sortBy :  sortBy,  pageSize :  pageSize,  startIndex :  startIndex, authTicket : authTicket		);
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -68,39 +59,30 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// Suggests possible search terms as the shopper enters search text.
 		/// <example> 
 		///  <code> 
-		//// ProductSearchResultFactory.Suggest(handler : handler,  expectedCode: expectedCode, successCode: successCode);
+		/// var result = ProductSearchResultFactory.Suggest(handler : handler,  q :  q,  pageSize :  pageSize,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<SearchSuggestion/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.ProductRuntime.SearchSuggestion Suggest(ServiceClientMessageHandler handler, 
- 		 
-		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
-		{
-			return Suggest(handler : handler,  pageSize :  null,  q :  null,authTicket : null, 
-				expectedCode: expectedCode, successCode: successCode);
-		}
-  
-		/// <summary> 
-		/// 
-		/// <example> 
-		///  <code> 
-		//// var result = ProductSearchResultFactory.Suggest(handler : handler,  pageSize :  pageSize,  q :  q,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<SearchSuggestion>(result); 
-		//// return optionalCasting;
-		///  </code> 
-		/// </example> 
-		/// </summary>
-		public static Mozu.Api.Contracts.ProductRuntime.SearchSuggestion Suggest(ServiceClientMessageHandler handler, 
- 		 int? pageSize, string q,  AuthTicket authTicket= null, 
+ 		 string q = null, int? pageSize = null,  AuthTicket authTicket = null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Storefront.ProductSearchResultClient.SuggestClient(
-				 pageSize :  pageSize,  q :  q, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+				 q :  q,  pageSize :  pageSize, authTicket : authTicket		);
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;

@@ -13,23 +13,24 @@ using System;
 
 namespace Mozu.Api.Urls.Content.Documentlists
 {
-	public partial class FacetUrl : MozuUrl
+	public partial class FacetUrl 
 	{
 
 		/// <summary>
         /// Get Resource Url for GetFacets
         /// </summary>
-        /// <param name="documentListName"></param>
-        /// <param name="propertyName"></param>
+        /// <param name="documentListName">The document list associated with the facets to retrieve.</param>
+        /// <param name="propertyName">The property name associated with the facets to retrieve.</param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
         public static MozuUrl GetFacetsUrl(string documentListName, string propertyName)
 		{
 			var url = "/api/content/documentlists/{documentListName}/facets/{propertyName}";
-			FormatUrl( ref url, "documentListName", documentListName);
-			FormatUrl( ref url, "propertyName", propertyName);
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "documentListName", documentListName);
+			mozuUrl.FormatUrl( "propertyName", propertyName);
+			return mozuUrl;
 		}
 
 								

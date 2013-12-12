@@ -16,10 +16,10 @@ using Mozu.Api.Security;
 namespace Mozu.Api.Resources.Commerce.Settings
 {
 	/// <summary>
-	/// 
+	/// Use the shipping subresource to manage settings for the site shipping information, such as origin address information, carrier shipping methods, shipping rate providers, and regions available for shipping.
 	/// </summary>
 	public partial class SiteShippingSettingsResource  	{
-				///
+		///
 		/// <see cref="Mozu.Api.ApiContext"/>
 		///
 		private readonly IApiContext _apiContext;
@@ -30,7 +30,7 @@ namespace Mozu.Api.Resources.Commerce.Settings
 
 		
 		/// <summary>
-		/// 
+		/// Retrieves a list of the shipping settings configured for a site.
 		/// </summary>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
@@ -52,7 +52,7 @@ namespace Mozu.Api.Resources.Commerce.Settings
 
 		}
 
-								
+
 	}
 
 }

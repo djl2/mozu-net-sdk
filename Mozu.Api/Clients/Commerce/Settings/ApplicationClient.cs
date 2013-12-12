@@ -16,12 +16,12 @@ using Mozu.Api.Security;
 namespace Mozu.Api.Clients.Commerce.Settings
 {
 	/// <summary>
-	/// 
+	/// Use the applications subresource to update site settings for installed applications.
 	/// </summary>
 	public partial class ApplicationClient 	{
 		
 		/// <summary>
-		/// 
+		/// Retrieve the settings of a third-party application.
 		/// </summary>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
@@ -44,11 +44,11 @@ namespace Mozu.Api.Clients.Commerce.Settings
 
 		}
 
-						/// <summary>
-		/// 
+		/// <summary>
+		/// Initializes an application with the necessary configured settings.
 		/// </summary>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="application"></param>
+		/// <param name="application">Properties of the application to update.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.SiteSettings.Application.Application"/>}
 		/// </returns>
@@ -69,7 +69,7 @@ namespace Mozu.Api.Clients.Commerce.Settings
 
 		}
 
-				
+
 	}
 
 }

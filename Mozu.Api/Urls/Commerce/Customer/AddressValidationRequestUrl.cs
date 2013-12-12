@@ -13,7 +13,7 @@ using System;
 
 namespace Mozu.Api.Urls.Commerce.Customer
 {
-	public partial class AddressValidationRequestUrl : MozuUrl
+	public partial class AddressValidationRequestUrl 
 	{
 
 				/// <summary>
@@ -25,7 +25,8 @@ namespace Mozu.Api.Urls.Commerce.Customer
         public static MozuUrl ValidateAddressUrl()
 		{
 			var url = "/api/commerce/customer/addressvalidation/";
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			return mozuUrl;
 		}
 
 						

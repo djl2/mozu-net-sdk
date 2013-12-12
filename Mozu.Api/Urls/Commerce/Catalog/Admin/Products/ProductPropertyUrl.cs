@@ -13,7 +13,7 @@ using System;
 
 namespace Mozu.Api.Urls.Commerce.Catalog.Admin.Products
 {
-	public partial class ProductPropertyUrl : MozuUrl
+	public partial class ProductPropertyUrl 
 	{
 
 		/// <summary>
@@ -26,14 +26,15 @@ namespace Mozu.Api.Urls.Commerce.Catalog.Admin.Products
         public static MozuUrl GetPropertiesUrl(string productCode)
 		{
 			var url = "/api/commerce/catalog/admin/products/{productCode}/Properties";
-			FormatUrl( ref url, "productCode", productCode);
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "productCode", productCode);
+			return mozuUrl;
 		}
 
 		/// <summary>
         /// Get Resource Url for GetProperty
         /// </summary>
-        /// <param name="attributeFQN"></param>
+        /// <param name="attributeFQN">The fully qualified name of the attribute, which is a user defined attribute identifier.</param>
         /// <param name="productCode"></param>
         /// <returns>
         /// String - Resource Url
@@ -41,9 +42,10 @@ namespace Mozu.Api.Urls.Commerce.Catalog.Admin.Products
         public static MozuUrl GetPropertyUrl(string attributeFQN, string productCode)
 		{
 			var url = "/api/commerce/catalog/admin/products/{productCode}/Properties/{attributeFQN}";
-			FormatUrl( ref url, "attributeFQN", attributeFQN);
-			FormatUrl( ref url, "productCode", productCode);
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "attributeFQN", attributeFQN);
+			mozuUrl.FormatUrl( "productCode", productCode);
+			return mozuUrl;
 		}
 
 				/// <summary>
@@ -56,14 +58,15 @@ namespace Mozu.Api.Urls.Commerce.Catalog.Admin.Products
         public static MozuUrl AddPropertyUrl(string productCode)
 		{
 			var url = "/api/commerce/catalog/admin/products/{productCode}/Properties";
-			FormatUrl( ref url, "productCode", productCode);
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "productCode", productCode);
+			return mozuUrl;
 		}
 
 				/// <summary>
         /// Get Resource Url for UpdateProperty
         /// </summary>
-        /// <param name="attributeFQN"></param>
+        /// <param name="attributeFQN">The fully qualified name of the attribute, which is a user defined attribute identifier.</param>
         /// <param name="productCode"></param>
         /// <returns>
         /// String - Resource Url
@@ -71,15 +74,16 @@ namespace Mozu.Api.Urls.Commerce.Catalog.Admin.Products
         public static MozuUrl UpdatePropertyUrl(string attributeFQN, string productCode)
 		{
 			var url = "/api/commerce/catalog/admin/products/{productCode}/Properties/{attributeFQN}";
-			FormatUrl( ref url, "attributeFQN", attributeFQN);
-			FormatUrl( ref url, "productCode", productCode);
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "attributeFQN", attributeFQN);
+			mozuUrl.FormatUrl( "productCode", productCode);
+			return mozuUrl;
 		}
 
 				/// <summary>
         /// Get Resource Url for DeleteProperty
         /// </summary>
-        /// <param name="attributeFQN"></param>
+        /// <param name="attributeFQN">The fully qualified name of the attribute, which is a user defined attribute identifier.</param>
         /// <param name="productCode"></param>
         /// <returns>
         /// String - Resource Url
@@ -87,9 +91,10 @@ namespace Mozu.Api.Urls.Commerce.Catalog.Admin.Products
         public static MozuUrl DeletePropertyUrl(string attributeFQN, string productCode)
 		{
 			var url = "/api/commerce/catalog/admin/products/{productCode}/Properties/{attributeFQN}";
-			FormatUrl( ref url, "attributeFQN", attributeFQN);
-			FormatUrl( ref url, "productCode", productCode);
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "attributeFQN", attributeFQN);
+			mozuUrl.FormatUrl( "productCode", productCode);
+			return mozuUrl;
 		}
 
 		

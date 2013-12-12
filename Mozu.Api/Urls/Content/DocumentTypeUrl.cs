@@ -13,7 +13,7 @@ using System;
 
 namespace Mozu.Api.Urls.Content
 {
-	public partial class DocumentTypeUrl : MozuUrl
+	public partial class DocumentTypeUrl 
 	{
 
 		/// <summary>
@@ -27,23 +27,25 @@ namespace Mozu.Api.Urls.Content
         public static MozuUrl ListUrl(int? pageSize, int? startIndex)
 		{
 			var url = "/api/content/documenttypes/?pageSize={pageSize}&startIndex={startIndex}";
-			FormatUrl( ref url, "pageSize", pageSize);
-			FormatUrl( ref url, "startIndex", startIndex);
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "pageSize", pageSize);
+			mozuUrl.FormatUrl( "startIndex", startIndex);
+			return mozuUrl;
 		}
 
 		/// <summary>
         /// Get Resource Url for Get
         /// </summary>
-        /// <param name="documentTypeName"></param>
+        /// <param name="documentTypeName">The documentType name being retrieved.</param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
         public static MozuUrl GetUrl(string documentTypeName)
 		{
 			var url = "/api/content/documenttypes/{documentTypeName}";
-			FormatUrl( ref url, "documentTypeName", documentTypeName);
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "documentTypeName", documentTypeName);
+			return mozuUrl;
 		}
 
 								

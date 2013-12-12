@@ -13,8 +13,14 @@ using System.Collections.Generic;
 
 namespace Mozu.Api.Contracts.Core.ThirdParty
 {
+		///
+		///	Properties of a shipping country active for a third-party capability.
+		///
 		public class ActiveShippingCountry
 		{
+			///
+			///Array list of the active shipping carriers for the country.
+			///
 			public List<string> ActiveCarriers { get; set; }
 
 			public string CountryCode { get; set; }

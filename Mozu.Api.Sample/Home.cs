@@ -8,7 +8,6 @@ using Mozu.Api.Resources.Platform;
 using Mozu.Api.Sample.Models;
 using Mozu.Api.Security;
 using System.Linq;
-using UserScope = Mozu.Api.Security.UserScope;
 
 namespace Mozu.Api.Sample
 {
@@ -37,7 +36,7 @@ namespace Mozu.Api.Sample
                 AppAuthenticator.Initialize(appAuthInfo, SelectedEnv);
 
                 var userAuthInfo = new UserAuthInfo {EmailAddress = txtEmail.Text, Password = txtPassword.Text};
-                _userInfo = UserAuthenticator.Authenticate(userAuthInfo, UserScope.Tenant);
+                _userInfo = UserAuthenticator.Authenticate(userAuthInfo, AuthenticationScope.Tenant);
 
                 panelTenant.Visible = true;
 

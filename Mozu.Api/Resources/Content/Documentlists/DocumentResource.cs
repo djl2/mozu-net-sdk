@@ -16,10 +16,10 @@ using Mozu.Api.Security;
 namespace Mozu.Api.Resources.Content.Documentlists
 {
 	/// <summary>
-	/// 
+	/// Use this subresource to manage documents in a document list.
 	/// </summary>
 	public partial class DocumentResource  	{
-				///
+		///
 		/// <see cref="Mozu.Api.ApiContext"/>
 		///
 		private readonly IApiContext _apiContext;
@@ -30,10 +30,10 @@ namespace Mozu.Api.Resources.Content.Documentlists
 
 		
 		/// <summary>
-		/// 
+		/// Retrieves a specific document within the specified document list by providing the document ID.
 		/// </summary>
-		/// <param name="documentId"></param>
-		/// <param name="documentListName"></param>
+		/// <param name="documentId">Identifier of the document being retrieved.</param>
+		/// <param name="documentListName">The name of the document list associated with the document to retrieve.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.Content.Document"/>
@@ -41,13 +41,13 @@ namespace Mozu.Api.Resources.Content.Documentlists
 		/// <example>
 		/// <code>
 		///   var document = new Document();
-		///   var document = document.GetDocument( documentId,  documentListName, authTicket);
+		///   var document = document.GetDocument(dataViewMode,  documentListName,  documentId, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.Content.Document GetDocument(string documentId, string documentListName, AuthTicket authTicket= null)
+		public virtual Mozu.Api.Contracts.Content.Document GetDocument(DataViewMode dataViewMode, string documentListName, string documentId, AuthTicket authTicket= null)
 		{
 			MozuClient<Mozu.Api.Contracts.Content.Document> response;
-			var client = Mozu.Api.Clients.Content.Documentlists.DocumentClient.GetDocumentClient( documentId,  documentListName, authTicket);
+			var client = Mozu.Api.Clients.Content.Documentlists.DocumentClient.GetDocumentClient(dataViewMode,  documentListName,  documentId, authTicket);
 			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
@@ -55,55 +55,56 @@ namespace Mozu.Api.Resources.Content.Documentlists
 		}
 
 		/// <summary>
-		/// 
+		/// Retrieve the content associated with a document, such as a product image or PDF specifications file, by supplying the document ID.
 		/// </summary>
-		/// <param name="documentId"></param>
-		/// <param name="documentListName"></param>
+		/// <param name="documentId">Unique identifier of the document.</param>
+		/// <param name="documentListName">The name of the document list associated with the document.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
-		/// 
+		/// <see cref="System.IO.Stream"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var document = new Document();
-		///   document.GetDocumentContent( documentId,  documentListName, authTicket);
+		///   var stream = document.GetDocumentContent(dataViewMode,  documentListName,  documentId, authTicket);
 		/// </code>
 		/// </example>
-		public virtual void GetDocumentContent(string documentId, string documentListName, AuthTicket authTicket= null)
+		public virtual System.IO.Stream GetDocumentContent(DataViewMode dataViewMode, string documentListName, string documentId, AuthTicket authTicket= null)
 		{
-			MozuClient response;
-			var client = Mozu.Api.Clients.Content.Documentlists.DocumentClient.GetDocumentContentClient( documentId,  documentListName, authTicket);
+			MozuClient<System.IO.Stream> response;
+			var client = Mozu.Api.Clients.Content.Documentlists.DocumentClient.GetDocumentContentClient(dataViewMode,  documentListName,  documentId, authTicket);
 			client.WithContext(_apiContext);
 			response= client.Execute();
+			return response.Result();
 
 		}
 
 		/// <summary>
-		/// 
+		/// Retrieves a collection of documents according to any filter and sort criteria.
 		/// </summary>
-		/// <param name="documentListName"></param>
+		/// <param name="documentListName">The name of the document list.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.Content.DocumentCollection"/>
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var document = new Document();
-		///   var documentCollection = document.GetDocuments( documentListName);
+		///   var documentCollection = document.GetDocuments(dataViewMode,  documentListName);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.Content.DocumentCollection GetDocuments(string documentListName)
+		public virtual Mozu.Api.Contracts.Content.DocumentCollection GetDocuments(DataViewMode dataViewMode, string documentListName)
 		{
-			return GetDocuments( documentListName,  null,  null,  null,  null, null);
+			return GetDocuments(dataViewMode,  documentListName,  null,  null,  null,  null, null);
 		}
 
 		/// <summary>
-		/// 
+		/// Retrieves a collection of documents according to any filter and sort criteria.
 		/// </summary>
-		/// <param name="documentListName"></param>
-		/// <param name="filter"></param>
-		/// <param name="pageSize"></param>
-		/// <param name="sortBy"></param>
-		/// <param name="startIndex"></param>
+		/// <param name="documentListName">The name of the document list.</param>
+		/// <param name="filter">A set of expressions that consist of a field, operator, and value and represent search parameter syntax when filtering results of a query. You can filter a document's search results by any of its properties, including its name or folder path. Valid operators include equals (eq), does not equal (ne), greater than (gt), less than (lt), greater than or equal to (ge), less than or equal to (le), starts with (sw), or contains (cont). For example - "filter=Name+sw+Events"</param>
+		/// <param name="pageSize">The number of results to display on each page when creating paged results from a query. The maximum value is 200.</param>
+		/// <param name="sortBy">The property by which to sort results and whether the results appear in ascending (a-z) order, represented by ASC or in descending (z-a) order, represented by DESC. The sortBy parameter follows an available property. For example: "sortBy=productCode+asc"</param>
+		/// <param name="startIndex">When creating paged results from a query, this value indicates the zero-based offset in the complete result set where the returned entities begin. For example, with a PageSize of 25, to get the 51st through the 75th items, use startIndex=3.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.Content.DocumentCollection"/>
@@ -111,64 +112,13 @@ namespace Mozu.Api.Resources.Content.Documentlists
 		/// <example>
 		/// <code>
 		///   var document = new Document();
-		///   var documentCollection = document.GetDocuments( documentListName,  filter,  pageSize,  sortBy,  startIndex, authTicket);
+		///   var documentCollection = document.GetDocuments(dataViewMode,  documentListName,  filter,  sortBy,  pageSize,  startIndex, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.Content.DocumentCollection GetDocuments(string documentListName, string filter =  null, int? pageSize =  null, string sortBy =  null, int? startIndex =  null, AuthTicket authTicket= null)
+		public virtual Mozu.Api.Contracts.Content.DocumentCollection GetDocuments(DataViewMode dataViewMode, string documentListName, string filter =  null, string sortBy =  null, int? pageSize =  null, int? startIndex =  null, AuthTicket authTicket= null)
 		{
 			MozuClient<Mozu.Api.Contracts.Content.DocumentCollection> response;
-			var client = Mozu.Api.Clients.Content.Documentlists.DocumentClient.GetDocumentsClient( documentListName,  filter,  pageSize,  sortBy,  startIndex, authTicket);
-			client.WithContext(_apiContext);
-			response= client.Execute();
-			return response.Result();
-
-		}
-
-				/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="documentListName"></param>
-		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="document"></param>
-		/// <returns>
-		/// <see cref="Mozu.Api.Contracts.Content.Document"/>
-		/// </returns>
-		/// <example>
-		/// <code>
-		///   var document = new Document();
-		///   var document = document.CreateDocument( document,  documentListName, authTicket);
-		/// </code>
-		/// </example>
-		public virtual Mozu.Api.Contracts.Content.Document CreateDocument(Mozu.Api.Contracts.Content.Document document, string documentListName, AuthTicket authTicket= null)
-		{
-			MozuClient<Mozu.Api.Contracts.Content.Document> response;
-			var client = Mozu.Api.Clients.Content.Documentlists.DocumentClient.CreateDocumentClient( document,  documentListName, authTicket);
-			client.WithContext(_apiContext);
-			response= client.Execute();
-			return response.Result();
-
-		}
-
-				/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="documentId"></param>
-		/// <param name="documentListName"></param>
-		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="document"></param>
-		/// <returns>
-		/// <see cref="Mozu.Api.Contracts.Content.Document"/>
-		/// </returns>
-		/// <example>
-		/// <code>
-		///   var document = new Document();
-		///   var document = document.UpdateDocument( document,  documentId,  documentListName, authTicket);
-		/// </code>
-		/// </example>
-		public virtual Mozu.Api.Contracts.Content.Document UpdateDocument(Mozu.Api.Contracts.Content.Document document, string documentId, string documentListName, AuthTicket authTicket= null)
-		{
-			MozuClient<Mozu.Api.Contracts.Content.Document> response;
-			var client = Mozu.Api.Clients.Content.Documentlists.DocumentClient.UpdateDocumentClient( document,  documentId,  documentListName, authTicket);
+			var client = Mozu.Api.Clients.Content.Documentlists.DocumentClient.GetDocumentsClient(dataViewMode,  documentListName,  filter,  sortBy,  pageSize,  startIndex, authTicket);
 			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
@@ -176,10 +126,61 @@ namespace Mozu.Api.Resources.Content.Documentlists
 		}
 
 		/// <summary>
-		/// 
+		/// Creates a new document in an existing list.
 		/// </summary>
-		/// <param name="documentId"></param>
-		/// <param name="documentListName"></param>
+		/// <param name="documentListName">The descriptive alphanumeric document list name being created.</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
+		/// <param name="document">The descriptive name of the newly created document.</param>
+		/// <returns>
+		/// <see cref="Mozu.Api.Contracts.Content.Document"/>
+		/// </returns>
+		/// <example>
+		/// <code>
+		///   var document = new Document();
+		///   var document = document.CreateDocument(dataViewMode,  document,  documentListName, authTicket);
+		/// </code>
+		/// </example>
+		public virtual Mozu.Api.Contracts.Content.Document CreateDocument(DataViewMode dataViewMode, Mozu.Api.Contracts.Content.Document document, string documentListName, AuthTicket authTicket= null)
+		{
+			MozuClient<Mozu.Api.Contracts.Content.Document> response;
+			var client = Mozu.Api.Clients.Content.Documentlists.DocumentClient.CreateDocumentClient(dataViewMode,  document,  documentListName, authTicket);
+			client.WithContext(_apiContext);
+			response= client.Execute();
+			return response.Result();
+
+		}
+
+		/// <summary>
+		/// Updates a document in a document list.
+		/// </summary>
+		/// <param name="documentId">Unique identifier of the document to update.</param>
+		/// <param name="documentListName">Name of the document list associated with the document.</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
+		/// <param name="document">Properties of the document to update.</param>
+		/// <returns>
+		/// <see cref="Mozu.Api.Contracts.Content.Document"/>
+		/// </returns>
+		/// <example>
+		/// <code>
+		///   var document = new Document();
+		///   var document = document.UpdateDocument(dataViewMode,  document,  documentListName,  documentId, authTicket);
+		/// </code>
+		/// </example>
+		public virtual Mozu.Api.Contracts.Content.Document UpdateDocument(DataViewMode dataViewMode, Mozu.Api.Contracts.Content.Document document, string documentListName, string documentId, AuthTicket authTicket= null)
+		{
+			MozuClient<Mozu.Api.Contracts.Content.Document> response;
+			var client = Mozu.Api.Clients.Content.Documentlists.DocumentClient.UpdateDocumentClient(dataViewMode,  document,  documentListName,  documentId, authTicket);
+			client.WithContext(_apiContext);
+			response= client.Execute();
+			return response.Result();
+
+		}
+
+		/// <summary>
+		/// Updates the content associated with a document, such as a product image or PDF specifications file, by supplying the document ID.
+		/// </summary>
+		/// <param name="documentId">Unique identifier of the document.</param>
+		/// <param name="documentListName">The name of the document list associated with the document.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <param name="stream"></param>
 		/// <returns>
@@ -188,47 +189,23 @@ namespace Mozu.Api.Resources.Content.Documentlists
 		/// <example>
 		/// <code>
 		///   var document = new Document();
-		///   document.UpdateDocumentContent( stream,  documentId,  documentListName, authTicket);
+		///   document.UpdateDocumentContent(dataViewMode,  stream,  documentListName,  documentId, authTicket);
 		/// </code>
 		/// </example>
-		public virtual void UpdateDocumentContent(System.IO.Stream stream, string documentId, string documentListName, AuthTicket authTicket= null)
+		public virtual void UpdateDocumentContent(DataViewMode dataViewMode, System.IO.Stream stream, string documentListName, string documentId, AuthTicket authTicket= null)
 		{
 			MozuClient response;
-			var client = Mozu.Api.Clients.Content.Documentlists.DocumentClient.UpdateDocumentContentClient( stream,  documentId,  documentListName, authTicket);
-			client.WithContext(_apiContext);
-			response= client.Execute();
-
-		}
-
-				/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="documentId"></param>
-		/// <param name="documentListName"></param>
-		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <returns>
-		/// 
-		/// </returns>
-		/// <example>
-		/// <code>
-		///   var document = new Document();
-		///   document.DeleteDocument( documentId,  documentListName, authTicket);
-		/// </code>
-		/// </example>
-		public virtual void DeleteDocument(string documentId, string documentListName, AuthTicket authTicket= null)
-		{
-			MozuClient response;
-			var client = Mozu.Api.Clients.Content.Documentlists.DocumentClient.DeleteDocumentClient( documentId,  documentListName, authTicket);
+			var client = Mozu.Api.Clients.Content.Documentlists.DocumentClient.UpdateDocumentContentClient(dataViewMode,  stream,  documentListName,  documentId, authTicket);
 			client.WithContext(_apiContext);
 			response= client.Execute();
 
 		}
 
 		/// <summary>
-		/// 
+		/// Deletes a specific document based on the specified document ID.
 		/// </summary>
-		/// <param name="documentId"></param>
-		/// <param name="documentListName"></param>
+		/// <param name="documentId">Identifier of the document being deleted.</param>
+		/// <param name="documentListName">The name of the document list associated with the document list being deleted.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// 
@@ -236,19 +213,43 @@ namespace Mozu.Api.Resources.Content.Documentlists
 		/// <example>
 		/// <code>
 		///   var document = new Document();
-		///   document.DeleteDocumentContent( documentId,  documentListName, authTicket);
+		///   document.DeleteDocument(dataViewMode,  documentListName,  documentId, authTicket);
 		/// </code>
 		/// </example>
-		public virtual void DeleteDocumentContent(string documentId, string documentListName, AuthTicket authTicket= null)
+		public virtual void DeleteDocument(DataViewMode dataViewMode, string documentListName, string documentId, AuthTicket authTicket= null)
 		{
 			MozuClient response;
-			var client = Mozu.Api.Clients.Content.Documentlists.DocumentClient.DeleteDocumentContentClient( documentId,  documentListName, authTicket);
+			var client = Mozu.Api.Clients.Content.Documentlists.DocumentClient.DeleteDocumentClient(dataViewMode,  documentListName,  documentId, authTicket);
 			client.WithContext(_apiContext);
 			response= client.Execute();
 
 		}
 
-		
+		/// <summary>
+		/// Deletes the content associated with a document, such as a product image or PDF specification, by supplying the document ID.
+		/// </summary>
+		/// <param name="documentId">Unique identifier of the document.</param>
+		/// <param name="documentListName">The name of the document list associated with the document.</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
+		/// <returns>
+		/// 
+		/// </returns>
+		/// <example>
+		/// <code>
+		///   var document = new Document();
+		///   document.DeleteDocumentContent(dataViewMode,  documentListName,  documentId, authTicket);
+		/// </code>
+		/// </example>
+		public virtual void DeleteDocumentContent(DataViewMode dataViewMode, string documentListName, string documentId, AuthTicket authTicket= null)
+		{
+			MozuClient response;
+			var client = Mozu.Api.Clients.Content.Documentlists.DocumentClient.DeleteDocumentContentClient(dataViewMode,  documentListName,  documentId, authTicket);
+			client.WithContext(_apiContext);
+			response= client.Execute();
+
+		}
+
+
 	}
 
 }

@@ -16,12 +16,12 @@ using Mozu.Api.Security;
 namespace Mozu.Api.Clients.Commerce.Settings
 {
 	/// <summary>
-	/// 
+	/// Specify sitewide settings to determine how checkout and order processing behaves. This service includes payment settings, customer checkout settings, and order processing settings.
 	/// </summary>
 	public partial class CheckoutSettingsClient 	{
 		
 		/// <summary>
-		/// 
+		/// Retrieves all checkout settings defined for the site including payment settings (payment gateway ID and credentials), shopper checkout settings (login requirement or guest mode and custom attributes), and order processing settings (when payment is authorized and captured plus any custom attributes).
 		/// </summary>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
@@ -44,7 +44,7 @@ namespace Mozu.Api.Clients.Commerce.Settings
 
 		}
 
-								
+
 	}
 
 }

@@ -16,10 +16,10 @@ using Mozu.Api.Security;
 namespace Mozu.Api.Resources.Commerce.Catalog.Admin
 {
 	/// <summary>
-	/// 
+	/// Use the Location Inventory resource to manage the level of active product inventory maintained at each defined location, at the location level.
 	/// </summary>
 	public partial class LocationInventoryResource  	{
-				///
+		///
 		/// <see cref="Mozu.Api.ApiContext"/>
 		///
 		private readonly IApiContext _apiContext;
@@ -30,10 +30,10 @@ namespace Mozu.Api.Resources.Commerce.Catalog.Admin
 
 		
 		/// <summary>
-		/// 
+		/// Retrieves the details of a product's active inventory at the location specified in the request.
 		/// </summary>
-		/// <param name="locationCode"></param>
-		/// <param name="productCode"></param>
+		/// <param name="locationCode">User-defined code that uniquely identifies the location.</param>
+		/// <param name="productCode">Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only.</param>
 		/// <param name="dataViewMode">{<see cref="Mozu.Api.DataViewMode"/>}</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
@@ -56,9 +56,9 @@ namespace Mozu.Api.Resources.Commerce.Catalog.Admin
 		}
 
 		/// <summary>
-		/// 
+		/// Retrieves a list of all product inventory definitions for the location code specified in the request.
 		/// </summary>
-		/// <param name="locationCode"></param>
+		/// <param name="locationCode">User-defined code that uniquely identifies the location.</param>
 		/// <param name="dataViewMode">{<see cref="Mozu.Api.DataViewMode"/>}</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.ProductAdmin.LocationInventoryCollection"/>
@@ -75,13 +75,13 @@ namespace Mozu.Api.Resources.Commerce.Catalog.Admin
 		}
 
 		/// <summary>
-		/// 
+		/// Retrieves a list of all product inventory definitions for the location code specified in the request.
 		/// </summary>
-		/// <param name="filter"></param>
-		/// <param name="locationCode"></param>
-		/// <param name="pageSize"></param>
-		/// <param name="sortBy"></param>
-		/// <param name="startIndex"></param>
+		/// <param name="filter">A set of expressions that consist of a field, operator, and value and represent search parameter syntax when filtering results of a query. Valid operators include equals (eq), does not equal (ne), greater than (gt), less than (lt), greater than or equal to (ge), less than or equal to (le), starts with (sw), or contains (cont). For example - "filter=IsDisplayed+eq+true"</param>
+		/// <param name="locationCode">User-defined code that uniquely identifies the location.</param>
+		/// <param name="pageSize">The number of results to display on each page when creating paged results from a query. The maximum value is 200.</param>
+		/// <param name="sortBy">The property by which to sort results and whether the results appear in ascending (a-z) order, represented by ASC or in descending (z-a) order, represented by DESC. The sortBy parameter follows an available property. For example: "sortBy=productCode+asc"</param>
+		/// <param name="startIndex">When creating paged results from a query, this value indicates the zero-based offset in the complete result set where the returned entities begin. For example, with a PageSize of 25, to get the 51st through the 75th items, use startIndex=3.</param>
 		/// <param name="dataViewMode">{<see cref="Mozu.Api.DataViewMode"/>}</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
@@ -90,26 +90,26 @@ namespace Mozu.Api.Resources.Commerce.Catalog.Admin
 		/// <example>
 		/// <code>
 		///   var locationinventory = new LocationInventory();
-		///   var locationInventoryCollection = locationinventory.GetLocationInventories(dataViewMode,  locationCode,  filter,  pageSize,  sortBy,  startIndex, authTicket);
+		///   var locationInventoryCollection = locationinventory.GetLocationInventories(dataViewMode,  locationCode,  startIndex,  pageSize,  sortBy,  filter, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.ProductAdmin.LocationInventoryCollection GetLocationInventories(DataViewMode dataViewMode, string locationCode, string filter =  null, int? pageSize =  null, string sortBy =  null, int? startIndex =  null, AuthTicket authTicket= null)
+		public virtual Mozu.Api.Contracts.ProductAdmin.LocationInventoryCollection GetLocationInventories(DataViewMode dataViewMode, string locationCode, int? startIndex =  null, int? pageSize =  null, string sortBy =  null, string filter =  null, AuthTicket authTicket= null)
 		{
 			MozuClient<Mozu.Api.Contracts.ProductAdmin.LocationInventoryCollection> response;
-			var client = Mozu.Api.Clients.Commerce.Catalog.Admin.LocationInventoryClient.GetLocationInventoriesClient(dataViewMode,  locationCode,  filter,  pageSize,  sortBy,  startIndex, authTicket);
+			var client = Mozu.Api.Clients.Commerce.Catalog.Admin.LocationInventoryClient.GetLocationInventoriesClient(dataViewMode,  locationCode,  startIndex,  pageSize,  sortBy,  filter, authTicket);
 			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
 
 		}
 
-				/// <summary>
-		/// 
+		/// <summary>
+		/// Creates an array of product inventory definitions for the location specified in the request. When adding a new inventory definition, you must specify the productCode and stockOnHand value in each array you define. All other properties are system-supplied and read only.
 		/// </summary>
-		/// <param name="locationCode"></param>
+		/// <param name="locationCode">User-defined code that uniquely identifies the location.</param>
 		/// <param name="dataViewMode">{<see cref="Mozu.Api.DataViewMode"/>}</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="locationInventoryList"></param>
+		/// <param name="locationInventoryList">Array list of product inventory definitions for all associated locations. For each location inventory in the list, define the productCode and stockOnHand values.</param>
 		/// <returns>
 		/// List{<see cref="Mozu.Api.Contracts.ProductAdmin.LocationInventory"/>}
 		/// </returns>
@@ -129,10 +129,10 @@ namespace Mozu.Api.Resources.Commerce.Catalog.Admin
 
 		}
 
-				/// <summary>
-		/// 
+		/// <summary>
+		/// Updates the active stock on hand inventory of products for the location code specified in the request.
 		/// </summary>
-		/// <param name="locationCode"></param>
+		/// <param name="locationCode">User-defined code that uniquely identifies the location.</param>
 		/// <param name="dataViewMode">{<see cref="Mozu.Api.DataViewMode"/>}</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <param name="locationInventoryAdjustments"></param>
@@ -155,11 +155,11 @@ namespace Mozu.Api.Resources.Commerce.Catalog.Admin
 
 		}
 
-				/// <summary>
-		/// 
+		/// <summary>
+		/// Deletes the product code inventory definition for the location specified in the request.
 		/// </summary>
-		/// <param name="locationCode"></param>
-		/// <param name="productCode"></param>
+		/// <param name="locationCode">User-defined code that uniquely identifies the location.</param>
+		/// <param name="productCode">Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only.</param>
 		/// <param name="dataViewMode">{<see cref="Mozu.Api.DataViewMode"/>}</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
@@ -180,7 +180,7 @@ namespace Mozu.Api.Resources.Commerce.Catalog.Admin
 
 		}
 
-		
+
 	}
 
 }

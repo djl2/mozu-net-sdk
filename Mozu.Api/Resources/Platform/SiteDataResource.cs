@@ -16,10 +16,10 @@ using Mozu.Api.Security;
 namespace Mozu.Api.Resources.Platform
 {
 	/// <summary>
-	/// 
+	/// Use the site data resource to store site-level information required for a third-party application in the Mozu database.
 	/// </summary>
 	public partial class SiteDataResource  	{
-				///
+		///
 		/// <see cref="Mozu.Api.ApiContext"/>
 		///
 		private readonly IApiContext _apiContext;
@@ -30,9 +30,9 @@ namespace Mozu.Api.Resources.Platform
 
 		
 		/// <summary>
-		/// 
+		/// Retrieves the value of a record in the Mozu database.
 		/// </summary>
-		/// <param name="dbEntryQuery"></param>
+		/// <param name="dbEntryQuery">The database entry query string used to retrieve the record information.</param>
 		/// <returns>
 		/// string
 		/// </returns>
@@ -52,11 +52,11 @@ namespace Mozu.Api.Resources.Platform
 
 		}
 
-				/// <summary>
-		/// 
+		/// <summary>
+		/// Creates a new record in the Mozu database based on the information supplied in the request.
 		/// </summary>
-		/// <param name="dbEntryQuery"></param>
-		/// <param name="value"></param>
+		/// <param name="dbEntryQuery">The database entry string to create.</param>
+		/// <param name="value">The value string to create.</param>
 		/// <returns>
 		/// 
 		/// </returns>
@@ -75,11 +75,11 @@ namespace Mozu.Api.Resources.Platform
 
 		}
 
-				/// <summary>
-		/// 
+		/// <summary>
+		/// Updates a record in the Mozu database based on the information supplied in the request.
 		/// </summary>
-		/// <param name="dbEntryQuery"></param>
-		/// <param name="value"></param>
+		/// <param name="dbEntryQuery">The database entry query string used to update the record information.</param>
+		/// <param name="value">The database value to update.</param>
 		/// <returns>
 		/// 
 		/// </returns>
@@ -98,10 +98,10 @@ namespace Mozu.Api.Resources.Platform
 
 		}
 
-				/// <summary>
-		/// 
+		/// <summary>
+		/// Removes a previously defined record in the Mozu database.
 		/// </summary>
-		/// <param name="dbEntryQuery"></param>
+		/// <param name="dbEntryQuery">The database entry string to delete.</param>
 		/// <returns>
 		/// 
 		/// </returns>
@@ -120,7 +120,7 @@ namespace Mozu.Api.Resources.Platform
 
 		}
 
-		
+
 	}
 
 }

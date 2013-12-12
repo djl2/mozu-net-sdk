@@ -16,12 +16,12 @@ using Mozu.Api.Security;
 namespace Mozu.Api.Clients.Commerce.Catalog.Admin
 {
 	/// <summary>
-	/// 
+	/// Use the Categories resource to organize products and control where they appear on the storefront. Create and maintain a hierarchy of categories and subcategories where the site will store properties.
 	/// </summary>
 	public partial class CategoryClient 	{
 		
 		/// <summary>
-		/// 
+		/// Retrieves a list of categories according to any specified filter criteria and sort options.
 		/// </summary>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.ProductAdmin.CategoryPagedCollection"/>}
@@ -38,10 +38,10 @@ namespace Mozu.Api.Clients.Commerce.Catalog.Admin
 		}
 
 		/// <summary>
-		/// 
+		/// Retrieves a list of categories according to any specified filter criteria and sort options.
 		/// </summary>
-		/// <param name="filter"></param>
-		/// <param name="pageSize"></param>
+		/// <param name="filter">A set of expressions that consist of a field, operator, and value and represent search parameter syntax when filtering results of a query. You can filter product category search results by any of its properties, including its position in the category hierarchy. Valid operators include equals (eq), does not equal (ne), greater than (gt), less than (lt), greater than or equal to (ge), less than or equal to (le), starts with (sw), or contains (cont). For example - "filter=IsDisplayed+eq+true"</param>
+		/// <param name="pageSize">The number of results to display on each page when creating paged results from a query. The maximum value is 200.</param>
 		/// <param name="sortBy"></param>
 		/// <param name="startIndex"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
@@ -50,11 +50,11 @@ namespace Mozu.Api.Clients.Commerce.Catalog.Admin
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=GetCategories(dataViewMode,  filter,  pageSize,  sortBy,  startIndex, authTicket);
+		///   var mozuClient=GetCategories(dataViewMode,  startIndex,  pageSize,  sortBy,  filter, authTicket);
 		///   var categoryPagedCollectionClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.ProductAdmin.CategoryPagedCollection> GetCategoriesClient(DataViewMode dataViewMode, string filter =  null, int? pageSize =  null, string sortBy =  null, int? startIndex =  null, AuthTicket authTicket= null)
+		public static MozuClient<Mozu.Api.Contracts.ProductAdmin.CategoryPagedCollection> GetCategoriesClient(DataViewMode dataViewMode, int? startIndex =  null, int? pageSize =  null, string sortBy =  null, string filter =  null, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Commerce.Catalog.Admin.CategoryUrl.GetCategoriesUrl(filter, pageSize, sortBy, startIndex);
 			const string verb = "GET";
@@ -66,9 +66,9 @@ namespace Mozu.Api.Clients.Commerce.Catalog.Admin
 		}
 
 		/// <summary>
-		/// 
+		/// Retrieves the details of a single category.
 		/// </summary>
-		/// <param name="categoryId"></param>
+		/// <param name="categoryId">Unique identifier of the category to retrieve.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.ProductAdmin.Category"/>}
@@ -91,9 +91,9 @@ namespace Mozu.Api.Clients.Commerce.Catalog.Admin
 		}
 
 		/// <summary>
-		/// 
+		/// Retrieves the subcategories of a category. This is a list of subcategories at the same level (siblings). Use a list of siblings, for example, to display the categories in a horizontal list.
 		/// </summary>
-		/// <param name="categoryId"></param>
+		/// <param name="categoryId">Unique identifier of the category whose subcategories are retrieved.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.ProductAdmin.CategoryCollection"/>}
@@ -115,11 +115,11 @@ namespace Mozu.Api.Clients.Commerce.Catalog.Admin
 
 		}
 
-				/// <summary>
-		/// 
+		/// <summary>
+		/// Adds a new category to the site's category hierarchy. Specify a ParentCategoryID to determine where to locate the category in the hierarchy. If a ParentCategoryID is not specified, the new category becomes a top-level category.
 		/// </summary>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="category"></param>
+		/// <param name="category">Properties of the new category. Required properties: ParentCategoryID and Content.Name.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.ProductAdmin.Category"/>}
 		/// </returns>
@@ -140,11 +140,11 @@ namespace Mozu.Api.Clients.Commerce.Catalog.Admin
 
 		}
 
-				/// <summary>
-		/// 
+		/// <summary>
+		/// Modifies a category such as moving it to another location in the category tree, or changing whether it is visible on the storefront. This PUT replaces the existing resource, so be sure to include all the information to maintain for the category.
 		/// </summary>
-		/// <param name="categoryId"></param>
-		/// <param name="category"></param>
+		/// <param name="categoryId">Unique identifier of the category to modify.</param>
+		/// <param name="category">Properties of the category to modify.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.ProductAdmin.Category"/>}
 		/// </returns>
@@ -160,12 +160,12 @@ namespace Mozu.Api.Clients.Commerce.Catalog.Admin
 		}
 
 		/// <summary>
-		/// 
+		/// Modifies a category such as moving it to another location in the category tree, or changing whether it is visible on the storefront. This PUT replaces the existing resource, so be sure to include all the information to maintain for the category.
 		/// </summary>
-		/// <param name="cascadeVisibility"></param>
-		/// <param name="categoryId"></param>
+		/// <param name="cascadeVisibility">If true, when changing the display option for the category, change it for all subcategories also. Default: False.</param>
+		/// <param name="categoryId">Unique identifier of the category to modify.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="category"></param>
+		/// <param name="category">Properties of the category to modify.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.ProductAdmin.Category"/>}
 		/// </returns>
@@ -186,10 +186,10 @@ namespace Mozu.Api.Clients.Commerce.Catalog.Admin
 
 		}
 
-				/// <summary>
-		/// 
+		/// <summary>
+		/// Deletes the category specified by its category ID.
 		/// </summary>
-		/// <param name="categoryId"></param>
+		/// <param name="categoryId">Unique identifier of the category to delete.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />
 		/// </returns>
@@ -205,10 +205,10 @@ namespace Mozu.Api.Clients.Commerce.Catalog.Admin
 		}
 
 		/// <summary>
-		/// 
+		/// Deletes the category specified by its category ID.
 		/// </summary>
-		/// <param name="cascadeDelete"></param>
-		/// <param name="categoryId"></param>
+		/// <param name="cascadeDelete">If true, any subcategories of a category are deleted when this category is deleted. Default: False.</param>
+		/// <param name="categoryId">Unique identifier of the category to delete.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />
@@ -230,7 +230,7 @@ namespace Mozu.Api.Clients.Commerce.Catalog.Admin
 
 		}
 
-		
+
 	}
 
 }

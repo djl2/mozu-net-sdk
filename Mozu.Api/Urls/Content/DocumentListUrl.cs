@@ -13,13 +13,13 @@ using System;
 
 namespace Mozu.Api.Urls.Content
 {
-	public partial class DocumentListUrl : MozuUrl
+	public partial class DocumentListUrl 
 	{
 
 		/// <summary>
         /// Get Resource Url for GetDocumentLists
         /// </summary>
-        /// <param name="pageSize"></param>
+        /// <param name="pageSize">The number of results to display on each page when creating paged results from a query. The maximum value is 200.</param>
         /// <param name="sort"></param>
         /// <param name="startIndex"></param>
         /// <returns>
@@ -28,24 +28,26 @@ namespace Mozu.Api.Urls.Content
         public static MozuUrl GetDocumentListsUrl(int? pageSize, string sort, int? startIndex)
 		{
 			var url = "/api/content/documentlists/?pageSize={pageSize}&startIndex={startIndex}&sortBy={sort}";
-			FormatUrl( ref url, "pageSize", pageSize);
-			FormatUrl( ref url, "sort", sort);
-			FormatUrl( ref url, "startIndex", startIndex);
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "pageSize", pageSize);
+			mozuUrl.FormatUrl( "sort", sort);
+			mozuUrl.FormatUrl( "startIndex", startIndex);
+			return mozuUrl;
 		}
 
 		/// <summary>
         /// Get Resource Url for GetDocumentList
         /// </summary>
-        /// <param name="documentListName"></param>
+        /// <param name="documentListName">The name of the document list.</param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
         public static MozuUrl GetDocumentListUrl(string documentListName)
 		{
 			var url = "/api/content/documentlists/{documentListName}";
-			FormatUrl( ref url, "documentListName", documentListName);
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "documentListName", documentListName);
+			return mozuUrl;
 		}
 
 								

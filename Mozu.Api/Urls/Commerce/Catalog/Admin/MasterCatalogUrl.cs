@@ -13,7 +13,7 @@ using System;
 
 namespace Mozu.Api.Urls.Commerce.Catalog.Admin
 {
-	public partial class MasterCatalogUrl : MozuUrl
+	public partial class MasterCatalogUrl 
 	{
 
 		/// <summary>
@@ -25,7 +25,8 @@ namespace Mozu.Api.Urls.Commerce.Catalog.Admin
         public static MozuUrl GetMasterCatalogsUrl()
 		{
 			var url = "/api/commerce/catalog/admin/mastercatalogs/";
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			return mozuUrl;
 		}
 
 		/// <summary>
@@ -38,8 +39,9 @@ namespace Mozu.Api.Urls.Commerce.Catalog.Admin
         public static MozuUrl GetMasterCatalogUrl(int masterCatalogId)
 		{
 			var url = "/api/commerce/catalog/admin/mastercatalogs/{masterCatalogId}";
-			FormatUrl( ref url, "masterCatalogId", masterCatalogId);
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "masterCatalogId", masterCatalogId);
+			return mozuUrl;
 		}
 
 						/// <summary>
@@ -52,8 +54,9 @@ namespace Mozu.Api.Urls.Commerce.Catalog.Admin
         public static MozuUrl UpdateMasterCatalogUrl(int masterCatalogId)
 		{
 			var url = "/api/commerce/catalog/admin/mastercatalogs/{masterCatalogId}";
-			FormatUrl( ref url, "masterCatalogId", masterCatalogId);
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "masterCatalogId", masterCatalogId);
+			return mozuUrl;
 		}
 
 				

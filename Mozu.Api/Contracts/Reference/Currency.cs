@@ -12,10 +12,19 @@ using System;
 
 namespace Mozu.Api.Contracts.Reference
 {
+		///
+		///	Three-letter currency code that the system supports, which is derived from the ISO 4217 standard. For example, the code "EUR" for the name "Euro Member Countries" is an entry that returns in a list of items.
+		///
 		public class Currency
 		{
+			///
+			///3-letter ISO 4217 standard global currency code. Currently, only "USD" (US Dollar) is supported.
+			///
 			public string Code { get; set; }
 
+			///
+			///The name of the currency represented by the ISO currency code.
+			///
 			public string Name { get; set; }
 
 		}

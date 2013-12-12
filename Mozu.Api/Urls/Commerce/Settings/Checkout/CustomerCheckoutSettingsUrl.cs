@@ -13,7 +13,7 @@ using System;
 
 namespace Mozu.Api.Urls.Commerce.Settings.Checkout
 {
-	public partial class CustomerCheckoutSettingsUrl : MozuUrl
+	public partial class CustomerCheckoutSettingsUrl 
 	{
 
 		/// <summary>
@@ -25,7 +25,8 @@ namespace Mozu.Api.Urls.Commerce.Settings.Checkout
         public static MozuUrl GetCustomerCheckoutSettingsUrl()
 		{
 			var url = "/api/commerce/settings/checkout/customercheckoutsettings";
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			return mozuUrl;
 		}
 
 						/// <summary>
@@ -37,7 +38,8 @@ namespace Mozu.Api.Urls.Commerce.Settings.Checkout
         public static MozuUrl UpdateCustomerCheckoutSettingsUrl()
 		{
 			var url = "/api/commerce/settings/checkout/customercheckoutsettings";
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			return mozuUrl;
 		}
 
 				

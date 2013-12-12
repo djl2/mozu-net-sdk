@@ -16,15 +16,15 @@ using Mozu.Api.Security;
 namespace Mozu.Api.Clients.Commerce.Customer
 {
 	/// <summary>
-	/// 
+	/// Use the Address Validation resource to validate addresses associated with a customer account contact.
 	/// </summary>
 	public partial class AddressValidationRequestClient 	{
 		
-				/// <summary>
-		/// 
+		/// <summary>
+		/// Validates the customer address supplied in the request.
 		/// </summary>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="addressValidationRequest"></param>
+		/// <param name="addressValidationRequest">Properties of the address to validate.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Customer.AddressValidationResponse"/>}
 		/// </returns>
@@ -45,7 +45,7 @@ namespace Mozu.Api.Clients.Commerce.Customer
 
 		}
 
-						
+
 	}
 
 }

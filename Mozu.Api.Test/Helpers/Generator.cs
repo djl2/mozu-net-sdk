@@ -1,7 +1,10 @@
 using System;
+using Mozu.Api.Contracts.Customer;
 using Mozu.Api.Contracts.ProductAdmin;
 using System.Collections.Generic;
 using System.Linq;
+using System.Globalization;
+using System.Runtime.Serialization;
 using Mozu.Api.Test.Factories;
 using System.Net;
 
@@ -294,7 +297,234 @@ namespace Mozu.Api.Test.Helpers
             };
         }
 
-        #region "Attribute"
+        #region "GenerateCustomerAddress"
+        public enum AddressType
+        {
+            [EnumMember]
+            None,
+            [EnumMember]
+            Residential,
+            [EnumMember]
+            Commercial,
+        }
+        /// <summary>
+        /// Generates a new Address object using <see cref="Address" /> class.
+        /// </summary>
+        /// <param name="addr1"></param>
+        /// <param name="addr2"></param>
+        /// <param name="addr3"></param>
+        /// <param name="addr4"></param>
+        /// <param name="city"></param>
+        /// <param name="country"></param>
+        /// <param name="zip"></param>
+        /// <param name="state"></param>
+        /// <returns></returns>
+        public static Mozu.Api.Contracts.Core.Address GenerateAddress(string addr1, string addr2, string addr3, string addr4,
+            string city, string country, string zip, string state, AddressType addressType = AddressType.Residential)
+        {
+            return new Mozu.Api.Contracts.Core.Address()
+            {
+                Address1 = addr1,
+                Address2 = addr2,
+                Address3 = addr3,
+                Address4 = addr4,
+                CountryCode = country,
+                CityOrTown = city,
+                PostalOrZipCode = zip,
+                StateOrProvince = state,
+                AddressType = addressType.ToString()
+            };
+        }
+
+
+        /// <summary>
+        /// Generate Random Address Object.
+        /// </summary>
+        /// <returns></returns>
+        public static Mozu.Api.Contracts.Core.Address GenerateAddressRandom(AddressType addressType = AddressType.Residential)
+        {
+            return new Mozu.Api.Contracts.Core.Address()
+            {
+                Address1 = string.Format("{0} {1}", Generator.RandomString(8, Generator.RandomCharacterGroup.NumericOnly), Generator.RandomString(75, Generator.RandomCharacterGroup.AlphaNumericOnly)),
+                Address2 = Generator.RandomString(50, Generator.RandomCharacterGroup.AlphaNumericOnly),
+                Address3 = Generator.RandomString(20, Generator.RandomCharacterGroup.AlphaNumericOnly),
+                Address4 = Generator.RandomString(15, Generator.RandomCharacterGroup.AlphaNumericOnly),
+                CityOrTown = Generator.RandomString(25, Generator.RandomCharacterGroup.AlphaOnly),
+                CountryCode = Generator.RandomString(2, Generator.RandomCharacterGroup.AlphaOnly),
+                PostalOrZipCode = Generator.RandomString(5, Generator.RandomCharacterGroup.AlphaOnly),
+                StateOrProvince = Generator.RandomString(35, Generator.RandomCharacterGroup.AlphaOnly),
+                AddressType = addressType.ToString()
+            };
+        }
+
+
+        /// <summary>
+        /// Generate Address Object with meaningful CountryCode, ZipCode and State
+        /// </summary>
+        /// <param name="state"></param>
+        /// <param name="zip"></param>
+        /// <param name="country"></param>
+        /// <returns></returns>
+        public static Mozu.Api.Contracts.Core.Address GenerateAddress(string state, string zip, string country = "US")
+        {
+            return new Mozu.Api.Contracts.Core.Address()
+            {
+                Address1 = string.Format("{0} {1}", Generator.RandomString(8, Generator.RandomCharacterGroup.NumericOnly), Generator.RandomString(75, Generator.RandomCharacterGroup.AlphaNumericOnly)),
+                Address2 = Generator.RandomString(50, Generator.RandomCharacterGroup.AlphaNumericOnly),
+                Address3 = Generator.RandomString(20, Generator.RandomCharacterGroup.AlphaNumericOnly),
+                Address4 = Generator.RandomString(15, Generator.RandomCharacterGroup.AlphaNumericOnly),
+                CityOrTown = Generator.RandomString(25, Generator.RandomCharacterGroup.AlphaOnly),
+                CountryCode = country,
+                PostalOrZipCode = zip,
+                StateOrProvince = state
+            };
+        }
+
+
+        public static Mozu.Api.Contracts.Core.Address GenerateInternationalAddress(string country)
+        {
+            var address = new Mozu.Api.Contracts.Core.Address();
+            address.CountryCode = country;
+            address.IsValidated = true;
+            switch (country)
+            {
+                case "CA":
+                    address.Address1 = "1 Sussex Drive";
+                    address.CityOrTown = "Ottawa";
+                    address.PostalOrZipCode = "K1A 0A1";
+                    address.StateOrProvince = "Ontario";                    
+                    break;
+                case "GB":
+                    address.Address1 = "HARTMANNSTRASSE 7";
+                    address.CityOrTown = "BONN";
+                    address.PostalOrZipCode = "53001";
+                    address.StateOrProvince = "";
+                    break;
+                case "TW":
+                    address.Address1 = "3F #12 LN 410 SEC 2 PA-TEH RD";
+                    address.CityOrTown = "TAIPEI";
+                    address.PostalOrZipCode = "105";
+                    address.StateOrProvince = "";
+                    break;
+            }
+            return (address);
+        }
+
+
+        /// <summary>
+        /// Generate Address Object with meaningful CountryCode, ZipCode and State
+        /// </summary>
+        /// <param name="state"></param>
+        /// <param name="zip"></param>
+        /// <param name="country"></param>
+        /// <returns></returns>
+        public static Mozu.Api.Contracts.Core.Address GenerateAddress(string state, string zip, bool realAddress = false, string country = "US")
+        {
+            var address = new Mozu.Api.Contracts.Core.Address();
+            address.CountryCode = country;
+            address.PostalOrZipCode = zip;
+            address.StateOrProvince = state;
+            address.IsValidated = true;
+            if (realAddress)
+            {
+                if (state.ToUpper().Equals("TX") && zip.Equals("78717"))
+                {
+                    address.Address1 = "9900 W. Parmer Lane";
+                    address.CityOrTown = "Austin";
+                }
+                else if (state.ToUpper().Equals("NY") && zip.Equals("11238"))
+                {
+                    address.Address1 = "950 Fulton St";
+                    address.CityOrTown = "Brooklyn";
+                }
+                else if (state.ToUpper().Equals("NC") && zip.Equals("27601"))
+                {
+                    address.Address1 = "91 E Edenton St";
+                    address.CityOrTown = "Raleigh";
+                }
+                else if (state.ToUpper().Equals("CA") && zip.Equals("95814"))
+                {
+                    address.Address1 = "State Capital, Suite 1173";
+                    address.CityOrTown = "Sacramento";
+                }
+                else
+                {
+                    throw (new TestInconclusiveException(0, System.Reflection.MethodBase.GetCurrentMethod().Name.ToString(CultureInfo.InvariantCulture),
+                       null, "No real address found."));
+                }
+            }
+            else
+            {
+                return new Mozu.Api.Contracts.Core.Address()
+                {
+                    Address1 =
+                        string.Format("{0} {1}",
+                                      Generator.RandomString(8, Generator.RandomCharacterGroup.NumericOnly),
+                                      Generator.RandomString(75, Generator.RandomCharacterGroup.AlphaNumericOnly)),
+                    Address2 = Generator.RandomString(50, Generator.RandomCharacterGroup.AlphaNumericOnly),
+                    Address3 = Generator.RandomString(20, Generator.RandomCharacterGroup.AlphaNumericOnly),
+                    Address4 = Generator.RandomString(15, Generator.RandomCharacterGroup.AlphaNumericOnly),
+                    CityOrTown = Generator.RandomString(25, Generator.RandomCharacterGroup.AlphaOnly),
+                    CountryCode = country,
+                    PostalOrZipCode = zip,
+                    StateOrProvince = state
+                };
+            }
+            return address;
+        }
+
+        /// <summary>
+        /// Generate Random Address Object.
+        /// </summary>
+        /// <returns></returns>
+        public static Mozu.Api.Contracts.Core.Address GenerateAddress(string addressType)
+        {
+            addressType = addressType.ToUpper();
+            AddressType type;
+
+            switch (addressType)
+            {
+                case "RESIDENTIAL":
+                    {
+                        type = AddressType.Residential;
+                        break;
+                    }
+                case "COMMERCIAL":
+                    {
+                        type = AddressType.Commercial;
+                        break;
+                    }
+                case "NONE":
+                    {
+                        type = AddressType.None;
+                        break;
+                    }
+                default:
+                    {
+                        //type = AddressType.None;
+                        type = AddressType.Residential;
+
+                        break;
+                    }
+                    break;
+            }
+            return new Mozu.Api.Contracts.Core.Address()
+            {
+                Address1 = string.Format("{0} {1}", Generator.RandomString(8, Generator.RandomCharacterGroup.NumericOnly), Generator.RandomString(75, Generator.RandomCharacterGroup.AlphaNumericOnly)),
+                Address2 = Generator.RandomString(50, Generator.RandomCharacterGroup.AlphaNumericOnly),
+                Address3 = Generator.RandomString(20, Generator.RandomCharacterGroup.AlphaNumericOnly),
+                Address4 = Generator.RandomString(15, Generator.RandomCharacterGroup.AlphaNumericOnly),
+                CityOrTown = Generator.RandomString(25, Generator.RandomCharacterGroup.AlphaOnly),
+                CountryCode = Generator.RandomString(2, Generator.RandomCharacterGroup.AlphaOnly),
+                PostalOrZipCode = Generator.RandomString(5, Generator.RandomCharacterGroup.AlphaOnly),
+                StateOrProvince = Generator.RandomString(35, Generator.RandomCharacterGroup.AlphaOnly),
+                AddressType = type.ToString()
+            };
+        }
+    
+        #endregion
+
+        #region "GenerateAttribute"
 
         /// <summary>
         /// Generate Mozu.Api.Contracts.ProductAdmin.AttributeObject
@@ -786,6 +1016,371 @@ namespace Mozu.Api.Test.Helpers
         }
 
         #endregion
+        #region "GenerateContact" 
+
+        public static Mozu.Api.Contracts.Core.Contact GenerateContact()
+        {
+            return new Mozu.Api.Contracts.Core.Contact
+                {
+                    Address = Generator.GenerateAddressRandom(),
+                    CompanyOrOrganization = Generator.RandomString(50, Generator.RandomCharacterGroup.AlphaNumericOnly),
+                    Email = Generator.RandomEmailAddress(),
+                    FirstName = Generator.RandomString(15, Generator.RandomCharacterGroup.AlphaOnly),
+                    MiddleNameOrInitial = Generator.RandomString(1, Generator.RandomCharacterGroup.AlphaOnly),
+                    LastNameOrSurname = Generator.RandomString(35, Generator.RandomCharacterGroup.AlphaOnly),
+                    PhoneNumbers = Generator.GeneratePhoneRandom()
+                };
+        }
+
+        #endregion
+        #region "GenerateCustomerAccount"
+
+        /// <summary>
+        /// Generate Customer Account
+        /// </summary>
+        /// <param name="taxExempt"></param>
+        /// <param name="taxId"></param>
+        /// <returns></returns>
+        public static CustomerAccountAndAuthInfo GenerateCustomerAccountAndAuthInfo(bool taxExempt = false, string taxId = null)
+        {
+            var customer = new CustomerAccount()
+                {
+                    AcceptsMarketing = false,
+                    CompanyOrOrganization = "Volusion",
+                    Contacts = new List<CustomerContact>() { GenerateCustomerContact(0, GenerateAddressRandom(addressType: AddressType.Residential)) },
+                    EmailAddress = Generator.RandomEmailAddress(),
+                    FirstName = Generator.RandomString(10, RandomCharacterGroup.AlphaOnly),
+                    LastName = Generator.RandomString(10, RandomCharacterGroup.AlphaOnly),
+                    UserName = Generator.RandomString(10, RandomCharacterGroup.AlphaOnly),
+                    TaxExempt = taxExempt,
+                    TaxId = taxId,
+                    LocaleCode = Constant.LocaleCode,
+                    Notes = new List<CustomerNote>() { GenerateCustomerNote()}
+                };
+
+            var customerAccountAndAuthInfo = new CustomerAccountAndAuthInfo
+                {
+                    Account = customer,
+                    Password = Constant.Password
+                };
+
+            return customerAccountAndAuthInfo;
+        }
+        /// <summary>
+        /// Generate Random Customer Note
+        /// </summary>
+        /// <returns></returns>
+        public static CustomerNote GenerateCustomerNote()
+        {
+            return new CustomerNote()
+                {
+                    Content = Generator.RandomString(maxLength: 25, characterGroup: RandomCharacterGroup.AnyCharacter)
+                };
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public static CustomerAccount GenerateCustomerAccount(string userId)
+        {
+            return new CustomerAccount()
+            {
+                UserId = userId,
+                CompanyOrOrganization = "Volusion"
+            };
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        public static CustomerAccount GenerateCustomerAccount(string userId, CustomerContact item)
+        {
+            return new CustomerAccount()
+            {
+                UserId = userId,
+                Contacts = new List<CustomerContact>() { item }
+            };
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="companyOrOrganization"></param>
+        /// <param name="commerceSummary"></param>
+        /// <param name="item"></param>
+        /// <param name="groups"></param>
+        /// <param name="attributes"></param>
+        /// <param name="notes"></param>
+        /// <param name="acceptsMarketing"></param>
+        /// <param name="taxExempt"></param>
+        /// <returns></returns>
+        public static CustomerAccount GenerateCustomerAccount(string userId, string companyOrOrganization, CommerceSummary commerceSummary,
+            CustomerContact item, List<Mozu.Api.Contracts.Customer.CustomerGroup> groups, List<CustomerAttribute> attributes, List<CustomerNote> notes, bool acceptsMarketing,
+            bool taxExempt)
+        {
+            return new CustomerAccount()
+            {
+                UserId = userId,
+                CommerceSummary = commerceSummary,
+                CompanyOrOrganization = companyOrOrganization,
+                Contacts = new List<CustomerContact>() { item },
+                Groups = groups,
+                Attributes = attributes,
+                Notes = notes,
+                AcceptsMarketing = acceptsMarketing,
+                TaxExempt = taxExempt
+            };
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="totalOrderAmount"></param>
+        /// <param name="orderCount"></param>
+        /// <param name="wishlistCount"></param>
+        /// <param name="lastOrderDate"></param>
+        /// <returns></returns>
+        public static CommerceSummary GenerateCommerceSummary(decimal totalOrderAmount, int orderCount,
+                                                              int wishlistCount, DateTime? lastOrderDate = null)
+        {
+            var amount = new CurrencyAmount
+                {
+                    Amount = totalOrderAmount,
+                    CurrencyCode = "USD"
+                };
+            return new CommerceSummary()
+            {
+                TotalOrderAmount = amount,
+                OrderCount = orderCount,
+                WishlistCount = wishlistCount,
+                LastOrderDate = lastOrderDate
+            };
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="totalOrderAmount"></param>
+        /// <param name="orderCount"></param>
+        /// <param name="wishlistCount"></param>
+        /// <param name="lastOrderDate"></param>
+        /// <returns></returns>
+        public static CommerceSummary GenerateCommerceSummary(CurrencyAmount totalOrderAmount, int orderCount,
+                                                              int wishlistCount, DateTime? lastOrderDate = null)
+        {
+            return new CommerceSummary()
+            {
+                TotalOrderAmount = totalOrderAmount,
+                OrderCount = orderCount,
+                WishlistCount = wishlistCount,
+                LastOrderDate = lastOrderDate
+            };
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="amount"></param>
+        /// <param name="currencyCode"></param>
+        /// <returns></returns>
+        public static CurrencyAmount GenerateCurrencyAmount(decimal amount, string currencyCode)
+        {
+            return new CurrencyAmount()
+            {
+                Amount = amount,
+                CurrencyCode = currencyCode
+            };
+        }
+        #endregion
+        #region "GenerateCustomerContact"
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="accountId"></param>
+        /// <param name="email"></param>
+        /// <param name="firstname"></param>
+        /// <param name="id"></param>
+        /// <param name="lastname"></param>
+        /// <param name="middlename"></param>
+        /// <param name="company"></param>
+        /// <param name="address"></param>
+        /// <param name="phone"></param>
+        /// <param name="types"></param>
+        /// <returns></returns>
+        public static CustomerContact GenerateCustomerContact(int accountId, string email, string firstname,
+                                                              int id, string lastname, string middlename, string company,
+                                                              Mozu.Api.Contracts.Core.Address address, Mozu.Api.Contracts.Core.Phone phone)
+        {
+            return new CustomerContact()
+            {
+                AccountId = accountId,
+                Email = email,
+                FirstName = firstname,
+                Id = id,
+                LastNameOrSurname = lastname,
+                MiddleNameOrInitial = middlename,
+                CompanyOrOrganization = company,
+                Address = address,
+                PhoneNumbers = phone
+            };
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="accountId"></param>
+        /// <param name="numContacts"></param>
+        /// <returns></returns>
+        public static List<CustomerContact> GenerateCustomerContactsRandom(int accountId, int numContacts)
+        {
+            var contacts = new List<CustomerContact>();
+            for (int i = 0; i < numContacts; i++)
+            {
+                var contact = GenerateCustomerContact(accountId);
+                contacts.Add(contact);
+            }
+            return contacts;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="accountId"></param>
+        /// <returns></returns>
+        public static CustomerContact GenerateCustomerContact(int accountId)
+        {
+            return new CustomerContact()
+            {
+                AccountId = accountId,
+                Email = Generator.RandomEmailAddress(),
+                FirstName = Generator.RandomString(10, Generator.RandomCharacterGroup.AlphaOnly),
+                Id = Generator.RandomInt(4, 10),
+                LastNameOrSurname = Generator.RandomString(15, Generator.RandomCharacterGroup.AlphaOnly),
+                MiddleNameOrInitial = Generator.RandomString(10, Generator.RandomCharacterGroup.AlphaOnly),
+                CompanyOrOrganization = Generator.RandomString(20, Generator.RandomCharacterGroup.AlphaOnly),
+                Address = GenerateAddressRandom(),
+                PhoneNumbers = GeneratePhoneRandom()
+
+            };
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="accountId"></param>
+        /// <param name="address"></param>
+        /// <returns></returns>
+        public static CustomerContact GenerateCustomerContact(int accountId, Mozu.Api.Contracts.Core.Address address)
+        {
+            return new CustomerContact()
+            {
+                AccountId = accountId,
+                Email = Generator.RandomEmailAddress(),
+                FirstName = Generator.RandomString(6, Generator.RandomCharacterGroup.AlphaOnly),
+                Id = Generator.RandomInt(4, 10),
+                LastNameOrSurname = Generator.RandomString(15, Generator.RandomCharacterGroup.AlphaOnly),
+                MiddleNameOrInitial = Generator.RandomString(10, Generator.RandomCharacterGroup.AlphaOnly),
+                CompanyOrOrganization = Generator.RandomString(20, Generator.RandomCharacterGroup.AlphaOnly),
+                Address = address,
+                PhoneNumbers = GeneratePhoneRandom()
+
+            };
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="accountId"></param>
+        /// <param name="email"></param>
+        /// <param name="firstname"></param>
+        /// <param name="lastnameorsurname"></param>
+        /// <returns></returns>
+        public static CustomerContact GenerateCustomerContact(int accountId, string email, string firstname,
+                                                              string lastnameorsurname)
+        {
+            return new CustomerContact()
+            {
+                AccountId = accountId,
+                Email = email,
+                FirstName = firstname,
+                Id = Generator.RandomInt(4, 10),
+                LastNameOrSurname = lastnameorsurname,
+                MiddleNameOrInitial = Generator.RandomString(10, Generator.RandomCharacterGroup.AlphaOnly),
+                CompanyOrOrganization = Generator.RandomString(20, Generator.RandomCharacterGroup.AlphaOnly),
+                Address = GenerateAddressRandom(),
+                PhoneNumbers = GeneratePhoneRandom()
+
+            };
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="accountId"></param>
+        /// <param name="firstname"></param>
+        /// <returns></returns>
+        public static CustomerContact GenerateCustomerContact(int accountId, string firstname)
+        {
+            return new CustomerContact()
+            {
+                AccountId = accountId,
+                Email = Generator.RandomEmailAddress(),
+                FirstName = firstname,
+                Id = Generator.RandomInt(4, 10),
+                LastNameOrSurname = Generator.RandomString(15, Generator.RandomCharacterGroup.AlphaOnly),
+                MiddleNameOrInitial = Generator.RandomString(10, Generator.RandomCharacterGroup.AlphaOnly),
+                CompanyOrOrganization = Generator.RandomString(20, Generator.RandomCharacterGroup.AlphaOnly),
+                Address = GenerateAddressRandom(),
+                PhoneNumbers = GeneratePhoneRandom()
+
+            };
+        }
+
+        #endregion
+        #region "GeneratePhone"
+        /// <summary>
+        /// Generates a new Phone object using <see cref="Generator" /> class.
+        /// </summary>
+        /// <param name="home"></param>
+        /// <param name="mobile"></param>
+        /// <param name="work"></param>
+        /// <returns></returns>
+        public static Mozu.Api.Contracts.Core.Phone GeneratePhone(string home, string mobile, string work)
+        {
+            return new Mozu.Api.Contracts.Core.Phone()
+            {
+                Home = home,
+                Mobile = mobile,
+                Work = work
+            };
+        }
+
+
+        /// <summary>
+        /// Generates a new Phone object using <see cref="Generator" /> class.
+        /// </summary>
+        /// <returns></returns>
+        public static Mozu.Api.Contracts.Core.Phone GeneratePhoneRandom()
+        {
+            return new Mozu.Api.Contracts.Core.Phone()
+            {
+                Home = string.Format("{0}-{1}-{2}", Generator.RandomString(3, Generator.RandomCharacterGroup.NumericOnly),
+                                 Generator.RandomString(3, Generator.RandomCharacterGroup.NumericOnly),
+                                 Generator.RandomString(4, Generator.RandomCharacterGroup.NumericOnly)),
+                Mobile = string.Format("{0}-{1}-{2}", Generator.RandomString(3, Generator.RandomCharacterGroup.NumericOnly),
+                                 Generator.RandomString(3, Generator.RandomCharacterGroup.NumericOnly),
+                                 Generator.RandomString(4, Generator.RandomCharacterGroup.NumericOnly)),
+                Work = string.Format("{0}-{1}-{2}", Generator.RandomString(3, Generator.RandomCharacterGroup.NumericOnly),
+                                 Generator.RandomString(3, Generator.RandomCharacterGroup.NumericOnly),
+                                 Generator.RandomString(4, Generator.RandomCharacterGroup.NumericOnly))
+            };
+        }
+        #endregion
 
         #region "GenerateProduct"
 
@@ -807,7 +1402,7 @@ namespace Mozu.Api.Test.Helpers
             {
                 ProductCode = Generator.RandomString(5, Generator.RandomCharacterGroup.AlphaOnly),
                 Price = GenerateProductPrice(price: Generator.RandomDecimal(50, 200)),
-                SeoContent = GenerateProductLocalizedSEOContent(),
+                //SeoContent = GenerateProductLocalizedSEOContent(),
                 Content = GenerateProductLocalizedContent(Generator.RandomString(6, Generator.RandomCharacterGroup.AlphaOnly)),
                 Extras = extras,
                 Options = options,
@@ -1106,11 +1701,11 @@ namespace Mozu.Api.Test.Helpers
             return new ProductInCatalogInfo
             {
                 Content = GenerateProductLocalizedContent(name),
-                SeoContent = GenerateProductLocalizedSEOContent(),
+                //SeoContent = GenerateProductLocalizedSEOContent(),
                 IsActive = isActive,
                 IsContentOverridden = isContentOverridden,
                 IsPriceOverridden = isPriceOverridden,
-                IsseoContentOverridden = isSeoContentOverridden,
+                //IsseoContentOverridden = isSeoContentOverridden,
                 Price = GenerateProductPrice(price: price),
                 ProductCategories = productCategories,
                 CatalogId = catalogId,
@@ -1178,7 +1773,7 @@ namespace Mozu.Api.Test.Helpers
             {
                 AltText = Generator.RandomString(6, Generator.RandomCharacterGroup.AlphaOnly),
                 ImageLabel = Generator.RandomString(5, Generator.RandomCharacterGroup.AlphaOnly),
-                ImagePath = Generator.RandomString(4, Generator.RandomCharacterGroup.AlphaOnly) + "/" + Generator.RandomString(4, Generator.RandomCharacterGroup.AlphaOnly),
+                //ImagePath = Generator.RandomString(4, Generator.RandomCharacterGroup.AlphaOnly) + "/" + Generator.RandomString(4, Generator.RandomCharacterGroup.AlphaOnly),
                 ImageUrl = imageUrl,
                 LocaleCode = locale,
                 VideoUrl = videoUrl
@@ -1201,7 +1796,7 @@ namespace Mozu.Api.Test.Helpers
                 MetaTagDescription = Generator.RandomString(10, Generator.RandomCharacterGroup.AlphaOnly),
                 MetaTagKeywords = Generator.RandomString(4, Generator.RandomCharacterGroup.AlphaOnly),
                 MetaTagTitle = Generator.RandomString(5, Generator.RandomCharacterGroup.AlphaOnly),
-                SeoFriendlyUrl = Generator.RandomURL(),
+                //SeoFriendlyUrl = Generator.RandomURL(),
                 TitleTagTitle = Generator.RandomString(8, Generator.RandomCharacterGroup.AlphaOnly)
             };
         }
@@ -1537,6 +2132,135 @@ namespace Mozu.Api.Test.Helpers
             }
         #endregion
 
+        #region "GenerateUser"
+        /// <summary>
+        /// Generate User object
+        /// </summary>
+        /// <param name="isActive"></param>
+        /// <param name="password"></param>
+        /// <param name="localecode"></param>
+        /// <returns></returns>
+        public static Mozu.Api.Contracts.Core.User GenerateUser(bool isActive = true, string password = Constant.Password, string localecode = Constant.LocaleCode)
+        {
+            return new Mozu.Api.Contracts.Core.User
+            {
+                //EmailAddress = "mozuqa@volusion.com",
+                //EmailAddress = "paultesting43@volusion.com",
+                EmailAddress = Generator.RandomEmailAddress(),
+                FirstName = Generator.RandomString(5, Generator.RandomCharacterGroup.AlphaOnly),
+                LastName = Generator.RandomString(5, Generator.RandomCharacterGroup.AlphaOnly),
+                IsActive = isActive,
+                LocaleCode = localecode,
+                Password = password
+            };
+        }
+
+        /// <summary>
+        /// Generate User object
+        /// </summary>
+        /// <param name="random"></param>
+        /// <param name="localecode"></param>
+        /// <returns></returns>
+        public static Mozu.Api.Contracts.Core.User GenerateUser(bool random, string localecode = Constant.LocaleCode)
+        {
+            return new Mozu.Api.Contracts.Core.User
+            {
+                EmailAddress = Generator.RandomEmailAddress(),
+                FirstName = Generator.RandomString(5, Generator.RandomCharacterGroup.AlphaOnly),
+                LastName = Generator.RandomString(5, Generator.RandomCharacterGroup.AlphaOnly),
+                IsActive = true,
+                LocaleCode = localecode,
+                Password = Constant.Password
+            };
+        }
+
+        /// <summary>
+        /// Generates a new User object.
+        /// </summary>
+        /// <param name="email"></param>
+        /// <param name="isActive"></param>
+        /// <param name="password"></param>
+        /// <param name="localecode"></param>
+        /// <returns>Mozu.Core.Api.Contracts.User</returns>
+        public static Mozu.Api.Contracts.Core.User GenerateUser(string email, bool isActive = true, string password = Constant.Password, string localecode = Constant.LocaleCode)
+        {
+            return new Mozu.Api.Contracts.Core.User
+            {
+                EmailAddress = email,
+                FirstName = Generator.RandomString(5, Generator.RandomCharacterGroup.AlphaOnly),
+                LastName = Generator.RandomString(5, Generator.RandomCharacterGroup.AlphaOnly),
+                IsActive = isActive,
+                LocaleCode = localecode,
+                Password = password,
+            };
+        }
+
+        public static Mozu.Api.Contracts.Core.User GenerateUser(string email, string name)
+        {
+            var names = name.Split(' ');
+            return new Mozu.Api.Contracts.Core.User
+            {
+                EmailAddress = email,
+                FirstName = names.First(),
+                LastName = names.Last(),
+                IsActive = true,
+                LocaleCode = Constant.LocaleCode,
+                Password = Constant.Password,
+            };
+        }
+        public static Mozu.Api.Contracts.Core.User GenerateUser(string email, string firstName, string lastName)
+        {
+            return new Mozu.Api.Contracts.Core.User
+            {
+                EmailAddress = email,
+                FirstName = firstName,
+                LastName = lastName,
+                IsActive = true,
+                LocaleCode = Constant.LocaleCode,
+                Password = Constant.Password,
+            };
+        }
+        #endregion
+        #region GenerateUserAuthInfo
+
+        /// <summary>
+        /// Generate UserAuthInfo Object.
+        /// </summary>
+        /// <param name="email"></param>
+        /// <param name="passwd"></param>
+        /// <returns></returns>
+        public static Mozu.Api.Contracts.Core.UserAuthInfo GenerateUserAuthInfo(string email, string passwd = "MozuPass1")
+        {
+            if (string.IsNullOrEmpty(email))
+                email = Generator.RandomEmailAddress();
+
+            return new Mozu.Api.Contracts.Core.UserAuthInfo()
+            {
+                EmailAddress = email,
+                Password = passwd
+            };
+        }
+        #endregion
+        #region GenerateCustomerAuthInfo
+
+        /// <summary>
+        /// Generate CustomerUserAuthInfo Object.
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="passwd"></param>
+        /// <returns></returns>
+        public static CustomerUserAuthInfo GenerateCustomerUserAuthInfo(string userName, string passwd = "MozuPass1")
+        {
+            if (string.IsNullOrEmpty(userName))
+                userName = Generator.RandomString(15, RandomCharacterGroup.AlphaNumericOnly);
+
+            return new CustomerUserAuthInfo()
+            {
+                Username = userName,
+                Password = passwd
+            };
+        }
+        #endregion
         #region "PopulateSampleSite"
 
         /// <summary>
@@ -1762,7 +2486,7 @@ namespace Mozu.Api.Test.Helpers
                                               Product product)
         {
             var vars = ProductTypeVariationFactory.GenerateProductVariations(messageHandler,productOptionsIn: product.Options,
-                                                        productTypeId: (int)product.ProductTypeId, dataViewMode: DataViewMode.Live);
+                                                        productTypeId: (int)product.ProductTypeId);
             foreach (var variation in vars.Items)
             {
                 variation.IsActive = true;
@@ -1871,7 +2595,8 @@ namespace Mozu.Api.Test.Helpers
                                                      isActive: proInSite.IsActive,
                                                      isContentOverridden: proInSite.IsContentOverridden, 
                                                      isPriceOverridden: proInSite.IsPriceOverridden,
-                                                     isSeoContentOverridden: proInSite.IsseoContentOverridden);
+                                                     isSeoContentOverridden: proInSite.IsseoContentOverridden
+                                                     );
             ProductFactory.UpdateProductInCatalog(handler: ApiMsgHandler,
                                         productInCatalogInfoIn: proInfo, 
                                         productCode: "artichoke-dining-lamp", 

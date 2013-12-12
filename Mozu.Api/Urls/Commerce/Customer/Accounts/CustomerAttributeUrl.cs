@@ -13,45 +13,30 @@ using System;
 
 namespace Mozu.Api.Urls.Commerce.Customer.Accounts
 {
-	public partial class CustomerAttributeUrl : MozuUrl
+	public partial class CustomerAttributeUrl 
 	{
-
-		/// <summary>
-        /// Get Resource Url for GetAccountAttributeByFqn
-        /// </summary>
-        /// <param name="accountId"></param>
-        /// <param name="attributeFQN"></param>
-        /// <returns>
-        /// String - Resource Url
-        /// </returns>
-        public static MozuUrl GetAccountAttributeByFqnUrl(int accountId, string attributeFQN)
-		{
-			var url = "/api/commerce/customer/accounts/{accountId}/attributes/{attributeFQN}";
-			FormatUrl( ref url, "accountId", accountId);
-			FormatUrl( ref url, "attributeFQN", attributeFQN);
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
-		}
 
 		/// <summary>
         /// Get Resource Url for GetAccountAttribute
         /// </summary>
-        /// <param name="accountId"></param>
-        /// <param name="attributeId"></param>
+        /// <param name="accountId">Identifier of the customer account associated with the attribute to retrieve.</param>
+        /// <param name="attributeFQN"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static MozuUrl GetAccountAttributeUrl(int accountId, int attributeId)
+        public static MozuUrl GetAccountAttributeUrl(int accountId, string attributeFQN)
 		{
-			var url = "/api/commerce/customer/accounts/{accountId}/attributes/{attributeId}";
-			FormatUrl( ref url, "accountId", accountId);
-			FormatUrl( ref url, "attributeId", attributeId);
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var url = "/api/commerce/customer/accounts/{accountId}/attributes/{attributeFQN}";
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "accountId", accountId);
+			mozuUrl.FormatUrl( "attributeFQN", attributeFQN);
+			return mozuUrl;
 		}
 
 		/// <summary>
         /// Get Resource Url for GetAccountAttributes
         /// </summary>
-        /// <param name="accountId"></param>
+        /// <param name="accountId">Identifier of the customer account associated with the attributes to retrieve.</param>
         /// <param name="filter"></param>
         /// <param name="pageSize"></param>
         /// <param name="sortBy"></param>
@@ -62,40 +47,45 @@ namespace Mozu.Api.Urls.Commerce.Customer.Accounts
         public static MozuUrl GetAccountAttributesUrl(int accountId, string filter, int? pageSize, string sortBy, int? startIndex)
 		{
 			var url = "/api/commerce/customer/accounts/{accountId}/attributes?startIndex={startIndex}&pageSize={pageSize}&sortBy={sortBy}&filter={filter}";
-			FormatUrl( ref url, "accountId", accountId);
-			FormatUrl( ref url, "filter", filter);
-			FormatUrl( ref url, "pageSize", pageSize);
-			FormatUrl( ref url, "sortBy", sortBy);
-			FormatUrl( ref url, "startIndex", startIndex);
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "accountId", accountId);
+			mozuUrl.FormatUrl( "filter", filter);
+			mozuUrl.FormatUrl( "pageSize", pageSize);
+			mozuUrl.FormatUrl( "sortBy", sortBy);
+			mozuUrl.FormatUrl( "startIndex", startIndex);
+			return mozuUrl;
 		}
 
 				/// <summary>
         /// Get Resource Url for AddAccountAttribute
         /// </summary>
-        /// <param name="accountId"></param>
+        /// <param name="accountId">Unique identifier of the customer account.</param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
         public static MozuUrl AddAccountAttributeUrl(int accountId)
 		{
 			var url = "/api/commerce/customer/accounts/{accountId}/attributes";
-			FormatUrl( ref url, "accountId", accountId);
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "accountId", accountId);
+			return mozuUrl;
 		}
 
 				/// <summary>
         /// Get Resource Url for UpdateAccountAttribute
         /// </summary>
-        /// <param name="accountId"></param>
+        /// <param name="accountId">Identifier of the customer account associated with the attribute.</param>
+        /// <param name="removeMissing">If true, remove the items missing from the collection.</param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static MozuUrl UpdateAccountAttributeUrl(int accountId)
+        public static MozuUrl UpdateAccountAttributeUrl(int accountId, bool? removeMissing)
 		{
-			var url = "/api/commerce/customer/accounts/{accountId}/attributes";
-			FormatUrl( ref url, "accountId", accountId);
-			return new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD) ;
+			var url = "/api/commerce/customer/accounts/{accountId}/attributes?removeMissing={removeMissing}";
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "accountId", accountId);
+			mozuUrl.FormatUrl( "removeMissing", removeMissing);
+			return mozuUrl;
 		}
 
 				

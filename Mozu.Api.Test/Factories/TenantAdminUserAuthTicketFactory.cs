@@ -22,45 +22,36 @@ using Mozu.Api.Test.Helpers;
 namespace Mozu.Api.Test.Factories
 {
 	/// <summary>
-	/// 
+	/// Use the Admin User authentication tickets resource to generate and refresh authentication tickets that enable Mozu administrator or developer account users to access development or production tenants.
 	/// </summary>
 	public partial class TenantAdminUserAuthTicketFactory : BaseDataFactory
 	{
 
 		/// <summary> 
-		/// 
+		/// Creates an authentication ticket for the supplied user to specify in API requests associated with the supplied tenant.
 		/// <example> 
 		///  <code> 
-		//// TenantAdminUserAuthTicketFactory.CreateUserAuthTicket(handler : handler,  userAuthInfo :  userAuthInfo,  expectedCode: expectedCode, successCode: successCode);
+		/// var result = TenantAdminUserAuthTicketFactory.CreateUserAuthTicket(handler : handler,  userAuthInfo :  userAuthInfo,  tenantId :  tenantId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<TenantAdminUserAuthTicket/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.AdminUser.TenantAdminUserAuthTicket CreateUserAuthTicket(ServiceClientMessageHandler handler, 
- 		 Mozu.Api.Contracts.Core.UserAuthInfo userAuthInfo, 
-		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
-		{
-			return CreateUserAuthTicket(handler : handler,  tenantId :  null,  userAuthInfo :  userAuthInfo,authTicket : null, 
-				expectedCode: expectedCode, successCode: successCode);
-		}
-  
-		/// <summary> 
-		/// 
-		/// <example> 
-		///  <code> 
-		//// var result = TenantAdminUserAuthTicketFactory.CreateUserAuthTicket(handler : handler,  tenantId :  tenantId,  userAuthInfo :  userAuthInfo, authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<TenantAdminUserAuthTicket>(result); 
-		//// return optionalCasting;
-		///  </code> 
-		/// </example> 
-		/// </summary>
-		public static Mozu.Api.Contracts.AdminUser.TenantAdminUserAuthTicket CreateUserAuthTicket(ServiceClientMessageHandler handler, 
- 		 int? tenantId, Mozu.Api.Contracts.Core.UserAuthInfo userAuthInfo, AuthTicket authTicket= null, 
-		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
+ 		 Mozu.Api.Contracts.Core.UserAuthInfo userAuthInfo, int? tenantId = null,  AuthTicket authTicket = null, 
+		 int expectedCode = (int)HttpStatusCode.Created, int successCode = (int)HttpStatusCode.Created)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Platform.Adminuser.TenantAdminUserAuthTicketClient.CreateUserAuthTicketClient(
-				 tenantId :  tenantId,  userAuthInfo :  userAuthInfo, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+				 userAuthInfo :  userAuthInfo,  tenantId :  tenantId, authTicket : authTicket		);
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -68,39 +59,30 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// Generates a new user authentication ticket for the specified tenant by supplying the user's existing refresh token information.
 		/// <example> 
 		///  <code> 
-		//// TenantAdminUserAuthTicketFactory.RefreshAuthTicket(handler : handler,  existingAuthTicket :  existingAuthTicket,  expectedCode: expectedCode, successCode: successCode);
+		/// var result = TenantAdminUserAuthTicketFactory.RefreshAuthTicket(handler : handler,  existingAuthTicket :  existingAuthTicket,  tenantId :  tenantId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<TenantAdminUserAuthTicket/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.AdminUser.TenantAdminUserAuthTicket RefreshAuthTicket(ServiceClientMessageHandler handler, 
- 		 Mozu.Api.Contracts.AdminUser.TenantAdminUserAuthTicket existingAuthTicket, 
-		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
-		{
-			return RefreshAuthTicket(handler : handler,  tenantId :  null,  existingAuthTicket :  existingAuthTicket,authTicket : null, 
-				expectedCode: expectedCode, successCode: successCode);
-		}
-  
-		/// <summary> 
-		/// 
-		/// <example> 
-		///  <code> 
-		//// var result = TenantAdminUserAuthTicketFactory.RefreshAuthTicket(handler : handler,  tenantId :  tenantId,  existingAuthTicket :  existingAuthTicket, authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<TenantAdminUserAuthTicket>(result); 
-		//// return optionalCasting;
-		///  </code> 
-		/// </example> 
-		/// </summary>
-		public static Mozu.Api.Contracts.AdminUser.TenantAdminUserAuthTicket RefreshAuthTicket(ServiceClientMessageHandler handler, 
- 		 int? tenantId, Mozu.Api.Contracts.AdminUser.TenantAdminUserAuthTicket existingAuthTicket, AuthTicket authTicket= null, 
+ 		 Mozu.Api.Contracts.AdminUser.TenantAdminUserAuthTicket existingAuthTicket, int? tenantId = null,  AuthTicket authTicket = null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Platform.Adminuser.TenantAdminUserAuthTicketClient.RefreshAuthTicketClient(
-				 tenantId :  tenantId,  existingAuthTicket :  existingAuthTicket, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+				 existingAuthTicket :  existingAuthTicket,  tenantId :  tenantId, authTicket : authTicket		);
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -108,23 +90,30 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// Deletes the authentication ticket for the user by supplying the refresh token.
 		/// <example> 
 		///  <code> 
-		//// var result = TenantAdminUserAuthTicketFactory.DeleteUserAuthTicket(handler : handler,  refreshToken :  refreshToken,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<void>(result); 
-		//// return optionalCasting;
+		/// var result = TenantAdminUserAuthTicketFactory.DeleteUserAuthTicket(handler : handler,  refreshToken :  refreshToken,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<void/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static void DeleteUserAuthTicket(ServiceClientMessageHandler handler, 
- 		string refreshToken,  AuthTicket authTicket= null, 
+ 		string refreshToken,  AuthTicket authTicket = null, 
 		 int expectedCode = (int)HttpStatusCode.NoContent, int successCode = (int)HttpStatusCode.NoContent)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Platform.Adminuser.TenantAdminUserAuthTicketClient.DeleteUserAuthTicketClient(
 				 refreshToken :  refreshToken, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			var noResponse = ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;

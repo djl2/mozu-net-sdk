@@ -16,10 +16,10 @@ using Mozu.Api.Security;
 namespace Mozu.Api.Resources.Commerce.Location.Admin
 {
 	/// <summary>
-	/// 
+	/// Use the Locations resource to manage each physical location associated with a tenant. Locations enable tenants to associate a physical address with product inventory, provide a store finder for in-store pickup, or both. Locations that support inventory can use both direct ship and in-store pickup fulfillment types.
 	/// </summary>
 	public partial class LocationResource  	{
-				///
+		///
 		/// <see cref="Mozu.Api.ApiContext"/>
 		///
 		private readonly IApiContext _apiContext;
@@ -30,7 +30,7 @@ namespace Mozu.Api.Resources.Commerce.Location.Admin
 
 		
 		/// <summary>
-		/// 
+		/// Retrieves a list of all locations associated with a tenant, according to any filter and sort criteria specified in the request.
 		/// </summary>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.Location.LocationCollection"/>
@@ -47,12 +47,12 @@ namespace Mozu.Api.Resources.Commerce.Location.Admin
 		}
 
 		/// <summary>
-		/// 
+		/// Retrieves a list of all locations associated with a tenant, according to any filter and sort criteria specified in the request.
 		/// </summary>
-		/// <param name="filter"></param>
-		/// <param name="pageSize"></param>
-		/// <param name="sortBy"></param>
-		/// <param name="startIndex"></param>
+		/// <param name="filter">A set of expressions that consist of a field, operator, and value and represent search parameter syntax when filtering results of a query. Valid operators include equals (eq), does not equal (ne), greater than (gt), less than (lt), greater than or equal to (ge), less than or equal to (le), starts with (sw), or contains (cont). For example - "filter=IsDisplayed+eq+true"</param>
+		/// <param name="pageSize">The number of results to display on each page when creating paged results from a query. The maximum value is 200.</param>
+		/// <param name="sortBy">The property by which to sort results and whether the results appear in ascending (a-z) order, represented by ASC or in descending (z-a) order, represented by DESC. The sortBy parameter follows an available property. For example: "sortBy=productCode+asc"</param>
+		/// <param name="startIndex">When creating paged results from a query, this value indicates the zero-based offset in the complete result set where the returned entities begin. For example, with a PageSize of 25, to get the 51st through the 75th items, use startIndex=3.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.Location.LocationCollection"/>
@@ -60,13 +60,13 @@ namespace Mozu.Api.Resources.Commerce.Location.Admin
 		/// <example>
 		/// <code>
 		///   var location = new Location();
-		///   var locationCollection = location.GetLocations( filter,  pageSize,  sortBy,  startIndex, authTicket);
+		///   var locationCollection = location.GetLocations( startIndex,  pageSize,  sortBy,  filter, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.Location.LocationCollection GetLocations(string filter =  null, int? pageSize =  null, string sortBy =  null, int? startIndex =  null, AuthTicket authTicket= null)
+		public virtual Mozu.Api.Contracts.Location.LocationCollection GetLocations(int? startIndex =  null, int? pageSize =  null, string sortBy =  null, string filter =  null, AuthTicket authTicket= null)
 		{
 			MozuClient<Mozu.Api.Contracts.Location.LocationCollection> response;
-			var client = Mozu.Api.Clients.Commerce.Location.Admin.LocationClient.GetLocationsClient( filter,  pageSize,  sortBy,  startIndex, authTicket);
+			var client = Mozu.Api.Clients.Commerce.Location.Admin.LocationClient.GetLocationsClient( startIndex,  pageSize,  sortBy,  filter, authTicket);
 			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
@@ -74,9 +74,9 @@ namespace Mozu.Api.Resources.Commerce.Location.Admin
 		}
 
 		/// <summary>
-		/// 
+		/// Retrieves the details of the location specified in the request by location code.
 		/// </summary>
-		/// <param name="locationCode"></param>
+		/// <param name="locationCode">The merchant-defined code of the location to retrieve.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.Location.Location"/>
@@ -97,11 +97,11 @@ namespace Mozu.Api.Resources.Commerce.Location.Admin
 
 		}
 
-				/// <summary>
-		/// 
+		/// <summary>
+		/// Creates a new physical location for the tenant specified in the request header.
 		/// </summary>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="location"></param>
+		/// <param name="location">Properties of the location to create.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.Location.Location"/>
 		/// </returns>
@@ -121,12 +121,12 @@ namespace Mozu.Api.Resources.Commerce.Location.Admin
 
 		}
 
-				/// <summary>
-		/// 
+		/// <summary>
+		/// Updates one or more details of a the location specified in the request by location code.
 		/// </summary>
-		/// <param name="locationCode"></param>
+		/// <param name="locationCode">The merchant-defined code associated with the location to update.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="location"></param>
+		/// <param name="location">Properties of the location to update.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.Location.Location"/>
 		/// </returns>
@@ -146,10 +146,10 @@ namespace Mozu.Api.Resources.Commerce.Location.Admin
 
 		}
 
-				/// <summary>
-		/// 
+		/// <summary>
+		/// Deletes the location specified in the request.
 		/// </summary>
-		/// <param name="locationCode"></param>
+		/// <param name="locationCode">The merchant-defined code of the location to delete.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// 
@@ -169,7 +169,7 @@ namespace Mozu.Api.Resources.Commerce.Location.Admin
 
 		}
 
-		
+
 	}
 
 }

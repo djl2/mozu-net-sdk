@@ -12,20 +12,44 @@ using System;
 
 namespace Mozu.Api.Contracts.Customer
 {
+		///
+		///	Properties of a transaction performed by a customer account. The system creates a transaction each time the customer submits an order, returns an item, picks up items for an order, or manages items on a wish list.
+		///
 		public class Transaction
 		{
+			///
+			///If applicable, the amount of the transaction.
+			///
 			public decimal Amount { get; set; }
 
+			///
+			///Unique identifier of the customer account.
+			///
 			public int? CustomerAccountId { get; set; }
 
+			///
+			///The date and time the customer transaction occurred.
+			///
 			public DateTime Date { get; set; }
 
+			///
+			///The type of interaction the customer used to perform the transaction, which is "Website," "Call," "Store," or "Unknown."
+			///
 			public string InteractionType { get; set; }
 
+			///
+			///The unique identifier of the transaction.
+			///
 			public string TransactionId { get; set; }
 
+			///
+			///The type of transaction the customer performed, which is "Order," "Return," "OrderPickup," or "Wishlist."
+			///
 			public string TransactionType { get; set; }
 
+			///
+			///Unique identifier of the customer visit associated with the transaction. Customers can perform multiple transactions in the same visit.
+			///
 			public string VisitId { get; set; }
 
 		}

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.IO;
+using Mozu.Api.Resources.Commerce.Settings;
 using Mozu.Api.Security;
 using Newtonsoft.Json;
 using Mozu.Api.Contracts.Event;
@@ -72,7 +73,10 @@ namespace Mozu.Api.Events
                     response.StatusCode = 500;
                     response.StatusDescription = exc.Message;
                     response.ContentType = context.Request.ContentType;
-                    response.Write(JsonConvert.SerializeObject(exc));
+                    if (exc.InnerException != null)
+                        response.Write(JsonConvert.SerializeObject(exc.InnerException));
+                    else
+                        response.Write(JsonConvert.SerializeObject(exc));
                 }
             }
 

@@ -16,10 +16,10 @@ using Mozu.Api.Security;
 namespace Mozu.Api.Resources.Commerce
 {
 	/// <summary>
-	/// 
+	/// Use the Wish Lists resource to manage the shopper wish lists of products associated with a customer account. Although customer accounts are managed at the tenant level, the system stores shopper wish lists at the site level. This enables the same customer to have wish lists for each of a merchant's sites. Use the Wish List Items resource to manage items in a wish list.
 	/// </summary>
 	public partial class WishlistResource  	{
-				///
+		///
 		/// <see cref="Mozu.Api.ApiContext"/>
 		///
 		private readonly IApiContext _apiContext;
@@ -30,7 +30,7 @@ namespace Mozu.Api.Resources.Commerce
 
 		
 		/// <summary>
-		/// 
+		/// Retrieves a list of shopper wish lists according to any filter and sort criteria.
 		/// </summary>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Wishlists.WishlistCollection"/>
@@ -47,14 +47,14 @@ namespace Mozu.Api.Resources.Commerce
 		}
 
 		/// <summary>
-		/// 
+		/// Retrieves a list of shopper wish lists according to any filter and sort criteria.
 		/// </summary>
-		/// <param name="filter"></param>
-		/// <param name="pageSize"></param>
-		/// <param name="q"></param>
-		/// <param name="qLimit"></param>
-		/// <param name="sortBy"></param>
-		/// <param name="startIndex"></param>
+		/// <param name="filter">A set of expressions that consist of a field, operator, and value and represent search parameter syntax when filtering results of a query. Valid operators include equals (eq), does not equal (ne), greater than (gt), less than (lt), greater than or equal to (ge), less than or equal to (le), starts with (sw), or contains (cont). For example - "filter=IsDisplayed+eq+true"</param>
+		/// <param name="pageSize">The number of results to display on each page when creating paged results from a query. The maximum value is 200.</param>
+		/// <param name="q">A list of search terms to use in the query when searching across wish list name. Separate multiple search terms with a space character.</param>
+		/// <param name="qLimit">The maximum number of search results to return in the response. You can limit any range between 1-100.</param>
+		/// <param name="sortBy">The property by which to sort results and whether the results appear in ascending (a-z) order, represented by ASC or in descending (z-a) order, represented by DESC. The sortBy parameter follows an available property. For example: "sortBy=productCode+asc"</param>
+		/// <param name="startIndex">When creating paged results from a query, this value indicates the zero-based offset in the complete result set where the returned entities begin. For example, with a PageSize of 25, to get the 51st through the 75th items, use startIndex=3.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Wishlists.WishlistCollection"/>
@@ -62,13 +62,13 @@ namespace Mozu.Api.Resources.Commerce
 		/// <example>
 		/// <code>
 		///   var wishlist = new Wishlist();
-		///   var wishlistCollection = wishlist.GetWishlists( filter,  pageSize,  q,  qLimit,  sortBy,  startIndex, authTicket);
+		///   var wishlistCollection = wishlist.GetWishlists( startIndex,  pageSize,  sortBy,  filter,  q,  qLimit, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.CommerceRuntime.Wishlists.WishlistCollection GetWishlists(string filter =  null, int? pageSize =  null, string q =  null, int? qLimit =  null, string sortBy =  null, int? startIndex =  null, AuthTicket authTicket= null)
+		public virtual Mozu.Api.Contracts.CommerceRuntime.Wishlists.WishlistCollection GetWishlists(int? startIndex =  null, int? pageSize =  null, string sortBy =  null, string filter =  null, string q =  null, int? qLimit =  null, AuthTicket authTicket= null)
 		{
 			MozuClient<Mozu.Api.Contracts.CommerceRuntime.Wishlists.WishlistCollection> response;
-			var client = Mozu.Api.Clients.Commerce.WishlistClient.GetWishlistsClient( filter,  pageSize,  q,  qLimit,  sortBy,  startIndex, authTicket);
+			var client = Mozu.Api.Clients.Commerce.WishlistClient.GetWishlistsClient( startIndex,  pageSize,  sortBy,  filter,  q,  qLimit, authTicket);
 			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();
@@ -76,9 +76,9 @@ namespace Mozu.Api.Resources.Commerce
 		}
 
 		/// <summary>
-		/// 
+		/// Retrieves the details of the shopper wish list specified in the request.
 		/// </summary>
-		/// <param name="wishlistId"></param>
+		/// <param name="wishlistId">Unique identifier of the shopper wish list to retrieve.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Wishlists.Wishlist"/>
@@ -99,11 +99,36 @@ namespace Mozu.Api.Resources.Commerce
 
 		}
 
-				/// <summary>
+		/// <summary>
 		/// 
 		/// </summary>
+		/// <param name="customerAccountId"></param>
+		/// <param name="wishlistName"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="wishlist"></param>
+		/// <returns>
+		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Wishlists.Wishlist"/>
+		/// </returns>
+		/// <example>
+		/// <code>
+		///   var wishlist = new Wishlist();
+		///   var wishlist = wishlist.GetWishlistByName( customerAccountId,  wishlistName, authTicket);
+		/// </code>
+		/// </example>
+		public virtual Mozu.Api.Contracts.CommerceRuntime.Wishlists.Wishlist GetWishlistByName(int customerAccountId, string wishlistName, AuthTicket authTicket= null)
+		{
+			MozuClient<Mozu.Api.Contracts.CommerceRuntime.Wishlists.Wishlist> response;
+			var client = Mozu.Api.Clients.Commerce.WishlistClient.GetWishlistByNameClient( customerAccountId,  wishlistName, authTicket);
+			client.WithContext(_apiContext);
+			response= client.Execute();
+			return response.Result();
+
+		}
+
+		/// <summary>
+		/// Creates a new shopper wish list for the associated customer account. Although customer accounts are maintained at the tenant level, the system stores wish lists at the site level. Newly created wish lists do not have any items.
+		/// </summary>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
+		/// <param name="wishlist">Properties of the wish list to create.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Wishlists.Wishlist"/>
 		/// </returns>
@@ -123,12 +148,12 @@ namespace Mozu.Api.Resources.Commerce
 
 		}
 
-				/// <summary>
-		/// 
+		/// <summary>
+		/// Updates one or more properties of a shopper wish list defined for a customer account.
 		/// </summary>
-		/// <param name="wishlistId"></param>
+		/// <param name="wishlistId">Unique identifier of the shopper wish list to update.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="wishlist"></param>
+		/// <param name="wishlist">Properties of the shopper wish list to update.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Wishlists.Wishlist"/>
 		/// </returns>
@@ -148,10 +173,10 @@ namespace Mozu.Api.Resources.Commerce
 
 		}
 
-				/// <summary>
-		/// 
+		/// <summary>
+		/// Deletes the shopper wish list specified in the request and all items associated with it.
 		/// </summary>
-		/// <param name="wishlistId"></param>
+		/// <param name="wishlistId">Unique identifier of the wish list to delete.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// 
@@ -171,7 +196,7 @@ namespace Mozu.Api.Resources.Commerce
 
 		}
 
-		
+
 	}
 
 }

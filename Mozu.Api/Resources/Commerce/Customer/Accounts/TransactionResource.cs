@@ -16,10 +16,10 @@ using Mozu.Api.Security;
 namespace Mozu.Api.Resources.Commerce.Customer.Accounts
 {
 	/// <summary>
-	/// 
+	/// Use the Customer Account Transactions resource to manage the transactions associated with a customer account.
 	/// </summary>
 	public partial class TransactionResource  	{
-				///
+		///
 		/// <see cref="Mozu.Api.ApiContext"/>
 		///
 		private readonly IApiContext _apiContext;
@@ -30,9 +30,9 @@ namespace Mozu.Api.Resources.Commerce.Customer.Accounts
 
 		
 		/// <summary>
-		/// 
+		/// Retrieves a list of transactions associated with the customer account specified in the request.
 		/// </summary>
-		/// <param name="accountId"></param>
+		/// <param name="accountId">Unique identifier of the customer account for which to retrieve transactions.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// List{<see cref="Mozu.Api.Contracts.Customer.Transaction"/>}
@@ -53,12 +53,12 @@ namespace Mozu.Api.Resources.Commerce.Customer.Accounts
 
 		}
 
-				/// <summary>
-		/// 
+		/// <summary>
+		/// Creates a new transaction for the customer account specified in the request.
 		/// </summary>
-		/// <param name="accountId"></param>
+		/// <param name="accountId">Unique identifier of the customer account.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="transaction"></param>
+		/// <param name="transaction">Properties of the transaction to create for the customer account.</param>
 		/// <returns>
 		/// <see cref="Mozu.Api.Contracts.Customer.Transaction"/>
 		/// </returns>
@@ -78,11 +78,11 @@ namespace Mozu.Api.Resources.Commerce.Customer.Accounts
 
 		}
 
-						/// <summary>
-		/// 
+		/// <summary>
+		/// Deletes a transaction from the customer account specified in the request.
 		/// </summary>
-		/// <param name="accountId"></param>
-		/// <param name="transactionId"></param>
+		/// <param name="accountId">Unique identifier of the customer account from which to delete the transaction.</param>
+		/// <param name="transactionId">Unique identifier of the transaction to delete.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		/// 
@@ -102,7 +102,7 @@ namespace Mozu.Api.Resources.Commerce.Customer.Accounts
 
 		}
 
-		
+
 	}
 
 }

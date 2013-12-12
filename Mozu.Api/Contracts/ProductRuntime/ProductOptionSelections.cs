@@ -13,10 +13,19 @@ using System.Collections.Generic;
 
 namespace Mozu.Api.Contracts.ProductRuntime
 {
+		///
+		///	For a product with shopper-configurable options, the properties of the product options selected by the shopper.
+		///
 		public class ProductOptionSelections
 		{
+			///
+			///Product code that represents the product variation selected based on the option values the shopper entered.
+			///
 			public string VariationProductCode { get; set; }
 
+			///
+			///List of product options and values currently selected.
+			///
 			public List<ProductOptionSelection> Options { get; set; }
 
 		}

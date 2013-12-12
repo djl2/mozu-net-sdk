@@ -12,10 +12,19 @@ using System;
 
 namespace Mozu.Api.Contracts.Location
 {
+		///
+		///	Properties of a type of physical location, such as warehouse or kiosk. Location types enable tenants to group similar locations for filtering and location usage type definition.
+		///
 		public class LocationType
 		{
+			///
+			///User-defined identifying code for the location type.
+			///
 			public string Code { get; set; }
 
+			///
+			///The name of the location type.
+			///
 			public string Name { get; set; }
 
 		}

@@ -16,12 +16,12 @@ using Mozu.Api.Security;
 namespace Mozu.Api.Clients.Platform.Developer
 {
 	/// <summary>
-	/// 
+	/// Use the Applications resource to manage the applications associated with a developer account.
 	/// </summary>
 	public partial class ApplicationVersionClient 	{
 		
 		/// <summary>
-		/// 
+		/// Retrieves the list of applications associated with the developer account scoped to the user claim specified in the request.
 		/// </summary>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
@@ -45,7 +45,7 @@ namespace Mozu.Api.Clients.Platform.Developer
 		}
 
 		/// <summary>
-		/// 
+		/// Retrieves the details of the application specified in the request. The application specified in the request must be associated with the developer account scoped to the user claim specified in the request header, otherwise the operation returns an error.
 		/// </summary>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.AppDev.Application"/>}
@@ -62,9 +62,9 @@ namespace Mozu.Api.Clients.Platform.Developer
 		}
 
 		/// <summary>
-		/// 
+		/// Retrieves the details of the application specified in the request. The application specified in the request must be associated with the developer account scoped to the user claim specified in the request header, otherwise the operation returns an error.
 		/// </summary>
-		/// <param name="applicationId"></param>
+		/// <param name="applicationId">Unique identifier of the application.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.AppDev.Application"/>}
@@ -87,9 +87,9 @@ namespace Mozu.Api.Clients.Platform.Developer
 		}
 
 		/// <summary>
-		/// 
+		/// Retrieves the details of a specific version of an application associated with the developer account scoped to the user claim specified in the request.
 		/// </summary>
-		/// <param name="applicationVersionId"></param>
+		/// <param name="applicationVersionId">Unique identifier of the application version. Application version IDs are unique across all applications associated with a developer account.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.AppDev.ApplicationVersion"/>}
@@ -112,9 +112,9 @@ namespace Mozu.Api.Clients.Platform.Developer
 		}
 
 		/// <summary>
-		/// 
+		/// Retrieves a list of the package definitions created for an application version, including all development packages and release packages. The application must be associated with the developer account scoped to the user claim specified in the request.
 		/// </summary>
-		/// <param name="applicationVersionId"></param>
+		/// <param name="applicationVersionId">Unique identifier of the application version. Application version IDs are unique across all applications associated with a developer account.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.AppDev.PackageCollection"/>}
@@ -137,10 +137,10 @@ namespace Mozu.Api.Clients.Platform.Developer
 		}
 
 		/// <summary>
-		/// 
+		/// Retrieves the details of a package definition associated with an application version. The application ust be associated with the developer account scoped to the user claim specified in the request. 
 		/// </summary>
-		/// <param name="applicationVersionId"></param>
-		/// <param name="packageId"></param>
+		/// <param name="applicationVersionId">Unique identifier of the application version associated with the package. Application version IDs are unique across all applications associated with the developer account.</param>
+		/// <param name="packageId">Unique identifier of the package to retrieve.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.AppDev.Package"/>}
@@ -163,10 +163,10 @@ namespace Mozu.Api.Clients.Platform.Developer
 		}
 
 		/// <summary>
-		/// 
+		/// Retrieves the metadata for items in a package associated with an application version, including a list of all files and subfolders. The application must be associated with the developer account acoped to the user claim specified in the request.
 		/// </summary>
-		/// <param name="applicationVersionId"></param>
-		/// <param name="packageId"></param>
+		/// <param name="applicationVersionId">Unique identifier of the application version. Application version IDs are unique across all applications associated with a developer account.</param>
+		/// <param name="packageId">Unique identifier of the package.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.AppDev.FolderMetadata"/>}
@@ -189,22 +189,22 @@ namespace Mozu.Api.Clients.Platform.Developer
 		}
 
 		/// <summary>
-		/// 
+		/// Retrieves the metadata of a file in a package for an application version. The application must be associated with the developer account scoped to the user claim specified in the request.
 		/// </summary>
-		/// <param name="applicationVersionId"></param>
-		/// <param name="itempath"></param>
-		/// <param name="packageId"></param>
+		/// <param name="applicationVersionId">Unique identifier of the application version. Application version IDs are unique across all applications associated with a developer account.</param>
+		/// <param name="itempath">Complete file directory location and name of the item in the package to retrieve metadata.</param>
+		/// <param name="packageId">Unique identifier of the package.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.AppDev.FileMetadata"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=GetPackageItemMetadata( applicationVersionId,  itempath,  packageId, authTicket);
+		///   var mozuClient=GetPackageItemMetadata( applicationVersionId,  packageId,  itempath, authTicket);
 		///   var fileMetadataClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.AppDev.FileMetadata> GetPackageItemMetadataClient(int applicationVersionId, string itempath, int packageId, AuthTicket authTicket= null)
+		public static MozuClient<Mozu.Api.Contracts.AppDev.FileMetadata> GetPackageItemMetadataClient(int applicationVersionId, int packageId, string itempath, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Platform.Developer.ApplicationVersionUrl.GetPackageItemMetadataUrl(applicationVersionId, itempath, packageId);
 			const string verb = "GET";
@@ -222,31 +222,31 @@ namespace Mozu.Api.Clients.Platform.Developer
 		/// <param name="packageId"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
-		///  <see cref="Mozu.Api.MozuClient" />
+		///  <see cref="Mozu.Api.MozuClient" />{<see cref="System.IO.Stream"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
 		///   var mozuClient=GetPackageFilesZip( applicationVersionId,  packageId, authTicket);
-		///mozuClient.WithBaseAddress(url).Execute();
+		///   var streamClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient GetPackageFilesZipClient(int applicationVersionId, int packageId, AuthTicket authTicket= null)
+		public static MozuClient<System.IO.Stream> GetPackageFilesZipClient(int applicationVersionId, int packageId, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Platform.Developer.ApplicationVersionUrl.GetPackageFilesZipUrl(applicationVersionId, packageId);
 			const string verb = "GET";
-			var mozuClient = new MozuClient().WithVerb(verb).WithResourceUrl(url);
+			var mozuClient = new MozuClient<System.IO.Stream>().WithVerb(verb).WithResourceUrl(url);
 			if (authTicket != null)
 				mozuClient = mozuClient.WithUserAuth(authTicket);
 			return mozuClient;
 
 		}
 
-				/// <summary>
-		/// 
+		/// <summary>
+		/// Creates a new development or release package for the application version specified in the request.
 		/// </summary>
-		/// <param name="applicationVersionId"></param>
+		/// <param name="applicationVersionId">Unique identifier of the application version. Application version IDs are unique across all applications associated with the developer account.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="package"></param>
+		/// <param name="package">Properties of the development or release package to define.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.AppDev.Package"/>}
 		/// </returns>
@@ -268,23 +268,23 @@ namespace Mozu.Api.Clients.Platform.Developer
 		}
 
 		/// <summary>
-		/// 
+		/// Uploads a file to a defined package for an application version in the file location specified in the request.
 		/// </summary>
-		/// <param name="applicationVersionId"></param>
-		/// <param name="filepath"></param>
-		/// <param name="packageId"></param>
+		/// <param name="applicationVersionId">Unique identifier of the application version. Application version IDs are unique across all applications associated with a developer account.</param>
+		/// <param name="filepath">The file location to which to add the package file.</param>
+		/// <param name="packageId">Unique identifier of the package.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="stream"></param>
+		/// <param name="stream">The contents of the package file to upload, which requires a content-type value of "application/octet-stream" in the request header.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.AppDev.FileMetadata"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=AddPackageFile( stream,  applicationVersionId,  filepath,  packageId, authTicket);
+		///   var mozuClient=AddPackageFile( stream,  applicationVersionId,  packageId,  filepath, authTicket);
 		///   var fileMetadataClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.AppDev.FileMetadata> AddPackageFileClient(System.IO.Stream stream, int applicationVersionId, string filepath, int packageId, AuthTicket authTicket= null)
+		public static MozuClient<Mozu.Api.Contracts.AppDev.FileMetadata> AddPackageFileClient(System.IO.Stream stream, int applicationVersionId, int packageId, string filepath, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Platform.Developer.ApplicationVersionUrl.AddPackageFileUrl(applicationVersionId, filepath, packageId);
 			const string verb = "POST";
@@ -322,24 +322,24 @@ namespace Mozu.Api.Clients.Platform.Developer
 
 		}
 
-				/// <summary>
-		/// 
+		/// <summary>
+		/// Updates one or more properties of a file in a package associated with an application version.
 		/// </summary>
-		/// <param name="applicationVersionId"></param>
-		/// <param name="filepath"></param>
-		/// <param name="packageId"></param>
+		/// <param name="applicationVersionId">Unique identifier of the application version. Application version IDs are unique across all applications associated with a developer account.</param>
+		/// <param name="filepath">The location path and name that identifies the package file to update.</param>
+		/// <param name="packageId">The unique identifier of the package.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="stream"></param>
+		/// <param name="stream">The contents of the package file to update, which requires a content-type value of "application/octet-stream" in the request header.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.AppDev.FileMetadata"/>}
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=UpdatePackageFile( stream,  applicationVersionId,  filepath,  packageId, authTicket);
+		///   var mozuClient=UpdatePackageFile( stream,  applicationVersionId,  packageId,  filepath, authTicket);
 		///   var fileMetadataClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.AppDev.FileMetadata> UpdatePackageFileClient(System.IO.Stream stream, int applicationVersionId, string filepath, int packageId, AuthTicket authTicket= null)
+		public static MozuClient<Mozu.Api.Contracts.AppDev.FileMetadata> UpdatePackageFileClient(System.IO.Stream stream, int applicationVersionId, int packageId, string filepath, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Platform.Developer.ApplicationVersionUrl.UpdatePackageFileUrl(applicationVersionId, filepath, packageId);
 			const string verb = "PUT";
@@ -350,23 +350,23 @@ namespace Mozu.Api.Clients.Platform.Developer
 
 		}
 
-				/// <summary>
-		/// 
+		/// <summary>
+		/// Deletes the specified file from a package associated with an application version.
 		/// </summary>
-		/// <param name="applicationVersionId"></param>
-		/// <param name="filepath"></param>
-		/// <param name="packageId"></param>
+		/// <param name="applicationVersionId">Unique identifier of the application version.</param>
+		/// <param name="filepath">The file path and name of the file location to delete from the package.</param>
+		/// <param name="packageId">Unique identifier of the package.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=DeletePackageFile( applicationVersionId,  filepath,  packageId, authTicket);
+		///   var mozuClient=DeletePackageFile( applicationVersionId,  packageId,  filepath, authTicket);
 		///mozuClient.WithBaseAddress(url).Execute();
 		/// </code>
 		/// </example>
-		public static MozuClient DeletePackageFileClient(int applicationVersionId, string filepath, int packageId, AuthTicket authTicket= null)
+		public static MozuClient DeletePackageFileClient(int applicationVersionId, int packageId, string filepath, AuthTicket authTicket= null)
 		{
 			var url = Mozu.Api.Urls.Platform.Developer.ApplicationVersionUrl.DeletePackageFileUrl(applicationVersionId, filepath, packageId);
 			const string verb = "DELETE";
@@ -377,7 +377,7 @@ namespace Mozu.Api.Clients.Platform.Developer
 
 		}
 
-		
+
 	}
 
 }

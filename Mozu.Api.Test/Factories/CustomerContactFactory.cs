@@ -22,29 +22,36 @@ using Mozu.Api.Test.Helpers;
 namespace Mozu.Api.Test.Factories
 {
 	/// <summary>
-	/// 
+	/// Merchants and customers can create, view, update, and delete a contact for a customer account. A customer account may have multiple contacts for billing and shipping addresses.
 	/// </summary>
 	public partial class CustomerContactFactory : BaseDataFactory
 	{
 
 		/// <summary> 
-		/// 
+		/// Retrieves the specified contact for a customer account such as a billing or shipping contact.
 		/// <example> 
 		///  <code> 
-		//// var result = CustomerContactFactory.GetAccountContact(handler : handler,  accountId :  accountId,  contactId :  contactId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<CustomerContact>(result); 
-		//// return optionalCasting;
+		/// var result = CustomerContactFactory.GetAccountContact(handler : handler,  accountId :  accountId,  contactId :  contactId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<CustomerContact/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.Customer.CustomerContact GetAccountContact(ServiceClientMessageHandler handler, 
- 		 int accountId, int contactId,  AuthTicket authTicket= null, 
+ 		 int accountId, int contactId,  AuthTicket authTicket = null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Customer.Accounts.CustomerContactClient.GetAccountContactClient(
 				 accountId :  accountId,  contactId :  contactId, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -52,39 +59,30 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// Retrieves a list of contacts for a customer according to any specified filter criteria and sort options.
 		/// <example> 
 		///  <code> 
-		//// CustomerContactFactory.GetAccountContacts(handler : handler,  accountId :  accountId,  expectedCode: expectedCode, successCode: successCode);
+		/// var result = CustomerContactFactory.GetAccountContacts(handler : handler,  accountId :  accountId,  startIndex :  startIndex,  pageSize :  pageSize,  sortBy :  sortBy,  filter :  filter,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<CustomerContactCollection/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.Customer.CustomerContactCollection GetAccountContacts(ServiceClientMessageHandler handler, 
- 		 int accountId, 
-		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
-		{
-			return GetAccountContacts(handler : handler,  accountId :  accountId,  filter :  null,  pageSize :  null,  sortBy :  null,  startIndex :  null,authTicket : null, 
-				expectedCode: expectedCode, successCode: successCode);
-		}
-  
-		/// <summary> 
-		/// 
-		/// <example> 
-		///  <code> 
-		//// var result = CustomerContactFactory.GetAccountContacts(handler : handler,  accountId :  accountId,  filter :  filter,  pageSize :  pageSize,  sortBy :  sortBy,  startIndex :  startIndex,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<CustomerContactCollection>(result); 
-		//// return optionalCasting;
-		///  </code> 
-		/// </example> 
-		/// </summary>
-		public static Mozu.Api.Contracts.Customer.CustomerContactCollection GetAccountContacts(ServiceClientMessageHandler handler, 
- 		 int accountId, string filter, int? pageSize, string sortBy, int? startIndex,  AuthTicket authTicket= null, 
+ 		 int accountId, int? startIndex = null, int? pageSize = null, string sortBy = null, string filter = null,  AuthTicket authTicket = null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Customer.Accounts.CustomerContactClient.GetAccountContactsClient(
-				 accountId :  accountId,  filter :  filter,  pageSize :  pageSize,  sortBy :  sortBy,  startIndex :  startIndex, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+				 accountId :  accountId,  startIndex :  startIndex,  pageSize :  pageSize,  sortBy :  sortBy,  filter :  filter, authTicket : authTicket		);
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -92,23 +90,30 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// Creates a new contact for a customer account such as a new shipping address.
 		/// <example> 
 		///  <code> 
-		//// var result = CustomerContactFactory.AddAccountContact(handler : handler,  accountId :  accountId,  contact :  contact, authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<CustomerContact>(result); 
-		//// return optionalCasting;
+		/// var result = CustomerContactFactory.AddAccountContact(handler : handler,  contact :  contact,  accountId :  accountId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<CustomerContact/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.Customer.CustomerContact AddAccountContact(ServiceClientMessageHandler handler, 
- 		 int accountId, Mozu.Api.Contracts.Customer.CustomerContact contact, AuthTicket authTicket= null, 
+ 		 Mozu.Api.Contracts.Customer.CustomerContact contact, int accountId,  AuthTicket authTicket = null, 
 		 int expectedCode = (int)HttpStatusCode.Created, int successCode = (int)HttpStatusCode.Created)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Customer.Accounts.CustomerContactClient.AddAccountContactClient(
-				 accountId :  accountId,  contact :  contact, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+				 contact :  contact,  accountId :  accountId, authTicket : authTicket		);
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -116,23 +121,30 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// Updates a contact for a specified customer account such as to update addresses or change which contact is the primary contact for billing.
 		/// <example> 
 		///  <code> 
-		//// var result = CustomerContactFactory.UpdateAccountContact(handler : handler,  accountId :  accountId,  contactId :  contactId,  contact :  contact, authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<CustomerContact>(result); 
-		//// return optionalCasting;
+		/// var result = CustomerContactFactory.UpdateAccountContact(handler : handler,  contact :  contact,  accountId :  accountId,  contactId :  contactId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<CustomerContact/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.Customer.CustomerContact UpdateAccountContact(ServiceClientMessageHandler handler, 
- 		 int accountId, int contactId, Mozu.Api.Contracts.Customer.CustomerContact contact, AuthTicket authTicket= null, 
+ 		 Mozu.Api.Contracts.Customer.CustomerContact contact, int accountId, int contactId,  AuthTicket authTicket = null, 
 		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Customer.Accounts.CustomerContactClient.UpdateAccountContactClient(
-				 accountId :  accountId,  contactId :  contactId,  contact :  contact, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+				 contact :  contact,  accountId :  accountId,  contactId :  contactId, authTicket : authTicket		);
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;
@@ -140,23 +152,30 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// 
+		/// Deletes a contact for the specified customer account.
 		/// <example> 
 		///  <code> 
-		//// var result = CustomerContactFactory.DeleteAccountContact(handler : handler,  accountId :  accountId,  contactId :  contactId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		//// var optionalCasting = ConvertClass<void>(result); 
-		//// return optionalCasting;
+		/// var result = CustomerContactFactory.DeleteAccountContact(handler : handler,  accountId :  accountId,  contactId :  contactId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<void/>(result); 
+		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static void DeleteAccountContact(ServiceClientMessageHandler handler, 
- 		int accountId, int contactId,  AuthTicket authTicket= null, 
+ 		int accountId, int contactId,  AuthTicket authTicket = null, 
 		 int expectedCode = (int)HttpStatusCode.NoContent, int successCode = (int)HttpStatusCode.NoContent)
 		{
 			SetSdKparameters();
 			var apiClient = Mozu.Api.Clients.Commerce.Customer.Accounts.CustomerContactClient.DeleteAccountContactClient(
 				 accountId :  accountId,  contactId :  contactId, authTicket : authTicket		);
-			apiClient.WithContext(handler.ApiContext).Execute();
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (Exception ex)
+			{
+			 // Custom error handling for test cases can be placed here
+			}
 			var noResponse = ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
 					 : null;

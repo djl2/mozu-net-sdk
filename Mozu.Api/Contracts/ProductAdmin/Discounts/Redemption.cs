@@ -12,14 +12,29 @@ using System;
 
 namespace Mozu.Api.Contracts.ProductAdmin.Discounts
 {
+		///
+		///	Properties of a discount redemption.
+		///
 		public class Redemption
 		{
+			///
+			///Unique identifier of the discount associated with the redemption.
+			///
 			public int DiscountId { get; set; }
 
+			///
+			///Number of the order associated with the discount redemption.
+			///
 			public int OrderNumber { get; set; }
 
+			///
+			///The date and time on which the discount was redeemed.
+			///
 			public DateTime RedeemedOn { get; set; }
 
+			///
+			///Unique identifier of the user who redeemed the discount.
+			///
 			public string UserId { get; set; }
 
 		}

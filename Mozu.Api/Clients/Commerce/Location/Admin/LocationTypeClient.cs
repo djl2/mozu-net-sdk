@@ -16,12 +16,12 @@ using Mozu.Api.Security;
 namespace Mozu.Api.Clients.Commerce.Location.Admin
 {
 	/// <summary>
-	/// 
+	/// Use the Location Types resource to manage the types of locations your tenant maintains, such as warehouses, physical storefronts, and kiosks.
 	/// </summary>
 	public partial class LocationTypeClient 	{
 		
 		/// <summary>
-		/// 
+		/// Retrieve a list of all location types defined for the tenant.
 		/// </summary>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
@@ -45,9 +45,9 @@ namespace Mozu.Api.Clients.Commerce.Location.Admin
 		}
 
 		/// <summary>
-		/// 
+		/// Retrieves the details of the location type specified in the request.
 		/// </summary>
-		/// <param name="locationTypeCode"></param>
+		/// <param name="locationTypeCode">The user-defined code that identifies the location type.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Location.LocationType"/>}
@@ -69,11 +69,11 @@ namespace Mozu.Api.Clients.Commerce.Location.Admin
 
 		}
 
-				/// <summary>
-		/// 
+		/// <summary>
+		/// Creates a new location type based on the information specified in the request.
 		/// </summary>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="locationType"></param>
+		/// <param name="locationType">Properties of the location type to create.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Location.LocationType"/>}
 		/// </returns>
@@ -94,12 +94,12 @@ namespace Mozu.Api.Clients.Commerce.Location.Admin
 
 		}
 
-				/// <summary>
-		/// 
+		/// <summary>
+		/// Updates the name of a defined location type.
 		/// </summary>
-		/// <param name="locationTypeCode"></param>
+		/// <param name="locationTypeCode">The user-defined code that identifies the location type.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="locationType"></param>
+		/// <param name="locationType">Properties of the location type to update.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Location.LocationType"/>}
 		/// </returns>
@@ -120,10 +120,10 @@ namespace Mozu.Api.Clients.Commerce.Location.Admin
 
 		}
 
-				/// <summary>
-		/// 
+		/// <summary>
+		/// Deletes the location type specified in the request.
 		/// </summary>
-		/// <param name="locationTypeCode"></param>
+		/// <param name="locationTypeCode">User-defined code used to identify the location type.</param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
 		///  <see cref="Mozu.Api.MozuClient" />
@@ -145,7 +145,7 @@ namespace Mozu.Api.Clients.Commerce.Location.Admin
 
 		}
 
-		
+
 	}
 
 }
