@@ -19,11 +19,6 @@ namespace Mozu.Api.Contracts.Content
 		public class Document
 		{
 			///
-			///Date and time when the entity was last updated, represented in UTC Date/Time.
-			///
-			public DateTime? UpdateDate { get; set; }
-
-			///
 			///The character length associated with the document content.
 			///
 			public long ContentLength { get; set; }
@@ -54,11 +49,6 @@ namespace Mozu.Api.Contracts.Content
 			public string Extension { get; set; }
 
 			///
-			///Unique identifier of the folder that contains the document.
-			///
-			public string FolderId { get; set; }
-
-			///
 			///Unique identifier of the document.
 			///
 			public string Id { get; set; }
@@ -74,14 +64,14 @@ namespace Mozu.Api.Contracts.Content
 			public string Name { get; set; }
 
 			///
-			///The location of the document in the document list and folder hierarchy.
-			///
-			public string Path { get; set; }
-
-			///
 			///The current state of the document, which is Active, Draft, or Latest. Active documents are published and cannot be deleted. Querying Latest returns the most recent version of the document, regardless of whether it is published or a draft.
 			///
 			public string PublishState { get; set; }
+
+			///
+			///Date and time when the entity was last updated, represented in UTC Date/Time.
+			///
+			public DateTime? UpdateDate { get; set; }
 
 			///
 			///List of properties for the given property value.

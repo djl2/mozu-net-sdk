@@ -16,6 +16,7 @@ using System.Net;
 using Mozu.Api;
 using Mozu.Api.Security;
 using Mozu.Api.Test.Helpers;
+using System.Diagnostics;
 
 #endregion
 
@@ -39,18 +40,25 @@ namespace Mozu.Api.Test.Factories
 		/// </summary>
 		public static Mozu.Api.Contracts.ProductAdmin.DiscountCollection GetDiscounts(ServiceClientMessageHandler handler, 
  		 int? startIndex = null, int? pageSize = null, string sortBy = null, string filter = null,  AuthTicket authTicket = null, DataViewMode dataViewMode= DataViewMode.Live, 
-		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
+		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
+			var currentClassName = System.Reflection.MethodInfo.GetCurrentMethod().DeclaringType.Name;
+			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Admin.DiscountClient.GetDiscountsClient(
 				 startIndex :  startIndex,  pageSize :  pageSize,  sortBy :  sortBy,  filter :  filter, authTicket : authTicket, dataViewMode: dataViewMode		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
 			}
-			catch (Exception ex)
+			catch (ApiException ex)
 			{
-			 // Custom error handling for test cases can be placed here
+				// Custom error handling for test cases can be placed here
+				Exception customException = TestFailException.GetCustomTestException(ex, currentClassName, currentMethodName, expectedCode);
+				if (customException != null)
+					throw customException;
+				return null;
 			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
@@ -70,18 +78,25 @@ namespace Mozu.Api.Test.Factories
 		/// </summary>
 		public static Mozu.Api.Contracts.ProductAdmin.Discount GetDiscount(ServiceClientMessageHandler handler, 
  		 int discountId,  AuthTicket authTicket = null, DataViewMode dataViewMode= DataViewMode.Live, 
-		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
+		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
+			var currentClassName = System.Reflection.MethodInfo.GetCurrentMethod().DeclaringType.Name;
+			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Admin.DiscountClient.GetDiscountClient(
 				 discountId :  discountId, authTicket : authTicket, dataViewMode: dataViewMode		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
 			}
-			catch (Exception ex)
+			catch (ApiException ex)
 			{
-			 // Custom error handling for test cases can be placed here
+				// Custom error handling for test cases can be placed here
+				Exception customException = TestFailException.GetCustomTestException(ex, currentClassName, currentMethodName, expectedCode);
+				if (customException != null)
+					throw customException;
+				return null;
 			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
@@ -101,18 +116,25 @@ namespace Mozu.Api.Test.Factories
 		/// </summary>
 		public static Mozu.Api.Contracts.ProductAdmin.DiscountLocalizedContent GetDiscountContent(ServiceClientMessageHandler handler, 
  		 int discountId,  AuthTicket authTicket = null, DataViewMode dataViewMode= DataViewMode.Live, 
-		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
+		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
+			var currentClassName = System.Reflection.MethodInfo.GetCurrentMethod().DeclaringType.Name;
+			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Admin.DiscountClient.GetDiscountContentClient(
 				 discountId :  discountId, authTicket : authTicket, dataViewMode: dataViewMode		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
 			}
-			catch (Exception ex)
+			catch (ApiException ex)
 			{
-			 // Custom error handling for test cases can be placed here
+				// Custom error handling for test cases can be placed here
+				Exception customException = TestFailException.GetCustomTestException(ex, currentClassName, currentMethodName, expectedCode);
+				if (customException != null)
+					throw customException;
+				return null;
 			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
@@ -132,18 +154,25 @@ namespace Mozu.Api.Test.Factories
 		/// </summary>
 		public static string GenerateRandomCoupon(ServiceClientMessageHandler handler, 
  		  AuthTicket authTicket = null, DataViewMode dataViewMode= DataViewMode.Live, 
-		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
+		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
+			var currentClassName = System.Reflection.MethodInfo.GetCurrentMethod().DeclaringType.Name;
+			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Admin.DiscountClient.GenerateRandomCouponClient(
 				 authTicket : authTicket, dataViewMode: dataViewMode		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
 			}
-			catch (Exception ex)
+			catch (ApiException ex)
 			{
-			 // Custom error handling for test cases can be placed here
+				// Custom error handling for test cases can be placed here
+				Exception customException = TestFailException.GetCustomTestException(ex, currentClassName, currentMethodName, expectedCode);
+				if (customException != null)
+					throw customException;
+				return null;
 			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
@@ -163,18 +192,25 @@ namespace Mozu.Api.Test.Factories
 		/// </summary>
 		public static Mozu.Api.Contracts.ProductAdmin.Discount CreateDiscount(ServiceClientMessageHandler handler, 
  		 Mozu.Api.Contracts.ProductAdmin.Discount discount, AuthTicket authTicket = null, DataViewMode dataViewMode= DataViewMode.Live, 
-		 int expectedCode = (int)HttpStatusCode.Created, int successCode = (int)HttpStatusCode.Created)
+		 HttpStatusCode expectedCode = HttpStatusCode.Created, HttpStatusCode successCode = HttpStatusCode.Created)
 		{
 			SetSdKparameters();
+			var currentClassName = System.Reflection.MethodInfo.GetCurrentMethod().DeclaringType.Name;
+			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Admin.DiscountClient.CreateDiscountClient(
 				 discount :  discount, authTicket : authTicket, dataViewMode: dataViewMode		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
 			}
-			catch (Exception ex)
+			catch (ApiException ex)
 			{
-			 // Custom error handling for test cases can be placed here
+				// Custom error handling for test cases can be placed here
+				Exception customException = TestFailException.GetCustomTestException(ex, currentClassName, currentMethodName, expectedCode);
+				if (customException != null)
+					throw customException;
+				return null;
 			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
@@ -194,18 +230,25 @@ namespace Mozu.Api.Test.Factories
 		/// </summary>
 		public static Mozu.Api.Contracts.ProductAdmin.Discounts.Redemption RedeemDiscount(ServiceClientMessageHandler handler, 
  		 Mozu.Api.Contracts.ProductAdmin.Discounts.Redemption redemption, AuthTicket authTicket = null, DataViewMode dataViewMode= DataViewMode.Live, 
-		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
+		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
+			var currentClassName = System.Reflection.MethodInfo.GetCurrentMethod().DeclaringType.Name;
+			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Admin.DiscountClient.RedeemDiscountClient(
 				 redemption :  redemption, authTicket : authTicket, dataViewMode: dataViewMode		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
 			}
-			catch (Exception ex)
+			catch (ApiException ex)
 			{
-			 // Custom error handling for test cases can be placed here
+				// Custom error handling for test cases can be placed here
+				Exception customException = TestFailException.GetCustomTestException(ex, currentClassName, currentMethodName, expectedCode);
+				if (customException != null)
+					throw customException;
+				return null;
 			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
@@ -225,18 +268,25 @@ namespace Mozu.Api.Test.Factories
 		/// </summary>
 		public static Mozu.Api.Contracts.ProductAdmin.Discount UpdateDiscount(ServiceClientMessageHandler handler, 
  		 Mozu.Api.Contracts.ProductAdmin.Discount discount, int discountId,  AuthTicket authTicket = null, DataViewMode dataViewMode= DataViewMode.Live, 
-		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
+		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
+			var currentClassName = System.Reflection.MethodInfo.GetCurrentMethod().DeclaringType.Name;
+			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Admin.DiscountClient.UpdateDiscountClient(
 				 discount :  discount,  discountId :  discountId, authTicket : authTicket, dataViewMode: dataViewMode		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
 			}
-			catch (Exception ex)
+			catch (ApiException ex)
 			{
-			 // Custom error handling for test cases can be placed here
+				// Custom error handling for test cases can be placed here
+				Exception customException = TestFailException.GetCustomTestException(ex, currentClassName, currentMethodName, expectedCode);
+				if (customException != null)
+					throw customException;
+				return null;
 			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
@@ -256,18 +306,25 @@ namespace Mozu.Api.Test.Factories
 		/// </summary>
 		public static Mozu.Api.Contracts.ProductAdmin.DiscountLocalizedContent UpdateDiscountContent(ServiceClientMessageHandler handler, 
  		 Mozu.Api.Contracts.ProductAdmin.DiscountLocalizedContent content, int discountId,  AuthTicket authTicket = null, DataViewMode dataViewMode= DataViewMode.Live, 
-		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
+		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
+			var currentClassName = System.Reflection.MethodInfo.GetCurrentMethod().DeclaringType.Name;
+			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Admin.DiscountClient.UpdateDiscountContentClient(
 				 content :  content,  discountId :  discountId, authTicket : authTicket, dataViewMode: dataViewMode		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
 			}
-			catch (Exception ex)
+			catch (ApiException ex)
 			{
-			 // Custom error handling for test cases can be placed here
+				// Custom error handling for test cases can be placed here
+				Exception customException = TestFailException.GetCustomTestException(ex, currentClassName, currentMethodName, expectedCode);
+				if (customException != null)
+					throw customException;
+				return null;
 			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
@@ -287,18 +344,24 @@ namespace Mozu.Api.Test.Factories
 		/// </summary>
 		public static void DeleteDiscount(ServiceClientMessageHandler handler, 
  		int discountId,  AuthTicket authTicket = null, DataViewMode dataViewMode= DataViewMode.Live, 
-		 int expectedCode = (int)HttpStatusCode.NoContent, int successCode = (int)HttpStatusCode.NoContent)
+		 HttpStatusCode expectedCode = HttpStatusCode.NoContent, HttpStatusCode successCode = HttpStatusCode.NoContent)
 		{
 			SetSdKparameters();
+			var currentClassName = System.Reflection.MethodInfo.GetCurrentMethod().DeclaringType.Name;
+			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Admin.DiscountClient.DeleteDiscountClient(
 				 discountId :  discountId, authTicket : authTicket, dataViewMode: dataViewMode		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
 			}
-			catch (Exception ex)
+			catch (ApiException ex)
 			{
-			 // Custom error handling for test cases can be placed here
+				// Custom error handling for test cases can be placed here
+				Exception customException = TestFailException.GetCustomTestException(ex, currentClassName, currentMethodName, expectedCode);
+				if (customException != null)
+					throw customException;
 			}
 			var noResponse = ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
@@ -318,18 +381,24 @@ namespace Mozu.Api.Test.Factories
 		/// </summary>
 		public static void UnRedeemDiscount(ServiceClientMessageHandler handler, 
  		int? discountId = null, int? orderNumber = null,  AuthTicket authTicket = null, DataViewMode dataViewMode= DataViewMode.Live, 
-		 int expectedCode = (int)HttpStatusCode.NoContent, int successCode = (int)HttpStatusCode.NoContent)
+		 HttpStatusCode expectedCode = HttpStatusCode.NoContent, HttpStatusCode successCode = HttpStatusCode.NoContent)
 		{
 			SetSdKparameters();
+			var currentClassName = System.Reflection.MethodInfo.GetCurrentMethod().DeclaringType.Name;
+			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Admin.DiscountClient.UnRedeemDiscountClient(
 				 discountId :  discountId,  orderNumber :  orderNumber, authTicket : authTicket, dataViewMode: dataViewMode		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
 			}
-			catch (Exception ex)
+			catch (ApiException ex)
 			{
-			 // Custom error handling for test cases can be placed here
+				// Custom error handling for test cases can be placed here
+				Exception customException = TestFailException.GetCustomTestException(ex, currentClassName, currentMethodName, expectedCode);
+				if (customException != null)
+					throw customException;
 			}
 			var noResponse = ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 

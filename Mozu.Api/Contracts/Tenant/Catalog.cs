@@ -17,6 +17,11 @@ namespace Mozu.Api.Contracts.Tenant
 		///
 		public class Catalog
 		{
+			///
+			///If true, the catalog has been deleted.
+			///
+			public bool IsDeleted { get; set; }
+
 			public DateTime CreateDate { get; set; }
 
 			///
@@ -35,11 +40,6 @@ namespace Mozu.Api.Contracts.Tenant
 			public DateTime DeleteDate { get; set; }
 
 			public int Id { get; set; }
-
-			///
-			///If true, the catalog has been deleted.
-			///
-			public bool IsDeleted { get; set; }
 
 			public int MasterCatalogId { get; set; }
 

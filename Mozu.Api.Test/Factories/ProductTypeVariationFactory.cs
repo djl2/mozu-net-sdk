@@ -16,6 +16,7 @@ using System.Net;
 using Mozu.Api;
 using Mozu.Api.Security;
 using Mozu.Api.Test.Helpers;
+using System.Diagnostics;
 
 #endregion
 
@@ -39,18 +40,25 @@ namespace Mozu.Api.Test.Factories
 		/// </summary>
 		public static Mozu.Api.Contracts.ProductAdmin.ProductVariationPagedCollection GenerateProductVariations(ServiceClientMessageHandler handler, 
  		 List<Mozu.Api.Contracts.ProductAdmin.ProductOption> productOptionsIn, int productTypeId, string productCode = null, int? startIndex = null, int? pageSize = null, string sortBy = null, string filter = null,  AuthTicket authTicket = null, DataViewMode dataViewMode= DataViewMode.Live, 
-		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
+		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
+			var currentClassName = System.Reflection.MethodInfo.GetCurrentMethod().DeclaringType.Name;
+			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Admin.Attributedefinition.Producttypes.ProductTypeVariationClient.GenerateProductVariationsClient(
 				 productOptionsIn :  productOptionsIn,  productTypeId :  productTypeId,  productCode :  productCode,  startIndex :  startIndex,  pageSize :  pageSize,  sortBy :  sortBy,  filter :  filter, authTicket : authTicket, dataViewMode: dataViewMode		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
 			}
-			catch (Exception ex)
+			catch (ApiException ex)
 			{
-			 // Custom error handling for test cases can be placed here
+				// Custom error handling for test cases can be placed here
+				Exception customException = TestFailException.GetCustomTestException(ex, currentClassName, currentMethodName, expectedCode);
+				if (customException != null)
+					throw customException;
+				return null;
 			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 

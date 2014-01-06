@@ -19,6 +19,16 @@ namespace Mozu.Api.Contracts.Content
 		public class DocumentType
 		{
 			///
+			///User-defined description of the document type.
+			///
+			public string Description { get; set; }
+
+			///
+			///The name that displays for the document type.
+			///
+			public string DisplayName { get; set; }
+
+			///
 			///The document type scope specifies where the the template can be used such as "Global".
 			///
 			public string DocumentTypeScope { get; set; }
@@ -32,16 +42,6 @@ namespace Mozu.Api.Contracts.Content
 			///If applicable, the name of the parent document type.
 			///
 			public string ParentTypeName { get; set; }
-
-			///
-			///User-defined description of the document type.
-			///
-			public string Description { get; set; }
-
-			///
-			///The name that displays for the document type.
-			///
-			public string DisplayName { get; set; }
 
 			///
 			///List of content entity descriptions localized to the site or site group's default language.

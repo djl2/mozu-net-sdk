@@ -268,6 +268,33 @@ namespace Mozu.Api.Clients.Platform.Developer
 		}
 
 		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="applicationVersionId"></param>
+		/// <param name="packageId"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
+		/// <param name="renameInfo"></param>
+		/// <returns>
+		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.AppDev.FileMetadata"/>}
+		/// </returns>
+		/// <example>
+		/// <code>
+		///   var mozuClient=ChangePackageFileNameOrPath( renameInfo,  applicationVersionId,  packageId, authTicket);
+		///   var fileMetadataClient = mozuClient.WithBaseAddress(url).Execute().Result();
+		/// </code>
+		/// </example>
+		public static MozuClient<Mozu.Api.Contracts.AppDev.FileMetadata> ChangePackageFileNameOrPathClient(Mozu.Api.Contracts.AppDev.RenameInfo renameInfo, int applicationVersionId, int packageId, AuthTicket authTicket= null)
+		{
+			var url = Mozu.Api.Urls.Platform.Developer.ApplicationVersionUrl.ChangePackageFileNameOrPathUrl(applicationVersionId, packageId);
+			const string verb = "POST";
+			var mozuClient = new MozuClient<Mozu.Api.Contracts.AppDev.FileMetadata>().WithVerb(verb).WithResourceUrl(url).WithBody<Mozu.Api.Contracts.AppDev.RenameInfo>(renameInfo);
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
+
+		}
+
+		/// <summary>
 		/// Uploads a file to a defined package for an application version in the file location specified in the request.
 		/// </summary>
 		/// <param name="applicationVersionId">Unique identifier of the application version. Application version IDs are unique across all applications associated with a developer account.</param>
@@ -289,33 +316,6 @@ namespace Mozu.Api.Clients.Platform.Developer
 			var url = Mozu.Api.Urls.Platform.Developer.ApplicationVersionUrl.AddPackageFileUrl(applicationVersionId, filepath, packageId);
 			const string verb = "POST";
 			var mozuClient = new MozuClient<Mozu.Api.Contracts.AppDev.FileMetadata>().WithVerb(verb).WithResourceUrl(url).WithBody(stream);
-			if (authTicket != null)
-				mozuClient = mozuClient.WithUserAuth(authTicket);
-			return mozuClient;
-
-		}
-
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="applicationVersionId"></param>
-		/// <param name="packageId"></param>
-		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <param name="renameInfo"></param>
-		/// <returns>
-		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.AppDev.FileMetadata"/>}
-		/// </returns>
-		/// <example>
-		/// <code>
-		///   var mozuClient=ChangePackageFileNameOrPath( renameInfo,  applicationVersionId,  packageId, authTicket);
-		///   var fileMetadataClient = mozuClient.WithBaseAddress(url).Execute().Result();
-		/// </code>
-		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.AppDev.FileMetadata> ChangePackageFileNameOrPathClient(Mozu.Api.Contracts.AppDev.RenameInfo renameInfo, int applicationVersionId, int packageId, AuthTicket authTicket= null)
-		{
-			var url = Mozu.Api.Urls.Platform.Developer.ApplicationVersionUrl.ChangePackageFileNameOrPathUrl(applicationVersionId, packageId);
-			const string verb = "POST";
-			var mozuClient = new MozuClient<Mozu.Api.Contracts.AppDev.FileMetadata>().WithVerb(verb).WithResourceUrl(url).WithBody<Mozu.Api.Contracts.AppDev.RenameInfo>(renameInfo);
 			if (authTicket != null)
 				mozuClient = mozuClient.WithUserAuth(authTicket);
 			return mozuClient;

@@ -73,6 +73,48 @@ namespace Mozu.Api.Resources.Content
 		}
 
 		/// <summary>
+		/// Deletes the drafts of the specified documents. Published documents cannot be deleted.
+		/// </summary>
+		/// <param name="documentIds">Unique identifiers of the documents to delete.</param>
+		/// <returns>
+		/// 
+		/// </returns>
+		/// <example>
+		/// <code>
+		///   var documentdraftsummary = new DocumentDraftSummary();
+		///   documentdraftsummary.DeleteDocumentDrafts(dataViewMode,  documentIds);
+		/// </code>
+		/// </example>
+		public virtual void DeleteDocumentDrafts(DataViewMode dataViewMode, List<string> documentIds)
+		{
+			DeleteDocumentDrafts(dataViewMode,  documentIds,  null, null);
+		}
+
+		/// <summary>
+		/// Deletes the drafts of the specified documents. Published documents cannot be deleted.
+		/// </summary>
+		/// <param name="documentLists">List of document lists that contain documents to delete.</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
+		/// <param name="documentIds">Unique identifiers of the documents to delete.</param>
+		/// <returns>
+		/// 
+		/// </returns>
+		/// <example>
+		/// <code>
+		///   var documentdraftsummary = new DocumentDraftSummary();
+		///   documentdraftsummary.DeleteDocumentDrafts(dataViewMode,  documentIds,  documentLists, authTicket);
+		/// </code>
+		/// </example>
+		public virtual void DeleteDocumentDrafts(DataViewMode dataViewMode, List<string> documentIds, string documentLists =  null, AuthTicket authTicket= null)
+		{
+			MozuClient response;
+			var client = Mozu.Api.Clients.Content.DocumentDraftSummaryClient.DeleteDocumentDraftsClient(dataViewMode,  documentIds,  documentLists, authTicket);
+			client.WithContext(_apiContext);
+			response= client.Execute();
+
+		}
+
+		/// <summary>
 		/// Publish one or more document drafts to live content on the site.
 		/// </summary>
 		/// <param name="documentIds">List of unique identifiers of the document drafts to publish.</param>
@@ -109,48 +151,6 @@ namespace Mozu.Api.Resources.Content
 		{
 			MozuClient response;
 			var client = Mozu.Api.Clients.Content.DocumentDraftSummaryClient.PublishDocumentsClient(dataViewMode,  documentIds,  documentLists, authTicket);
-			client.WithContext(_apiContext);
-			response= client.Execute();
-
-		}
-
-		/// <summary>
-		/// Deletes the drafts of the specified documents. Published documents cannot be deleted.
-		/// </summary>
-		/// <param name="documentIds">Unique identifiers of the documents to delete.</param>
-		/// <returns>
-		/// 
-		/// </returns>
-		/// <example>
-		/// <code>
-		///   var documentdraftsummary = new DocumentDraftSummary();
-		///   documentdraftsummary.DeleteDocumentDrafts(dataViewMode,  documentIds);
-		/// </code>
-		/// </example>
-		public virtual void DeleteDocumentDrafts(DataViewMode dataViewMode, string documentIds)
-		{
-			DeleteDocumentDrafts(dataViewMode,  documentIds,  null, null);
-		}
-
-		/// <summary>
-		/// Deletes the drafts of the specified documents. Published documents cannot be deleted.
-		/// </summary>
-		/// <param name="documentIds">Unique identifiers of the documents to delete.</param>
-		/// <param name="documentLists">List of document lists that contain documents to delete.</param>
-		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <returns>
-		/// 
-		/// </returns>
-		/// <example>
-		/// <code>
-		///   var documentdraftsummary = new DocumentDraftSummary();
-		///   documentdraftsummary.DeleteDocumentDrafts(dataViewMode,  documentIds,  documentLists, authTicket);
-		/// </code>
-		/// </example>
-		public virtual void DeleteDocumentDrafts(DataViewMode dataViewMode, string documentIds, string documentLists =  null, AuthTicket authTicket= null)
-		{
-			MozuClient response;
-			var client = Mozu.Api.Clients.Content.DocumentDraftSummaryClient.DeleteDocumentDraftsClient(dataViewMode,  documentIds,  documentLists, authTicket);
 			client.WithContext(_apiContext);
 			response= client.Execute();
 

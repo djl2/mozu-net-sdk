@@ -119,7 +119,7 @@ namespace Mozu.Api.Urls.Platform.Developer
         /// </returns>
         public static MozuUrl GetPackageItemMetadataUrl(int applicationVersionId, string itempath, int packageId)
 		{
-			var url = "/api/platform/developer/applications/applicationVersions/{applicationVersionId}/packages/{packageId}/files/{*itempath}";
+			var url = "/api/platform/developer/applications/applicationVersions/{applicationVersionId}/packages/{packageId}/files/?itemPath={itempath}";
 			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.HOME_POD, false) ;
 			mozuUrl.FormatUrl( "applicationVersionId", applicationVersionId);
 			mozuUrl.FormatUrl( "itempath", itempath);
@@ -160,25 +160,6 @@ namespace Mozu.Api.Urls.Platform.Developer
 		}
 
 		/// <summary>
-        /// Get Resource Url for AddPackageFile
-        /// </summary>
-        /// <param name="applicationVersionId">Unique identifier of the application version. Application version IDs are unique across all applications associated with a developer account.</param>
-        /// <param name="filepath">The file location to which to add the package file.</param>
-        /// <param name="packageId">Unique identifier of the package.</param>
-        /// <returns>
-        /// String - Resource Url
-        /// </returns>
-        public static MozuUrl AddPackageFileUrl(int applicationVersionId, string filepath, int packageId)
-		{
-			var url = "/api/platform/developer/applications/applicationVersions/{applicationVersionId}/packages/{packageId}/files/{*filepath}";
-			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.HOME_POD, false) ;
-			mozuUrl.FormatUrl( "applicationVersionId", applicationVersionId);
-			mozuUrl.FormatUrl( "filepath", filepath);
-			mozuUrl.FormatUrl( "packageId", packageId);
-			return mozuUrl;
-		}
-
-		/// <summary>
         /// Get Resource Url for ChangePackageFileNameOrPath
         /// </summary>
         /// <param name="applicationVersionId"></param>
@@ -195,6 +176,25 @@ namespace Mozu.Api.Urls.Platform.Developer
 			return mozuUrl;
 		}
 
+		/// <summary>
+        /// Get Resource Url for AddPackageFile
+        /// </summary>
+        /// <param name="applicationVersionId">Unique identifier of the application version. Application version IDs are unique across all applications associated with a developer account.</param>
+        /// <param name="filepath">The file location to which to add the package file.</param>
+        /// <param name="packageId">Unique identifier of the package.</param>
+        /// <returns>
+        /// String - Resource Url
+        /// </returns>
+        public static MozuUrl AddPackageFileUrl(int applicationVersionId, string filepath, int packageId)
+		{
+			var url = "/api/platform/developer/applications/applicationVersions/{applicationVersionId}/packages/{packageId}/files?filePath={filepath}";
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.HOME_POD, false) ;
+			mozuUrl.FormatUrl( "applicationVersionId", applicationVersionId);
+			mozuUrl.FormatUrl( "filepath", filepath);
+			mozuUrl.FormatUrl( "packageId", packageId);
+			return mozuUrl;
+		}
+
 				/// <summary>
         /// Get Resource Url for UpdatePackageFile
         /// </summary>
@@ -206,7 +206,7 @@ namespace Mozu.Api.Urls.Platform.Developer
         /// </returns>
         public static MozuUrl UpdatePackageFileUrl(int applicationVersionId, string filepath, int packageId)
 		{
-			var url = "/api/platform/developer/applications/applicationVersions/{applicationVersionId}/packages/{packageId}/files/{*filepath}";
+			var url = "/api/platform/developer/applications/applicationVersions/{applicationVersionId}/packages/{packageId}/files?filePath={filepath}";
 			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.HOME_POD, false) ;
 			mozuUrl.FormatUrl( "applicationVersionId", applicationVersionId);
 			mozuUrl.FormatUrl( "filepath", filepath);
@@ -225,7 +225,7 @@ namespace Mozu.Api.Urls.Platform.Developer
         /// </returns>
         public static MozuUrl DeletePackageFileUrl(int applicationVersionId, string filepath, int packageId)
 		{
-			var url = "/api/platform/developer/applications/applicationVersions/{applicationVersionId}/packages/{packageId}/files/{*filepath}";
+			var url = "/api/platform/developer/applications/applicationVersions/{applicationVersionId}/packages/{packageId}/files?filePath={filepath}";
 			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.HOME_POD, false) ;
 			mozuUrl.FormatUrl( "applicationVersionId", applicationVersionId);
 			mozuUrl.FormatUrl( "filepath", filepath);

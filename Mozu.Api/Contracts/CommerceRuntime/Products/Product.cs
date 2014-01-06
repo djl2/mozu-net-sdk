@@ -20,6 +20,11 @@ namespace Mozu.Api.Contracts.CommerceRuntime.Products
 		public class Product
 		{
 			///
+			///Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only.
+			///
+			public string ProductCode { get; set; }
+
+			///
 			///Short description of the product in the language specified in the locale code for the storefront.
 			///
 			public string Description { get; set; }
@@ -47,11 +52,6 @@ namespace Mozu.Api.Contracts.CommerceRuntime.Products
 			///The name of the product that appears on the storefront.
 			///
 			public string Name { get; set; }
-
-			///
-			///Merchant-created code that uniquely identifies the product such as a SKU or item number. Once created, the product code is read-only.
-			///
-			public string ProductCode { get; set; }
 
 			public int? ProductReservationId { get; set; }
 

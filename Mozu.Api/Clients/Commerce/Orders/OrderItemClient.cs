@@ -210,6 +210,55 @@ namespace Mozu.Api.Clients.Commerce.Orders
 		}
 
 		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="orderId"></param>
+		/// <param name="orderItemId"></param>
+		/// <param name="orderItem"></param>
+		/// <returns>
+		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.CommerceRuntime.Orders.Order"/>}
+		/// </returns>
+		/// <example>
+		/// <code>
+		///   var mozuClient=UpdateItemFulfillment( orderItem,  orderId,  orderItemId);
+		///   var orderClient = mozuClient.WithBaseAddress(url).Execute().Result();
+		/// </code>
+		/// </example>
+		public static MozuClient<Mozu.Api.Contracts.CommerceRuntime.Orders.Order> UpdateItemFulfillmentClient(Mozu.Api.Contracts.CommerceRuntime.Orders.OrderItem orderItem, string orderId, string orderItemId)
+		{
+			return UpdateItemFulfillmentClient( orderItem,  orderId,  orderItemId,  null,  null, null);
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="orderId"></param>
+		/// <param name="orderItemId"></param>
+		/// <param name="updateMode"></param>
+		/// <param name="version"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
+		/// <param name="orderItem"></param>
+		/// <returns>
+		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.CommerceRuntime.Orders.Order"/>}
+		/// </returns>
+		/// <example>
+		/// <code>
+		///   var mozuClient=UpdateItemFulfillment( orderItem,  orderId,  orderItemId,  updateMode,  version, authTicket);
+		///   var orderClient = mozuClient.WithBaseAddress(url).Execute().Result();
+		/// </code>
+		/// </example>
+		public static MozuClient<Mozu.Api.Contracts.CommerceRuntime.Orders.Order> UpdateItemFulfillmentClient(Mozu.Api.Contracts.CommerceRuntime.Orders.OrderItem orderItem, string orderId, string orderItemId, string updateMode =  null, string version =  null, AuthTicket authTicket= null)
+		{
+			var url = Mozu.Api.Urls.Commerce.Orders.OrderItemUrl.UpdateItemFulfillmentUrl(orderId, orderItemId, updateMode, version);
+			const string verb = "PUT";
+			var mozuClient = new MozuClient<Mozu.Api.Contracts.CommerceRuntime.Orders.Order>().WithVerb(verb).WithResourceUrl(url).WithBody<Mozu.Api.Contracts.CommerceRuntime.Orders.OrderItem>(orderItem);
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
+
+		}
+
+		/// <summary>
 		/// Override the price of an individual product on a line item in the specified order.
 		/// </summary>
 		/// <param name="orderId">Unique identifier of the order containing the item to price override.</param>

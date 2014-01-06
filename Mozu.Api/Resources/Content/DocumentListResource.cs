@@ -43,14 +43,13 @@ namespace Mozu.Api.Resources.Content
 		/// </example>
 		public virtual Mozu.Api.Contracts.Content.DocumentListCollection GetDocumentLists(DataViewMode dataViewMode)
 		{
-			return GetDocumentLists(dataViewMode,  null,  null,  null, null);
+			return GetDocumentLists(dataViewMode,  null,  null, null);
 		}
 
 		/// <summary>
 		/// Retrieves a collection of document lists.
 		/// </summary>
 		/// <param name="pageSize">The number of results to display on each page when creating paged results from a query. The maximum value is 200.</param>
-		/// <param name="sort"></param>
 		/// <param name="startIndex"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
@@ -59,13 +58,13 @@ namespace Mozu.Api.Resources.Content
 		/// <example>
 		/// <code>
 		///   var documentlist = new DocumentList();
-		///   var documentListCollection = documentlist.GetDocumentLists(dataViewMode,  pageSize,  startIndex,  sort, authTicket);
+		///   var documentListCollection = documentlist.GetDocumentLists(dataViewMode,  pageSize,  startIndex, authTicket);
 		/// </code>
 		/// </example>
-		public virtual Mozu.Api.Contracts.Content.DocumentListCollection GetDocumentLists(DataViewMode dataViewMode, int? pageSize =  null, int? startIndex =  null, string sort =  null, AuthTicket authTicket= null)
+		public virtual Mozu.Api.Contracts.Content.DocumentListCollection GetDocumentLists(DataViewMode dataViewMode, int? pageSize =  null, int? startIndex =  null, AuthTicket authTicket= null)
 		{
 			MozuClient<Mozu.Api.Contracts.Content.DocumentListCollection> response;
-			var client = Mozu.Api.Clients.Content.DocumentListClient.GetDocumentListsClient(dataViewMode,  pageSize,  startIndex,  sort, authTicket);
+			var client = Mozu.Api.Clients.Content.DocumentListClient.GetDocumentListsClient(dataViewMode,  pageSize,  startIndex, authTicket);
 			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();

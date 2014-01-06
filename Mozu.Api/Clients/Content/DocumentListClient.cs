@@ -34,14 +34,13 @@ namespace Mozu.Api.Clients.Content
 		/// </example>
 		public static MozuClient<Mozu.Api.Contracts.Content.DocumentListCollection> GetDocumentListsClient(DataViewMode dataViewMode)
 		{
-			return GetDocumentListsClient(dataViewMode,  null,  null,  null, null);
+			return GetDocumentListsClient(dataViewMode,  null,  null, null);
 		}
 
 		/// <summary>
 		/// Retrieves a collection of document lists.
 		/// </summary>
 		/// <param name="pageSize">The number of results to display on each page when creating paged results from a query. The maximum value is 200.</param>
-		/// <param name="sort"></param>
 		/// <param name="startIndex"></param>
 		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
 		/// <returns>
@@ -49,13 +48,13 @@ namespace Mozu.Api.Clients.Content
 		/// </returns>
 		/// <example>
 		/// <code>
-		///   var mozuClient=GetDocumentLists(dataViewMode,  pageSize,  startIndex,  sort, authTicket);
+		///   var mozuClient=GetDocumentLists(dataViewMode,  pageSize,  startIndex, authTicket);
 		///   var documentListCollectionClient = mozuClient.WithBaseAddress(url).Execute().Result();
 		/// </code>
 		/// </example>
-		public static MozuClient<Mozu.Api.Contracts.Content.DocumentListCollection> GetDocumentListsClient(DataViewMode dataViewMode, int? pageSize =  null, int? startIndex =  null, string sort =  null, AuthTicket authTicket= null)
+		public static MozuClient<Mozu.Api.Contracts.Content.DocumentListCollection> GetDocumentListsClient(DataViewMode dataViewMode, int? pageSize =  null, int? startIndex =  null, AuthTicket authTicket= null)
 		{
-			var url = Mozu.Api.Urls.Content.DocumentListUrl.GetDocumentListsUrl(pageSize, sort, startIndex);
+			var url = Mozu.Api.Urls.Content.DocumentListUrl.GetDocumentListsUrl(pageSize, startIndex);
 			const string verb = "GET";
 			var mozuClient = new MozuClient<Mozu.Api.Contracts.Content.DocumentListCollection>().WithVerb(verb).WithResourceUrl(url).WithHeader(Headers.X_VOL_DATAVIEW_MODE ,dataViewMode.ToString());
 			if (authTicket != null)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -102,7 +103,7 @@ namespace Mozu.Api.Test.MsTestCases
         public void GetDataTest()
         {
             //var prods = TenantDataFactory.GetDBValue(handler: ApiMsgHandler,dbEntryQuery: "test", expectedCode: 404, successCode:404 );
-            var data = SiteDataFactory.GetDBValue(handler: ApiMsgHandler, dbEntryQuery:"test", expectedCode: 404, successCode: 404);
+            var data = SiteDataFactory.GetDBValue(handler: ApiMsgHandler, dbEntryQuery: "test", expectedCode: HttpStatusCode.NotFound, successCode: HttpStatusCode.NotFound);
 
         }
     }

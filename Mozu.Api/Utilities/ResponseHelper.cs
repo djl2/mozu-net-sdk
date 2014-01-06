@@ -13,11 +13,18 @@ namespace Mozu.Api.Utilities
     {
         public static void EnsureSuccess(HttpResponseMessage response)
         {
+            EnsureSuccess(response,null);
+        }
+
+        public static void EnsureSuccess(HttpResponseMessage response, IApiContext apiContext)
+        {
             if (!response.IsSuccessStatusCode)
             {
                 var content = response.Content.ReadAsStringAsync().Result;
                 var exception = JsonConvert.DeserializeObject<ApiException>(content);
                 exception.HttpStatusCode = response.StatusCode;
+                exception.CorrelationId = HttpHelper.GetHeaderValue(Headers.X_VOL_CORRELATION, response.Headers);
+                exception.ApiContext = apiContext;
                 throw exception;
             }
         }

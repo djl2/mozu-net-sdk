@@ -30,6 +30,8 @@ namespace Mozu.Api.Contracts.CommerceRuntime.Fulfillment
 			///
 			public DateTime? FulfillmentDate { get; set; }
 
+			public string FulfillmentLocationCode { get; set; }
+
 			///
 			///Unique identifier of a package.
 			///

@@ -65,6 +65,50 @@ namespace Mozu.Api.Clients.Content
 		}
 
 		/// <summary>
+		/// Deletes the drafts of the specified documents. Published documents cannot be deleted.
+		/// </summary>
+		/// <param name="documentIds">Unique identifiers of the documents to delete.</param>
+		/// <returns>
+		///  <see cref="Mozu.Api.MozuClient" />
+		/// </returns>
+		/// <example>
+		/// <code>
+		///   var mozuClient=DeleteDocumentDrafts(dataViewMode,  documentIds);
+		///mozuClient.WithBaseAddress(url).Execute();
+		/// </code>
+		/// </example>
+		public static MozuClient DeleteDocumentDraftsClient(DataViewMode dataViewMode, List<string> documentIds)
+		{
+			return DeleteDocumentDraftsClient(dataViewMode,  documentIds,  null, null);
+		}
+
+		/// <summary>
+		/// Deletes the drafts of the specified documents. Published documents cannot be deleted.
+		/// </summary>
+		/// <param name="documentLists">List of document lists that contain documents to delete.</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
+		/// <param name="documentIds">Unique identifiers of the documents to delete.</param>
+		/// <returns>
+		///  <see cref="Mozu.Api.MozuClient" />
+		/// </returns>
+		/// <example>
+		/// <code>
+		///   var mozuClient=DeleteDocumentDrafts(dataViewMode,  documentIds,  documentLists, authTicket);
+		///mozuClient.WithBaseAddress(url).Execute();
+		/// </code>
+		/// </example>
+		public static MozuClient DeleteDocumentDraftsClient(DataViewMode dataViewMode, List<string> documentIds, string documentLists =  null, AuthTicket authTicket= null)
+		{
+			var url = Mozu.Api.Urls.Content.DocumentDraftSummaryUrl.DeleteDocumentDraftsUrl(documentLists);
+			const string verb = "POST";
+			var mozuClient = new MozuClient().WithVerb(verb).WithResourceUrl(url).WithBody(documentIds).WithHeader(Headers.X_VOL_DATAVIEW_MODE ,dataViewMode.ToString());
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
+
+		}
+
+		/// <summary>
 		/// Publish one or more document drafts to live content on the site.
 		/// </summary>
 		/// <param name="documentIds">List of unique identifiers of the document drafts to publish.</param>
@@ -102,50 +146,6 @@ namespace Mozu.Api.Clients.Content
 			var url = Mozu.Api.Urls.Content.DocumentDraftSummaryUrl.PublishDocumentsUrl(documentLists);
 			const string verb = "PUT";
 			var mozuClient = new MozuClient().WithVerb(verb).WithResourceUrl(url).WithBody(documentIds).WithHeader(Headers.X_VOL_DATAVIEW_MODE ,dataViewMode.ToString());
-			if (authTicket != null)
-				mozuClient = mozuClient.WithUserAuth(authTicket);
-			return mozuClient;
-
-		}
-
-		/// <summary>
-		/// Deletes the drafts of the specified documents. Published documents cannot be deleted.
-		/// </summary>
-		/// <param name="documentIds">Unique identifiers of the documents to delete.</param>
-		/// <returns>
-		///  <see cref="Mozu.Api.MozuClient" />
-		/// </returns>
-		/// <example>
-		/// <code>
-		///   var mozuClient=DeleteDocumentDrafts(dataViewMode,  documentIds);
-		///mozuClient.WithBaseAddress(url).Execute();
-		/// </code>
-		/// </example>
-		public static MozuClient DeleteDocumentDraftsClient(DataViewMode dataViewMode, string documentIds)
-		{
-			return DeleteDocumentDraftsClient(dataViewMode,  documentIds,  null, null);
-		}
-
-		/// <summary>
-		/// Deletes the drafts of the specified documents. Published documents cannot be deleted.
-		/// </summary>
-		/// <param name="documentIds">Unique identifiers of the documents to delete.</param>
-		/// <param name="documentLists">List of document lists that contain documents to delete.</param>
-		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
-		/// <returns>
-		///  <see cref="Mozu.Api.MozuClient" />
-		/// </returns>
-		/// <example>
-		/// <code>
-		///   var mozuClient=DeleteDocumentDrafts(dataViewMode,  documentIds,  documentLists, authTicket);
-		///mozuClient.WithBaseAddress(url).Execute();
-		/// </code>
-		/// </example>
-		public static MozuClient DeleteDocumentDraftsClient(DataViewMode dataViewMode, string documentIds, string documentLists =  null, AuthTicket authTicket= null)
-		{
-			var url = Mozu.Api.Urls.Content.DocumentDraftSummaryUrl.DeleteDocumentDraftsUrl(documentIds, documentLists);
-			const string verb = "DELETE";
-			var mozuClient = new MozuClient().WithVerb(verb).WithResourceUrl(url).WithHeader(Headers.X_VOL_DATAVIEW_MODE ,dataViewMode.ToString());
 			if (authTicket != null)
 				mozuClient = mozuClient.WithUserAuth(authTicket);
 			return mozuClient;

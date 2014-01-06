@@ -16,19 +16,20 @@ using System.Net;
 using Mozu.Api;
 using Mozu.Api.Security;
 using Mozu.Api.Test.Helpers;
+using System.Diagnostics;
 
 #endregion
 
 namespace Mozu.Api.Test.Factories
 {
 	/// <summary>
-	/// Use the Location Types resource to manage the types of locations your tenant maintains, such as warehouses, physical storefronts, and kiosks.
+	/// 
 	/// </summary>
 	public partial class LocationTypeFactory : BaseDataFactory
 	{
 
 		/// <summary> 
-		/// Retrieve a list of all location types defined for the tenant.
+		/// 
 		/// <example> 
 		///  <code> 
 		/// var result = LocationTypeFactory.GetLocationTypes(handler : handler,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
@@ -39,18 +40,25 @@ namespace Mozu.Api.Test.Factories
 		/// </summary>
 		public static List<Mozu.Api.Contracts.Location.LocationType> GetLocationTypes(ServiceClientMessageHandler handler, 
  		  AuthTicket authTicket = null, 
-		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
+		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
-			var apiClient = Mozu.Api.Clients.Commerce.Location.Admin.LocationTypeClient.GetLocationTypesClient(
+			var currentClassName = System.Reflection.MethodInfo.GetCurrentMethod().DeclaringType.Name;
+			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
+			var apiClient = Mozu.Api.Clients.Commerce.Admin.LocationTypeClient.GetLocationTypesClient(
 				 authTicket : authTicket		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
 			}
-			catch (Exception ex)
+			catch (ApiException ex)
 			{
-			 // Custom error handling for test cases can be placed here
+				// Custom error handling for test cases can be placed here
+				Exception customException = TestFailException.GetCustomTestException(ex, currentClassName, currentMethodName, expectedCode);
+				if (customException != null)
+					throw customException;
+				return null;
 			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
@@ -59,7 +67,7 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// Retrieves the details of the location type specified in the request.
+		/// 
 		/// <example> 
 		///  <code> 
 		/// var result = LocationTypeFactory.GetLocationType(handler : handler,  locationTypeCode :  locationTypeCode,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
@@ -70,18 +78,25 @@ namespace Mozu.Api.Test.Factories
 		/// </summary>
 		public static Mozu.Api.Contracts.Location.LocationType GetLocationType(ServiceClientMessageHandler handler, 
  		 string locationTypeCode,  AuthTicket authTicket = null, 
-		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
+		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
-			var apiClient = Mozu.Api.Clients.Commerce.Location.Admin.LocationTypeClient.GetLocationTypeClient(
+			var currentClassName = System.Reflection.MethodInfo.GetCurrentMethod().DeclaringType.Name;
+			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
+			var apiClient = Mozu.Api.Clients.Commerce.Admin.LocationTypeClient.GetLocationTypeClient(
 				 locationTypeCode :  locationTypeCode, authTicket : authTicket		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
 			}
-			catch (Exception ex)
+			catch (ApiException ex)
 			{
-			 // Custom error handling for test cases can be placed here
+				// Custom error handling for test cases can be placed here
+				Exception customException = TestFailException.GetCustomTestException(ex, currentClassName, currentMethodName, expectedCode);
+				if (customException != null)
+					throw customException;
+				return null;
 			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
@@ -90,7 +105,7 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// Creates a new location type based on the information specified in the request.
+		/// 
 		/// <example> 
 		///  <code> 
 		/// var result = LocationTypeFactory.AddLocationType(handler : handler,  locationType :  locationType, authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
@@ -101,18 +116,25 @@ namespace Mozu.Api.Test.Factories
 		/// </summary>
 		public static Mozu.Api.Contracts.Location.LocationType AddLocationType(ServiceClientMessageHandler handler, 
  		 Mozu.Api.Contracts.Location.LocationType locationType, AuthTicket authTicket = null, 
-		 int expectedCode = (int)HttpStatusCode.Created, int successCode = (int)HttpStatusCode.Created)
+		 HttpStatusCode expectedCode = HttpStatusCode.Created, HttpStatusCode successCode = HttpStatusCode.Created)
 		{
 			SetSdKparameters();
-			var apiClient = Mozu.Api.Clients.Commerce.Location.Admin.LocationTypeClient.AddLocationTypeClient(
+			var currentClassName = System.Reflection.MethodInfo.GetCurrentMethod().DeclaringType.Name;
+			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
+			var apiClient = Mozu.Api.Clients.Commerce.Admin.LocationTypeClient.AddLocationTypeClient(
 				 locationType :  locationType, authTicket : authTicket		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
 			}
-			catch (Exception ex)
+			catch (ApiException ex)
 			{
-			 // Custom error handling for test cases can be placed here
+				// Custom error handling for test cases can be placed here
+				Exception customException = TestFailException.GetCustomTestException(ex, currentClassName, currentMethodName, expectedCode);
+				if (customException != null)
+					throw customException;
+				return null;
 			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
@@ -121,7 +143,7 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// Updates the name of a defined location type.
+		/// 
 		/// <example> 
 		///  <code> 
 		/// var result = LocationTypeFactory.UpdateLocationType(handler : handler,  locationType :  locationType,  locationTypeCode :  locationTypeCode,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
@@ -132,18 +154,25 @@ namespace Mozu.Api.Test.Factories
 		/// </summary>
 		public static Mozu.Api.Contracts.Location.LocationType UpdateLocationType(ServiceClientMessageHandler handler, 
  		 Mozu.Api.Contracts.Location.LocationType locationType, string locationTypeCode,  AuthTicket authTicket = null, 
-		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
+		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
-			var apiClient = Mozu.Api.Clients.Commerce.Location.Admin.LocationTypeClient.UpdateLocationTypeClient(
+			var currentClassName = System.Reflection.MethodInfo.GetCurrentMethod().DeclaringType.Name;
+			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
+			var apiClient = Mozu.Api.Clients.Commerce.Admin.LocationTypeClient.UpdateLocationTypeClient(
 				 locationType :  locationType,  locationTypeCode :  locationTypeCode, authTicket : authTicket		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
 			}
-			catch (Exception ex)
+			catch (ApiException ex)
 			{
-			 // Custom error handling for test cases can be placed here
+				// Custom error handling for test cases can be placed here
+				Exception customException = TestFailException.GetCustomTestException(ex, currentClassName, currentMethodName, expectedCode);
+				if (customException != null)
+					throw customException;
+				return null;
 			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
@@ -152,7 +181,7 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// Deletes the location type specified in the request.
+		/// 
 		/// <example> 
 		///  <code> 
 		/// var result = LocationTypeFactory.DeleteLocationType(handler : handler,  locationTypeCode :  locationTypeCode,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
@@ -163,18 +192,24 @@ namespace Mozu.Api.Test.Factories
 		/// </summary>
 		public static void DeleteLocationType(ServiceClientMessageHandler handler, 
  		string locationTypeCode,  AuthTicket authTicket = null, 
-		 int expectedCode = (int)HttpStatusCode.NoContent, int successCode = (int)HttpStatusCode.NoContent)
+		 HttpStatusCode expectedCode = HttpStatusCode.NoContent, HttpStatusCode successCode = HttpStatusCode.NoContent)
 		{
 			SetSdKparameters();
-			var apiClient = Mozu.Api.Clients.Commerce.Location.Admin.LocationTypeClient.DeleteLocationTypeClient(
+			var currentClassName = System.Reflection.MethodInfo.GetCurrentMethod().DeclaringType.Name;
+			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
+			var apiClient = Mozu.Api.Clients.Commerce.Admin.LocationTypeClient.DeleteLocationTypeClient(
 				 locationTypeCode :  locationTypeCode, authTicket : authTicket		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
 			}
-			catch (Exception ex)
+			catch (ApiException ex)
 			{
-			 // Custom error handling for test cases can be placed here
+				// Custom error handling for test cases can be placed here
+				Exception customException = TestFailException.GetCustomTestException(ex, currentClassName, currentMethodName, expectedCode);
+				if (customException != null)
+					throw customException;
 			}
 			var noResponse = ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 

@@ -77,6 +77,7 @@
     <Compile Include="Helpers\TestFailException.cs" />
     <Compile Include="Helpers\TestInconclusiveException.cs" />
     <Compile Include="Helpers\ServiceClientMessageFactory.cs" />
+    <Compile Include="MsTestCases\CustomerTests.cs" />
     <Compile Include="MsTestCases\DocumentTest.cs" />
     <Compile Include="MsTestCases\OrderTests.cs" />
     <Compile Include="MsTestCases\ProductTests.cs" />
@@ -114,7 +115,6 @@
     <Compile Include="Factories\CustomerContactFactory.cs" />
     <Compile Include="Factories\CustomerGroupFactory.cs" />
     <Compile Include="Factories\CustomerNoteFactory.cs" />
-    <Compile Include="Factories\DeveloperAccountFactory.cs" />
     <Compile Include="Factories\DeveloperAdminUserAuthTicketFactory.cs" />
     <Compile Include="Factories\DiscountFactory.cs" />
     <Compile Include="Factories\DiscountTargetFactory.cs" />
@@ -125,10 +125,7 @@
     <Compile Include="Factories\DocumentTypeFactory.cs" />
     <Compile Include="Factories\EventNotificationFactory.cs" />
     <Compile Include="Factories\FacetFactory.cs" />
-    <Compile Include="Factories\FolderFactory.cs" />
-    <Compile Include="Factories\FolderTreeFactory.cs" />
     <Compile Include="Factories\FulfillmentActionFactory.cs" />
-    <Compile Include="Factories\FulfillmentInfoFactory.cs" />
     <Compile Include="Factories\GeneralSettingsFactory.cs" />
     <Compile Include="Factories\InStockNotificationSubscriptionFactory.cs" />
     <Compile Include="Factories\LocationFactory.cs" />
@@ -210,7 +207,6 @@
   </Choose>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="$(SolutionDir)\.octopack\OctoPack.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

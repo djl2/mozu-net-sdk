@@ -9,6 +9,7 @@
 //------------------------------------------------------------------------------
 
 using System;
+using Mozu.Api.Contracts.Core;
 
 namespace Mozu.Api.Contracts.Location
 {
@@ -26,6 +27,8 @@ namespace Mozu.Api.Contracts.Location
 			///The name of the location type.
 			///
 			public string Name { get; set; }
+
+			public AuditInfo AuditInfo { get; set; }
 
 		}
 
