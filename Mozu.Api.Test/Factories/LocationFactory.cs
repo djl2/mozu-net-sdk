@@ -46,7 +46,7 @@ namespace Mozu.Api.Test.Factories
 			var currentClassName = System.Reflection.MethodInfo.GetCurrentMethod().DeclaringType.Name;
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
-			var apiClient = Mozu.Api.Clients.Commerce.LocationClient.GetLocationClient(
+			var apiClient = Mozu.Api.Clients.Commerce.Location.LocationClient.GetLocationClient(
 				 code :  code, authTicket : authTicket		);
 			try
 			{
@@ -84,7 +84,7 @@ namespace Mozu.Api.Test.Factories
 			var currentClassName = System.Reflection.MethodInfo.GetCurrentMethod().DeclaringType.Name;
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
-			var apiClient = Mozu.Api.Clients.Commerce.LocationClient.GetLocationInUsageTypeClient(
+			var apiClient = Mozu.Api.Clients.Commerce.Location.LocationClient.GetLocationInUsageTypeClient(
 				 locationUsageType :  locationUsageType,  code :  code, authTicket : authTicket		);
 			try
 			{
@@ -122,7 +122,7 @@ namespace Mozu.Api.Test.Factories
 			var currentClassName = System.Reflection.MethodInfo.GetCurrentMethod().DeclaringType.Name;
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
-			var apiClient = Mozu.Api.Clients.Commerce.LocationClient.GetLocationsInUsageTypeClient(
+			var apiClient = Mozu.Api.Clients.Commerce.Location.LocationClient.GetLocationsInUsageTypeClient(
 				 locationUsageType :  locationUsageType,  startIndex :  startIndex,  pageSize :  pageSize,  sortBy :  sortBy,  filter :  filter, authTicket : authTicket		);
 			try
 			{
@@ -160,7 +160,7 @@ namespace Mozu.Api.Test.Factories
 			var currentClassName = System.Reflection.MethodInfo.GetCurrentMethod().DeclaringType.Name;
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
-			var apiClient = Mozu.Api.Clients.Commerce.LocationClient.GetDirectShipLocationClient(
+			var apiClient = Mozu.Api.Clients.Commerce.Location.LocationClient.GetDirectShipLocationClient(
 				 authTicket : authTicket		);
 			try
 			{
@@ -198,7 +198,7 @@ namespace Mozu.Api.Test.Factories
 			var currentClassName = System.Reflection.MethodInfo.GetCurrentMethod().DeclaringType.Name;
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
-			var apiClient = Mozu.Api.Clients.Commerce.LocationClient.GetInStorePickupLocationClient(
+			var apiClient = Mozu.Api.Clients.Commerce.Location.LocationClient.GetInStorePickupLocationClient(
 				 code :  code, authTicket : authTicket		);
 			try
 			{
@@ -236,7 +236,7 @@ namespace Mozu.Api.Test.Factories
 			var currentClassName = System.Reflection.MethodInfo.GetCurrentMethod().DeclaringType.Name;
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
-			var apiClient = Mozu.Api.Clients.Commerce.LocationClient.GetInStorePickupLocationsClient(
+			var apiClient = Mozu.Api.Clients.Commerce.Location.LocationClient.GetInStorePickupLocationsClient(
 				 startIndex :  startIndex,  pageSize :  pageSize,  sortBy :  sortBy,  filter :  filter, authTicket : authTicket		);
 			try
 			{

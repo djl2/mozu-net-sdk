@@ -141,7 +141,7 @@
     <Compile Include="Clients\Commerce\Customer\CustomerGroupClient.cs" />
     <Compile Include="Clients\Commerce\Customer\VisitClient.cs" />
     <Compile Include="Clients\Commerce\InStockNotificationSubscriptionClient.cs" />
-    <Compile Include="Clients\Commerce\LocationClient.cs" />
+    <Compile Include="Clients\Commerce\Location\LocationClient.cs" />
     <Compile Include="Clients\Commerce\OrderClient.cs" />
     <Compile Include="Clients\Commerce\Orders\AdjustmentClient.cs" />
     <Compile Include="Clients\Commerce\Orders\AppliedDiscountClient.cs" />
@@ -539,7 +539,7 @@
     <Compile Include="Resources\Commerce\Customer\CustomerGroupResource.cs" />
     <Compile Include="Resources\Commerce\Customer\VisitResource.cs" />
     <Compile Include="Resources\Commerce\InStockNotificationSubscriptionResource.cs" />
-    <Compile Include="Resources\Commerce\LocationResource.cs" />
+    <Compile Include="Resources\Commerce\Location\LocationResource.cs" />
     <Compile Include="Resources\Commerce\OrderResource.cs" />
     <Compile Include="Resources\Commerce\Orders\AdjustmentResource.cs" />
     <Compile Include="Resources\Commerce\Orders\AppliedDiscountResource.cs" />
@@ -631,7 +631,7 @@
     <Compile Include="Urls\Commerce\Customer\CustomerGroupUrl.cs" />
     <Compile Include="Urls\Commerce\Customer\VisitUrl.cs" />
     <Compile Include="Urls\Commerce\InStockNotificationSubscriptionUrl.cs" />
-    <Compile Include="Urls\Commerce\LocationUrl.cs" />
+    <Compile Include="Urls\Commerce\Location\LocationUrl.cs" />
     <Compile Include="Urls\Commerce\Orders\AdjustmentUrl.cs" />
     <Compile Include="Urls\Commerce\Orders\AppliedDiscountUrl.cs" />
     <Compile Include="Urls\Commerce\Orders\BillingInfoUrl.cs" />

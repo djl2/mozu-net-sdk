@@ -909,5 +909,18 @@ namespace Mozu.Api.Test.MsTestCases
             Assert.IsTrue(capturePayment.Payments[1].Interactions[1].IsManual);
             Assert.AreEqual(capturePayment.PaymentStatus, "Paid");
         }
+
+
+        [TestMethod]
+        [TestCategory("Mozu SDK Sample")]
+        [Timeout(TestTimeout.Infinite)]
+        [Priority(2)]
+        [Description("Get Order.")]
+        public void OrderTests_Test6()
+        {
+            var order = OrderFactory.GetOrder(ApiMsgHandler,"03c8fa4221f6630f5c6a7c2400000891");
+        }
+
+
     }
 }
