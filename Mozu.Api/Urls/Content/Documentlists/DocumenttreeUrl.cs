@@ -17,44 +17,36 @@ namespace Mozu.Api.Urls.Content.Documentlists
 	{
 
 		/// <summary>
-        /// Get Resource Url for GetTreeDocumentContent
-        /// </summary>
-        /// <param name="documentListName">The name of the document list associated with the document.</param>
-        /// <param name="documentName">The name of the document, which is unique within its folder.</param>
-        /// <param name="folderId">If applicable, the unique identifier of the folder that contains the document.</param>
-        /// <param name="folderPath">If applicable, the path of the folder hierarchy location associated with the document.</param>
-        /// <returns>
-        /// String - Resource Url
-        /// </returns>
-        public static MozuUrl GetTreeDocumentContentUrl(string documentListName, string documentName, string folderId, string folderPath)
-		{
-			var url = "/api/content/documentlists/{documentListName}/documentTree/{documentName}/content?folderPath={folderPath}&folderId={folderId}";
-			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
-			mozuUrl.FormatUrl( "documentListName", documentListName);
-			mozuUrl.FormatUrl( "documentName", documentName);
-			mozuUrl.FormatUrl( "folderId", folderId);
-			mozuUrl.FormatUrl( "folderPath", folderPath);
-			return mozuUrl;
-		}
-
-		/// <summary>
         /// Get Resource Url for GetTreeDocument
         /// </summary>
         /// <param name="documentListName">The name of the document list associated with the document.</param>
         /// <param name="documentName">The name of the document, which is unique within its folder.</param>
-        /// <param name="folderId">If applicable, the unique identifier of the folder that contains the document.</param>
-        /// <param name="folderPath">If applicable, the path of the folder hierarchy location that contains the document.</param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static MozuUrl GetTreeDocumentUrl(string documentListName, string documentName, string folderId, string folderPath)
+        public static MozuUrl GetTreeDocumentUrl(string documentListName, string documentName)
 		{
-			var url = "/api/content/documentlists/{documentListName}/documentTree/{documentName}?folderPath={folderPath}&folderId={folderId}";
+			var url = "/api/content/documentlists/{documentListName}/documentTree/{documentName}";
 			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
 			mozuUrl.FormatUrl( "documentListName", documentListName);
 			mozuUrl.FormatUrl( "documentName", documentName);
-			mozuUrl.FormatUrl( "folderId", folderId);
-			mozuUrl.FormatUrl( "folderPath", folderPath);
+			return mozuUrl;
+		}
+
+		/// <summary>
+        /// Get Resource Url for GetTreeDocumentContent
+        /// </summary>
+        /// <param name="documentListName">The name of the document list associated with the document.</param>
+        /// <param name="documentName">The name of the document, which is unique within its folder.</param>
+        /// <returns>
+        /// String - Resource Url
+        /// </returns>
+        public static MozuUrl GetTreeDocumentContentUrl(string documentListName, string documentName)
+		{
+			var url = "/api/content/documentlists/{documentListName}/documentTree/{documentName}/content";
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "documentListName", documentListName);
+			mozuUrl.FormatUrl( "documentName", documentName);
 			return mozuUrl;
 		}
 
@@ -63,19 +55,15 @@ namespace Mozu.Api.Urls.Content.Documentlists
         /// </summary>
         /// <param name="documentListName">The name of the document list associated with the document.</param>
         /// <param name="documentName">The name of the document, which is unique within its folder.</param>
-        /// <param name="folderId">If applicable, the unique identifier of the folder that contains the document.</param>
-        /// <param name="folderPath">If applicable, the path of the folder hierarchy location associated with the document.</param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static MozuUrl UpdateTreeDocumentContentUrl(string documentListName, string documentName, string folderId, string folderPath)
+        public static MozuUrl UpdateTreeDocumentContentUrl(string documentListName, string documentName)
 		{
 			var url = "/api/content/documentlists/{documentListName}/documentTree/{documentName}/content?folderPath={folderPath}&folderId={folderId}";
 			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
 			mozuUrl.FormatUrl( "documentListName", documentListName);
 			mozuUrl.FormatUrl( "documentName", documentName);
-			mozuUrl.FormatUrl( "folderId", folderId);
-			mozuUrl.FormatUrl( "folderPath", folderPath);
 			return mozuUrl;
 		}
 
@@ -84,19 +72,15 @@ namespace Mozu.Api.Urls.Content.Documentlists
         /// </summary>
         /// <param name="documentListName">The name of the document list associated with the document.</param>
         /// <param name="documentName">The name of the document, which is unique within its folder.</param>
-        /// <param name="folderId">If applicable, the unique identifier of the folder that contains the document.</param>
-        /// <param name="folderPath">If applicable, the path of the folder hierarchy location associated with the document.</param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static MozuUrl DeleteTreeDocumentContentUrl(string documentListName, string documentName, string folderId, string folderPath)
+        public static MozuUrl DeleteTreeDocumentContentUrl(string documentListName, string documentName)
 		{
 			var url = "/api/content/documentlists/{documentListName}/documentTree/{documentName}/content?folderPath={folderPath}&folderId={folderId}";
 			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
 			mozuUrl.FormatUrl( "documentListName", documentListName);
 			mozuUrl.FormatUrl( "documentName", documentName);
-			mozuUrl.FormatUrl( "folderId", folderId);
-			mozuUrl.FormatUrl( "folderPath", folderPath);
 			return mozuUrl;
 		}
 

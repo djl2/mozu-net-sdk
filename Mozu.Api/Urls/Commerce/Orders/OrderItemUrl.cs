@@ -97,6 +97,27 @@ namespace Mozu.Api.Urls.Commerce.Orders
 		}
 
 		/// <summary>
+        /// Get Resource Url for UpdateItemFulfillment
+        /// </summary>
+        /// <param name="orderId"></param>
+        /// <param name="orderItemId"></param>
+        /// <param name="updateMode"></param>
+        /// <param name="version"></param>
+        /// <returns>
+        /// String - Resource Url
+        /// </returns>
+        public static MozuUrl UpdateItemFulfillmentUrl(string orderId, string orderItemId, string updateMode, string version)
+		{
+			var url = "/api/commerce/orders/{orderId}/items/{orderItemId}/fulfillment?updatemode={updateMode}&version={version}";
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "orderId", orderId);
+			mozuUrl.FormatUrl( "orderItemId", orderItemId);
+			mozuUrl.FormatUrl( "updateMode", updateMode);
+			mozuUrl.FormatUrl( "version", version);
+			return mozuUrl;
+		}
+
+		/// <summary>
         /// Get Resource Url for UpdateItemProductPrice
         /// </summary>
         /// <param name="orderId">Unique identifier of the order containing the item to price override.</param>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Globalization;
 using System.Net;
 
@@ -14,8 +15,14 @@ namespace Mozu.Api.Test.Helpers
 
                 if (code != expectedCode)
                 {
-                   throw (new TestFailException(code, System.Reflection.MethodBase.GetCurrentMethod().Name.ToString(CultureInfo.InvariantCulture),
-                        expectedCode));
+                    throw (new TestFailException(code,
+                                                 System.Reflection.MethodBase.GetCurrentMethod()
+                                                       .Name.ToString(CultureInfo.InvariantCulture),
+                                                 expectedCode));
+                }
+                else
+                {
+                  //  Debug.WriteLine();
                 }
                 return (expectedCode == baseCode);
              }
@@ -28,6 +35,35 @@ namespace Mozu.Api.Test.Helpers
                  return false;
 //                 throw;
              }
+        }
+
+        public static bool CheckResponseCodes(HttpStatusCode statusCode, HttpStatusCode expectedCode, HttpStatusCode baseCode)
+        {
+            try
+            {
+                var code = statusCode;
+
+                if (code != expectedCode)
+                {
+                    throw (new TestFailException(code,
+                                                 System.Reflection.MethodBase.GetCurrentMethod().Name.ToString(CultureInfo.InvariantCulture),
+                                                 expectedCode));
+                }
+                else
+                {
+                    //  Debug.WriteLine();
+                }
+                return (expectedCode == baseCode);
+            }
+            catch (TestFailException)
+            {
+                throw;
+            }
+            catch (Exception)
+            {
+                return false;
+                //                 throw;
+            }
         }
     }
 }

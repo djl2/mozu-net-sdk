@@ -215,6 +215,54 @@ namespace Mozu.Api.Resources.Commerce.Orders
 		}
 
 		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="orderId"></param>
+		/// <param name="orderItemId"></param>
+		/// <param name="orderItem"></param>
+		/// <returns>
+		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Orders.Order"/>
+		/// </returns>
+		/// <example>
+		/// <code>
+		///   var orderitem = new OrderItem();
+		///   var order = orderitem.UpdateItemFulfillment( orderItem,  orderId,  orderItemId);
+		/// </code>
+		/// </example>
+		public virtual Mozu.Api.Contracts.CommerceRuntime.Orders.Order UpdateItemFulfillment(Mozu.Api.Contracts.CommerceRuntime.Orders.OrderItem orderItem, string orderId, string orderItemId)
+		{
+			return UpdateItemFulfillment( orderItem,  orderId,  orderItemId,  null,  null, null);
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="orderId"></param>
+		/// <param name="orderItemId"></param>
+		/// <param name="updateMode"></param>
+		/// <param name="version"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
+		/// <param name="orderItem"></param>
+		/// <returns>
+		/// <see cref="Mozu.Api.Contracts.CommerceRuntime.Orders.Order"/>
+		/// </returns>
+		/// <example>
+		/// <code>
+		///   var orderitem = new OrderItem();
+		///   var order = orderitem.UpdateItemFulfillment( orderItem,  orderId,  orderItemId,  updateMode,  version, authTicket);
+		/// </code>
+		/// </example>
+		public virtual Mozu.Api.Contracts.CommerceRuntime.Orders.Order UpdateItemFulfillment(Mozu.Api.Contracts.CommerceRuntime.Orders.OrderItem orderItem, string orderId, string orderItemId, string updateMode =  null, string version =  null, AuthTicket authTicket= null)
+		{
+			MozuClient<Mozu.Api.Contracts.CommerceRuntime.Orders.Order> response;
+			var client = Mozu.Api.Clients.Commerce.Orders.OrderItemClient.UpdateItemFulfillmentClient( orderItem,  orderId,  orderItemId,  updateMode,  version, authTicket);
+			client.WithContext(_apiContext);
+			response= client.Execute();
+			return response.Result();
+
+		}
+
+		/// <summary>
 		/// Override the price of an individual product on a line item in the specified order.
 		/// </summary>
 		/// <param name="orderId">Unique identifier of the order containing the item to price override.</param>

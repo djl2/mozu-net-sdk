@@ -38,9 +38,6 @@
     <DocumentationFile>bin\Release\Mozu.Api.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Mozu.BuildSupport.GetAssemblyFileVersionTask">
-      <HintPath>..\packages\Mozu.BuildSupport.GetAssemblyFileVersionTask.1.0.0\lib\Mozu.BuildSupport.GetAssemblyFileVersionTask.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.5.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -97,6 +94,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\Crypto.cs" />
     <Compile Include="Security\RefreshInterval.cs" />
+    <Compile Include="Clients\Commerce\Admin\LocationClient.cs" />
+    <Compile Include="Clients\Commerce\Admin\LocationTypeClient.cs" />
     <Compile Include="Clients\Commerce\CartClient.cs" />
     <Compile Include="Clients\Commerce\Carts\CartItemClient.cs" />
     <Compile Include="Clients\Commerce\Carts\ChangeMessageClient.cs" />
@@ -142,15 +141,12 @@
     <Compile Include="Clients\Commerce\Customer\CustomerGroupClient.cs" />
     <Compile Include="Clients\Commerce\Customer\VisitClient.cs" />
     <Compile Include="Clients\Commerce\InStockNotificationSubscriptionClient.cs" />
-    <Compile Include="Clients\Commerce\Location\Admin\LocationClient.cs" />
-    <Compile Include="Clients\Commerce\Location\Admin\LocationTypeClient.cs" />
     <Compile Include="Clients\Commerce\Location\LocationClient.cs" />
     <Compile Include="Clients\Commerce\OrderClient.cs" />
     <Compile Include="Clients\Commerce\Orders\AdjustmentClient.cs" />
     <Compile Include="Clients\Commerce\Orders\AppliedDiscountClient.cs" />
     <Compile Include="Clients\Commerce\Orders\BillingInfoClient.cs" />
     <Compile Include="Clients\Commerce\Orders\FulfillmentActionClient.cs" />
-    <Compile Include="Clients\Commerce\Orders\FulfillmentInfoClient.cs" />
     <Compile Include="Clients\Commerce\Orders\OrderAttributeClient.cs" />
     <Compile Include="Clients\Commerce\Orders\OrderItemClient.cs" />
     <Compile Include="Clients\Commerce\Orders\OrderNoteClient.cs" />
@@ -177,8 +173,6 @@
     <Compile Include="Clients\Content\Documentlists\DocumentClient.cs" />
     <Compile Include="Clients\Content\Documentlists\DocumentTreeClient.cs" />
     <Compile Include="Clients\Content\Documentlists\FacetClient.cs" />
-    <Compile Include="Clients\Content\Documentlists\FolderClient.cs" />
-    <Compile Include="Clients\Content\Documentlists\FolderTreeClient.cs" />
     <Compile Include="Clients\Content\DocumentTypeClient.cs" />
     <Compile Include="Clients\Content\PropertyTypeClient.cs" />
     <Compile Include="Clients\Event\EventNotificationClient.cs" />
@@ -186,7 +180,6 @@
     <Compile Include="Clients\Platform\Adminuser\TenantAdminUserAuthTicketClient.cs" />
     <Compile Include="Clients\Platform\Applications\AuthTicketClient.cs" />
     <Compile Include="Clients\Platform\Developer\ApplicationVersionClient.cs" />
-    <Compile Include="Clients\Platform\Developer\DeveloperAccountClient.cs" />
     <Compile Include="Clients\Platform\Developer\DeveloperAdminUserAuthTicketClient.cs" />
     <Compile Include="Clients\Platform\ReferenceDataClient.cs" />
     <Compile Include="Clients\Platform\SiteDataClient.cs" />
@@ -202,7 +195,6 @@
     <Compile Include="Contracts\AppDev\ApplicationVersion.cs" />
     <Compile Include="Contracts\AppDev\AuthTicket.cs" />
     <Compile Include="Contracts\AppDev\AuthTicketRequest.cs" />
-    <Compile Include="Contracts\AppDev\DeveloperAccount.cs" />
     <Compile Include="Contracts\AppDev\FileMetadata.cs" />
     <Compile Include="Contracts\AppDev\FolderMetadata.cs" />
     <Compile Include="Contracts\AppDev\Package.cs" />
@@ -276,9 +268,6 @@
     <Compile Include="Contracts\Content\DocumentType.cs" />
     <Compile Include="Contracts\Content\DocumentTypeCollection.cs" />
     <Compile Include="Contracts\Content\Facet.cs" />
-    <Compile Include="Contracts\Content\Folder.cs" />
-    <Compile Include="Contracts\Content\FolderCollection.cs" />
-    <Compile Include="Contracts\Content\FolderTree.cs" />
     <Compile Include="Contracts\Content\LocalizedString.cs" />
     <Compile Include="Contracts\Content\PropertyType.cs" />
     <Compile Include="Contracts\Content\PropertyTypeCollection.cs" />
@@ -309,6 +298,7 @@
     <Compile Include="Contracts\Customer\Card.cs" />
     <Compile Include="Contracts\Customer\CardCollection.cs" />
     <Compile Include="Contracts\Customer\CommerceSummary.cs" />
+    <Compile Include="Contracts\Customer\ContactType.cs" />
     <Compile Include="Contracts\Customer\Credit\Credit.cs" />
     <Compile Include="Contracts\Customer\Credit\CreditAuditEntry.cs" />
     <Compile Include="Contracts\Customer\Credit\CreditAuditEntryCollection.cs" />
@@ -502,6 +492,8 @@
     <Compile Include="Contracts\Tenant\Site.cs" />
     <Compile Include="Contracts\Tenant\Tenant.cs" />
     <Compile Include="Contracts\Tenant\TenantCollection.cs" />
+    <Compile Include="Resources\Commerce\Admin\LocationResource.cs" />
+    <Compile Include="Resources\Commerce\Admin\LocationTypeResource.cs" />
     <Compile Include="Resources\Commerce\CartResource.cs" />
     <Compile Include="Resources\Commerce\Carts\CartItemResource.cs" />
     <Compile Include="Resources\Commerce\Carts\ChangeMessageResource.cs" />
@@ -547,15 +539,12 @@
     <Compile Include="Resources\Commerce\Customer\CustomerGroupResource.cs" />
     <Compile Include="Resources\Commerce\Customer\VisitResource.cs" />
     <Compile Include="Resources\Commerce\InStockNotificationSubscriptionResource.cs" />
-    <Compile Include="Resources\Commerce\Location\Admin\LocationResource.cs" />
-    <Compile Include="Resources\Commerce\Location\Admin\LocationTypeResource.cs" />
     <Compile Include="Resources\Commerce\Location\LocationResource.cs" />
     <Compile Include="Resources\Commerce\OrderResource.cs" />
     <Compile Include="Resources\Commerce\Orders\AdjustmentResource.cs" />
     <Compile Include="Resources\Commerce\Orders\AppliedDiscountResource.cs" />
     <Compile Include="Resources\Commerce\Orders\BillingInfoResource.cs" />
     <Compile Include="Resources\Commerce\Orders\FulfillmentActionResource.cs" />
-    <Compile Include="Resources\Commerce\Orders\FulfillmentInfoResource.cs" />
     <Compile Include="Resources\Commerce\Orders\OrderAttributeResource.cs" />
     <Compile Include="Resources\Commerce\Orders\OrderItemResource.cs" />
     <Compile Include="Resources\Commerce\Orders\OrderNoteResource.cs" />
@@ -582,8 +571,6 @@
     <Compile Include="Resources\Content\Documentlists\DocumentResource.cs" />
     <Compile Include="Resources\Content\Documentlists\DocumentTreeResource.cs" />
     <Compile Include="Resources\Content\Documentlists\FacetResource.cs" />
-    <Compile Include="Resources\Content\Documentlists\FolderResource.cs" />
-    <Compile Include="Resources\Content\Documentlists\FolderTreeResource.cs" />
     <Compile Include="Resources\Content\DocumentTypeResource.cs" />
     <Compile Include="Resources\Content\PropertyTypeResource.cs" />
     <Compile Include="Resources\Event\EventNotificationResource.cs" />
@@ -591,13 +578,14 @@
     <Compile Include="Resources\Platform\Adminuser\TenantAdminUserAuthTicketResource.cs" />
     <Compile Include="Resources\Platform\Applications\AuthTicketResource.cs" />
     <Compile Include="Resources\Platform\Developer\ApplicationVersionResource.cs" />
-    <Compile Include="Resources\Platform\Developer\DeveloperAccountResource.cs" />
     <Compile Include="Resources\Platform\Developer\DeveloperAdminUserAuthTicketResource.cs" />
     <Compile Include="Resources\Platform\ReferenceDataResource.cs" />
     <Compile Include="Resources\Platform\SiteDataResource.cs" />
     <Compile Include="Resources\Platform\TenantDataResource.cs" />
     <Compile Include="Resources\Platform\TenantResource.cs" />
     <Compile Include="Resources\Platform\UserDataResource.cs" />
+    <Compile Include="Urls\Commerce\Admin\LocationTypeUrl.cs" />
+    <Compile Include="Urls\Commerce\Admin\LocationUrl.cs" />
     <Compile Include="Urls\Commerce\Carts\CartItemUrl.cs" />
     <Compile Include="Urls\Commerce\Carts\ChangeMessageUrl.cs" />
     <Compile Include="Urls\Commerce\CartUrl.cs" />
@@ -643,14 +631,11 @@
     <Compile Include="Urls\Commerce\Customer\CustomerGroupUrl.cs" />
     <Compile Include="Urls\Commerce\Customer\VisitUrl.cs" />
     <Compile Include="Urls\Commerce\InStockNotificationSubscriptionUrl.cs" />
-    <Compile Include="Urls\Commerce\Location\Admin\LocationTypeUrl.cs" />
-    <Compile Include="Urls\Commerce\Location\Admin\LocationUrl.cs" />
     <Compile Include="Urls\Commerce\Location\LocationUrl.cs" />
     <Compile Include="Urls\Commerce\Orders\AdjustmentUrl.cs" />
     <Compile Include="Urls\Commerce\Orders\AppliedDiscountUrl.cs" />
     <Compile Include="Urls\Commerce\Orders\BillingInfoUrl.cs" />
     <Compile Include="Urls\Commerce\Orders\FulfillmentActionUrl.cs" />
-    <Compile Include="Urls\Commerce\Orders\FulfillmentInfoUrl.cs" />
     <Compile Include="Urls\Commerce\Orders\OrderAttributeUrl.cs" />
     <Compile Include="Urls\Commerce\Orders\OrderItemUrl.cs" />
     <Compile Include="Urls\Commerce\Orders\OrderNoteUrl.cs" />
@@ -677,8 +662,6 @@
     <Compile Include="Urls\Content\Documentlists\DocumentTreeUrl.cs" />
     <Compile Include="Urls\Content\Documentlists\DocumentUrl.cs" />
     <Compile Include="Urls\Content\Documentlists\FacetUrl.cs" />
-    <Compile Include="Urls\Content\Documentlists\FolderTreeUrl.cs" />
-    <Compile Include="Urls\Content\Documentlists\FolderUrl.cs" />
     <Compile Include="Urls\Content\DocumentListUrl.cs" />
     <Compile Include="Urls\Content\DocumentTypeUrl.cs" />
     <Compile Include="Urls\Content\PropertyTypeUrl.cs" />
@@ -687,7 +670,6 @@
     <Compile Include="Urls\Platform\Adminuser\TenantAdminUserAuthTicketUrl.cs" />
     <Compile Include="Urls\Platform\Applications\AuthTicketUrl.cs" />
     <Compile Include="Urls\Platform\Developer\ApplicationVersionUrl.cs" />
-    <Compile Include="Urls\Platform\Developer\DeveloperAccountUrl.cs" />
     <Compile Include="Urls\Platform\Developer\DeveloperAdminUserAuthTicketUrl.cs" />
     <Compile Include="Urls\Platform\ReferenceDataUrl.cs" />
     <Compile Include="Urls\Platform\SiteDataUrl.cs" />

@@ -9,6 +9,7 @@
 //------------------------------------------------------------------------------
 
 using System;
+using System.Collections.Generic;
 using Mozu.Api.Contracts.Core;
 
 namespace Mozu.Api.Contracts.Customer
@@ -56,19 +57,21 @@ namespace Mozu.Api.Contracts.Customer
 			public string MiddleNameOrInitial { get; set; }
 
 			///
-			///Identifier and datetime stamp information recorded when a user or application creates, updates, or deletes a resource entity. This value is system-supplied and read-only.
-			///
-			public AuditInfo AuditInfo { get; set; }
-
-			///
 			///Address associated with the customer account contact.
 			///
 			public Address Address { get; set; }
 
 			///
+			///Identifier and datetime stamp information recorded when a user or application creates, updates, or deletes a resource entity. This value is system-supplied and read-only.
+			///
+			public AuditInfo AuditInfo { get; set; }
+
+			///
 			///List of phone numbers associated with the customer account contact.
 			///
 			public Phone PhoneNumbers { get; set; }
+
+			public List<ContactType> Types { get; set; }
 
 		}
 

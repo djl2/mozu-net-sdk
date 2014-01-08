@@ -64,6 +64,8 @@ namespace Mozu.Api.Contracts.Location
 			///
 			public Address Address { get; set; }
 
+			public AuditInfo AuditInfo { get; set; }
+
 			///
 			///List of order fulfillment types associated with this location. The location can have fulfillment types of direct ship (DS), in-store pickup (SP), or both.
 			///

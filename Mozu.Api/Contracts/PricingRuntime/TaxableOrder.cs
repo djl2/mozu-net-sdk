@@ -19,6 +19,13 @@ namespace Mozu.Api.Contracts.PricingRuntime
 		public class TaxableOrder
 		{
 			///
+			///The total shipping amount calculated for the order.
+			///
+			public decimal ShippingAmount { get; set; }
+
+			public string TaxRequestType { get; set; }
+
+			///
 			///3-letter ISO 4217 standard global currency code. Currently, only "USD" (US Dollar) is supported.
 			///
 			public string CurrencyCode { get; set; }
@@ -36,13 +43,6 @@ namespace Mozu.Api.Contracts.PricingRuntime
 			public string OriginalDocumentCode { get; set; }
 
 			public DateTime OriginalOrderDate { get; set; }
-
-			///
-			///The total shipping amount calculated for the order.
-			///
-			public decimal ShippingAmount { get; set; }
-
-			public string TaxRequestType { get; set; }
 
 			///
 			///The line items associated with the order.

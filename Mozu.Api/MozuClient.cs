@@ -220,7 +220,7 @@ namespace Mozu.Api
 
         protected void SetBaseAddress(string baseAddress)
         {
-            _baseAddress = baseAddress;
+            _baseAddress = HttpHelper.GetUrl(baseAddress);
         }
 
 		public virtual void AddHeader(string header, string value)
@@ -269,10 +269,13 @@ namespace Mozu.Api
         {
             get
             {
+               // ValidateContext();
                 var client = GetHttpClient();
 
-                client.BaseAddress = new Uri(_baseAddress);
+                if (String.IsNullOrEmpty(_baseAddress))
+                    throw new Exception("Base Address is not set");
 
+                client.BaseAddress = new Uri(_baseAddress);
 
                 if (_headers[Headers.X_VOL_APP_CLAIMS] == null)
                 {
@@ -284,6 +287,9 @@ namespace Mozu.Api
 
 
                 AddHeader(Headers.X_VOL_VERSION, Version.ApiVersion);
+
+                if (_apiContext != null && !String.IsNullOrEmpty(_apiContext.CorrelationId))
+                    AddHeader(Headers.X_VOL_CORRELATION, _apiContext.CorrelationId);
 
                 foreach (var key in _headers.AllKeys)
                 {
@@ -344,7 +350,7 @@ namespace Mozu.Api
 			ValidateContext();
             var client = GetHttpClient();
             _httpResponseMessage = client.SendAsync(GetRequestMessage(), HttpCompletionOption.ResponseContentRead).Result;
-            ResponseHelper.EnsureSuccess(_httpResponseMessage);
+            ResponseHelper.EnsureSuccess(_httpResponseMessage,_apiContext);
         }
         
         private HttpRequestMessage GetRequestMessage()
@@ -370,6 +376,9 @@ namespace Mozu.Api
             }
             
             AddHeader(Headers.X_VOL_VERSION, Version.ApiVersion);
+
+            if (_apiContext != null && !String.IsNullOrEmpty(_apiContext.CorrelationId))
+                AddHeader(Headers.X_VOL_CORRELATION, _apiContext.CorrelationId);
 
             foreach (var key in _headers.AllKeys)
             {

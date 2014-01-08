@@ -16,6 +16,7 @@ using System.Net;
 using Mozu.Api;
 using Mozu.Api.Security;
 using Mozu.Api.Test.Helpers;
+using System.Diagnostics;
 
 #endregion
 
@@ -28,29 +29,36 @@ namespace Mozu.Api.Test.Factories
 	{
 
 		/// <summary> 
-		/// Retrieve the content associated with the document, such as a product image or PDF specifications file.
+		/// Retrieves a document based on its document list and folder path in the document hierarchy.
 		/// <example> 
 		///  <code> 
-		/// var result = DocumentTreeFactory.GetTreeDocumentContent(handler : handler,  documentListName :  documentListName,  documentName :  documentName,  folderPath :  folderPath,  folderId :  folderId,  authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
-		/// var optionalCasting = ConvertClass<Stream/>(result); 
+		/// var result = DocumentTreeFactory.GetTreeDocument(handler : handler,  documentListName :  documentListName,  documentName :  documentName,  authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<Document/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
-		public static System.IO.Stream GetTreeDocumentContent(ServiceClientMessageHandler handler, 
- 		 string documentListName, string documentName, string folderPath = null, string folderId = null,  AuthTicket authTicket = null, DataViewMode dataViewMode= DataViewMode.Live, 
-		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
+		public static Mozu.Api.Contracts.Content.Document GetTreeDocument(ServiceClientMessageHandler handler, 
+ 		 string documentListName, string documentName,  AuthTicket authTicket = null, DataViewMode dataViewMode= DataViewMode.Live, 
+		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
-			var apiClient = Mozu.Api.Clients.Content.Documentlists.DocumentTreeClient.GetTreeDocumentContentClient(
-				 documentListName :  documentListName,  documentName :  documentName,  folderPath :  folderPath,  folderId :  folderId, authTicket : authTicket, dataViewMode: dataViewMode		);
+			var currentClassName = System.Reflection.MethodInfo.GetCurrentMethod().DeclaringType.Name;
+			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
+			var apiClient = Mozu.Api.Clients.Content.Documentlists.DocumentTreeClient.GetTreeDocumentClient(
+				 documentListName :  documentListName,  documentName :  documentName, authTicket : authTicket, dataViewMode: dataViewMode		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
 			}
-			catch (Exception ex)
+			catch (ApiException ex)
 			{
-			 // Custom error handling for test cases can be placed here
+				// Custom error handling for test cases can be placed here
+				Exception customException = TestFailException.GetCustomTestException(ex, currentClassName, currentMethodName, expectedCode);
+				if (customException != null)
+					throw customException;
+				return null;
 			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
@@ -59,29 +67,36 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// Retrieves a document based on its document list and folder path in the document hierarchy.
+		/// Retrieve the content associated with the document, such as a product image or PDF specifications file.
 		/// <example> 
 		///  <code> 
-		/// var result = DocumentTreeFactory.GetTreeDocument(handler : handler,  documentListName :  documentListName,  documentName :  documentName,  folderPath :  folderPath,  folderId :  folderId,  authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
-		/// var optionalCasting = ConvertClass<Document/>(result); 
+		/// var result = DocumentTreeFactory.GetTreeDocumentContent(handler : handler,  documentListName :  documentListName,  documentName :  documentName,  authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<Stream/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
-		public static Mozu.Api.Contracts.Content.Document GetTreeDocument(ServiceClientMessageHandler handler, 
- 		 string documentListName, string documentName, string folderPath = null, string folderId = null,  AuthTicket authTicket = null, DataViewMode dataViewMode= DataViewMode.Live, 
-		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
+		public static System.IO.Stream GetTreeDocumentContent(ServiceClientMessageHandler handler, 
+ 		 string documentListName, string documentName,  AuthTicket authTicket = null, DataViewMode dataViewMode= DataViewMode.Live, 
+		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
-			var apiClient = Mozu.Api.Clients.Content.Documentlists.DocumentTreeClient.GetTreeDocumentClient(
-				 documentListName :  documentListName,  documentName :  documentName,  folderPath :  folderPath,  folderId :  folderId, authTicket : authTicket, dataViewMode: dataViewMode		);
+			var currentClassName = System.Reflection.MethodInfo.GetCurrentMethod().DeclaringType.Name;
+			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
+			var apiClient = Mozu.Api.Clients.Content.Documentlists.DocumentTreeClient.GetTreeDocumentContentClient(
+				 documentListName :  documentListName,  documentName :  documentName, authTicket : authTicket, dataViewMode: dataViewMode		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
 			}
-			catch (Exception ex)
+			catch (ApiException ex)
 			{
-			 // Custom error handling for test cases can be placed here
+				// Custom error handling for test cases can be placed here
+				Exception customException = TestFailException.GetCustomTestException(ex, currentClassName, currentMethodName, expectedCode);
+				if (customException != null)
+					throw customException;
+				return null;
 			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
@@ -93,26 +108,32 @@ namespace Mozu.Api.Test.Factories
 		/// Updates the content associated with a document, such as a product image or PDF specifications file, based on the document's position in the document hierarchy.
 		/// <example> 
 		///  <code> 
-		/// var result = DocumentTreeFactory.UpdateTreeDocumentContent(handler : handler,  stream :  stream,  documentListName :  documentListName,  documentName :  documentName,  folderPath :  folderPath,  folderId :  folderId,  authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = DocumentTreeFactory.UpdateTreeDocumentContent(handler : handler,  stream :  stream,  documentListName :  documentListName,  documentName :  documentName,  authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<void/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static void UpdateTreeDocumentContent(ServiceClientMessageHandler handler, 
- 		System.IO.Stream stream, string documentListName, string documentName, string folderPath = null, string folderId = null,  AuthTicket authTicket = null, DataViewMode dataViewMode= DataViewMode.Live, 
-		 int expectedCode = (int)HttpStatusCode.NoContent, int successCode = (int)HttpStatusCode.NoContent)
+ 		System.IO.Stream stream, string documentListName, string documentName,  AuthTicket authTicket = null, DataViewMode dataViewMode= DataViewMode.Live, 
+		 HttpStatusCode expectedCode = HttpStatusCode.NoContent, HttpStatusCode successCode = HttpStatusCode.NoContent)
 		{
 			SetSdKparameters();
+			var currentClassName = System.Reflection.MethodInfo.GetCurrentMethod().DeclaringType.Name;
+			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Content.Documentlists.DocumentTreeClient.UpdateTreeDocumentContentClient(
-				 stream :  stream,  documentListName :  documentListName,  documentName :  documentName,  folderPath :  folderPath,  folderId :  folderId, authTicket : authTicket, dataViewMode: dataViewMode		);
+				 stream :  stream,  documentListName :  documentListName,  documentName :  documentName, authTicket : authTicket, dataViewMode: dataViewMode		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
 			}
-			catch (Exception ex)
+			catch (ApiException ex)
 			{
-			 // Custom error handling for test cases can be placed here
+				// Custom error handling for test cases can be placed here
+				Exception customException = TestFailException.GetCustomTestException(ex, currentClassName, currentMethodName, expectedCode);
+				if (customException != null)
+					throw customException;
 			}
 			var noResponse = ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
@@ -124,26 +145,32 @@ namespace Mozu.Api.Test.Factories
 		/// Deletes the content associated with a document, such as a product image or PDF specifications file.
 		/// <example> 
 		///  <code> 
-		/// var result = DocumentTreeFactory.DeleteTreeDocumentContent(handler : handler,  stream :  stream,  documentListName :  documentListName,  documentName :  documentName,  folderPath :  folderPath,  folderId :  folderId,  authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = DocumentTreeFactory.DeleteTreeDocumentContent(handler : handler,  stream :  stream,  documentListName :  documentListName,  documentName :  documentName,  authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<void/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static void DeleteTreeDocumentContent(ServiceClientMessageHandler handler, 
- 		System.IO.Stream stream, string documentListName, string documentName, string folderPath = null, string folderId = null,  AuthTicket authTicket = null, DataViewMode dataViewMode= DataViewMode.Live, 
-		 int expectedCode = (int)HttpStatusCode.NoContent, int successCode = (int)HttpStatusCode.NoContent)
+ 		System.IO.Stream stream, string documentListName, string documentName,  AuthTicket authTicket = null, DataViewMode dataViewMode= DataViewMode.Live, 
+		 HttpStatusCode expectedCode = HttpStatusCode.NoContent, HttpStatusCode successCode = HttpStatusCode.NoContent)
 		{
 			SetSdKparameters();
+			var currentClassName = System.Reflection.MethodInfo.GetCurrentMethod().DeclaringType.Name;
+			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Content.Documentlists.DocumentTreeClient.DeleteTreeDocumentContentClient(
-				 stream :  stream,  documentListName :  documentListName,  documentName :  documentName,  folderPath :  folderPath,  folderId :  folderId, authTicket : authTicket, dataViewMode: dataViewMode		);
+				 stream :  stream,  documentListName :  documentListName,  documentName :  documentName, authTicket : authTicket, dataViewMode: dataViewMode		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
 			}
-			catch (Exception ex)
+			catch (ApiException ex)
 			{
-			 // Custom error handling for test cases can be placed here
+				// Custom error handling for test cases can be placed here
+				Exception customException = TestFailException.GetCustomTestException(ex, currentClassName, currentMethodName, expectedCode);
+				if (customException != null)
+					throw customException;
 			}
 			var noResponse = ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 

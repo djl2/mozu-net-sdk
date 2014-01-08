@@ -20,17 +20,15 @@ namespace Mozu.Api.Urls.Content
         /// Get Resource Url for GetDocumentLists
         /// </summary>
         /// <param name="pageSize">The number of results to display on each page when creating paged results from a query. The maximum value is 200.</param>
-        /// <param name="sort"></param>
         /// <param name="startIndex"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static MozuUrl GetDocumentListsUrl(int? pageSize, string sort, int? startIndex)
+        public static MozuUrl GetDocumentListsUrl(int? pageSize, int? startIndex)
 		{
-			var url = "/api/content/documentlists/?pageSize={pageSize}&startIndex={startIndex}&sortBy={sort}";
+			var url = "/api/content/documentlists/?pageSize={pageSize}&startIndex={startIndex}";
 			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
 			mozuUrl.FormatUrl( "pageSize", pageSize);
-			mozuUrl.FormatUrl( "sort", sort);
 			mozuUrl.FormatUrl( "startIndex", startIndex);
 			return mozuUrl;
 		}

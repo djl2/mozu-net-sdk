@@ -35,7 +35,22 @@ namespace Mozu.Api.Urls.Content
 			return mozuUrl;
 		}
 
-						/// <summary>
+				/// <summary>
+        /// Get Resource Url for DeleteDocumentDrafts
+        /// </summary>
+        /// <param name="documentLists">List of document lists that contain documents to delete.</param>
+        /// <returns>
+        /// String - Resource Url
+        /// </returns>
+        public static MozuUrl DeleteDocumentDraftsUrl(string documentLists)
+		{
+			var url = "/api/content/documentpublishing/draft?documentLists={documentLists}";
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "documentLists", documentLists);
+			return mozuUrl;
+		}
+
+				/// <summary>
         /// Get Resource Url for PublishDocuments
         /// </summary>
         /// <param name="documentLists">List of document lists that contain documents to publish.</param>
@@ -50,24 +65,7 @@ namespace Mozu.Api.Urls.Content
 			return mozuUrl;
 		}
 
-				/// <summary>
-        /// Get Resource Url for DeleteDocumentDrafts
-        /// </summary>
-        /// <param name="documentIds">Unique identifiers of the documents to delete.</param>
-        /// <param name="documentLists">List of document lists that contain documents to delete.</param>
-        /// <returns>
-        /// String - Resource Url
-        /// </returns>
-        public static MozuUrl DeleteDocumentDraftsUrl(string documentIds, string documentLists)
-		{
-			var url = "/api/content/documentpublishing/draft?documentLists={documentLists}";
-			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
-			mozuUrl.FormatUrl( "documentIds", documentIds);
-			mozuUrl.FormatUrl( "documentLists", documentLists);
-			return mozuUrl;
-		}
-
-		
+				
 	}
 }
 

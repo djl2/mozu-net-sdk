@@ -7,6 +7,7 @@
 using System;
 using System.Collections.Generic;
 using Mozu.Api.Test.Factories;
+using System.Net;
 
 namespace Mozu.Api.Test.Helpers
 {
@@ -43,7 +44,7 @@ namespace Mozu.Api.Test.Helpers
             {
                 ProductFactory.DeleteProduct(ApiMessageHandler, pro.ProductCode);
             }
-            var productTypes = ProductTypeFactory.GetProductTypes(handler: ApiMessageHandler, dataViewMode: DataViewMode.Live, successCode:200, expectedCode: 200);
+            var productTypes = ProductTypeFactory.GetProductTypes(handler: ApiMessageHandler, dataViewMode: DataViewMode.Live, successCode:HttpStatusCode.OK, expectedCode: HttpStatusCode.OK);
             foreach (var pt in productTypes.Items)
             {
                 if (pt.AuditInfo.CreateDate.Value > DateTime.Now.AddDays(-1))
@@ -58,7 +59,7 @@ namespace Mozu.Api.Test.Helpers
                     }
                 }
             }
-            var attributes = AttributeFactory.GetAttributes(handler: ApiMessageHandler, dataViewMode: DataViewMode.Live, successCode: 200, expectedCode: 200);
+            var attributes = AttributeFactory.GetAttributes(handler: ApiMessageHandler, dataViewMode: DataViewMode.Live, successCode: HttpStatusCode.OK, expectedCode: HttpStatusCode.OK);
             if (attributes.TotalCount != 0)
             {
                 foreach (var attr in attributes.Items)

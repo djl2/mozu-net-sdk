@@ -20,6 +20,7 @@ namespace Mozu.Api
         string AppAuthClaim { get; set; }
 		int? MasterCatalogId { get; }
 		int? CatalogId { get; }
+        Tenant Tenant { get; }
 	}
 
     public class ApiContext : IApiContext
@@ -110,14 +111,14 @@ namespace Mozu.Api
 
 		public ApiContext(HttpRequestHeaders headers)
 		{
-			TenantUrl = GetHeaderValue(Headers.X_VOL_TENANT_DOMAIN, headers);
-			SiteUrl = GetHeaderValue(Headers.X_VOL_SITE_DOMAIN, headers);
-			TenantId = ParseFirstValue(Headers.X_VOL_TENANT, headers).Value;
-			SiteId = ParseFirstValue(Headers.X_VOL_SITE, headers);
-			CorrelationId = GetHeaderValue(Headers.X_VOL_CORRELATION, headers);
-			HMACSha256 = GetHeaderValue(Headers.X_VOL_HMAC_SHA256, headers);
-			MasterCatalogId = ParseFirstValue(Headers.X_VOL_MASTER_CATALOG, headers);
-			CatalogId = ParseFirstValue(Headers.X_VOL_CATALOG, headers);
+			TenantUrl = HttpHelper.GetHeaderValue(Headers.X_VOL_TENANT_DOMAIN, headers);
+            SiteUrl = HttpHelper.GetHeaderValue(Headers.X_VOL_SITE_DOMAIN, headers);
+            TenantId = HttpHelper.ParseFirstValue(Headers.X_VOL_TENANT, headers).Value;
+            SiteId = HttpHelper.ParseFirstValue(Headers.X_VOL_SITE, headers);
+            CorrelationId = HttpHelper.GetHeaderValue(Headers.X_VOL_CORRELATION, headers);
+            HMACSha256 = HttpHelper.GetHeaderValue(Headers.X_VOL_HMAC_SHA256, headers);
+            MasterCatalogId = HttpHelper.ParseFirstValue(Headers.X_VOL_MASTER_CATALOG, headers);
+            CatalogId = HttpHelper.ParseFirstValue(Headers.X_VOL_CATALOG, headers);
 			
 
 			if (!String.IsNullOrEmpty(TenantUrl))
@@ -132,11 +133,7 @@ namespace Mozu.Api
 
 		}
 
-       /* public string GetUrl(string domain)
-        {
-            return (AppAuthenticator.UseSSL ? "Https://" : "http://" )+domain;
-            //return  "http://" + domain;
-        }*/
+       
 
         private void SetBySite(Site site)
         {
@@ -147,7 +144,7 @@ namespace Mozu.Api
             }
         }
 
-        protected string GetHeaderValue(string header, HttpRequestHeaders headers)
+       /* protected string GetHeaderValue(string header, HttpRequestHeaders headers)
         {
             var retVal = String.Empty;
             IEnumerable<string> value = (headers.Contains(header) ? headers.GetValues(header) : null);
@@ -181,7 +178,7 @@ namespace Mozu.Api
             }
 
             return null;
-        }
+        }*/
 
     }
 }

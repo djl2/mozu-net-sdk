@@ -10,6 +10,7 @@
 
 using System;
 using System.Collections.Generic;
+using Mozu.Api.Contracts.Core;
 
 namespace Mozu.Api.Contracts.Location
 {
@@ -32,6 +33,8 @@ namespace Mozu.Api.Contracts.Location
 			///The system-defined code used to identify the location usage type, which is "DS" for direct ship, "SP" for in-store pickup, or "storeFinder".
 			///
 			public string LocationUsageTypeCode { get; set; }
+
+			public AuditInfo AuditInfo { get; set; }
 
 		}
 

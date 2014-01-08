@@ -16,6 +16,8 @@ namespace Mozu.Api.Contracts.Customer
 		{
 			public string EmailAddress { get; set; }
 
+			public bool? IsImport { get; set; }
+
 			public string Password { get; set; }
 
 			public string Username { get; set; }

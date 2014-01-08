@@ -6,6 +6,7 @@ using System.Runtime.Serialization;
 namespace Mozu.Api
 {
    
+    [Serializable]
     public class ApiException : Exception
     {
         private string _message;
@@ -64,18 +65,23 @@ namespace Mozu.Api
             get { return _message; }
         }
 
+        public IApiContext ApiContext { get; set; }
+        public String CorrelationId { get; set; }
         public ExceptionDetail ExceptionDetail;
         public List<Item> Items;
         public HttpStatusCode HttpStatusCode;
 
     }
 
+
+    [Serializable]
     public class ApplicationErrorData
     {
         public string Name { get; set; }
         public string Value { get; set; }
     }
 
+    [Serializable]
     public class Item
     {
         public List<ApplicationErrorData> ApplicationErrorData { get; set; } 
@@ -84,6 +90,7 @@ namespace Mozu.Api
         public String Message;
     }
 
+    [Serializable]
     public class ExceptionDetail
     {
         public String Message;

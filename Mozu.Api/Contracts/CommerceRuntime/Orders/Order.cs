@@ -25,6 +25,10 @@ namespace Mozu.Api.Contracts.CommerceRuntime.Orders
 		{
 			public DateTime? AcceptedDate { get; set; }
 
+			public decimal AmountAvailableForRefund { get; set; }
+
+			public decimal AmountRemainingForPayment { get; set; }
+
 			///
 			///The available order, payment, and shipment actions a user can perform for the order.
 			///
@@ -117,6 +121,8 @@ namespace Mozu.Api.Contracts.CommerceRuntime.Orders
 			///
 			public decimal? HandlingTaxTotal { get; set; }
 
+			public decimal? HandlingTotal { get; set; }
+
 			///
 			///If true, the order has a draft that may include one or more uncommitted changes to the order or its components.
 			///
@@ -138,6 +144,8 @@ namespace Mozu.Api.Contracts.CommerceRuntime.Orders
 			///If true, this version of the order is a draft that might contain uncommitted changes.
 			///
 			public bool? IsDraft { get; set; }
+
+			public bool IsEligibleForReturns { get; set; }
 
 			///
 			///If true, this order was submitted using an external system, and the order record was imported into Mozu.

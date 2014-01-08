@@ -19,11 +19,6 @@ namespace Mozu.Api.Contracts.ProductAdmin
 		public class Discount
 		{
 			///
-			///Current status of the product discount. Possible values are "Active", "Scheduled", or "Expired".
-			///
-			public string Status { get; set; }
-
-			///
 			///The integer amount of the discount. For example, an entry of "10" could represent a discount of $10.00 or a discount of 10%, depending on the type.
 			///
 			public decimal? Amount { get; set; }
@@ -47,6 +42,11 @@ namespace Mozu.Api.Contracts.ProductAdmin
 			///The scope to which the discount applies, which is "Order" for order discounts or "LineItem" for individual product discounts.
 			///
 			public string Scope { get; set; }
+
+			///
+			///Current status of the product discount. Possible values are "Active", "Scheduled", or "Expired".
+			///
+			public string Status { get; set; }
 
 			///
 			///Identifier and datetime stamp information recorded when a user or application creates, updates, or deletes a resource entity. This value is system-supplied and read-only.

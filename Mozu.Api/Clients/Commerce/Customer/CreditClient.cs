@@ -142,6 +142,31 @@ namespace Mozu.Api.Clients.Commerce.Customer
 		}
 
 		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="code"></param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
+		/// <returns>
+		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.Customer.Credit.Credit"/>}
+		/// </returns>
+		/// <example>
+		/// <code>
+		///   var mozuClient=AssociateCreditToShopper( code, authTicket);
+		///   var creditClient = mozuClient.WithBaseAddress(url).Execute().Result();
+		/// </code>
+		/// </example>
+		public static MozuClient<Mozu.Api.Contracts.Customer.Credit.Credit> AssociateCreditToShopperClient(string code, AuthTicket authTicket= null)
+		{
+			var url = Mozu.Api.Urls.Commerce.Customer.CreditUrl.AssociateCreditToShopperUrl(code);
+			const string verb = "PUT";
+			var mozuClient = new MozuClient<Mozu.Api.Contracts.Customer.Credit.Credit>().WithVerb(verb).WithResourceUrl(url);
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
+
+		}
+
+		/// <summary>
 		/// Deletes a store credit previously applied to a customer account.
 		/// </summary>
 		/// <param name="code">User-defined code of the store credit to delete.</param>

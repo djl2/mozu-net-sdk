@@ -27,6 +27,8 @@ namespace Mozu.Api.Contracts.Customer
 			///
 			public int OrderCount { get; set; }
 
+			public int VisitsCount { get; set; }
+
 			///
 			///The number of wish lists associated with a customer account. This number represents the total number of a shopper's wish lists across all sites associated with a tenant.
 			///

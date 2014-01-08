@@ -226,7 +226,7 @@ namespace Mozu.Api.Test.Helpers
         /// <returns></returns>
         public static decimal RandomDecimal(decimal min, decimal max)
         {
-            decimal result = Convert.ToDecimal(_random.Next((int)(min*100), (int)(max*100))) / 100;
+            decimal result = Convert.ToDecimal(_random.Next((int)(min * 100), (int)(max * 100))) / 100;
             return result;
         }
 
@@ -264,7 +264,7 @@ namespace Mozu.Api.Test.Helpers
             int j;
             for (int i = 0; i < 12; i++)
             {
-                j = _random.Next(0, 9)*10 ^ i;
+                j = _random.Next(0, 9) * 10 ^ i;
                 upc += j.ToString();
             }
             return upc;
@@ -335,7 +335,26 @@ namespace Mozu.Api.Test.Helpers
                 AddressType = addressType.ToString()
             };
         }
-
+        /// <summary>
+        /// Generates a new Address object using <see cref="Address" /> class.
+        /// </summary>
+        /// <returns></returns>
+        public static Mozu.Api.Contracts.Core.Address GenerateAddressReal(bool isValidated = true)
+        {
+            return new Mozu.Api.Contracts.Core.Address()
+            {
+                Address1 = "360 Nueces St",
+                Address2 = null,
+                Address3 = null,
+                Address4 = null,
+                CountryCode = "US",
+                CityOrTown = "Austin",
+                PostalOrZipCode = "78701-4195",
+                StateOrProvince = "TX",
+                AddressType = "Residential",
+                IsValidated = isValidated
+            };
+        }
 
         /// <summary>
         /// Generate Random Address Object.
@@ -392,7 +411,7 @@ namespace Mozu.Api.Test.Helpers
                     address.Address1 = "1 Sussex Drive";
                     address.CityOrTown = "Ottawa";
                     address.PostalOrZipCode = "K1A 0A1";
-                    address.StateOrProvince = "Ontario";                    
+                    address.StateOrProvince = "Ontario";
                     break;
                 case "GB":
                     address.Address1 = "HARTMANNSTRASSE 7";
@@ -420,11 +439,13 @@ namespace Mozu.Api.Test.Helpers
         /// <returns></returns>
         public static Mozu.Api.Contracts.Core.Address GenerateAddress(string state, string zip, bool realAddress = false, string country = "US")
         {
-            var address = new Mozu.Api.Contracts.Core.Address();
-            address.CountryCode = country;
-            address.PostalOrZipCode = zip;
-            address.StateOrProvince = state;
-            address.IsValidated = true;
+            var address = new Mozu.Api.Contracts.Core.Address
+            {
+                CountryCode = country,
+                PostalOrZipCode = zip,
+                StateOrProvince = state,
+                IsValidated = true
+            };
             if (realAddress)
             {
                 if (state.ToUpper().Equals("TX") && zip.Equals("78717"))
@@ -521,7 +542,7 @@ namespace Mozu.Api.Test.Helpers
                 AddressType = type.ToString()
             };
         }
-    
+
         #endregion
 
         #region "GenerateAttribute"
@@ -973,6 +994,113 @@ namespace Mozu.Api.Test.Helpers
 
         #endregion
 
+        #region "GenerateBillingInfo"
+
+        /// <summary>
+        /// Generates a new BillingInfo object using <see cref="Payments" /> class.
+        /// </summary>
+        /// <param name="type"> Type of payment, such as credit card or check by mail.</param>
+        /// <param name="contact">Card holder's billing address.</param>
+        /// <param name="isSameShippingAddr">Indicates that billing and shipping address are the same</param>
+        /// <param name="card">Card information if the customer is paying by credit card.</param>
+        /// <returns>Mozu.Api.Contracts.CommerceRuntime.Payments.BillingInfo</returns>
+        public static Mozu.Api.Contracts.CommerceRuntime.Payments.BillingInfo GenerateBillingInfo(string type,
+            Mozu.Api.Contracts.Core.Contact contact, bool isSameShippingAddr, Mozu.Api.Contracts.CommerceRuntime.Payments.PaymentCard card)
+        {
+
+            return new Mozu.Api.Contracts.CommerceRuntime.Payments.BillingInfo()
+            {
+                PaymentType = type,
+                BillingContact = contact,
+                IsSameBillingShippingAddress = isSameShippingAddr,
+                Card = card
+            };
+        }
+
+
+        /// <summary>
+        /// Generates a new BillingInfo object when pay by check using <see cref="Payments" /> class.
+        /// </summary>
+        /// <param name="state">The state of credit card holder's billing address.</param>
+        /// <returns>Mozu.Api.Contracts.CommerceRuntime.Payments.BillingInfo</returns>
+        public static Mozu.Api.Contracts.CommerceRuntime.Payments.BillingInfo GenerateBillingInfo(string state, string zip)
+        {
+            return new Mozu.Api.Contracts.CommerceRuntime.Payments.BillingInfo()
+            {
+                PaymentType = "Check",
+                BillingContact = GenerateContactRandom(state, zip),
+                IsSameBillingShippingAddress = false
+            };
+        }
+
+
+        /// <summary>
+        /// Generates a new BillingInfo object when pay by credit card using <see cref="Payments" /> class.
+        /// </summary>
+        /// <param name="state">The state of credit card holder's billing address.</param>
+        /// <param name="cardType">Card type such as Visa, MasterCard, American Express, or Discover.</param>
+        /// <param name="month">Month when the card expires.</param>
+        /// <param name="year">Year when the card expires.</param>
+        /// <param name="card"></param>
+        /// <param name="cardId"></param>
+        /// <param name="savePart"></param>
+        /// <returns>Mozu.Api.Contracts.CommerceRuntime.Payments.BillingInfo</returns>
+        public static Mozu.Api.Contracts.CommerceRuntime.Payments.BillingInfo GenerateBillingInfo(string state, string zip,
+            Mozu.Api.Contracts.CommerceRuntime.Payments.PaymentCard card,
+            string savePart, bool sameShippingAddr = false)
+        {
+            return new Mozu.Api.Contracts.CommerceRuntime.Payments.BillingInfo()
+            {
+                PaymentType = "CreditCard",
+                BillingContact = GenerateContactRandom(state, zip),
+                IsSameBillingShippingAddress = sameShippingAddr,
+                Card = card
+            };
+        }
+
+
+        public static Mozu.Api.Contracts.CommerceRuntime.Payments.BillingInfo GenerateBillingInfo(string state, string zip,
+            bool sameShippingAddr = false)
+        {
+            return new Mozu.Api.Contracts.CommerceRuntime.Payments.BillingInfo()
+            {
+                PaymentType = "PaypalExpress",
+                BillingContact = GenerateContactRandom(state, zip),
+                IsSameBillingShippingAddress = sameShippingAddr
+            };
+        }
+
+
+        public static Mozu.Api.Contracts.CommerceRuntime.Payments.BillingInfo GenerateBillingInfo(string state, string zip,
+            string creditCode, bool sameShippingAddr = false)
+        {
+            return new Mozu.Api.Contracts.CommerceRuntime.Payments.BillingInfo()
+            {
+                PaymentType = "StoreCredit",
+                BillingContact = GenerateContactRandom(state, zip),
+                IsSameBillingShippingAddress = sameShippingAddr,
+                StoreCreditCode = creditCode
+            };
+        }
+
+        //use for address validation tests
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="contact"></param>
+        /// <returns></returns>
+        public static Mozu.Api.Contracts.CommerceRuntime.Payments.BillingInfo GenerateBillingInfo(
+            Mozu.Api.Contracts.Core.Contact contact)
+        {
+            return new Mozu.Api.Contracts.CommerceRuntime.Payments.BillingInfo()
+            {
+                PaymentType = "Check",
+                BillingContact = contact,
+                IsSameBillingShippingAddress = true
+            };
+        }
+        #endregion
+
         #region "GenerateCategory"
 
         /// <summary>
@@ -1016,22 +1144,164 @@ namespace Mozu.Api.Test.Helpers
         }
 
         #endregion
-        #region "GenerateContact" 
 
-        public static Mozu.Api.Contracts.Core.Contact GenerateContact()
+        #region "GenerateCards"
+
+        /// <summary>
+        /// Used for testing authorize.net --> for error case, type = null
+        /// </summary>
+        /// <param name="sendPart"></param>
+        /// <param name="paymentServiceCardId"></param>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public static Mozu.Api.Contracts.CommerceRuntime.Payments.PaymentCard GenerateDefaultCard(string sendPart, string paymentServiceCardId, string type = null)
         {
-            return new Mozu.Api.Contracts.Core.Contact
-                {
-                    Address = Generator.GenerateAddressRandom(),
-                    CompanyOrOrganization = Generator.RandomString(50, Generator.RandomCharacterGroup.AlphaNumericOnly),
-                    Email = Generator.RandomEmailAddress(),
-                    FirstName = Generator.RandomString(15, Generator.RandomCharacterGroup.AlphaOnly),
-                    MiddleNameOrInitial = Generator.RandomString(1, Generator.RandomCharacterGroup.AlphaOnly),
-                    LastNameOrSurname = Generator.RandomString(35, Generator.RandomCharacterGroup.AlphaOnly),
-                    PhoneNumbers = Generator.GeneratePhoneRandom()
-                };
+            return new Mozu.Api.Contracts.CommerceRuntime.Payments.PaymentCard
+            {
+                //NumberPart = sendPart,
+                //CVV = "223",
+                //PersistCard = true,
+                //CardType = type ?? "Visa",
+                ExpireMonth = 12,
+                ExpireYear = 2020,
+                NameOnCard = Generator.RandomString(25, Generator.RandomCharacterGroup.AlphaOnly),
+                CardNumberPartOrMask = sendPart,
+                IsCardInfoSaved = false,
+                IsUsedRecurring = false,
+                PaymentOrCardType = type ?? "Visa",
+                PaymentServiceCardId = paymentServiceCardId
+            };
         }
 
+        public static Mozu.Api.Contracts.CommerceRuntime.Payments.PaymentCard GenerateCard(string numberPart = "411111111111****",
+                                                                      short expireYear = 2018,
+                                                                      short expireMonth = 4,
+                                                                      int cardIssueYear = 2010,
+                                                                      int cardIssueMonth = 8,
+                                                                      string cardType = "Visa",
+                                                                      string cardIssueNumber = "123",
+                                                                      string cVV = "123",
+                                                                      bool persistCard = true,
+                                                                      string cardHolderName = "Test User"
+            )
+        {
+            return new Mozu.Api.Contracts.CommerceRuntime.Payments.PaymentCard
+            {
+                CardNumberPartOrMask = numberPart,
+                ExpireYear = expireYear,
+                ExpireMonth = expireMonth,
+                IsCardInfoSaved = false,
+                IsUsedRecurring = false,
+                NameOnCard = cardHolderName,
+                PaymentOrCardType = cardType,
+                PaymentServiceCardId = null
+                //PaymentOrCardType = cardType,
+                //CardIssueYear = cardIssueYear,
+                //CardIssueMonth = cardIssueMonth,
+                //CardType = cardType,
+                //CardIssueNumber = cardIssueNumber,
+                //CVV = cVV,
+                //PersistCard = persistCard,
+                //CardHolderName = cardHolderName
+            };
+        }
+        #endregion
+
+        #region "PaymentGatewayInteraction"
+
+        /// <summary>
+        /// For manual interaction process
+        /// </summary>
+        /// <returns></returns>
+        public static Mozu.Api.Contracts.CommerceRuntime.Payments.PaymentGatewayInteraction GeneratePaymentGatewayInteraction()
+        {
+            return new Mozu.Api.Contracts.CommerceRuntime.Payments.PaymentGatewayInteraction()
+            {
+                GatewayInteractionId = Generator.RandomInt(22222, 99999),
+                GatewayTransactionId = Generator.RandomString(2, Generator.RandomCharacterGroup.NumericOnly),
+                GatewayAuthCode = Generator.RandomString(6, Generator.RandomCharacterGroup.NumericOnly),
+                GatewayAVSCodes = "P",
+                GatewayCVV2Codes = "",
+                GatewayResponseCode = "1"
+            };
+        }
+
+        #endregion
+
+        #region "GenerateContact"
+
+        public static Mozu.Api.Contracts.Core.Contact GenerateContactRandom()
+        {
+            return new Mozu.Api.Contracts.Core.Contact
+            {
+                Address = Generator.GenerateAddressRandom(),
+                CompanyOrOrganization = Generator.RandomString(50, Generator.RandomCharacterGroup.AlphaNumericOnly),
+                Email = Generator.RandomEmailAddress(),
+                FirstName = Generator.RandomString(15, Generator.RandomCharacterGroup.AlphaOnly),
+                MiddleNameOrInitial = Generator.RandomString(1, Generator.RandomCharacterGroup.AlphaOnly),
+                LastNameOrSurname = Generator.RandomString(35, Generator.RandomCharacterGroup.AlphaOnly),
+                PhoneNumbers = Generator.GeneratePhoneRandom()
+            };
+        }
+
+        public static Mozu.Api.Contracts.Core.Contact GenerateContactRandom(string state, string zip)
+        {
+            return new Mozu.Api.Contracts.Core.Contact
+            {
+                Address = Generator.GenerateAddress(state, zip, "US"),
+                CompanyOrOrganization = Generator.RandomString(50, Generator.RandomCharacterGroup.AlphaNumericOnly),
+                Email = Generator.RandomEmailAddress(),
+                FirstName = Generator.RandomString(15, Generator.RandomCharacterGroup.AlphaOnly),
+                MiddleNameOrInitial = Generator.RandomString(1, Generator.RandomCharacterGroup.AlphaOnly),
+                LastNameOrSurname = Generator.RandomString(35, Generator.RandomCharacterGroup.AlphaOnly),
+                PhoneNumbers = Generator.GeneratePhoneRandom(),
+            };
+        }
+
+        public static Mozu.Api.Contracts.Core.Contact GenerateContactRealAddress(bool isValidated = false)
+        {
+            return new Mozu.Api.Contracts.Core.Contact
+            {
+                Address = Generator.GenerateAddressReal(isValidated),
+                CompanyOrOrganization = Generator.RandomString(50, Generator.RandomCharacterGroup.AlphaNumericOnly),
+                Email = Generator.RandomEmailAddress(),
+                FirstName = Generator.RandomString(15, Generator.RandomCharacterGroup.AlphaOnly),
+                MiddleNameOrInitial = Generator.RandomString(1, Generator.RandomCharacterGroup.AlphaOnly),
+                LastNameOrSurname = Generator.RandomString(35, Generator.RandomCharacterGroup.AlphaOnly),
+                PhoneNumbers = Generator.GeneratePhoneRandom(),
+            };
+        }
+        public static Mozu.Api.Contracts.Core.Contact GenerateInternationalContact(string country)
+        {
+            return new Mozu.Api.Contracts.Core.Contact()
+            {
+                Address = GenerateInternationalAddress(country),
+                CompanyOrOrganization = Generator.RandomString(8, Generator.RandomCharacterGroup.AlphaOnly),
+                Email = Generator.RandomEmailAddress(),
+                FirstName = Generator.RandomString(15, Generator.RandomCharacterGroup.AlphaOnly),
+                MiddleNameOrInitial = Generator.RandomString(1, Generator.RandomCharacterGroup.AlphaOnly),
+                LastNameOrSurname = Generator.RandomString(10, Generator.RandomCharacterGroup.AlphaOnly),
+                PhoneNumbers = GeneratePhoneRandom()
+            };
+        }
+        /// <summary>
+        /// Generates a new Contact object using <see cref="RandomContact" /> class.
+        /// </summary>
+        /// <param name="state"></param>
+        /// <returns></returns>
+        public static Mozu.Api.Contracts.Core.Contact GenerateContact(string state, string zip, bool isRealAddress = false)
+        {
+            return new Mozu.Api.Contracts.Core.Contact()
+            {
+                Address = GenerateAddress(state, zip, isRealAddress),
+                CompanyOrOrganization = "Volusion",
+                Email = Generator.RandomEmailAddress(),
+                FirstName = Generator.RandomString(15, Generator.RandomCharacterGroup.AlphaOnly),
+                MiddleNameOrInitial = Generator.RandomString(1, Generator.RandomCharacterGroup.AlphaOnly),
+                LastNameOrSurname = Generator.RandomString(10, Generator.RandomCharacterGroup.AlphaOnly),
+                PhoneNumbers = GeneratePhoneRandom()
+            };
+        }
         #endregion
         #region "GenerateCustomerAccount"
 
@@ -1043,26 +1313,45 @@ namespace Mozu.Api.Test.Helpers
         /// <returns></returns>
         public static CustomerAccountAndAuthInfo GenerateCustomerAccountAndAuthInfo(bool taxExempt = false, string taxId = null)
         {
+            var firstname = GenerateFirstName();
+            var lastname = GenerateLastName();
+            var username = firstname + lastname; // or use Generator.RandomString(12, RandomCharacterGroup.AlphaOnly);
             var customer = new CustomerAccount()
-                {
-                    AcceptsMarketing = false,
-                    CompanyOrOrganization = "Volusion",
-                    Contacts = new List<CustomerContact>() { GenerateCustomerContact(0, GenerateAddressRandom(addressType: AddressType.Residential)) },
-                    EmailAddress = Generator.RandomEmailAddress(),
-                    FirstName = Generator.RandomString(10, RandomCharacterGroup.AlphaOnly),
-                    LastName = Generator.RandomString(10, RandomCharacterGroup.AlphaOnly),
-                    UserName = Generator.RandomString(10, RandomCharacterGroup.AlphaOnly),
-                    TaxExempt = taxExempt,
-                    TaxId = taxId,
-                    LocaleCode = Constant.LocaleCode,
-                    Notes = new List<CustomerNote>() { GenerateCustomerNote()}
-                };
+            {
+                AcceptsMarketing = false,
+                CompanyOrOrganization = "Volusion",
+                Contacts = new List<CustomerContact>() { GenerateCustomerContact(0, GenerateAddressRandom(addressType: AddressType.Residential), username + "@volusion.com", firstname, "", lastname) },
+                EmailAddress = username + "@volusion.com",//Generator.RandomEmailAddress(),
+                FirstName = firstname, // or use Generator.RandomString(10, RandomCharacterGroup.AlphaOnly),
+                LastName = lastname, // or use Generator.RandomString(10, RandomCharacterGroup.AlphaOnly),
+                UserName = username,
+                TaxExempt = taxExempt,
+                TaxId = taxId,
+                LocaleCode = Constant.LocaleCode,
+                Notes = new List<CustomerNote>() { GenerateCustomerNote() }
+            };
 
             var customerAccountAndAuthInfo = new CustomerAccountAndAuthInfo
-                {
-                    Account = customer,
-                    Password = Constant.Password
-                };
+            {
+                Account = customer,
+                Password = Constant.Password
+            };
+
+            return customerAccountAndAuthInfo;
+        }
+
+        /// <summary>
+        /// Generate Customer Account
+        /// </summary>
+        /// <param name="customerAccount"></param>
+        /// <returns></returns>
+        public static CustomerAccountAndAuthInfo GenerateCustomerAccountAndAuthInfo(CustomerAccount customerAccount)
+        {
+            var customerAccountAndAuthInfo = new CustomerAccountAndAuthInfo
+            {
+                Account = customerAccount,
+                Password = Constant.Password
+            };
 
             return customerAccountAndAuthInfo;
         }
@@ -1073,9 +1362,43 @@ namespace Mozu.Api.Test.Helpers
         public static CustomerNote GenerateCustomerNote()
         {
             return new CustomerNote()
+            {
+                Content = Generator.RandomString(maxLength: 25, characterGroup: RandomCharacterGroup.AnyCharacter)
+            };
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="handler"></param>
+        /// <param name="numAccounts"></param>
+        /// <param name="numContacts"></param>
+        /// <param name="expectedCode"></param>
+        /// <param name="successCode"></param>
+        /// <returns></returns>
+        public static List<CustomerAccount> AddAccountsRandom(ServiceClientMessageHandler handler, int numAccounts,
+                                                              int numContacts,
+                                                              HttpStatusCode expectedCode = HttpStatusCode.Created,
+                                                              HttpStatusCode successCode = HttpStatusCode.Created)
+        {
+
+            var custAccts = new List<CustomerAccount>();
+            for (int i = 0; i < numAccounts; i++)
+            {
+                var accountObj = GenerateCustomerAccountRandom();
+                var customerAccount = CustomerAccountFactory.AddAccount(handler: handler, account: accountObj,
+                                                                        expectedCode: expectedCode);
+                custAccts.Add(customerAccount);
+                for (int x = 0; x < numContacts; x++)
                 {
-                    Content = Generator.RandomString(maxLength: 25, characterGroup: RandomCharacterGroup.AnyCharacter)
-                };
+                    var contacts = GenerateCustomerContactsRandom(accountId: customerAccount.Id,
+                                                                  numContacts: numContacts);
+                    CustomerContactFactory.AddAccountContact(handler: handler, contact: contacts[x],
+                                                             accountId: customerAccount.Id);
+                }
+            }
+            return custAccts;
+
         }
 
         /// <summary>
@@ -1110,6 +1433,32 @@ namespace Mozu.Api.Test.Helpers
         /// <summary>
         /// 
         /// </summary>
+        /// <returns></returns>
+        public static CustomerAccount GenerateCustomerAccountRandom(bool taxExempt = false, string taxId = null, string emailAddress = null)
+        {
+            if (string.IsNullOrEmpty(emailAddress))
+            {
+                emailAddress = Generator.RandomEmailAddress();
+            }
+            return new CustomerAccount()
+            {
+                AcceptsMarketing = false,
+                CompanyOrOrganization = "Volusion",
+                Contacts = new List<CustomerContact>() { GenerateCustomerContact(0, GenerateAddressRandom(addressType: AddressType.Residential)) },
+                EmailAddress = emailAddress,
+                FirstName = GenerateFirstName(), //  Generator.RandomString(10, RandomCharacterGroup.AlphaOnly),
+                LastName = GenerateLastName(), // Generator.RandomString(10, RandomCharacterGroup.AlphaOnly),
+                UserName = Generator.RandomString(4, RandomCharacterGroup.AlphaOnly),
+                TaxExempt = taxExempt,
+                TaxId = taxId,
+                LocaleCode = Constant.LocaleCode,
+                Notes = new List<CustomerNote>() { GenerateCustomerNote() }
+            };
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="userId"></param>
         /// <param name="companyOrOrganization"></param>
         /// <param name="commerceSummary"></param>
@@ -1119,10 +1468,11 @@ namespace Mozu.Api.Test.Helpers
         /// <param name="notes"></param>
         /// <param name="acceptsMarketing"></param>
         /// <param name="taxExempt"></param>
+        /// <param name="taxId"></param>
         /// <returns></returns>
         public static CustomerAccount GenerateCustomerAccount(string userId, string companyOrOrganization, CommerceSummary commerceSummary,
             CustomerContact item, List<Mozu.Api.Contracts.Customer.CustomerGroup> groups, List<CustomerAttribute> attributes, List<CustomerNote> notes, bool acceptsMarketing,
-            bool taxExempt)
+            bool taxExempt, string taxId)
         {
             return new CustomerAccount()
             {
@@ -1134,7 +1484,8 @@ namespace Mozu.Api.Test.Helpers
                 Attributes = attributes,
                 Notes = notes,
                 AcceptsMarketing = acceptsMarketing,
-                TaxExempt = taxExempt
+                TaxExempt = taxExempt,
+                TaxId = taxId
             };
         }
 
@@ -1150,10 +1501,10 @@ namespace Mozu.Api.Test.Helpers
                                                               int wishlistCount, DateTime? lastOrderDate = null)
         {
             var amount = new CurrencyAmount
-                {
-                    Amount = totalOrderAmount,
-                    CurrencyCode = "USD"
-                };
+            {
+                Amount = totalOrderAmount,
+                CurrencyCode = "USD"
+            };
             return new CommerceSummary()
             {
                 TotalOrderAmount = amount,
@@ -1198,6 +1549,65 @@ namespace Mozu.Api.Test.Helpers
             };
         }
         #endregion
+        #region "GenerateCustomerNames"
+
+        public static string GenerateFirstName()
+        {
+            string[] names = { "Sophia","Emma","Olivia","Isabella","Darrin","Mia","Ava","Lily","Zoe","Emily","Chloe","Layla","Madison","Madelyn","Abigail","Aubrey","Charlotte","Amelia","Ella",
+                                "Kaylee","Avery","Aaliyah","Hailey","Hannah","Addison","Riley","Harper","Aria","Arianna","Mackenzie","Lila","Evelyn","Adalyn","Grace","Brooklyn","Ellie","Anna","Kaitlyn",
+                                "Isabelle","Sophie","Scarlett","Natalie","Leah","Sarah","Nora","Mila","Elizabeth","Lillian","Kylie","Audrey","Lucy","Maya","Annabelle","Makayla","Gabriella","Elena",
+                                "Victoria","Claire","Savannah","Peyton","Maria","Alaina","Kennedy","Stella","Liliana","Allison","Samantha","Keira","Alyssa","Reagan","Molly","Alexandra","Violet","Charlie","Julia",
+                                "Sadie","Ruby","Eva","Alice","Eliana","Taylor","Callie","Penelope","Camilla","Bailey","Kaelyn","Alexis","Kayla","Katherine","Sydney","Lauren","Jasmine","London","Bella","Adeline",
+                                "Caroline","Vivian","Juliana","Gianna","Skyler","Jordyn","Jackson","Aiden","Liam","Lucas","Noah","Mason","Jayden","Ethan","Jacob","Jack","Caden","Logan","Benjamin","Michael","Caleb",
+                                "Ryan","Alexander","Elijah","James","William","Oliver","Connor","Matthew","Daniel","Luke","Brayden","Jayce","Henry","Carter","Dylan","Gabriel","Joshua","Nicholas","Isaac","Owen",
+                                "Nathan","Grayson","Eli","Landon","Andrew","Max","Samuel","Gavin","Wyatt","Christian","Hunter","Cameron","Evan","Charlie","David","Sebastian","Joseph","Dominic","Anthony",
+                                "Colton","John","Tyler","Zachary","Thomas","Julian","Levi","Adam","Isaiah","Alex","Aaron","Parker","Cooper","Miles","Chase","Muhammad","Christopher","Blake","Austin","Jordan",
+                                "Leo","Jonathan","Adrian","Colin","Hudson","Ian","Xavier","Camden","Tristan","Carson","Jason","Nolan","Riley","Lincoln","Brody","Bentley","Nathaniel","Josiah","Declan","Jake",
+                                "Asher","Jeremiah","Cole","Mateo","Micah","Elliot"
+                             };
+
+            var random = new Random();
+            var randomNumber = random.Next(0, names.Length);
+            return names[randomNumber];
+        }
+        public static string GenerateLastName()
+        {
+            string[] names = { "Smith","Johnson","Williams","Jones","Brown","Davis","Miller","Wilson","Moore","Taylor","Anderson","Thomas","Jackson","White","Harris","Martin",
+                                 "Thompson","Garcia","Martinez","Robinson","Duncan","Cherry","Clark","Rodriguez","Lewis","Lee","Walker","Hall","Allen","Young","Hernandez","King","Wright","Lopez",
+                                 "Hill","Scott","Green","Adams","Baker","Gonzalez","Nelson","Carter","Mitchell","Perez","Roberts","Turner","Phillips","Campbell","Parker","Evans",
+                                 "Edwards","Collins","Stewart","Sanchez","Morris","Rogers","Reed","Cook","Morgan","Bell","Murphy","Bailey","Rivera","Cooper","Richardson","Cox",
+                                 "Howard","Ward","Torres","Peterson","Gray","Ramirez","James","Watson","Brooks","Kelly","Sanders","Price","Bennett","Wood","Barnes","Ross","Henderson",
+                                 "Coleman","Jenkins","Perry","Powell","Long","Patterson","Hughes","Flores","Washington","Butler","Simmons","Foster","Gonzales","Bryant","Alexander",
+                                 "Russell","Griffin","Diaz","Hayes"};
+
+            var random = new Random();
+            var randomNumber = random.Next(0, names.Length);
+            return names[randomNumber];
+        }
+        #endregion
+
+        #region "CustomerAccountAndAuthInfo"
+
+        public static CustomerAccountAndAuthInfo GenerateCustomerAccountAndAuthInfo(CustomerAccount customerAccount, bool isImport = false, string passwd = Constant.Password)
+        {
+            return new CustomerAccountAndAuthInfo()
+            {
+                Account = customerAccount ?? GenerateCustomerAccountRandom(),
+                Password = passwd,
+                IsImport = isImport
+            };
+        }
+        public static CustomerLoginInfo GenerateCustomerLoginInfo(string email, string userName, string passwd = Constant.Password)
+        {
+            return new CustomerLoginInfo()
+            {
+                EmailAddress = email,
+                Username = userName,
+                Password = passwd
+            };
+        }
+        #endregion
+
         #region "GenerateCustomerContact"
         /// <summary>
         /// 
@@ -1230,6 +1640,7 @@ namespace Mozu.Api.Test.Helpers
                 PhoneNumbers = phone
             };
         }
+
         /// <summary>
         /// 
         /// </summary>
@@ -1273,6 +1684,56 @@ namespace Mozu.Api.Test.Helpers
         /// 
         /// </summary>
         /// <param name="accountId"></param>
+        /// <returns></returns>
+        public static CustomerContact GenerateCustomerContactReal(int accountId)
+        {
+            var firstname = GenerateFirstName();
+            var lastname = GenerateLastName();
+            var username = Generator.RandomString(13, RandomCharacterGroup.AlphaOnly);
+
+            return new CustomerContact()
+            {
+                AccountId = accountId,
+                Email = username + "@volusion.com", // or use Generator.RandomEmailAddress(),
+                FirstName = firstname, // or use Generator.RandomString(10, Generator.RandomCharacterGroup.AlphaOnly),
+                Id = Generator.RandomInt(4, 10),
+                LastNameOrSurname = lastname, // or use Generator.RandomString(10, Generator.RandomCharacterGroup.AlphaOnly),
+                MiddleNameOrInitial = Generator.RandomString(1, Generator.RandomCharacterGroup.AlphaOnly),
+                CompanyOrOrganization = Generator.RandomString(20, Generator.RandomCharacterGroup.AlphaOnly),
+                Address = GenerateAddressReal(),
+                PhoneNumbers = GeneratePhoneRandom()
+
+            };
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="accountId"></param>
+        /// <param name="firstname"></param>
+        /// <param name="lastname"></param>
+        /// <param name="username"></param>
+        /// <returns></returns>
+        public static CustomerContact GenerateCustomerContactReal(int accountId, string firstname, string lastname, string username)
+        {
+            return new CustomerContact()
+            {
+                AccountId = accountId,
+                Email = username + "@volusion.com", // or use Generator.RandomEmailAddress(),
+                FirstName = firstname, // or use Generator.RandomString(10, Generator.RandomCharacterGroup.AlphaOnly),
+                Id = Generator.RandomInt(4, 10),
+                LastNameOrSurname = lastname, // or use Generator.RandomString(10, Generator.RandomCharacterGroup.AlphaOnly),
+                MiddleNameOrInitial = Generator.RandomString(1, Generator.RandomCharacterGroup.AlphaOnly),
+                CompanyOrOrganization = Generator.RandomString(20, Generator.RandomCharacterGroup.AlphaOnly),
+                Address = GenerateAddressReal(),
+                PhoneNumbers = GeneratePhoneRandom()
+
+            };
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="accountId"></param>
         /// <param name="address"></param>
         /// <returns></returns>
         public static CustomerContact GenerateCustomerContact(int accountId, Mozu.Api.Contracts.Core.Address address)
@@ -1285,6 +1746,34 @@ namespace Mozu.Api.Test.Helpers
                 Id = Generator.RandomInt(4, 10),
                 LastNameOrSurname = Generator.RandomString(15, Generator.RandomCharacterGroup.AlphaOnly),
                 MiddleNameOrInitial = Generator.RandomString(10, Generator.RandomCharacterGroup.AlphaOnly),
+                CompanyOrOrganization = Generator.RandomString(20, Generator.RandomCharacterGroup.AlphaOnly),
+                Address = address,
+                PhoneNumbers = GeneratePhoneRandom()
+
+            };
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="accountId"></param>
+        /// <param name="address"></param>
+        /// <param name="email"></param>
+        /// <param name="firstname"></param>
+        /// <param name="middlename"></param>
+        /// <param name="lastnameorsurname"></param>
+        /// <returns></returns>
+        public static CustomerContact GenerateCustomerContact(int accountId,
+            Mozu.Api.Contracts.Core.Address address, string email, string firstname, string middlename, string lastnameorsurname)
+        {
+            return new CustomerContact()
+            {
+                AccountId = accountId,
+                Email = email,
+                FirstName = firstname,
+                Id = Generator.RandomInt(4, 10),
+                LastNameOrSurname = lastnameorsurname,
+                MiddleNameOrInitial = middlename,
                 CompanyOrOrganization = Generator.RandomString(20, Generator.RandomCharacterGroup.AlphaOnly),
                 Address = address,
                 PhoneNumbers = GeneratePhoneRandom()
@@ -1342,6 +1831,396 @@ namespace Mozu.Api.Test.Helpers
         }
 
         #endregion
+
+        #region "GenerateFulfillmentAction"
+        /// <summary>
+        /// Generate ShipmentAction Object.
+        /// </summary>
+        /// <param name="action"></param>
+        /// <param name="pkgIds"></param>
+        /// <returns></returns>
+        public static Mozu.Api.Contracts.CommerceRuntime.Fulfillment.FulfillmentAction GenerateFulfillmentAction(string action, List<string> pkgIds)
+        {
+            return new Mozu.Api.Contracts.CommerceRuntime.Fulfillment.FulfillmentAction()
+            {
+                ActionName = action,
+                PackageIds = pkgIds
+            };
+        }
+
+
+        public static Mozu.Api.Contracts.CommerceRuntime.Fulfillment.FulfillmentAction GenerateFulfillmentAction(string action, List<string> pkgIds, List<string> pickupIds)
+        {
+            return new Mozu.Api.Contracts.CommerceRuntime.Fulfillment.FulfillmentAction()
+            {
+                ActionName = action,
+                PackageIds = pkgIds,
+                PickupIds = pickupIds
+            };
+        }
+
+        #endregion
+
+        #region "GenerateFulfillmentInfo"
+
+        /// <summary>
+        /// Generates a new ShippingInfo object when pay by check using <see cref="Fulfillment" /> class.
+        /// </summary>
+        /// <param name="contact">Shipping address.</param>
+        /// <param name="isDestCommercial">If true, the shipping is for commercial purpose.</param>
+        /// <param name="methodCode">Code that uniquely identifies the shipping method such as "fedex_FEDEX_1_DAY_FREIGHT".</param>
+        /// <param name="methodName">Name of the shipping method such as "FEDEX_1_DAY_FREIGHT".</param>
+        /// <param name="estimateDeliveryDate">Estimated delivery date.</param>
+        /// <returns>Mozu.Api.Contracts.CommerceRuntime.Shipping.ShippingInfo</returns>
+        public static Mozu.Api.Contracts.CommerceRuntime.Fulfillment.FulfillmentInfo GenerateFulfillmentInfo(Mozu.Api.Contracts.Core.Contact contact,
+            bool? isDestCommercial, string methodCode, string methodName, System.DateTime? estimateDeliveryDate)
+        {
+            return new Mozu.Api.Contracts.CommerceRuntime.Fulfillment.FulfillmentInfo()
+            {
+                FulfillmentContact = contact,
+                IsDestinationCommercial = isDestCommercial,
+                ShippingMethodCode = methodCode,
+                ShippingMethodName = methodName
+            };
+        }
+
+
+        /// <summary>
+        /// Generates a new ShippingInfo object when pay by check using <see cref="Fulfillment" /> class.
+        /// </summary>
+        /// <param name="state">The state of the shipping address.</param>
+        /// <param name="isCommercial">If true, the shipping is for commercial purpose.</param>
+        /// <param name="methodCode">Code that uniquely identifies the shipping method such as "fedex_FEDEX_1_DAY_FREIGHT".</param>
+        /// <param name="methodName">Name of the shipping method such as "FEDEX_1_DAY_FREIGHT".</param>
+        /// <returns>Mozu.Api.Contracts.CommerceRuntime.Shipping.ShippingInfo</returns>
+        public static Mozu.Api.Contracts.CommerceRuntime.Fulfillment.FulfillmentInfo GenerateFulfillmentInfo(string state, string zip, bool isCommercial,
+            string methodCode = null, string methodName = null, bool realAddress = false)
+        {
+            return new Mozu.Api.Contracts.CommerceRuntime.Fulfillment.FulfillmentInfo()
+            {
+                FulfillmentContact = GenerateContact(state, zip, realAddress),
+                // IsDestinationCommercial = isCommercial,
+                ShippingMethodCode = methodCode,
+                ShippingMethodName = methodName,
+            };
+        }
+
+
+        public static Mozu.Api.Contracts.CommerceRuntime.Fulfillment.FulfillmentInfo GenerateFulfillmentInfoForInternational(string country, string methodCode = null, string methodName = null)
+        {
+            return new Mozu.Api.Contracts.CommerceRuntime.Fulfillment.FulfillmentInfo()
+            {
+                FulfillmentContact = GenerateInternationalContact(country),
+                ShippingMethodCode = methodCode,
+                ShippingMethodName = methodName
+            };
+        }
+
+        #endregion
+
+
+
+        #region "GeneratePackage"
+
+        /// <summary>
+        /// Generate Package Object.
+        /// </summary>
+        /// <param name="shippingMethodCode"></param>
+        /// <param name="shippingMethodName"></param>
+        /// <param name="items"></param>
+        /// <param name="pkgType"></param>
+        /// <param name="weight"></param>
+        /// <returns></returns>
+        public static Mozu.Api.Contracts.CommerceRuntime.Fulfillment.Package GeneratePackage(string shippingMethodCode, string shippingMethodName,
+              List<Mozu.Api.Contracts.CommerceRuntime.Fulfillment.PackageItem> items, string pkgType = Constant.CARRIER_BOX_MEDIUM, decimal weight = 10)
+        {
+            return new Mozu.Api.Contracts.CommerceRuntime.Fulfillment.Package()
+            {
+                ShippingMethodCode = shippingMethodCode,
+                ShippingMethodName = shippingMethodName,
+                PackagingType = pkgType,
+                Items = items,
+                Measurements = GeneratePackageMeasurements("lbs", weight)
+            };
+        }
+
+        #endregion
+
+        #region "GeneratePackageItem"
+
+        /// <summary>
+        /// Generate PackageItem Object.
+        /// </summary>
+        /// <param name="productCode"></param>
+        /// <param name="quantity"></param>
+        /// <returns></returns>
+        public static Mozu.Api.Contracts.CommerceRuntime.Fulfillment.PackageItem GeneratePackageItem(string productCode, int quantity)
+        {
+            return new Mozu.Api.Contracts.CommerceRuntime.Fulfillment.PackageItem()
+            {
+                ProductCode = productCode,
+                Quantity = quantity
+            };
+        }
+
+        /// <summary>
+        /// Generate PackageMeasurement Object.
+        /// </summary>
+        /// <param name="weight"></param>
+        /// <returns></returns>
+        public static Mozu.Api.Contracts.CommerceRuntime.Commerce.PackageMeasurements GeneratePackageMeasurements(string weightUnit, decimal weight)
+        {
+            return new Mozu.Api.Contracts.CommerceRuntime.Commerce.PackageMeasurements()
+            {
+                Weight = GenerateMeasurement(weightUnit, weight)
+            };
+        }
+
+        public static Mozu.Api.Contracts.CommerceRuntime.Commerce.PackageMeasurements GeneratePackageMeasurements(string dimensionUnit, decimal length, decimal width, decimal height, string weightUnit, decimal weight)
+        {
+            return new Mozu.Api.Contracts.CommerceRuntime.Commerce.PackageMeasurements()
+            {
+                Height = GenerateMeasurement(dimensionUnit, height),
+                Length = GenerateMeasurement(dimensionUnit, length),
+                Width = GenerateMeasurement(dimensionUnit, width),
+                Weight = GenerateMeasurement(weightUnit, weight)
+            };
+        }
+
+        #endregion
+
+
+        #region "GeneratePaymentActions"
+        /// <summary>
+        /// Generate PaymentAction Object when using the same credit card.
+        /// </summary>
+        /// <param name="action"></param>
+        /// <param name="checkNumber"></param>
+        /// <param name="amt"></param>
+        /// <param name="zip"></param>
+        /// <param name="paymentSourceId"></param>
+        /// <returns></returns>
+        public static Mozu.Api.Contracts.CommerceRuntime.Payments.PaymentAction GeneratePaymentAction(string action, string checkNumber, decimal amt, string paymentSourceId = null,
+            Mozu.Api.Contracts.CommerceRuntime.Payments.BillingInfo newInfo = null)
+        {
+            //Mozu.Api.Contracts.CommerceRuntime.Payments.PaymentInteractionType
+            //  Mozu.Api.Contracts.CommerceRuntime.Payments.PaymentType
+
+            return new Mozu.Api.Contracts.CommerceRuntime.Payments.PaymentAction()
+            {
+                ActionName = action,
+                CurrencyCode = "USD",
+                CheckNumber = checkNumber,
+                Amount = amt,
+                ReferenceSourcePaymentId = paymentSourceId,
+                NewBillingInfo = newInfo
+            };
+        }
+
+        /// <summary>
+        /// Generate PaymentAction Object when using different credit card for the payment transactions.
+        /// </summary>
+        /// <param name="action"></param>
+        /// <param name="amt"></param>
+        /// <param name="state"></param>
+        /// <param name="zip"></param>
+        /// <param name="card"></param>
+        /// <param name="cardId"></param>
+        /// <param name="savePart"></param>
+        /// <returns></returns>
+        public static Mozu.Api.Contracts.CommerceRuntime.Payments.PaymentAction GeneratePaymentAction(string action, decimal amt,
+            string state, string zip,
+            Mozu.Api.Contracts.CommerceRuntime.Payments.PaymentCard card, string savePart)
+        {
+            return new Mozu.Api.Contracts.CommerceRuntime.Payments.PaymentAction()
+            {
+                ActionName = action,
+                CurrencyCode = "USD",
+                Amount = amt,
+                NewBillingInfo = GenerateBillingInfo(state, zip, card, savePart),
+                ReferenceSourcePaymentId = null
+            };
+        }
+
+
+        public static Mozu.Api.Contracts.CommerceRuntime.Payments.PaymentAction GeneratePaymentAction(string action, decimal amt, Mozu.Api.Contracts.CommerceRuntime.Payments.BillingInfo billingInfo, string checkNumber = null)
+        {
+            return new Mozu.Api.Contracts.CommerceRuntime.Payments.PaymentAction()
+            {
+                ActionName = action,
+                CurrencyCode = Constant.Currency,
+                Amount = amt,
+                NewBillingInfo = billingInfo,
+                CancelUrl = Generator.RandomURL(),
+                ReturnUrl = Generator.RandomURL(),
+                CheckNumber = checkNumber
+
+            };
+        }
+
+        public static Mozu.Api.Contracts.CommerceRuntime.Payments.PaymentAction GeneratePaymentAction(string action, decimal amt, string state, string zip)
+        {
+            return new Mozu.Api.Contracts.CommerceRuntime.Payments.PaymentAction()
+            {
+                ActionName = action,
+                CurrencyCode = Constant.Currency,
+                Amount = amt,
+                NewBillingInfo = GenerateBillingInfo(state, zip, false),
+                CancelUrl = Generator.RandomURL(),
+                ReturnUrl = Generator.RandomURL()
+            };
+        }
+
+
+        public static Mozu.Api.Contracts.CommerceRuntime.Payments.PaymentAction GeneratePaymentAction(string action, decimal amt, string state, string zip, string creditCode)
+        {
+            return new Mozu.Api.Contracts.CommerceRuntime.Payments.PaymentAction()
+            {
+                ActionName = action,
+                CurrencyCode = Constant.Currency,
+                Amount = amt,
+                NewBillingInfo = GenerateBillingInfo(state, zip, creditCode)
+            };
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="action"></param>
+        /// <param name="amt"></param>
+        /// <param name="state"></param>
+        /// <param name="zip"></param>
+        /// <param name="card"></param>
+        /// <param name="cardId"></param>
+        /// <param name="savePart"></param>
+        /// <param name="manualInteraction"></param>
+        /// <returns></returns>
+        public static Mozu.Api.Contracts.CommerceRuntime.Payments.PaymentAction GeneratePaymentAction(string action, decimal amt, string state, string zip,
+            Mozu.Api.Contracts.CommerceRuntime.Payments.PaymentCard card, string savePart,
+            Mozu.Api.Contracts.CommerceRuntime.Payments.PaymentGatewayInteraction manualInteraction)
+        {
+            return new Mozu.Api.Contracts.CommerceRuntime.Payments.PaymentAction()
+            {
+                ActionName = action,
+                CurrencyCode = "USD",
+                Amount = amt,
+                NewBillingInfo = GenerateBillingInfo(state, zip, card, savePart),
+                ReferenceSourcePaymentId = null,
+                ManualGatewayInteraction = manualInteraction
+            };
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="action"></param>
+        /// <param name="checkNumber"></param>
+        /// <param name="amt"></param>
+        /// <param name="manualInteraction"></param>
+        /// <param name="paymentSourceId"></param>
+        /// <param name="newInfo"></param>
+        /// <returns></returns>
+        public static Mozu.Api.Contracts.CommerceRuntime.Payments.PaymentAction GeneratePaymentAction(string action, string checkNumber, decimal amt,
+            Mozu.Api.Contracts.CommerceRuntime.Payments.PaymentGatewayInteraction manualInteraction,
+            string paymentSourceId = null, Mozu.Api.Contracts.CommerceRuntime.Payments.BillingInfo newInfo = null)
+        {
+            return new Mozu.Api.Contracts.CommerceRuntime.Payments.PaymentAction()
+            {
+                ActionName = action,
+                CurrencyCode = "USD",
+                CheckNumber = checkNumber,
+                Amount = amt,
+                ReferenceSourcePaymentId = paymentSourceId,
+                NewBillingInfo = newInfo,
+                ManualGatewayInteraction = manualInteraction
+            };
+        }
+
+        #endregion
+
+        #region "GeneratePaymentCards"
+        /// <summary>
+        /// Generates a new PaymentCard object using <see cref="Payments" /> class.
+        /// </summary>
+        /// <param name="cardNum">Credit card number.</param>
+        /// <param name="type">Card type such as Visa, MasterCard, American Express, or Discover.</param>
+        /// <param name="mask">The visible part of the card number that the merchant uses to refer to payment information.</param>
+        /// <param name="month">Month when the card expires.</param>
+        /// <param name="year">Year when the card expires.</param>
+        /// <param name="isUsedRecurring">If true, the credit card is charged on a regular interval.</param>
+        /// <param name="name">Card holder's name as it appears on the card.</param>
+        /// <param name="isInfoSaved">If true, the card information is stored in the customer's account.</param>
+        /// <returns>Mozu.Api.Contracts.CommerceRuntime.Payments.PaymentCard</returns>
+        public static Mozu.Api.Contracts.CommerceRuntime.Payments.PaymentCard GeneratePaymentCard(string cardNum, string type, string mask,
+            short month, short year, bool isUsedRecurring, string name, bool isInfoSaved)
+        {
+            return new Mozu.Api.Contracts.CommerceRuntime.Payments.PaymentCard()
+            {
+                PaymentServiceCardId = cardNum,
+                PaymentOrCardType = type,
+                CardNumberPartOrMask = mask,
+                ExpireMonth = month,
+                ExpireYear = year,
+                IsUsedRecurring = isUsedRecurring,
+                NameOnCard = name,
+                IsCardInfoSaved = isInfoSaved
+            };
+        }
+
+
+        /// <summary>
+        /// Generates a new PaymentCard object using <see cref="Payments" /> class.
+        /// </summary>
+        /// <param name="type">Card type such as Visa, MasterCard, American Express, or Discover.</param>
+        /// <param name="month">Month when the card expires.</param>
+        /// <param name="year">Year when the card expires.</param>
+        /// <param name="isUsedRecurring">If true, the credit card is charged on a regular interval.</param>
+        /// <param name="isCardInfoSaved">If true, the card information is stored in the customer's account.</param>
+        /// <returns>Mozu.Api.Contracts.CommerceRuntime.Payments.PaymentCard</returns>
+        public static Mozu.Api.Contracts.CommerceRuntime.Payments.PaymentCard GeneratePaymentCard(string type, short month, short year,
+            bool isUsedRecurring = false, bool isCardInfoSaved = false)
+        {
+            return new Mozu.Api.Contracts.CommerceRuntime.Payments.PaymentCard()
+            {
+                PaymentServiceCardId = Generator.RandomString(16, Generator.RandomCharacterGroup.NumericOnly),
+                PaymentOrCardType = type,
+                CardNumberPartOrMask = Generator.RandomString(3, Generator.RandomCharacterGroup.NumericOnly),
+                ExpireMonth = month,
+                ExpireYear = year,
+                IsUsedRecurring = isUsedRecurring,
+                NameOnCard = Generator.RandomString(25, Generator.RandomCharacterGroup.AlphaOnly),
+                IsCardInfoSaved = isCardInfoSaved
+            };
+        }
+
+
+        /// <summary>
+        /// Generates a new PaymentCard object using <see cref="Payments" /> class.
+        /// </summary>
+        /// <param name="card"></param>
+        /// <param name="cardId"></param>
+        /// <param name="savePart"></param>
+        /// <param name="isCardInfoSaved"></param>
+        /// <returns></returns>
+        public static Mozu.Api.Contracts.CommerceRuntime.Payments.PaymentCard GeneratePaymentCard(Mozu.Api.Contracts.CommerceRuntime.Payments.PaymentCard card,
+            string cardId, string savePart, bool isCardInfoSaved = false)
+        {
+            return new Mozu.Api.Contracts.CommerceRuntime.Payments.PaymentCard()
+            {
+                PaymentServiceCardId = cardId,
+                PaymentOrCardType = card.PaymentOrCardType,
+                CardNumberPartOrMask = savePart,
+                ExpireMonth = (short)card.ExpireMonth,
+                ExpireYear = (short)card.ExpireYear,
+                IsUsedRecurring = false,
+                NameOnCard = card.NameOnCard,
+                IsCardInfoSaved = isCardInfoSaved
+            };
+        }
+        #endregion
+
+
         #region "GeneratePhone"
         /// <summary>
         /// Generates a new Phone object using <see cref="Generator" /> class.
@@ -1725,11 +2604,11 @@ namespace Mozu.Api.Test.Helpers
         public static ProductInCatalogInfo GenerateProductInCatalogInfo(int siteId, int? cateId, bool? isActive = true,
                                                                   bool? isContentOverridden = true, bool? isPriceOverridden = true, bool? isSeoContentOverridden = true)
         {
-            var info = GenerateProductInCatalogInfo(siteId, null, Generator.RandomString(6, Generator.RandomCharacterGroup.AlphaOnly), 
+            var info = GenerateProductInCatalogInfo(siteId, null, Generator.RandomString(6, Generator.RandomCharacterGroup.AlphaOnly),
                 Generator.RandomDecimal(10, 100), isActive, isContentOverridden, isPriceOverridden, isSeoContentOverridden);
             if (cateId.HasValue)
             {
-                info.ProductCategories = new List<ProductCategory>(){new ProductCategory(){CategoryId = cateId.Value}}; 
+                info.ProductCategories = new List<ProductCategory>() { new ProductCategory() { CategoryId = cateId.Value } };
             }
             return info;
         }
@@ -2088,6 +2967,125 @@ namespace Mozu.Api.Test.Helpers
         }
 
         #endregion
+        #region "GenerateReturn"
+        public enum ReturnType
+        {
+            Replace,
+            Refund,
+        }
+        public static Mozu.Api.Contracts.CommerceRuntime.Returns.Return GenerateReturn(ReturnType returnType,
+            List<Mozu.Api.Contracts.CommerceRuntime.Returns.ReturnItem> items,
+            string originalOrderId, string returnOrderId, List<Mozu.Api.Contracts.CommerceRuntime.Orders.OrderNote> orderNote,
+            List<Mozu.Api.Contracts.CommerceRuntime.Payments.Payment> payments,
+            decimal? refundAmount,
+            int? returnNumber,
+            decimal totalLossAmount = 0)
+        {
+            return new Mozu.Api.Contracts.CommerceRuntime.Returns.Return
+            {
+                Items = items,
+                OriginalOrderId = originalOrderId,
+                ReturnOrderId = returnOrderId,
+                Notes = orderNote,
+                Payments = payments,
+                RefundAmount = refundAmount,
+                ReturnNumber = returnNumber,
+                ReturnType = returnType.ToString(),
+                //TotalLossAmount = totalLossAmount
+            };
+        }
+
+        public static Mozu.Api.Contracts.CommerceRuntime.Returns.Return GenerateReturn(ReturnType returnType,
+            List<Mozu.Api.Contracts.CommerceRuntime.Returns.ReturnItem> items, string orderId)
+        {
+            return new Mozu.Api.Contracts.CommerceRuntime.Returns.Return
+            {
+                Items = items,
+                OriginalOrderId = orderId,
+                ReturnType = returnType.ToString()
+            };
+        }
+
+        public static Mozu.Api.Contracts.CommerceRuntime.Returns.Return GenerateReturn(string returnType,
+            List<Mozu.Api.Contracts.CommerceRuntime.Returns.ReturnItem> items, string orderId)
+        {
+            return new Mozu.Api.Contracts.CommerceRuntime.Returns.Return
+            {
+                Items = items,
+                OriginalOrderId = orderId,
+                ReturnType = returnType
+            };
+        }
+
+        public static Mozu.Api.Contracts.CommerceRuntime.Returns.Return GenerateReturn(string orderId, string type,
+            List<Mozu.Api.Contracts.CommerceRuntime.Returns.ReturnItem> items,
+            List<Mozu.Api.Contracts.CommerceRuntime.Orders.OrderNote> notes)
+        {
+            return new Mozu.Api.Contracts.CommerceRuntime.Returns.Return()
+            {
+                OriginalOrderId = orderId,
+                Items = items,
+                ReturnType = type,
+                Notes = notes
+            };
+        }
+        #endregion
+
+        #region "GeneateReturnItem"
+        public static Mozu.Api.Contracts.CommerceRuntime.Returns.ReturnItem GenerateReturnItem(string itemId, Dictionary<string, int> reasons)
+        {
+            return new Mozu.Api.Contracts.CommerceRuntime.Returns.ReturnItem
+            {
+                OrderItemId = itemId,
+                Reasons = GenerateReturnReasons(reasons)
+            };
+        }
+        public static Mozu.Api.Contracts.CommerceRuntime.Returns.ReturnItem GenerateReturnItem(string itemId, Dictionary<string, int> reasons,
+           List<Mozu.Api.Contracts.CommerceRuntime.Orders.OrderNote> notes)
+        {
+            return new Mozu.Api.Contracts.CommerceRuntime.Returns.ReturnItem
+            {
+                OrderItemId = itemId,
+                Reasons = GenerateReturnReasons(reasons),
+                Notes = notes
+            };
+        }
+
+        private static List<Mozu.Api.Contracts.CommerceRuntime.Returns.ReturnReason> GenerateReturnReasons(Dictionary<string, int> reasons)
+        {
+            var returnReasons = new List<Mozu.Api.Contracts.CommerceRuntime.Returns.ReturnReason>();
+            foreach (var r in reasons)
+            {
+                var reason = new Mozu.Api.Contracts.CommerceRuntime.Returns.ReturnReason
+                {
+                    Quantity = r.Value,
+                    Reason = r.Key
+                };
+
+                returnReasons.Add(reason);
+            }
+            return (returnReasons);
+        }
+        #endregion
+
+        #region "GenerateReturnAction"
+        public static Mozu.Api.Contracts.CommerceRuntime.Returns.ReturnAction GenerateReturnAction(string actionName)
+        {
+            return new Mozu.Api.Contracts.CommerceRuntime.Returns.ReturnAction
+            {
+                ActionName = actionName
+            };
+        }
+
+        public static Mozu.Api.Contracts.CommerceRuntime.Returns.ReturnAction GenerateReturnAction(string actionName, List<string> returnIds)
+        {
+            return new Mozu.Api.Contracts.CommerceRuntime.Returns.ReturnAction
+            {
+                ActionName = actionName,
+                ReturnIds = returnIds
+            };
+        }
+        #endregion
         #region "GenerateStandAlonePackageTypeConst"
         public static string GenerateStandAlonePackageTypeConst()
         {
@@ -2121,15 +3119,15 @@ namespace Mozu.Api.Test.Helpers
         }
 
         public static class StandAlonePackageTypeConst
-            {
-              public const string TUBE = "TUBE";
-              public const string LETTER = "LETTER";
-              public const string PAK = "PAK";
-              public const string CARRIER_BOX_SMALL = "CARRIER_BOX_SMALL";
-              public const string CARRIER_BOX_MEDIUM = "CARRIER_BOX_MEDIUM";
-              public const string CARRIER_BOX_LARGE = "CARRIER_BOX_LARGE";
-              public const string CUSTOM = "CUSTOM";
-            }
+        {
+            public const string TUBE = "TUBE";
+            public const string LETTER = "LETTER";
+            public const string PAK = "PAK";
+            public const string CARRIER_BOX_SMALL = "CARRIER_BOX_SMALL";
+            public const string CARRIER_BOX_MEDIUM = "CARRIER_BOX_MEDIUM";
+            public const string CARRIER_BOX_LARGE = "CARRIER_BOX_LARGE";
+            public const string CUSTOM = "CUSTOM";
+        }
         #endregion
 
         #region "GenerateUser"
@@ -2221,7 +3219,7 @@ namespace Mozu.Api.Test.Helpers
             };
         }
         #endregion
-        #region GenerateUserAuthInfo
+        #region "GenerateUserAuthInfo"
 
         /// <summary>
         /// Generate UserAuthInfo Object.
@@ -2241,7 +3239,7 @@ namespace Mozu.Api.Test.Helpers
             };
         }
         #endregion
-        #region GenerateCustomerAuthInfo
+        #region "GenerateCustomerAuthInfo"
 
         /// <summary>
         /// Generate CustomerUserAuthInfo Object.
@@ -2279,18 +3277,18 @@ namespace Mozu.Api.Test.Helpers
                     isOption: true));
 
             //create upgrade attribute (shopper entered)
-            var createdUpgrade = AttributeFactory.AddAttribute(ApiMsgHandler,GenerateAttribute(
+            var createdUpgrade = AttributeFactory.AddAttribute(ApiMsgHandler, GenerateAttribute(
                     attributeCode: "Upgrade_" + Generator.RandomString(5, Generator.RandomCharacterGroup.AlphaOnly),
                     adminName: "Upgrade_" + Generator.RandomString(5, Generator.RandomCharacterGroup.AlphaOnly),
                     inputType: "TextBox", valueType: "ShopperEntered", isExtra: true));
 
             //create rating attribute (admin entered)
-            var createdRating = AttributeFactory.AddAttribute(ApiMsgHandler,GenerateAttribute( attributeCode: "Rating_" + Generator.RandomString(5, Generator.RandomCharacterGroup.AlphaOnly),
+            var createdRating = AttributeFactory.AddAttribute(ApiMsgHandler, GenerateAttribute(attributeCode: "Rating_" + Generator.RandomString(5, Generator.RandomCharacterGroup.AlphaOnly),
                     adminName: "Rating_" + Generator.RandomString(5, Generator.RandomCharacterGroup.AlphaOnly),
                     inputType: "TextBox", valueType: "AdminEntered", dataType: "Number", isProperty: true));
 
             //create size attribute
-            var createdSize = AttributeFactory.AddAttribute(ApiMsgHandler,GenerateAttribute( attributeCode: "Size_" + Generator.RandomString(5, Generator.RandomCharacterGroup.AlphaOnly),
+            var createdSize = AttributeFactory.AddAttribute(ApiMsgHandler, GenerateAttribute(attributeCode: "Size_" + Generator.RandomString(5, Generator.RandomCharacterGroup.AlphaOnly),
                     adminName: "Size_" + Generator.RandomString(5, Generator.RandomCharacterGroup.AlphaOnly),
                     isProperty: true));
 
@@ -2300,28 +3298,28 @@ namespace Mozu.Api.Test.Helpers
                     inputType: "TextBox", valueType: "ShopperEntered", isExtra: true));
 
             //create brand attribute
-            var createdBrand = AttributeFactory.AddAttribute(ApiMsgHandler, GenerateAttribute( attributeCode: "Brand_" + Generator.RandomString(5, Generator.RandomCharacterGroup.AlphaOnly),
+            var createdBrand = AttributeFactory.AddAttribute(ApiMsgHandler, GenerateAttribute(attributeCode: "Brand_" + Generator.RandomString(5, Generator.RandomCharacterGroup.AlphaOnly),
                     adminName: "Brand_" + Generator.RandomString(5, Generator.RandomCharacterGroup.AlphaOnly),
                     isExtra: true));
 
             //create fabric attribute
-            var createdFabric = AttributeFactory.AddAttribute(ApiMsgHandler,GenerateAttribute( attributeCode: "Fabric_" + Generator.RandomString(5, Generator.RandomCharacterGroup.AlphaOnly),
+            var createdFabric = AttributeFactory.AddAttribute(ApiMsgHandler, GenerateAttribute(attributeCode: "Fabric_" + Generator.RandomString(5, Generator.RandomCharacterGroup.AlphaOnly),
                     adminName: "Fabric_" + Generator.RandomString(5, Generator.RandomCharacterGroup.AlphaOnly),
                     isProperty: true));
 
             //create furniture material attribute
-            var createdMaterial = AttributeFactory.AddAttribute(ApiMsgHandler,GenerateAttribute( attributeCode: "Material_" + Generator.RandomString(5, Generator.RandomCharacterGroup.AlphaOnly),
+            var createdMaterial = AttributeFactory.AddAttribute(ApiMsgHandler, GenerateAttribute(attributeCode: "Material_" + Generator.RandomString(5, Generator.RandomCharacterGroup.AlphaOnly),
                     adminName: "Material_" + Generator.RandomString(5, Generator.RandomCharacterGroup.AlphaOnly),
                     isProperty: true));
 
             //create created date attribute (admin entered)
-            var createdDiscountExpire = AttributeFactory.AddAttribute(ApiMsgHandler,GenerateAttribute( attributeCode:
+            var createdDiscountExpire = AttributeFactory.AddAttribute(ApiMsgHandler, GenerateAttribute(attributeCode:
                         "DiscountExpire_" + Generator.RandomString(5, Generator.RandomCharacterGroup.AlphaOnly),
                     adminName: "DiscountExpire_" + Generator.RandomString(5, Generator.RandomCharacterGroup.AlphaOnly),
                     inputType: "DateTime", valueType: "AdminEntered", dataType: "datetime", isProperty: true));
 
             //create warranty attribute (shopper entered)
-            var createdWarranty = AttributeFactory.AddAttribute(ApiMsgHandler,GenerateAttribute( attributeCode: "Warranty_" + Generator.RandomString(5, Generator.RandomCharacterGroup.AlphaOnly),
+            var createdWarranty = AttributeFactory.AddAttribute(ApiMsgHandler, GenerateAttribute(attributeCode: "Warranty_" + Generator.RandomString(5, Generator.RandomCharacterGroup.AlphaOnly),
                     adminName: "Warranty_" + Generator.RandomString(5, Generator.RandomCharacterGroup.AlphaOnly),
                     inputType: "YesNo", valueType: "ShopperEntered", dataType: "Bool", isExtra: true));
 
@@ -2353,7 +3351,7 @@ namespace Mozu.Api.Test.Helpers
 
             //create sofas (Cangy, Walsh, Amani, Burton)
             var createdCangy = ProductFactory.AddProduct(ApiMsgHandler,
-                                          GenerateProduct("Cagny Sofa", 2000, 1800, 1000, createdFurniturePT, 60));
+                                          GenerateProduct("Cagny Sofa", 200, 1800, 1000, createdFurniturePT, 60));
             var createdWalsh = ProductFactory.AddProduct(ApiMsgHandler,
                                           GenerateProduct("Walsh Sofa", 3000, 2900, 1000, createdFurniturePT, 70));
             var createdAmani = ProductFactory.AddProduct(ApiMsgHandler,
@@ -2400,8 +3398,8 @@ namespace Mozu.Api.Test.Helpers
             PopulateProductsToMasterCatalog(tenantId, masterCatalogId);
             var ApiMsgHandler = ServiceClientMessageFactory.GetTestClientMessage(tenantId, masterCatalogId: masterCatalogId);
 
-            var products = ProductFactory.GetProducts(ApiMsgHandler,filter:null,noCount:null,q:null,qLimit:null,startIndex:null, pageSize: 13, sortBy: "ProductSequence desc");
-            ApiMsgHandler = ServiceClientMessageFactory.GetTestClientMessage(tenantId, masterCatalogId: masterCatalogId, catalogId:catalogId); 
+            var products = ProductFactory.GetProducts(ApiMsgHandler, filter: null, noCount: null, q: null, qLimit: null, startIndex: null, pageSize: 13, sortBy: "ProductSequence desc");
+            ApiMsgHandler = ServiceClientMessageFactory.GetTestClientMessage(tenantId, masterCatalogId: masterCatalogId, catalogId: catalogId);
             // create categories
 
             //     cate1         cate2          cate3
@@ -2470,14 +3468,14 @@ namespace Mozu.Api.Test.Helpers
                 }
 
                 var proInfo = GenerateProductInCatalogInfo(catalogId, productCategories: new List<ProductCategory>() { proCate },
-                                                            name: Generator.RandomString(6,Generator.RandomCharacterGroup.AlphaOnly),
-                                                            price: Generator.RandomDecimal(20, 1000), 
-                                                            isActive: true, 
+                                                            name: Generator.RandomString(6, Generator.RandomCharacterGroup.AlphaOnly),
+                                                            price: Generator.RandomDecimal(20, 1000),
+                                                            isActive: true,
                                                             isPriceOverridden: true,
-                                                            isSeoContentOverridden: false, 
+                                                            isSeoContentOverridden: false,
                                                             isContentOverridden: true);
 
-                ProductFactory.AddProductInCatalog(handler: ApiMsgHandler,productInCatalogInfoIn: proInfo,productCode: product.ProductCode);
+                ProductFactory.AddProductInCatalog(handler: ApiMsgHandler, productInCatalogInfoIn: proInfo, productCode: product.ProductCode);
                 i++;
             }
         }
@@ -2485,7 +3483,7 @@ namespace Mozu.Api.Test.Helpers
         public static void ActivateVariations(ServiceClientMessageHandler messageHandler,
                                               Product product)
         {
-            var vars = ProductTypeVariationFactory.GenerateProductVariations(messageHandler,productOptionsIn: product.Options,
+            var vars = ProductTypeVariationFactory.GenerateProductVariations(messageHandler, productOptionsIn: product.Options,
                                                         productTypeId: (int)product.ProductTypeId);
             foreach (var variation in vars.Items)
             {
@@ -2495,7 +3493,7 @@ namespace Mozu.Api.Test.Helpers
                                                                                        (decimal)
                                                                                        (product.Price.Price - 1)));
                 variation.DeltaWeight = Generator.RandomDecimal(0, (decimal)(product.PackageWeight.Value - 1));
-                ProductVariationFactory.UpdateProductVariation(messageHandler,productVariation: variation,productCode: product.ProductCode, variationKey:
+                ProductVariationFactory.UpdateProductVariation(messageHandler, productVariation: variation, productCode: product.ProductCode, variationKey:
                                                         variation.Variationkey);
             }
         }
@@ -2506,9 +3504,9 @@ namespace Mozu.Api.Test.Helpers
             PopulateProductsToSitegrp1(tenantId, masterCatalogId);
             var ApiMsgHandler = ServiceClientMessageFactory.GetTestClientMessage(tenantId, masterCatalogId: masterCatalogId);
 
-            var products = ProductFactory.GetProducts(ApiMsgHandler,filter:null,noCount:null,q:null,startIndex:null,qLimit:null, pageSize: 25, sortBy: "ProductSequence desc");
+            var products = ProductFactory.GetProducts(ApiMsgHandler, filter: null, noCount: null, q: null, startIndex: null, qLimit: null, pageSize: 25, sortBy: "ProductSequence desc");
 
-            ApiMsgHandler = ServiceClientMessageFactory.GetTestClientMessage(tenantId, masterCatalogId: masterCatalogId, catalogId:catalogId);
+            ApiMsgHandler = ServiceClientMessageFactory.GetTestClientMessage(tenantId, masterCatalogId: masterCatalogId, catalogId: catalogId);
 
             var living = CategoryFactory.AddCategory(ApiMsgHandler, Generator.GenerateCategory("Living"));
             var dining = CategoryFactory.AddCategory(ApiMsgHandler, Generator.GenerateCategory("Dining"));
@@ -2582,33 +3580,33 @@ namespace Mozu.Api.Test.Helpers
                         break;
                 }
                 proInfo = GenerateProductInCatalogInfo(catalogId, cateId, true, true, false, true);
-                ProductFactory.AddProductInCatalog(handler: ApiMsgHandler,productInCatalogInfoIn: proInfo,productCode: product.ProductCode);
+                ProductFactory.AddProductInCatalog(handler: ApiMsgHandler, productInCatalogInfoIn: proInfo, productCode: product.ProductCode);
             }
-            var proInSite = ProductFactory.GetProductInCatalog(handler: ApiMsgHandler,productCode: "artichoke-dining-lamp",catalogId: catalogId, expectedCode: (int)HttpStatusCode.OK);
-            var prodCates = new List<ProductCategory>(); 
+            var proInSite = ProductFactory.GetProductInCatalog(handler: ApiMsgHandler, productCode: "artichoke-dining-lamp", catalogId: catalogId, expectedCode: HttpStatusCode.OK);
+            var prodCates = new List<ProductCategory>();
             prodCates.Add(proInSite.ProductCategories[0]);
             prodCates.Add(GenerateProductCategory(dining.Id.Value));
             proInfo = GenerateProductInCatalogInfo(catalogId: catalogId,
-                                                     productCategories: prodCates, 
-                                                     name: proInSite.Content.ProductName, 
-                                                     price: proInSite.Price.Price, 
+                                                     productCategories: prodCates,
+                                                     name: proInSite.Content.ProductName,
+                                                     price: proInSite.Price.Price,
                                                      isActive: proInSite.IsActive,
-                                                     isContentOverridden: proInSite.IsContentOverridden, 
+                                                     isContentOverridden: proInSite.IsContentOverridden,
                                                      isPriceOverridden: proInSite.IsPriceOverridden,
                                                      isSeoContentOverridden: proInSite.IsseoContentOverridden
                                                      );
             ProductFactory.UpdateProductInCatalog(handler: ApiMsgHandler,
-                                        productInCatalogInfoIn: proInfo, 
-                                        productCode: "artichoke-dining-lamp", 
+                                        productInCatalogInfoIn: proInfo,
+                                        productCode: "artichoke-dining-lamp",
                                         catalogId: catalogId, successCode:
-                                        (int)HttpStatusCode.OK);
+                                        HttpStatusCode.OK);
         }
 
 
         public static void PopulateProductsToSitegrp1(int tenantId, int masterCatalogId)
         {
             var ApiMsgHandler = ServiceClientMessageFactory.GetTestClientMessage(tenantId, masterCatalogId: masterCatalogId);
-            var pts = ProductTypeFactory.GetProductTypes(handler: ApiMsgHandler,pageSize:null,sortBy:null,startIndex:null, filter: "Name eq Base");
+            var pts = ProductTypeFactory.GetProductTypes(handler: ApiMsgHandler, pageSize: null, sortBy: null, startIndex: null, filter: "Name eq Base");
 
             //create products using base producttype (10 for living room)
             var createdArtichokeLamp = ProductFactory.AddProduct(ApiMsgHandler, GenerateProduct("artichoke-dining-lamp", "Artichoke Lamp", 10260, 9999, 30, Convert.ToDecimal(15), "in", 10, 10, 10, "", pts.Items[0].Id));
@@ -2643,11 +3641,7 @@ namespace Mozu.Api.Test.Helpers
             { "nelson-coconut-chair", 90 }, { "ph-floor-lamp", 250 }, { "raleigh-sofa", 50 }, { "skagen-coffee-table", 200 }, { "bantam-sofa", 50 }, { "tripod-lamp", 200 }, { "cellula-dining-chandelier", 25 }, 
             { "cherner-dining-table", 200 }, { "lancaster-dining-table", 45 }, { "lancaster-dining-chair", 500 }, { "lancaster_barstool", 1000 }, { "eames-dining-chair", 900 }, { "fucsia-dining-lamp", 30 }, 
             { "profile-dining-chair", 900 }, { "bottega-dining-chair", 80 }, { "lc6-dining-table", 45 } };
-            foreach (var p in products)
-            {
-                //var stock = new StockOnHandAdjustment { Type = "Absolute", Value = p.Value };
-                //var updateProductStock = UpdateProductStock(handler, stock, p.Key);   TODO Esther
-            }
+
         }
 
 
@@ -2656,12 +3650,7 @@ namespace Mozu.Api.Test.Helpers
             Dictionary<string, int> products = new Dictionary<string, int>
                 { { "Cagny Sofa", 100 }, { "Walsh Sofa", 10 }, { "Amani Sofa", 50 }, { "Burton Sofa", 80 }, { "Cagny Wood Table" , 100 }, 
             { "Amani Plastic Table", 90 }, { "Flats", 65 }, { "Sandals", 80 }, { "HighHeels", 55 }, { "Cowboy Hat", 120 }, { "Baseball Hat", 85 }, { "Straw Hat", 75 }, { "Newsboy Hat", 110 } };
-            foreach (var p in products)
-            {
-               // var stock = new StockOnHandAdjustment { Type = "Absolute", Value = p.Value };
-               // var getProducts = GetProducts(handler, 0, 1, null, null, "Content.ProductName eq \"" + p.Key + "\"");
-                //var updateProductStock = UpdateProductStock(handler, stock, getProducts.Items[0].ProductCode);         TODO Esther
-            }
+
         }
 
 
@@ -2670,16 +3659,61 @@ namespace Mozu.Api.Test.Helpers
             var getProduct = ProductFactory.GetProduct(handler, productCode);
             getProduct.Price.Price = price;
             getProduct.Price.SalePrice = saleprice;
-            var updateProduct = ProductFactory.UpdateProduct(handler,product: getProduct, productCode: getProduct.ProductCode);
+            var updateProduct = ProductFactory.UpdateProduct(handler, product: getProduct, productCode: getProduct.ProductCode);
         }
 
-
-        public static void RestoreProductStock(ServiceClientMessageHandler handler, string productCode, int quantity)
-        {
-           // var stock = new StockOnHandAdjustment { Type = "Absolute", Value = quantity };
-            //var updateProductStock = UpdateProductStock(handler, stock, productCode);      TODO Esther
-        }
         #endregion
 
+    }
+    public class AuthorizeDotNetCreditCard
+    {
+        private string CardNumber { get; set; }
+        public string SavePart { get; private set; }
+        public string SendPart { get; private set; }
+
+        public AuthorizeDotNetCreditCard(string type = null)
+        {
+            CardNumber = AuthorizeNet_CreditCard(type);
+            SavePart = CardNumber.Remove(12) + "****";
+            SendPart = "************" + CardNumber.Remove(0, 12);
+        }
+
+
+        //used for testing authorize.net --> for error case, type = null
+        private static string AuthorizeNet_CreditCard(string type)
+        {
+            string cardId = null;
+            switch (type)
+            {
+                case "American Express":
+                    {
+                        cardId = "370000000000002";
+                        break;
+                    }
+                case "Visa":
+                    {
+                        //cardId = "4007000000027";
+                        cardId = "4111111111111111";
+                        break;
+                    }
+                case "MasterCard":
+                    {
+                        cardId = "5424000000000015";
+                        break;
+                    }
+                case "Discover":
+                    {
+                        cardId = "6011000000000012";
+                        break;
+                    }
+                default:
+                    {
+                        cardId = "4222222222222";
+                        //cardType = "Visa";
+                        break;
+                    }
+            }
+            return (cardId);
+        }
     }
 }

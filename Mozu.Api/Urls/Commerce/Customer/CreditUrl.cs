@@ -80,6 +80,21 @@ namespace Mozu.Api.Urls.Commerce.Customer
 			return mozuUrl;
 		}
 
+		/// <summary>
+        /// Get Resource Url for AssociateCreditToShopper
+        /// </summary>
+        /// <param name="code"></param>
+        /// <returns>
+        /// String - Resource Url
+        /// </returns>
+        public static MozuUrl AssociateCreditToShopperUrl(string code)
+		{
+			var url = "/api/commerce/customer/credits/{code}/associate-to-shopper";
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "code", code);
+			return mozuUrl;
+		}
+
 				/// <summary>
         /// Get Resource Url for DeleteCredit
         /// </summary>

@@ -19,11 +19,6 @@ namespace Mozu.Api.Contracts.CommerceRuntime.Payments
 		public class PaymentInteraction
 		{
 			///
-			///The status of this payment interaction. Possible values are New, Authorized, Captured, Declined, Failed, Voided, Credited, CheckRequested, or RolledBack.
-			///
-			public string Status { get; set; }
-
-			///
 			///If applicable, the total monetary amount associated with this payment interaction.
 			///
 			public decimal? Amount { get; set; }
@@ -117,6 +112,11 @@ namespace Mozu.Api.Contracts.CommerceRuntime.Payments
 			///Unique identifier of previous interaction that this payment interaction is modifying. For example, when refunding a payment, the crediting interaction would reference the capture interaction.
 			///
 			public int? PaymentTransactionInteractionIdReference { get; set; }
+
+			///
+			///The status of this payment interaction. Possible values are New, Authorized, Captured, Declined, Failed, Voided, Credited, CheckRequested, or RolledBack.
+			///
+			public string Status { get; set; }
 
 			///
 			///Identifier and datetime stamp information recorded when a user or application creates, updates, or deletes a resource entity. This value is system-supplied and read-only.

@@ -108,13 +108,6 @@ namespace Mozu.Api.Test.MsTestCases
                 Assert.IsNotNull(userInfo);
                 Assert.IsNotNull(userInfo.ActiveScope);
             }
-
-
-            var devAccountResource = new DeveloperAccountResource();
-            var auth = userInfo.AuthTicket;
-            var account = devAccountResource.GetDeveloperAccount(userInfo.ActiveScope.Id, auth);
-
-            Assert.IsNotNull(account);
         }
     }
 }

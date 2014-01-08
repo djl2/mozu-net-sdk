@@ -19,16 +19,6 @@ namespace Mozu.Api.Contracts.ProductRuntime
 		public class ProductContent
 		{
 			///
-			///Brief description of the product typically used when the product is displayed in a list or in search results.
-			///
-			public string ProductShortDescription { get; set; }
-
-			///
-			///Product URL defined for search engine optimization.
-			///
-			public string SeoFriendlyUrl { get; set; }
-
-			///
 			///Description defined for the metadata used to internally manage information about the product.
 			///
 			public string MetaTagDescription { get; set; }
@@ -52,6 +42,16 @@ namespace Mozu.Api.Contracts.ProductRuntime
 			///The descriptive brief product name.
 			///
 			public string ProductName { get; set; }
+
+			///
+			///Brief description of the product typically used when the product is displayed in a list or in search results.
+			///
+			public string ProductShortDescription { get; set; }
+
+			///
+			///Product URL defined for search engine optimization.
+			///
+			public string SeoFriendlyUrl { get; set; }
 
 			///
 			///List of image files associated with the product.

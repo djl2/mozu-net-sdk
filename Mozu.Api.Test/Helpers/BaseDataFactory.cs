@@ -17,57 +17,72 @@ namespace Mozu.Api.Test.Helpers
             public static string DevOwnerId = "";
             public static string DevOwnerEmail = "";
             public static string DevOwnerPassword = "";
+            public static bool IsIntialized = false;
         #endregion
 
         static BaseDataFactory() //constructor for every Factory
         {
-
-            Environment = Helpers.Environment.GetConfigEnvironment();
-            SetSdKparameters();
+            if (!IsIntialized)
+            {
+                Environment = Helpers.Environment.GetConfigEnvironment();
+                SetSdKparameters();
+            }
         }
 
         public static void SetSdKparameters()
         {
-            if (AppId.Length == 0) // hasn't been set yet.
+            if (!IsIntialized)
             {
-                AppId = Helpers.Environment.GetConfigValueByEnvironment(Environment, "AppId");
-            }
-            if (SharedSecret.Length == 0) // hasn't been set yet.
-            {
-                SharedSecret = Helpers.Environment.GetConfigValueByEnvironment(Environment,
-                                                                               "SharedSecret");
-            }
-            if (BaseAuthAppUrl.Length == 0) // hasn't been set yet.
-            {
-                BaseAuthAppUrl = Helpers.Environment.GetConfigValueByEnvironment(Environment,
-                                                                                 "BaseAuthAppUrl");
-            }
-            if (DevOwnerId.Length == 0) // hasn't been set yet.
-            {
-                DevOwnerId = Helpers.Environment.GetConfigValueByEnvironment(Environment,
-                                                                             "devOwnerId");
-            }
-            if (DevOwnerEmail.Length == 0) // hasn't been set yet.
-            {
-                DevOwnerEmail = Helpers.Environment.GetConfigValueByEnvironment(Environment,
-                                                                                "devOwnerEmail");
-            }
-            if (DevOwnerPassword.Length == 0) // hasn't been set yet.
-            {
-                DevOwnerPassword = Helpers.Environment.GetConfigValueByEnvironment(Environment,
-                                                                                   "devOwnerPassword");
-            }
-            if (SharedSecret.Length > 0 && BaseAuthAppUrl.Length > 0 && AppId.Length > 0)
-            {
-                AppAuthenticator.Initialize(
-                    appAuthInfo: new AppAuthInfo()
-                        {
-                            ApplicationId = AppId,
-                            SharedSecret = SharedSecret
-                        },
-                    baseAppAuthUrl: BaseAuthAppUrl);
-            }
+                //if (AppAuthenticator)
+                if (AppId.Length == 0) // hasn't been set yet.
+                {
+                    AppId = Helpers.Environment.GetConfigValueByEnvironment(Environment, "AppId");
+                }
+                if (SharedSecret.Length == 0) // hasn't been set yet.
+                {
+                    SharedSecret = Helpers.Environment.GetConfigValueByEnvironment(Environment,
+                                                                                   "SharedSecret");
+                }
+                if (BaseAuthAppUrl.Length == 0) // hasn't been set yet.
+                {
+                    BaseAuthAppUrl = Helpers.Environment.GetConfigValueByEnvironment(Environment,
+                                                                                     "BaseAuthAppUrl");
+                }
+                if (DevOwnerId.Length == 0) // hasn't been set yet.
+                {
+                    DevOwnerId = Helpers.Environment.GetConfigValueByEnvironment(Environment,
+                                                                                 "devOwnerId");
+                }
+                if (DevOwnerEmail.Length == 0) // hasn't been set yet.
+                {
+                    DevOwnerEmail = Helpers.Environment.GetConfigValueByEnvironment(Environment,
+                                                                                    "devOwnerEmail");
+                }
+                if (DevOwnerPassword.Length == 0) // hasn't been set yet.
+                {
+                    DevOwnerPassword = Helpers.Environment.GetConfigValueByEnvironment(Environment,
+                                                                                       "devOwnerPassword");
+                }
+                if (SharedSecret.Length > 0 && BaseAuthAppUrl.Length > 0 && AppId.Length > 0)
+                {
+                    try
+                    {
+                        AppAuthenticator.Initialize(
+                            appAuthInfo: new AppAuthInfo()
+                                {
+                                    ApplicationId = AppId,
+                                    SharedSecret = SharedSecret
+                                },
+                            baseAppAuthUrl: BaseAuthAppUrl);
+                        IsIntialized = true;
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new Exception("App Authentication did not work. " + ex.Message);
+                    }
 
+                }
+            }
 
 
         }

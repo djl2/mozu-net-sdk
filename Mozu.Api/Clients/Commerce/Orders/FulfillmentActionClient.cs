@@ -21,6 +21,50 @@ namespace Mozu.Api.Clients.Commerce.Orders
 	public partial class FulfillmentActionClient 	{
 		
 		/// <summary>
+		/// Retrieve a list of the fulfillment information for the specified order.
+		/// </summary>
+		/// <param name="orderId">Retrieves a list of the fulfillment information for the specified order.</param>
+		/// <returns>
+		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.CommerceRuntime.Fulfillment.FulfillmentInfo"/>}
+		/// </returns>
+		/// <example>
+		/// <code>
+		///   var mozuClient=GetFulfillmentInfo( orderId);
+		///   var fulfillmentInfoClient = mozuClient.WithBaseAddress(url).Execute().Result();
+		/// </code>
+		/// </example>
+		public static MozuClient<Mozu.Api.Contracts.CommerceRuntime.Fulfillment.FulfillmentInfo> GetFulfillmentInfoClient(string orderId)
+		{
+			return GetFulfillmentInfoClient( orderId,  null, null);
+		}
+
+		/// <summary>
+		/// Retrieve a list of the fulfillment information for the specified order.
+		/// </summary>
+		/// <param name="draft">If true, retrieve the draft version of the order's fulfillment information, which might include uncommitted changes.</param>
+		/// <param name="orderId">Retrieves a list of the fulfillment information for the specified order.</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
+		/// <returns>
+		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.CommerceRuntime.Fulfillment.FulfillmentInfo"/>}
+		/// </returns>
+		/// <example>
+		/// <code>
+		///   var mozuClient=GetFulfillmentInfo( orderId,  draft, authTicket);
+		///   var fulfillmentInfoClient = mozuClient.WithBaseAddress(url).Execute().Result();
+		/// </code>
+		/// </example>
+		public static MozuClient<Mozu.Api.Contracts.CommerceRuntime.Fulfillment.FulfillmentInfo> GetFulfillmentInfoClient(string orderId, bool? draft =  null, AuthTicket authTicket= null)
+		{
+			var url = Mozu.Api.Urls.Commerce.Orders.FulfillmentActionUrl.GetFulfillmentInfoUrl(draft, orderId);
+			const string verb = "GET";
+			var mozuClient = new MozuClient<Mozu.Api.Contracts.CommerceRuntime.Fulfillment.FulfillmentInfo>().WithVerb(verb).WithResourceUrl(url);
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
+
+		}
+
+		/// <summary>
 		/// Sets the fulfillment action to "Ship" or "PickUp". To ship an order or prepare it for in-store pickup, the order must have a customer name, the "Open" or "OpenAndProcessing" status. To ship the order, it must also have the full shipping address and shipping method. Shipping all packages or picking up all pickups for an order will complete a paid order.
 		/// </summary>
 		/// <param name="orderId">Unique identifier of the order for which to perform the fulfillment action.</param>
@@ -40,6 +84,53 @@ namespace Mozu.Api.Clients.Commerce.Orders
 			var url = Mozu.Api.Urls.Commerce.Orders.FulfillmentActionUrl.PerformFulfillmentActionUrl(orderId);
 			const string verb = "POST";
 			var mozuClient = new MozuClient<Mozu.Api.Contracts.CommerceRuntime.Orders.Order>().WithVerb(verb).WithResourceUrl(url).WithBody<Mozu.Api.Contracts.CommerceRuntime.Fulfillment.FulfillmentAction>(action);
+			if (authTicket != null)
+				mozuClient = mozuClient.WithUserAuth(authTicket);
+			return mozuClient;
+
+		}
+
+		/// <summary>
+		/// Updates one or more propertes of fulfillment information for the specified order.
+		/// </summary>
+		/// <param name="orderId">Unique identifier of the order associated with the fulfillment information to update.</param>
+		/// <param name="fulfillmentInfo">Array of shipping fulfillment information associated with an order.</param>
+		/// <returns>
+		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.CommerceRuntime.Fulfillment.FulfillmentInfo"/>}
+		/// </returns>
+		/// <example>
+		/// <code>
+		///   var mozuClient=SetFulFillmentInfo( fulfillmentInfo,  orderId);
+		///   var fulfillmentInfoClient = mozuClient.WithBaseAddress(url).Execute().Result();
+		/// </code>
+		/// </example>
+		public static MozuClient<Mozu.Api.Contracts.CommerceRuntime.Fulfillment.FulfillmentInfo> SetFulFillmentInfoClient(Mozu.Api.Contracts.CommerceRuntime.Fulfillment.FulfillmentInfo fulfillmentInfo, string orderId)
+		{
+			return SetFulFillmentInfoClient( fulfillmentInfo,  orderId,  null,  null, null);
+		}
+
+		/// <summary>
+		/// Updates one or more propertes of fulfillment information for the specified order.
+		/// </summary>
+		/// <param name="orderId">Unique identifier of the order associated with the fulfillment information to update.</param>
+		/// <param name="updateMode">Specifies whether to set the fulfillment information by updating the original order, updating the order in draft mode, or updating the order in draft mode and then commit the changes to the original. Draft mode enables users to make incremental order changes before committing the changes to the original order. Valid values are "ApplyToOriginal," "ApplyToDraft," or "ApplyAndCommit."</param>
+		/// <param name="version">System-supplied integer that represents the current version of the order, which prevents users from unintentionally overriding changes to the order. When a user performs an operation for a defined order, the system validates that the version of the updated order matches the version of the order on the server. After the operation completes successfully, the system increments the version number by one.</param>
+		/// <param name="authTicket">User Auth Ticket{<see cref="Mozu.Api.Security.AuthTicket"/>}. If User Token is expired, authTicket will have a new Token and expiration date.</param>
+		/// <param name="fulfillmentInfo">Array of shipping fulfillment information associated with an order.</param>
+		/// <returns>
+		///  <see cref="Mozu.Api.MozuClient" />{<see cref="Mozu.Api.Contracts.CommerceRuntime.Fulfillment.FulfillmentInfo"/>}
+		/// </returns>
+		/// <example>
+		/// <code>
+		///   var mozuClient=SetFulFillmentInfo( fulfillmentInfo,  orderId,  updateMode,  version, authTicket);
+		///   var fulfillmentInfoClient = mozuClient.WithBaseAddress(url).Execute().Result();
+		/// </code>
+		/// </example>
+		public static MozuClient<Mozu.Api.Contracts.CommerceRuntime.Fulfillment.FulfillmentInfo> SetFulFillmentInfoClient(Mozu.Api.Contracts.CommerceRuntime.Fulfillment.FulfillmentInfo fulfillmentInfo, string orderId, string updateMode =  null, string version =  null, AuthTicket authTicket= null)
+		{
+			var url = Mozu.Api.Urls.Commerce.Orders.FulfillmentActionUrl.SetFulFillmentInfoUrl(orderId, updateMode, version);
+			const string verb = "PUT";
+			var mozuClient = new MozuClient<Mozu.Api.Contracts.CommerceRuntime.Fulfillment.FulfillmentInfo>().WithVerb(verb).WithResourceUrl(url).WithBody<Mozu.Api.Contracts.CommerceRuntime.Fulfillment.FulfillmentInfo>(fulfillmentInfo);
 			if (authTicket != null)
 				mozuClient = mozuClient.WithUserAuth(authTicket);
 			return mozuClient;

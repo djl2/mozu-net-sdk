@@ -268,7 +268,7 @@ namespace Mozu.Api.Test.MsTestCases
         public void GetProductTest1()
         {
             var prods = ProductFactory.GetProducts(ApiMsgHandler);
-            var getCate = ProductFactory.GetProduct(handler: ApiMsgHandler,productCode: prods.Items.Last().ProductCode, expectedCode: (int)HttpStatusCode.OK, successCode: (int)HttpStatusCode.OK);
+            var getCate = ProductFactory.GetProduct(handler: ApiMsgHandler,productCode: prods.Items.Last().ProductCode, expectedCode: HttpStatusCode.OK, successCode: HttpStatusCode.OK);
             Assert.AreEqual(prods.Items.Last().ProductCode, getCate.ProductCode);
         }
 
@@ -279,7 +279,7 @@ namespace Mozu.Api.Test.MsTestCases
         [Description("not found")]
         public void GetProductTest2()
         {
-            ProductFactory.GetProduct(handler: ApiMsgHandler,productCode: Generator.RandomString(5, Generator.RandomCharacterGroup.AlphaOnly), expectedCode: (int)HttpStatusCode.NotFound);
+            ProductFactory.GetProduct(handler: ApiMsgHandler,productCode: Generator.RandomString(5, Generator.RandomCharacterGroup.AlphaOnly), expectedCode: HttpStatusCode.NotFound);
         }
 
         [TestMethod]
@@ -291,7 +291,7 @@ namespace Mozu.Api.Test.MsTestCases
         {
             var pts = ProductTypeFactory.GetProductTypes(handler: ApiMsgHandler, filter: null, pageSize: null,  startIndex: null, sortBy: "Id desc");
             var pro = Generator.GenerateProduct(pts.Items.First().Id.Value + 1);
-            ProductFactory.AddProduct(handler: ApiMsgHandler,product: pro, expectedCode: (int)HttpStatusCode.BadRequest);
+            ProductFactory.AddProduct(handler: ApiMsgHandler,product: pro, expectedCode: HttpStatusCode.BadRequest);
         }
 
         [TestMethod]
@@ -303,7 +303,7 @@ namespace Mozu.Api.Test.MsTestCases
         {
             var pts = ProductTypeFactory.GetProductTypes(handler: ApiMsgHandler, filter: null, pageSize: null, startIndex: null, sortBy: "Id desc");
             var pro = Generator.GenerateProduct(pts.Items.First().Id.Value + 1);
-            ProductFactory.AddProduct(handler: ApiMsgHandler,product: pro, expectedCode: (int)HttpStatusCode.BadRequest);
+            ProductFactory.AddProduct(handler: ApiMsgHandler,product: pro, expectedCode: HttpStatusCode.BadRequest);
         }
 
         [TestMethod]
@@ -322,7 +322,7 @@ namespace Mozu.Api.Test.MsTestCases
             var createdPT = ProductTypeFactory.AddProductType(handler: ApiMsgHandler,productType: myPT);
             productTypeId1.Add(createdPT.Id.Value);
             var myProduct = Generator.GenerateProduct(createdPT);
-            var createdProduct = ProductFactory.AddProduct(handler: ApiMsgHandler,product: myProduct, expectedCode: (int)HttpStatusCode.Created);
+            var createdProduct = ProductFactory.AddProduct(handler: ApiMsgHandler,product: myProduct, expectedCode: HttpStatusCode.Created);
             productCode1.Add(createdProduct.ProductCode);
             Assert.IsTrue(createdProduct.IsValidForProductType.Value);
         }
@@ -345,7 +345,7 @@ namespace Mozu.Api.Test.MsTestCases
             productTypeId1.Add(createdPT.Id.Value);
             var myProduct = Generator.GenerateProduct(createdPT);
             myProduct.Properties.Clear();
-            var createdProduct = ProductFactory.AddProduct(handler: ApiMsgHandler,product: myProduct, expectedCode: (int)HttpStatusCode.Created);
+            var createdProduct = ProductFactory.AddProduct(handler: ApiMsgHandler,product: myProduct, expectedCode: HttpStatusCode.Created);
             productCode1.Add(createdProduct.ProductCode);
             Assert.IsFalse(createdProduct.IsValidForProductType.Value);
         }
@@ -366,7 +366,7 @@ namespace Mozu.Api.Test.MsTestCases
             var createdPT = ProductTypeFactory.AddProductType(handler: ApiMsgHandler,productType: myPT);
             productTypeId1.Add(createdPT.Id.Value);
             var myProduct = Generator.GenerateProduct(createdPT);
-            var createdProduct = ProductFactory.AddProduct(handler: ApiMsgHandler,product: myProduct, expectedCode: (int)HttpStatusCode.Created);
+            var createdProduct = ProductFactory.AddProduct(handler: ApiMsgHandler,product: myProduct, expectedCode: HttpStatusCode.Created);
             productCode1.Add(createdProduct.ProductCode);
             Assert.IsFalse(createdProduct.HasConfigurableOptions);
         }
@@ -387,7 +387,7 @@ namespace Mozu.Api.Test.MsTestCases
             var createdPT = ProductTypeFactory.AddProductType(handler: ApiMsgHandler,productType: myPT);
             productTypeId1.Add(createdPT.Id.Value);
             var myProduct = Generator.GenerateProduct(createdPT);
-            var createdProduct = ProductFactory.AddProduct(handler: ApiMsgHandler,product: myProduct, expectedCode: (int)HttpStatusCode.Created);
+            var createdProduct = ProductFactory.AddProduct(handler: ApiMsgHandler,product: myProduct, expectedCode: HttpStatusCode.Created);
             productCode1.Add(createdProduct.ProductCode);
             Assert.IsTrue(createdProduct.HasConfigurableOptions);
             Assert.IsFalse(createdProduct.HasStandAloneOptions);
@@ -408,7 +408,7 @@ namespace Mozu.Api.Test.MsTestCases
             var createdPT = ProductTypeFactory.AddProductType(handler: ApiMsgHandler,productType: myPT);
             productTypeId1.Add(createdPT.Id.Value);
             var myProduct = Generator.GenerateProduct(createdPT);
-            var createdProduct = ProductFactory.AddProduct(handler: ApiMsgHandler,product: myProduct, expectedCode: (int)HttpStatusCode.Created);
+            var createdProduct = ProductFactory.AddProduct(handler: ApiMsgHandler,product: myProduct, expectedCode: HttpStatusCode.Created);
             productCode1.Add(createdProduct.ProductCode);
             Assert.IsTrue(createdProduct.HasStandAloneOptions);
         }
@@ -434,7 +434,7 @@ namespace Mozu.Api.Test.MsTestCases
             myProduct.Options.First().Values.First().Value = Generator.RandomString(5,
                                                                                     Generator.RandomCharacterGroup
                                                                                              .AlphaOnly);
-            ProductFactory.AddProduct(handler: ApiMsgHandler,product: myProduct, expectedCode: (int)HttpStatusCode.BadRequest);
+            ProductFactory.AddProduct(handler: ApiMsgHandler,product: myProduct, expectedCode: HttpStatusCode.BadRequest);
         }
 
         [TestMethod]
@@ -455,14 +455,14 @@ namespace Mozu.Api.Test.MsTestCases
             var myProduct = Generator.GenerateProduct(createdPT);
             myProduct.Extras.First().IsMultiSelect = true;
             myProduct.Extras.First().IsRequired = true;
-            var createdProduct = ProductFactory.AddProduct(handler: ApiMsgHandler, product: myProduct, expectedCode: (int)HttpStatusCode.Created);
+            var createdProduct = ProductFactory.AddProduct(handler: ApiMsgHandler, product: myProduct, expectedCode: HttpStatusCode.Created);
             productCode1.Add(createdProduct.ProductCode);
             Assert.IsTrue(createdProduct.Extras.First().IsMultiSelect.Value);
             Assert.IsTrue(createdProduct.Extras.First().IsRequired.Value);
             myProduct.ProductCode = Generator.RandomString(5, Generator.RandomCharacterGroup.AlphaOnly);
             myProduct.Extras.First().IsMultiSelect = false;
             myProduct.Extras.First().IsRequired = false;
-            createdProduct = ProductFactory.AddProduct(handler: ApiMsgHandler, product: myProduct, expectedCode: (int)HttpStatusCode.Created);
+            createdProduct = ProductFactory.AddProduct(handler: ApiMsgHandler, product: myProduct, expectedCode: HttpStatusCode.Created);
             productCode1.Add(createdProduct.ProductCode);
             Assert.IsFalse(createdProduct.Extras.First().IsMultiSelect.Value);
             Assert.IsFalse(createdProduct.Extras.First().IsRequired.Value);
@@ -486,7 +486,7 @@ namespace Mozu.Api.Test.MsTestCases
             var myProduct = Generator.GenerateProduct(createdPT);
             myProduct.ProductCode = Generator.RandomString(5, Generator.RandomCharacterGroup.AlphaOnly);
             myProduct.Upc = Generator.RandomUPC();
-            var createdProduct = ProductFactory.AddProduct(handler: ApiMsgHandler, product: myProduct, expectedCode: (int)HttpStatusCode.Created);  //bug 13127
+            var createdProduct = ProductFactory.AddProduct(handler: ApiMsgHandler, product: myProduct, expectedCode: HttpStatusCode.Created);  //bug 13127
             productCode1.Add(createdProduct.ProductCode);
             Assert.AreEqual(myProduct.ProductCode, createdProduct.ProductCode);
             Assert.AreEqual(myProduct.Upc, createdProduct.Upc);
@@ -516,7 +516,7 @@ namespace Mozu.Api.Test.MsTestCases
             myProduct.IsVariation = true;      //bug 11407
             myProduct.HasConfigurableOptions = true;
             myProduct.HasStandAloneOptions = true;
-            var createdProduct = ProductFactory.AddProduct(handler: ApiMsgHandler, product: myProduct, expectedCode: (int)HttpStatusCode.Created);
+            var createdProduct = ProductFactory.AddProduct(handler: ApiMsgHandler, product: myProduct, expectedCode: HttpStatusCode.Created);
             productCode1.Add(createdProduct.ProductCode);
             //            Assert.IsTrue(createdProduct.IsBackOrderAllowed.Value && createdProduct.IsHiddenWhenOutOfStock.Value &&
             //                createdProduct.IsRecurring.Value && createdProduct.IsTaxable.Value && createdProduct.ManageStock.Value);
@@ -546,7 +546,7 @@ namespace Mozu.Api.Test.MsTestCases
             myProduct.IsRecurring = false;
             myProduct.IsTaxable = false;
             //            myProduct.ManageStock = false;
-            var createdProduct = ProductFactory.AddProduct(handler: ApiMsgHandler, product: myProduct, expectedCode: (int)HttpStatusCode.Created);
+            var createdProduct = ProductFactory.AddProduct(handler: ApiMsgHandler, product: myProduct, expectedCode: HttpStatusCode.Created);
             productCode1.Add(createdProduct.ProductCode);
             //            Assert.IsFalse(createdProduct.IsBackOrderAllowed.Value || createdProduct.IsHiddenWhenOutOfStock.Value ||
             //                createdProduct.IsRecurring.Value || createdProduct.IsTaxable.Value || createdProduct.ManageStock.Value);
@@ -576,7 +576,7 @@ namespace Mozu.Api.Test.MsTestCases
                     Generator.GenerateProductInCatalogInfo(TestBaseTenant.MasterCatalogs.First().Catalogs.First().Id,
                                                            cates.Items.First().Id, null, false, false, false)
                 };
-            var createdProduct = ProductFactory.AddProduct(handler: ApiMsgHandler,product: myProduct, expectedCode: (int)HttpStatusCode.Created);
+            var createdProduct = ProductFactory.AddProduct(handler: ApiMsgHandler,product: myProduct, expectedCode: HttpStatusCode.Created);
             productCode1.Add(createdProduct.ProductCode);
             Assert.AreEqual(createdProduct.Content.ProductName, createdProduct.ProductInCatalogs.First().Content.ProductName);
             Assert.AreEqual(createdProduct.Price.Price, createdProduct.ProductInCatalogs.First().Price.Price);
@@ -614,7 +614,7 @@ namespace Mozu.Api.Test.MsTestCases
                     Generator.RandomString(6, Generator.RandomCharacterGroup.AlphaOnly), imageList);
 
 
-            var createdProduct = ProductFactory.AddProduct(handler: ApiMsgHandler, product: myProduct, expectedCode: (int)HttpStatusCode.Created);
+            var createdProduct = ProductFactory.AddProduct(handler: ApiMsgHandler, product: myProduct, expectedCode: HttpStatusCode.Created);
             productCode1.Add(createdProduct.ProductCode);
             Assert.AreEqual(myProduct.Content.ProductName, createdProduct.Content.ProductName);
             Assert.AreEqual(myProduct.Content.ProductFullDescription, createdProduct.Content.ProductFullDescription);
@@ -644,7 +644,7 @@ namespace Mozu.Api.Test.MsTestCases
             var myProduct = Generator.GenerateProduct(createdPT);
             myProduct.Price.Price = Generator.RandomDecimal(80, 100);
             myProduct.Price.SalePrice = Generator.RandomDecimal(60, 80);
-            var createdProduct = ProductFactory.AddProduct(handler: ApiMsgHandler, product: myProduct, expectedCode: (int)HttpStatusCode.Created);
+            var createdProduct = ProductFactory.AddProduct(handler: ApiMsgHandler, product: myProduct, expectedCode: HttpStatusCode.Created);
             productCode1.Add(createdProduct.ProductCode);
             Assert.AreEqual(myProduct.Price.Price, createdProduct.Price.Price);
             Assert.AreEqual(myProduct.Price.SalePrice, createdProduct.Price.SalePrice);
@@ -667,7 +667,7 @@ namespace Mozu.Api.Test.MsTestCases
             productTypeId1.Add(createdPT.Id.Value);
             var myProduct = Generator.GenerateProduct(createdPT);
             myProduct.SeoContent = Generator.GenerateProductLocalizedSEOContent();
-            var createdProduct = ProductFactory.AddProduct(handler: ApiMsgHandler,product: myProduct, expectedCode: (int)HttpStatusCode.Created);
+            var createdProduct = ProductFactory.AddProduct(handler: ApiMsgHandler,product: myProduct, expectedCode: HttpStatusCode.Created);
             productCode1.Add(createdProduct.ProductCode);
             Assert.AreEqual(myProduct.SeoContent.MetaTagDescription, createdProduct.SeoContent.MetaTagDescription);
             Assert.AreEqual(myProduct.SeoContent.MetaTagKeywords, createdProduct.SeoContent.MetaTagKeywords);
@@ -696,7 +696,7 @@ namespace Mozu.Api.Test.MsTestCases
             myProduct.PackageLength = Generator.GenerateMeasurement("in", Generator.RandomDecimal(10, 100));
             myProduct.PackageWidth = Generator.GenerateMeasurement("in", Generator.RandomDecimal(10, 100));
             myProduct.PackageWeight = Generator.GenerateMeasurement("lbs", Generator.RandomDecimal(10, 100));
-            var createdProduct = ProductFactory.AddProduct(handler: ApiMsgHandler,product: myProduct, expectedCode: (int)HttpStatusCode.Created);
+            var createdProduct = ProductFactory.AddProduct(handler: ApiMsgHandler,product: myProduct, expectedCode: HttpStatusCode.Created);
             productCode1.Add(createdProduct.ProductCode);
             Assert.AreEqual(myProduct.PackageHeight.Value, createdProduct.PackageHeight.Value);
             Assert.AreEqual(myProduct.PackageLength.Value, createdProduct.PackageLength.Value);
@@ -726,7 +726,7 @@ namespace Mozu.Api.Test.MsTestCases
             var myProduct = Generator.GenerateProduct(createdPT);
             myProduct.IsPackagedStandAlone = true;
             myProduct.StandAlonePackageType = Generator.GenerateStandAlonePackageTypeConst();
-            var createdProduct = ProductFactory.AddProduct(handler: ApiMsgHandler,product: myProduct, expectedCode: (int)HttpStatusCode.Created);
+            var createdProduct = ProductFactory.AddProduct(handler: ApiMsgHandler,product: myProduct, expectedCode: HttpStatusCode.Created);
             productCode1.Add(createdProduct.ProductCode);
             Assert.IsTrue(createdProduct.IsPackagedStandAlone.Value);
             Assert.AreEqual(myProduct.StandAlonePackageType, createdProduct.StandAlonePackageType);
@@ -749,7 +749,7 @@ namespace Mozu.Api.Test.MsTestCases
             productTypeId1.Add(createdPT.Id.Value);
             var myProduct = Generator.GenerateProduct(createdPT);
             myProduct.AuditInfo = Generator.GenerateAuditInfoRandom();
-            var createdProduct = ProductFactory.AddProduct(handler: ApiMsgHandler,product: myProduct, expectedCode: (int)HttpStatusCode.Created);
+            var createdProduct = ProductFactory.AddProduct(handler: ApiMsgHandler,product: myProduct, expectedCode: HttpStatusCode.Created);
             productCode1.Add(createdProduct.ProductCode);
             Assert.AreNotEqual(myProduct.AuditInfo.CreateBy, createdProduct.AuditInfo.CreateBy);
             Assert.AreNotEqual(((DateTime)myProduct.AuditInfo.CreateDate).Date, ((DateTime)createdProduct.AuditInfo.CreateDate).Date);
@@ -778,7 +778,7 @@ namespace Mozu.Api.Test.MsTestCases
                 Assert.Inconclusive("no categories at first site");
             myProduct.ProductInCatalogs = new List<ProductInCatalogInfo>();
             myProduct.ProductInCatalogs.Add(Generator.GenerateProductInCatalogInfo(TestBaseTenant.MasterCatalogs.First().Catalogs.First().Id, cates.Items.First().Id, null, true, true, true));
-            var createdProduct = ProductFactory.AddProduct(handler: ApiMsgHandler,product: myProduct, expectedCode: (int)HttpStatusCode.Created);
+            var createdProduct = ProductFactory.AddProduct(handler: ApiMsgHandler,product: myProduct, expectedCode: HttpStatusCode.Created);
             productCode1.Add(createdProduct.ProductCode);
             Assert.AreNotEqual(createdProduct.Content.ProductName, createdProduct.ProductInCatalogs.First().Content.ProductName);
             Assert.AreNotEqual(createdProduct.Price.Price, createdProduct.ProductInCatalogs.First().Price.Price);
@@ -810,7 +810,7 @@ namespace Mozu.Api.Test.MsTestCases
             createdProduct.MasterCatalogId = TestBaseTenant.MasterCatalogs.Last().Id;
             createdProduct.ProductSequence = originalProductSequence + 1;
             createdProduct.ProductCode = Generator.RandomString(7, Generator.RandomCharacterGroup.AlphaOnly);
-            var updateProd = ProductFactory.UpdateProduct(handler: ApiMsgHandler, product: createdProduct,productCode: originalProductCode, expectedCode: (int)HttpStatusCode.OK);
+            var updateProd = ProductFactory.UpdateProduct(handler: ApiMsgHandler, product: createdProduct,productCode: originalProductCode, expectedCode: HttpStatusCode.OK);
             Assert.AreEqual(originalSiteGroupId, updateProd.MasterCatalogId);
             Assert.AreEqual(originalProductSequence, updateProd.ProductSequence);
             Assert.AreEqual(originalProductCode, updateProd.ProductCode);
@@ -832,10 +832,10 @@ namespace Mozu.Api.Test.MsTestCases
             var createdProduct = ProductFactory.AddProduct(handler: ApiMsgHandler,product: myProduct);
             productCode1.Add(createdProduct.ProductCode);
             createdProduct.ProductInCatalogs.Clear();
-            var updateProd = ProductFactory.UpdateProduct(handler: ApiMsgHandler,product: createdProduct,productCode: createdProduct.ProductCode, expectedCode: (int)HttpStatusCode.OK);
+            var updateProd = ProductFactory.UpdateProduct(handler: ApiMsgHandler,product: createdProduct,productCode: createdProduct.ProductCode, expectedCode: HttpStatusCode.OK);
             var messageHandler1 = ServiceClientMessageFactory.GetTestClientMessage(TestBaseTenant.Id, TestBaseTenant.MasterCatalogs.First().Catalogs.First().Id, TestBaseTenant.MasterCatalogs.First().Id);
             ProductFactory.GetProductInCatalog(handler: messageHandler1, productCode: createdProduct.ProductCode, catalogId:
-                                            TestBaseTenant.MasterCatalogs.First().Catalogs.First().Id, expectedCode: (int)HttpStatusCode.NotFound);
+                                            TestBaseTenant.MasterCatalogs.First().Catalogs.First().Id, expectedCode: HttpStatusCode.NotFound);
         }
 
         [TestMethod]
@@ -861,7 +861,7 @@ namespace Mozu.Api.Test.MsTestCases
                 Assert.Inconclusive("no categories at first site");
             createdProduct.ProductInCatalogs = new List<ProductInCatalogInfo>();
             createdProduct.ProductInCatalogs.Add(Generator.GenerateProductInCatalogInfo(TestBaseTenant.MasterCatalogs.First().Catalogs.First().Id, cates.Items.First().Id));
-            var updateProd = ProductFactory.UpdateProduct(handler: ApiMsgHandler,product: createdProduct,productCode: createdProduct.ProductCode, expectedCode: (int)HttpStatusCode.OK);
+            var updateProd = ProductFactory.UpdateProduct(handler: ApiMsgHandler,product: createdProduct,productCode: createdProduct.ProductCode, expectedCode: HttpStatusCode.OK);
             Assert.AreEqual(1, updateProd.ProductInCatalogs.Count);
             Assert.AreEqual(TestBaseTenant.MasterCatalogs.First().Catalogs.First().Id, updateProd.ProductInCatalogs[0].CatalogId);
         }
@@ -889,7 +889,7 @@ namespace Mozu.Api.Test.MsTestCases
             createdProduct.Content =
                 Generator.GenerateProductLocalizedContent(
                     Generator.RandomString(6, Generator.RandomCharacterGroup.AlphaOnly), imageList);
-            var updateProd = ProductFactory.UpdateProduct(handler: ApiMsgHandler,product: createdProduct,productCode: createdProduct.ProductCode, expectedCode: (int)HttpStatusCode.OK);
+            var updateProd = ProductFactory.UpdateProduct(handler: ApiMsgHandler,product: createdProduct,productCode: createdProduct.ProductCode, expectedCode: HttpStatusCode.OK);
             Assert.AreEqual(updateProd.Content.ProductName, createdProduct.Content.ProductName);
             Assert.AreEqual(updateProd.Content.ProductFullDescription, createdProduct.Content.ProductFullDescription);
             Assert.AreEqual(updateProd.Content.ProductShortDescription, createdProduct.Content.ProductShortDescription);
@@ -920,7 +920,7 @@ namespace Mozu.Api.Test.MsTestCases
             productCode1.Add(createdProduct.ProductCode);
             createdProduct.Price.Price = Generator.RandomDecimal(80, 100);
             createdProduct.Price.SalePrice = Generator.RandomDecimal(60, 80);
-            var updateProd = ProductFactory.UpdateProduct(handler: ApiMsgHandler,product: createdProduct,productCode: createdProduct.ProductCode, expectedCode: (int)HttpStatusCode.OK);
+            var updateProd = ProductFactory.UpdateProduct(handler: ApiMsgHandler,product: createdProduct,productCode: createdProduct.ProductCode, expectedCode: HttpStatusCode.OK);
             Assert.AreEqual(updateProd.Price.Price, createdProduct.Price.Price);
             Assert.AreEqual(updateProd.Price.SalePrice, createdProduct.Price.SalePrice);
         }
@@ -944,7 +944,7 @@ namespace Mozu.Api.Test.MsTestCases
             var createdProduct = ProductFactory.AddProduct(handler: ApiMsgHandler,product: myProduct);
             productCode1.Add(createdProduct.ProductCode);
             createdProduct.SeoContent = Generator.GenerateProductLocalizedSEOContent();
-            var updateProd = ProductFactory.UpdateProduct(handler: ApiMsgHandler,product: createdProduct,productCode: createdProduct.ProductCode, expectedCode: (int)HttpStatusCode.OK);
+            var updateProd = ProductFactory.UpdateProduct(handler: ApiMsgHandler,product: createdProduct,productCode: createdProduct.ProductCode, expectedCode: HttpStatusCode.OK);
             Assert.AreEqual(createdProduct.SeoContent.MetaTagDescription, createdProduct.SeoContent.MetaTagDescription);
             Assert.AreEqual(createdProduct.SeoContent.MetaTagKeywords, createdProduct.SeoContent.MetaTagKeywords);
             Assert.AreEqual(createdProduct.SeoContent.MetaTagTitle, createdProduct.SeoContent.MetaTagTitle);
@@ -976,7 +976,7 @@ namespace Mozu.Api.Test.MsTestCases
             var createdProduct = ProductFactory.AddProduct(handler: ApiMsgHandler, product: myProduct);
             productCode1.Add(createdProduct.ProductCode);
             createdProduct.ProductTypeId = createdPT2.Id;
-            ProductFactory.UpdateProduct(handler: ApiMsgHandler,product: createdProduct,productCode: createdProduct.ProductCode, expectedCode: (int)HttpStatusCode.Conflict);
+            ProductFactory.UpdateProduct(handler: ApiMsgHandler,product: createdProduct,productCode: createdProduct.ProductCode, expectedCode: HttpStatusCode.Conflict);
         }
 
         [TestMethod]
@@ -1003,7 +1003,7 @@ namespace Mozu.Api.Test.MsTestCases
             createdProduct.HasConfigurableOptions = !original_HasConfigurableOptions;
             bool original_HasStandAloneOptions = createdProduct.HasStandAloneOptions;
             createdProduct.HasStandAloneOptions = !original_HasStandAloneOptions;
-            var updateProd = ProductFactory.UpdateProduct(handler: ApiMsgHandler,product: createdProduct,productCode: createdProduct.ProductCode, expectedCode: (int)HttpStatusCode.OK);
+            var updateProd = ProductFactory.UpdateProduct(handler: ApiMsgHandler,product: createdProduct,productCode: createdProduct.ProductCode, expectedCode: HttpStatusCode.OK);
             Assert.AreEqual(original_HasConfigurableOptions, updateProd.HasConfigurableOptions);
             Assert.AreEqual(original_HasStandAloneOptions, updateProd.HasStandAloneOptions);
             Assert.AreEqual(original_IsValidForProductType, updateProd.IsValidForProductType);
@@ -1037,7 +1037,7 @@ namespace Mozu.Api.Test.MsTestCases
                 createdProduct.Properties = new List<Mozu.Api.Contracts.ProductAdmin.ProductProperty>();
 
             createdProduct.Properties = Generator.GenerateProduct(createdPT).Properties;
-            var updateProd = ProductFactory.UpdateProduct(handler: ApiMsgHandler,product: createdProduct,productCode: createdProduct.ProductCode, expectedCode: (int)HttpStatusCode.OK);
+            var updateProd = ProductFactory.UpdateProduct(handler: ApiMsgHandler,product: createdProduct,productCode: createdProduct.ProductCode, expectedCode: HttpStatusCode.OK);
             Assert.IsTrue(updateProd.IsValidForProductType.Value);
         }
 
@@ -1067,7 +1067,7 @@ namespace Mozu.Api.Test.MsTestCases
             Assert.AreEqual(createdPT.Properties.Last().VocabularyValues.First().Value, createdProduct.Properties.First().Values.First().Value);
             createdProduct.Properties.First().Values.First().Value =
                 createdPT.Properties.Last().VocabularyValues.Last().Value;
-            var updateProd = ProductFactory.UpdateProduct(handler: ApiMsgHandler,product: createdProduct,productCode: createdProduct.ProductCode, expectedCode: (int)HttpStatusCode.OK);
+            var updateProd = ProductFactory.UpdateProduct(handler: ApiMsgHandler,product: createdProduct,productCode: createdProduct.ProductCode, expectedCode: HttpStatusCode.OK);
             Assert.AreEqual(createdPT.Properties.Last().VocabularyValues.Last().Value, createdProduct.Properties.First().Values.First().Value);
         }
 
@@ -1087,7 +1087,7 @@ namespace Mozu.Api.Test.MsTestCases
             createdProduct.IsRecurring = Generator.RandomBool();
             //            createdProduct.IsBackOrderAllowed = Generator.RandomBool();
             //            createdProduct.IsHiddenWhenOutOfStock = Generator.RandomBool();
-            var updateProd = ProductFactory.UpdateProduct(handler: ApiMsgHandler,product: createdProduct,productCode: createdProduct.ProductCode, expectedCode: (int)HttpStatusCode.OK);
+            var updateProd = ProductFactory.UpdateProduct(handler: ApiMsgHandler,product: createdProduct,productCode: createdProduct.ProductCode, expectedCode: HttpStatusCode.OK);
             Assert.AreEqual(updateProd.IsTaxable, createdProduct.IsTaxable);
             //            Assert.AreEqual(updateProd.ManageStock, productCode: createdProduct.ManageStock);
             Assert.AreEqual(updateProd.IsRecurring, createdProduct.IsRecurring);
@@ -1108,11 +1108,11 @@ namespace Mozu.Api.Test.MsTestCases
             //            var prods = ProductFactory.GetProducts(ApiMsgHandler);
             createdProduct.IsPackagedStandAlone = true;
             createdProduct.StandAlonePackageType = Generator.GenerateStandAlonePackageTypeConst();
-            var updateProd = ProductFactory.UpdateProduct(handler: ApiMsgHandler, product: createdProduct, productCode: createdProduct.ProductCode, expectedCode: (int)HttpStatusCode.OK);
+            var updateProd = ProductFactory.UpdateProduct(handler: ApiMsgHandler, product: createdProduct, productCode: createdProduct.ProductCode, expectedCode: HttpStatusCode.OK);
             Assert.IsTrue((bool)updateProd.IsPackagedStandAlone);
             Assert.AreEqual(createdProduct.StandAlonePackageType, updateProd.StandAlonePackageType);
             updateProd.IsPackagedStandAlone = false;
-            var updateProd1 = ProductFactory.UpdateProduct(handler: ApiMsgHandler,product: updateProd, productCode: createdProduct.ProductCode, expectedCode: (int)HttpStatusCode.OK);
+            var updateProd1 = ProductFactory.UpdateProduct(handler: ApiMsgHandler,product: updateProd, productCode: createdProduct.ProductCode, expectedCode: HttpStatusCode.OK);
             Assert.IsFalse((bool)updateProd.IsPackagedStandAlone);
         }
 
@@ -1134,7 +1134,7 @@ namespace Mozu.Api.Test.MsTestCases
             createdProduct.PackageWeight = Generator.GenerateMeasurement("lbs", Generator.RandomDecimal(10, 100));
             var updateProd = ProductFactory.UpdateProduct(handler: ApiMsgHandler, product: createdProduct, productCode:
                                                               createdProduct.ProductCode,
-                                                              expectedCode: (int)HttpStatusCode.OK);
+                                                              expectedCode: HttpStatusCode.OK);
             Assert.AreEqual(createdProduct.PackageWidth.Value, updateProd.PackageWidth.Value);
             Assert.AreEqual(createdProduct.PackageLength.Value, updateProd.PackageLength.Value);
             Assert.AreEqual(createdProduct.PackageHeight.Value, updateProd.PackageHeight.Value);
@@ -1154,7 +1154,7 @@ namespace Mozu.Api.Test.MsTestCases
             //            var prods = ProductFactory.GetProducts(ApiMsgHandler);
             createdProduct.AuditInfo = Generator.GenerateAuditInfoRandom();
             var updateProd = ProductFactory.UpdateProduct(handler: ApiMsgHandler, product: createdProduct, productCode:
-                                                           createdProduct.ProductCode, expectedCode: (int)HttpStatusCode.OK);
+                                                           createdProduct.ProductCode, expectedCode: HttpStatusCode.OK);
             Assert.AreNotEqual(createdProduct.AuditInfo.CreateBy, updateProd.AuditInfo.CreateBy);
             Assert.AreNotEqual(createdProduct.AuditInfo.CreateDate, updateProd.AuditInfo.CreateDate);
             Assert.AreNotEqual(createdProduct.AuditInfo.UpdateBy, updateProd.AuditInfo.UpdateBy);
@@ -1182,11 +1182,11 @@ namespace Mozu.Api.Test.MsTestCases
             var createdProduct = ProductFactory.AddProduct(handler: ApiMsgHandler, product: myProduct);
             productCode1.Add(createdProduct.ProductCode);
             createdProduct.ProductInCatalogs.First().CatalogId = TestBaseTenant.MasterCatalogs.First().Catalogs.Last().Id;
-            var updateProd = ProductFactory.UpdateProduct(handler: ApiMsgHandler, product: createdProduct, productCode: createdProduct.ProductCode, expectedCode: (int)HttpStatusCode.OK);
+            var updateProd = ProductFactory.UpdateProduct(handler: ApiMsgHandler, product: createdProduct, productCode: createdProduct.ProductCode, expectedCode: HttpStatusCode.OK);
             Assert.AreEqual(1, updateProd.ProductInCatalogs.Count);
             Assert.AreEqual(TestBaseTenant.MasterCatalogs.First().Catalogs.Last().Id, updateProd.ProductInCatalogs.First().CatalogId);
             ProductFactory.GetProductInCatalog(handler: ApiMsgHandler, productCode: createdProduct.ProductCode, catalogId: TestBaseTenant.MasterCatalogs.First().Catalogs.Last().Id);
-            ProductFactory.GetProductInCatalog(handler: ApiMsgHandler, productCode: createdProduct.ProductCode, catalogId: TestBaseTenant.MasterCatalogs.First().Catalogs.First().Id, expectedCode: (int)HttpStatusCode.NotFound);
+            ProductFactory.GetProductInCatalog(handler: ApiMsgHandler, productCode: createdProduct.ProductCode, catalogId: TestBaseTenant.MasterCatalogs.First().Catalogs.First().Id, expectedCode: HttpStatusCode.NotFound);
         }
 
         [TestMethod]
@@ -1214,7 +1214,7 @@ namespace Mozu.Api.Test.MsTestCases
             var createdProduct = ProductFactory.AddProduct(handler: ApiMsgHandler, product: myProduct);
             productCode1.Add(createdProduct.ProductCode);
             createdProduct.ProductInCatalogs.First().CatalogId = TestBaseTenant.MasterCatalogs.First().Catalogs.Last().Id;
-            ProductFactory.UpdateProduct(handler: ApiMsgHandler, product: createdProduct, productCode: createdProduct.ProductCode, expectedCode: (int)HttpStatusCode.BadRequest);
+            ProductFactory.UpdateProduct(handler: ApiMsgHandler, product: createdProduct, productCode: createdProduct.ProductCode, expectedCode: HttpStatusCode.BadRequest);
         }
 
         [TestMethod]
@@ -1227,9 +1227,9 @@ namespace Mozu.Api.Test.MsTestCases
             var myProduct = Generator.GenerateProduct();
             var createdProduct = ProductFactory.AddProduct(handler: ApiMsgHandler, product: myProduct);
             productCode1.Add(createdProduct.ProductCode);
-            ProductFactory.DeleteProduct(handler: ApiMsgHandler, productCode: createdProduct.ProductCode, expectedCode: (int)HttpStatusCode.NoContent);
+            ProductFactory.DeleteProduct(handler: ApiMsgHandler, productCode: createdProduct.ProductCode, expectedCode: HttpStatusCode.NoContent);
             ProductFactory.GetProduct(handler: ApiMsgHandler, productCode: createdProduct.ProductCode,
-                                      expectedCode: (int)HttpStatusCode.NotFound);
+                                      expectedCode: HttpStatusCode.NotFound);
         }
 
         [TestMethod]
@@ -1256,9 +1256,9 @@ namespace Mozu.Api.Test.MsTestCases
                 };
             var createdProduct = ProductFactory.AddProduct(handler: ApiMsgHandler, product: myProduct);
             productCode1.Add(createdProduct.ProductCode);
-            ProductFactory.DeleteProduct(handler: ApiMsgHandler, productCode: createdProduct.ProductCode, expectedCode: (int)HttpStatusCode.NoContent);
+            ProductFactory.DeleteProduct(handler: ApiMsgHandler, productCode: createdProduct.ProductCode, expectedCode: HttpStatusCode.NoContent);
             ProductFactory.GetProduct(handler: ApiMsgHandler, productCode: createdProduct.ProductCode,
-                                      expectedCode: (int)HttpStatusCode.NotFound);
+                                      expectedCode: HttpStatusCode.NotFound);
         }
 
         [TestMethod]
@@ -1272,7 +1272,7 @@ namespace Mozu.Api.Test.MsTestCases
             var createdProduct = ProductFactory.AddProduct(handler: ApiMsgHandler, product: myProduct);
             productCode1.Add(createdProduct.ProductCode);
             var count = ProductFactory.GetProducts(ApiMsgHandler).TotalCount;
-            ProductFactory.DeleteProduct(handler: ApiMsgHandler, productCode: createdProduct.ProductCode, expectedCode: (int)HttpStatusCode.NoContent);
+            ProductFactory.DeleteProduct(handler: ApiMsgHandler, productCode: createdProduct.ProductCode, expectedCode: HttpStatusCode.NoContent);
             var newCount = ProductFactory.GetProducts(ApiMsgHandler).TotalCount;
             Assert.AreEqual(count - 1, newCount);
             var newProduct = ProductFactory.AddProduct(handler: ApiMsgHandler, product: createdProduct);
@@ -1311,7 +1311,7 @@ namespace Mozu.Api.Test.MsTestCases
             productCode1.Add(createdProduct.ProductCode);
             ProductFactory.AddProductInCatalog(messageHandler, productInCatalogInfoIn:
                                             Generator.GenerateProductInCatalogInfo(
-                                                TestBaseTenant.MasterCatalogs.First().Catalogs.First().Id, cates.Items.First().Id), productCode: createdProduct.ProductCode, expectedCode: (int)HttpStatusCode.Conflict);
+                                                TestBaseTenant.MasterCatalogs.First().Catalogs.First().Id, cates.Items.First().Id), productCode: createdProduct.ProductCode, expectedCode: HttpStatusCode.Conflict);
         }
 
         [TestMethod]
@@ -1335,7 +1335,7 @@ namespace Mozu.Api.Test.MsTestCases
             var cates = CategoryFactory.GetCategories(ApiMsgHandler);
             ProductFactory.AddProductInCatalog(ApiMsgHandler, productInCatalogInfoIn:
                                             Generator.GenerateProductInCatalogInfo(
-                                                TestBaseTenant.MasterCatalogs.First().Catalogs.First().Id, cates.Items.First().Id, null, false, false, false), productCode: createdProduct.ProductCode, expectedCode: (int)HttpStatusCode.Created);
+                                                TestBaseTenant.MasterCatalogs.First().Catalogs.First().Id, cates.Items.First().Id, null, false, false, false), productCode: createdProduct.ProductCode, expectedCode: HttpStatusCode.Created);
             var getProduct = ProductFactory.GetProduct(handler: ApiMsgHandler, productCode: createdProduct.ProductCode);
             Assert.AreEqual(getProduct.Content.ProductName, getProduct.ProductInCatalogs.First().Content.ProductName);
             Assert.AreEqual(getProduct.Content.ProductFullDescription, getProduct.ProductInCatalogs.First().Content.ProductFullDescription);
@@ -1373,7 +1373,7 @@ namespace Mozu.Api.Test.MsTestCases
             var cates = CategoryFactory.GetCategories(ApiMsgHandler);
             ProductFactory.AddProductInCatalog(ApiMsgHandler, productInCatalogInfoIn:
                                             Generator.GenerateProductInCatalogInfo(
-                                                TestBaseTenant.MasterCatalogs.First().Catalogs.First().Id, cates.Items.First().Id, null, true, true, true), productCode: createdProduct.ProductCode, expectedCode: (int)HttpStatusCode.Created);
+                                                TestBaseTenant.MasterCatalogs.First().Catalogs.First().Id, cates.Items.First().Id, null, true, true, true), productCode: createdProduct.ProductCode, expectedCode: HttpStatusCode.Created);
             var getProduct = ProductFactory.GetProduct(handler: ApiMsgHandler, productCode: createdProduct.ProductCode);
             Assert.AreNotEqual(getProduct.Content.ProductName, getProduct.ProductInCatalogs.First().Content.ProductName);
             Assert.AreNotEqual(getProduct.Content.ProductFullDescription, getProduct.ProductInCatalogs.First().Content.ProductFullDescription);
@@ -1421,7 +1421,7 @@ namespace Mozu.Api.Test.MsTestCases
                                             TestBaseTenant.MasterCatalogs.First().Catalogs.First().Id, pcs,
                                             Generator.RandomString(5, Generator.RandomCharacterGroup.AlphaOnly),
                                             Generator.RandomDecimal(10, 100), null, null, null, null), 
-                                            productCode: createdProduct.ProductCode, expectedCode: (int)HttpStatusCode.Created);
+                                            productCode: createdProduct.ProductCode, expectedCode: HttpStatusCode.Created);
             var getProduct = ProductFactory.GetProduct(handler: ApiMsgHandler, productCode: createdProduct.ProductCode);
             Assert.AreEqual(2, getProduct.ProductInCatalogs.First().ProductCategories.Count());
             Assert.AreEqual(cates.Items.First().Id, getProduct.ProductInCatalogs.First().ProductCategories.First().CategoryId);
@@ -1451,7 +1451,7 @@ namespace Mozu.Api.Test.MsTestCases
                 TestBaseTenant.MasterCatalogs.First().Catalogs.First().Id, cates.Items.First().Id, true);
             ProductFactory.AddProductInCatalog(handler: ApiMsgHandler,productInCatalogInfoIn: info, productCode: createdProduct.ProductCode);
             var getInfo = ProductFactory.GetProductInCatalog(handler: ApiMsgHandler, productCode: createdProduct.ProductCode, catalogId:
-                                                                      TestBaseTenant.MasterCatalogs.First().Catalogs.First().Id, expectedCode: (int)HttpStatusCode.OK);
+                                                                      TestBaseTenant.MasterCatalogs.First().Catalogs.First().Id, expectedCode: HttpStatusCode.OK);
             Assert.AreEqual(info.IsActive, getInfo.IsActive);
             Assert.AreEqual(info.Price.Price, getInfo.Price.Price);
             Assert.AreEqual(info.ProductCategories.First().CategoryId, getInfo.ProductCategories.First().CategoryId);
@@ -1465,7 +1465,7 @@ namespace Mozu.Api.Test.MsTestCases
         public void GetProductInCatalogTest2()
         {
             var getInfo = ProductFactory.GetProductInCatalog(handler: ApiMsgHandler,productCode: Generator.RandomString(5, Generator.RandomCharacterGroup.AlphaOnly), catalogId:
-                                                                      TestBaseTenant.MasterCatalogs.First().Catalogs.First().Id, expectedCode: (int)HttpStatusCode.NotFound);
+                                                                      TestBaseTenant.MasterCatalogs.First().Catalogs.First().Id, expectedCode: HttpStatusCode.NotFound);
         }
 
         [TestMethod]
@@ -1493,7 +1493,7 @@ namespace Mozu.Api.Test.MsTestCases
             if (TestBaseTenant.MasterCatalogs.First().Catalogs.Count < 2)
                 Assert.Inconclusive("Less than two sites in first site group.");
             var getInfo = ProductFactory.GetProductInCatalog(handler: ApiMsgHandler, productCode: createdProduct.ProductCode, catalogId:
-                                                                      TestBaseTenant.MasterCatalogs.First().Catalogs.Last().Id, expectedCode: (int)HttpStatusCode.NotFound);
+                                                                      TestBaseTenant.MasterCatalogs.First().Catalogs.Last().Id, expectedCode: HttpStatusCode.NotFound);
         }
 
         [TestMethod]
@@ -1503,7 +1503,7 @@ namespace Mozu.Api.Test.MsTestCases
         [Description("not found product code")]
         public void GetProductInCatalogsTest1()
         {
-            ProductFactory.GetProductInCatalogs(handler: ApiMsgHandler,productCode: Generator.RandomString(5, Generator.RandomCharacterGroup.AlphaOnly), expectedCode: (int)HttpStatusCode.NotFound);
+            ProductFactory.GetProductInCatalogs(handler: ApiMsgHandler,productCode: Generator.RandomString(5, Generator.RandomCharacterGroup.AlphaOnly), expectedCode: HttpStatusCode.NotFound);
         }
 
 
@@ -1528,7 +1528,7 @@ namespace Mozu.Api.Test.MsTestCases
             var cates = CategoryFactory.GetCategories(ApiMsgHandler);
             ProductFactory.AddProductInCatalog(handler: ApiMsgHandler,productInCatalogInfoIn: Generator.GenerateProductInCatalogInfo(
                                                 TestBaseTenant.MasterCatalogs.First().Catalogs.First().Id, cates.Items.First().Id), productCode: createdProduct.ProductCode);
-            var getInfo = ProductFactory.GetProductInCatalogs(handler: ApiMsgHandler, productCode: createdProduct.ProductCode, expectedCode: (int)HttpStatusCode.OK);
+            var getInfo = ProductFactory.GetProductInCatalogs(handler: ApiMsgHandler, productCode: createdProduct.ProductCode, expectedCode: HttpStatusCode.OK);
             Assert.AreEqual(1, getInfo.Count);
             Assert.AreEqual(TestBaseTenant.MasterCatalogs.First().Catalogs.First().Id, getInfo.First().CatalogId);
         }
@@ -1555,7 +1555,7 @@ namespace Mozu.Api.Test.MsTestCases
                                                 TestBaseTenant.MasterCatalogs.First().Catalogs.First().Id, null, true, true, true, true), productCode: createdProduct.ProductCode);
             ProductFactory.AddProductInCatalog(handler: ApiMsgHandler,productInCatalogInfoIn: Generator.GenerateProductInCatalogInfo(
                                                  TestBaseTenant.MasterCatalogs.First().Catalogs.Last().Id, null, false, false, false, false), productCode: createdProduct.ProductCode);
-            var getInfo = ProductFactory.GetProductInCatalogs(handler: ApiMsgHandler, productCode: createdProduct.ProductCode, expectedCode: (int)HttpStatusCode.OK);
+            var getInfo = ProductFactory.GetProductInCatalogs(handler: ApiMsgHandler, productCode: createdProduct.ProductCode, expectedCode: HttpStatusCode.OK);
             Assert.AreEqual(2, getInfo.Count);
             Assert.AreNotEqual(getInfo.First().CatalogId, getInfo.Last().CatalogId);
             Assert.AreNotEqual(getInfo.First().Price.Price, getInfo.Last().Price.Price);
@@ -1586,7 +1586,7 @@ namespace Mozu.Api.Test.MsTestCases
                                                 TestBaseTenant.MasterCatalogs.First().Catalogs.First().Id, null, true, true, true, true), productCode: createdProduct.ProductCode);
             info.AuditInfo = Generator.GenerateAuditInfoRandom();
             var updateInfo = ProductFactory.UpdateProductInCatalog(handler: ApiMsgHandler,productInCatalogInfoIn: info, productCode:
-                                                                              createdProduct.ProductCode, catalogId: TestBaseTenant.MasterCatalogs.First().Catalogs.First().Id, expectedCode: (int)HttpStatusCode.OK);
+                                                                              createdProduct.ProductCode, catalogId: TestBaseTenant.MasterCatalogs.First().Catalogs.First().Id, expectedCode: HttpStatusCode.OK);
             Assert.AreNotEqual(info.AuditInfo.CreateBy, updateInfo.AuditInfo.CreateBy);
             Assert.AreNotEqual(((DateTime)info.AuditInfo.CreateDate).Date, ((DateTime)updateInfo.AuditInfo.CreateDate).Date);
             Assert.AreNotEqual(info.AuditInfo.UpdateBy, updateInfo.AuditInfo.UpdateBy);
@@ -1612,7 +1612,7 @@ namespace Mozu.Api.Test.MsTestCases
             info.IsContentOverridden = true;
             var updateInfo = ProductFactory.UpdateProductInCatalog(handler: ApiMsgHandler, productInCatalogInfoIn: info, productCode:
                                                                               createdProduct.ProductCode, catalogId:
-                                                                              TestBaseTenant.MasterCatalogs.First().Catalogs.First().Id, expectedCode: (int)HttpStatusCode.OK);
+                                                                              TestBaseTenant.MasterCatalogs.First().Catalogs.First().Id, expectedCode: HttpStatusCode.OK);
             Assert.AreEqual(updateInfo.Content.ProductName, info.Content.ProductName);
             Assert.AreEqual(updateInfo.Content.ProductFullDescription, info.Content.ProductFullDescription);
             Assert.AreEqual(updateInfo.Content.ProductShortDescription, info.Content.ProductShortDescription);
@@ -1636,7 +1636,7 @@ namespace Mozu.Api.Test.MsTestCases
                                                                                             .AlphaOnly));
             info.IsContentOverridden = false;
             var updateInfo = ProductFactory.UpdateProductInCatalog(handler: ApiMsgHandler, productInCatalogInfoIn: info, productCode: createdProduct.ProductCode, 
-                catalogId:TestBaseTenant.MasterCatalogs.First().Catalogs.First().Id, expectedCode: (int)HttpStatusCode.OK);
+                catalogId:TestBaseTenant.MasterCatalogs.First().Catalogs.First().Id, expectedCode: HttpStatusCode.OK);
             Assert.AreEqual(updateInfo.Content.ProductName, createdProduct.Content.ProductName);
             Assert.AreEqual(updateInfo.Content.ProductFullDescription, createdProduct.Content.ProductFullDescription);
             Assert.AreEqual(updateInfo.Content.ProductShortDescription, createdProduct.Content.ProductShortDescription);
@@ -1658,7 +1658,7 @@ namespace Mozu.Api.Test.MsTestCases
             info.Price.SalePrice = Generator.RandomDecimal(30, 50);
             info.IsPriceOverridden = true;
             var updateInfo = ProductFactory.UpdateProductInCatalog(handler: ApiMsgHandler,productInCatalogInfoIn: info, productCode:createdProduct.ProductCode,
-                  catalogId:  TestBaseTenant.MasterCatalogs.First().Catalogs.First().Id, expectedCode: (int)HttpStatusCode.OK);
+                  catalogId:  TestBaseTenant.MasterCatalogs.First().Catalogs.First().Id, expectedCode: HttpStatusCode.OK);
             Assert.AreEqual(updateInfo.Price.Price, info.Price.Price);
             Assert.AreEqual(updateInfo.Price.SalePrice, info.Price.SalePrice);
         }
@@ -1679,7 +1679,7 @@ namespace Mozu.Api.Test.MsTestCases
             info.Price.SalePrice = Generator.RandomDecimal(30, 50);
             info.IsPriceOverridden = false;
             var updateInfo = ProductFactory.UpdateProductInCatalog(handler: ApiMsgHandler,productInCatalogInfoIn: info, productCode: createdProduct.ProductCode,
-                                                                          catalogId:    TestBaseTenant.MasterCatalogs.First().Catalogs.First().Id, expectedCode: (int)HttpStatusCode.OK);
+                                                                          catalogId:    TestBaseTenant.MasterCatalogs.First().Catalogs.First().Id, expectedCode: HttpStatusCode.OK);
             Assert.AreEqual(updateInfo.Price.Price, createdProduct.Price.Price);
             Assert.AreEqual(updateInfo.Price.SalePrice, createdProduct.Price.SalePrice);
         }
@@ -1699,7 +1699,7 @@ namespace Mozu.Api.Test.MsTestCases
             info.SeoContent = Generator.GenerateProductLocalizedSEOContent();
             info.IsseoContentOverridden = true;
             var updateInfo = ProductFactory.UpdateProductInCatalog(handler: ApiMsgHandler,productInCatalogInfoIn: info, productCode:createdProduct.ProductCode,
-                                                                     catalogId: TestBaseTenant.MasterCatalogs.First().Catalogs.First().Id, expectedCode: (int)HttpStatusCode.OK);
+                                                                     catalogId: TestBaseTenant.MasterCatalogs.First().Catalogs.First().Id, expectedCode: HttpStatusCode.OK);
             Assert.AreEqual(updateInfo.SeoContent.MetaTagDescription, info.SeoContent.MetaTagDescription);
             Assert.AreEqual(updateInfo.SeoContent.MetaTagKeywords, info.SeoContent.MetaTagKeywords);
             Assert.AreEqual(updateInfo.SeoContent.MetaTagTitle, info.SeoContent.MetaTagTitle);
@@ -1722,7 +1722,7 @@ namespace Mozu.Api.Test.MsTestCases
             info.SeoContent = Generator.GenerateProductLocalizedSEOContent();
             info.IsseoContentOverridden = false;
             var updateInfo = ProductFactory.UpdateProductInCatalog(handler: ApiMsgHandler,productInCatalogInfoIn: info, productCode: createdProduct.ProductCode,
-                                                             catalogId: TestBaseTenant.MasterCatalogs.First().Catalogs.First().Id, expectedCode: (int)HttpStatusCode.OK);
+                                                             catalogId: TestBaseTenant.MasterCatalogs.First().Catalogs.First().Id, expectedCode: HttpStatusCode.OK);
             Assert.AreEqual(updateInfo.SeoContent.MetaTagDescription, createdProduct.SeoContent.MetaTagDescription);
             Assert.AreEqual(updateInfo.SeoContent.MetaTagKeywords, createdProduct.SeoContent.MetaTagKeywords);
             Assert.AreEqual(updateInfo.SeoContent.MetaTagTitle, createdProduct.SeoContent.MetaTagTitle);
@@ -1744,7 +1744,7 @@ namespace Mozu.Api.Test.MsTestCases
                                                 TestBaseTenant.MasterCatalogs.First().Catalogs.First().Id, null, null, null, null, null), productCode: createdProduct.ProductCode);
             info.IsActive = Generator.RandomBool();
             var updateInfo = ProductFactory.UpdateProductInCatalog(handler: ApiMsgHandler, productInCatalogInfoIn: info, productCode: createdProduct.ProductCode,
-                             catalogId: TestBaseTenant.MasterCatalogs.First().Catalogs.First().Id, expectedCode: (int)HttpStatusCode.OK);
+                             catalogId: TestBaseTenant.MasterCatalogs.First().Catalogs.First().Id, expectedCode: HttpStatusCode.OK);
             Assert.AreEqual(updateInfo.IsActive, info.IsActive);
         }
 
@@ -1768,7 +1768,7 @@ namespace Mozu.Api.Test.MsTestCases
             info.ProductCategories[0] = Generator.GenerateProductCategory((int)cates.Items.First().Id);
             info.ProductCategories[1] = Generator.GenerateProductCategory((int)cates.Items.Last().Id);
             var updateInfo = ProductFactory.UpdateProductInCatalog(handler: ApiMsgHandler,productInCatalogInfoIn: info,productCode: createdProduct.ProductCode,
-                                                    catalogId: TestBaseTenant.MasterCatalogs.First().Catalogs.First().Id, expectedCode: (int)HttpStatusCode.OK);
+                                                    catalogId: TestBaseTenant.MasterCatalogs.First().Catalogs.First().Id, expectedCode: HttpStatusCode.OK);
             Assert.AreEqual(2, updateInfo.ProductCategories.Count());
             Assert.AreEqual(cates.Items.First().Id, updateInfo.ProductCategories.First().CategoryId);
             Assert.AreEqual(cates.Items.Last().Id, updateInfo.ProductCategories.Last().CategoryId);
@@ -1789,7 +1789,7 @@ namespace Mozu.Api.Test.MsTestCases
                                                 TestBaseTenant.MasterCatalogs.First().Catalogs.First().Id, cates.Items.First().Id, null, null, null, null), productCode: createdProduct.ProductCode);
             info.ProductCategories[0] = Generator.GenerateProductCategory((int)cates.Items.Last().Id);
             var updateInfo = ProductFactory.UpdateProductInCatalog(handler: ApiMsgHandler,productInCatalogInfoIn: info, productCode: createdProduct.ProductCode,
-                                         catalogId: TestBaseTenant.MasterCatalogs.First().Catalogs.First().Id, expectedCode: (int)HttpStatusCode.OK);
+                                         catalogId: TestBaseTenant.MasterCatalogs.First().Catalogs.First().Id, expectedCode: HttpStatusCode.OK);
             Assert.AreEqual(1, updateInfo.ProductCategories.Count());
             Assert.AreEqual(cates.Items.Last().Id, updateInfo.ProductCategories.Last().CategoryId);
         }
@@ -1808,7 +1808,7 @@ namespace Mozu.Api.Test.MsTestCases
                                                 TestBaseTenant.MasterCatalogs.First().Catalogs.First().Id, null, null, null, null, null), productCode: createdProduct.ProductCode);
             info.CatalogId = TestBaseTenant.MasterCatalogs.First().Catalogs.Last().Id;
             var updateInfo = ProductFactory.UpdateProductInCatalog(handler: ApiMsgHandler,productInCatalogInfoIn: info, productCode:createdProduct.ProductCode,
-                                                                  catalogId: TestBaseTenant.MasterCatalogs.First().Catalogs.First().Id, expectedCode: (int)HttpStatusCode.OK);
+                                                                  catalogId: TestBaseTenant.MasterCatalogs.First().Catalogs.First().Id, expectedCode: HttpStatusCode.OK);
             Assert.AreEqual(TestBaseTenant.MasterCatalogs.First().Catalogs.First().Id, updateInfo.CatalogId);
         }
 
@@ -1832,7 +1832,7 @@ namespace Mozu.Api.Test.MsTestCases
                                                 TestBaseTenant.MasterCatalogs.First().Catalogs.Last().Id, null, null, null, null, null), productCode: createdProduct.ProductCode);
             var infos = new List<ProductInCatalogInfo>();
             infos.Add(info1);
-            var getInfos = ProductFactory.UpdateProductInCatalogs(handler: ApiMsgHandler,productInCatalogsIn: infos, productCode: createdProduct.ProductCode, expectedCode: (int)HttpStatusCode.OK);
+            var getInfos = ProductFactory.UpdateProductInCatalogs(handler: ApiMsgHandler,productInCatalogsIn: infos, productCode: createdProduct.ProductCode, expectedCode: HttpStatusCode.OK);
             Assert.AreEqual(1, getInfos.Count);
             var getProduct = ProductFactory.GetProduct(handler: ApiMsgHandler, productCode: createdProduct.ProductCode);
             Assert.AreEqual(1, getProduct.ProductInCatalogs.Count);
@@ -1859,7 +1859,7 @@ namespace Mozu.Api.Test.MsTestCases
             var infos = new List<ProductInCatalogInfo>();
             infos.Add(info1);
             infos.Add(info2);
-            var getInfos = ProductFactory.UpdateProductInCatalogs(handler: ApiMsgHandler,productInCatalogsIn: infos, productCode: createdProduct.ProductCode, expectedCode: (int)HttpStatusCode.OK);
+            var getInfos = ProductFactory.UpdateProductInCatalogs(handler: ApiMsgHandler,productInCatalogsIn: infos, productCode: createdProduct.ProductCode, expectedCode: HttpStatusCode.OK);
             Assert.AreEqual(2, getInfos.Count);
             var getProduct = ProductFactory.GetProduct(handler: ApiMsgHandler, productCode: createdProduct.ProductCode);
             Assert.AreEqual(2, getProduct.ProductInCatalogs.Count);
@@ -1883,7 +1883,7 @@ namespace Mozu.Api.Test.MsTestCases
             productCode1.Add(createdProduct.ProductCode);
             ProductFactory.AddProductInCatalog(handler: ApiMsgHandler, productInCatalogInfoIn: Generator.GenerateProductInCatalogInfo(
                                                 TestBaseTenant.MasterCatalogs.First().Catalogs.First().Id, null, null, null, null, null), productCode: createdProduct.ProductCode);
-            ProductFactory.DeleteProductInCatalog(handler: ApiMsgHandler, productCode: createdProduct.ProductCode, catalogId: TestBaseTenant.MasterCatalogs.First().Catalogs.Last().Id, expectedCode: (int)HttpStatusCode.NotFound);
+            ProductFactory.DeleteProductInCatalog(handler: ApiMsgHandler, productCode: createdProduct.ProductCode, catalogId: TestBaseTenant.MasterCatalogs.First().Catalogs.Last().Id, expectedCode: HttpStatusCode.NotFound);
         }
 
         [TestMethod]
@@ -1904,11 +1904,11 @@ namespace Mozu.Api.Test.MsTestCases
                                                 TestBaseTenant.MasterCatalogs.First().Catalogs.First().Id, null, null, null, null, null), productCode: createdProduct.ProductCode);
             ProductFactory.AddProductInCatalog(handler: ApiMsgHandler,productInCatalogInfoIn: Generator.GenerateProductInCatalogInfo(
                                                 TestBaseTenant.MasterCatalogs.First().Catalogs.Last().Id, null, null, null, null, null), productCode: createdProduct.ProductCode);
-            ProductFactory.DeleteProductInCatalog(handler: ApiMsgHandler, productCode: createdProduct.ProductCode,catalogId: TestBaseTenant.MasterCatalogs.First().Catalogs.First().Id, expectedCode: (int)HttpStatusCode.NoContent); //bug 11401
+            ProductFactory.DeleteProductInCatalog(handler: ApiMsgHandler, productCode: createdProduct.ProductCode,catalogId: TestBaseTenant.MasterCatalogs.First().Catalogs.First().Id, expectedCode: HttpStatusCode.NoContent); //bug 11401
             var pt = ProductFactory.GetProduct(handler: ApiMsgHandler, productCode: createdProduct.ProductCode);
             Assert.AreEqual(1, pt.ProductInCatalogs.Count);
             Assert.AreEqual(TestBaseTenant.MasterCatalogs.First().Catalogs.Last().Id, pt.ProductInCatalogs.First().CatalogId);
-            ProductFactory.DeleteProductInCatalog(handler: ApiMsgHandler, productCode: createdProduct.ProductCode,catalogId: TestBaseTenant.MasterCatalogs.First().Catalogs.Last().Id, expectedCode: (int)HttpStatusCode.NoContent);
+            ProductFactory.DeleteProductInCatalog(handler: ApiMsgHandler, productCode: createdProduct.ProductCode,catalogId: TestBaseTenant.MasterCatalogs.First().Catalogs.Last().Id, expectedCode: HttpStatusCode.NoContent);
             pt = ProductFactory.GetProduct(handler: ApiMsgHandler, productCode: createdProduct.ProductCode);
             Assert.AreEqual(0, pt.ProductInCatalogs.Count);
         }

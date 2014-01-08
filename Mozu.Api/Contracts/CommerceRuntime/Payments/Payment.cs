@@ -29,6 +29,8 @@ namespace Mozu.Api.Contracts.CommerceRuntime.Payments
 			///
 			public decimal AmountCredited { get; set; }
 
+			public decimal AmountRequested { get; set; }
+
 			///
 			///The actions a user can perform for a payment at this time.
 			///
