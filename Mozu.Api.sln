@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30110.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mozu.Api", "Mozu.Api\Mozu.Api.csproj", "{0463AABF-9E78-409E-8AB4-AEDA56E53508}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mozu.Api.Test", "Mozu.Api.Test\Mozu.Api.Test.csproj", "{45529E5D-AC08-480A-818C-211EF3F41F4D}"
@@ -9,25 +11,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mozu.Api.Sample", "Mozu.Api
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mozu.Api.Sample.Web", "Mozu.Api.Sample.Web\Mozu.Api.Sample.Web.csproj", "{C22C9000-B99E-4491-848B-D1FACE753E4A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Config", "Config", "{64855AF6-99D9-4AAE-A3DC-979799DF010C}"
+	ProjectSection(SolutionItems) = preProject
+		sdkTest.config = sdkTest.config
+	EndProjectSection
+EndProject
 Global
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 5
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = http://tfs2012.corp.volusion.com:8080/tfs/vnext
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = Mozu.Api.Test\\Mozu.Api.Test.csproj
-		SccProjectName1 = Mozu.Api.Test
-		SccLocalPath1 = Mozu.Api.Test
-		SccProjectUniqueName2 = Mozu.Api\\Mozu.Api.csproj
-		SccProjectName2 = Mozu.Api
-		SccLocalPath2 = Mozu.Api
-		SccProjectUniqueName3 = Mozu.Api.Sample\\Mozu.Api.Sample.csproj
-		SccProjectName3 = Mozu.Api.Sample
-		SccLocalPath3 = Mozu.Api.Sample
-		SccProjectUniqueName4 = Mozu.Api.Sample.Web\\Mozu.Api.Sample.Web.csproj
-		SccProjectName4 = Mozu.Api.Sample.Web
-		SccLocalPath4 = Mozu.Api.Sample.Web
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
