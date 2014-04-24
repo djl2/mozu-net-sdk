@@ -32,22 +32,22 @@ namespace Mozu.Api.Test.Factories
 		/// 
 		/// <example> 
 		///  <code> 
-		/// var result = CustomerAuthTicketFactory.CreateUserAuthTicket(handler : handler,  userAuthInfo :  userAuthInfo, authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
-		/// var optionalCasting = ConvertClass<CustomerAuthTicket/>(result); 
+		/// var result = CustomerAuthTicketFactory.CreateAnonymousShopperAuthTicket(handler : handler,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<Stream/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
-		public static Mozu.Api.Contracts.Customer.CustomerAuthTicket CreateUserAuthTicket(ServiceClientMessageHandler handler, 
- 		 Mozu.Api.Contracts.Customer.CustomerUserAuthInfo userAuthInfo, AuthTicket authTicket = null, 
+		public static System.IO.Stream CreateAnonymousShopperAuthTicket(ServiceClientMessageHandler handler, 
+ 		 
 		 HttpStatusCode expectedCode = HttpStatusCode.Created, HttpStatusCode successCode = HttpStatusCode.Created)
 		{
 			SetSdKparameters();
 			var currentClassName = System.Reflection.MethodInfo.GetCurrentMethod().DeclaringType.Name;
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
-			var apiClient = Mozu.Api.Clients.Commerce.Customer.CustomerAuthTicketClient.CreateUserAuthTicketClient(
-				 userAuthInfo :  userAuthInfo, authTicket : authTicket		);
+			var apiClient = Mozu.Api.Clients.Commerce.Customer.CustomerAuthTicketClient.CreateAnonymousShopperAuthTicketClient(
+						);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
@@ -70,14 +70,52 @@ namespace Mozu.Api.Test.Factories
 		/// 
 		/// <example> 
 		///  <code> 
-		/// var result = CustomerAuthTicketFactory.RefreshUserAuthTicket(handler : handler,  refreshToken :  refreshToken,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = CustomerAuthTicketFactory.CreateUserAuthTicket(handler : handler,  userAuthInfo :  userAuthInfo,  expectedCode: expectedCode, successCode: successCode); 
+		/// var optionalCasting = ConvertClass<CustomerAuthTicket/>(result); 
+		/// return optionalCasting;
+		///  </code> 
+		/// </example> 
+		/// </summary>
+		public static Mozu.Api.Contracts.Customer.CustomerAuthTicket CreateUserAuthTicket(ServiceClientMessageHandler handler, 
+ 		 Mozu.Api.Contracts.Customer.CustomerUserAuthInfo userAuthInfo, 
+		 HttpStatusCode expectedCode = HttpStatusCode.Created, HttpStatusCode successCode = HttpStatusCode.Created)
+		{
+			SetSdKparameters();
+			var currentClassName = System.Reflection.MethodInfo.GetCurrentMethod().DeclaringType.Name;
+			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
+			var apiClient = Mozu.Api.Clients.Commerce.Customer.CustomerAuthTicketClient.CreateUserAuthTicketClient(
+				 userAuthInfo :  userAuthInfo		);
+			try
+			{
+				apiClient.WithContext(handler.ApiContext).Execute();
+			}
+			catch (ApiException ex)
+			{
+				// Custom error handling for test cases can be placed here
+				Exception customException = TestFailException.GetCustomTestException(ex, currentClassName, currentMethodName, expectedCode);
+				if (customException != null)
+					throw customException;
+				return null;
+			}
+			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
+					 ? (apiClient.Result()) 
+					 : null;
+
+		}
+  
+		/// <summary> 
+		/// 
+		/// <example> 
+		///  <code> 
+		/// var result = CustomerAuthTicketFactory.RefreshUserAuthTicket(handler : handler,  refreshToken :  refreshToken,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<CustomerAuthTicket/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.Customer.CustomerAuthTicket RefreshUserAuthTicket(ServiceClientMessageHandler handler, 
- 		 string refreshToken,  AuthTicket authTicket = null, 
+ 		 string refreshToken, 
 		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
@@ -85,7 +123,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Commerce.Customer.CustomerAuthTicketClient.RefreshUserAuthTicketClient(
-				 refreshToken :  refreshToken, authTicket : authTicket		);
+				 refreshToken :  refreshToken		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();

@@ -32,14 +32,14 @@ namespace Mozu.Api.Test.Factories
 		/// Retrieves a list of all returns according to any filter and sort criteria.
 		/// <example> 
 		///  <code> 
-		/// var result = ReturnFactory.GetReturns(handler : handler,  startIndex :  startIndex,  pageSize :  pageSize,  sortBy :  sortBy,  filter :  filter,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = ReturnFactory.GetReturns(handler : handler,  startIndex :  startIndex,  pageSize :  pageSize,  sortBy :  sortBy,  filter :  filter,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<ReturnCollection/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.CommerceRuntime.Returns.ReturnCollection GetReturns(ServiceClientMessageHandler handler, 
- 		 int? startIndex = null, int? pageSize = null, string sortBy = null, string filter = null,  AuthTicket authTicket = null, 
+ 		 int? startIndex = null, int? pageSize = null, string sortBy = null, string filter = null, 
 		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
@@ -47,7 +47,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Commerce.ReturnClient.GetReturnsClient(
-				 startIndex :  startIndex,  pageSize :  pageSize,  sortBy :  sortBy,  filter :  filter, authTicket : authTicket		);
+				 startIndex :  startIndex,  pageSize :  pageSize,  sortBy :  sortBy,  filter :  filter		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
@@ -70,14 +70,14 @@ namespace Mozu.Api.Test.Factories
 		/// Retrieves a list of properties for the specified return.
 		/// <example> 
 		///  <code> 
-		/// var result = ReturnFactory.GetReturn(handler : handler,  returnId :  returnId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = ReturnFactory.GetReturn(handler : handler,  returnId :  returnId,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<Return/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.CommerceRuntime.Returns.Return GetReturn(ServiceClientMessageHandler handler, 
- 		 string returnId,  AuthTicket authTicket = null, 
+ 		 string returnId, 
 		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
@@ -85,7 +85,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Commerce.ReturnClient.GetReturnClient(
-				 returnId :  returnId, authTicket : authTicket		);
+				 returnId :  returnId		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
@@ -108,14 +108,14 @@ namespace Mozu.Api.Test.Factories
 		/// Retrieves a list of the actions available to perform for the specified return based on its current state.
 		/// <example> 
 		///  <code> 
-		/// var result = ReturnFactory.GetAvailableReturnActions(handler : handler,  returnId :  returnId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = ReturnFactory.GetAvailableReturnActions(handler : handler,  returnId :  returnId,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<List<string>/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static List<string> GetAvailableReturnActions(ServiceClientMessageHandler handler, 
- 		 string returnId,  AuthTicket authTicket = null, 
+ 		 string returnId, 
 		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
@@ -123,7 +123,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Commerce.ReturnClient.GetAvailableReturnActionsClient(
-				 returnId :  returnId, authTicket : authTicket		);
+				 returnId :  returnId		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
@@ -146,14 +146,14 @@ namespace Mozu.Api.Test.Factories
 		/// Retrieves a list of all payments submitted as part of a refund associated with a customer return.
 		/// <example> 
 		///  <code> 
-		/// var result = ReturnFactory.GetPayments(handler : handler,  returnId :  returnId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = ReturnFactory.GetPayments(handler : handler,  returnId :  returnId,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<PaymentCollection/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.CommerceRuntime.Payments.PaymentCollection GetPayments(ServiceClientMessageHandler handler, 
- 		 string returnId,  AuthTicket authTicket = null, 
+ 		 string returnId, 
 		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
@@ -161,7 +161,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Commerce.ReturnClient.GetPaymentsClient(
-				 returnId :  returnId, authTicket : authTicket		);
+				 returnId :  returnId		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
@@ -184,14 +184,14 @@ namespace Mozu.Api.Test.Factories
 		/// Retrieves the details of a payment submitted as part of a refund associated with a customer return.
 		/// <example> 
 		///  <code> 
-		/// var result = ReturnFactory.GetPayment(handler : handler,  returnId :  returnId,  paymentId :  paymentId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = ReturnFactory.GetPayment(handler : handler,  returnId :  returnId,  paymentId :  paymentId,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<Payment/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.CommerceRuntime.Payments.Payment GetPayment(ServiceClientMessageHandler handler, 
- 		 string returnId, string paymentId,  AuthTicket authTicket = null, 
+ 		 string returnId, string paymentId, 
 		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
@@ -199,7 +199,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Commerce.ReturnClient.GetPaymentClient(
-				 returnId :  returnId,  paymentId :  paymentId, authTicket : authTicket		);
+				 returnId :  returnId,  paymentId :  paymentId		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
@@ -222,14 +222,14 @@ namespace Mozu.Api.Test.Factories
 		/// Retrieves a list of the payment actions available to perform for the specified return when a return results in a refund to the customer.
 		/// <example> 
 		///  <code> 
-		/// var result = ReturnFactory.GetAvailablePaymentActionsForReturn(handler : handler,  returnId :  returnId,  paymentId :  paymentId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = ReturnFactory.GetAvailablePaymentActionsForReturn(handler : handler,  returnId :  returnId,  paymentId :  paymentId,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<List<string>/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static List<string> GetAvailablePaymentActionsForReturn(ServiceClientMessageHandler handler, 
- 		 string returnId, string paymentId,  AuthTicket authTicket = null, 
+ 		 string returnId, string paymentId, 
 		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
@@ -237,7 +237,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Commerce.ReturnClient.GetAvailablePaymentActionsForReturnClient(
-				 returnId :  returnId,  paymentId :  paymentId, authTicket : authTicket		);
+				 returnId :  returnId,  paymentId :  paymentId		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
@@ -260,14 +260,14 @@ namespace Mozu.Api.Test.Factories
 		/// Creates a return for previously fulfilled items. Each return must either be associated with an original order or a product definition to represent each returned item.
 		/// <example> 
 		///  <code> 
-		/// var result = ReturnFactory.CreateReturn(handler : handler,  ret :  ret, authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = ReturnFactory.CreateReturn(handler : handler,  ret :  ret,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<Return/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.CommerceRuntime.Returns.Return CreateReturn(ServiceClientMessageHandler handler, 
- 		 Mozu.Api.Contracts.CommerceRuntime.Returns.Return ret, AuthTicket authTicket = null, 
+ 		 Mozu.Api.Contracts.CommerceRuntime.Returns.Return ret, 
 		 HttpStatusCode expectedCode = HttpStatusCode.Created, HttpStatusCode successCode = HttpStatusCode.Created)
 		{
 			SetSdKparameters();
@@ -275,7 +275,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Commerce.ReturnClient.CreateReturnClient(
-				 ret :  ret, authTicket : authTicket		);
+				 ret :  ret		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
@@ -298,14 +298,14 @@ namespace Mozu.Api.Test.Factories
 		/// Updates a refund payment associated with a customer return by performing the specified action.
 		/// <example> 
 		///  <code> 
-		/// var result = ReturnFactory.PerformPaymentActionForReturn(handler : handler,  action :  action,  returnId :  returnId,  paymentId :  paymentId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = ReturnFactory.PerformPaymentActionForReturn(handler : handler,  action :  action,  returnId :  returnId,  paymentId :  paymentId,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<Return/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.CommerceRuntime.Returns.Return PerformPaymentActionForReturn(ServiceClientMessageHandler handler, 
- 		 Mozu.Api.Contracts.CommerceRuntime.Payments.PaymentAction action, string returnId, string paymentId,  AuthTicket authTicket = null, 
+ 		 Mozu.Api.Contracts.CommerceRuntime.Payments.PaymentAction action, string returnId, string paymentId, 
 		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
@@ -313,7 +313,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Commerce.ReturnClient.PerformPaymentActionForReturnClient(
-				 action :  action,  returnId :  returnId,  paymentId :  paymentId, authTicket : authTicket		);
+				 action :  action,  returnId :  returnId,  paymentId :  paymentId		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
@@ -336,14 +336,14 @@ namespace Mozu.Api.Test.Factories
 		/// Creates a new payment for a return that results in a refund to the customer.
 		/// <example> 
 		///  <code> 
-		/// var result = ReturnFactory.CreatePaymentActionForReturn(handler : handler,  action :  action,  returnId :  returnId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = ReturnFactory.CreatePaymentActionForReturn(handler : handler,  action :  action,  returnId :  returnId,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<Return/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.CommerceRuntime.Returns.Return CreatePaymentActionForReturn(ServiceClientMessageHandler handler, 
- 		 Mozu.Api.Contracts.CommerceRuntime.Payments.PaymentAction action, string returnId,  AuthTicket authTicket = null, 
+ 		 Mozu.Api.Contracts.CommerceRuntime.Payments.PaymentAction action, string returnId, 
 		 HttpStatusCode expectedCode = HttpStatusCode.Created, HttpStatusCode successCode = HttpStatusCode.Created)
 		{
 			SetSdKparameters();
@@ -351,7 +351,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Commerce.ReturnClient.CreatePaymentActionForReturnClient(
-				 action :  action,  returnId :  returnId, authTicket : authTicket		);
+				 action :  action,  returnId :  returnId		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
@@ -374,14 +374,14 @@ namespace Mozu.Api.Test.Factories
 		/// Updates the return by performing the specified action.
 		/// <example> 
 		///  <code> 
-		/// var result = ReturnFactory.PerformReturnActions(handler : handler,  action :  action, authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = ReturnFactory.PerformReturnActions(handler : handler,  action :  action,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<ReturnCollection/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.CommerceRuntime.Returns.ReturnCollection PerformReturnActions(ServiceClientMessageHandler handler, 
- 		 Mozu.Api.Contracts.CommerceRuntime.Returns.ReturnAction action, AuthTicket authTicket = null, 
+ 		 Mozu.Api.Contracts.CommerceRuntime.Returns.ReturnAction action, 
 		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
@@ -389,7 +389,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Commerce.ReturnClient.PerformReturnActionsClient(
-				 action :  action, authTicket : authTicket		);
+				 action :  action		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
@@ -412,14 +412,14 @@ namespace Mozu.Api.Test.Factories
 		/// Updates one or more properties of a return for items previously shipped in a completed order.
 		/// <example> 
 		///  <code> 
-		/// var result = ReturnFactory.UpdateReturn(handler : handler,  ret :  ret,  returnId :  returnId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = ReturnFactory.UpdateReturn(handler : handler,  ret :  ret,  returnId :  returnId,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<Return/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.CommerceRuntime.Returns.Return UpdateReturn(ServiceClientMessageHandler handler, 
- 		 Mozu.Api.Contracts.CommerceRuntime.Returns.Return ret, string returnId,  AuthTicket authTicket = null, 
+ 		 Mozu.Api.Contracts.CommerceRuntime.Returns.Return ret, string returnId, 
 		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
@@ -427,7 +427,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Commerce.ReturnClient.UpdateReturnClient(
-				 ret :  ret,  returnId :  returnId, authTicket : authTicket		);
+				 ret :  ret,  returnId :  returnId		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
@@ -450,14 +450,14 @@ namespace Mozu.Api.Test.Factories
 		/// Deletes the return specified in the request.
 		/// <example> 
 		///  <code> 
-		/// var result = ReturnFactory.DeleteReturn(handler : handler,  returnId :  returnId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = ReturnFactory.DeleteReturn(handler : handler,  returnId :  returnId,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<void/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static void DeleteReturn(ServiceClientMessageHandler handler, 
- 		string returnId,  AuthTicket authTicket = null, 
+ 		string returnId, 
 		 HttpStatusCode expectedCode = HttpStatusCode.NoContent, HttpStatusCode successCode = HttpStatusCode.NoContent)
 		{
 			SetSdKparameters();
@@ -465,7 +465,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Commerce.ReturnClient.DeleteReturnClient(
-				 returnId :  returnId, authTicket : authTicket		);
+				 returnId :  returnId		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();

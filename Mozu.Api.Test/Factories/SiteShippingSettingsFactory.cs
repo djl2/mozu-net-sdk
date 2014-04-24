@@ -32,14 +32,14 @@ namespace Mozu.Api.Test.Factories
 		/// Retrieves a list of the shipping settings configured for a site.
 		/// <example> 
 		///  <code> 
-		/// var result = SiteShippingSettingsFactory.GetSiteShippingSettings(handler : handler,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = SiteShippingSettingsFactory.GetSiteShippingSettings(handler : handler,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<SiteShippingSettings/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.SiteSettings.Shipping.SiteShippingSettings GetSiteShippingSettings(ServiceClientMessageHandler handler, 
- 		  AuthTicket authTicket = null, 
+ 		 
 		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
@@ -47,7 +47,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Commerce.Settings.SiteShippingSettingsClient.GetSiteShippingSettingsClient(
-				 authTicket : authTicket		);
+						);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();

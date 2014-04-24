@@ -29,25 +29,25 @@ namespace Mozu.Api.Test.Factories
 	{
 
 		/// <summary> 
-		/// Retrieves a list of the content property types.
+		/// 
 		/// <example> 
 		///  <code> 
-		/// var result = PropertyTypeFactory.GetList(handler : handler,  pageSize :  pageSize,  startIndex :  startIndex,  authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = PropertyTypeFactory.GetPropertyTypes(handler : handler,  pageSize :  pageSize,  startIndex :  startIndex,  dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<PropertyTypeCollection/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
-		public static Mozu.Api.Contracts.Content.PropertyTypeCollection GetList(ServiceClientMessageHandler handler, 
- 		 int? pageSize = null, int? startIndex = null,  AuthTicket authTicket = null, DataViewMode dataViewMode= DataViewMode.Live, 
+		public static Mozu.Api.Contracts.Content.PropertyTypeCollection GetPropertyTypes(ServiceClientMessageHandler handler, 
+ 		 int? pageSize = null, int? startIndex = null,  DataViewMode dataViewMode= DataViewMode.Live, 
 		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var currentClassName = System.Reflection.MethodInfo.GetCurrentMethod().DeclaringType.Name;
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
-			var apiClient = Mozu.Api.Clients.Content.PropertyTypeClient.GetListClient(
-				 pageSize :  pageSize,  startIndex :  startIndex, authTicket : authTicket, dataViewMode: dataViewMode		);
+			var apiClient = Mozu.Api.Clients.Content.PropertyTypeClient.GetPropertyTypesClient(
+				 pageSize :  pageSize,  startIndex :  startIndex, dataViewMode: dataViewMode		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
@@ -67,25 +67,25 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// Retrieves the details of the content property type.
+		/// 
 		/// <example> 
 		///  <code> 
-		/// var result = PropertyTypeFactory.Get(handler : handler,  propertyTypeName :  propertyTypeName,  authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = PropertyTypeFactory.GetPropertyType(handler : handler,  propertyTypeName :  propertyTypeName,  dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<PropertyType/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
-		public static Mozu.Api.Contracts.Content.PropertyType Get(ServiceClientMessageHandler handler, 
- 		 string propertyTypeName,  AuthTicket authTicket = null, DataViewMode dataViewMode= DataViewMode.Live, 
+		public static Mozu.Api.Contracts.Content.PropertyType GetPropertyType(ServiceClientMessageHandler handler, 
+ 		 string propertyTypeName,  DataViewMode dataViewMode= DataViewMode.Live, 
 		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var currentClassName = System.Reflection.MethodInfo.GetCurrentMethod().DeclaringType.Name;
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
-			var apiClient = Mozu.Api.Clients.Content.PropertyTypeClient.GetClient(
-				 propertyTypeName :  propertyTypeName, authTicket : authTicket, dataViewMode: dataViewMode		);
+			var apiClient = Mozu.Api.Clients.Content.PropertyTypeClient.GetPropertyTypeClient(
+				 propertyTypeName :  propertyTypeName, dataViewMode: dataViewMode		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
@@ -108,14 +108,14 @@ namespace Mozu.Api.Test.Factories
 		/// Retrieves the value types associated with a content property.
 		/// <example> 
 		///  <code> 
-		/// var result = PropertyTypeFactory.PropertyValueTypes(handler : handler,  authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = PropertyTypeFactory.PropertyValueTypes(handler : handler,  dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<List<PropertyValueType>/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static List<Mozu.Api.Contracts.Content.PropertyValueType> PropertyValueTypes(ServiceClientMessageHandler handler, 
- 		  AuthTicket authTicket = null, DataViewMode dataViewMode= DataViewMode.Live, 
+ 		  DataViewMode dataViewMode= DataViewMode.Live, 
 		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
@@ -123,7 +123,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Content.PropertyTypeClient.PropertyValueTypesClient(
-				 authTicket : authTicket, dataViewMode: dataViewMode		);
+				 dataViewMode: dataViewMode		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();

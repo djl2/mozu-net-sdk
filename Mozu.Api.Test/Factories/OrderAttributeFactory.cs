@@ -32,14 +32,14 @@ namespace Mozu.Api.Test.Factories
 		/// Retrieves a list of the attributes defined for the order specified in the request.
 		/// <example> 
 		///  <code> 
-		/// var result = OrderAttributeFactory.GetOrderAttributes(handler : handler,  orderId :  orderId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = OrderAttributeFactory.GetOrderAttributes(handler : handler,  orderId :  orderId,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<List<OrderAttribute>/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static List<Mozu.Api.Contracts.CommerceRuntime.Orders.OrderAttribute> GetOrderAttributes(ServiceClientMessageHandler handler, 
- 		 string orderId,  AuthTicket authTicket = null, 
+ 		 string orderId, 
 		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
@@ -47,7 +47,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Commerce.Orders.OrderAttributeClient.GetOrderAttributesClient(
-				 orderId :  orderId, authTicket : authTicket		);
+				 orderId :  orderId		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
@@ -70,14 +70,14 @@ namespace Mozu.Api.Test.Factories
 		/// Applies a list of attributes to the order specified in the request and defines a value for each attribute in the request body.
 		/// <example> 
 		///  <code> 
-		/// var result = OrderAttributeFactory.CreateOrderAttributes(handler : handler,  orderAttributes :  orderAttributes,  orderId :  orderId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = OrderAttributeFactory.CreateOrderAttributes(handler : handler,  orderAttributes :  orderAttributes,  orderId :  orderId,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<List<OrderAttribute>/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static List<Mozu.Api.Contracts.CommerceRuntime.Orders.OrderAttribute> CreateOrderAttributes(ServiceClientMessageHandler handler, 
- 		 List<Mozu.Api.Contracts.CommerceRuntime.Orders.OrderAttribute> orderAttributes, string orderId,  AuthTicket authTicket = null, 
+ 		 List<Mozu.Api.Contracts.CommerceRuntime.Orders.OrderAttribute> orderAttributes, string orderId, 
 		 HttpStatusCode expectedCode = HttpStatusCode.Created, HttpStatusCode successCode = HttpStatusCode.Created)
 		{
 			SetSdKparameters();
@@ -85,7 +85,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Commerce.Orders.OrderAttributeClient.CreateOrderAttributesClient(
-				 orderAttributes :  orderAttributes,  orderId :  orderId, authTicket : authTicket		);
+				 orderAttributes :  orderAttributes,  orderId :  orderId		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
@@ -108,14 +108,14 @@ namespace Mozu.Api.Test.Factories
 		/// Updates one or more properties of an attribute defined for the order specified in the request.
 		/// <example> 
 		///  <code> 
-		/// var result = OrderAttributeFactory.UpdateOrderAttributes(handler : handler,  orderAttributes :  orderAttributes,  orderId :  orderId,  removeMissing :  removeMissing,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = OrderAttributeFactory.UpdateOrderAttributes(handler : handler,  orderAttributes :  orderAttributes,  orderId :  orderId,  removeMissing :  removeMissing,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<List<OrderAttribute>/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static List<Mozu.Api.Contracts.CommerceRuntime.Orders.OrderAttribute> UpdateOrderAttributes(ServiceClientMessageHandler handler, 
- 		 List<Mozu.Api.Contracts.CommerceRuntime.Orders.OrderAttribute> orderAttributes, string orderId, bool? removeMissing = null,  AuthTicket authTicket = null, 
+ 		 List<Mozu.Api.Contracts.CommerceRuntime.Orders.OrderAttribute> orderAttributes, string orderId, bool? removeMissing = null, 
 		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
@@ -123,7 +123,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Commerce.Orders.OrderAttributeClient.UpdateOrderAttributesClient(
-				 orderAttributes :  orderAttributes,  orderId :  orderId,  removeMissing :  removeMissing, authTicket : authTicket		);
+				 orderAttributes :  orderAttributes,  orderId :  orderId,  removeMissing :  removeMissing		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();

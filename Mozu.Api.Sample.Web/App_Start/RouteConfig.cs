@@ -12,7 +12,9 @@ namespace Mozu.Api.Sample.Web
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-            routes.IgnoreRoute("{resource}.event/{*pathInfo}");
+            //routes.IgnoreRoute("{resource}.event/{*pathInfo}");
+
+            RouteTable.Routes.Add(new Route(url:"{resource}.event/{*pathInfo}", routeHandler: DependencyResolver.Current.GetService<EventRouteHandler>()));
 
 
             routes.MapRoute(

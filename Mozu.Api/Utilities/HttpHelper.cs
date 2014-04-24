@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Net.Http.Headers;
 using System.Text;
@@ -13,6 +14,14 @@ namespace Mozu.Api.Utilities
 
         public static string GetUrl(string url)
         {
+            Uri uriResult;
+            var result = Uri.TryCreate(url, UriKind.Absolute, out uriResult) &&
+                         (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps);
+            if (result)
+            {
+                if (String.IsNullOrEmpty(UrlScheme)) UrlScheme = uriResult.Scheme;
+                return url;
+            }
             return String.Format("{0}://{1}", UrlScheme, url);
         }
 
@@ -27,8 +36,7 @@ namespace Mozu.Api.Utilities
             IEnumerable<string> value = (headers.Contains(header) ? headers.GetValues(header) : null);
             return GetStringValue(value);
         }
-
-
+        
         public static int? ParseFirstValue(string header, HttpResponseHeaders headers)
         {
             IEnumerable<string> value = (headers.Contains(header) ? headers.GetValues(header) : null);
@@ -39,6 +47,18 @@ namespace Mozu.Api.Utilities
         {
             IEnumerable<string> value = (headers.Contains(header) ? headers.GetValues(header) : null);
             return GetIntValue(value);
+        }
+
+        public static string GetAllheaders(NameValueCollection headers)
+        {
+            var headerStr = String.Empty;
+            foreach (var header in headers.AllKeys)
+            {
+                if (!string.IsNullOrEmpty(headerStr)) headerStr += ", ";
+                headerStr += string.Format("{0} : {1}", header, headers[header]);
+            }
+
+            return headerStr;
         }
 
         private static string GetStringValue(IEnumerable<string> value)

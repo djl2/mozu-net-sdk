@@ -14,6 +14,7 @@ using Mozu.Api.Resources.Commerce.Catalog.Admin;
 using Mozu.Api.Resources.Commerce.Catalog.Admin.Attributedefinition;
 using Mozu.Api.Resources.Commerce.Catalog.Admin.Attributedefinition.Attributes;
 using Mozu.Api.Resources.Commerce.Catalog.Admin.Attributedefinition.Producttypes;
+using Mozu.Api.Resources.Commerce.Catalog.Admin.Products;
 using Mozu.Api.Resources.Platform;
 
 namespace Mozu.Api.Sample.ProductHandler
@@ -28,19 +29,15 @@ namespace Mozu.Api.Sample.ProductHandler
             _apiContext = apiContext;
         }
 
-        private void getProductsBtn_Click(object sender, EventArgs e)
+        private void btnGetProducts_Click(object sender, EventArgs e)
         {
-
-
+            btnGetProducts.Text = "Getting Products...";
             var productResource = new ProductResource(_apiContext);
             ProductCollection products = productResource.GetProducts(DataViewMode.Live);
-            foreach (Product product in products.Items)
-            {
-                productList.Items.Add(product.ProductCode);
-            }
-            
-            
-            
+
+            if (productResource != null && products.Items.Count > 0)
+                dataGridViewProducts.DataSource = products.Items;
+            btnGetProducts.Text = "Refresh Product List";
 
         }
     }

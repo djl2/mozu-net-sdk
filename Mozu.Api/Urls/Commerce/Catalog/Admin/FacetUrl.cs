@@ -9,7 +9,7 @@
 //------------------------------------------------------------------------------
 
 using System;
-
+using System.Collections.Generic;
 
 namespace Mozu.Api.Urls.Commerce.Catalog.Admin
 {
@@ -44,7 +44,7 @@ namespace Mozu.Api.Urls.Commerce.Catalog.Admin
         /// </returns>
         public static MozuUrl GetFacetCategoryListUrl(int categoryId, bool? includeAvailable, bool? validate)
 		{
-			var url = "/api/commerce/catalog/admin/facets/category/{categoryId}?includAvaliable={includeAvailable}&validate={validate}";
+			var url = "/api/commerce/catalog/admin/facets/category/{categoryId}?includeAvaliable={includeAvailable}&validate={validate}";
 			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
 			mozuUrl.FormatUrl( "categoryId", categoryId);
 			mozuUrl.FormatUrl( "includeAvailable", includeAvailable);

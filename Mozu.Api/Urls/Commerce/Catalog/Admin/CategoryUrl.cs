@@ -9,7 +9,7 @@
 //------------------------------------------------------------------------------
 
 using System;
-
+using System.Collections.Generic;
 
 namespace Mozu.Api.Urls.Commerce.Catalog.Admin
 {
@@ -70,13 +70,15 @@ namespace Mozu.Api.Urls.Commerce.Catalog.Admin
 				/// <summary>
         /// Get Resource Url for AddCategory
         /// </summary>
+        /// <param name="incrementSequence"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static MozuUrl AddCategoryUrl()
+        public static MozuUrl AddCategoryUrl(bool? incrementSequence)
 		{
-			var url = "/api/commerce/catalog/admin/categories/";
+			var url = "/api/commerce/catalog/admin/categories/?incrementSequence={incrementSequence}";
 			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "incrementSequence", incrementSequence);
 			return mozuUrl;
 		}
 

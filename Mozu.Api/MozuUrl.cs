@@ -17,10 +17,6 @@ namespace Mozu.Api
 		public string Url { get; set; }
 		public UrlLocation Location { get; set; }
         public bool UseSSL { get; set; }
-		/*public MozuUrl()
-		{
-
-		}*/ 
 
 		public MozuUrl(string url, UrlLocation location, bool useSSL)
 		{

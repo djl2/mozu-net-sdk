@@ -1,5 +1,8 @@
 using System;
+using System.Collections;
+using Mozu.Api.Contracts.Core;
 using Mozu.Api.Contracts.Customer;
+using Mozu.Api.Contracts.PricingRuntime;
 using Mozu.Api.Contracts.ProductAdmin;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +10,11 @@ using System.Globalization;
 using System.Runtime.Serialization;
 using Mozu.Api.Test.Factories;
 using System.Net;
+using System.Dynamic;
+using Mozu.Api.Contracts.CommerceRuntime.Wishlists;
+using Attribute = Mozu.Api.Contracts.ProductAdmin.Attribute;
+using ProductProperty = Mozu.Api.Contracts.ProductAdmin.ProductProperty;
+using ProductPropertyValue = Mozu.Api.Contracts.ProductAdmin.ProductPropertyValue;
 
 namespace Mozu.Api.Test.Helpers
 {
@@ -22,6 +30,7 @@ namespace Mozu.Api.Test.Helpers
             return msgHandler;
         }
 
+        #region "Random Data"
         /// <summary>
         /// The _random
         /// </summary>
@@ -141,6 +150,22 @@ namespace Mozu.Api.Test.Helpers
         {
             return string.Format("{0}@{1}.{2}", RandomString(10, RandomCharacterGroup.AlphaOnly),
                                  RandomString(15, RandomCharacterGroup.AlphaNumericOnly), "com");
+        }
+
+        /// <summary>
+        /// Randoms the email address with Mozu ending..
+        /// </summary>
+        /// <returns>System.String.</returns>
+        public static string RandomEmailAddressMozu()
+        {
+            return string.Format("mozuqa+{0}@gmail.com", RandomString(10, RandomCharacterGroup.AlphaOnly));
+        }
+
+        public static string RandomAddressType()
+        {
+            string[] types = { AddressType.Commercial.ToString(), AddressType.Residential.ToString(), AddressType.None.ToString() };
+
+            return types[new Random().Next(0, types.Length)];
         }
 
         /// <summary>
@@ -271,6 +296,30 @@ namespace Mozu.Api.Test.Helpers
         }
 
         /// <summary>
+        /// Random State
+        /// </summary>
+        /// <returns></returns>
+        public static string RandomState()
+        {
+            string[] state =
+                {
+                    "AL", "AK", "AS", "AZ", "AR", "CA", "CO", "CT", "DE", "DC", "FL", "GA", "GU", "HI", "ID",
+                    "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MH", "MA", "MI", "FM", "MN", "MS", "MO", "MT", "NE",
+                    "NV", "NH", "NJ", "NM", "NY", "NC", "ND", "MP", "OH", "OK", "OR", "PW", "PA", "PR", "RI", "SC", "SD",
+                    "TN", "TX", "UT", "VT", "VA", "VI", "WA", "WV", "WI", "WY"
+                };
+
+            return state[new Random().Next(0, state.Length)];
+        }
+
+        public static string RandomCompanyName()
+        {
+            string[] companyName = {"Idea","Ideaa","Aedi","Idea Idea","Idea Ine","Idea Wiki","Idea Leader","Idea Canvas","Idea Workshop","Idea Horizon","Idea Simple","Idea Niche", "Idea Lens","Idea Cent","Idea Vine","Idea Systems","Idea Strategy","Idea Emporium","Ideaa","Ideaar","Ideamow","Idea Next","Idea Alliance","Idea Technology", "Idea Crowd","Ide Ine","Ide Wiki","Ide Leader","Idea Cube","Idea Network","Idea Capital","Idea Live","Ide Niche","Ide Lens","Ide Cent","Idea Venture","Idea Affiliate","Idea Future", "Idea Dev","Idea","Idear","Idemow","Idea Consultancy","Idea Professionals","Idea Topia","Idea Strategies", "Id Ine","Id Wiki","Id Leader", "Mozuu", "Uzom", "Mozu Mozu","Mozu Gam", "Mozu Number","Mozu Giga","Mozu Essence", "Mozu Insider","Mozu Line","Mozu Cube","Mozu Ratio","Mozu Tsar", "Mozu Tank","Mozu Guardian","Mozu Direct","Mozu Lab","Mozu Smart","Mozuk","Mozuwo", "Mozumoc","Mozu Alliance","Mozu Royal","Mozu Launch","Mozu Financial","Moz Gam","Moz Number","Moz Giga","Mozu Wise","Mozu Enterprise","Mozu Rockstar","Mozu Crowd","Moz Ratio","Moz Tsar","Moz Tank","Mozu Consultancy","Mozu Equinox","Mozu Industries", "Mozu Boulevard","Mozk","Mozwo","Mozmoc","Mozu Foundry","Mozu Vivid","Mozu Division","Mozu Epic","Mo Gam","Mo Number","Mo Giga","Mozu Group","Mozu Vertical","Mozu Business", "Mozu Lock","Mo Ratio","Mo Tsar","Mo Tank","Mozu Sage","Mozu Dynamic","Mozu Unlimited","Mok","Mowo","Momoc","Mozu Data","Mozu Tracker","Mozu Strategy","Mozu Motion","Sanct Mozu", "Number Mozu","Giga Mozu","Mozu Certified","Mozu Vine","Mozu Central", "Mozu Strategic","Ratio Mozu","Tsar Mozu","Tank Mozu","Mozu Fire","Mozu Performance","Mozu Innovation","Mozu Arc","Kmozu","Womozu","Mocmozu","Mozu Designs","Mozu Partners","Mozu Vision", "Mozu Research","Sanct Ozu","Number Ozu","Giga Ozu","Mozu Quality","Mozu Canvas","Mozu Zone","Mozu Synergy","Ratio Ozu","Tsar Ozu","Tank Ozu","Mozu Platinum", "Mozu Logistics","Mozu App","Mozu Edge","Kozu","Woozu","Mocozu","Mozu Outlet","Mozu Theory","Mozu Future","Mozu Velocity","Sanct Zu","Number Zu","Giga Zu","Mozu Emporium", "Mozu Online","Mozu Ondemand","Mozu Strategies", "Ratio Zu","Tsar Zu","Tank Zu","Mozu Bureau","Mozu Charter","Mozu Impact","Mozu Fuse","Kzu","Wozu","Moczu","Mozu Target","Mozu Network","Mozu First", "Mozu Cyber","Mozu Number", "Number Mozu","Mozu Giga","Mozu Interactive","Mozu Hub","Mozu Street","Mozu Ninja","Giga Mozu","Mozu Ratio","Ratio Mozu","Mozu Quick", "Mozu Beacon","Mozu Capital","Mozu Tsar","Tsar Mozu","Mozu Tank", "Mozu Topia","Mozu Cloud","Mozu Bold","Mozu Studios","Tank Mozu","Mozu Ine", "Mozu Ping","Mozu Supplies","Mozu Systems","Mozu Ventures","Mozu Software","Mozu Vertical","Mozu Mass", "Mozu Faux","Mozu Professionals","Mozu Rank","Mozu Worldwide","Mozu Centric", "Mozu Dude","Mozuo","Mozude","Mozu Tactical", "Mozu Authority","Mozu Consulting","Mozu Work", "Mozuwon","Moz Ine","Moz Ping", "Mozu Foundary","Mozu Web", "Mozu Anchor", "Mozu Zoom","Moz Vertical","Moz Mass", "Moz Faux","Mozu Horizon", "Mozu Circle","Mozu Ruby", "Mozu Labs", "Moz Dude","Mozo", "Mozde", "Mozu Option", "Mozu Nexus","Mozu Modern", "Mozu Live", "Mozwon", "Mo Ine", "Mo Ping", "Mozu Source", "Mozu Agent"};
+
+            return companyName[new Random().Next(0, companyName.Length)];
+        }
+
+        /// <summary>
         /// generate measurement object
         /// </summary>
         /// <param name="unit"></param>
@@ -296,254 +345,8 @@ namespace Mozu.Api.Test.Helpers
                 UpdateDate = DateTime.Now.AddDays(Generator.RandomInt(-10, -2))
             };
         }
-
-        #region "GenerateCustomerAddress"
-        public enum AddressType
-        {
-            [EnumMember]
-            None,
-            [EnumMember]
-            Residential,
-            [EnumMember]
-            Commercial,
-        }
-        /// <summary>
-        /// Generates a new Address object using <see cref="Address" /> class.
-        /// </summary>
-        /// <param name="addr1"></param>
-        /// <param name="addr2"></param>
-        /// <param name="addr3"></param>
-        /// <param name="addr4"></param>
-        /// <param name="city"></param>
-        /// <param name="country"></param>
-        /// <param name="zip"></param>
-        /// <param name="state"></param>
-        /// <returns></returns>
-        public static Mozu.Api.Contracts.Core.Address GenerateAddress(string addr1, string addr2, string addr3, string addr4,
-            string city, string country, string zip, string state, AddressType addressType = AddressType.Residential)
-        {
-            return new Mozu.Api.Contracts.Core.Address()
-            {
-                Address1 = addr1,
-                Address2 = addr2,
-                Address3 = addr3,
-                Address4 = addr4,
-                CountryCode = country,
-                CityOrTown = city,
-                PostalOrZipCode = zip,
-                StateOrProvince = state,
-                AddressType = addressType.ToString()
-            };
-        }
-        /// <summary>
-        /// Generates a new Address object using <see cref="Address" /> class.
-        /// </summary>
-        /// <returns></returns>
-        public static Mozu.Api.Contracts.Core.Address GenerateAddressReal(bool isValidated = true)
-        {
-            return new Mozu.Api.Contracts.Core.Address()
-            {
-                Address1 = "360 Nueces St",
-                Address2 = null,
-                Address3 = null,
-                Address4 = null,
-                CountryCode = "US",
-                CityOrTown = "Austin",
-                PostalOrZipCode = "78701-4195",
-                StateOrProvince = "TX",
-                AddressType = "Residential",
-                IsValidated = isValidated
-            };
-        }
-
-        /// <summary>
-        /// Generate Random Address Object.
-        /// </summary>
-        /// <returns></returns>
-        public static Mozu.Api.Contracts.Core.Address GenerateAddressRandom(AddressType addressType = AddressType.Residential)
-        {
-            return new Mozu.Api.Contracts.Core.Address()
-            {
-                Address1 = string.Format("{0} {1}", Generator.RandomString(8, Generator.RandomCharacterGroup.NumericOnly), Generator.RandomString(75, Generator.RandomCharacterGroup.AlphaNumericOnly)),
-                Address2 = Generator.RandomString(50, Generator.RandomCharacterGroup.AlphaNumericOnly),
-                Address3 = Generator.RandomString(20, Generator.RandomCharacterGroup.AlphaNumericOnly),
-                Address4 = Generator.RandomString(15, Generator.RandomCharacterGroup.AlphaNumericOnly),
-                CityOrTown = Generator.RandomString(25, Generator.RandomCharacterGroup.AlphaOnly),
-                CountryCode = Generator.RandomString(2, Generator.RandomCharacterGroup.AlphaOnly),
-                PostalOrZipCode = Generator.RandomString(5, Generator.RandomCharacterGroup.AlphaOnly),
-                StateOrProvince = Generator.RandomString(35, Generator.RandomCharacterGroup.AlphaOnly),
-                AddressType = addressType.ToString()
-            };
-        }
-
-
-        /// <summary>
-        /// Generate Address Object with meaningful CountryCode, ZipCode and State
-        /// </summary>
-        /// <param name="state"></param>
-        /// <param name="zip"></param>
-        /// <param name="country"></param>
-        /// <returns></returns>
-        public static Mozu.Api.Contracts.Core.Address GenerateAddress(string state, string zip, string country = "US")
-        {
-            return new Mozu.Api.Contracts.Core.Address()
-            {
-                Address1 = string.Format("{0} {1}", Generator.RandomString(8, Generator.RandomCharacterGroup.NumericOnly), Generator.RandomString(75, Generator.RandomCharacterGroup.AlphaNumericOnly)),
-                Address2 = Generator.RandomString(50, Generator.RandomCharacterGroup.AlphaNumericOnly),
-                Address3 = Generator.RandomString(20, Generator.RandomCharacterGroup.AlphaNumericOnly),
-                Address4 = Generator.RandomString(15, Generator.RandomCharacterGroup.AlphaNumericOnly),
-                CityOrTown = Generator.RandomString(25, Generator.RandomCharacterGroup.AlphaOnly),
-                CountryCode = country,
-                PostalOrZipCode = zip,
-                StateOrProvince = state
-            };
-        }
-
-
-        public static Mozu.Api.Contracts.Core.Address GenerateInternationalAddress(string country)
-        {
-            var address = new Mozu.Api.Contracts.Core.Address();
-            address.CountryCode = country;
-            address.IsValidated = true;
-            switch (country)
-            {
-                case "CA":
-                    address.Address1 = "1 Sussex Drive";
-                    address.CityOrTown = "Ottawa";
-                    address.PostalOrZipCode = "K1A 0A1";
-                    address.StateOrProvince = "Ontario";
-                    break;
-                case "GB":
-                    address.Address1 = "HARTMANNSTRASSE 7";
-                    address.CityOrTown = "BONN";
-                    address.PostalOrZipCode = "53001";
-                    address.StateOrProvince = "";
-                    break;
-                case "TW":
-                    address.Address1 = "3F #12 LN 410 SEC 2 PA-TEH RD";
-                    address.CityOrTown = "TAIPEI";
-                    address.PostalOrZipCode = "105";
-                    address.StateOrProvince = "";
-                    break;
-            }
-            return (address);
-        }
-
-
-        /// <summary>
-        /// Generate Address Object with meaningful CountryCode, ZipCode and State
-        /// </summary>
-        /// <param name="state"></param>
-        /// <param name="zip"></param>
-        /// <param name="country"></param>
-        /// <returns></returns>
-        public static Mozu.Api.Contracts.Core.Address GenerateAddress(string state, string zip, bool realAddress = false, string country = "US")
-        {
-            var address = new Mozu.Api.Contracts.Core.Address
-            {
-                CountryCode = country,
-                PostalOrZipCode = zip,
-                StateOrProvince = state,
-                IsValidated = true
-            };
-            if (realAddress)
-            {
-                if (state.ToUpper().Equals("TX") && zip.Equals("78717"))
-                {
-                    address.Address1 = "9900 W. Parmer Lane";
-                    address.CityOrTown = "Austin";
-                }
-                else if (state.ToUpper().Equals("NY") && zip.Equals("11238"))
-                {
-                    address.Address1 = "950 Fulton St";
-                    address.CityOrTown = "Brooklyn";
-                }
-                else if (state.ToUpper().Equals("NC") && zip.Equals("27601"))
-                {
-                    address.Address1 = "91 E Edenton St";
-                    address.CityOrTown = "Raleigh";
-                }
-                else if (state.ToUpper().Equals("CA") && zip.Equals("95814"))
-                {
-                    address.Address1 = "State Capital, Suite 1173";
-                    address.CityOrTown = "Sacramento";
-                }
-                else
-                {
-                    throw (new TestInconclusiveException(0, System.Reflection.MethodBase.GetCurrentMethod().Name.ToString(CultureInfo.InvariantCulture),
-                       null, "No real address found."));
-                }
-            }
-            else
-            {
-                return new Mozu.Api.Contracts.Core.Address()
-                {
-                    Address1 =
-                        string.Format("{0} {1}",
-                                      Generator.RandomString(8, Generator.RandomCharacterGroup.NumericOnly),
-                                      Generator.RandomString(75, Generator.RandomCharacterGroup.AlphaNumericOnly)),
-                    Address2 = Generator.RandomString(50, Generator.RandomCharacterGroup.AlphaNumericOnly),
-                    Address3 = Generator.RandomString(20, Generator.RandomCharacterGroup.AlphaNumericOnly),
-                    Address4 = Generator.RandomString(15, Generator.RandomCharacterGroup.AlphaNumericOnly),
-                    CityOrTown = Generator.RandomString(25, Generator.RandomCharacterGroup.AlphaOnly),
-                    CountryCode = country,
-                    PostalOrZipCode = zip,
-                    StateOrProvince = state
-                };
-            }
-            return address;
-        }
-
-        /// <summary>
-        /// Generate Random Address Object.
-        /// </summary>
-        /// <returns></returns>
-        public static Mozu.Api.Contracts.Core.Address GenerateAddress(string addressType)
-        {
-            addressType = addressType.ToUpper();
-            AddressType type;
-
-            switch (addressType)
-            {
-                case "RESIDENTIAL":
-                    {
-                        type = AddressType.Residential;
-                        break;
-                    }
-                case "COMMERCIAL":
-                    {
-                        type = AddressType.Commercial;
-                        break;
-                    }
-                case "NONE":
-                    {
-                        type = AddressType.None;
-                        break;
-                    }
-                default:
-                    {
-                        //type = AddressType.None;
-                        type = AddressType.Residential;
-
-                        break;
-                    }
-                    break;
-            }
-            return new Mozu.Api.Contracts.Core.Address()
-            {
-                Address1 = string.Format("{0} {1}", Generator.RandomString(8, Generator.RandomCharacterGroup.NumericOnly), Generator.RandomString(75, Generator.RandomCharacterGroup.AlphaNumericOnly)),
-                Address2 = Generator.RandomString(50, Generator.RandomCharacterGroup.AlphaNumericOnly),
-                Address3 = Generator.RandomString(20, Generator.RandomCharacterGroup.AlphaNumericOnly),
-                Address4 = Generator.RandomString(15, Generator.RandomCharacterGroup.AlphaNumericOnly),
-                CityOrTown = Generator.RandomString(25, Generator.RandomCharacterGroup.AlphaOnly),
-                CountryCode = Generator.RandomString(2, Generator.RandomCharacterGroup.AlphaOnly),
-                PostalOrZipCode = Generator.RandomString(5, Generator.RandomCharacterGroup.AlphaOnly),
-                StateOrProvince = Generator.RandomString(35, Generator.RandomCharacterGroup.AlphaOnly),
-                AddressType = type.ToString()
-            };
-        }
-
         #endregion
+
 
         #region "GenerateAttribute"
 
@@ -719,30 +522,6 @@ namespace Mozu.Api.Test.Helpers
             return attr;
         }
 
-        /// <summary>
-        /// Create an attribute with a list of options
-        /// </summary>
-        /// <param name="handler"></param>
-        /// <param name="attributeName"></param>
-        /// <param name="values"></param>
-        /// <returns></returns>
-        public static Mozu.Api.Contracts.ProductAdmin.Attribute CreateOptionAttribute(ServiceClientMessageHandler handler,
-                string attributeName, List<string> values)
-        {
-            var attr =
-                GenerateAttribute(
-                    attributeCode:
-                        attributeName + Generator.RandomString(5, Generator.RandomCharacterGroup.AlphaOnly),
-                    adminName: Generator.RandomString(6, Generator.RandomCharacterGroup.AlphaOnly), isOption: true);
-            attr.VocabularyValues.Clear();
-            foreach (var value in values)
-            {
-                attr.VocabularyValues.Add(GenerateAttributeVocabularyValue(value));
-            }
-            var createdAttr = Mozu.Api.Test.Factories.AttributeFactory.AddAttribute(handler, attr);
-            return createdAttr;
-
-        }
 
         #endregion
         #region "GenerateAttributeInProductType"
@@ -828,6 +607,15 @@ namespace Mozu.Api.Test.Helpers
                 Key = Generator.RandomString(5, Generator.RandomCharacterGroup.AlphaOnly),
                 Value = Generator.RandomString(4, Generator.RandomCharacterGroup.AlphaOnly)
             };
+        }
+
+        /// <summary>
+        /// generate AttributeMetadataItem object
+        /// </summary>
+        /// <returns></returns>
+        public static List<AttributeMetadataItem> GenerateAttributeMetadataItemList()
+        {
+            return new List<AttributeMetadataItem>();
         }
 
         /// <summary>
@@ -940,6 +728,14 @@ namespace Mozu.Api.Test.Helpers
                 Value = value
             };
         }
+        /// <summary>
+        /// generate AttributeVocabularyValue object
+        /// </summary>
+        /// <returns></returns>
+        public static List<AttributeVocabularyValue> GenerateAttributeVocabularyValueList()
+        {
+            return new List<AttributeVocabularyValue>();
+        }
 
         #endregion
         #region "GenerateAttributeVocabularyValueInProductType"
@@ -958,7 +754,10 @@ namespace Mozu.Api.Test.Helpers
                 Order = order
             };
         }
-
+        public static List<AttributeVocabularyValueInProductType> GenerateAttributeVocabularyValueInProductTypeList()
+        {
+            return new List<AttributeVocabularyValueInProductType>();
+        }
         #endregion
         #region "GenerateAttributeVocabularyValueLocalizedContent"
 
@@ -1119,8 +918,21 @@ namespace Mozu.Api.Test.Helpers
                 ParentCategoryId = parentCategoryId,
             };
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static Category GenerateCategory()
+        {
+            return new Category()
+            {
+                Content = GenerateCategoryLocalizedContent(Generator.RandomString(15, Generator.RandomCharacterGroup.AlphaOnly)),
+                IsDisplayed = true
+            };
+        }
 
         #endregion
+
         #region "GenerateCategoryLocalizedContent"
 
         /// <summary>
@@ -1207,22 +1019,987 @@ namespace Mozu.Api.Test.Helpers
         }
         #endregion
 
-        #region "PaymentGatewayInteraction"
+        #region "GenerateCustomerAccountAndAuthInfo"
+
+        public static CustomerAccountAndAuthInfo GenerateCustomerAccountAndAuthInfo(CustomerAccount customerAccount, bool isImport = false, string passwd = Constant.Password)
+        {
+            return new CustomerAccountAndAuthInfo()
+            {
+                Account = customerAccount ?? GenerateCustomerAccountRandom(),
+                Password = passwd,
+                IsImport = isImport
+            };
+        }
+        public static CustomerLoginInfo GenerateCustomerLoginInfo(string email, string userName, string passwd = Constant.Password)
+        {
+            return new CustomerLoginInfo()
+            {
+                EmailAddress = email,
+                Username = userName,
+                Password = passwd
+            };
+        }
+        #endregion
+        #region "GenerateCustomerAuthInfo"
 
         /// <summary>
-        /// For manual interaction process
+        /// Generate CustomerUserAuthInfo Object.
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="passwd"></param>
+        /// <returns></returns>
+        public static CustomerUserAuthInfo GenerateCustomerUserAuthInfo(string userName, string passwd = "MozuPass1")
+        {
+            if (string.IsNullOrEmpty(userName))
+                userName = Generator.RandomString(15, RandomCharacterGroup.AlphaNumericOnly);
+
+            return new CustomerUserAuthInfo()
+            {
+                Username = userName,
+                Password = passwd
+            };
+        }
+
+        /// <summary>
+        /// Generate CustomerUserAuthInfo Object.
         /// </summary>
         /// <returns></returns>
-        public static Mozu.Api.Contracts.CommerceRuntime.Payments.PaymentGatewayInteraction GeneratePaymentGatewayInteraction()
+        public static CustomerUserAuthInfo GenerateCustomerUserAuthInfo()
         {
-            return new Mozu.Api.Contracts.CommerceRuntime.Payments.PaymentGatewayInteraction()
+            return new CustomerUserAuthInfo();
+        }
+        #endregion
+        #region "GenerateCustomerAddress"
+        public enum AddressType
+        {
+            [EnumMember]
+            None,
+            [EnumMember]
+            Residential,
+            [EnumMember]
+            Commercial,
+        }
+        /// <summary>
+        /// Generates a new Address object using <see cref="Address" /> class.
+        /// </summary>
+        /// <param name="addr1"></param>
+        /// <param name="addr2"></param>
+        /// <param name="addr3"></param>
+        /// <param name="addr4"></param>
+        /// <param name="city"></param>
+        /// <param name="country"></param>
+        /// <param name="zip"></param>
+        /// <param name="state"></param>
+        /// <returns></returns>
+        public static Mozu.Api.Contracts.Core.Address GenerateAddress(string addr1, string addr2, string addr3, string addr4,
+            string city, string country, string zip, string state, AddressType addressType = AddressType.Residential)
+        {
+            return new Mozu.Api.Contracts.Core.Address()
             {
-                GatewayInteractionId = Generator.RandomInt(22222, 99999),
-                GatewayTransactionId = Generator.RandomString(2, Generator.RandomCharacterGroup.NumericOnly),
-                GatewayAuthCode = Generator.RandomString(6, Generator.RandomCharacterGroup.NumericOnly),
-                GatewayAVSCodes = "P",
-                GatewayCVV2Codes = "",
-                GatewayResponseCode = "1"
+                Address1 = addr1,
+                Address2 = addr2,
+                Address3 = addr3,
+                Address4 = addr4,
+                CountryCode = country,
+                CityOrTown = city,
+                PostalOrZipCode = zip,
+                StateOrProvince = state,
+                AddressType = addressType.ToString()
+            };
+        }
+        /// <summary>
+        /// Generates a new Address object using <see cref="Address" /> class.
+        /// </summary>
+        /// <returns></returns>
+        public static Mozu.Api.Contracts.Core.Address GenerateAddressReal(bool isValidated = true, string addressType = "Residential")
+        {
+
+            return ReturnValidAddresses();
+            /*
+            return new Mozu.Api.Contracts.Core.Address()
+            {
+                Address1 = "360 Nueces St",
+                Address2 = null,
+                Address3 = null,
+                Address4 = null,
+                CountryCode = "US",
+                CityOrTown = "Austin",
+                PostalOrZipCode = "78701-4195",
+                StateOrProvince = "TX",
+                AddressType = addressType,
+                IsValidated = isValidated
+            };*/
+        }
+
+
+
+        /// <summary>
+        /// Generate Random Address Object.
+        /// </summary>
+        /// <returns></returns>
+        public static Mozu.Api.Contracts.Core.Address GenerateAddressRandom(AddressType addressType = AddressType.Residential)
+        {
+            return new Mozu.Api.Contracts.Core.Address()
+            {
+                Address1 = string.Format("{0} {1}", Generator.RandomString(8, Generator.RandomCharacterGroup.NumericOnly), Generator.RandomString(75, Generator.RandomCharacterGroup.AlphaNumericOnly)),
+                Address2 = Generator.RandomString(49, Generator.RandomCharacterGroup.AlphaNumericOnly),
+                Address3 = Generator.RandomString(20, Generator.RandomCharacterGroup.AlphaNumericOnly),
+                Address4 = Generator.RandomString(15, Generator.RandomCharacterGroup.AlphaNumericOnly),
+                CityOrTown = Generator.RandomString(25, Generator.RandomCharacterGroup.AlphaOnly),
+                CountryCode = Generator.RandomString(2, Generator.RandomCharacterGroup.AlphaOnly),
+                PostalOrZipCode = Generator.RandomString(5, Generator.RandomCharacterGroup.AlphaOnly),
+                StateOrProvince = RandomState(),
+                AddressType = addressType.ToString()
+            };
+        }
+
+        public static Mozu.Api.Contracts.Core.Address GenerateAddress(bool random = true, bool validated = true, string state = "", AddressType addressType = AddressType.Residential)
+        {
+            if (random && validated)
+            {
+                return GenerateAddressValidated(addressType);
+            }
+            else if (random)
+            {
+                return GenerateAddressRandom(addressType);
+            }
+            else //(!random)
+            {
+                return GenerateAddressReal(true);
+            }
+
+        }
+
+        /// <summary>
+        /// Generate Random Address Object.
+        /// </summary>
+        /// <returns></returns>
+        public static Mozu.Api.Contracts.Core.Address GenerateAddressValidated(AddressType addressType = AddressType.Residential)
+        {
+            Mozu.Api.Contracts.Core.Address address = ReturnValidAddresses();
+            return new Mozu.Api.Contracts.Core.Address()
+            {
+                Address1 = address.Address1,
+                Address2 = address.Address2,
+                Address3 = address.Address3,
+                Address4 = address.Address4,
+                CityOrTown = address.CityOrTown,
+                CountryCode = address.CountryCode,
+                PostalOrZipCode = address.PostalOrZipCode,
+                StateOrProvince = address.StateOrProvince,
+                AddressType = addressType.ToString(),
+                IsValidated = true
+            };
+        }
+
+
+        public static Mozu.Api.Contracts.Core.Address ReturnValidAddresses(string addressType = "Residential", string state = "")
+        {
+            var validAddress = new List<Mozu.Api.Contracts.Core.Address>();
+            var i = 0;
+            validAddress.Add(new Mozu.Api.Contracts.Core.Address());
+            validAddress[i].Address1 = "Alabama Bureau of Tourism & Travel";
+            validAddress[i].Address2 = "PO Box 4927";
+            validAddress[i].Address3 = "";
+            validAddress[i].Address4 = "";
+            validAddress[i].CityOrTown = "Montgomery";
+            validAddress[i].CountryCode = "US";
+            validAddress[i].PostalOrZipCode = "36103";
+            validAddress[i].StateOrProvince = "AL";
+            validAddress[i].AddressType = addressType;
+            validAddress[i].IsValidated = true;
+            i++;
+            validAddress.Add(new Mozu.Api.Contracts.Core.Address());
+            validAddress[i].Address1 = "Alaska Division of Tourism";
+            validAddress[i].Address2 = "PO Box 110801";
+            validAddress[i].Address3 = "";
+            validAddress[i].Address4 = "";
+            validAddress[i].CityOrTown = "Juneau";
+            validAddress[i].CountryCode = "US";
+            validAddress[i].PostalOrZipCode = "99811-0801";
+            validAddress[i].StateOrProvince = "AK";
+            validAddress[i].AddressType = addressType;
+            validAddress[i].IsValidated = true;
+            i++;
+            validAddress.Add(new Mozu.Api.Contracts.Core.Address());
+            validAddress[i].Address1 = "Arizona Office of Tourism";
+            validAddress[i].Address2 = "1110 W. Washington Street, Suite 155";
+            validAddress[i].Address3 = "";
+            validAddress[i].Address4 = "";
+            validAddress[i].CityOrTown = "Phoenix";
+            validAddress[i].CountryCode = "US";
+            validAddress[i].PostalOrZipCode = "85007";
+            validAddress[i].StateOrProvince = "AZ";
+            validAddress[i].AddressType = addressType;
+            validAddress[i].IsValidated = true; 
+            i++;
+            validAddress.Add(new Mozu.Api.Contracts.Core.Address());
+            validAddress[i].Address1 = "Arkansas Department of Parks and Tourism";
+            validAddress[i].Address2 = "One Capitol Mall";
+            validAddress[i].Address3 = "";
+            validAddress[i].Address4 = "";
+            validAddress[i].CityOrTown = "Little Rock";
+            validAddress[i].CountryCode = "US";
+            validAddress[i].PostalOrZipCode = "72201";
+            validAddress[i].StateOrProvince = "AR";
+            validAddress[i].AddressType = addressType;
+            validAddress[i].IsValidated = true;
+            i++;
+            validAddress.Add(new Mozu.Api.Contracts.Core.Address());
+            validAddress[i].Address1 = "California Division of Tourism";
+            validAddress[i].Address2 = "PO Box 1499";
+            validAddress[i].Address3 = "Dept TIA";
+            validAddress[i].Address4 = "";
+            validAddress[i].CityOrTown = "Sacramento";
+            validAddress[i].CountryCode = "US";
+            validAddress[i].PostalOrZipCode = "95812";
+            validAddress[i].StateOrProvince = "CA";
+            validAddress[i].AddressType = addressType;
+            validAddress[i].IsValidated = true;
+            i++;
+            validAddress.Add(new Mozu.Api.Contracts.Core.Address());
+            validAddress[i].Address1 = "Colorado Tourism Office";
+            validAddress[i].Address2 = "1625 Broadway";
+            validAddress[i].Address3 = "Suite 2700";
+            validAddress[i].Address4 = "";
+            validAddress[i].CityOrTown = "Denver";
+            validAddress[i].CountryCode = "US";
+            validAddress[i].PostalOrZipCode = "80202";
+            validAddress[i].StateOrProvince = "CO";
+            validAddress[i].AddressType = addressType;
+            validAddress[i].IsValidated = true;
+            i++;
+            validAddress.Add(new Mozu.Api.Contracts.Core.Address());
+            validAddress[i].Address1 = "Connecticut Commission on Culture & Tourism";
+            validAddress[i].Address2 = "One Financial Plaza";
+            validAddress[i].Address3 = "755 Main Street";
+            validAddress[i].Address4 = "";
+            validAddress[i].CityOrTown = "Hartford";
+            validAddress[i].CountryCode = "US";
+            validAddress[i].PostalOrZipCode = "06103";
+            validAddress[i].StateOrProvince = "CT";
+            validAddress[i].AddressType = addressType;
+            validAddress[i].IsValidated = true;
+            i++;
+            validAddress.Add(new Mozu.Api.Contracts.Core.Address());
+            validAddress[i].Address1 = "Delaware Tourism Office";
+            validAddress[i].Address2 = "99 Kings Highway";
+            validAddress[i].Address3 = "PO Box 1401";
+            validAddress[i].Address4 = "";
+            validAddress[i].CityOrTown = "Dover";
+            validAddress[i].CountryCode = "US";
+            validAddress[i].PostalOrZipCode = "19903";
+            validAddress[i].StateOrProvince = "DE";
+            validAddress[i].AddressType = addressType;
+            validAddress[i].IsValidated = true;
+            i++;
+            validAddress.Add(new Mozu.Api.Contracts.Core.Address());
+            validAddress[i].Address1 = "Florida Office of Tourism";
+            validAddress[i].Address2 = "PO Box 1100";
+            validAddress[i].Address3 = "";
+            validAddress[i].Address4 = "";
+            validAddress[i].CityOrTown = "Tallahassee";
+            validAddress[i].CountryCode = "US";
+            validAddress[i].PostalOrZipCode = "32302";
+            validAddress[i].StateOrProvince = "FL";
+            validAddress[i].AddressType = addressType;
+            validAddress[i].IsValidated = true;
+            i++;
+            validAddress.Add(new Mozu.Api.Contracts.Core.Address());
+            validAddress[i].Address1 = "Georgia Department of Economic Development";
+            validAddress[i].Address2 = "75 Fifth Street, N.W., Suite 1200";
+            validAddress[i].Address3 = "";
+            validAddress[i].Address4 = "";
+            validAddress[i].CityOrTown = "Atlanta";
+            validAddress[i].CountryCode = "US";
+            validAddress[i].PostalOrZipCode = "30308";
+            validAddress[i].StateOrProvince = "GA";
+            validAddress[i].AddressType = addressType;
+            validAddress[i].IsValidated = true;
+            i++;
+            validAddress.Add(new Mozu.Api.Contracts.Core.Address());
+            validAddress[i].Address1 = "Hawaii Department of Business, Economic ";
+            validAddress[i].Address2 = "PO Box 2359";
+            validAddress[i].Address3 = "";
+            validAddress[i].Address4 = "";
+            validAddress[i].CityOrTown = "Honolulu";
+            validAddress[i].CountryCode = "US";
+            validAddress[i].PostalOrZipCode = "96804";
+            validAddress[i].StateOrProvince = "HI";
+            validAddress[i].AddressType = addressType;
+            validAddress[i].IsValidated = true;
+            i++;
+            validAddress.Add(new Mozu.Api.Contracts.Core.Address());
+            validAddress[i].Address1 = "Idaho Department of Commerce, Travel, Leisure";
+            validAddress[i].Address2 = "700 West State St.";
+            validAddress[i].Address3 = "PO Box 83720";
+            validAddress[i].Address4 = "";
+            validAddress[i].CityOrTown = "Boise";
+            validAddress[i].CountryCode = "US";
+            validAddress[i].PostalOrZipCode = "83720-0093";
+            validAddress[i].StateOrProvince = "ID";
+            validAddress[i].AddressType = addressType;
+            validAddress[i].IsValidated = true;
+            i++;
+            validAddress.Add(new Mozu.Api.Contracts.Core.Address());
+            validAddress[i].Address1 = "Illinois Dept. of Commerce and Community Affairs";
+            validAddress[i].Address2 = "620 E. Adams";
+            validAddress[i].Address3 = "";
+            validAddress[i].Address4 = "";
+            validAddress[i].CityOrTown = "Springfield";
+            validAddress[i].CountryCode = "US";
+            validAddress[i].PostalOrZipCode = "62701";
+            validAddress[i].StateOrProvince = "IL";
+            validAddress[i].AddressType = addressType;
+            validAddress[i].IsValidated = true;
+            i++;
+            validAddress.Add(new Mozu.Api.Contracts.Core.Address());
+            validAddress[i].Address1 = "Indiana Department of Tourism";
+            validAddress[i].Address2 = "One North Capitol";
+            validAddress[i].Address3 = "Suite 700";
+            validAddress[i].Address4 = "";
+            validAddress[i].CityOrTown = "Indianapolis";
+            validAddress[i].CountryCode = "US";
+            validAddress[i].PostalOrZipCode = "46204";
+            validAddress[i].StateOrProvince = "IN";
+            validAddress[i].AddressType = addressType;
+            validAddress[i].IsValidated = true;
+            i++;
+            validAddress.Add(new Mozu.Api.Contracts.Core.Address());
+            validAddress[i].Address1 = "Iowa Dept. of Economic Development";
+            validAddress[i].Address2 = "200 East Grand Ave.";
+            validAddress[i].Address3 = "";
+            validAddress[i].Address4 = "";
+            validAddress[i].CityOrTown = "Des Moines";
+            validAddress[i].CountryCode = "US";
+            validAddress[i].PostalOrZipCode = "50309";
+            validAddress[i].StateOrProvince = "IA";
+            validAddress[i].AddressType = addressType;
+            validAddress[i].IsValidated = true;
+            i++;
+            validAddress.Add(new Mozu.Api.Contracts.Core.Address());
+            validAddress[i].Address1 = "Kansas Dept. of Commerce";
+            validAddress[i].Address2 = "Travel And Tourism Div.";
+            validAddress[i].Address3 = "1000 S.W. Jackson Street Suite 100";
+            validAddress[i].Address4 = "";
+            validAddress[i].CityOrTown = "Topeka";
+            validAddress[i].CountryCode = "US";
+            validAddress[i].PostalOrZipCode = "66612";
+            validAddress[i].StateOrProvince = "KS";
+            validAddress[i].AddressType = addressType;
+            validAddress[i].IsValidated = true;
+            i++;
+            validAddress.Add(new Mozu.Api.Contracts.Core.Address());
+            validAddress[i].Address1 = "Kentucky Department of Travel";
+            validAddress[i].Address2 = "500 Mero St. #2200";
+            validAddress[i].Address3 = "";
+            validAddress[i].Address4 = "";
+            validAddress[i].CityOrTown = "Frankfurt";
+            validAddress[i].CountryCode = "US";
+            validAddress[i].PostalOrZipCode = "40601";
+            validAddress[i].StateOrProvince = "KY";
+            validAddress[i].AddressType = addressType;
+            validAddress[i].IsValidated = true;
+            i++;
+            validAddress.Add(new Mozu.Api.Contracts.Core.Address());
+            validAddress[i].Address1 = "Louisiana Dept. of Culture, Recreation and Tourism";
+            validAddress[i].Address2 = "PO Box 94291";
+            validAddress[i].Address3 = "";
+            validAddress[i].Address4 = "";
+            validAddress[i].CityOrTown = "Baton Rouge";
+            validAddress[i].CountryCode = "US";
+            validAddress[i].PostalOrZipCode = "70804-9291";
+            validAddress[i].StateOrProvince = "LA";
+            validAddress[i].AddressType = addressType;
+            validAddress[i].IsValidated = true;
+            i++;
+            validAddress.Add(new Mozu.Api.Contracts.Core.Address());
+            validAddress[i].Address1 = "Maine Office of Tourism";
+            validAddress[i].Address2 = "59 Statehouse Station";
+            validAddress[i].Address3 = "";
+            validAddress[i].Address4 = "";
+            validAddress[i].CityOrTown = "Augusta";
+            validAddress[i].CountryCode = "US";
+            validAddress[i].PostalOrZipCode = "04333-0059";
+            validAddress[i].StateOrProvince = "ME";
+            validAddress[i].AddressType = addressType;
+            validAddress[i].IsValidated = true;
+            i++;
+            validAddress.Add(new Mozu.Api.Contracts.Core.Address());
+            validAddress[i].Address1 = "Maryland Office of Tourism Development ";
+            validAddress[i].Address2 = "217 E. Redwood St., 9th Floor";
+            validAddress[i].Address3 = "";
+            validAddress[i].Address4 = "";
+            validAddress[i].CityOrTown = "Baltimore";
+            validAddress[i].CountryCode = "US";
+            validAddress[i].PostalOrZipCode = "21202";
+            validAddress[i].StateOrProvince = "MD";
+            validAddress[i].AddressType = addressType;
+            validAddress[i].IsValidated = true;
+            i++;
+            validAddress.Add(new Mozu.Api.Contracts.Core.Address());
+            validAddress[i].Address1 = "Massachusetts Office of Travel and Tourism";
+            validAddress[i].Address2 = "10 Park Plaza, Suite 4510";
+            validAddress[i].Address3 = "";
+            validAddress[i].Address4 = "";
+            validAddress[i].CityOrTown = "Boston";
+            validAddress[i].CountryCode = "US";
+            validAddress[i].PostalOrZipCode = "02116";
+            validAddress[i].StateOrProvince = "MA";
+            validAddress[i].AddressType = addressType;
+            validAddress[i].IsValidated = true;
+            i++;
+            validAddress.Add(new Mozu.Api.Contracts.Core.Address());
+            validAddress[i].Address1 = "Travel Michigan";
+            validAddress[i].Address2 = "P.O. Box 30226";
+            validAddress[i].Address3 = "";
+            validAddress[i].Address4 = "";
+            validAddress[i].CityOrTown = "Lansing";
+            validAddress[i].CountryCode = "US";
+            validAddress[i].PostalOrZipCode = "48909-7726";
+            validAddress[i].StateOrProvince = "MI";
+            validAddress[i].AddressType = addressType;
+            validAddress[i].IsValidated = true;
+            i++;
+            validAddress.Add(new Mozu.Api.Contracts.Core.Address());
+            validAddress[i].Address1 = "Minnesota Office of Tourism ";
+            validAddress[i].Address2 = "100 Metro Square, 121 7th Place E.";
+            validAddress[i].Address3 = "";
+            validAddress[i].Address4 = "";
+            validAddress[i].CityOrTown = "St. Paul";
+            validAddress[i].CountryCode = "US";
+            validAddress[i].PostalOrZipCode = "55101-2146";
+            validAddress[i].StateOrProvince = "MN";
+            validAddress[i].AddressType = addressType;
+            validAddress[i].IsValidated = true;
+            i++;
+            validAddress.Add(new Mozu.Api.Contracts.Core.Address());
+            validAddress[i].Address1 = "Mississippi Division of Tourism Development ";
+            validAddress[i].Address2 = "P.O. Box 849";
+            validAddress[i].Address3 = "";
+            validAddress[i].Address4 = "";
+            validAddress[i].CityOrTown = "Jackson";
+            validAddress[i].CountryCode = "US";
+            validAddress[i].PostalOrZipCode = "39205";
+            validAddress[i].StateOrProvince = "MS";
+            validAddress[i].AddressType = addressType;
+            validAddress[i].IsValidated = true;
+            i++;
+            validAddress.Add(new Mozu.Api.Contracts.Core.Address());
+            validAddress[i].Address1 = "Missouri Division of Tourism";
+            validAddress[i].Address2 = "P.O. Box 1055";
+            validAddress[i].Address3 = "";
+            validAddress[i].Address4 = "";
+            validAddress[i].CityOrTown = "Jefferson City";
+            validAddress[i].CountryCode = "US";
+            validAddress[i].PostalOrZipCode = "65102";
+            validAddress[i].StateOrProvince = "MO";
+            validAddress[i].AddressType = addressType;
+            validAddress[i].IsValidated = true;
+            i++;
+            validAddress.Add(new Mozu.Api.Contracts.Core.Address());
+            validAddress[i].Address1 = "Travel Montana";
+            validAddress[i].Address2 = "P.O. Box 200533";
+            validAddress[i].Address3 = "";
+            validAddress[i].Address4 = "";
+            validAddress[i].CityOrTown = "Helena";
+            validAddress[i].CountryCode = "US";
+            validAddress[i].PostalOrZipCode = "59620-0533";
+            validAddress[i].StateOrProvince = "MT";
+            validAddress[i].AddressType = addressType;
+            validAddress[i].IsValidated = true;
+            i++;
+            validAddress.Add(new Mozu.Api.Contracts.Core.Address());
+            validAddress[i].Address1 = "Nebraska Tourism Information Center ";
+            validAddress[i].Address2 = "P.O. Box 98907";
+            validAddress[i].Address3 = "";
+            validAddress[i].Address4 = "";
+            validAddress[i].CityOrTown = "Lincoln";
+            validAddress[i].CountryCode = "US";
+            validAddress[i].PostalOrZipCode = "68509-8907";
+            validAddress[i].StateOrProvince = "NE";
+            validAddress[i].AddressType = addressType;
+            validAddress[i].IsValidated = true;
+            i++;
+            validAddress.Add(new Mozu.Api.Contracts.Core.Address());
+            validAddress[i].Address1 = "Nevada Commission on Tourism ";
+            validAddress[i].Address2 = "401 N. Carson St.";
+            validAddress[i].Address3 = "";
+            validAddress[i].Address4 = "";
+            validAddress[i].CityOrTown = "Carson City";
+            validAddress[i].CountryCode = "US";
+            validAddress[i].PostalOrZipCode = "89701";
+            validAddress[i].StateOrProvince = "NV";
+            validAddress[i].AddressType = addressType;
+            validAddress[i].IsValidated = true;
+            i++;
+            validAddress.Add(new Mozu.Api.Contracts.Core.Address());
+            validAddress[i].Address1 = "New Hampshire Division of Travel and Tourism";
+            validAddress[i].Address2 = "P.O. Box 1856";
+            validAddress[i].Address3 = "";
+            validAddress[i].Address4 = "";
+            validAddress[i].CityOrTown = "Concord";
+            validAddress[i].CountryCode = "US";
+            validAddress[i].PostalOrZipCode = "03302-1856";
+            validAddress[i].StateOrProvince = "NH";
+            validAddress[i].AddressType = addressType;
+            validAddress[i].IsValidated = true;
+            i++;
+            validAddress.Add(new Mozu.Api.Contracts.Core.Address());
+            validAddress[i].Address1 = "New Jersey Commerce and Economic Growth Commission,";
+            validAddress[i].Address2 = "20 W. State St., P.O. Box 820";
+            validAddress[i].Address3 = "";
+            validAddress[i].Address4 = "";
+            validAddress[i].CityOrTown = "Trenton";
+            validAddress[i].CountryCode = "US";
+            validAddress[i].PostalOrZipCode = "08625";
+            validAddress[i].StateOrProvince = "NJ";
+            validAddress[i].AddressType = addressType;
+            validAddress[i].IsValidated = true;
+            i++;
+            validAddress.Add(new Mozu.Api.Contracts.Core.Address());
+            validAddress[i].Address1 = "New Mexico Department of Tourism ";
+            validAddress[i].Address2 = "491 Old Santa Fe Trail";
+            validAddress[i].Address3 = "";
+            validAddress[i].Address4 = "";
+            validAddress[i].CityOrTown = "Santa Fe";
+            validAddress[i].CountryCode = "US";
+            validAddress[i].PostalOrZipCode = "87501";
+            validAddress[i].StateOrProvince = "NM";
+            validAddress[i].AddressType = addressType;
+            validAddress[i].IsValidated = true;
+            i++;
+            validAddress.Add(new Mozu.Api.Contracts.Core.Address());
+            validAddress[i].Address1 = "New York State, Division of Tourism ";
+            validAddress[i].Address2 = "P.O. Box 2603";
+            validAddress[i].Address3 = "";
+            validAddress[i].Address4 = "";
+            validAddress[i].CityOrTown = "Albany";
+            validAddress[i].CountryCode = "US";
+            validAddress[i].PostalOrZipCode = "12220-0603";
+            validAddress[i].StateOrProvince = "NY";
+            validAddress[i].AddressType = addressType;
+            validAddress[i].IsValidated = true;
+            i++;
+            validAddress.Add(new Mozu.Api.Contracts.Core.Address());
+            validAddress[i].Address1 = "North Carolina Division of Tourism";
+            validAddress[i].Address2 = "301 N. Wilmington St., 4324 ";
+            validAddress[i].Address3 = "Mail Service Center";
+            validAddress[i].Address4 = "";
+            validAddress[i].CityOrTown = "Raleigh";
+            validAddress[i].CountryCode = "US";
+            validAddress[i].PostalOrZipCode = "27699";
+            validAddress[i].StateOrProvince = "NC";
+            validAddress[i].AddressType = addressType;
+            validAddress[i].IsValidated = true;
+            i++;
+            validAddress.Add(new Mozu.Api.Contracts.Core.Address());
+            validAddress[i].Address1 = "North Dakota Tourism";
+            validAddress[i].Address2 = "400 E. Broadway, Suite 50, P.O. Box 2057";
+            validAddress[i].Address3 = "";
+            validAddress[i].Address4 = "";
+            validAddress[i].CityOrTown = "Bismarck";
+            validAddress[i].CountryCode = "US";
+            validAddress[i].PostalOrZipCode = "58502";
+            validAddress[i].StateOrProvince = "ND";
+            validAddress[i].AddressType = addressType;
+            validAddress[i].IsValidated = true;
+            i++;
+            validAddress.Add(new Mozu.Api.Contracts.Core.Address());
+            validAddress[i].Address1 = "Ohio Division of Travel and Tourism ";
+            validAddress[i].Address2 = "P.O. Box 1001";
+            validAddress[i].Address3 = "";
+            validAddress[i].Address4 = "";
+            validAddress[i].CityOrTown = "Columbus";
+            validAddress[i].CountryCode = "US";
+            validAddress[i].PostalOrZipCode = "43216-1001";
+            validAddress[i].StateOrProvince = "OH";
+            validAddress[i].AddressType = addressType;
+            validAddress[i].IsValidated = true;
+            i++;
+            validAddress.Add(new Mozu.Api.Contracts.Core.Address());
+            validAddress[i].Address1 = "Oklahoma Department of Tourism";
+            validAddress[i].Address2 = "P.O. Box 60789";
+            validAddress[i].Address3 = "";
+            validAddress[i].Address4 = "";
+            validAddress[i].CityOrTown = "Oklahoma City";
+            validAddress[i].CountryCode = "US";
+            validAddress[i].PostalOrZipCode = "73146";
+            validAddress[i].StateOrProvince = "OK";
+            validAddress[i].AddressType = addressType;
+            validAddress[i].IsValidated = true;
+            i++;
+            validAddress.Add(new Mozu.Api.Contracts.Core.Address());
+            validAddress[i].Address1 = "Oregon Tourism Commission";
+            validAddress[i].Address2 = "775 Summer St. N.E.";
+            validAddress[i].Address3 = "";
+            validAddress[i].Address4 = "";
+            validAddress[i].CityOrTown = "Salem";
+            validAddress[i].CountryCode = "US";
+            validAddress[i].PostalOrZipCode = "97301-1282";
+            validAddress[i].StateOrProvince = "OR";
+            validAddress[i].AddressType = addressType;
+            validAddress[i].IsValidated = true;
+            i++;
+            validAddress.Add(new Mozu.Api.Contracts.Core.Address());
+            validAddress[i].Address1 = "Pennsylvania Center for Travel, Tourism and Film Promotion ";
+            validAddress[i].Address2 = "400 North St., 4th Floor";
+            validAddress[i].Address3 = "Commonwealth Keystone Building";
+            validAddress[i].Address4 = "";
+            validAddress[i].CityOrTown = "Harrisburg";
+            validAddress[i].CountryCode = "US";
+            validAddress[i].PostalOrZipCode = "17120-0225";
+            validAddress[i].StateOrProvince = "PA";
+            validAddress[i].AddressType = addressType;
+            validAddress[i].IsValidated = true;
+            i++;
+            validAddress.Add(new Mozu.Api.Contracts.Core.Address());
+            validAddress[i].Address1 = "Puerto Rico Tourism Co. ";
+            validAddress[i].Address2 = "3575 W. Cahuenga Blvd., Suite 405";
+            validAddress[i].Address3 = "";
+            validAddress[i].Address4 = "";
+            validAddress[i].CityOrTown = "Los Angeles";
+            validAddress[i].CountryCode = "US";
+            validAddress[i].PostalOrZipCode = "90068";
+            validAddress[i].StateOrProvince = "CA";
+            validAddress[i].AddressType = addressType;
+            validAddress[i].IsValidated = true;
+            i++;
+            validAddress.Add(new Mozu.Api.Contracts.Core.Address());
+            validAddress[i].Address1 = "Rhode Island Travel and Tourism Division";
+            validAddress[i].Address2 = "1 W. Exchange St.";
+            validAddress[i].Address3 = "";
+            validAddress[i].Address4 = "";
+            validAddress[i].CityOrTown = "Providence";
+            validAddress[i].CountryCode = "US";
+            validAddress[i].PostalOrZipCode = "29201";
+            validAddress[i].StateOrProvince = "RI";
+            validAddress[i].AddressType = addressType;
+            validAddress[i].IsValidated = true;
+            i++;
+            validAddress.Add(new Mozu.Api.Contracts.Core.Address());
+            validAddress[i].Address1 = "South Carolina Parks, Recreation and Tourism";
+            validAddress[i].Address2 = "1205 Pendleton St.";
+            validAddress[i].Address3 = "";
+            validAddress[i].Address4 = "";
+            validAddress[i].CityOrTown = "Columbia";
+            validAddress[i].CountryCode = "US";
+            validAddress[i].PostalOrZipCode = "29201";
+            validAddress[i].StateOrProvince = "SC";
+            validAddress[i].AddressType = addressType;
+            validAddress[i].IsValidated = true;
+            i++;
+            validAddress.Add(new Mozu.Api.Contracts.Core.Address());
+            validAddress[i].Address1 = "South Dakota Department of Tourism ";
+            validAddress[i].Address2 = "711 E. Wells Ave.";
+            validAddress[i].Address3 = "";
+            validAddress[i].Address4 = "";
+            validAddress[i].CityOrTown = "Pierre";
+            validAddress[i].CountryCode = "US";
+            validAddress[i].PostalOrZipCode = "57501";
+            validAddress[i].StateOrProvince = "SD";
+            validAddress[i].AddressType = addressType;
+            validAddress[i].IsValidated = true;
+            i++;
+            validAddress.Add(new Mozu.Api.Contracts.Core.Address());
+            validAddress[i].Address1 = "Tennessee Department of Tourist Development, Rachel Jackson Building ";
+            validAddress[i].Address2 = "5th Floor, 320 6th Ave. N.";
+            validAddress[i].Address3 = "";
+            validAddress[i].Address4 = "";
+            validAddress[i].CityOrTown = "Nashville";
+            validAddress[i].CountryCode = "US";
+            validAddress[i].PostalOrZipCode = "37243";
+            validAddress[i].StateOrProvince = "TN";
+            validAddress[i].AddressType = addressType;
+            validAddress[i].IsValidated = true;
+            i++;
+            validAddress.Add(new Mozu.Api.Contracts.Core.Address());
+            validAddress[i].Address1 = "Texas Department of Economic Development-Tourism Division ";
+            validAddress[i].Address2 = "P.O. Box 12728";
+            validAddress[i].Address3 = "";
+            validAddress[i].Address4 = "";
+            validAddress[i].CityOrTown = "Austin";
+            validAddress[i].CountryCode = "US";
+            validAddress[i].PostalOrZipCode = "78711-2728";
+            validAddress[i].StateOrProvince = "TX";
+            validAddress[i].AddressType = addressType;
+            validAddress[i].IsValidated = true;
+            i++;
+            validAddress.Add(new Mozu.Api.Contracts.Core.Address());
+            validAddress[i].Address1 = "U.S. Virgin Islands Department of Tourism ";
+            validAddress[i].Address2 = "3460 Wilshire Blvd., Suite 412";
+            validAddress[i].Address3 = "";
+            validAddress[i].Address4 = "";
+            validAddress[i].CityOrTown = "Los Angeles";
+            validAddress[i].CountryCode = "US";
+            validAddress[i].PostalOrZipCode = "90010";
+            validAddress[i].StateOrProvince = "CA";
+            validAddress[i].AddressType = addressType;
+            validAddress[i].IsValidated = true;
+            i++;
+            validAddress.Add(new Mozu.Api.Contracts.Core.Address());
+            validAddress[i].Address1 = "Utah Travel Council, Capitol Hill/Council Hall ";
+            validAddress[i].Address2 = "300 N. State St.";
+            validAddress[i].Address3 = "";
+            validAddress[i].Address4 = "";
+            validAddress[i].CityOrTown = "Salt Lake City";
+            validAddress[i].CountryCode = "US";
+            validAddress[i].PostalOrZipCode = "84114";
+            validAddress[i].StateOrProvince = "UT";
+            validAddress[i].AddressType = addressType;
+            validAddress[i].IsValidated = true;
+            i++;
+            validAddress.Add(new Mozu.Api.Contracts.Core.Address());
+            validAddress[i].Address1 = "Vermont Department of Tourism and Marketing";
+            validAddress[i].Address2 = "6 Baldwin St., Drawer 33";
+            validAddress[i].Address3 = "";
+            validAddress[i].Address4 = "";
+            validAddress[i].CityOrTown = "Montpelier";
+            validAddress[i].CountryCode = "US";
+            validAddress[i].PostalOrZipCode = "05633-1301";
+            validAddress[i].StateOrProvince = "VT";
+            validAddress[i].AddressType = addressType;
+            validAddress[i].IsValidated = true;
+            i++;
+            validAddress.Add(new Mozu.Api.Contracts.Core.Address());
+            validAddress[i].Address1 = "Virginia Tourism Corp. ";
+            validAddress[i].Address2 = "901 E. Byrd St.";
+            validAddress[i].Address3 = "";
+            validAddress[i].Address4 = "";
+            validAddress[i].CityOrTown = "Richmond";
+            validAddress[i].CountryCode = "US";
+            validAddress[i].PostalOrZipCode = "23219";
+            validAddress[i].StateOrProvince = "VA";
+            validAddress[i].AddressType = addressType;
+            validAddress[i].IsValidated = true;
+            i++;
+            validAddress.Add(new Mozu.Api.Contracts.Core.Address());
+            validAddress[i].Address1 = "Washington State Tourism ";
+            validAddress[i].Address2 = "P.O. Box 42500";
+            validAddress[i].Address3 = "";
+            validAddress[i].Address4 = "";
+            validAddress[i].CityOrTown = "Olympia";
+            validAddress[i].CountryCode = "US";
+            validAddress[i].PostalOrZipCode = "98504-2500";
+            validAddress[i].StateOrProvince = "WA";
+            validAddress[i].AddressType = addressType;
+            validAddress[i].IsValidated = true;
+            i++;
+            validAddress.Add(new Mozu.Api.Contracts.Core.Address());
+            validAddress[i].Address1 = "Washington, D.C., Convention and Tourism Corp.";
+            validAddress[i].Address2 = "1212 New York Ave. N.W., Suite 600";
+            validAddress[i].Address3 = "";
+            validAddress[i].Address4 = "";
+            validAddress[i].CityOrTown = "Washington";
+            validAddress[i].CountryCode = "US";
+            validAddress[i].PostalOrZipCode = "20005";
+            validAddress[i].StateOrProvince = "DC";
+            validAddress[i].AddressType = addressType;
+            validAddress[i].IsValidated = true;
+            i++;
+            validAddress.Add(new Mozu.Api.Contracts.Core.Address());
+            validAddress[i].Address1 = "West Virginia Tourism ";
+            validAddress[i].Address2 = "90 MacCorkle Ave. S.W.";
+            validAddress[i].Address3 = "";
+            validAddress[i].Address4 = "";
+            validAddress[i].CityOrTown = "South Charleston";
+            validAddress[i].CountryCode = "US";
+            validAddress[i].PostalOrZipCode = "25303";
+            validAddress[i].StateOrProvince = "WV";
+            validAddress[i].AddressType = addressType;
+            validAddress[i].IsValidated = true;
+            i++;
+            validAddress.Add(new Mozu.Api.Contracts.Core.Address());
+            validAddress[i].Address1 = "Wisconsin Department of Tourism and Travel Information ";
+            validAddress[i].Address2 = "P.O. Box 7606";
+            validAddress[i].Address3 = "";
+            validAddress[i].Address4 = "";
+            validAddress[i].CityOrTown = "Madison";
+            validAddress[i].CountryCode = "US";
+            validAddress[i].PostalOrZipCode = "53707";
+            validAddress[i].StateOrProvince = "WI";
+            validAddress[i].AddressType = addressType;
+            validAddress[i].IsValidated = true;
+            i++;
+            validAddress.Add(new Mozu.Api.Contracts.Core.Address());
+            validAddress[i].Address1 = "Wyoming Division of Tourism ";
+            validAddress[i].Address2 = "I-25 at College Drive";
+            validAddress[i].Address3 = "";
+            validAddress[i].Address4 = "";
+            validAddress[i].CityOrTown = "Cheyenne";
+            validAddress[i].CountryCode = "US";
+            validAddress[i].PostalOrZipCode = "82002";
+            validAddress[i].StateOrProvince = "WY";
+            validAddress[i].AddressType = addressType;
+
+            return validAddress[new Random().Next(0, validAddress.Count)];
+
+        }
+
+
+        /// <summary>
+        /// Generate Address Object with meaningful CountryCode, ZipCode and State
+        /// </summary>
+        /// <param name="state"></param>
+        /// <param name="zip"></param>
+        /// <param name="country"></param>
+        /// <returns></returns>
+        public static Mozu.Api.Contracts.Core.Address GenerateAddress(string state, string zip, string country = "US")
+        {
+            return new Mozu.Api.Contracts.Core.Address()
+            {
+                Address1 = string.Format("{0} {1}", Generator.RandomString(8, Generator.RandomCharacterGroup.NumericOnly), Generator.RandomString(75, Generator.RandomCharacterGroup.AlphaNumericOnly)),
+                Address2 = Generator.RandomString(49, Generator.RandomCharacterGroup.AlphaNumericOnly),
+                Address3 = Generator.RandomString(20, Generator.RandomCharacterGroup.AlphaNumericOnly),
+                Address4 = Generator.RandomString(15, Generator.RandomCharacterGroup.AlphaNumericOnly),
+                CityOrTown = Generator.RandomString(25, Generator.RandomCharacterGroup.AlphaOnly),
+                CountryCode = country,
+                PostalOrZipCode = zip,
+                StateOrProvince = state
+            };
+        }
+
+
+        public static Mozu.Api.Contracts.Core.Address GenerateInternationalAddress(string country)
+        {
+            var address = new Mozu.Api.Contracts.Core.Address();
+            address.CountryCode = country;
+            address.IsValidated = true;
+            switch (country)
+            {
+                case "CA":
+                    address.Address1 = "1 Sussex Drive";
+                    address.CityOrTown = "Ottawa";
+                    address.PostalOrZipCode = "K1A 0A1";
+                    address.StateOrProvince = "Ontario";
+                    break;
+                case "GB":
+                    address.Address1 = "HARTMANNSTRASSE 7";
+                    address.CityOrTown = "BONN";
+                    address.PostalOrZipCode = "53001";
+                    address.StateOrProvince = "";
+                    break;
+                case "TW":
+                    address.Address1 = "3F #12 LN 410 SEC 2 PA-TEH RD";
+                    address.CityOrTown = "TAIPEI";
+                    address.PostalOrZipCode = "105";
+                    address.StateOrProvince = "";
+                    break;
+            }
+            return (address);
+        }
+
+
+        /// <summary>
+        /// Generate Address Object with meaningful CountryCode, ZipCode and State
+        /// </summary>
+        /// <param name="state"></param>
+        /// <param name="zip"></param>
+        /// <param name="country"></param>
+        /// <returns></returns>
+        public static Mozu.Api.Contracts.Core.Address GenerateAddress(string state, string zip, bool realAddress = false, string country = "US")
+        {
+            var address = new Mozu.Api.Contracts.Core.Address
+            {
+                CountryCode = country,
+                PostalOrZipCode = zip,
+                StateOrProvince = state,
+                IsValidated = true
+            };
+            if (realAddress)
+            {
+                if (state.ToUpper().Equals("TX") && zip.Equals("78717"))
+                {
+                    address.Address1 = "9900 W. Parmer Lane";
+                    address.CityOrTown = "Austin";
+                }
+                else if (state.ToUpper().Equals("NY") && zip.Equals("11238"))
+                {
+                    address.Address1 = "950 Fulton St";
+                    address.CityOrTown = "Brooklyn";
+                }
+                else if (state.ToUpper().Equals("NC") && zip.Equals("27601"))
+                {
+                    address.Address1 = "91 E Edenton St";
+                    address.CityOrTown = "Raleigh";
+                }
+                else if (state.ToUpper().Equals("CA") && zip.Equals("95814"))
+                {
+                    address.Address1 = "State Capital, Suite 1173";
+                    address.CityOrTown = "Sacramento";
+                }
+                else
+                {
+                    throw (new TestInconclusiveException(0, System.Reflection.MethodBase.GetCurrentMethod().Name.ToString(CultureInfo.InvariantCulture),
+                       null, "No real address found."));
+                }
+            }
+            else
+            {
+                return new Mozu.Api.Contracts.Core.Address()
+                {
+                    Address1 =
+                        string.Format("{0} {1}",
+                                      Generator.RandomString(8, Generator.RandomCharacterGroup.NumericOnly),
+                                      Generator.RandomString(75, Generator.RandomCharacterGroup.AlphaNumericOnly)),
+                    Address2 = Generator.RandomString(50, Generator.RandomCharacterGroup.AlphaNumericOnly),
+                    Address3 = Generator.RandomString(20, Generator.RandomCharacterGroup.AlphaNumericOnly),
+                    Address4 = Generator.RandomString(15, Generator.RandomCharacterGroup.AlphaNumericOnly),
+                    CityOrTown = Generator.RandomString(25, Generator.RandomCharacterGroup.AlphaOnly),
+                    CountryCode = country,
+                    PostalOrZipCode = zip,
+                    StateOrProvince = state
+                };
+            }
+            return address;
+        }
+
+        /// <summary>
+        /// Generate Random Address Object.
+        /// </summary>
+        /// <returns></returns>
+        public static Mozu.Api.Contracts.Core.Address GenerateAddress(string addressType)
+        {
+            addressType = addressType.ToUpper();
+            AddressType type;
+
+            switch (addressType)
+            {
+                case "RESIDENTIAL":
+                    {
+                        type = AddressType.Residential;
+                        break;
+                    }
+                case "COMMERCIAL":
+                    {
+                        type = AddressType.Commercial;
+                        break;
+                    }
+                case "NONE":
+                    {
+                        type = AddressType.None;
+                        break;
+                    }
+                default:
+                    {
+                        //type = AddressType.None;
+                        type = AddressType.Residential;
+
+                        break;
+                    }
+                    break;
+            }
+            return new Mozu.Api.Contracts.Core.Address()
+            {
+                Address1 = string.Format("{0} {1}", Generator.RandomString(8, Generator.RandomCharacterGroup.NumericOnly), Generator.RandomString(75, Generator.RandomCharacterGroup.AlphaNumericOnly)),
+                Address2 = Generator.RandomString(50, Generator.RandomCharacterGroup.AlphaNumericOnly),
+                Address3 = Generator.RandomString(20, Generator.RandomCharacterGroup.AlphaNumericOnly),
+                Address4 = Generator.RandomString(15, Generator.RandomCharacterGroup.AlphaNumericOnly),
+                CityOrTown = Generator.RandomString(25, Generator.RandomCharacterGroup.AlphaOnly),
+                CountryCode = Generator.RandomString(2, Generator.RandomCharacterGroup.AlphaOnly),
+                PostalOrZipCode = Generator.RandomString(5, Generator.RandomCharacterGroup.AlphaOnly),
+                StateOrProvince = RandomState(),
+                AddressType = type.ToString()
             };
         }
 
@@ -1271,6 +2048,21 @@ namespace Mozu.Api.Test.Helpers
                 PhoneNumbers = Generator.GeneratePhoneRandom(),
             };
         }
+
+        public static Mozu.Api.Contracts.Core.Contact GenerateContactRealAddress(bool isValidated, string firstname, string lastname, string email, string addressType = "Residential")
+        {
+            return new Mozu.Api.Contracts.Core.Contact
+            {
+                Address = Generator.GenerateAddressReal(isValidated, addressType: addressType),
+                CompanyOrOrganization = Generator.RandomString(50, Generator.RandomCharacterGroup.AlphaNumericOnly),
+                Email = email,
+                FirstName = firstname,
+                MiddleNameOrInitial = "",
+                LastNameOrSurname = lastname,
+                PhoneNumbers = Generator.GeneratePhoneRandom(),
+            };
+        }
+
         public static Mozu.Api.Contracts.Core.Contact GenerateInternationalContact(string country)
         {
             return new Mozu.Api.Contracts.Core.Contact()
@@ -1303,6 +2095,7 @@ namespace Mozu.Api.Test.Helpers
             };
         }
         #endregion
+
         #region "GenerateCustomerAccount"
 
         /// <summary>
@@ -1316,12 +2109,48 @@ namespace Mozu.Api.Test.Helpers
             var firstname = GenerateFirstName();
             var lastname = GenerateLastName();
             var username = firstname + lastname; // or use Generator.RandomString(12, RandomCharacterGroup.AlphaOnly);
+            var email = RandomEmailAddressMozu();
+            var customer = new CustomerAccount()
+            {
+                AcceptsMarketing = false,
+                CompanyOrOrganization = RandomCompanyName(),
+                Contacts = new List<CustomerContact>() { GenerateCustomerContact(0, GenerateAddressRandom(addressType: AddressType.Residential), email, firstname, "", lastname) },
+                EmailAddress = email, // username + "@mozu.com",//Generator.RandomEmailAddress(),
+                FirstName = firstname, // or use Generator.RandomString(10, RandomCharacterGroup.AlphaOnly),
+                LastName = lastname, // or use Generator.RandomString(10, RandomCharacterGroup.AlphaOnly),
+                UserName = username,
+                TaxExempt = taxExempt,
+                TaxId = taxId,
+                LocaleCode = Constant.LocaleCode,
+                Notes = new List<CustomerNote>() { GenerateCustomerNote() }
+            };
+
+            var customerAccountAndAuthInfo = new CustomerAccountAndAuthInfo
+            {
+                Account = customer,
+                Password = Constant.Password
+            };
+
+            return customerAccountAndAuthInfo;
+        }
+
+        /// <summary>
+        /// Generate Customer Account
+        /// </summary>
+        /// <param name="taxExempt"></param>
+        /// <param name="taxId"></param>
+        /// <returns></returns>
+        public static CustomerAccountAndAuthInfo GenerateCustomerAccountAndAuthInfoRandom(bool taxExempt = false, string taxId = null)
+        {
+            var firstname = Generator.RandomString(8, RandomCharacterGroup.AlphaOnly);
+            var lastname = Generator.RandomString(8, RandomCharacterGroup.AlphaOnly);
+            var username = firstname + lastname; // or use Generator.RandomString(12, RandomCharacterGroup.AlphaOnly);
             var customer = new CustomerAccount()
             {
                 AcceptsMarketing = false,
                 CompanyOrOrganization = "Volusion",
-                Contacts = new List<CustomerContact>() { GenerateCustomerContact(0, GenerateAddressRandom(addressType: AddressType.Residential), username + "@volusion.com", firstname, "", lastname) },
-                EmailAddress = username + "@volusion.com",//Generator.RandomEmailAddress(),
+                Contacts = new List<CustomerContact>() { GenerateCustomerContact(0, GenerateAddressRandom(addressType: AddressType.Residential), username + "@mozu.com", firstname, "", lastname) },
+                EmailAddress = username + "@mozu.com",//Generator.RandomEmailAddress(),
                 FirstName = firstname, // or use Generator.RandomString(10, RandomCharacterGroup.AlphaOnly),
                 LastName = lastname, // or use Generator.RandomString(10, RandomCharacterGroup.AlphaOnly),
                 UserName = username,
@@ -1354,6 +2183,11 @@ namespace Mozu.Api.Test.Helpers
             };
 
             return customerAccountAndAuthInfo;
+        }
+
+        public static CustomerAccountAndAuthInfo GenerateCustomerAccountAndAuthInfo()
+        {
+            return new CustomerAccountAndAuthInfo();
         }
         /// <summary>
         /// Generate Random Customer Note
@@ -1411,7 +2245,7 @@ namespace Mozu.Api.Test.Helpers
             return new CustomerAccount()
             {
                 UserId = userId,
-                CompanyOrOrganization = "Volusion"
+                CompanyOrOrganization = RandomCompanyName()
             };
         }
 
@@ -1434,7 +2268,33 @@ namespace Mozu.Api.Test.Helpers
         /// 
         /// </summary>
         /// <returns></returns>
-        public static CustomerAccount GenerateCustomerAccountRandom(bool taxExempt = false, string taxId = null, string emailAddress = null)
+        public static CustomerAccount GenerateCustomerAccountRandom(bool taxExempt = false, string taxId = null, string emailAddress = null, bool acceptsMarketing = true)
+        {
+            if (string.IsNullOrEmpty(emailAddress))
+            {
+                emailAddress = Generator.RandomEmailAddress();
+            }
+            return new CustomerAccount()
+            {
+                AcceptsMarketing = acceptsMarketing,
+                CompanyOrOrganization = RandomCompanyName(),
+                Contacts = new List<CustomerContact>() { GenerateCustomerContact(0, GenerateAddressRandom(addressType: AddressType.Residential)) },
+                EmailAddress = emailAddress,
+                FirstName = GenerateFirstName(), //  Generator.RandomString(10, RandomCharacterGroup.AlphaOnly),
+                LastName = GenerateLastName(), // Generator.RandomString(10, RandomCharacterGroup.AlphaOnly),
+                UserName = Generator.RandomString(14, RandomCharacterGroup.AlphaOnly),
+                TaxExempt = taxExempt,
+                TaxId = taxId,
+                LocaleCode = Constant.LocaleCode,
+                Notes = new List<CustomerNote>() { GenerateCustomerNote() }
+            };
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static CustomerAccount GenerateCustomerAccountVeryRandom(bool taxExempt = false, string taxId = null, string emailAddress = null)
         {
             if (string.IsNullOrEmpty(emailAddress))
             {
@@ -1443,19 +2303,53 @@ namespace Mozu.Api.Test.Helpers
             return new CustomerAccount()
             {
                 AcceptsMarketing = false,
-                CompanyOrOrganization = "Volusion",
+                CompanyOrOrganization = RandomCompanyName(),
                 Contacts = new List<CustomerContact>() { GenerateCustomerContact(0, GenerateAddressRandom(addressType: AddressType.Residential)) },
                 EmailAddress = emailAddress,
-                FirstName = GenerateFirstName(), //  Generator.RandomString(10, RandomCharacterGroup.AlphaOnly),
-                LastName = GenerateLastName(), // Generator.RandomString(10, RandomCharacterGroup.AlphaOnly),
-                UserName = Generator.RandomString(4, RandomCharacterGroup.AlphaOnly),
+                FirstName =  Generator.RandomString(10, RandomCharacterGroup.AlphaOnly),
+                LastName = Generator.RandomString(10, RandomCharacterGroup.AlphaOnly),
+                UserName = Generator.RandomString(14, RandomCharacterGroup.AlphaOnly),
                 TaxExempt = taxExempt,
                 TaxId = taxId,
                 LocaleCode = Constant.LocaleCode,
+               
                 Notes = new List<CustomerNote>() { GenerateCustomerNote() }
             };
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static CustomerAccount GenerateCustomerAccountValidatedRandom(bool taxExempt = false, string taxId = null, string emailAddress = null, bool acceptsMarketing = true)
+        {
+            var firstName = GenerateFirstName();
+            var lastName = GenerateLastName();
+            var companyName = RandomCompanyName();
+            if (string.IsNullOrEmpty(emailAddress))
+            {
+                emailAddress = Generator.RandomEmailAddressMozu();
+            }
+
+
+            return new CustomerAccount()
+            {
+                AcceptsMarketing = acceptsMarketing,
+                CompanyOrOrganization = companyName,
+                Contacts = new List<CustomerContact>() { GenerateCustomerContact(accountId:0,address: GenerateAddress(random: true, validated: true, 
+                                                        addressType: AddressType.Residential), email:emailAddress, firstname:firstName,lastnameorsurname :lastName, middlename:"",
+                                                        companyName: companyName) },
+                EmailAddress = emailAddress,
+                FirstName = firstName,
+                LastName = lastName,
+                UserName = emailAddress.Replace("@Mozu.com","").Replace("@gmail.com",""),
+                TaxExempt = taxExempt,
+                TaxId = taxId,
+                LocaleCode = Constant.LocaleCode,
+                
+                Notes = new List<CustomerNote>() { GenerateCustomerNote() }
+            };
+        }
         /// <summary>
         /// 
         /// </summary>
@@ -1471,7 +2365,7 @@ namespace Mozu.Api.Test.Helpers
         /// <param name="taxId"></param>
         /// <returns></returns>
         public static CustomerAccount GenerateCustomerAccount(string userId, string companyOrOrganization, CommerceSummary commerceSummary,
-            CustomerContact item, List<Mozu.Api.Contracts.Customer.CustomerGroup> groups, List<CustomerAttribute> attributes, List<CustomerNote> notes, bool acceptsMarketing,
+            CustomerContact item, List<CustomerAttribute> attributes, List<CustomerNote> notes, bool acceptsMarketing,
             bool taxExempt, string taxId)
         {
             return new CustomerAccount()
@@ -1480,7 +2374,6 @@ namespace Mozu.Api.Test.Helpers
                 CommerceSummary = commerceSummary,
                 CompanyOrOrganization = companyOrOrganization,
                 Contacts = new List<CustomerContact>() { item },
-                Groups = groups,
                 Attributes = attributes,
                 Notes = notes,
                 AcceptsMarketing = acceptsMarketing,
@@ -1549,65 +2442,6 @@ namespace Mozu.Api.Test.Helpers
             };
         }
         #endregion
-        #region "GenerateCustomerNames"
-
-        public static string GenerateFirstName()
-        {
-            string[] names = { "Sophia","Emma","Olivia","Isabella","Darrin","Mia","Ava","Lily","Zoe","Emily","Chloe","Layla","Madison","Madelyn","Abigail","Aubrey","Charlotte","Amelia","Ella",
-                                "Kaylee","Avery","Aaliyah","Hailey","Hannah","Addison","Riley","Harper","Aria","Arianna","Mackenzie","Lila","Evelyn","Adalyn","Grace","Brooklyn","Ellie","Anna","Kaitlyn",
-                                "Isabelle","Sophie","Scarlett","Natalie","Leah","Sarah","Nora","Mila","Elizabeth","Lillian","Kylie","Audrey","Lucy","Maya","Annabelle","Makayla","Gabriella","Elena",
-                                "Victoria","Claire","Savannah","Peyton","Maria","Alaina","Kennedy","Stella","Liliana","Allison","Samantha","Keira","Alyssa","Reagan","Molly","Alexandra","Violet","Charlie","Julia",
-                                "Sadie","Ruby","Eva","Alice","Eliana","Taylor","Callie","Penelope","Camilla","Bailey","Kaelyn","Alexis","Kayla","Katherine","Sydney","Lauren","Jasmine","London","Bella","Adeline",
-                                "Caroline","Vivian","Juliana","Gianna","Skyler","Jordyn","Jackson","Aiden","Liam","Lucas","Noah","Mason","Jayden","Ethan","Jacob","Jack","Caden","Logan","Benjamin","Michael","Caleb",
-                                "Ryan","Alexander","Elijah","James","William","Oliver","Connor","Matthew","Daniel","Luke","Brayden","Jayce","Henry","Carter","Dylan","Gabriel","Joshua","Nicholas","Isaac","Owen",
-                                "Nathan","Grayson","Eli","Landon","Andrew","Max","Samuel","Gavin","Wyatt","Christian","Hunter","Cameron","Evan","Charlie","David","Sebastian","Joseph","Dominic","Anthony",
-                                "Colton","John","Tyler","Zachary","Thomas","Julian","Levi","Adam","Isaiah","Alex","Aaron","Parker","Cooper","Miles","Chase","Muhammad","Christopher","Blake","Austin","Jordan",
-                                "Leo","Jonathan","Adrian","Colin","Hudson","Ian","Xavier","Camden","Tristan","Carson","Jason","Nolan","Riley","Lincoln","Brody","Bentley","Nathaniel","Josiah","Declan","Jake",
-                                "Asher","Jeremiah","Cole","Mateo","Micah","Elliot"
-                             };
-
-            var random = new Random();
-            var randomNumber = random.Next(0, names.Length);
-            return names[randomNumber];
-        }
-        public static string GenerateLastName()
-        {
-            string[] names = { "Smith","Johnson","Williams","Jones","Brown","Davis","Miller","Wilson","Moore","Taylor","Anderson","Thomas","Jackson","White","Harris","Martin",
-                                 "Thompson","Garcia","Martinez","Robinson","Duncan","Cherry","Clark","Rodriguez","Lewis","Lee","Walker","Hall","Allen","Young","Hernandez","King","Wright","Lopez",
-                                 "Hill","Scott","Green","Adams","Baker","Gonzalez","Nelson","Carter","Mitchell","Perez","Roberts","Turner","Phillips","Campbell","Parker","Evans",
-                                 "Edwards","Collins","Stewart","Sanchez","Morris","Rogers","Reed","Cook","Morgan","Bell","Murphy","Bailey","Rivera","Cooper","Richardson","Cox",
-                                 "Howard","Ward","Torres","Peterson","Gray","Ramirez","James","Watson","Brooks","Kelly","Sanders","Price","Bennett","Wood","Barnes","Ross","Henderson",
-                                 "Coleman","Jenkins","Perry","Powell","Long","Patterson","Hughes","Flores","Washington","Butler","Simmons","Foster","Gonzales","Bryant","Alexander",
-                                 "Russell","Griffin","Diaz","Hayes"};
-
-            var random = new Random();
-            var randomNumber = random.Next(0, names.Length);
-            return names[randomNumber];
-        }
-        #endregion
-
-        #region "CustomerAccountAndAuthInfo"
-
-        public static CustomerAccountAndAuthInfo GenerateCustomerAccountAndAuthInfo(CustomerAccount customerAccount, bool isImport = false, string passwd = Constant.Password)
-        {
-            return new CustomerAccountAndAuthInfo()
-            {
-                Account = customerAccount ?? GenerateCustomerAccountRandom(),
-                Password = passwd,
-                IsImport = isImport
-            };
-        }
-        public static CustomerLoginInfo GenerateCustomerLoginInfo(string email, string userName, string passwd = Constant.Password)
-        {
-            return new CustomerLoginInfo()
-            {
-                EmailAddress = email,
-                Username = userName,
-                Password = passwd
-            };
-        }
-        #endregion
-
         #region "GenerateCustomerContact"
         /// <summary>
         /// 
@@ -1694,7 +2528,7 @@ namespace Mozu.Api.Test.Helpers
             return new CustomerContact()
             {
                 AccountId = accountId,
-                Email = username + "@volusion.com", // or use Generator.RandomEmailAddress(),
+                Email = username + "@mozu.com", // or use Generator.RandomEmailAddress(),
                 FirstName = firstname, // or use Generator.RandomString(10, Generator.RandomCharacterGroup.AlphaOnly),
                 Id = Generator.RandomInt(4, 10),
                 LastNameOrSurname = lastname, // or use Generator.RandomString(10, Generator.RandomCharacterGroup.AlphaOnly),
@@ -1719,13 +2553,47 @@ namespace Mozu.Api.Test.Helpers
             return new CustomerContact()
             {
                 AccountId = accountId,
-                Email = username + "@volusion.com", // or use Generator.RandomEmailAddress(),
+                Email = RandomEmailAddressMozu(), // username + "@mozu.com", // or use Generator.RandomEmailAddress(),
                 FirstName = firstname, // or use Generator.RandomString(10, Generator.RandomCharacterGroup.AlphaOnly),
                 Id = Generator.RandomInt(4, 10),
                 LastNameOrSurname = lastname, // or use Generator.RandomString(10, Generator.RandomCharacterGroup.AlphaOnly),
                 MiddleNameOrInitial = Generator.RandomString(1, Generator.RandomCharacterGroup.AlphaOnly),
                 CompanyOrOrganization = Generator.RandomString(20, Generator.RandomCharacterGroup.AlphaOnly),
                 Address = GenerateAddressReal(),
+                PhoneNumbers = GeneratePhoneRandom()
+
+            };
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="accountId"></param>
+        /// <param name="firstname"></param>
+        /// <param name="lastname"></param>
+        /// <param name="username"></param>
+        /// <param name="email"></param>
+        /// <param name="addressType"></param>
+        /// <returns></returns>
+        public static CustomerContact GenerateCustomerContactReal(int accountId, string firstname, string lastname, string username, string email, string addressType = "Residential")
+        {
+            var companyname = "";
+            if (addressType != "Residential")
+            {
+                companyname = Generator.RandomString(20, Generator.RandomCharacterGroup.AlphaOnly);
+            }
+
+            return new CustomerContact()
+            {
+                AccountId = accountId,
+                Email = email, // username + "@mozu.com", // or use Generator.RandomEmailAddress(),
+                FirstName = firstname, // or use Generator.RandomString(10, Generator.RandomCharacterGroup.AlphaOnly),
+                Id = Generator.RandomInt(4, 10),
+                LastNameOrSurname = lastname, // or use Generator.RandomString(10, Generator.RandomCharacterGroup.AlphaOnly),
+                MiddleNameOrInitial = Generator.RandomString(1, Generator.RandomCharacterGroup.AlphaOnly),
+                CompanyOrOrganization = companyname,
+                Address = GenerateAddressReal(true, addressType),
                 PhoneNumbers = GeneratePhoneRandom()
 
             };
@@ -1785,6 +2653,36 @@ namespace Mozu.Api.Test.Helpers
         /// 
         /// </summary>
         /// <param name="accountId"></param>
+        /// <param name="address"></param>
+        /// <param name="email"></param>
+        /// <param name="firstname"></param>
+        /// <param name="middlename"></param>
+        /// <param name="lastnameorsurname"></param>
+        /// <param name="companyName"></param>
+        /// <returns></returns>
+        public static CustomerContact GenerateCustomerContact(int accountId,
+            Mozu.Api.Contracts.Core.Address address, string email, string firstname, string middlename, string lastnameorsurname, string companyName)
+        {
+            return new CustomerContact()
+            {
+                AccountId = accountId,
+                Email = email,
+                FirstName = firstname,
+                Id = Generator.RandomInt(4, 10),
+                LastNameOrSurname = lastnameorsurname,
+                MiddleNameOrInitial = middlename,
+                CompanyOrOrganization = companyName,
+                Address = address,
+                PhoneNumbers = GeneratePhoneRandom()
+
+            };
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="accountId"></param>
         /// <param name="email"></param>
         /// <param name="firstname"></param>
         /// <param name="lastnameorsurname"></param>
@@ -1831,6 +2729,533 @@ namespace Mozu.Api.Test.Helpers
         }
 
         #endregion
+        #region "GenerateCustomerNames"
+
+        public static string GenerateFirstName()
+        {
+            string[] names =
+            {
+                "Sophia", "Emma", "Olivia", "Isabella", "Darrin", "Mia", "Ava", "Lily", "Zoe", "Emily", "Chloe", "Layla",
+                "Madison", "Madelyn", "Abigail", "Aubrey", "Charlotte", "Amelia", "Ella",
+                "Kaylee", "Avery", "Aaliyah", "Hailey", "Hannah", "Addison", "Riley", "Harper", "Aria", "Arianna",
+                "Mackenzie", "Lila", "Evelyn", "Adalyn", "Grace", "Brooklyn", "Ellie", "Anna", "Kaitlyn",
+                "Isabelle", "Sophie", "Scarlett", "Natalie", "Leah", "Sarah", "Nora", "Mila", "Elizabeth", "Lillian",
+                "Kylie", "Audrey", "Lucy", "Maya", "Annabelle", "Makayla", "Gabriella", "Elena",
+                "Victoria", "Claire", "Savannah", "Peyton", "Maria", "Alaina", "Kennedy", "Stella", "Liliana", "Allison",
+                "Samantha", "Keira", "Alyssa", "Reagan", "Molly", "Alexandra", "Violet", "Charlie", "Julia",
+                "Sadie", "Ruby", "Eva", "Alice", "Eliana", "Taylor", "Callie", "Penelope", "Camilla", "Bailey", "Kaelyn",
+                "Alexis", "Kayla", "Katherine", "Sydney", "Lauren", "Jasmine", "London", "Bella", "Adeline",
+                "Caroline", "Vivian", "Juliana", "Gianna", "Skyler", "Jordyn", "Jackson", "Aiden", "Liam", "Lucas",
+                "Noah", "Mason", "Jayden", "Ethan", "Jacob", "Jack", "Caden", "Logan", "Benjamin", "Michael", "Caleb",
+                "Ryan", "Alexander", "Elijah", "James", "William", "Oliver", "Connor", "Matthew", "Daniel", "Luke",
+                "Brayden", "Jayce", "Henry", "Carter", "Dylan", "Gabriel", "Joshua", "Nicholas", "Isaac", "Owen",
+                "Nathan", "Grayson", "Eli", "Landon", "Andrew", "Max", "Samuel", "Gavin", "Wyatt", "Christian", "Hunter",
+                "Cameron", "Evan", "Charlie", "David", "Sebastian", "Joseph", "Dominic", "Anthony",
+                "Colton", "John", "Tyler", "Zachary", "Thomas", "Julian", "Levi", "Adam", "Isaiah", "Alex", "Aaron",
+                "Parker", "Cooper", "Miles", "Chase", "Muhammad", "Christopher", "Blake", "Austin", "Jordan",
+                "Leo", "Jonathan", "Adrian", "Colin", "Hudson", "Ian", "Xavier", "Camden", "Tristan", "Carson", "Jason",
+                "Nolan", "Riley", "Lincoln", "Brody", "Bentley", "Nathaniel", "Josiah", "Declan", "Jake",
+                "Asher", "Jeremiah", "Cole", "Mateo", "Micah", "Elliot", "Sophia", "Isabella", "Emma", "Olivia", "Ava",
+                "Emily", "Abigail", "Madison", "Mia", "Chloe", "Elizabeth", "Ella", "Addison", "Natalie", "Lily",
+                "Grace", "Samantha", "Avery", "Sofia", "Aubrey", "Brooklyn", "Lillian", "Victoria", "Evelyn", "Hannah",
+                "Alexis", "Charlotte", "Zoey", "Leah", "Amelia", "Zoe", "Hailey", "Layla", "Gabriella", "Nevaeh",
+                "Kaylee", "Alyssa", "Anna", "Sarah", "Allison", "Savannah", "Ashley", "Audrey", "Taylor", "Brianna",
+                "Aaliyah", "Riley", "Camila", "Khloe", "Claire", "Sophie", "Arianna", "Peyton", "Harper", "Alexa",
+                "Makayla", "Julia", "Kylie", "Kayla", "Bella", "Katherine", "Lauren", "Gianna", "Maya", "Sydney",
+                "Serenity", "Kimberly", "Mackenzie", "Autumn", "Jocelyn", "Faith", "Lucy", "Stella", "Jasmine", "Morgan",
+                "Alexandra", "Trinity", "Molly", "Madelyn", "Scarlett", "Andrea", "Genesis", "Eva", "Ariana", "Madeline",
+                "Brooke", "Caroline", "Bailey", "Melanie", "Kennedy", "Destiny", "Maria", "Naomi", "London", "Payton",
+                "Lydia", "Ellie", "Mariah", "Aubree", "Kaitlyn", "Violet", "Rylee", "Lilly", "Angelina", "Katelyn",
+                "Mya", "Paige", "Natalia", "Ruby", "Piper", "Annabelle", "Mary", "Jade", "Isabelle", "Liliana", "Nicole",
+                "Rachel", "Vanessa", "Gabrielle", "Jessica", "Jordyn", "Reagan", "Kendall", "Sadie", "Valeria",
+                "Brielle", "Lyla", "Isabel", "Brooklynn", "Reese", "Sara", "Adriana", "Aliyah", "Jennifer", "Mckenzie",
+                "Gracie", "Nora", "Kylee", "Makenzie", "Izabella", "Laila", "Alice", "Amy", "Michelle", "Skylar",
+                "Stephanie", "Juliana", "Rebecca", "Jayla", "Eleanor", "Clara", "Giselle", "Valentina", "Vivian",
+                "Alaina", "Eliana", "Aria", "Valerie", "Haley", "Elena", "Catherine", "Elise", "Lila", "Megan",
+                "Gabriela", "Daisy", "Jada", "Daniela", "Penelope", "Jenna", "Ashlyn", "Delilah", "Summer", "Mila",
+                "Kate", "Keira", "Adrianna", "Hadley", "Julianna", "Maci", "Eden", "Josephine", "Aurora", "Melissa",
+                "Hayden", "Alana", "Margaret", "Quinn", "Angela", "Brynn", "Alivia", "Katie", "Ryleigh", "Kinley",
+                "Paisley", "Jordan", "Aniyah", "Allie", "Miranda", "Jacqueline", "Melody", "Willow", "Diana", "Cora",
+                "Alexandria", "Mikayla", "Danielle", "Londyn", "Addyson", "Amaya", "Hazel", "Callie", "Teagan", "Adalyn",
+                "Ximena", "Angel", "Kinsley", "Shelby", "Makenna", "Ariel", "Jillian", "Chelsea", "Alayna", "Harmony",
+                "Sienna", "Amanda", "Presley", "Maggie", "Tessa", "Leila", "Hope", "Genevieve", "Erin", "Briana",
+                "Delaney", "Esther", "Kathryn", "Ana", "Mckenna", "Camille", "Cecilia", "Lucia", "Lola", "Leilani",
+                "Leslie", "Ashlynn", "Kayleigh", "Alondra", "Alison", "Haylee", "Carly", "Juliet", "Lexi", "Kelsey",
+                "Eliza", "Josie", "Marissa", "Marley", "Alicia", "Amber", "Sabrina", "Kaydence", "Norah", "Allyson",
+                "Alina", "Ivy", "Fiona", "Isla", "Nadia", "Kyleigh", "Christina", "Emery", "Laura", "Cheyenne", "Alexia",
+                "Emerson", "Sierra", "Luna", "Cadence", "Daniella", "Fatima", "Bianca", "Cassidy", "Veronica", "Kyla",
+                "Evangeline", "Karen", "Adeline", "Jazmine", "Mallory", "Rose", "Jayden", "Kendra", "Camryn", "Macy",
+                "Abby", "Dakota", "Mariana", "Gia", "Adelyn", "Madilyn", "Jazmin", "Iris", "Nina", "Georgia", "Lilah",
+                "Breanna", "Kenzie", "Jayda", "Phoebe", "Lilliana", "Kamryn", "Athena", "Malia", "Nyla", "Miley",
+                "Heaven", "Audrina", "Madeleine", "Kiara", "Selena", "Maddison", "Giuliana", "Emilia", "Lyric", "Joanna",
+                "Adalynn", "Annabella", "Fernanda", "Aubrie", "Heidi", "Esmeralda", "Kira", "Elliana", "Arabella",
+                "Kelly", "Karina", "Paris", "Caitlyn", "Kara", "Raegan", "Miriam", "Crystal", "Alejandra", "Tatum",
+                "Savanna", "Tiffany", "Ayla", "Carmen", "Maliyah", "Karla", "Bethany", "Guadalupe", "Kailey", "Macie",
+                "Gemma", "Noelle", "Rylie", "Elaina", "Lena", "Amiyah", "Ruth", "Ainsley", "Finley", "Danna", "Parker",
+                "Emely", "Jane", "Joselyn", "Scarlet", "Anastasia", "Journey", "Angelica", "Sasha", "Yaretzi", "Charlie",
+                "Juliette", "Lia", "Brynlee", "Angelique", "Katelynn", "Nayeli", "Vivienne", "Addisyn", "Kaelyn",
+                "Annie", "Tiana", "Kyra", "Janelle", "Cali", "Aleah", "Caitlin", "Imani", "Jayleen", "April", "Julie",
+                "Alessandra", "Julissa", "Kailyn", "Jazlyn", "Janiyah", "Kaylie", "Madelynn", "Baylee", "Itzel",
+                "Monica", "Adelaide", "Brylee", "Michaela", "Madisyn", "Cassandra", "Elle", "Kaylin", "Aniya", "Dulce",
+                "Olive", "Jaelyn", "Courtney", "Brittany", "Madalyn", "Jasmin", "Kamila", "Kiley", "Tenley", "Braelyn",
+                "Holly", "Helen", "Hayley", "Carolina", "Cynthia", "Talia", "Anya", "Estrella", "Bristol", "Jimena",
+                "Harley", "Jamie", "Rebekah", "Charlee", "Lacey", "Jaliyah", "Cameron", "Sarai", "Caylee", "Kennedi",
+                "Dayana", "Tatiana", "Serena", "Eloise", "Daphne", "Mckinley", "Mikaela", "Celeste", "Hanna", "Lucille",
+                "Skyler", "Nylah", "Camilla", "Lilian", "Lindsey", "Sage", "Viviana", "Danica", "Liana", "Melany",
+                "Aileen", "Lillie", "Kadence", "Zariah", "June", "Lilyana", "Bridget", "Anabelle", "Lexie", "Anaya",
+                "Skye", "Alyson", "Angie", "Paola", "Elsie", "Erica", "Gracelyn", "Kiera", "Myla", "Aylin", "Lana",
+                "Priscilla", "Kassidy", "Natasha", "Nia", "Kenley", "Dylan", "Kali", "Ada", "Miracle", "Raelynn",
+                "Briella", "Emilee", "Lorelei", "Francesca", "Arielle", "Madyson", "Amira", "Jaelynn", "Nataly",
+                "Annika", "Joy", "Alanna", "Shayla", "Brenna", "Sloane", "Vera", "Abbigail", "Amari", "Jaycee", "Lauryn",
+                "Skyla", "Whitney", "Aspen", "Johanna", "Jaylah", "Nathalie", "Laney", "Logan", "Brinley", "Leighton",
+                "Marlee", "Ciara", "Justice", "Brenda", "Kayden", "Erika", "Elisa", "Lainey", "Rowan", "Annabel",
+                "Teresa", "Dahlia", "Janiya", "Lizbeth", "Nancy", "Aleena", "Kaliyah", "Farrah", "Marilyn", "Eve",
+                "Anahi", "Rosalie", "Jaylynn", "Bailee", "Emmalyn", "Madilynn", "Lea", "Sylvia", "Annalise", "Averie",
+                "Yareli", "Zoie", "Samara", "Amani", "Regina", "Hailee", "Arely", "Evelynn", "Luciana", "Natalee",
+                "Anika", "Liberty", "Giana", "Haven", "Gloria", "Gwendolyn", "Jazlynn", "Marisol", "Ryan", "Virginia",
+                "Myah", "Elsa", "Selah", "Melina", "Aryanna", "Adelynn", "Raelyn", "Miah", "Sariah", "Kaylynn", "Amara",
+                "Helena", "Jaylee", "Maeve", "Raven", "Linda", "Anne", "Desiree", "Madalynn", "Meredith", "Clarissa",
+                "Elyse", "Marie", "Alissa", "Anabella", "Hallie", "Denise", "Elisabeth", "Kaia", "Danika", "Kimora",
+                "Milan", "Claudia", "Dana", "Siena", "Zion", "Ansley", "Sandra", "Cara", "Halle", "Maleah", "Marina",
+                "Saniyah", "Casey", "Harlow", "Kassandra", "Charley", "Rosa", "Shiloh", "Tori", "Adele", "Kiana",
+                "Ariella", "Jaylene", "Joslyn", "Kathleen", "Aisha", "Amya", "Ayanna", "Isis", "Karlee", "Cindy",
+                "Perla", "Janessa", "Lylah", "Raquel", "Zara", "Evie", "Phoenix", "Catalina", "Lilianna", "Mollie",
+                "Simone", "Briley", "Bria", "Kristina", "Lindsay", "Rosemary", "Cecelia", "Kourtney", "Aliya", "Asia",
+                "Elin", "Isabela", "Kristen", "Yasmin", "Alani", "Aiyana", "Amiya", "Felicity", "Patricia", "Kailee",
+                "Adrienne", "Aliana", "Ember", "Mariyah", "Mariam", "Ally", "Bryanna", "Tabitha", "Wendy", "Sidney",
+                "Clare", "Aimee", "Laylah", "Maia", "Karsyn", "Greta", "Noemi", "Jayde", "Kallie", "Leanna", "Irene",
+                "Jessie", "Paityn", "Kaleigh", "Lesly", "Gracelynn", "Amelie", "Iliana", "Elaine", "Lillianna", "Ellen",
+                "Taryn", "Lailah", "Rylan", "Lisa", "Emersyn", "Braelynn", "Shannon", "Beatrice", "Heather", "Jaylin",
+                "Taliyah", "Arya", "Emilie", "Ali", "Janae", "Chaya", "Cherish", "Jaida", "Journee", "Sawyer",
+                "Destinee", "Emmalee", "Ivanna", "Charli", "Jocelynn", "Kaya", "Elianna", "Armani", "Kaitlynn",
+                "Rihanna", "Reyna", "Christine", "Alia", "Leyla", "Mckayla", "Celia", "Raina", "Alayah", "Macey",
+                "Meghan", "Zaniyah", "Carolyn", "Kynlee", "Carlee", "Alena", "Bryn", "Jolie", "Carla", "Eileen", "Keyla",
+                "Saniya", "Livia", "Amina", "Angeline", "Krystal", "Zaria", "Emelia", "Renata", "Mercedes", "Paulina",
+                "Diamond", "Jenny", "Aviana", "Ayleen", "Barbara", "Alisha", "Jaqueline", "Maryam", "Julianne",
+                "Matilda", "Sonia", "Edith", "Martha", "Audriana", "Kaylyn", "Emmy", "Giada", "Tegan", "Charleigh",
+                "Haleigh", "Nathaly", "Susan", "Kendal", "Leia", "Jordynn", "Amirah", "Giovanna", "Mira", "Addilyn",
+                "Frances", "Kaitlin", "Kyndall", "Myra", "Abbie", "Samiyah", "Taraji", "Braylee", "Corinne", "Jazmyn",
+                "Kaiya", "Lorelai", "Abril", "Kenya", "Mae", "Hadassah", "Alisson", "Haylie", "Brisa", "Deborah", "Mina",
+                "Rayne", "America", "Ryann", "Milania", "Pearl", "Blake", "Millie", "Deanna", "Araceli", "Demi",
+                "Gisselle", "Paula", "Karissa", "Sharon", "Kensley", "Rachael", "Aryana", "Chanel", "Natalya",
+                "Hayleigh", "Paloma", "Avianna", "Jemma", "Moriah", "Renee", "Alyvia", "Zariyah", "Hana", "Judith",
+                "Kinsey", "Salma", "Kenna", "Mara", "Patience", "Saanvi", "Cristina", "Dixie", "Kaylen", "Averi",
+                "Carlie", "Kirsten", "Lilyanna", "Charity", "Larissa", "Zuri", "Chana", "Ingrid", "Lina", "Tianna",
+                "Lilia", "Marisa", "Nahla", "Sherlyn", "Adyson", "Cailyn", "Princess", "Yoselin", "Aubrianna", "Maritza",
+                "Rayna", "Luz", "Cheyanne", "Azaria", "Jacey", "Roselyn", "Elliot", "Jaiden", "Tara", "Alma",
+                "Esperanza", "Jakayla", "Yesenia", "Kiersten", "Marlene", "Nova", "Adelina", "Ayana", "Kai", "Nola",
+                "Sloan", "Avah", "Carley", "Meadow", "Neveah", "Tamia", "Alaya", "Jadyn", "Sanaa", "Kailynn", "Diya",
+                "Rory", "Abbey", "Karis", "Maliah", "Belen", "Bentley", "Jaidyn", "Shania", "Britney", "Yazmin", "Aubri",
+                "Malaya", "Micah", "River", "Alannah", "Jolene", "Shaniya", "Tia", "Yamilet", "Bryleigh", "Carissa",
+                "Karlie", "Libby", "Lilith", "Lara", "Tess", "Aliza", "Laurel", "Kaelynn", "Leona", "Regan", "Yaritza",
+                "Kasey", "Mattie", "Audrianna", "Blakely", "Campbell", "Dorothy", "Julieta", "Kylah", "Kyndal",
+                "Temperance", "Tinley", "Akira", "Saige", "Ashtyn", "Jewel", "Kelsie", "Miya", "Cambria", "Analia",
+                "Janet", "Kairi", "Aleigha", "Bree", "Dalia", "Liv", "Sarahi", "Yamileth", "Carleigh", "Geraldine",
+                "Izabelle", "Riya", "Samiya", "Abrielle", "Annabell", "Leigha", "Pamela", "Caydence", "Joyce", "Juniper",
+                "Malaysia", "Isabell", "Blair", "Jaylyn", "Marianna", "Rivka", "Alianna", "Gwyneth", "Kendyl", "Sky",
+                "Esme", "Jaden", "Sariyah", "Stacy", "Kimber", "Kamille", "Milagros", "Karly", "Karma", "Thalia",
+                "Willa", "Amalia", "Hattie", "Payten", "Anabel", "Ann", "Galilea", "Milana", "Yuliana", "Damaris",
+                "Jacob", "Mason", "William", "Jayden", "Noah", "Michael", "Ethan", "Alexander", "Aiden", "Daniel",
+                "Anthony", "Matthew", "Elijah", "Joshua", "Liam", "Andrew", "James", "David", "Benjamin", "Logan",
+                "Christopher", "Joseph", "Jackson", "Gabriel", "Ryan", "Samuel", "John", "Nathan", "Lucas", "Christian",
+                "Jonathan", "Caleb", "Dylan", "Landon", "Isaac", "Gavin", "Brayden", "Tyler", "Luke", "Evan", "Carter",
+                "Nicholas", "Isaiah", "Owen", "Jack", "Jordan", "Brandon", "Wyatt", "Julian", "Aaron", "Jeremiah",
+                "Angel", "Cameron", "Connor", "Hunter", "Adrian", "Henry", "Eli", "Justin", "Austin", "Robert",
+                "Charles", "Thomas", "Zachary", "Jose", "Levi", "Kevin", "Sebastian", "Chase", "Ayden", "Jason", "Ian",
+                "Blake", "Colton", "Bentley", "Dominic", "Xavier", "Oliver", "Parker", "Josiah", "Adam", "Cooper",
+                "Brody", "Nathaniel", "Carson", "Jaxon", "Tristan", "Luis", "Juan", "Hayden", "Carlos", "Jesus", "Nolan",
+                "Cole", "Alex", "Max", "Grayson", "Bryson", "Diego", "Jaden", "Vincent", "Easton", "Eric", "Micah",
+                "Kayden", "Jace", "Aidan", "Ryder", "Ashton", "Bryan", "Riley", "Hudson", "Asher", "Bryce", "Miles",
+                "Kaleb", "Giovanni", "Antonio", "Kaden", "Colin", "Kyle", "Brian", "Timothy", "Steven", "Sean", "Miguel",
+                "Richard", "Ivan", "Jake", "Alejandro", "Santiago", "Axel", "Joel", "Maxwell", "Brady", "Caden",
+                "Preston", "Damian", "Elias", "Jaxson", "Jesse", "Victor", "Patrick", "Jonah", "Marcus", "Rylan",
+                "Emmanuel", "Edward", "Leonardo", "Cayden", "Grant", "Jeremy", "Braxton", "Gage", "Jude", "Wesley",
+                "Devin", "Roman", "Mark", "Camden", "Kaiden", "Oscar", "Alan", "Malachi", "George", "Peyton", "Leo",
+                "Nicolas", "Maddox", "Kenneth", "Mateo", "Sawyer", "Collin", "Conner", "Cody", "Andres", "Declan",
+                "Lincoln", "Bradley", "Trevor", "Derek", "Tanner", "Silas", "Eduardo", "Seth", "Jaiden", "Paul", "Jorge",
+                "Cristian", "Garrett", "Travis", "Abraham", "Omar", "Javier", "Ezekiel", "Tucker", "Harrison", "Peter",
+                "Damien", "Greyson", "Avery", "Kai", "Weston", "Ezra", "Xander", "Jaylen", "Corbin", "Fernando",
+                "Calvin", "Jameson", "Francisco", "Maximus", "Josue", "Ricardo", "Shane", "Trenton", "Cesar", "Chance",
+                "Drake", "Zane", "Israel", "Emmett", "Jayce", "Mario", "Landen", "Kingston", "Spencer", "Griffin",
+                "Stephen", "Manuel", "Theodore", "Erick", "Braylon", "Raymond", "Edwin", "Charlie", "Abel", "Myles",
+                "Bennett", "Johnathan", "Andre", "Alexis", "Edgar", "Troy", "Zion", "Jeffrey", "Hector", "Shawn",
+                "Lukas", "Amir", "Tyson", "Keegan", "Kyler", "Donovan", "Graham", "Simon", "Everett", "Clayton",
+                "Braden", "Luca", "Emanuel", "Martin", "Brendan", "Cash", "Zander", "Jared", "Ryker", "Dante",
+                "Dominick", "Lane", "Kameron", "Elliot", "Paxton", "Rafael", "Andy", "Dalton", "Erik", "Sergio",
+                "Gregory", "Marco", "Emiliano", "Jasper", "Johnny", "Dean", "Drew", "Caiden", "Skyler", "Judah",
+                "Maximiliano", "Aden", "Fabian", "Zayden", "Brennan", "Anderson", "Roberto", "Reid", "Quinn", "Angelo",
+                "Holden", "Cruz", "Derrick", "Grady", "Emilio", "Finn", "Elliott", "Pedro", "Amari", "Frank", "Rowan",
+                "Lorenzo", "Felix", "Corey", "Dakota", "Colby", "Braylen", "Dawson", "Brycen", "Allen", "Jax",
+                "Brantley", "Ty", "Malik", "Ruben", "Trey", "Brock", "Colt", "Dallas", "Joaquin", "Leland", "Beckett",
+                "Jett", "Louis", "Gunner", "Adan", "Jakob", "Cohen", "Taylor", "Arthur", "Marcos", "Marshall", "Ronald",
+                "Julius", "Armando", "Kellen", "Dillon", "Brooks", "Cade", "Danny", "Nehemiah", "Beau", "Jayson",
+                "Devon", "Tristen", "Enrique", "Randy", "Gerardo", "Pablo", "Desmond", "Raul", "Romeo", "Milo", "Julio",
+                "Kellan", "Karson", "Titus", "Keaton", "Keith", "Reed", "Ali", "Braydon", "Dustin", "Scott", "Trent",
+                "Waylon", "Walter", "Donald", "Ismael", "Phillip", "Iker", "Esteban", "Jaime", "Landyn", "Darius",
+                "Dexter", "Matteo", "Colten", "Emerson", "Phoenix", "King", "Izaiah", "Karter", "Albert", "Jerry",
+                "Tate", "Larry", "Saul", "Payton", "August", "Jalen", "Enzo", "Jay", "Rocco", "Kolton", "Russell",
+                "Leon", "Philip", "Gael", "Quentin", "Tony", "Mathew", "Kade", "Gideon", "Dennis", "Damon", "Darren",
+                "Kason", "Walker", "Jimmy", "Alberto", "Mitchell", "Alec", "Rodrigo", "Casey", "River", "Maverick",
+                "Amare", "Brayan", "Mohamed", "Issac", "Yahir", "Arturo", "Moises", "Maximilian", "Knox", "Barrett",
+                "Davis", "Gustavo", "Curtis", "Hugo", "Reece", "Chandler", "Mauricio", "Jamari", "Abram", "Uriel",
+                "Bryant", "Archer", "Kamden", "Solomon", "Porter", "Zackary", "Adriel", "Ryland", "Lawrence", "Noel",
+                "Alijah", "Ricky", "Ronan", "Leonel", "Maurice", "Chris", "Atticus", "Brenden", "Ibrahim", "Zachariah",
+                "Khalil", "Lance", "Marvin", "Dane", "Bruce", "Cullen", "Orion", "Nikolas", "Pierce", "Kieran",
+                "Braeden", "Kobe", "Finnegan", "Remington", "Muhammad", "Prince", "Orlando", "Alfredo", "Mekhi", "Sam",
+                "Rhys", "Jacoby", "Eddie", "Zaiden", "Ernesto", "Joe", "Kristopher", "Jonas", "Gary", "Jamison", "Nico",
+                "Johan", "Giovani", "Malcolm", "Armani", "Warren", "Gunnar", "Ramon", "Franklin", "Kane", "Byron",
+                "Cason", "Brett", "Ari", "Deandre", "Finley", "Justice", "Douglas", "Cyrus", "Gianni", "Talon", "Camron",
+                "Cannon", "Nash", "Dorian", "Kendrick", "Moses", "Arjun", "Sullivan", "Kasen", "Dominik", "Ahmed",
+                "Korbin", "Roger", "Royce", "Quinton", "Salvador", "Isaias", "Skylar", "Raiden", "Terry", "Brodie",
+                "Tobias", "Morgan", "Frederick", "Madden", "Conor", "Reese", "Braiden", "Kelvin", "Julien", "Kristian",
+                "Rodney", "Wade", "Davion", "Nickolas", "Xzavier", "Alvin", "Asa", "Alonzo", "Ezequiel", "Boston",
+                "Nasir", "Nelson", "Jase", "London", "Mohammed", "Rhett", "Jermaine", "Roy", "Matias", "Ace", "Chad",
+                "Moshe", "Aarav", "Keagan", "Aldo", "Blaine", "Marc", "Rohan", "Bently", "Trace", "Kamari", "Layne",
+                "Carmelo", "Demetrius", "Lawson", "Nathanael", "Uriah", "Terrance", "Ahmad", "Jamarion", "Shaun", "Kale",
+                "Noe", "Carl", "Jaydon", "Callen", "Micheal", "Jaxen", "Lucian", "Jaxton", "Rory", "Quincy", "Guillermo",
+                "Javon", "Kian", "Wilson", "Jeffery", "Joey", "Kendall", "Harper", "Jensen", "Mohammad", "Dayton",
+                "Billy", "Jonathon", "Jadiel", "Willie", "Jadon", "Clark", "Rex", "Francis", "Kash", "Malakai",
+                "Terrell", "Melvin", "Cristopher", "Layton", "Ariel", "Sylas", "Gerald", "Kody", "Messiah", "Semaj",
+                "Triston", "Bentlee", "Lewis", "Marlon", "Tomas", "Aidyn", "Tommy", "Alessandro", "Isiah", "Jagger",
+                "Nikolai", "Omari", "Sincere", "Cory", "Rene", "Terrence", "Harley", "Kylan", "Luciano", "Aron",
+                "Felipe", "Reginald", "Tristian", "Urijah", "Beckham", "Jordyn", "Kayson", "Neil", "Osvaldo", "Aydin",
+                "Ulises", "Deacon", "Giovanny", "Case", "Daxton", "Will", "Lee", "Makai", "Raphael", "Tripp", "Kole",
+                "Channing", "Santino", "Stanley", "Allan", "Alonso", "Jamal", "Jorden", "Davin", "Soren", "Aryan",
+                "Aydan", "Camren", "Jasiah", "Ray", "Ben", "Jon", "Bobby", "Darrell", "Markus", "Branden", "Hank",
+                "Mathias", "Adonis", "Darian", "Jessie", "Marquis", "Vicente", "Zayne", "Kenny", "Raylan", "Jefferson",
+                "Steve", "Wayne", "Leonard", "Kolby", "Ayaan", "Emery", "Harry", "Rashad", "Adrien", "Dax", "Dwayne",
+                "Samir", "Zechariah", "Yusuf", "Ronnie", "Tristin", "Benson", "Memphis", "Lamar", "Maxim", "Bowen",
+                "Ellis", "Javion", "Tatum", "Clay", "Alexzander", "Draven", "Odin", "Branson", "Elisha", "Rudy", "Zain",
+                "Rayan", "Sterling", "Brennen", "Jairo", "Brendon", "Kareem", "Rylee", "Winston", "Jerome", "Kyson",
+                "Lennon", "Luka", "Crosby", "Deshawn", "Roland", "Zavier", "Cedric", "Vance", "Niko", "Gauge", "Kaeden",
+                "Killian", "Vincenzo", "Teagan", "Trevon", "Kymani", "Valentino", "Abdullah", "Bo", "Darwin", "Hamza",
+                "Kolten", "Edison", "Jovani", "Augustus", "Gavyn", "Toby", "Davian", "Rogelio", "Matthias", "Brent",
+                "Hayes", "Brogan", "Jamir", "Damion", "Emmitt", "Landry", "Chaim", "Jaylin", "Yosef", "Kamron", "Lionel",
+                "Van", "Bronson", "Casen", "Junior", "Misael", "Yandel", "Alfonso", "Giancarlo", "Rolando", "Abdiel",
+                "Aaden", "Deangelo", "Duncan", "Ishaan", "Jamie", "Maximo", "Cael", "Conrad", "Ronin", "Xavi",
+                "Dominique", "Ean", "Tyrone", "Chace", "Craig", "Mayson", "Quintin", "Derick", "Bradyn", "Izayah",
+                "Zachery", "Westin", "Alvaro", "Johnathon", "Ramiro", "Konner", "Lennox", "Marcelo", "Blaze", "Eugene",
+                "Keenan", "Bruno", "Deegan", "Rayden", "Cale", "Camryn", "Eden", "Jamar", "Leandro", "Sage", "Marcel",
+                "Jovanni", "Rodolfo", "Seamus", "Cain", "Damarion", "Harold", "Jaeden", "Konnor", "Jair", "Callum",
+                "Rowen", "Rylen", "Arnav", "Ernest", "Gilberto", "Irvin", "Fisher", "Randall", "Heath", "Justus",
+                "Lyric", "Masen", "Amos", "Frankie", "Harvey", "Kamryn", "Alden", "Hassan", "Salvatore", "Theo",
+                "Darien", "Gilbert", "Krish", "Mike", "Todd", "Jaidyn", "Isai", "Samson", "Cassius", "Hezekiah", "Makhi",
+                "Antoine", "Darnell", "Remy", "Stefan", "Camdyn", "Kyron", "Callan", "Dario", "Jedidiah", "Leonidas",
+                "Deven", "Fletcher", "Sonny", "Reagan", "Yadiel", "Jerimiah", "Efrain", "Sidney", "Santos", "Aditya",
+                "Brenton", "Brysen", "Nixon", "Tyrell", "Vaughn", "Elvis", "Freddy", "Demarcus", "Gaige", "Jaylon",
+                "Gibson", "Thaddeus", "Zaire", "Coleman", "Roderick", "Jabari", "Zackery", "Agustin", "Alfred", "Arlo",
+                "Braylin", "Leighton", "Turner", "Arian", "Clinton", "Legend", "Miller", "Quinten", "Mustafa", "Jakobe",
+                "Lathan", "Otto", "Blaise", "Vihaan", "Enoch", "Ross", "Brice", "Houston", "Rey", "Benton", "Bodhi",
+                "Graysen", "Johann", "Reuben", "Crew", "Darryl", "Donte", "Flynn", "Jaycob", "Jean", "Maxton", "Anders",
+                "Hugh", "Ignacio", "Ralph", "Trystan", "Devan", "Franco", "Mariano", "Tyree", "Bridger", "Howard",
+                "Jaydan", "Brecken", "Joziah", "Valentin", "Broderick", "Maxx", "Elian", "Eliseo", "Haiden", "Tyrese",
+                "Zeke", "Keon", "Maksim", "Coen", "Cristiano", "Hendrix", "Damari", "Princeton", "Davon", "Deon", "Kael",
+                "Dimitri", "Jaron", "Jaydin", "Kyan", "Corban", "Kingsley", "Major", "Pierre", "Yehuda", "Cayson",
+                "Dangelo", "Jeramiah", "Kamren", "Kohen", "Camilo", "Cortez", "Keyon", "Malaki", "Ethen"
+            };
+
+            var random = new Random();
+            var randomNumber = random.Next(0, names.Length);
+            return names[randomNumber];
+        }
+        public static string GenerateLastName()
+        {
+            string[] names = { "Smith","Johnson","Williams","Jones","Brown","Davis","Miller","Wilson","Moore","Taylor","Anderson","Thomas","Jackson","White","Harris","Martin",
+                                 "Thompson","Garcia","Martinez","Robinson","Duncan","Cherry","Clark","Rodriguez","Lewis","Lee","Walker","Hall","Allen","Young","Hernandez","King","Wright","Lopez",
+                                 "Hill","Scott","Green","Adams","Baker","Gonzalez","Nelson","Carter","Mitchell","Perez","Roberts","Turner","Phillips","Campbell","Parker","Evans",
+                                 "Edwards","Collins","Stewart","Sanchez","Morris","Rogers","Reed","Cook","Morgan","Bell","Murphy","Bailey","Rivera","Cooper","Richardson","Cox",
+                                 "Howard","Ward","Torres","Peterson","Gray","Ramirez","James","Watson","Brooks","Kelly","Sanders","Price","Bennett","Wood","Barnes","Ross","Henderson",
+                                 "Coleman","Jenkins","Perry","Powell","Long","Patterson","Hughes","Flores","Washington","Butler","Simmons","Foster","Gonzales","Bryant","Alexander",
+                                 "Russell","Griffin","Diaz","Hayes"};
+
+            var random = new Random();
+            var randomNumber = random.Next(0, names.Length);
+            return names[randomNumber] + " Test";
+        }
+        #endregion
+
+        #region "Discount"
+
+        /// <summary>
+        /// Generate Discount Object.
+        /// </summary>
+        /// <param name="content"></param>
+        /// <param name="scope"></param>
+        /// <param name="target"></param>
+        /// <param name="conditions"></param>
+        /// <param name="currentRedemptionCnt"></param>
+        /// <param name="amt"></param>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public static Discount GenerateDiscount(DiscountLocalizedContent content, string scope, DiscountTarget target,
+            DiscountCondition conditions, int? currentRedemptionCnt, decimal? amt, string type)
+        {
+            return new Discount()
+            {
+                Content = content,
+                Scope = scope,
+                Target = target,
+                Conditions = conditions,
+                CurrentRedemptionCount = currentRedemptionCnt,
+                Amount = amt,
+                AmountType = type,
+            };
+        }
+
+
+        /// <summary>
+        /// Generate Discount Object which requires Coupon.
+        /// </summary>
+        /// <param name="content"></param>
+        /// <param name="scope"></param>
+        /// <param name="target"></param>
+        /// <param name="conditions"></param>
+        /// <param name="amt"></param>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public static Discount GenerateDiscount(DiscountLocalizedContent content, string scope, DiscountTarget target,
+            DiscountCondition conditions, decimal? amt, string type)
+        {
+            return new Discount()
+            {
+                Content = content,
+                Scope = scope,
+                Target = target,
+                Conditions = conditions,
+                Amount = amt,
+                AmountType = type
+            };
+        }
+
+
+        /// <summary>
+        /// Generate Discount Object without Coupon.
+        /// </summary>
+        /// <param name="content"></param>
+        /// <param name="scope"></param>
+        /// <param name="target"></param>
+        /// <param name="conditions"></param>
+        /// <param name="currentRedemption"></param>
+        /// <param name="amt"></param>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public static Discount GenerateDiscount(DiscountLocalizedContent content, string scope, DiscountTarget target,
+            DiscountCondition conditions, int currentRedemption, decimal? amt, string type)
+        {
+            return new Discount()
+            {
+                Content = content ?? GenerateDiscountLocalizedContent(),
+                Scope = scope,
+                Target = target,
+                Conditions = conditions,
+                CurrentRedemptionCount = currentRedemption,
+                Amount = amt,
+                AmountType = type
+            };
+        }
+
+        #endregion
+
+        #region "GenerateDiscountCondition"
+
+        public static DiscountCondition GenerateDiscountCondition(List<CategoryDiscountCondition> includeCategories,
+            List<CategoryDiscountCondition> excludeCategories, List<ProductDiscountCondition> includeProducts, List<ProductDiscountCondition> excludeProducts,
+            int? maxRedemption, decimal? minOrderAmt, decimal? minLifetimeAmt, int discountDuration, DateTime? startDate, DateTime? expireDate)
+        {
+            return new DiscountCondition()
+            {
+                MaxRedemptionCount = maxRedemption,
+                RequiresCoupon = false,
+                IncludedCategories = includeCategories,
+                ExcludedCategories = excludeCategories,
+                IncludedProducts = includeProducts,
+                ExcludedProducts = excludeProducts,
+                MinimumOrderAmount = minOrderAmt,
+                MinimumLifetimeValueAmount = minLifetimeAmt,
+                StartDate = startDate ?? DateTime.Today,
+                ExpirationDate = expireDate ?? DateTime.Today.AddDays(discountDuration)
+            };
+        }
+
+
+        public static DiscountCondition GenerateDiscountCondition(List<CategoryDiscountCondition> includeCategories,
+            List<CategoryDiscountCondition> excludeCategories, List<ProductDiscountCondition> includeProducts, List<ProductDiscountCondition> excludeProducts,
+            int? maxRedemption, bool requireCoupon, string couponCode, decimal? minOrderAmt, decimal? minLifetimeAmt,
+            int discountDuration, DateTime? startDate, DateTime? expireDate)
+        {
+            return new DiscountCondition()
+            {
+                MaxRedemptionCount = maxRedemption,
+                RequiresCoupon = requireCoupon,
+                CouponCode = couponCode,
+                IncludedCategories = includeCategories,
+                ExcludedCategories = excludeCategories,
+                IncludedProducts = includeProducts,
+                ExcludedProducts = excludeProducts,
+                MinimumOrderAmount = minOrderAmt,
+                MinimumLifetimeValueAmount = minLifetimeAmt,
+                StartDate = startDate,
+                ExpirationDate = expireDate
+            };
+        }
+
+        #endregion
+        #region "GenerateDiscountLocalizedContent"
+
+        /// <summary>
+        /// Generate DiscountLocalizedContent Object.
+        /// </summary>
+        /// <param name="locale"></param>
+        /// <returns></returns>
+        public static DiscountLocalizedContent GenerateDiscountLocalizedContent(string locale = "en-US")
+        {
+            return new DiscountLocalizedContent()
+            {
+                LocaleCode = locale,
+                Name = Generator.RandomString(20, Generator.RandomCharacterGroup.AlphaNumericOnly),
+                //                  AuditInfo = 
+            };
+        }
+
+        #endregion
+        #region "GenerateDiscountTarget"
+
+        /// <summary>
+        /// Generate DiscountTarget Object.
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="includeAllProds"></param>
+        /// <param name="categories"></param>
+        /// <param name="excluedCategories"></param>
+        /// <param name="products"></param>
+        /// <param name="excludeProducts"></param>
+        /// <param name="methods"></param>
+        /// <returns></returns>
+        public static DiscountTarget GenerateDiscountTarget(string type, bool? includeAllProds, List<TargetedCategory> categories,
+            List<TargetedCategory> excluedCategories, List<TargetedProduct> products, List<TargetedProduct> excludeProducts,
+            List<TargetedShippingMethod> methods)
+        {
+            return new DiscountTarget()
+            {
+                Type = type,
+                IncludeAllProducts = includeAllProds,
+                Categories = categories,
+                ExcludedCategories = excluedCategories,
+                Products = products,
+                ExcludedProducts = excludeProducts,
+                ShippingMethods = methods
+            };
+        }
+
+
+        public static DiscountTarget GenerateDiscountTarget(string type, bool? includeAllProds, List<TargetedCategory> categories,
+            List<TargetedProduct> products, List<TargetedShippingMethod> methods)
+        {
+            return new DiscountTarget()
+            {
+                Type = type,
+                IncludeAllProducts = includeAllProds,
+                Categories = categories,
+                Products = products,
+                ShippingMethods = methods
+            };
+        }
+
+
+        public static DiscountTarget GenerateDiscountTarget(string type, bool includeAllProds, List<TargetedShippingMethod> methods)
+        {
+            return new DiscountTarget()
+            {
+                Type = type,
+                IncludeAllProducts = includeAllProds,
+                ShippingMethods = methods ?? new List<TargetedShippingMethod>()
+            };
+        }
+
+        public static List<TargetedCategory> GenerateTargetedCategories()
+        {
+            return new List<TargetedCategory>();
+        }
+
+
+        #endregion
+        #region "GenerateRedemption"
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="discountId"></param>
+        /// <param name="redeemedOn"></param>
+        /// <param name="orderNumber"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        /*public static Mozu.Api.Contracts.ProductAdmin.Redemption GenerateRedemption(int discountId, DateTime redeemedOn, int orderNumber, string userId)
+        {
+            return new Mozu.Api.Contracts.ProductAdmin.Discounts.Redemption()
+            {
+                DiscountId = discountId,
+                RedeemedOn = redeemedOn,
+                OrderNumber = orderNumber
+
+            };
+        }*/
+
+        #endregion
+        #region "GenerateTargetedProduct"
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="code"></param>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public static TargetedProduct GenerateTargetedProduct(string code, string name)
+        {
+            return new TargetedProduct()
+            {
+                //Code = code,
+                //Name = name
+                ProductCode = code
+            };
+        }
+
+        #endregion
+        #region "GenerateTargetedCategory"
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public static TargetedCategory GenerateTargetedCategory(int id, string name)
+        {
+            return new TargetedCategory()
+            {
+                Id = id,
+                //Name = name
+            };
+        }
+
+        #endregion
+        #region "GenerateTargetedShippingMethod"
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="code"></param>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public static TargetedShippingMethod GenerateTargetedShippingMethod(string code, string name)
+        {
+            return new TargetedShippingMethod()
+            {
+                Code = code,
+                Name = name
+            };
+        }
+
+        #endregion
 
         #region "GenerateFulfillmentAction"
         /// <summary>
@@ -1860,7 +3285,6 @@ namespace Mozu.Api.Test.Helpers
         }
 
         #endregion
-
         #region "GenerateFulfillmentInfo"
 
         /// <summary>
@@ -1918,7 +3342,91 @@ namespace Mozu.Api.Test.Helpers
 
         #endregion
 
+        #region "LocationInventory"
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="locCode"></param>
+        /// <param name="prodCode"></param>
+        /// <param name="prodName"></param>
+        /// <param name="stockAvailable"></param>
+        /// <param name="stockOnHand"></param>
+        /// <returns></returns>
+        public static LocationInventory GenerateLocationInventory(string locCode, string prodCode, string prodName = null, int? stockAvailable = null, int? stockOnHand = null)
+        {
+            return new LocationInventory()
+            {
+                LocationCode = locCode,
+                ProductCode = prodCode,
+                ProductName = prodName ?? Generator.RandomString(5, Generator.RandomCharacterGroup.AlphaOnly),
+                StockAvailable = stockAvailable,
+                StockOnHand = stockOnHand,
+            };
+        }
+        public static LocationInventory GenerateLocationInventory()
+        {
+            return new LocationInventory();
+        }
+        public static List<LocationInventory> GenerateLocationInventoryList()
+        {
+            return new List<LocationInventory>();
+        }
+        #endregion
+
+
+        #region "LocationInventoryAdjustment"
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="locCode"></param>
+        /// <param name="prodCode"></param>
+        /// <param name="value"></param>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public static LocationInventoryAdjustment GenerateLocationInventoryAdjustment(string locCode, string prodCode, int value, string type = "Absolute")
+        { 
+           //const string ABSOLUTE = "Absolute";
+           //const string DELTA = "Delta";
+            return new LocationInventoryAdjustment()
+            {
+                ProductCode = prodCode,
+                LocationCode = locCode,
+                Type = type,
+                Value = value
+            };
+        }
+
+        #endregion
+
+        #region "GenerateLocationInventoryLists"
+
+        public static List<LocationInventory> GenerateListOfLocationInventory()
+        {
+            return new List<LocationInventory>();
+        }
+        public static List<LocationInventory> GenerateListOfLocationInventory(string locationCode, string productCode, int stockAvailable = 0, int stockOnBackOrder = 0, int stockOnHand = 0)
+        {
+            var location = new LocationInventory { LocationCode = locationCode, ProductCode = productCode, StockAvailable = stockAvailable, StockOnBackOrder = stockOnBackOrder, StockOnHand = stockOnHand };
+
+            return new List<LocationInventory>() { location };
+        }
+
+        public static List<LocationInventoryAdjustment> GenerateListOfLocationInventoryAdjustments()
+        {
+            return new List<LocationInventoryAdjustment>();
+        }
+        public static List<LocationInventoryAdjustment> GenerateListOfLocationInventoryAdjustments(string locationCode, string productCode, int valueChange, string stockAdjustmentType = "Delta")
+        {
+            //const string ABSOLUTE = "Absolute";
+            //const string DELTA = "Delta";
+            var location = new LocationInventoryAdjustment { LocationCode = locationCode, ProductCode = productCode, Value = valueChange, Type = stockAdjustmentType };
+
+            return new List<LocationInventoryAdjustment>(){location};
+        }
+
+        #endregion
 
         #region "GeneratePackage"
 
@@ -1945,8 +3453,16 @@ namespace Mozu.Api.Test.Helpers
         }
 
         #endregion
-
         #region "GeneratePackageItem"
+
+        /// <summary>
+        /// Generate PackageItem Object List.
+        /// </summary>
+        /// <returns></returns>
+        public static List<Mozu.Api.Contracts.CommerceRuntime.Fulfillment.PackageItem> GeneratePackageItemList()
+        {
+            return new List<Mozu.Api.Contracts.CommerceRuntime.Fulfillment.PackageItem>();
+        }
 
         /// <summary>
         /// Generate PackageItem Object.
@@ -1988,7 +3504,6 @@ namespace Mozu.Api.Test.Helpers
         }
 
         #endregion
-
 
         #region "GeneratePaymentActions"
         /// <summary>
@@ -2219,7 +3734,87 @@ namespace Mozu.Api.Test.Helpers
             };
         }
         #endregion
+        #region "GeneratePaymentGatewayInteraction"
 
+        /// <summary>
+        /// For manual interaction process
+        /// </summary>
+        /// <returns></returns>
+        public static Mozu.Api.Contracts.CommerceRuntime.Payments.PaymentGatewayInteraction GeneratePaymentGatewayInteraction()
+        {
+            return new Mozu.Api.Contracts.CommerceRuntime.Payments.PaymentGatewayInteraction()
+            {
+                GatewayInteractionId = Generator.RandomInt(22222, 99999),
+                GatewayTransactionId = Generator.RandomString(2, Generator.RandomCharacterGroup.NumericOnly),
+                GatewayAuthCode = Generator.RandomString(6, Generator.RandomCharacterGroup.NumericOnly),
+                GatewayAVSCodes = "P",
+                GatewayCVV2Codes = "",
+                GatewayResponseCode = "1"
+            };
+        }
+
+        #endregion
+        #region "GeneratePickup"
+        public static Mozu.Api.Contracts.CommerceRuntime.Fulfillment.Pickup GeneratePickup()
+        {
+            return new Mozu.Api.Contracts.CommerceRuntime.Fulfillment.Pickup();
+        }
+
+        public static Mozu.Api.Contracts.CommerceRuntime.Fulfillment.Pickup GeneratePickup(
+                List<Mozu.Api.Contracts.CommerceRuntime.Fulfillment.PickupItem> items, string fulfillmentLocationCode)
+        {
+            return new Mozu.Api.Contracts.CommerceRuntime.Fulfillment.Pickup()
+            {
+                FulfillmentDate = DateTime.UtcNow,
+                FulfillmentLocationCode = fulfillmentLocationCode,
+                Items = items
+            };
+        }
+        public static Mozu.Api.Contracts.CommerceRuntime.Fulfillment.Pickup GeneratePickup(
+                List<Mozu.Api.Contracts.CommerceRuntime.Fulfillment.PickupItem> items)
+        {
+            return new Mozu.Api.Contracts.CommerceRuntime.Fulfillment.Pickup()
+            {
+                FulfillmentDate = DateTime.UtcNow,
+                Items = items
+            };
+        }
+
+        public static Mozu.Api.Contracts.CommerceRuntime.Fulfillment.Pickup GeneratePickup(Mozu.Api.Contracts.CommerceRuntime.Fulfillment.PickupItem item)
+        {
+            var itemList = new List<Mozu.Api.Contracts.CommerceRuntime.Fulfillment.PickupItem>() { item };
+            return new Mozu.Api.Contracts.CommerceRuntime.Fulfillment.Pickup()
+            {
+                FulfillmentDate = DateTime.UtcNow,
+                Items = itemList
+            };
+        }
+        public static Mozu.Api.Contracts.CommerceRuntime.Fulfillment.Pickup GeneratePickup(Mozu.Api.Contracts.CommerceRuntime.Fulfillment.PickupItem item, string fulfillmentLocationCode)
+        {
+            var itemList = new List<Mozu.Api.Contracts.CommerceRuntime.Fulfillment.PickupItem>() { item };
+            return new Mozu.Api.Contracts.CommerceRuntime.Fulfillment.Pickup()
+            {
+                FulfillmentDate = DateTime.UtcNow,
+                FulfillmentLocationCode = fulfillmentLocationCode,
+                Items = itemList
+            };
+        }
+
+        public static List<Mozu.Api.Contracts.CommerceRuntime.Fulfillment.PickupItem> GeneratePickupItemList()
+        {
+            return new List<Mozu.Api.Contracts.CommerceRuntime.Fulfillment.PickupItem>();
+        }
+
+        public static Mozu.Api.Contracts.CommerceRuntime.Fulfillment.PickupItem GeneratePickupItem(string productCode, int quantity)
+        {
+            return new Mozu.Api.Contracts.CommerceRuntime.Fulfillment.PickupItem()
+            {
+                //OrderItemId = itemId,
+                ProductCode = productCode,
+                Quantity = quantity
+            };
+        }
+        #endregion
 
         #region "GeneratePhone"
         /// <summary>
@@ -2287,7 +3882,8 @@ namespace Mozu.Api.Test.Helpers
                 Options = options,
                 Properties = properties,
                 ProductTypeId = productTypeId,
-                PackageWeight = GenerateMeasurement("lbs", Generator.RandomDecimal(50, 200))
+                PackageWeight = GenerateMeasurement("lbs", Generator.RandomDecimal(50, 200)),
+                ProductUsage = "Standard" // Bundle,Component,Standard
                 //                   ProductInSites = ,
                 //                   UPC = ,
                 //                   IsHiddenWhenOutOfStock = ,
@@ -2404,7 +4000,6 @@ namespace Mozu.Api.Test.Helpers
         /// <param name="price"></param>
         /// <param name="salep"></param>
         /// <param name="stock"></param>
-        /// <param name="productType"></param>
         /// <param name="weight"></param>
         /// <param name="unit"></param>
         /// <param name="height"></param>
@@ -2442,7 +4037,75 @@ namespace Mozu.Api.Test.Helpers
             return pd;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="productCode"></param>
+        /// <param name="variationProductCode"></param>
+        /// <returns></returns>
+        public static Mozu.Api.Contracts.CommerceRuntime.Products.Product GenerateConfigurableProduct(string productCode, string variationProductCode)
+        {
+
+            return new Mozu.Api.Contracts.CommerceRuntime.Products.Product()
+            {
+                ProductCode = productCode,
+                VariationProductCode = variationProductCode
+            };
+        }
+        public static Mozu.Api.Contracts.CommerceRuntime.Products.Product GenerateNonConfigurableProduct(string productCode)
+        {
+            return new Mozu.Api.Contracts.CommerceRuntime.Products.Product()
+            {
+                Name = Generator.RandomString(15, Generator.RandomCharacterGroup.AlphaOnly),
+                Description = Generator.RandomString(15, Generator.RandomCharacterGroup.AlphaOnly),
+                ProductCode = productCode
+            };
+        }
+
+        public static List<Product> GenerateProductsRandom(ServiceClientMessageHandler handler, string name, int numProducts)
+        {
+            //var prodColl = GenerateProductCollection();
+            var prodColl = new List<Product>();
+            var myPT =
+                Generator.GenerateBasicProductType(Generator.RandomString(10, Generator.RandomCharacterGroup.AlphaOnly));
+            for (var i = 0; i < numProducts; i++)
+            {
+                var createdPT = ProductTypeFactory.AddProductType(handler, myPT);
+                var myProduct = Generator.GenerateProduct(createdPT);
+                var prodName = myProduct.Content.ProductName;
+                myProduct.Content.ProductName = name + prodName;
+                var createdProduct = ProductFactory.AddProduct(handler, myProduct);
+                var product = ProductFactory.GetProduct(handler, createdProduct.ProductCode);
+                prodColl.Add(product);
+
+            }
+            return prodColl;
+        }
+
+        public static List<TargetedProduct> GenerateTargetedProductList()
+        {
+            return new List<TargetedProduct>();
+        }
+        public static List<TargetedShippingMethod> GenerateTargetedShippingMethodList()
+        {
+            return new List<TargetedShippingMethod>();
+        }
+
+
         #endregion
+        #region "GenerateProductBundle"
+        public static BundledProduct GenerateBundledProduct(string productCode, int quantity, string productName)
+        {
+
+            return new BundledProduct()
+            {
+                ProductCode = productCode,
+                Quantity = quantity,
+                ProductName = productName,
+            };
+        }
+
+        #endregion 
         #region "GenerateProductCategory"
 
         /// <summary>
@@ -2613,7 +4276,34 @@ namespace Mozu.Api.Test.Helpers
             return info;
         }
 
+        /// <summary>
+        /// generate empty ProductInSiteInfo object
+        /// </summary>
+        /// <returns></returns>
+        public static List<ProductInCatalogInfo> GenerateProductInCatalogInfoList()
+        {
+            return new List<ProductInCatalogInfo>();
+        }
+
         #endregion
+        #region "GenerateProductInventoryInfo"
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="manageStock"></param>
+        /// <param name="outOfStockBehavior"></param>
+        /// <returns></returns>
+        public static ProductInventoryInfo GenerateProductInventoryInfo(bool? manageStock, string outOfStockBehavior = null)
+        {
+            return new ProductInventoryInfo()
+            {
+                ManageStock = manageStock,
+                OutOfStockBehavior = outOfStockBehavior
+            };
+        }
+        #endregion
+
+
         #region "GenerateProductLocalizedContent"
 
         /// <summary>
@@ -2657,6 +4347,10 @@ namespace Mozu.Api.Test.Helpers
                 LocaleCode = locale,
                 VideoUrl = videoUrl
             };
+        }
+        public static List<ProductLocalizedImage> GenerateProductLocalizedImageList()
+        {
+            return new List<ProductLocalizedImage>();
         }
 
         #endregion
@@ -2741,6 +4435,34 @@ namespace Mozu.Api.Test.Helpers
             return option;
         }
 
+        public static List<ProductOption> GenerateProductOptionList()
+        {
+            return new List<ProductOption>();
+        }
+        /// <summary>
+        /// Create an attribute with a list of options
+        /// </summary>
+        /// <param name="handler"></param>
+        /// <param name="attributeName"></param>
+        /// <param name="values"></param>
+        /// <returns></returns>
+        public static Mozu.Api.Contracts.ProductAdmin.Attribute CreateOptionAttribute(ServiceClientMessageHandler handler,
+                string attributeName, List<string> values)
+        {
+            var attr =
+                GenerateAttribute(
+                    attributeCode:
+                        attributeName + Generator.RandomString(5, Generator.RandomCharacterGroup.AlphaOnly),
+                    adminName: Generator.RandomString(6, Generator.RandomCharacterGroup.AlphaOnly), isOption: true);
+            attr.VocabularyValues.Clear();
+            foreach (var value in values)
+            {
+                attr.VocabularyValues.Add(GenerateAttributeVocabularyValue(value));
+            }
+            var createdAttr = AttributeFactory.AddAttribute(handler, attr);
+            return createdAttr;
+
+        }
         #endregion
         #region "GenerateProductOptionValue"
 
@@ -2931,9 +4653,47 @@ namespace Mozu.Api.Test.Helpers
             return GenerateProductType(name, options, properties, extras);
         }
 
+        public static ProductType GenerateBasicProductType(string name)
+        {
+            return new ProductType()
+            {
+                Name = name,
+                ProductUsages = new List<string> { "Standard", "Configurable" }
+            };
+        }
+        public static ProductType GenerateProductType(string name, List<string> usages)
+        {
+            return new ProductType()
+            {
+                Name = name,
+                ProductUsages = usages
+            };
+        }
+        public static ProductType PrepareProductType(ServiceClientMessageHandler handler)
+        {
+            var attrs = new List<string>();
+            var colorAttr = Generator.CreateOptionAttribute(handler, "Color", new List<string>() { "Red", "Blue", "Green" });
+            attrs.Add(colorAttr.AttributeFQN);
+            var sizeAttr = Generator.CreateOptionAttribute(handler, "Size", new List<string>() { "Small", "Medium", "Large" });
+            attrs.Add(sizeAttr.AttributeFQN);
+            var decoAttr = Generator.CreateOptionAttribute(handler, "Blinking", new List<string>() { "Yes", "No" });
+            attrs.Add(decoAttr.AttributeFQN);
+            var attList = new List<Attribute>();
+
+            attList.Clear();
+            attList.Add(colorAttr);
+            attList.Add(sizeAttr);
+            attList.Add(decoAttr);
+            var productType = GenerateProductType(attList, RandomString(10,RandomCharacterGroup.AlphaNumericOnly));
+            return productType;
+        }
         #endregion
         #region "GenerateProductVariationDeltaPrice"
 
+        public static List<ProductVariation> GenerateProductVariationList()
+        {
+            return new List<ProductVariation>();
+        }
         /// <summary>
         /// 
         /// </summary>
@@ -2957,7 +4717,7 @@ namespace Mozu.Api.Test.Helpers
         /// <param name="items"></param>
         /// <param name="totalCount"></param>
         /// <returns></returns>
-        public static ProductVariationCollection GenerateProductVariationCollection(List<ProductVariation> items, long totalCount)
+        public static ProductVariationCollection GenerateProductVariationCollection(List<ProductVariation> items, int totalCount)
         {
             return new ProductVariationCollection()
             {
@@ -2967,6 +4727,18 @@ namespace Mozu.Api.Test.Helpers
         }
 
         #endregion
+
+        #region "GeneratePublishingScope" 
+        public static PublishingScope GeneratePublishingScope(bool? allPending, List<string> productCodes)
+        {
+            return new PublishingScope()
+            {
+                AllPending = allPending,
+                ProductCodes = productCodes
+            };
+        }
+        #endregion
+
         #region "GenerateReturn"
         public enum ReturnType
         {
@@ -3031,7 +4803,7 @@ namespace Mozu.Api.Test.Helpers
         }
         #endregion
 
-        #region "GeneateReturnItem"
+        #region "GenerateReturnItem"
         public static Mozu.Api.Contracts.CommerceRuntime.Returns.ReturnItem GenerateReturnItem(string itemId, Dictionary<string, int> reasons)
         {
             return new Mozu.Api.Contracts.CommerceRuntime.Returns.ReturnItem
@@ -3143,7 +4915,6 @@ namespace Mozu.Api.Test.Helpers
             return new Mozu.Api.Contracts.Core.User
             {
                 //EmailAddress = "mozuqa@volusion.com",
-                //EmailAddress = "paultesting43@volusion.com",
                 EmailAddress = Generator.RandomEmailAddress(),
                 FirstName = Generator.RandomString(5, Generator.RandomCharacterGroup.AlphaOnly),
                 LastName = Generator.RandomString(5, Generator.RandomCharacterGroup.AlphaOnly),
@@ -3239,26 +5010,241 @@ namespace Mozu.Api.Test.Helpers
             };
         }
         #endregion
-        #region "GenerateCustomerAuthInfo"
+        #region "GenerateWishLists"
 
         /// <summary>
-        /// Generate CustomerUserAuthInfo Object.
+        /// 
         /// </summary>
-        /// <param name="userName"></param>
-        /// <param name="passwd"></param>
+        /// <param name="typeTag"></param>
+        /// <param name="name"></param>
+        /// <param name="items"></param>
+        /// <param name="privacyType"></param>
         /// <returns></returns>
-        public static CustomerUserAuthInfo GenerateCustomerUserAuthInfo(string userName, string passwd = "MozuPass1")
+        public static Mozu.Api.Contracts.CommerceRuntime.Wishlists.Wishlist GenerateWishlist(int? customerAccountId, int? tenantId, int? siteId, string typeTag, string name,
+            List<WishlistItem> items)
         {
-            if (string.IsNullOrEmpty(userName))
-                userName = Generator.RandomString(15, RandomCharacterGroup.AlphaNumericOnly);
-
-            return new CustomerUserAuthInfo()
+            return new Wishlist()
             {
-                Username = userName,
-                Password = passwd
+                CustomerAccountId = customerAccountId,
+                TenantId = tenantId,
+                SiteId = siteId,
+                TypeTag = typeTag,
+                Name = name,
+                Items = items,
+                CustomerInteractionType = "website" //store, call
+
+
+            };
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="items"></param>
+        /// <returns></returns>
+        public static Wishlist GenerateWishlist(string name, List<WishlistItem> items)
+        {
+            return new Wishlist()
+            {
+                Name = name,
+                Items = items
+
+            };
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="items"></param>
+        /// <returns></returns>
+        public static Wishlist GenerateWishlist(int customerAccountId, string name, List<WishlistItem> items)
+        {
+            return new Wishlist()
+            {
+                CustomerAccountId = customerAccountId,
+                Name = name,
+                Items = items
+
+            };
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public static Wishlist GenerateWishlist(string name)
+        {
+            return new Wishlist()
+            {
+                Name = name
+            };
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static WishlistCollection GenerateWishlistCollection()
+        {
+            return new WishlistCollection();
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static WishlistItemCollection GenerateWishlistItemCollection()
+        {
+            return new WishlistItemCollection();
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static List<WishlistItem> GenerateWishlistItemList()
+        {
+            return new List<WishlistItem>();
+        }
+
+        public static List<WishlistItem> GenerateWishlistItemListRandom(ProductCollection products, int numItems)
+        {
+            var productCode = "";
+            var variationKey = "";
+            var wishListItemList = GenerateWishlistItemList();
+            for (int i = 0; i < numItems; i++)
+            {
+                //Generate Product
+                if (i < products.Items.Count)
+                {
+                    productCode = products.Items[i].ProductCode;
+                    variationKey = products.Items[i].VariationKey;
+                }
+                else
+                {
+                    productCode = products.Items[0].ProductCode;
+                    variationKey = products.Items[0].VariationKey;
+                }
+                var product = Generator.GenerateConfigurableProduct(productCode, variationKey);
+                var wishListItem = Generator.GenerateWishlistItem(product,
+                Generator.RandomString(25, Generator.RandomCharacterGroup.AlphaNumericOnly), "high",
+                    "purchasable", 2, true, true);
+                wishListItemList.Add(wishListItem);
+            }
+            return wishListItemList;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="product"></param>
+        /// <param name="comments"></param>
+        /// <param name="priorityType"></param>
+        /// <param name="purchasableStatusType"></param>
+        /// <param name="quantity"></param>
+        /// <param name="isRecurring"></param>
+        /// <param name="isTaxable"></param>
+        /// <param name="shippingDiscounts"></param>
+        /// <returns></returns>
+        public static WishlistItem GenerateWishlistItem(Mozu.Api.Contracts.CommerceRuntime.Products.Product product, string comments, string priorityType,
+            string purchasableStatusType, int quantity, bool isRecurring, bool isTaxable, List<Mozu.Api.Contracts.CommerceRuntime.Discounts.ShippingDiscount> shippingDiscounts)
+        {
+            return new WishlistItem()
+            {
+                Id = Generator.RandomString(4, Generator.RandomCharacterGroup.NumericOnly),
+                Comments = comments,
+                PriorityType = priorityType,
+                PurchasableStatusType = purchasableStatusType,
+                Product = product,
+                ShippingDiscounts = shippingDiscounts,
+                Quantity = quantity,
+                IsRecurring = isRecurring,
+                IsTaxable = isTaxable
+
+            };
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="product"></param>
+        /// <param name="comments"></param>
+        /// <param name="priorityType"></param>
+        /// <param name="purchasableStatusType"></param>
+        /// <param name="quantity"></param>
+        /// <param name="isRecurring"></param>
+        /// <param name="isTaxable"></param>
+        /// <returns></returns>
+        public static WishlistItem GenerateWishlistItem(Mozu.Api.Contracts.CommerceRuntime.Products.Product product, string comments, string priorityType,
+            string purchasableStatusType, int quantity, bool isRecurring, bool isTaxable)
+        {
+            return new WishlistItem()
+            {
+                //Id = Generator.RandomString(4, Generator.RandomCharacterGroup.NumericOnly),
+                Comments = comments,
+                PriorityType = priorityType,
+                PurchasableStatusType = purchasableStatusType,
+                Product = product,
+                Quantity = quantity,
+                IsRecurring = isRecurring,
+                IsTaxable = isTaxable
+
+            };
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static WishlistItem GenerateWishlistItem()
+        {
+            return new WishlistItem()
+            {
+                Id = Generator.RandomString(4, Generator.RandomCharacterGroup.NumericOnly),
+                PriorityType = "low",
+                PurchasableStatusType = "purchasable",
+                Quantity = 1,
+                IsRecurring = false,
+                IsTaxable = true
+
             };
         }
         #endregion
+
+        #region "Set Settings"
+        public static MasterCatalog SetMasterCatalogLiveMode(ServiceClientMessageHandler handler, int masterCatalogId)
+        {
+            var mode = MasterCatalogFactory.GetMasterCatalog(handler, masterCatalogId);
+            if (mode.ProductPublishingMode.Equals("Pending"))
+            {
+                try
+                {
+                    MasterCatalogFactory.UpdateMasterCatalog(handler, masterCatalog: mode, masterCatalogId: masterCatalogId, dataViewMode: DataViewMode.Live );
+                }
+                catch
+                {
+                    PublishingScopeFactory.PublishDrafts(handler, Generator.GeneratePublishingScope(true, new List<string>() { "" }));
+                    MasterCatalogFactory.UpdateMasterCatalog(handler, masterCatalog: mode, masterCatalogId: masterCatalogId, dataViewMode: DataViewMode.Live);
+                }
+
+            }
+            return MasterCatalogFactory.GetMasterCatalog(handler, masterCatalogId);
+        }
+        public static MasterCatalog SetMasterCatalogPendingMode(ServiceClientMessageHandler handler, int masterCatalogId)
+        {
+            var mode = MasterCatalogFactory.GetMasterCatalog(handler, masterCatalogId);
+            if (mode.ProductPublishingMode.Equals("Live"))
+            {
+                try
+                {
+                    MasterCatalogFactory.UpdateMasterCatalog(handler, masterCatalog: mode,
+                        masterCatalogId: masterCatalogId, dataViewMode: DataViewMode.Pending);
+                }
+                catch
+                {
+                    throw new Exception("Could not switch to Pending Setting");
+                }
+            }
+            return MasterCatalogFactory.GetMasterCatalog(handler, masterCatalogId);
+        }
+        #endregion
+
+
         #region "PopulateSampleSite"
 
         /// <summary>
@@ -3663,7 +5649,14 @@ namespace Mozu.Api.Test.Helpers
         }
 
         #endregion
-
+        public enum CarrierType
+        {
+            custom,
+            fedex,
+            ups,
+            usps,
+            invalidcarrier
+        }
     }
     public class AuthorizeDotNetCreditCard
     {

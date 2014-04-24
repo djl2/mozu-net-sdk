@@ -32,14 +32,14 @@ namespace Mozu.Api.Test.Factories
 		/// Retrieves a specific document within the specified document list by providing the document ID.
 		/// <example> 
 		///  <code> 
-		/// var result = DocumentFactory.GetDocument(handler : handler,  documentListName :  documentListName,  documentId :  documentId,  authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = DocumentFactory.GetDocument(handler : handler,  documentListName :  documentListName,  documentId :  documentId,  dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<Document/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.Content.Document GetDocument(ServiceClientMessageHandler handler, 
- 		 string documentListName, string documentId,  AuthTicket authTicket = null, DataViewMode dataViewMode= DataViewMode.Live, 
+ 		 string documentListName, string documentId,  DataViewMode dataViewMode= DataViewMode.Live, 
 		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
@@ -47,7 +47,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Content.Documentlists.DocumentClient.GetDocumentClient(
-				 documentListName :  documentListName,  documentId :  documentId, authTicket : authTicket, dataViewMode: dataViewMode		);
+				 documentListName :  documentListName,  documentId :  documentId, dataViewMode: dataViewMode		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
@@ -70,14 +70,14 @@ namespace Mozu.Api.Test.Factories
 		/// Retrieve the content associated with a document, such as a product image or PDF specifications file, by supplying the document ID.
 		/// <example> 
 		///  <code> 
-		/// var result = DocumentFactory.GetDocumentContent(handler : handler,  documentListName :  documentListName,  documentId :  documentId,  authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = DocumentFactory.GetDocumentContent(handler : handler,  documentListName :  documentListName,  documentId :  documentId,  dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<Stream/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static System.IO.Stream GetDocumentContent(ServiceClientMessageHandler handler, 
- 		 string documentListName, string documentId,  AuthTicket authTicket = null, DataViewMode dataViewMode= DataViewMode.Live, 
+ 		 string documentListName, string documentId,  DataViewMode dataViewMode= DataViewMode.Live, 
 		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
@@ -85,7 +85,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Content.Documentlists.DocumentClient.GetDocumentContentClient(
-				 documentListName :  documentListName,  documentId :  documentId, authTicket : authTicket, dataViewMode: dataViewMode		);
+				 documentListName :  documentListName,  documentId :  documentId, dataViewMode: dataViewMode		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
@@ -108,14 +108,14 @@ namespace Mozu.Api.Test.Factories
 		/// Retrieves a collection of documents according to any filter and sort criteria.
 		/// <example> 
 		///  <code> 
-		/// var result = DocumentFactory.GetDocuments(handler : handler,  documentListName :  documentListName,  filter :  filter,  sortBy :  sortBy,  pageSize :  pageSize,  startIndex :  startIndex,  authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = DocumentFactory.GetDocuments(handler : handler,  documentListName :  documentListName,  filter :  filter,  sortBy :  sortBy,  pageSize :  pageSize,  startIndex :  startIndex,  dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<DocumentCollection/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.Content.DocumentCollection GetDocuments(ServiceClientMessageHandler handler, 
- 		 string documentListName, string filter = null, string sortBy = null, int? pageSize = null, int? startIndex = null,  AuthTicket authTicket = null, DataViewMode dataViewMode= DataViewMode.Live, 
+ 		 string documentListName, string filter = null, string sortBy = null, int? pageSize = null, int? startIndex = null,  DataViewMode dataViewMode= DataViewMode.Live, 
 		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
@@ -123,7 +123,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Content.Documentlists.DocumentClient.GetDocumentsClient(
-				 documentListName :  documentListName,  filter :  filter,  sortBy :  sortBy,  pageSize :  pageSize,  startIndex :  startIndex, authTicket : authTicket, dataViewMode: dataViewMode		);
+				 documentListName :  documentListName,  filter :  filter,  sortBy :  sortBy,  pageSize :  pageSize,  startIndex :  startIndex, dataViewMode: dataViewMode		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
@@ -146,14 +146,14 @@ namespace Mozu.Api.Test.Factories
 		/// Creates a new document in an existing list.
 		/// <example> 
 		///  <code> 
-		/// var result = DocumentFactory.CreateDocument(handler : handler,  document :  document,  documentListName :  documentListName,  authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = DocumentFactory.CreateDocument(handler : handler,  document :  document,  documentListName :  documentListName,  dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<Document/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.Content.Document CreateDocument(ServiceClientMessageHandler handler, 
- 		 Mozu.Api.Contracts.Content.Document document, string documentListName,  AuthTicket authTicket = null, DataViewMode dataViewMode= DataViewMode.Live, 
+ 		 Mozu.Api.Contracts.Content.Document document, string documentListName,  DataViewMode dataViewMode= DataViewMode.Live, 
 		 HttpStatusCode expectedCode = HttpStatusCode.Created, HttpStatusCode successCode = HttpStatusCode.Created)
 		{
 			SetSdKparameters();
@@ -161,7 +161,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Content.Documentlists.DocumentClient.CreateDocumentClient(
-				 document :  document,  documentListName :  documentListName, authTicket : authTicket, dataViewMode: dataViewMode		);
+				 document :  document,  documentListName :  documentListName, dataViewMode: dataViewMode		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
@@ -184,14 +184,14 @@ namespace Mozu.Api.Test.Factories
 		/// Updates a document in a document list.
 		/// <example> 
 		///  <code> 
-		/// var result = DocumentFactory.UpdateDocument(handler : handler,  document :  document,  documentListName :  documentListName,  documentId :  documentId,  authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = DocumentFactory.UpdateDocument(handler : handler,  document :  document,  documentListName :  documentListName,  documentId :  documentId,  dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<Document/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.Content.Document UpdateDocument(ServiceClientMessageHandler handler, 
- 		 Mozu.Api.Contracts.Content.Document document, string documentListName, string documentId,  AuthTicket authTicket = null, DataViewMode dataViewMode= DataViewMode.Live, 
+ 		 Mozu.Api.Contracts.Content.Document document, string documentListName, string documentId,  DataViewMode dataViewMode= DataViewMode.Live, 
 		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
@@ -199,7 +199,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Content.Documentlists.DocumentClient.UpdateDocumentClient(
-				 document :  document,  documentListName :  documentListName,  documentId :  documentId, authTicket : authTicket, dataViewMode: dataViewMode		);
+				 document :  document,  documentListName :  documentListName,  documentId :  documentId, dataViewMode: dataViewMode		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
@@ -222,14 +222,14 @@ namespace Mozu.Api.Test.Factories
 		/// Updates the content associated with a document, such as a product image or PDF specifications file, by supplying the document ID.
 		/// <example> 
 		///  <code> 
-		/// var result = DocumentFactory.UpdateDocumentContent(handler : handler,  stream :  stream,  documentListName :  documentListName,  documentId :  documentId,  authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = DocumentFactory.UpdateDocumentContent(handler : handler,  stream :  stream,  documentListName :  documentListName,  documentId :  documentId,  dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<void/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static void UpdateDocumentContent(ServiceClientMessageHandler handler, 
- 		System.IO.Stream stream, string documentListName, string documentId,  AuthTicket authTicket = null, DataViewMode dataViewMode= DataViewMode.Live, 
+ 		System.IO.Stream stream, string documentListName, string documentId,  DataViewMode dataViewMode= DataViewMode.Live, 
 		 HttpStatusCode expectedCode = HttpStatusCode.NoContent, HttpStatusCode successCode = HttpStatusCode.NoContent)
 		{
 			SetSdKparameters();
@@ -237,7 +237,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Content.Documentlists.DocumentClient.UpdateDocumentContentClient(
-				 stream :  stream,  documentListName :  documentListName,  documentId :  documentId, authTicket : authTicket, dataViewMode: dataViewMode		);
+				 stream :  stream,  documentListName :  documentListName,  documentId :  documentId, dataViewMode: dataViewMode		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
@@ -259,14 +259,14 @@ namespace Mozu.Api.Test.Factories
 		/// Deletes a specific document based on the specified document ID.
 		/// <example> 
 		///  <code> 
-		/// var result = DocumentFactory.DeleteDocument(handler : handler,  documentListName :  documentListName,  documentId :  documentId,  authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = DocumentFactory.DeleteDocument(handler : handler,  documentListName :  documentListName,  documentId :  documentId,  dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<void/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static void DeleteDocument(ServiceClientMessageHandler handler, 
- 		string documentListName, string documentId,  AuthTicket authTicket = null, DataViewMode dataViewMode= DataViewMode.Live, 
+ 		string documentListName, string documentId,  DataViewMode dataViewMode= DataViewMode.Live, 
 		 HttpStatusCode expectedCode = HttpStatusCode.NoContent, HttpStatusCode successCode = HttpStatusCode.NoContent)
 		{
 			SetSdKparameters();
@@ -274,7 +274,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Content.Documentlists.DocumentClient.DeleteDocumentClient(
-				 documentListName :  documentListName,  documentId :  documentId, authTicket : authTicket, dataViewMode: dataViewMode		);
+				 documentListName :  documentListName,  documentId :  documentId, dataViewMode: dataViewMode		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
@@ -296,14 +296,14 @@ namespace Mozu.Api.Test.Factories
 		/// Deletes the content associated with a document, such as a product image or PDF specification, by supplying the document ID.
 		/// <example> 
 		///  <code> 
-		/// var result = DocumentFactory.DeleteDocumentContent(handler : handler,  documentListName :  documentListName,  documentId :  documentId,  authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = DocumentFactory.DeleteDocumentContent(handler : handler,  documentListName :  documentListName,  documentId :  documentId,  dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<void/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static void DeleteDocumentContent(ServiceClientMessageHandler handler, 
- 		string documentListName, string documentId,  AuthTicket authTicket = null, DataViewMode dataViewMode= DataViewMode.Live, 
+ 		string documentListName, string documentId,  DataViewMode dataViewMode= DataViewMode.Live, 
 		 HttpStatusCode expectedCode = HttpStatusCode.NoContent, HttpStatusCode successCode = HttpStatusCode.NoContent)
 		{
 			SetSdKparameters();
@@ -311,7 +311,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Content.Documentlists.DocumentClient.DeleteDocumentContentClient(
-				 documentListName :  documentListName,  documentId :  documentId, authTicket : authTicket, dataViewMode: dataViewMode		);
+				 documentListName :  documentListName,  documentId :  documentId, dataViewMode: dataViewMode		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();

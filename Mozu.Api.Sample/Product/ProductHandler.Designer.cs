@@ -28,44 +28,56 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.getProductsBtn = new System.Windows.Forms.Button();
-            this.productList = new System.Windows.Forms.ListBox();
+            this.btnGetProducts = new System.Windows.Forms.Button();
+            this.dataGridViewProducts = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProducts)).BeginInit();
             this.SuspendLayout();
             // 
-            // getProductsBtn
+            // btnGetProducts
             // 
-            this.getProductsBtn.Location = new System.Drawing.Point(27, 33);
-            this.getProductsBtn.Name = "getProductsBtn";
-            this.getProductsBtn.Size = new System.Drawing.Size(133, 23);
-            this.getProductsBtn.TabIndex = 0;
-            this.getProductsBtn.Text = "Get Products";
-            this.getProductsBtn.UseVisualStyleBackColor = true;
-            this.getProductsBtn.Click += new System.EventHandler(this.getProductsBtn_Click);
+            this.btnGetProducts.BackColor = System.Drawing.Color.Silver;
+            this.btnGetProducts.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.btnGetProducts.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.btnGetProducts.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gray;
+            this.btnGetProducts.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnGetProducts.Location = new System.Drawing.Point(6, 7);
+            this.btnGetProducts.Name = "btnGetProducts";
+            this.btnGetProducts.Size = new System.Drawing.Size(212, 23);
+            this.btnGetProducts.TabIndex = 8;
+            this.btnGetProducts.Text = "Get Products";
+            this.btnGetProducts.UseVisualStyleBackColor = false;
+            this.btnGetProducts.Click += new System.EventHandler(this.btnGetProducts_Click);
             // 
-            // productList
+            // dataGridViewProducts
             // 
-            this.productList.FormattingEnabled = true;
-            this.productList.Location = new System.Drawing.Point(27, 62);
-            this.productList.Name = "productList";
-            this.productList.Size = new System.Drawing.Size(335, 251);
-            this.productList.TabIndex = 1;
+            this.dataGridViewProducts.AllowUserToAddRows = false;
+            this.dataGridViewProducts.AllowUserToDeleteRows = false;
+            this.dataGridViewProducts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewProducts.Location = new System.Drawing.Point(3, 36);
+            this.dataGridViewProducts.Name = "dataGridViewProducts";
+            this.dataGridViewProducts.ReadOnly = true;
+            this.dataGridViewProducts.Size = new System.Drawing.Size(937, 396);
+            this.dataGridViewProducts.TabIndex = 7;
             // 
             // Home
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(391, 338);
-            this.Controls.Add(this.productList);
-            this.Controls.Add(this.getProductsBtn);
+            this.BackColor = System.Drawing.Color.Black;
+            this.ClientSize = new System.Drawing.Size(946, 440);
+            this.Controls.Add(this.btnGetProducts);
+            this.Controls.Add(this.dataGridViewProducts);
             this.Name = "Home";
-            this.Text = "Products";
+            this.Text = "Products API Window";
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProducts)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Button getProductsBtn;
-        private System.Windows.Forms.ListBox productList;
+        private System.Windows.Forms.Button btnGetProducts;
+        private System.Windows.Forms.DataGridView dataGridViewProducts;
+
     }
 }

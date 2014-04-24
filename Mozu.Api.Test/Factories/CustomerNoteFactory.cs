@@ -32,14 +32,14 @@ namespace Mozu.Api.Test.Factories
 		/// Retrieves the contents of a particular note attached to a specified customer account.
 		/// <example> 
 		///  <code> 
-		/// var result = CustomerNoteFactory.GetAccountNote(handler : handler,  accountId :  accountId,  noteId :  noteId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = CustomerNoteFactory.GetAccountNote(handler : handler,  accountId :  accountId,  noteId :  noteId,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<CustomerNote/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.Customer.CustomerNote GetAccountNote(ServiceClientMessageHandler handler, 
- 		 int accountId, int noteId,  AuthTicket authTicket = null, 
+ 		 int accountId, int noteId, 
 		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
@@ -47,7 +47,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Commerce.Customer.Accounts.CustomerNoteClient.GetAccountNoteClient(
-				 accountId :  accountId,  noteId :  noteId, authTicket : authTicket		);
+				 accountId :  accountId,  noteId :  noteId		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
@@ -70,14 +70,14 @@ namespace Mozu.Api.Test.Factories
 		/// Retrieves a list of notes added to a customer account according to any specified filter criteria and sort options.
 		/// <example> 
 		///  <code> 
-		/// var result = CustomerNoteFactory.GetAccountNotes(handler : handler,  accountId :  accountId,  startIndex :  startIndex,  pageSize :  pageSize,  sortBy :  sortBy,  filter :  filter,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = CustomerNoteFactory.GetAccountNotes(handler : handler,  accountId :  accountId,  startIndex :  startIndex,  pageSize :  pageSize,  sortBy :  sortBy,  filter :  filter,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<CustomerNoteCollection/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.Customer.CustomerNoteCollection GetAccountNotes(ServiceClientMessageHandler handler, 
- 		 int accountId, int? startIndex = null, int? pageSize = null, string sortBy = null, string filter = null,  AuthTicket authTicket = null, 
+ 		 int accountId, int? startIndex = null, int? pageSize = null, string sortBy = null, string filter = null, 
 		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
@@ -85,7 +85,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Commerce.Customer.Accounts.CustomerNoteClient.GetAccountNotesClient(
-				 accountId :  accountId,  startIndex :  startIndex,  pageSize :  pageSize,  sortBy :  sortBy,  filter :  filter, authTicket : authTicket		);
+				 accountId :  accountId,  startIndex :  startIndex,  pageSize :  pageSize,  sortBy :  sortBy,  filter :  filter		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
@@ -108,14 +108,14 @@ namespace Mozu.Api.Test.Factories
 		/// Adds a new note to the specified customer account.
 		/// <example> 
 		///  <code> 
-		/// var result = CustomerNoteFactory.AddAccountNote(handler : handler,  note :  note,  accountId :  accountId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = CustomerNoteFactory.AddAccountNote(handler : handler,  note :  note,  accountId :  accountId,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<CustomerNote/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.Customer.CustomerNote AddAccountNote(ServiceClientMessageHandler handler, 
- 		 Mozu.Api.Contracts.Customer.CustomerNote note, int accountId,  AuthTicket authTicket = null, 
+ 		 Mozu.Api.Contracts.Customer.CustomerNote note, int accountId, 
 		 HttpStatusCode expectedCode = HttpStatusCode.Created, HttpStatusCode successCode = HttpStatusCode.Created)
 		{
 			SetSdKparameters();
@@ -123,7 +123,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Commerce.Customer.Accounts.CustomerNoteClient.AddAccountNoteClient(
-				 note :  note,  accountId :  accountId, authTicket : authTicket		);
+				 note :  note,  accountId :  accountId		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
@@ -146,14 +146,14 @@ namespace Mozu.Api.Test.Factories
 		/// Modifies an existing note for a customer account.
 		/// <example> 
 		///  <code> 
-		/// var result = CustomerNoteFactory.UpdateAccountNote(handler : handler,  note :  note,  accountId :  accountId,  noteId :  noteId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = CustomerNoteFactory.UpdateAccountNote(handler : handler,  note :  note,  accountId :  accountId,  noteId :  noteId,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<CustomerNote/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.Customer.CustomerNote UpdateAccountNote(ServiceClientMessageHandler handler, 
- 		 Mozu.Api.Contracts.Customer.CustomerNote note, int accountId, int noteId,  AuthTicket authTicket = null, 
+ 		 Mozu.Api.Contracts.Customer.CustomerNote note, int accountId, int noteId, 
 		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
@@ -161,7 +161,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Commerce.Customer.Accounts.CustomerNoteClient.UpdateAccountNoteClient(
-				 note :  note,  accountId :  accountId,  noteId :  noteId, authTicket : authTicket		);
+				 note :  note,  accountId :  accountId,  noteId :  noteId		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
@@ -184,14 +184,14 @@ namespace Mozu.Api.Test.Factories
 		/// Removes a note from the specified customer account.
 		/// <example> 
 		///  <code> 
-		/// var result = CustomerNoteFactory.DeleteAccountNote(handler : handler,  accountId :  accountId,  noteId :  noteId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = CustomerNoteFactory.DeleteAccountNote(handler : handler,  accountId :  accountId,  noteId :  noteId,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<void/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static void DeleteAccountNote(ServiceClientMessageHandler handler, 
- 		int accountId, int noteId,  AuthTicket authTicket = null, 
+ 		int accountId, int noteId, 
 		 HttpStatusCode expectedCode = HttpStatusCode.NoContent, HttpStatusCode successCode = HttpStatusCode.NoContent)
 		{
 			SetSdKparameters();
@@ -199,7 +199,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Commerce.Customer.Accounts.CustomerNoteClient.DeleteAccountNoteClient(
-				 accountId :  accountId,  noteId :  noteId, authTicket : authTicket		);
+				 accountId :  accountId,  noteId :  noteId		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();

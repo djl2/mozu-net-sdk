@@ -97,11 +97,9 @@ namespace Mozu.Api.Test.Helpers
                 var configFileReader = new CustomConfigurationFileReader(sdkConfigFile);
                 var config = configFileReader.Config;
 
-                //System.Configuration.Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
                 config.AppSettings.Settings.Remove(key);
                 config.AppSettings.Settings.Add(key, value);
                 config.Save(ConfigurationSaveMode.Modified);
-                //ConfigurationManager.RefreshSection("appSettings");
             }
             catch
             {
@@ -123,7 +121,6 @@ namespace Mozu.Api.Test.Helpers
                 var configFileReader = new CustomConfigurationFileReader(sdkConfigFile);
                 var config = configFileReader.Config;
                 var setting = config.AppSettings.Settings[keyPart + "_" + environment.ToString()].Value;
-                //return ConfigurationManager.AppSettings[keyPart + "_" + environment.ToString()];
                 return setting;
             }
             catch (Exception)
@@ -142,7 +139,6 @@ namespace Mozu.Api.Test.Helpers
                 var configFileReader = new CustomConfigurationFileReader(sdkConfigFile);
                 var config = configFileReader.Config;
                 var setting = config.AppSettings.Settings[keyPart + "_" + environment.ToString()].Value;
-                //return ConfigurationManager.AppSettings[keyPart + "_" + environment.ToString()];
                 return setting;
             }
             catch (Exception)
@@ -159,7 +155,6 @@ namespace Mozu.Api.Test.Helpers
                 var sdkConfigFile = ConfigurationManager.AppSettings["SDKConfig"];
                 var configFileReader = new CustomConfigurationFileReader(sdkConfigFile);
                 var config = configFileReader.Config;
-                //System.Configuration.Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
                 config.AppSettings.Settings.Remove(keyPart + "_" + environment.ToString());
                 config.AppSettings.Settings.Add(keyPart + "_" + environment.ToString(), value);
                 config.Save(ConfigurationSaveMode.Modified);
@@ -183,9 +178,6 @@ namespace Mozu.Api.Test.Helpers
                 config.AppSettings.Settings.Remove(keyPart + "_" + environment.ToString());
                 config.AppSettings.Settings.Add(keyPart + "_" + environment.ToString(), value);
                 config.Save(ConfigurationSaveMode.Modified);
-                //ConfigurationManager.RefreshSection("appSettings");
-                
-
             }
             catch (Exception)
             {

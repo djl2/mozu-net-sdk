@@ -32,14 +32,14 @@ namespace Mozu.Api.Test.Factories
 		/// Retrieves a list of events.
 		/// <example> 
 		///  <code> 
-		/// var result = EventNotificationFactory.GetEvents(handler : handler,  startIndex :  startIndex,  pageSize :  pageSize,  sortBy :  sortBy,  filter :  filter,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = EventNotificationFactory.GetEvents(handler : handler,  startIndex :  startIndex,  pageSize :  pageSize,  sortBy :  sortBy,  filter :  filter,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<EventCollection/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.Event.EventCollection GetEvents(ServiceClientMessageHandler handler, 
- 		 int? startIndex = null, int? pageSize = null, string sortBy = null, string filter = null,  AuthTicket authTicket = null, 
+ 		 int? startIndex = null, int? pageSize = null, string sortBy = null, string filter = null, 
 		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
@@ -47,7 +47,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Event.EventNotificationClient.GetEventsClient(
-				 startIndex :  startIndex,  pageSize :  pageSize,  sortBy :  sortBy,  filter :  filter, authTicket : authTicket		);
+				 startIndex :  startIndex,  pageSize :  pageSize,  sortBy :  sortBy,  filter :  filter		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
@@ -70,14 +70,14 @@ namespace Mozu.Api.Test.Factories
 		/// Retrieves an event by providing the event ID.
 		/// <example> 
 		///  <code> 
-		/// var result = EventNotificationFactory.GetEvent(handler : handler,  eventId :  eventId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = EventNotificationFactory.GetEvent(handler : handler,  eventId :  eventId,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<Event/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.Event.Event GetEvent(ServiceClientMessageHandler handler, 
- 		 string eventId,  AuthTicket authTicket = null, 
+ 		 string eventId, 
 		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
@@ -85,7 +85,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Event.EventNotificationClient.GetEventClient(
-				 eventId :  eventId, authTicket : authTicket		);
+				 eventId :  eventId		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();

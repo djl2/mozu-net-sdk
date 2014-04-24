@@ -32,22 +32,22 @@ namespace Mozu.Api.Test.Factories
 		/// 
 		/// <example> 
 		///  <code> 
-		/// var result = LocationFactory.GetLocation(handler : handler,  code :  code,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = LocationFactory.GetLocation(handler : handler,  code :  code,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<Location/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.Location.Location GetLocation(ServiceClientMessageHandler handler, 
- 		 string code,  AuthTicket authTicket = null, 
+ 		 string code, 
 		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var currentClassName = System.Reflection.MethodInfo.GetCurrentMethod().DeclaringType.Name;
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
-			var apiClient = Mozu.Api.Clients.Commerce.Location.LocationClient.GetLocationClient(
-				 code :  code, authTicket : authTicket		);
+			var apiClient = Mozu.Api.Clients.Commerce.LocationClient.GetLocationClient(
+				 code :  code		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
@@ -70,22 +70,22 @@ namespace Mozu.Api.Test.Factories
 		/// 
 		/// <example> 
 		///  <code> 
-		/// var result = LocationFactory.GetLocationInUsageType(handler : handler,  locationUsageType :  locationUsageType,  code :  code,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = LocationFactory.GetLocationInUsageType(handler : handler,  locationUsageType :  locationUsageType,  code :  code,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<Location/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.Location.Location GetLocationInUsageType(ServiceClientMessageHandler handler, 
- 		 string locationUsageType, string code,  AuthTicket authTicket = null, 
+ 		 string locationUsageType, string code, 
 		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var currentClassName = System.Reflection.MethodInfo.GetCurrentMethod().DeclaringType.Name;
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
-			var apiClient = Mozu.Api.Clients.Commerce.Location.LocationClient.GetLocationInUsageTypeClient(
-				 locationUsageType :  locationUsageType,  code :  code, authTicket : authTicket		);
+			var apiClient = Mozu.Api.Clients.Commerce.LocationClient.GetLocationInUsageTypeClient(
+				 locationUsageType :  locationUsageType,  code :  code		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
@@ -108,22 +108,22 @@ namespace Mozu.Api.Test.Factories
 		/// 
 		/// <example> 
 		///  <code> 
-		/// var result = LocationFactory.GetLocationsInUsageType(handler : handler,  locationUsageType :  locationUsageType,  startIndex :  startIndex,  pageSize :  pageSize,  sortBy :  sortBy,  filter :  filter,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = LocationFactory.GetLocationsInUsageType(handler : handler,  locationUsageType :  locationUsageType,  startIndex :  startIndex,  pageSize :  pageSize,  sortBy :  sortBy,  filter :  filter,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<LocationCollection/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.Location.LocationCollection GetLocationsInUsageType(ServiceClientMessageHandler handler, 
- 		 string locationUsageType, int? startIndex = null, int? pageSize = null, string sortBy = null, string filter = null,  AuthTicket authTicket = null, 
+ 		 string locationUsageType, int? startIndex = null, int? pageSize = null, string sortBy = null, string filter = null, 
 		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var currentClassName = System.Reflection.MethodInfo.GetCurrentMethod().DeclaringType.Name;
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
-			var apiClient = Mozu.Api.Clients.Commerce.Location.LocationClient.GetLocationsInUsageTypeClient(
-				 locationUsageType :  locationUsageType,  startIndex :  startIndex,  pageSize :  pageSize,  sortBy :  sortBy,  filter :  filter, authTicket : authTicket		);
+			var apiClient = Mozu.Api.Clients.Commerce.LocationClient.GetLocationsInUsageTypeClient(
+				 locationUsageType :  locationUsageType,  startIndex :  startIndex,  pageSize :  pageSize,  sortBy :  sortBy,  filter :  filter		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
@@ -146,22 +146,22 @@ namespace Mozu.Api.Test.Factories
 		/// 
 		/// <example> 
 		///  <code> 
-		/// var result = LocationFactory.GetDirectShipLocation(handler : handler,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = LocationFactory.GetDirectShipLocation(handler : handler,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<Location/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.Location.Location GetDirectShipLocation(ServiceClientMessageHandler handler, 
- 		  AuthTicket authTicket = null, 
+ 		 
 		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var currentClassName = System.Reflection.MethodInfo.GetCurrentMethod().DeclaringType.Name;
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
-			var apiClient = Mozu.Api.Clients.Commerce.Location.LocationClient.GetDirectShipLocationClient(
-				 authTicket : authTicket		);
+			var apiClient = Mozu.Api.Clients.Commerce.LocationClient.GetDirectShipLocationClient(
+						);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
@@ -184,22 +184,22 @@ namespace Mozu.Api.Test.Factories
 		/// 
 		/// <example> 
 		///  <code> 
-		/// var result = LocationFactory.GetInStorePickupLocation(handler : handler,  code :  code,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = LocationFactory.GetInStorePickupLocation(handler : handler,  code :  code,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<Location/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.Location.Location GetInStorePickupLocation(ServiceClientMessageHandler handler, 
- 		 string code,  AuthTicket authTicket = null, 
+ 		 string code, 
 		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var currentClassName = System.Reflection.MethodInfo.GetCurrentMethod().DeclaringType.Name;
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
-			var apiClient = Mozu.Api.Clients.Commerce.Location.LocationClient.GetInStorePickupLocationClient(
-				 code :  code, authTicket : authTicket		);
+			var apiClient = Mozu.Api.Clients.Commerce.LocationClient.GetInStorePickupLocationClient(
+				 code :  code		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
@@ -222,22 +222,22 @@ namespace Mozu.Api.Test.Factories
 		/// 
 		/// <example> 
 		///  <code> 
-		/// var result = LocationFactory.GetInStorePickupLocations(handler : handler,  startIndex :  startIndex,  pageSize :  pageSize,  sortBy :  sortBy,  filter :  filter,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = LocationFactory.GetInStorePickupLocations(handler : handler,  startIndex :  startIndex,  pageSize :  pageSize,  sortBy :  sortBy,  filter :  filter,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<LocationCollection/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.Location.LocationCollection GetInStorePickupLocations(ServiceClientMessageHandler handler, 
- 		 int? startIndex = null, int? pageSize = null, string sortBy = null, string filter = null,  AuthTicket authTicket = null, 
+ 		 int? startIndex = null, int? pageSize = null, string sortBy = null, string filter = null, 
 		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var currentClassName = System.Reflection.MethodInfo.GetCurrentMethod().DeclaringType.Name;
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
-			var apiClient = Mozu.Api.Clients.Commerce.Location.LocationClient.GetInStorePickupLocationsClient(
-				 startIndex :  startIndex,  pageSize :  pageSize,  sortBy :  sortBy,  filter :  filter, authTicket : authTicket		);
+			var apiClient = Mozu.Api.Clients.Commerce.LocationClient.GetInStorePickupLocationsClient(
+				 startIndex :  startIndex,  pageSize :  pageSize,  sortBy :  sortBy,  filter :  filter		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();

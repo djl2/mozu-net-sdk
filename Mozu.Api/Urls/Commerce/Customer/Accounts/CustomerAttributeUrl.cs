@@ -9,7 +9,7 @@
 //------------------------------------------------------------------------------
 
 using System;
-
+using System.Collections.Generic;
 
 namespace Mozu.Api.Urls.Commerce.Customer.Accounts
 {
@@ -75,20 +75,37 @@ namespace Mozu.Api.Urls.Commerce.Customer.Accounts
         /// Get Resource Url for UpdateAccountAttribute
         /// </summary>
         /// <param name="accountId">Identifier of the customer account associated with the attribute.</param>
-        /// <param name="removeMissing">If true, remove the items missing from the collection.</param>
+        /// <param name="attributeFQN"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static MozuUrl UpdateAccountAttributeUrl(int accountId, bool? removeMissing)
+        public static MozuUrl UpdateAccountAttributeUrl(int accountId, string attributeFQN)
 		{
-			var url = "/api/commerce/customer/accounts/{accountId}/attributes?removeMissing={removeMissing}";
+			var url = "/api/commerce/customer/accounts/{accountId}/attributes/{attributeFQN}";
 			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
 			mozuUrl.FormatUrl( "accountId", accountId);
-			mozuUrl.FormatUrl( "removeMissing", removeMissing);
+			mozuUrl.FormatUrl( "attributeFQN", attributeFQN);
 			return mozuUrl;
 		}
 
-				
+				/// <summary>
+        /// Get Resource Url for DeleteAccountAttribute
+        /// </summary>
+        /// <param name="accountId"></param>
+        /// <param name="attributeFQN"></param>
+        /// <returns>
+        /// String - Resource Url
+        /// </returns>
+        public static MozuUrl DeleteAccountAttributeUrl(int accountId, string attributeFQN)
+		{
+			var url = "/api/commerce/customer/accounts/{accountId}/attributes/{attributeFQN}";
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "accountId", accountId);
+			mozuUrl.FormatUrl( "attributeFQN", attributeFQN);
+			return mozuUrl;
+		}
+
+		
 	}
 }
 

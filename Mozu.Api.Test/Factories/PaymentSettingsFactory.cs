@@ -32,22 +32,22 @@ namespace Mozu.Api.Test.Factories
 		/// Retrieves the details of the third-party payment service workflows configured for the site.
 		/// <example> 
 		///  <code> 
-		/// var result = PaymentSettingsFactory.GetThirdPartyPaymentWorkflows(handler : handler,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = PaymentSettingsFactory.GetThirdPartyPaymentWorkflows(handler : handler,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<List<ExternalPaymentWorkflowDefinition>/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static List<Mozu.Api.Contracts.SiteSettings.Order.ExternalPaymentWorkflowDefinition> GetThirdPartyPaymentWorkflows(ServiceClientMessageHandler handler, 
- 		  AuthTicket authTicket = null, 
+ 		 
 		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var currentClassName = System.Reflection.MethodInfo.GetCurrentMethod().DeclaringType.Name;
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
-			var apiClient = Mozu.Api.Clients.Commerce.Settings.Checkout.PaymentSettingsClient.GetThirdPartyPaymentWorkflowsClient(
-				 authTicket : authTicket		);
+			var apiClient = Mozu.Api.Clients.Commerce.Settings.Checkout.PaymentSettings.PaymentSettingsClient.GetThirdPartyPaymentWorkflowsClient(
+						);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();

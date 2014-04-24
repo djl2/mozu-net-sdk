@@ -9,7 +9,7 @@
 //------------------------------------------------------------------------------
 
 using System;
-
+using System.Collections.Generic;
 
 namespace Mozu.Api.Urls.Commerce.Catalog.Admin
 {
@@ -93,19 +93,6 @@ namespace Mozu.Api.Urls.Commerce.Catalog.Admin
 			return mozuUrl;
 		}
 
-		/// <summary>
-        /// Get Resource Url for RedeemDiscount
-        /// </summary>
-        /// <returns>
-        /// String - Resource Url
-        /// </returns>
-        public static MozuUrl RedeemDiscountUrl()
-		{
-			var url = "/api/commerce/catalog/admin/discounts/Redeem";
-			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
-			return mozuUrl;
-		}
-
 				/// <summary>
         /// Get Resource Url for UpdateDiscount
         /// </summary>
@@ -148,23 +135,6 @@ namespace Mozu.Api.Urls.Commerce.Catalog.Admin
 			var url = "/api/commerce/catalog/admin/discounts/{discountId}";
 			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
 			mozuUrl.FormatUrl( "discountId", discountId);
-			return mozuUrl;
-		}
-
-		/// <summary>
-        /// Get Resource Url for UnRedeemDiscount
-        /// </summary>
-        /// <param name="discountId">Unique identifier of the previously redeemed discount. System-supplied and read only.</param>
-        /// <param name="orderNumber">The number of the order associated with the redeemed product discount.</param>
-        /// <returns>
-        /// String - Resource Url
-        /// </returns>
-        public static MozuUrl UnRedeemDiscountUrl(int? discountId, int? orderNumber)
-		{
-			var url = "/api/commerce/catalog/admin/discounts/{discountId}/Unredeem/{orderNumber}";
-			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
-			mozuUrl.FormatUrl( "discountId", discountId);
-			mozuUrl.FormatUrl( "orderNumber", orderNumber);
 			return mozuUrl;
 		}
 

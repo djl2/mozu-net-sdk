@@ -29,25 +29,25 @@ namespace Mozu.Api.Test.Factories
 	{
 
 		/// <summary> 
-		/// Retrieves a paged list of DocumentTypes.
+		/// 
 		/// <example> 
 		///  <code> 
-		/// var result = DocumentTypeFactory.List(handler : handler,  pageSize :  pageSize,  startIndex :  startIndex,  authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = DocumentTypeFactory.GetDocumentTypes(handler : handler,  pageSize :  pageSize,  startIndex :  startIndex,  dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<DocumentTypeCollection/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
-		public static Mozu.Api.Contracts.Content.DocumentTypeCollection List(ServiceClientMessageHandler handler, 
- 		 int? pageSize = null, int? startIndex = null,  AuthTicket authTicket = null, DataViewMode dataViewMode= DataViewMode.Live, 
+		public static Mozu.Api.Contracts.Content.DocumentTypeCollection GetDocumentTypes(ServiceClientMessageHandler handler, 
+ 		 int? pageSize = null, int? startIndex = null,  DataViewMode dataViewMode= DataViewMode.Live, 
 		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var currentClassName = System.Reflection.MethodInfo.GetCurrentMethod().DeclaringType.Name;
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
-			var apiClient = Mozu.Api.Clients.Content.DocumentTypeClient.ListClient(
-				 pageSize :  pageSize,  startIndex :  startIndex, authTicket : authTicket, dataViewMode: dataViewMode		);
+			var apiClient = Mozu.Api.Clients.Content.DocumentTypeClient.GetDocumentTypesClient(
+				 pageSize :  pageSize,  startIndex :  startIndex, dataViewMode: dataViewMode		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
@@ -67,25 +67,25 @@ namespace Mozu.Api.Test.Factories
 		}
   
 		/// <summary> 
-		/// Retrieves an existing DocumentType.
+		/// 
 		/// <example> 
 		///  <code> 
-		/// var result = DocumentTypeFactory.Get(handler : handler,  documentTypeName :  documentTypeName,  authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = DocumentTypeFactory.GetDocumentType(handler : handler,  documentTypeName :  documentTypeName,  dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<DocumentType/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
-		public static Mozu.Api.Contracts.Content.DocumentType Get(ServiceClientMessageHandler handler, 
- 		 string documentTypeName,  AuthTicket authTicket = null, DataViewMode dataViewMode= DataViewMode.Live, 
+		public static Mozu.Api.Contracts.Content.DocumentType GetDocumentType(ServiceClientMessageHandler handler, 
+ 		 string documentTypeName,  DataViewMode dataViewMode= DataViewMode.Live, 
 		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var currentClassName = System.Reflection.MethodInfo.GetCurrentMethod().DeclaringType.Name;
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
-			var apiClient = Mozu.Api.Clients.Content.DocumentTypeClient.GetClient(
-				 documentTypeName :  documentTypeName, authTicket : authTicket, dataViewMode: dataViewMode		);
+			var apiClient = Mozu.Api.Clients.Content.DocumentTypeClient.GetDocumentTypeClient(
+				 documentTypeName :  documentTypeName, dataViewMode: dataViewMode		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();

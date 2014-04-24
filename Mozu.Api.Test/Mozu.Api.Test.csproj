@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -20,6 +20,7 @@
     <SccLocalPath>SAK</SccLocalPath>
     <SccAuxPath>SAK</SccAuxPath>
     <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -39,9 +40,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="HtmlAgilityPack">
+      <HintPath>..\packages\HtmlAgilityPack.1.4.6\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Newtonsoft.Json.5.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
       <HintPath>..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
@@ -50,6 +55,8 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.XML" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -68,18 +75,24 @@
     <Compile Include="Helpers\CleanupData.cs" />
     <Compile Include="Helpers\Constant.cs" />
     <Compile Include="Helpers\CustomConfigurationFileReader.cs" />
+    <Compile Include="Helpers\DynamicDictionary.cs" />
     <Compile Include="Helpers\Environments.cs" />
     <Compile Include="Helpers\Generator.cs" />
     <Compile Include="Helpers\HttpResponseMessage.cs" />
     <Compile Include="Helpers\MozuApiTestBase.cs" />
+    <Compile Include="Helpers\RunscopeAdapter.cs" />
     <Compile Include="Helpers\ServiceClientMessageHandler.cs" />
     <Compile Include="Helpers\TestException.cs" />
     <Compile Include="Helpers\TestFailException.cs" />
     <Compile Include="Helpers\TestInconclusiveException.cs" />
     <Compile Include="Helpers\ServiceClientMessageFactory.cs" />
+    <Compile Include="MsTestCases\AppAuthTest.cs" />
+    <Compile Include="MsTestCases\CategoryTests.cs" />
     <Compile Include="MsTestCases\CustomerTests.cs" />
     <Compile Include="MsTestCases\DocumentTest.cs" />
     <Compile Include="MsTestCases\OrderTests.cs" />
+    <Compile Include="MsTestCases\ProductAttributeTests.cs" />
+    <Compile Include="MsTestCases\ProductPublishingTests.cs" />
     <Compile Include="MsTestCases\ProductTests.cs" />
     <Compile Include="MsTestCases\TenantDataTest.cs" />
     <Compile Include="MsTestCases\PaymentTest.cs" />
@@ -90,8 +103,10 @@
     <Compile Include="Factories\AdjustmentFactory.cs" />
     <Compile Include="Factories\AdminUserFactory.cs" />
     <Compile Include="Factories\ApplicationFactory.cs" />
+    <Compile Include="Factories\ApplicationSettingsFactory.cs" />
     <Compile Include="Factories\ApplicationVersionFactory.cs" />
-    <Compile Include="Factories\AppliedDiscountFactory.cs" />
+    <Compile Include="Factories\AppliedDiscountCartsFactory.cs" />
+    <Compile Include="Factories\AppliedDiscountOrdersFactory.cs" />
     <Compile Include="Factories\AttributeFactory.cs" />
     <Compile Include="Factories\AttributeTypeRuleFactory.cs" />
     <Compile Include="Factories\AttributeVocabularyValueFactory.cs" />
@@ -113,8 +128,9 @@
     <Compile Include="Factories\CustomerAuthTicketFactory.cs" />
     <Compile Include="Factories\CustomerCheckoutSettingsFactory.cs" />
     <Compile Include="Factories\CustomerContactFactory.cs" />
-    <Compile Include="Factories\CustomerGroupFactory.cs" />
     <Compile Include="Factories\CustomerNoteFactory.cs" />
+    <Compile Include="Factories\CustomerSegmentAccountsFactory.cs" />
+    <Compile Include="Factories\CustomerSegmentFactory.cs" />
     <Compile Include="Factories\DeveloperAdminUserAuthTicketFactory.cs" />
     <Compile Include="Factories\DiscountFactory.cs" />
     <Compile Include="Factories\DiscountTargetFactory.cs" />
@@ -123,13 +139,18 @@
     <Compile Include="Factories\DocumentListFactory.cs" />
     <Compile Include="Factories\DocumentTreeFactory.cs" />
     <Compile Include="Factories\DocumentTypeFactory.cs" />
+    <Compile Include="Factories\EventDeliverySummaryFactory.cs" />
     <Compile Include="Factories\EventNotificationFactory.cs" />
+    <Compile Include="Factories\FacetAdminFactory.cs" />
     <Compile Include="Factories\FacetFactory.cs" />
     <Compile Include="Factories\FulfillmentActionFactory.cs" />
+    <Compile Include="Factories\FulfillmentInfoFactory.cs" />
     <Compile Include="Factories\GeneralSettingsFactory.cs" />
     <Compile Include="Factories\InStockNotificationSubscriptionFactory.cs" />
+    <Compile Include="Factories\LocationAdminFactory.cs" />
     <Compile Include="Factories\LocationFactory.cs" />
     <Compile Include="Factories\LocationInventoryFactory.cs" />
+    <Compile Include="Factories\LocationInventoryProductsFactory.cs" />
     <Compile Include="Factories\LocationTypeFactory.cs" />
     <Compile Include="Factories\LocationUsageFactory.cs" />
     <Compile Include="Factories\MasterCatalogFactory.cs" />
@@ -137,7 +158,7 @@
     <Compile Include="Factories\OrderFactory.cs" />
     <Compile Include="Factories\OrderItemFactory.cs" />
     <Compile Include="Factories\OrderNoteFactory.cs" />
-    <Compile Include="Factories\PackageFactory.cs" />
+    <Compile Include="Factories\OrderValidationResultFactory.cs" />
     <Compile Include="Factories\PaymentFactory.cs" />
     <Compile Include="Factories\PaymentSettingsFactory.cs" />
     <Compile Include="Factories\PickupFactory.cs" />
@@ -156,13 +177,18 @@
     <Compile Include="Factories\PublishingScopeFactory.cs" />
     <Compile Include="Factories\ReferenceDataFactory.cs" />
     <Compile Include="Factories\ReturnFactory.cs" />
-    <Compile Include="Factories\ShipmentFactory.cs" />
+    <Compile Include="Factories\ReturnsPackageFactory.cs" />
+    <Compile Include="Factories\ReturnsShipmentFactory.cs" />
     <Compile Include="Factories\SiteDataFactory.cs" />
     <Compile Include="Factories\SiteShippingHandlingFeeFactory.cs" />
     <Compile Include="Factories\SiteShippingSettingsFactory.cs" />
     <Compile Include="Factories\StorefrontCategoryFactory.cs" />
+    <Compile Include="Factories\StorefrontObjectFactory.cs" />
+    <Compile Include="Factories\StorefrontPackageFactory.cs" />
     <Compile Include="Factories\StorefrontProductFactory.cs" />
     <Compile Include="Factories\StorefrontProductSearchResultFactory.cs" />
+    <Compile Include="Factories\StorefrontShipmentFactory.cs" />
+    <Compile Include="Factories\SubscriptionFactory.cs" />
     <Compile Include="Factories\TaxableTerritoryFactory.cs" />
     <Compile Include="Factories\TenantAdminUserAuthTicketFactory.cs" />
     <Compile Include="Factories\TenantDataFactory.cs" />
@@ -180,7 +206,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
     <None Include="SampleTestConfig.config" />
   </ItemGroup>

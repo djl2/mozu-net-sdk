@@ -32,14 +32,14 @@ namespace Mozu.Api.Test.Factories
 		/// Retrieves the list of applications associated with the developer account scoped to the user claim specified in the request.
 		/// <example> 
 		///  <code> 
-		/// var result = ApplicationVersionFactory.GetAllApplications(handler : handler,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = ApplicationVersionFactory.GetAllApplications(handler : handler,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<ApplicationCollection/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.AppDev.ApplicationCollection GetAllApplications(ServiceClientMessageHandler handler, 
- 		  AuthTicket authTicket = null, 
+ 		 
 		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
@@ -47,7 +47,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Platform.Developer.ApplicationVersionClient.GetAllApplicationsClient(
-				 authTicket : authTicket		);
+						);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
@@ -70,14 +70,14 @@ namespace Mozu.Api.Test.Factories
 		/// Retrieves the details of the application specified in the request. The application specified in the request must be associated with the developer account scoped to the user claim specified in the request header, otherwise the operation returns an error.
 		/// <example> 
 		///  <code> 
-		/// var result = ApplicationVersionFactory.GetApplication(handler : handler,  applicationId :  applicationId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = ApplicationVersionFactory.GetApplication(handler : handler,  applicationId :  applicationId,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<Application/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.AppDev.Application GetApplication(ServiceClientMessageHandler handler, 
- 		 int? applicationId = null,  AuthTicket authTicket = null, 
+ 		 int? applicationId = null, 
 		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
@@ -85,7 +85,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Platform.Developer.ApplicationVersionClient.GetApplicationClient(
-				 applicationId :  applicationId, authTicket : authTicket		);
+				 applicationId :  applicationId		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
@@ -108,14 +108,14 @@ namespace Mozu.Api.Test.Factories
 		/// Retrieves the details of a specific version of an application associated with the developer account scoped to the user claim specified in the request.
 		/// <example> 
 		///  <code> 
-		/// var result = ApplicationVersionFactory.GetApplicationVersion(handler : handler,  applicationVersionId :  applicationVersionId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = ApplicationVersionFactory.GetApplicationVersion(handler : handler,  applicationVersionId :  applicationVersionId,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<ApplicationVersion/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.AppDev.ApplicationVersion GetApplicationVersion(ServiceClientMessageHandler handler, 
- 		 int applicationVersionId,  AuthTicket authTicket = null, 
+ 		 int applicationVersionId, 
 		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
@@ -123,7 +123,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Platform.Developer.ApplicationVersionClient.GetApplicationVersionClient(
-				 applicationVersionId :  applicationVersionId, authTicket : authTicket		);
+				 applicationVersionId :  applicationVersionId		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
@@ -146,14 +146,14 @@ namespace Mozu.Api.Test.Factories
 		/// Retrieves a list of the package definitions created for an application version, including all development packages and release packages. The application must be associated with the developer account scoped to the user claim specified in the request.
 		/// <example> 
 		///  <code> 
-		/// var result = ApplicationVersionFactory.GetPackages(handler : handler,  applicationVersionId :  applicationVersionId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = ApplicationVersionFactory.GetPackages(handler : handler,  applicationVersionId :  applicationVersionId,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<PackageCollection/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.AppDev.PackageCollection GetPackages(ServiceClientMessageHandler handler, 
- 		 int applicationVersionId,  AuthTicket authTicket = null, 
+ 		 int applicationVersionId, 
 		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
@@ -161,7 +161,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Platform.Developer.ApplicationVersionClient.GetPackagesClient(
-				 applicationVersionId :  applicationVersionId, authTicket : authTicket		);
+				 applicationVersionId :  applicationVersionId		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
@@ -184,14 +184,14 @@ namespace Mozu.Api.Test.Factories
 		/// Retrieves the details of a package definition associated with an application version. The application ust be associated with the developer account scoped to the user claim specified in the request. 
 		/// <example> 
 		///  <code> 
-		/// var result = ApplicationVersionFactory.GetPackage(handler : handler,  applicationVersionId :  applicationVersionId,  packageId :  packageId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = ApplicationVersionFactory.GetPackage(handler : handler,  applicationVersionId :  applicationVersionId,  packageId :  packageId,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<Package/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.AppDev.Package GetPackage(ServiceClientMessageHandler handler, 
- 		 int applicationVersionId, int packageId,  AuthTicket authTicket = null, 
+ 		 int applicationVersionId, int packageId, 
 		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
@@ -199,7 +199,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Platform.Developer.ApplicationVersionClient.GetPackageClient(
-				 applicationVersionId :  applicationVersionId,  packageId :  packageId, authTicket : authTicket		);
+				 applicationVersionId :  applicationVersionId,  packageId :  packageId		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
@@ -222,14 +222,14 @@ namespace Mozu.Api.Test.Factories
 		/// Retrieves the metadata for items in a package associated with an application version, including a list of all files and subfolders. The application must be associated with the developer account acoped to the user claim specified in the request.
 		/// <example> 
 		///  <code> 
-		/// var result = ApplicationVersionFactory.GetPackageItemsMetadata(handler : handler,  applicationVersionId :  applicationVersionId,  packageId :  packageId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = ApplicationVersionFactory.GetPackageItemsMetadata(handler : handler,  applicationVersionId :  applicationVersionId,  packageId :  packageId,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<FolderMetadata/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.AppDev.FolderMetadata GetPackageItemsMetadata(ServiceClientMessageHandler handler, 
- 		 int applicationVersionId, int packageId,  AuthTicket authTicket = null, 
+ 		 int applicationVersionId, int packageId, 
 		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
@@ -237,7 +237,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Platform.Developer.ApplicationVersionClient.GetPackageItemsMetadataClient(
-				 applicationVersionId :  applicationVersionId,  packageId :  packageId, authTicket : authTicket		);
+				 applicationVersionId :  applicationVersionId,  packageId :  packageId		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
@@ -260,14 +260,14 @@ namespace Mozu.Api.Test.Factories
 		/// Retrieves the metadata of a file in a package for an application version. The application must be associated with the developer account scoped to the user claim specified in the request.
 		/// <example> 
 		///  <code> 
-		/// var result = ApplicationVersionFactory.GetPackageItemMetadata(handler : handler,  applicationVersionId :  applicationVersionId,  packageId :  packageId,  itempath :  itempath,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = ApplicationVersionFactory.GetPackageItemMetadata(handler : handler,  applicationVersionId :  applicationVersionId,  packageId :  packageId,  itempath :  itempath,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<FileMetadata/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.AppDev.FileMetadata GetPackageItemMetadata(ServiceClientMessageHandler handler, 
- 		 int applicationVersionId, int packageId, string itempath,  AuthTicket authTicket = null, 
+ 		 int applicationVersionId, int packageId, string itempath, 
 		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
@@ -275,7 +275,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Platform.Developer.ApplicationVersionClient.GetPackageItemMetadataClient(
-				 applicationVersionId :  applicationVersionId,  packageId :  packageId,  itempath :  itempath, authTicket : authTicket		);
+				 applicationVersionId :  applicationVersionId,  packageId :  packageId,  itempath :  itempath		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
@@ -298,14 +298,14 @@ namespace Mozu.Api.Test.Factories
 		/// 
 		/// <example> 
 		///  <code> 
-		/// var result = ApplicationVersionFactory.GetPackageFilesZip(handler : handler,  applicationVersionId :  applicationVersionId,  packageId :  packageId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = ApplicationVersionFactory.GetPackageFilesZip(handler : handler,  applicationVersionId :  applicationVersionId,  packageId :  packageId,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<Stream/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static System.IO.Stream GetPackageFilesZip(ServiceClientMessageHandler handler, 
- 		 int applicationVersionId, int packageId,  AuthTicket authTicket = null, 
+ 		 int applicationVersionId, int packageId, 
 		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
@@ -313,7 +313,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Platform.Developer.ApplicationVersionClient.GetPackageFilesZipClient(
-				 applicationVersionId :  applicationVersionId,  packageId :  packageId, authTicket : authTicket		);
+				 applicationVersionId :  applicationVersionId,  packageId :  packageId		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
@@ -336,14 +336,14 @@ namespace Mozu.Api.Test.Factories
 		/// Creates a new development or release package for the application version specified in the request.
 		/// <example> 
 		///  <code> 
-		/// var result = ApplicationVersionFactory.AddPackage(handler : handler,  pkg :  pkg,  applicationVersionId :  applicationVersionId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = ApplicationVersionFactory.AddPackage(handler : handler,  pkg :  pkg,  applicationVersionId :  applicationVersionId,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<Package/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.AppDev.Package AddPackage(ServiceClientMessageHandler handler, 
- 		 Mozu.Api.Contracts.AppDev.Package pkg, int applicationVersionId,  AuthTicket authTicket = null, 
+ 		 Mozu.Api.Contracts.AppDev.Package pkg, int applicationVersionId, 
 		 HttpStatusCode expectedCode = HttpStatusCode.Created, HttpStatusCode successCode = HttpStatusCode.Created)
 		{
 			SetSdKparameters();
@@ -351,7 +351,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Platform.Developer.ApplicationVersionClient.AddPackageClient(
-				 pkg :  pkg,  applicationVersionId :  applicationVersionId, authTicket : authTicket		);
+				 pkg :  pkg,  applicationVersionId :  applicationVersionId		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
@@ -374,14 +374,14 @@ namespace Mozu.Api.Test.Factories
 		/// 
 		/// <example> 
 		///  <code> 
-		/// var result = ApplicationVersionFactory.ChangePackageFileNameOrPath(handler : handler,  renameInfo :  renameInfo,  applicationVersionId :  applicationVersionId,  packageId :  packageId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = ApplicationVersionFactory.ChangePackageFileNameOrPath(handler : handler,  renameInfo :  renameInfo,  applicationVersionId :  applicationVersionId,  packageId :  packageId,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<FileMetadata/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.AppDev.FileMetadata ChangePackageFileNameOrPath(ServiceClientMessageHandler handler, 
- 		 Mozu.Api.Contracts.AppDev.RenameInfo renameInfo, int applicationVersionId, int packageId,  AuthTicket authTicket = null, 
+ 		 Mozu.Api.Contracts.AppDev.RenameInfo renameInfo, int applicationVersionId, int packageId, 
 		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
@@ -389,7 +389,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Platform.Developer.ApplicationVersionClient.ChangePackageFileNameOrPathClient(
-				 renameInfo :  renameInfo,  applicationVersionId :  applicationVersionId,  packageId :  packageId, authTicket : authTicket		);
+				 renameInfo :  renameInfo,  applicationVersionId :  applicationVersionId,  packageId :  packageId		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
@@ -412,14 +412,14 @@ namespace Mozu.Api.Test.Factories
 		/// Uploads a file to a defined package for an application version in the file location specified in the request.
 		/// <example> 
 		///  <code> 
-		/// var result = ApplicationVersionFactory.AddPackageFile(handler : handler,  stream :  stream,  applicationVersionId :  applicationVersionId,  packageId :  packageId,  filepath :  filepath,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = ApplicationVersionFactory.AddPackageFile(handler : handler,  stream :  stream,  applicationVersionId :  applicationVersionId,  packageId :  packageId,  filepath :  filepath,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<FileMetadata/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.AppDev.FileMetadata AddPackageFile(ServiceClientMessageHandler handler, 
- 		 System.IO.Stream stream, int applicationVersionId, int packageId, string filepath,  AuthTicket authTicket = null, 
+ 		 System.IO.Stream stream, int applicationVersionId, int packageId, string filepath, 
 		 HttpStatusCode expectedCode = HttpStatusCode.Created, HttpStatusCode successCode = HttpStatusCode.Created)
 		{
 			SetSdKparameters();
@@ -427,7 +427,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Platform.Developer.ApplicationVersionClient.AddPackageFileClient(
-				 stream :  stream,  applicationVersionId :  applicationVersionId,  packageId :  packageId,  filepath :  filepath, authTicket : authTicket		);
+				 stream :  stream,  applicationVersionId :  applicationVersionId,  packageId :  packageId,  filepath :  filepath		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
@@ -450,14 +450,14 @@ namespace Mozu.Api.Test.Factories
 		/// Updates one or more properties of a file in a package associated with an application version.
 		/// <example> 
 		///  <code> 
-		/// var result = ApplicationVersionFactory.UpdatePackageFile(handler : handler,  stream :  stream,  applicationVersionId :  applicationVersionId,  packageId :  packageId,  filepath :  filepath,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = ApplicationVersionFactory.UpdatePackageFile(handler : handler,  stream :  stream,  applicationVersionId :  applicationVersionId,  packageId :  packageId,  filepath :  filepath,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<FileMetadata/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.AppDev.FileMetadata UpdatePackageFile(ServiceClientMessageHandler handler, 
- 		 System.IO.Stream stream, int applicationVersionId, int packageId, string filepath,  AuthTicket authTicket = null, 
+ 		 System.IO.Stream stream, int applicationVersionId, int packageId, string filepath, 
 		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
@@ -465,7 +465,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Platform.Developer.ApplicationVersionClient.UpdatePackageFileClient(
-				 stream :  stream,  applicationVersionId :  applicationVersionId,  packageId :  packageId,  filepath :  filepath, authTicket : authTicket		);
+				 stream :  stream,  applicationVersionId :  applicationVersionId,  packageId :  packageId,  filepath :  filepath		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
@@ -488,14 +488,14 @@ namespace Mozu.Api.Test.Factories
 		/// Deletes the specified file from a package associated with an application version.
 		/// <example> 
 		///  <code> 
-		/// var result = ApplicationVersionFactory.DeletePackageFile(handler : handler,  applicationVersionId :  applicationVersionId,  packageId :  packageId,  filepath :  filepath,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = ApplicationVersionFactory.DeletePackageFile(handler : handler,  applicationVersionId :  applicationVersionId,  packageId :  packageId,  filepath :  filepath,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<void/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static void DeletePackageFile(ServiceClientMessageHandler handler, 
- 		int applicationVersionId, int packageId, string filepath,  AuthTicket authTicket = null, 
+ 		int applicationVersionId, int packageId, string filepath, 
 		 HttpStatusCode expectedCode = HttpStatusCode.NoContent, HttpStatusCode successCode = HttpStatusCode.NoContent)
 		{
 			SetSdKparameters();
@@ -503,7 +503,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Platform.Developer.ApplicationVersionClient.DeletePackageFileClient(
-				 applicationVersionId :  applicationVersionId,  packageId :  packageId,  filepath :  filepath, authTicket : authTicket		);
+				 applicationVersionId :  applicationVersionId,  packageId :  packageId,  filepath :  filepath		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();

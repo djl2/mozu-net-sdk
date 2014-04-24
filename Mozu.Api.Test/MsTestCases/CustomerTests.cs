@@ -2,17 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Mozu.Api.Contracts.CommerceRuntime.Fulfillment;
-using Mozu.Api.Contracts.CommerceRuntime.Orders;
-using Mozu.Api.Contracts.CommerceRuntime.Payments;
-using Mozu.Api.Contracts.CommerceRuntime.Products;
-using Mozu.Api.Contracts.CommerceRuntime.Returns;
 using Mozu.Api.Contracts.Customer;
 using Mozu.Api.Test.Helpers;
-using Mozu.Api.Contracts.CommerceRuntime.Carts;
 using Mozu.Api.Test.Factories;
-using Mozu.Api.Contracts.Core;
 using System.Net;
+using System.Diagnostics;
 
 
 namespace Mozu.Api.Test.MsTestCases
@@ -91,19 +85,66 @@ namespace Mozu.Api.Test.MsTestCases
         [Timeout(TestTimeout.Infinite)]
         [Priority(1)]
         [Description("Customer Account Basic Test")]
-        public void CustomerAccountAddAccountAndLogin()
+        public void CustomerAccountAddAccountAndLogin_Validated()
         {
             //CreateAccounts
-            var cust = Generator.GenerateCustomerAccountRandom(emailAddress: "ani_gujrathi@volusion.com");
-            var custAuth = Generator.GenerateCustomerAccountAndAuthInfo(cust);
-            var customerAccount = CustomerAccountFactory.AddAccountAndLogin(ApiMsgHandler, custAuth);
-            Assert.AreEqual(cust.EmailAddress, customerAccount.CustomerAccount.EmailAddress);
-            Assert.AreEqual(cust.ExternalId, customerAccount.CustomerAccount.ExternalId);
-            Assert.AreEqual(cust.FirstName, customerAccount.CustomerAccount.FirstName);
-            Assert.AreEqual(cust.LastName, customerAccount.CustomerAccount.LastName);
-            Assert.AreEqual(cust.CompanyOrOrganization, customerAccount.CustomerAccount.CompanyOrOrganization);
+            for (int i = 0; i < 500; i++)
+            {
+                Debug.WriteLine("Starting Run # " + (i + 1).ToString() + " of 200");
+                var cust = Generator.GenerateCustomerAccountValidatedRandom();
+                var custAuth = Generator.GenerateCustomerAccountAndAuthInfo(cust);
+                var customerAccount = CustomerAccountFactory.AddAccountAndLogin(ApiMsgHandler, custAuth);
+                Assert.AreEqual(cust.EmailAddress, customerAccount.CustomerAccount.EmailAddress);
+                Assert.AreEqual(cust.ExternalId, customerAccount.CustomerAccount.ExternalId);
+                Assert.AreEqual(cust.FirstName, customerAccount.CustomerAccount.FirstName);
+                Assert.AreEqual(cust.LastName, customerAccount.CustomerAccount.LastName);
+                Assert.AreEqual(cust.CompanyOrOrganization, customerAccount.CustomerAccount.CompanyOrOrganization);
+
+            }
+        }
+
+        [TestMethod]
+        [TestCategory("Mozu SDK Sample")]
+        [Timeout(TestTimeout.Infinite)]
+        [Priority(1)]
+        [Description("Customer Anonymous Account Basic Test")]
+        public void CustomerAnonymousAccount_Validated()
+        {
+            //CreateAccounts
+            for (var i = 0; i < 500; i++)
+            {
+                var cust = Generator.GenerateCustomerAccountValidatedRandom();
+                CustomerAccount customerAccount = null;
+                try
+                {
+                    customerAccount = CustomerAccountFactory.AddAccount(ApiMsgHandler, cust);
+                }
+                catch 
+                {
+                    customerAccount = CustomerAccountFactory.GetAccounts(ApiMsgHandler,
+                        filter: "firstname eq " + cust.FirstName + " and lastname eq " + cust.LastName).Items.First();
+                }
+                Assert.AreEqual(cust.EmailAddress, customerAccount.EmailAddress);
+                Assert.AreEqual(cust.ExternalId, customerAccount.ExternalId);
+                Assert.AreEqual(cust.FirstName, customerAccount.FirstName);
+                Assert.AreEqual(cust.LastName, customerAccount.LastName);
+                Assert.AreEqual(cust.CompanyOrOrganization, customerAccount.CompanyOrOrganization);
+
+                var customerContact = CustomerContactFactory.AddAccountContact(ApiMsgHandler, cust.Contacts[0], customerAccount.Id);
+
+                Assert.AreEqual(cust.Contacts[0].Email, customerContact.Email);
+                Assert.AreEqual(cust.Contacts[0].FirstName, customerContact.FirstName);
+                Assert.AreEqual(cust.Contacts[0].LastNameOrSurname, customerContact.LastNameOrSurname);
+                Assert.AreEqual(cust.Contacts[0].CompanyOrOrganization, customerContact.CompanyOrOrganization);
+                Assert.AreEqual(cust.Contacts[0].Address.Address1, customerContact.Address.Address1);
+               
+                
+            }
+
 
         }
+
+
         [TestMethod]
         [TestCategory("Mozu SDK Sample")]
         [Timeout(TestTimeout.Infinite)]
@@ -116,6 +157,7 @@ namespace Mozu.Api.Test.MsTestCases
             var custAccount = CustomerAccountFactory.AddAccount(ApiMsgHandler, cust);
             var loginInfo = Generator.GenerateCustomerLoginInfo(custAccount.EmailAddress,
                                                                             custAccount.UserName);
+
 
             var customerAccount = CustomerAccountFactory.AddLoginToExistingCustomer(ApiMsgHandler, loginInfo, custAccount.Id, expectedCode: HttpStatusCode.BadRequest);
             var username = Generator.RandomString(15, Generator.RandomCharacterGroup.AlphaOnly);
@@ -593,7 +635,31 @@ namespace Mozu.Api.Test.MsTestCases
             }
         }
 
+
+        [TestMethod]
+        [TestCategory("Mozu SDK Sample")]
+        [Timeout(TestTimeout.Infinite)]
+        [Priority(1)]
+        [Description("Update Customer Account TaxId")]
+        public void CustomerUpdateAccount_Marketing()
+        {
+            //CreateAccounts
+            var accounts = GetAllAccounts();
+
+
+            foreach (var customerAccount in accounts)
+            {
+                customerAccount.AcceptsMarketing = false;
+                var result = CustomerAccountFactory.UpdateAccount(ApiMsgHandler, customerAccount, customerAccount.Id);
+                //GetAccount
+                var result1 = CustomerAccountFactory.GetAccount(ApiMsgHandler, customerAccount.Id);
+                Assert.IsFalse(result1.AcceptsMarketing);
+            }
+        }
+
+
         #endregion
+
 
         #region DeleteAccount
         [TestMethod]
@@ -623,6 +689,35 @@ namespace Mozu.Api.Test.MsTestCases
             var result = CustomerAccountFactory.GetAccount(ApiMsgHandler, 25, expectedCode: HttpStatusCode.NotFound);
 
         }
+
+
+        [TestMethod]
+        [TestCategory("Mozu SDK Sample")]
+        [Timeout(TestTimeout.Infinite)]
+        [Priority(1)]
+        [Description("Delete Customer Account fail")]
+        public void CustomerDeleteAllAccounts_success()
+        {
+            //DeleteAccount
+
+
+            var startIndex = 0;
+            var contactCount = 0;
+
+            while (true)
+            {
+                CustomerAccountCollection accountCollection = CustomerAccountFactory.GetAccounts(ApiMsgHandler, startIndex, pageSize: 200);
+                if (accountCollection.Items.Count == 0) break;
+                foreach (var customerAccount in accountCollection.Items)
+                {
+                    CustomerAccountFactory.DeleteAccount(ApiMsgHandler, customerAccount.Id, expectedCode: HttpStatusCode.NoContent);
+                }
+            }
+
+
+
+        }
+
         #endregion
 
         #region AccountNotes
@@ -665,7 +760,7 @@ namespace Mozu.Api.Test.MsTestCases
         public void CustomerContactAddressTypeResidential()
         {           
             //Create Customer Account
-            var custAcctObj = Generator.GenerateCustomerAccountRandom();
+            var custAcctObj = Generator.GenerateCustomerAccountVeryRandom();
             var customerAccount = CustomerAccountFactory.AddAccount(ApiMsgHandler, custAcctObj);
             //Add Account Contact
             var contactObj = Generator.GenerateCustomerContact(customerAccount.Id);
@@ -717,6 +812,22 @@ namespace Mozu.Api.Test.MsTestCases
             Assert.AreEqual(address.AddressType, result.Address.AddressType); 
 
         }
+
+        [TestMethod]
+        [TestCategory("Mozu SDK Sample")]
+        [Timeout(TestTimeout.Infinite)]
+        [Priority(1)]
+        [Description("Customer Contact AddressType None")]
+        public void CustomerGetContactAddress()
+        {
+
+            const int customerAccountId = 1088;
+           
+            //Get account contact
+            var result = CustomerAccountFactory.GetAccount(ApiMsgHandler, customerAccountId);
+            Assert.IsNotNull(result, "No Customer found with AccountId = " + customerAccountId);
+
+        }
         #endregion
 
         #region Passwords
@@ -728,15 +839,17 @@ namespace Mozu.Api.Test.MsTestCases
         public void CustomerAccountResetPassword()
         {
             //CreateAccounts
-            var cust = Generator.GenerateCustomerAccountRandom();
+            var cust = Generator.GenerateCustomerAccountVeryRandom();
             var authInfo = Generator.GenerateCustomerAccountAndAuthInfo(cust);
+            
             var custAccount = CustomerAccountFactory.AddAccountAndLogin(ApiMsgHandler, authInfo);
+
 
             CustomerAccountFactory.ResetPassword(handler: ApiMsgHandler, resetPasswordInfo: new ResetPasswordInfo()
                 {
                     UserName = custAccount.CustomerAccount.UserName, 
                     EmailAddress = custAccount.CustomerAccount.EmailAddress
-                });
+                }, expectedCode: HttpStatusCode.OK, successCode: HttpStatusCode.OK);
 
         }
 
@@ -844,7 +957,7 @@ namespace Mozu.Api.Test.MsTestCases
         public void CustomerAccountSetLocked()
         {
             //CreateAccounts
-            var customerAccountAndAuthInfo = Generator.GenerateCustomerAccountAndAuthInfo();
+            var customerAccountAndAuthInfo = Generator.GenerateCustomerAccountAndAuthInfoRandom();
             var createdCustomerAccount = CustomerAccountFactory.AddAccountAndLogin(handler: ShopperMsgHandler, accountAndAuthInfo: customerAccountAndAuthInfo);
 
             var updateCustomerAccount = CustomerContactFactory.AddAccountContact(handler: ShopperMsgHandler,
@@ -874,5 +987,29 @@ namespace Mozu.Api.Test.MsTestCases
         }
         #endregion
 
+
+        private List<CustomerAccount> GetAllAccounts()
+        {
+            var accounts = new List<CustomerAccount>();
+
+            var startIndex = 0;
+            CustomerAccountCollection accountCollection = CustomerAccountFactory.GetAccounts(ApiMsgHandler,startIndex, pageSize: 200);
+
+            accounts.AddRange(accountCollection.Items);
+
+
+            while (accounts.Count < accountCollection.TotalCount)
+            {
+                startIndex += 200;
+
+                accountCollection = CustomerAccountFactory.GetAccounts(ApiMsgHandler,startIndex, pageSize: 200);
+
+                accounts.AddRange(accountCollection.Items);
+
+            }
+
+            return accounts;
+
+        }
     }
 }
