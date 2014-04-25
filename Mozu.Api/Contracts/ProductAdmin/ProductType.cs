@@ -19,8 +19,6 @@ namespace Mozu.Api.Contracts.ProductAdmin
 		///
 		public class ProductType
 		{
-			public int? MasterCatalogId { get; set; }
-
 			///
 			///Identifier of the entity.
 			///
@@ -30,6 +28,8 @@ namespace Mozu.Api.Contracts.ProductAdmin
 			///If true, this product is associated with the overall product type. There is only one BaseProductType per site group. System-supplied and read-only.
 			///
 			public bool IsBaseProductType { get; set; }
+
+			public int? MasterCatalogId { get; set; }
 
 			///
 			///Name of the product type, such as "Shoes" or "TVs".

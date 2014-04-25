@@ -1807,6 +1807,24 @@
             </code>
             </example>
         </member>
+        <member name="M:Mozu.Api.Clients.Commerce.Catalog.Admin.LocationInventory.LocationInventoryClient.AddLocationInventoryClient(Mozu.Api.DataViewMode,System.Collections.Generic.List{Mozu.Api.Contracts.ProductAdmin.LocationInventory},System.String,System.Nullable{System.Boolean})">
+            <summary>
+            Creates an array of product inventory definitions for the location specified in the request. When adding a new inventory definition, you must specify the productCode and stockOnHand value in each array you define. All other properties are system-supplied and read only.
+            </summary>
+            <param name="locationCode">User-defined code that uniquely identifies the location.</param>
+            <param name="performUpserts"></param>
+            <param name="dataViewMode">{<see cref="T:Mozu.Api.DataViewMode"/>}</param>
+            <param name="locationInventoryList">Array list of product inventory definitions for all associated locations. For each location inventory in the list, define the productCode and stockOnHand values.</param>
+            <returns>
+             <see cref="T:Mozu.Api.MozuClient"/>{List{<see cref="T:Mozu.Api.Contracts.ProductAdmin.LocationInventory"/>}}
+            </returns>
+            <example>
+            <code>
+              var mozuClient=AddLocationInventory(dataViewMode,  locationInventoryList,  locationCode,  performUpserts);
+              var locationInventoryClient = mozuClient.WithBaseAddress(url).Execute().Result();
+            </code>
+            </example>
+        </member>
         <member name="M:Mozu.Api.Clients.Commerce.Catalog.Admin.LocationInventory.LocationInventoryClient.UpdateLocationInventoryClient(Mozu.Api.DataViewMode,System.Collections.Generic.List{Mozu.Api.Contracts.ProductAdmin.LocationInventoryAdjustment},System.String)">
             <summary>
             Updates the active stock on hand inventory of products for the location code specified in the request.
@@ -2308,6 +2326,23 @@
             <example>
             <code>
               var mozuClient=AddLocationInventory(dataViewMode,  locationInventoryList,  productCode);
+              var locationInventoryClient = mozuClient.WithBaseAddress(url).Execute().Result();
+            </code>
+            </example>
+        </member>
+        <member name="M:Mozu.Api.Clients.Commerce.Catalog.Admin.Products.LocationInventory.LocationInventoryClient.AddLocationInventoryClient(Mozu.Api.DataViewMode,System.Collections.Generic.List{Mozu.Api.Contracts.ProductAdmin.LocationInventory},System.String,System.Nullable{System.Boolean})">
+            <summary>
+            Creates a new location inventory definition for the product code specified in the request.
+            </summary>
+            <param name="performUpserts"></param>
+            <param name="productCode">ProductCodeBase</param>
+            <param name="locationInventoryList">Array list of the location inventory definitions associated with the product code specified in the request. For each location, you must define the locationCode value and the stockOnHand value. All other properties in the array are system-supplied and read only.</param>
+            <returns>
+             <see cref="T:Mozu.Api.MozuClient"/>{List{<see cref="T:Mozu.Api.Contracts.ProductAdmin.LocationInventory"/>}}
+            </returns>
+            <example>
+            <code>
+              var mozuClient=AddLocationInventory(dataViewMode,  locationInventoryList,  productCode,  performUpserts);
               var locationInventoryClient = mozuClient.WithBaseAddress(url).Execute().Result();
             </code>
             </example>
@@ -17249,11 +17284,6 @@
             	A property that is a wrapper for additional properties pertaining to the schema such as the type, label, any associated data, an ID, and the order of the response.
             
         </member>
-        <member name="P:Mozu.Api.Contracts.Reference.Field.Id">
-            
-            Identifier of the field.
-            
-        </member>
         <member name="P:Mozu.Api.Contracts.Reference.Field.Label">
             
             Label for the field.
@@ -17262,6 +17292,11 @@
         <member name="P:Mozu.Api.Contracts.Reference.Field.Order">
             
             Sequence of the field.
+            
+        </member>
+        <member name="P:Mozu.Api.Contracts.Reference.Field.Id">
+            
+            Identifier of the field.
             
         </member>
         <member name="P:Mozu.Api.Contracts.Reference.Field.Type">
@@ -17779,14 +17814,14 @@
             	Properties of an external payment processing workflow defined for the site. At this time, only PayPal Express is supported.
             
         </member>
-        <member name="P:Mozu.Api.Contracts.SiteSettings.Order.ExternalPaymentWorkflowDefinition.IsEnabled">
-            
-            If true, the associated external payment workflow definition is enabled for the site.
-            
-        </member>
         <member name="P:Mozu.Api.Contracts.SiteSettings.Order.ExternalPaymentWorkflowDefinition.Name">
             
             The name of the external payment workflow definition.
+            
+        </member>
+        <member name="P:Mozu.Api.Contracts.SiteSettings.Order.ExternalPaymentWorkflowDefinition.IsEnabled">
+            
+            If true, the associated external payment workflow definition is enabled for the site.
             
         </member>
         <member name="P:Mozu.Api.Contracts.SiteSettings.Order.ExternalPaymentWorkflowDefinition.Credentials">
@@ -18054,14 +18089,14 @@
             The name of the tenant.
             
         </member>
-        <member name="P:Mozu.Api.Contracts.Tenant.Tenant.Sites">
-            
-            Collection of sites associated with the tenant.
-            
-        </member>
         <member name="P:Mozu.Api.Contracts.Tenant.Tenant.MasterCatalogs">
             
             Collection of master catalogs associated with the tenant.
+            
+        </member>
+        <member name="P:Mozu.Api.Contracts.Tenant.Tenant.Sites">
+            
+            Collection of sites associated with the tenant.
             
         </member>
         <member name="T:Mozu.Api.Contracts.Tenant.TenantCollection">
@@ -19897,6 +19932,24 @@
             </code>
             </example>
         </member>
+        <member name="M:Mozu.Api.Resources.Commerce.Catalog.Admin.LocationInventory.LocationInventoryResource.AddLocationInventory(Mozu.Api.DataViewMode,System.Collections.Generic.List{Mozu.Api.Contracts.ProductAdmin.LocationInventory},System.String,System.Nullable{System.Boolean})">
+            <summary>
+            Creates an array of product inventory definitions for the location specified in the request. When adding a new inventory definition, you must specify the productCode and stockOnHand value in each array you define. All other properties are system-supplied and read only.
+            </summary>
+            <param name="locationCode">User-defined code that uniquely identifies the location.</param>
+            <param name="performUpserts"></param>
+            <param name="dataViewMode">{<see cref="T:Mozu.Api.DataViewMode"/>}</param>
+            <param name="locationInventoryList">Array list of product inventory definitions for all associated locations. For each location inventory in the list, define the productCode and stockOnHand values.</param>
+            <returns>
+            List{<see cref="T:Mozu.Api.Contracts.ProductAdmin.LocationInventory"/>}
+            </returns>
+            <example>
+            <code>
+              var locationinventory = new LocationInventory();
+              var locationInventory = locationinventory.AddLocationInventory(dataViewMode,  locationInventoryList,  locationCode,  performUpserts);
+            </code>
+            </example>
+        </member>
         <member name="M:Mozu.Api.Resources.Commerce.Catalog.Admin.LocationInventory.LocationInventoryResource.UpdateLocationInventory(Mozu.Api.DataViewMode,System.Collections.Generic.List{Mozu.Api.Contracts.ProductAdmin.LocationInventoryAdjustment},System.String)">
             <summary>
             Updates the active stock on hand inventory of products for the location code specified in the request.
@@ -20419,6 +20472,23 @@
             <code>
               var locationinventory = new LocationInventory();
               var locationInventory = locationinventory.AddLocationInventory(dataViewMode,  locationInventoryList,  productCode);
+            </code>
+            </example>
+        </member>
+        <member name="M:Mozu.Api.Resources.Commerce.Catalog.Admin.Products.LocationInventory.LocationInventoryResource.AddLocationInventory(Mozu.Api.DataViewMode,System.Collections.Generic.List{Mozu.Api.Contracts.ProductAdmin.LocationInventory},System.String,System.Nullable{System.Boolean})">
+            <summary>
+            Creates a new location inventory definition for the product code specified in the request.
+            </summary>
+            <param name="performUpserts"></param>
+            <param name="productCode">ProductCodeBase</param>
+            <param name="locationInventoryList">Array list of the location inventory definitions associated with the product code specified in the request. For each location, you must define the locationCode value and the stockOnHand value. All other properties in the array are system-supplied and read only.</param>
+            <returns>
+            List{<see cref="T:Mozu.Api.Contracts.ProductAdmin.LocationInventory"/>}
+            </returns>
+            <example>
+            <code>
+              var locationinventory = new LocationInventory();
+              var locationInventory = locationinventory.AddLocationInventory(dataViewMode,  locationInventoryList,  productCode,  performUpserts);
             </code>
             </example>
         </member>
@@ -28273,11 +28343,12 @@
             String - Resource Url
             </returns>
         </member>
-        <member name="M:Mozu.Api.Urls.Commerce.Catalog.Admin.LocationInventory.LocationInventoryUrl.AddLocationInventoryUrl(System.String)">
+        <member name="M:Mozu.Api.Urls.Commerce.Catalog.Admin.LocationInventory.LocationInventoryUrl.AddLocationInventoryUrl(System.String,System.Nullable{System.Boolean})">
             <summary>
             Get Resource Url for AddLocationInventory
             </summary>
             <param name="locationCode">User-defined code that uniquely identifies the location.</param>
+            <param name="performUpserts"></param>
             <returns>
             String - Resource Url
             </returns>
@@ -28406,10 +28477,11 @@
             String - Resource Url
             </returns>
         </member>
-        <member name="M:Mozu.Api.Urls.Commerce.Catalog.Admin.Products.LocationInventory.LocationInventoryUrl.AddLocationInventoryUrl(System.String)">
+        <member name="M:Mozu.Api.Urls.Commerce.Catalog.Admin.Products.LocationInventory.LocationInventoryUrl.AddLocationInventoryUrl(System.Nullable{System.Boolean},System.String)">
             <summary>
             Get Resource Url for AddLocationInventory
             </summary>
+            <param name="performUpserts"></param>
             <param name="productCode">ProductCodeBase</param>
             <returns>
             String - Resource Url

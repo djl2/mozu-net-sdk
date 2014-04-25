@@ -59,14 +59,16 @@ namespace Mozu.Api.Urls.Commerce.Catalog.Admin.Products.LocationInventory
 				/// <summary>
         /// Get Resource Url for AddLocationInventory
         /// </summary>
+        /// <param name="performUpserts"></param>
         /// <param name="productCode">ProductCodeBase</param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static MozuUrl AddLocationInventoryUrl(string productCode)
+        public static MozuUrl AddLocationInventoryUrl(bool? performUpserts, string productCode)
 		{
-			var url = "/api/commerce/catalog/admin/products/{ProductCode}/LocationInventory";
+			var url = "/api/commerce/catalog/admin/products/{ProductCode}/LocationInventory?performUpserts={performUpserts}";
 			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "performUpserts", performUpserts);
 			mozuUrl.FormatUrl( "productCode", productCode);
 			return mozuUrl;
 		}

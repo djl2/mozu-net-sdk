@@ -115,8 +115,28 @@ namespace Mozu.Api.Resources.Commerce.Catalog.Admin.Products.LocationInventory
 		/// </example>
 		public virtual List<Mozu.Api.Contracts.ProductAdmin.LocationInventory> AddLocationInventory(DataViewMode dataViewMode, List<Mozu.Api.Contracts.ProductAdmin.LocationInventory> locationInventoryList, string productCode)
 		{
+			return AddLocationInventory(dataViewMode,  locationInventoryList,  productCode,  null);
+		}
+
+		/// <summary>
+		/// Creates a new location inventory definition for the product code specified in the request.
+		/// </summary>
+		/// <param name="performUpserts"></param>
+		/// <param name="productCode">ProductCodeBase</param>
+		/// <param name="locationInventoryList">Array list of the location inventory definitions associated with the product code specified in the request. For each location, you must define the locationCode value and the stockOnHand value. All other properties in the array are system-supplied and read only.</param>
+		/// <returns>
+		/// List{<see cref="Mozu.Api.Contracts.ProductAdmin.LocationInventory"/>}
+		/// </returns>
+		/// <example>
+		/// <code>
+		///   var locationinventory = new LocationInventory();
+		///   var locationInventory = locationinventory.AddLocationInventory(dataViewMode,  locationInventoryList,  productCode,  performUpserts);
+		/// </code>
+		/// </example>
+		public virtual List<Mozu.Api.Contracts.ProductAdmin.LocationInventory> AddLocationInventory(DataViewMode dataViewMode, List<Mozu.Api.Contracts.ProductAdmin.LocationInventory> locationInventoryList, string productCode, bool? performUpserts =  null)
+		{
 			MozuClient<List<Mozu.Api.Contracts.ProductAdmin.LocationInventory>> response;
-			var client = Mozu.Api.Clients.Commerce.Catalog.Admin.Products.LocationInventory.LocationInventoryClient.AddLocationInventoryClient(dataViewMode,  locationInventoryList,  productCode);
+			var client = Mozu.Api.Clients.Commerce.Catalog.Admin.Products.LocationInventory.LocationInventoryClient.AddLocationInventoryClient(dataViewMode,  locationInventoryList,  productCode,  performUpserts);
 			client.WithContext(_apiContext);
 			response= client.Execute();
 			return response.Result();

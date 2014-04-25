@@ -108,14 +108,14 @@ namespace Mozu.Api.Test.Factories
 		/// Creates an array of product inventory definitions for the location specified in the request. When adding a new inventory definition, you must specify the productCode and stockOnHand value in each array you define. All other properties are system-supplied and read only.
 		/// <example> 
 		///  <code> 
-		/// var result = LocationInventoryFactory.AddLocationInventory(handler : handler,  locationInventoryList :  locationInventoryList,  locationCode :  locationCode,  dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = LocationInventoryFactory.AddLocationInventory(handler : handler,  locationInventoryList :  locationInventoryList,  locationCode :  locationCode,  performUpserts :  performUpserts,  dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<List<LocationInventory>/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static List<Mozu.Api.Contracts.ProductAdmin.LocationInventory> AddLocationInventory(ServiceClientMessageHandler handler, 
- 		 List<Mozu.Api.Contracts.ProductAdmin.LocationInventory> locationInventoryList, string locationCode,  DataViewMode dataViewMode= DataViewMode.Live, 
+ 		 List<Mozu.Api.Contracts.ProductAdmin.LocationInventory> locationInventoryList, string locationCode, bool? performUpserts = null,  DataViewMode dataViewMode= DataViewMode.Live, 
 		 HttpStatusCode expectedCode = HttpStatusCode.Created, HttpStatusCode successCode = HttpStatusCode.Created)
 		{
 			SetSdKparameters();
@@ -123,7 +123,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Admin.LocationInventory.LocationInventoryClient.AddLocationInventoryClient(
-				 locationInventoryList :  locationInventoryList,  locationCode :  locationCode, dataViewMode: dataViewMode		);
+				 locationInventoryList :  locationInventoryList,  locationCode :  locationCode,  performUpserts :  performUpserts, dataViewMode: dataViewMode		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();

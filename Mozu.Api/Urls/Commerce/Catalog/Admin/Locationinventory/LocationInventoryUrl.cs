@@ -60,14 +60,16 @@ namespace Mozu.Api.Urls.Commerce.Catalog.Admin.LocationInventory
         /// Get Resource Url for AddLocationInventory
         /// </summary>
         /// <param name="locationCode">User-defined code that uniquely identifies the location.</param>
+        /// <param name="performUpserts"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static MozuUrl AddLocationInventoryUrl(string locationCode)
+        public static MozuUrl AddLocationInventoryUrl(string locationCode, bool? performUpserts)
 		{
-			var url = "/api/commerce/catalog/admin/locationinventory/{locationCode}";
+			var url = "/api/commerce/catalog/admin/locationinventory/{locationCode}?performUpserts={performUpserts}";
 			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
 			mozuUrl.FormatUrl( "locationCode", locationCode);
+			mozuUrl.FormatUrl( "performUpserts", performUpserts);
 			return mozuUrl;
 		}
 

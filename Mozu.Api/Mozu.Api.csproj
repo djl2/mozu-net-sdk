@@ -358,6 +358,7 @@
     <Compile Include="Contracts\Event\EventSummary.cs" />
     <Compile Include="Contracts\Event\HttpStatus.cs" />
     <Compile Include="Contracts\Event\SubscribingSite.cs" />
+    <Compile Include="Contracts\Event\SubscribingTenant.cs" />
     <Compile Include="Contracts\Event\Subscription.cs" />
     <Compile Include="Contracts\Event\SubscriptionCollection.cs" />
     <Compile Include="Contracts\InstalledApplications\Application.cs" />

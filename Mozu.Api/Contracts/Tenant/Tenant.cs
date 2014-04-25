@@ -39,14 +39,14 @@ namespace Mozu.Api.Contracts.Tenant
 			public string Name { get; set; }
 
 			///
-			///Collection of sites associated with the tenant.
-			///
-			public List<Site> Sites { get; set; }
-
-			///
 			///Collection of master catalogs associated with the tenant.
 			///
 			public List<MasterCatalog> MasterCatalogs { get; set; }
+
+			///
+			///Collection of sites associated with the tenant.
+			///
+			public List<Site> Sites { get; set; }
 
 		}
 

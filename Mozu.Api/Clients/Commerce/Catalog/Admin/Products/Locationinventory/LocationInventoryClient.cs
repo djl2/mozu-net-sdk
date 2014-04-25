@@ -109,7 +109,27 @@ namespace Mozu.Api.Clients.Commerce.Catalog.Admin.Products.LocationInventory
 		/// </example>
 		public static MozuClient<List<Mozu.Api.Contracts.ProductAdmin.LocationInventory>> AddLocationInventoryClient(DataViewMode dataViewMode, List<Mozu.Api.Contracts.ProductAdmin.LocationInventory> locationInventoryList, string productCode)
 		{
-			var url = Mozu.Api.Urls.Commerce.Catalog.Admin.Products.LocationInventory.LocationInventoryUrl.AddLocationInventoryUrl(productCode);
+			return AddLocationInventoryClient(dataViewMode,  locationInventoryList,  productCode,  null);
+		}
+
+		/// <summary>
+		/// Creates a new location inventory definition for the product code specified in the request.
+		/// </summary>
+		/// <param name="performUpserts"></param>
+		/// <param name="productCode">ProductCodeBase</param>
+		/// <param name="locationInventoryList">Array list of the location inventory definitions associated with the product code specified in the request. For each location, you must define the locationCode value and the stockOnHand value. All other properties in the array are system-supplied and read only.</param>
+		/// <returns>
+		///  <see cref="Mozu.Api.MozuClient" />{List{<see cref="Mozu.Api.Contracts.ProductAdmin.LocationInventory"/>}}
+		/// </returns>
+		/// <example>
+		/// <code>
+		///   var mozuClient=AddLocationInventory(dataViewMode,  locationInventoryList,  productCode,  performUpserts);
+		///   var locationInventoryClient = mozuClient.WithBaseAddress(url).Execute().Result();
+		/// </code>
+		/// </example>
+		public static MozuClient<List<Mozu.Api.Contracts.ProductAdmin.LocationInventory>> AddLocationInventoryClient(DataViewMode dataViewMode, List<Mozu.Api.Contracts.ProductAdmin.LocationInventory> locationInventoryList, string productCode, bool? performUpserts =  null)
+		{
+			var url = Mozu.Api.Urls.Commerce.Catalog.Admin.Products.LocationInventory.LocationInventoryUrl.AddLocationInventoryUrl(performUpserts, productCode);
 			const string verb = "POST";
 			var mozuClient = new MozuClient<List<Mozu.Api.Contracts.ProductAdmin.LocationInventory>>()
 									.WithVerb(verb).WithResourceUrl(url)
