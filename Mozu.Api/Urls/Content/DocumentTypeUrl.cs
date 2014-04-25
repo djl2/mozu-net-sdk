@@ -9,7 +9,7 @@
 //------------------------------------------------------------------------------
 
 using System;
-
+using System.Collections.Generic;
 
 namespace Mozu.Api.Urls.Content
 {
@@ -17,14 +17,14 @@ namespace Mozu.Api.Urls.Content
 	{
 
 		/// <summary>
-        /// Get Resource Url for List
+        /// Get Resource Url for GetDocumentTypes
         /// </summary>
         /// <param name="pageSize"></param>
         /// <param name="startIndex"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static MozuUrl ListUrl(int? pageSize, int? startIndex)
+        public static MozuUrl GetDocumentTypesUrl(int? pageSize, int? startIndex)
 		{
 			var url = "/api/content/documenttypes/?pageSize={pageSize}&startIndex={startIndex}";
 			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
@@ -34,13 +34,13 @@ namespace Mozu.Api.Urls.Content
 		}
 
 		/// <summary>
-        /// Get Resource Url for Get
+        /// Get Resource Url for GetDocumentType
         /// </summary>
-        /// <param name="documentTypeName">The documentType name being retrieved.</param>
+        /// <param name="documentTypeName"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static MozuUrl GetUrl(string documentTypeName)
+        public static MozuUrl GetDocumentTypeUrl(string documentTypeName)
 		{
 			var url = "/api/content/documenttypes/{documentTypeName}";
 			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;

@@ -46,7 +46,7 @@ namespace Mozu.Api.Test.Factories
 			var currentClassName = System.Reflection.MethodInfo.GetCurrentMethod().DeclaringType.Name;
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
-			var apiClient = Mozu.Api.Clients.Platform.SiteDataClient.GetDBValueClient(
+			var apiClient = Mozu.Api.Clients.Platform.SiteData.SiteDataClient.GetDBValueClient(
 				 dbEntryQuery :  dbEntryQuery		);
 			try
 			{
@@ -84,7 +84,7 @@ namespace Mozu.Api.Test.Factories
 			var currentClassName = System.Reflection.MethodInfo.GetCurrentMethod().DeclaringType.Name;
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
-			var apiClient = Mozu.Api.Clients.Platform.SiteDataClient.CreateDBValueClient(
+			var apiClient = Mozu.Api.Clients.Platform.SiteData.SiteDataClient.CreateDBValueClient(
 				 value :  value,  dbEntryQuery :  dbEntryQuery		);
 			try
 			{
@@ -121,7 +121,7 @@ namespace Mozu.Api.Test.Factories
 			var currentClassName = System.Reflection.MethodInfo.GetCurrentMethod().DeclaringType.Name;
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
-			var apiClient = Mozu.Api.Clients.Platform.SiteDataClient.UpdateDBValueClient(
+			var apiClient = Mozu.Api.Clients.Platform.SiteData.SiteDataClient.UpdateDBValueClient(
 				 value :  value,  dbEntryQuery :  dbEntryQuery		);
 			try
 			{
@@ -158,7 +158,7 @@ namespace Mozu.Api.Test.Factories
 			var currentClassName = System.Reflection.MethodInfo.GetCurrentMethod().DeclaringType.Name;
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
-			var apiClient = Mozu.Api.Clients.Platform.SiteDataClient.DeleteDBValueClient(
+			var apiClient = Mozu.Api.Clients.Platform.SiteData.SiteDataClient.DeleteDBValueClient(
 				 dbEntryQuery :  dbEntryQuery		);
 			try
 			{

@@ -32,14 +32,14 @@ namespace Mozu.Api.Test.Factories
 		/// Validates the customer address supplied in the request.
 		/// <example> 
 		///  <code> 
-		/// var result = AddressValidationRequestFactory.ValidateAddress(handler : handler,  addressValidationRequest :  addressValidationRequest, authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = AddressValidationRequestFactory.ValidateAddress(handler : handler,  addressValidationRequest :  addressValidationRequest,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<AddressValidationResponse/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.Customer.AddressValidationResponse ValidateAddress(ServiceClientMessageHandler handler, 
- 		 Mozu.Api.Contracts.Customer.AddressValidationRequest addressValidationRequest, AuthTicket authTicket = null, 
+ 		 Mozu.Api.Contracts.Customer.AddressValidationRequest addressValidationRequest, 
 		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
@@ -47,7 +47,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Commerce.Customer.AddressValidationRequestClient.ValidateAddressClient(
-				 addressValidationRequest :  addressValidationRequest, authTicket : authTicket		);
+				 addressValidationRequest :  addressValidationRequest		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();

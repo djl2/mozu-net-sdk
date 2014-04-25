@@ -46,7 +46,7 @@ namespace Mozu.Api.Test.Factories
 			var currentClassName = System.Reflection.MethodInfo.GetCurrentMethod().DeclaringType.Name;
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
-			var apiClient = Mozu.Api.Clients.Platform.TenantDataClient.GetDBValueClient(
+			var apiClient = Mozu.Api.Clients.Platform.TenantData.TenantDataClient.GetDBValueClient(
 				 dbEntryQuery :  dbEntryQuery		);
 			try
 			{
@@ -84,7 +84,7 @@ namespace Mozu.Api.Test.Factories
 			var currentClassName = System.Reflection.MethodInfo.GetCurrentMethod().DeclaringType.Name;
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
-			var apiClient = Mozu.Api.Clients.Platform.TenantDataClient.CreateDBValueClient(
+			var apiClient = Mozu.Api.Clients.Platform.TenantData.TenantDataClient.CreateDBValueClient(
 				 value :  value,  dbEntryQuery :  dbEntryQuery		);
 			try
 			{
@@ -121,7 +121,7 @@ namespace Mozu.Api.Test.Factories
 			var currentClassName = System.Reflection.MethodInfo.GetCurrentMethod().DeclaringType.Name;
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
-			var apiClient = Mozu.Api.Clients.Platform.TenantDataClient.UpdateDBValueClient(
+			var apiClient = Mozu.Api.Clients.Platform.TenantData.TenantDataClient.UpdateDBValueClient(
 				 value :  value,  dbEntryQuery :  dbEntryQuery		);
 			try
 			{
@@ -158,7 +158,7 @@ namespace Mozu.Api.Test.Factories
 			var currentClassName = System.Reflection.MethodInfo.GetCurrentMethod().DeclaringType.Name;
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
-			var apiClient = Mozu.Api.Clients.Platform.TenantDataClient.DeleteDBValueClient(
+			var apiClient = Mozu.Api.Clients.Platform.TenantData.TenantDataClient.DeleteDBValueClient(
 				 dbEntryQuery :  dbEntryQuery		);
 			try
 			{

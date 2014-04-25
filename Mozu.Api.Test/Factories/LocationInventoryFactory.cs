@@ -32,22 +32,22 @@ namespace Mozu.Api.Test.Factories
 		/// Retrieves the details of a product's active inventory at the location specified in the request.
 		/// <example> 
 		///  <code> 
-		/// var result = LocationInventoryFactory.GetLocationInventory(handler : handler,  locationCode :  locationCode,  productCode :  productCode,  authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = LocationInventoryFactory.GetLocationInventory(handler : handler,  locationCode :  locationCode,  productCode :  productCode,  dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<LocationInventory/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.ProductAdmin.LocationInventory GetLocationInventory(ServiceClientMessageHandler handler, 
- 		 string locationCode, string productCode,  AuthTicket authTicket = null, DataViewMode dataViewMode= DataViewMode.Live, 
+ 		 string locationCode, string productCode,  DataViewMode dataViewMode= DataViewMode.Live, 
 		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var currentClassName = System.Reflection.MethodInfo.GetCurrentMethod().DeclaringType.Name;
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
-			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Admin.LocationInventoryClient.GetLocationInventoryClient(
-				 locationCode :  locationCode,  productCode :  productCode, authTicket : authTicket, dataViewMode: dataViewMode		);
+			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Admin.LocationInventory.LocationInventoryClient.GetLocationInventoryClient(
+				 locationCode :  locationCode,  productCode :  productCode, dataViewMode: dataViewMode		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
@@ -70,22 +70,22 @@ namespace Mozu.Api.Test.Factories
 		/// Retrieves a list of all product inventory definitions for the location code specified in the request.
 		/// <example> 
 		///  <code> 
-		/// var result = LocationInventoryFactory.GetLocationInventories(handler : handler,  locationCode :  locationCode,  startIndex :  startIndex,  pageSize :  pageSize,  sortBy :  sortBy,  filter :  filter,  authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = LocationInventoryFactory.GetLocationInventories(handler : handler,  locationCode :  locationCode,  startIndex :  startIndex,  pageSize :  pageSize,  sortBy :  sortBy,  filter :  filter,  dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<LocationInventoryCollection/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.ProductAdmin.LocationInventoryCollection GetLocationInventories(ServiceClientMessageHandler handler, 
- 		 string locationCode, int? startIndex = null, int? pageSize = null, string sortBy = null, string filter = null,  AuthTicket authTicket = null, DataViewMode dataViewMode= DataViewMode.Live, 
+ 		 string locationCode, int? startIndex = null, int? pageSize = null, string sortBy = null, string filter = null,  DataViewMode dataViewMode= DataViewMode.Live, 
 		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var currentClassName = System.Reflection.MethodInfo.GetCurrentMethod().DeclaringType.Name;
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
-			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Admin.LocationInventoryClient.GetLocationInventoriesClient(
-				 locationCode :  locationCode,  startIndex :  startIndex,  pageSize :  pageSize,  sortBy :  sortBy,  filter :  filter, authTicket : authTicket, dataViewMode: dataViewMode		);
+			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Admin.LocationInventory.LocationInventoryClient.GetLocationInventoriesClient(
+				 locationCode :  locationCode,  startIndex :  startIndex,  pageSize :  pageSize,  sortBy :  sortBy,  filter :  filter, dataViewMode: dataViewMode		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
@@ -108,22 +108,22 @@ namespace Mozu.Api.Test.Factories
 		/// Creates an array of product inventory definitions for the location specified in the request. When adding a new inventory definition, you must specify the productCode and stockOnHand value in each array you define. All other properties are system-supplied and read only.
 		/// <example> 
 		///  <code> 
-		/// var result = LocationInventoryFactory.AddLocationInventory(handler : handler,  locationInventoryList :  locationInventoryList,  locationCode :  locationCode,  authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = LocationInventoryFactory.AddLocationInventory(handler : handler,  locationInventoryList :  locationInventoryList,  locationCode :  locationCode,  performUpserts :  performUpserts,  dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<List<LocationInventory>/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static List<Mozu.Api.Contracts.ProductAdmin.LocationInventory> AddLocationInventory(ServiceClientMessageHandler handler, 
- 		 List<Mozu.Api.Contracts.ProductAdmin.LocationInventory> locationInventoryList, string locationCode,  AuthTicket authTicket = null, DataViewMode dataViewMode= DataViewMode.Live, 
+ 		 List<Mozu.Api.Contracts.ProductAdmin.LocationInventory> locationInventoryList, string locationCode, bool? performUpserts = null,  DataViewMode dataViewMode= DataViewMode.Live, 
 		 HttpStatusCode expectedCode = HttpStatusCode.Created, HttpStatusCode successCode = HttpStatusCode.Created)
 		{
 			SetSdKparameters();
 			var currentClassName = System.Reflection.MethodInfo.GetCurrentMethod().DeclaringType.Name;
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
-			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Admin.LocationInventoryClient.AddLocationInventoryClient(
-				 locationInventoryList :  locationInventoryList,  locationCode :  locationCode, authTicket : authTicket, dataViewMode: dataViewMode		);
+			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Admin.LocationInventory.LocationInventoryClient.AddLocationInventoryClient(
+				 locationInventoryList :  locationInventoryList,  locationCode :  locationCode,  performUpserts :  performUpserts, dataViewMode: dataViewMode		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
@@ -146,22 +146,22 @@ namespace Mozu.Api.Test.Factories
 		/// Updates the active stock on hand inventory of products for the location code specified in the request.
 		/// <example> 
 		///  <code> 
-		/// var result = LocationInventoryFactory.UpdateLocationInventory(handler : handler,  locationInventoryAdjustments :  locationInventoryAdjustments,  locationCode :  locationCode,  authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = LocationInventoryFactory.UpdateLocationInventory(handler : handler,  locationInventoryAdjustments :  locationInventoryAdjustments,  locationCode :  locationCode,  dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<List<LocationInventory>/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static List<Mozu.Api.Contracts.ProductAdmin.LocationInventory> UpdateLocationInventory(ServiceClientMessageHandler handler, 
- 		 List<Mozu.Api.Contracts.ProductAdmin.LocationInventoryAdjustment> locationInventoryAdjustments, string locationCode,  AuthTicket authTicket = null, DataViewMode dataViewMode= DataViewMode.Live, 
+ 		 List<Mozu.Api.Contracts.ProductAdmin.LocationInventoryAdjustment> locationInventoryAdjustments, string locationCode,  DataViewMode dataViewMode= DataViewMode.Live, 
 		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var currentClassName = System.Reflection.MethodInfo.GetCurrentMethod().DeclaringType.Name;
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
-			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Admin.LocationInventoryClient.UpdateLocationInventoryClient(
-				 locationInventoryAdjustments :  locationInventoryAdjustments,  locationCode :  locationCode, authTicket : authTicket, dataViewMode: dataViewMode		);
+			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Admin.LocationInventory.LocationInventoryClient.UpdateLocationInventoryClient(
+				 locationInventoryAdjustments :  locationInventoryAdjustments,  locationCode :  locationCode, dataViewMode: dataViewMode		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
@@ -184,22 +184,22 @@ namespace Mozu.Api.Test.Factories
 		/// Deletes the product code inventory definition for the location specified in the request.
 		/// <example> 
 		///  <code> 
-		/// var result = LocationInventoryFactory.DeleteLocationInventory(handler : handler,  locationCode :  locationCode,  productCode :  productCode,  authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = LocationInventoryFactory.DeleteLocationInventory(handler : handler,  locationCode :  locationCode,  productCode :  productCode,  dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<void/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static void DeleteLocationInventory(ServiceClientMessageHandler handler, 
- 		string locationCode, string productCode,  AuthTicket authTicket = null, DataViewMode dataViewMode= DataViewMode.Live, 
+ 		string locationCode, string productCode,  DataViewMode dataViewMode= DataViewMode.Live, 
 		 HttpStatusCode expectedCode = HttpStatusCode.NoContent, HttpStatusCode successCode = HttpStatusCode.NoContent)
 		{
 			SetSdKparameters();
 			var currentClassName = System.Reflection.MethodInfo.GetCurrentMethod().DeclaringType.Name;
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
-			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Admin.LocationInventoryClient.DeleteLocationInventoryClient(
-				 locationCode :  locationCode,  productCode :  productCode, authTicket : authTicket, dataViewMode: dataViewMode		);
+			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Admin.LocationInventory.LocationInventoryClient.DeleteLocationInventoryClient(
+				 locationCode :  locationCode,  productCode :  productCode, dataViewMode: dataViewMode		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();

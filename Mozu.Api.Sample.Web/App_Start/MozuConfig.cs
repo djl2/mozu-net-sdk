@@ -4,8 +4,11 @@ using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 using Mozu.Api.Contracts.AppDev;
+using Mozu.Api.Logging;
 using Mozu.Api.Security;
+using Autofac;
 
 namespace Mozu.Api.Sample.Web
 {
@@ -29,7 +32,7 @@ namespace Mozu.Api.Sample.Web
             var baseUrl  = config.AppSettings.Settings["BaseAuthAppUrl_" + environment].Value;
 
 
-
+            LogManager.LoggingService =  DependencyResolver.Current.GetService<ILoggingService>();
             AppAuthenticator.Initialize(new AppAuthInfo { ApplicationId = appId, SharedSecret = sharedSecret},baseUrl);
         }
     }

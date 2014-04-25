@@ -32,14 +32,14 @@ namespace Mozu.Api.Test.Factories
 		/// Retrieves a list of attribute vocabulary values. To target a query, use one or several valid optional response groups.
 		/// <example> 
 		///  <code> 
-		/// var result = AttributeVocabularyValueFactory.GetAttributeVocabularyValues(handler : handler,  attributeFQN :  attributeFQN,  authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = AttributeVocabularyValueFactory.GetAttributeVocabularyValues(handler : handler,  attributeFQN :  attributeFQN,  dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<List<AttributeVocabularyValue>/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static List<Mozu.Api.Contracts.ProductAdmin.AttributeVocabularyValue> GetAttributeVocabularyValues(ServiceClientMessageHandler handler, 
- 		 string attributeFQN,  AuthTicket authTicket = null, DataViewMode dataViewMode= DataViewMode.Live, 
+ 		 string attributeFQN,  DataViewMode dataViewMode= DataViewMode.Live, 
 		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
@@ -47,7 +47,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Admin.Attributedefinition.Attributes.AttributeVocabularyValueClient.GetAttributeVocabularyValuesClient(
-				 attributeFQN :  attributeFQN, authTicket : authTicket, dataViewMode: dataViewMode		);
+				 attributeFQN :  attributeFQN, dataViewMode: dataViewMode		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
@@ -70,14 +70,14 @@ namespace Mozu.Api.Test.Factories
 		/// Retrieves an attribute vocabulary value by providing the attribute FQN and value.
 		/// <example> 
 		///  <code> 
-		/// var result = AttributeVocabularyValueFactory.GetAttributeVocabularyValue(handler : handler,  attributeFQN :  attributeFQN,  value :  value,  authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = AttributeVocabularyValueFactory.GetAttributeVocabularyValue(handler : handler,  attributeFQN :  attributeFQN,  value :  value,  dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<AttributeVocabularyValue/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.ProductAdmin.AttributeVocabularyValue GetAttributeVocabularyValue(ServiceClientMessageHandler handler, 
- 		 string attributeFQN, string value,  AuthTicket authTicket = null, DataViewMode dataViewMode= DataViewMode.Live, 
+ 		 string attributeFQN, string value,  DataViewMode dataViewMode= DataViewMode.Live, 
 		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
@@ -85,7 +85,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Admin.Attributedefinition.Attributes.AttributeVocabularyValueClient.GetAttributeVocabularyValueClient(
-				 attributeFQN :  attributeFQN,  value :  value, authTicket : authTicket, dataViewMode: dataViewMode		);
+				 attributeFQN :  attributeFQN,  value :  value, dataViewMode: dataViewMode		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
@@ -108,14 +108,14 @@ namespace Mozu.Api.Test.Factories
 		/// Adds a new attribute vocabulary value.
 		/// <example> 
 		///  <code> 
-		/// var result = AttributeVocabularyValueFactory.AddAttributeVocabularyValue(handler : handler,  attributeVocabularyValue :  attributeVocabularyValue,  attributeFQN :  attributeFQN,  authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = AttributeVocabularyValueFactory.AddAttributeVocabularyValue(handler : handler,  attributeVocabularyValue :  attributeVocabularyValue,  attributeFQN :  attributeFQN,  dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<AttributeVocabularyValue/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.ProductAdmin.AttributeVocabularyValue AddAttributeVocabularyValue(ServiceClientMessageHandler handler, 
- 		 Mozu.Api.Contracts.ProductAdmin.AttributeVocabularyValue attributeVocabularyValue, string attributeFQN,  AuthTicket authTicket = null, DataViewMode dataViewMode= DataViewMode.Live, 
+ 		 Mozu.Api.Contracts.ProductAdmin.AttributeVocabularyValue attributeVocabularyValue, string attributeFQN,  DataViewMode dataViewMode= DataViewMode.Live, 
 		 HttpStatusCode expectedCode = HttpStatusCode.Created, HttpStatusCode successCode = HttpStatusCode.Created)
 		{
 			SetSdKparameters();
@@ -123,7 +123,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Admin.Attributedefinition.Attributes.AttributeVocabularyValueClient.AddAttributeVocabularyValueClient(
-				 attributeVocabularyValue :  attributeVocabularyValue,  attributeFQN :  attributeFQN, authTicket : authTicket, dataViewMode: dataViewMode		);
+				 attributeVocabularyValue :  attributeVocabularyValue,  attributeFQN :  attributeFQN, dataViewMode: dataViewMode		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
@@ -146,14 +146,14 @@ namespace Mozu.Api.Test.Factories
 		/// Update existing vocabulary values for an attribute.
 		/// <example> 
 		///  <code> 
-		/// var result = AttributeVocabularyValueFactory.UpdateAttributeVocabularyValues(handler : handler,  vocabularyValues :  vocabularyValues,  attributeFQN :  attributeFQN,  authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = AttributeVocabularyValueFactory.UpdateAttributeVocabularyValues(handler : handler,  vocabularyValues :  vocabularyValues,  attributeFQN :  attributeFQN,  dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<List<AttributeVocabularyValue>/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static List<Mozu.Api.Contracts.ProductAdmin.AttributeVocabularyValue> UpdateAttributeVocabularyValues(ServiceClientMessageHandler handler, 
- 		 List<Mozu.Api.Contracts.ProductAdmin.AttributeVocabularyValue> vocabularyValues, string attributeFQN,  AuthTicket authTicket = null, DataViewMode dataViewMode= DataViewMode.Live, 
+ 		 List<Mozu.Api.Contracts.ProductAdmin.AttributeVocabularyValue> vocabularyValues, string attributeFQN,  DataViewMode dataViewMode= DataViewMode.Live, 
 		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
@@ -161,7 +161,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Admin.Attributedefinition.Attributes.AttributeVocabularyValueClient.UpdateAttributeVocabularyValuesClient(
-				 vocabularyValues :  vocabularyValues,  attributeFQN :  attributeFQN, authTicket : authTicket, dataViewMode: dataViewMode		);
+				 vocabularyValues :  vocabularyValues,  attributeFQN :  attributeFQN, dataViewMode: dataViewMode		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
@@ -184,14 +184,14 @@ namespace Mozu.Api.Test.Factories
 		/// Updates existing attribute vocabulary values.
 		/// <example> 
 		///  <code> 
-		/// var result = AttributeVocabularyValueFactory.UpdateAttributeVocabularyValue(handler : handler,  attributeVocabularyValue :  attributeVocabularyValue,  attributeFQN :  attributeFQN,  value :  value,  authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = AttributeVocabularyValueFactory.UpdateAttributeVocabularyValue(handler : handler,  attributeVocabularyValue :  attributeVocabularyValue,  attributeFQN :  attributeFQN,  value :  value,  dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<AttributeVocabularyValue/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.ProductAdmin.AttributeVocabularyValue UpdateAttributeVocabularyValue(ServiceClientMessageHandler handler, 
- 		 Mozu.Api.Contracts.ProductAdmin.AttributeVocabularyValue attributeVocabularyValue, string attributeFQN, string value,  AuthTicket authTicket = null, DataViewMode dataViewMode= DataViewMode.Live, 
+ 		 Mozu.Api.Contracts.ProductAdmin.AttributeVocabularyValue attributeVocabularyValue, string attributeFQN, string value,  DataViewMode dataViewMode= DataViewMode.Live, 
 		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
@@ -199,7 +199,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Admin.Attributedefinition.Attributes.AttributeVocabularyValueClient.UpdateAttributeVocabularyValueClient(
-				 attributeVocabularyValue :  attributeVocabularyValue,  attributeFQN :  attributeFQN,  value :  value, authTicket : authTicket, dataViewMode: dataViewMode		);
+				 attributeVocabularyValue :  attributeVocabularyValue,  attributeFQN :  attributeFQN,  value :  value, dataViewMode: dataViewMode		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
@@ -222,14 +222,14 @@ namespace Mozu.Api.Test.Factories
 		/// Deletes an attribute's vocabulary value.
 		/// <example> 
 		///  <code> 
-		/// var result = AttributeVocabularyValueFactory.DeleteAttributeVocabularyValue(handler : handler,  attributeFQN :  attributeFQN,  value :  value,  authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = AttributeVocabularyValueFactory.DeleteAttributeVocabularyValue(handler : handler,  attributeFQN :  attributeFQN,  value :  value,  dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<void/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static void DeleteAttributeVocabularyValue(ServiceClientMessageHandler handler, 
- 		string attributeFQN, string value,  AuthTicket authTicket = null, DataViewMode dataViewMode= DataViewMode.Live, 
+ 		string attributeFQN, string value,  DataViewMode dataViewMode= DataViewMode.Live, 
 		 HttpStatusCode expectedCode = HttpStatusCode.NoContent, HttpStatusCode successCode = HttpStatusCode.NoContent)
 		{
 			SetSdKparameters();
@@ -237,7 +237,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Admin.Attributedefinition.Attributes.AttributeVocabularyValueClient.DeleteAttributeVocabularyValueClient(
-				 attributeFQN :  attributeFQN,  value :  value, authTicket : authTicket, dataViewMode: dataViewMode		);
+				 attributeFQN :  attributeFQN,  value :  value, dataViewMode: dataViewMode		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();

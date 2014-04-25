@@ -1,24 +1,28 @@
 Mozu-NET-SDK
 ============
 
-Mozu - .NET Sample Application
-
+<B>Mozu - .NET Sample Application</b>
+<br>
 The .NET application is a simple Windows Form example that demonstrates how to authenticate and how to retrieve orders and products from a Mozu developmet store.  Follow these steps to get the application up & running:
+<br>
 
-In Mozu Development Center:
-1.	Login to the development center.
-2.	Create a development store
-3.	  Documentation on creating a store: http://developer.mozu.com/article/getting-started-development-stores
-4.	Populate the store with some initial products and orders
-5.	Create an application of type Extension: 
-6.	  Documentation on creating an app: http://developer.mozu.com/article/getting-started-applications
-7.	  The sample app requires the Behaviors of ‚ÄúOrder Read‚Äù and ‚ÄúProduct Read‚Äù
-8.	Install the application into your Mozu development store
+In Mozu Development Center:<br>
+<ul>
+<li>Login to the development center.</li>
+<li>Create a development store.</li>
+<li>Documentation on creating a store: http://developer.mozu.com/article/getting-started-development-stores.</li>
+<li>Populate the store with some initial products and orders.</li>
+<li>Create an application of type Extension: Documentation on creating an app: http://developer.mozu.com/article/getting-started-applications.</li>
+<li>The sample app requires the Behaviors of ìOrder Readî and ìProduct Readî.</li>
+<li>Install the application into your Mozu development store.</li>
+</ul>
+<br>
+In Microsoft Visual Studio<br>
 
-
-In Microsoft Visual Studio
-  Open Mozu.Api.sln file
-  Build and Run the Sample app solution
-  On the sample app UI (shown below), select the ‚ÄúSandbox‚Äù environment
-  Enter the application ID and Shared Secret (from Dev Center)
-  After authentication, you‚Äôll be able to launch UI‚Äôs for retrieving products and orders
+<ul>
+<li>Open Mozu.Api.sln file.</li>
+<li>Build and Run the Sample app solution.</li>
+<li>On the sample app UI (shown below), select the ìSandboxî environment.</li>
+<li>Enter the application ID and Shared Secret (from Dev Center).</li>
+<li>After authentication, youíll be able to launch UIís for retrieving products and orders.</li>
+</ul>

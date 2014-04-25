@@ -32,14 +32,14 @@ namespace Mozu.Api.Test.Factories
 		/// Retrieves the list of audit entries for the credit, according to any filter or sort criteria specified in the request.
 		/// <example> 
 		///  <code> 
-		/// var result = CreditAuditEntryFactory.GetAuditEntries(handler : handler,  code :  code,  startIndex :  startIndex,  pageSize :  pageSize,  sortBy :  sortBy,  filter :  filter,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = CreditAuditEntryFactory.GetAuditEntries(handler : handler,  code :  code,  startIndex :  startIndex,  pageSize :  pageSize,  sortBy :  sortBy,  filter :  filter,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<CreditAuditEntryCollection/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.Customer.Credit.CreditAuditEntryCollection GetAuditEntries(ServiceClientMessageHandler handler, 
- 		 string code, int? startIndex = null, int? pageSize = null, string sortBy = null, string filter = null,  AuthTicket authTicket = null, 
+ 		 string code, int? startIndex = null, int? pageSize = null, string sortBy = null, string filter = null, 
 		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
@@ -47,7 +47,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Commerce.Customer.Credits.CreditAuditEntryClient.GetAuditEntriesClient(
-				 code :  code,  startIndex :  startIndex,  pageSize :  pageSize,  sortBy :  sortBy,  filter :  filter, authTicket : authTicket		);
+				 code :  code,  startIndex :  startIndex,  pageSize :  pageSize,  sortBy :  sortBy,  filter :  filter		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();

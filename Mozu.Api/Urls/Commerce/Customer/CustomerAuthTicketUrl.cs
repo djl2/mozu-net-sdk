@@ -9,12 +9,25 @@
 //------------------------------------------------------------------------------
 
 using System;
-
+using System.Collections.Generic;
 
 namespace Mozu.Api.Urls.Commerce.Customer
 {
 	public partial class CustomerAuthTicketUrl 
 	{
+
+		/// <summary>
+        /// Get Resource Url for CreateAnonymousShopperAuthTicket
+        /// </summary>
+        /// <returns>
+        /// String - Resource Url
+        /// </returns>
+        public static MozuUrl CreateAnonymousShopperAuthTicketUrl()
+		{
+			var url = "/api/commerce/customer/authtickets/anonymousshopper";
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			return mozuUrl;
+		}
 
 				/// <summary>
         /// Get Resource Url for CreateUserAuthTicket

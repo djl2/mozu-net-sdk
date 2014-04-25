@@ -32,14 +32,14 @@ namespace Mozu.Api.Test.Factories
 		/// Retrieves a list of extra attributes defined for the specified product type.
 		/// <example> 
 		///  <code> 
-		/// var result = ProductTypeExtraFactory.GetExtras(handler : handler,  productTypeId :  productTypeId,  authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = ProductTypeExtraFactory.GetExtras(handler : handler,  productTypeId :  productTypeId,  dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<List<AttributeInProductType>/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static List<Mozu.Api.Contracts.ProductAdmin.AttributeInProductType> GetExtras(ServiceClientMessageHandler handler, 
- 		 int productTypeId,  AuthTicket authTicket = null, DataViewMode dataViewMode= DataViewMode.Live, 
+ 		 int productTypeId,  DataViewMode dataViewMode= DataViewMode.Live, 
 		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
@@ -47,7 +47,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Admin.Attributedefinition.Producttypes.ProductTypeExtraClient.GetExtrasClient(
-				 productTypeId :  productTypeId, authTicket : authTicket, dataViewMode: dataViewMode		);
+				 productTypeId :  productTypeId, dataViewMode: dataViewMode		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
@@ -70,14 +70,14 @@ namespace Mozu.Api.Test.Factories
 		/// Retrieves the details of an extra attribute definition for the specified product type.
 		/// <example> 
 		///  <code> 
-		/// var result = ProductTypeExtraFactory.GetExtra(handler : handler,  productTypeId :  productTypeId,  attributeFQN :  attributeFQN,  authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = ProductTypeExtraFactory.GetExtra(handler : handler,  productTypeId :  productTypeId,  attributeFQN :  attributeFQN,  dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<AttributeInProductType/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.ProductAdmin.AttributeInProductType GetExtra(ServiceClientMessageHandler handler, 
- 		 int productTypeId, string attributeFQN,  AuthTicket authTicket = null, DataViewMode dataViewMode= DataViewMode.Live, 
+ 		 int productTypeId, string attributeFQN,  DataViewMode dataViewMode= DataViewMode.Live, 
 		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
@@ -85,7 +85,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Admin.Attributedefinition.Producttypes.ProductTypeExtraClient.GetExtraClient(
-				 productTypeId :  productTypeId,  attributeFQN :  attributeFQN, authTicket : authTicket, dataViewMode: dataViewMode		);
+				 productTypeId :  productTypeId,  attributeFQN :  attributeFQN, dataViewMode: dataViewMode		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
@@ -108,14 +108,14 @@ namespace Mozu.Api.Test.Factories
 		/// Assigns a defined extra attribute to the product type based on the information supplied in the request.
 		/// <example> 
 		///  <code> 
-		/// var result = ProductTypeExtraFactory.AddExtra(handler : handler,  attributeInProductType :  attributeInProductType,  productTypeId :  productTypeId,  authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = ProductTypeExtraFactory.AddExtra(handler : handler,  attributeInProductType :  attributeInProductType,  productTypeId :  productTypeId,  dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<AttributeInProductType/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.ProductAdmin.AttributeInProductType AddExtra(ServiceClientMessageHandler handler, 
- 		 Mozu.Api.Contracts.ProductAdmin.AttributeInProductType attributeInProductType, int productTypeId,  AuthTicket authTicket = null, DataViewMode dataViewMode= DataViewMode.Live, 
+ 		 Mozu.Api.Contracts.ProductAdmin.AttributeInProductType attributeInProductType, int productTypeId,  DataViewMode dataViewMode= DataViewMode.Live, 
 		 HttpStatusCode expectedCode = HttpStatusCode.Created, HttpStatusCode successCode = HttpStatusCode.Created)
 		{
 			SetSdKparameters();
@@ -123,7 +123,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Admin.Attributedefinition.Producttypes.ProductTypeExtraClient.AddExtraClient(
-				 attributeInProductType :  attributeInProductType,  productTypeId :  productTypeId, authTicket : authTicket, dataViewMode: dataViewMode		);
+				 attributeInProductType :  attributeInProductType,  productTypeId :  productTypeId, dataViewMode: dataViewMode		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
@@ -146,14 +146,14 @@ namespace Mozu.Api.Test.Factories
 		/// Update the definition of an extra attribute for the specified product type.
 		/// <example> 
 		///  <code> 
-		/// var result = ProductTypeExtraFactory.UpdateExtra(handler : handler,  attributeInProductType :  attributeInProductType,  productTypeId :  productTypeId,  attributeFQN :  attributeFQN,  authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = ProductTypeExtraFactory.UpdateExtra(handler : handler,  attributeInProductType :  attributeInProductType,  productTypeId :  productTypeId,  attributeFQN :  attributeFQN,  dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<AttributeInProductType/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.ProductAdmin.AttributeInProductType UpdateExtra(ServiceClientMessageHandler handler, 
- 		 Mozu.Api.Contracts.ProductAdmin.AttributeInProductType attributeInProductType, int productTypeId, string attributeFQN,  AuthTicket authTicket = null, DataViewMode dataViewMode= DataViewMode.Live, 
+ 		 Mozu.Api.Contracts.ProductAdmin.AttributeInProductType attributeInProductType, int productTypeId, string attributeFQN,  DataViewMode dataViewMode= DataViewMode.Live, 
 		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
@@ -161,7 +161,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Admin.Attributedefinition.Producttypes.ProductTypeExtraClient.UpdateExtraClient(
-				 attributeInProductType :  attributeInProductType,  productTypeId :  productTypeId,  attributeFQN :  attributeFQN, authTicket : authTicket, dataViewMode: dataViewMode		);
+				 attributeInProductType :  attributeInProductType,  productTypeId :  productTypeId,  attributeFQN :  attributeFQN, dataViewMode: dataViewMode		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
@@ -184,14 +184,14 @@ namespace Mozu.Api.Test.Factories
 		/// Removes an extra attribute definition from the specified product type.
 		/// <example> 
 		///  <code> 
-		/// var result = ProductTypeExtraFactory.DeleteExtra(handler : handler,  productTypeId :  productTypeId,  attributeFQN :  attributeFQN,  authTicket : authTicket, dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = ProductTypeExtraFactory.DeleteExtra(handler : handler,  productTypeId :  productTypeId,  attributeFQN :  attributeFQN,  dataViewMode: dataViewMode,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<void/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static void DeleteExtra(ServiceClientMessageHandler handler, 
- 		int productTypeId, string attributeFQN,  AuthTicket authTicket = null, DataViewMode dataViewMode= DataViewMode.Live, 
+ 		int productTypeId, string attributeFQN,  DataViewMode dataViewMode= DataViewMode.Live, 
 		 HttpStatusCode expectedCode = HttpStatusCode.NoContent, HttpStatusCode successCode = HttpStatusCode.NoContent)
 		{
 			SetSdKparameters();
@@ -199,7 +199,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Commerce.Catalog.Admin.Attributedefinition.Producttypes.ProductTypeExtraClient.DeleteExtraClient(
-				 productTypeId :  productTypeId,  attributeFQN :  attributeFQN, authTicket : authTicket, dataViewMode: dataViewMode		);
+				 productTypeId :  productTypeId,  attributeFQN :  attributeFQN, dataViewMode: dataViewMode		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();

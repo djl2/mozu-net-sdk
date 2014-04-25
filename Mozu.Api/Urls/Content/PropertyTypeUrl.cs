@@ -9,7 +9,7 @@
 //------------------------------------------------------------------------------
 
 using System;
-
+using System.Collections.Generic;
 
 namespace Mozu.Api.Urls.Content
 {
@@ -17,14 +17,14 @@ namespace Mozu.Api.Urls.Content
 	{
 
 		/// <summary>
-        /// Get Resource Url for GetList
+        /// Get Resource Url for GetPropertyTypes
         /// </summary>
-        /// <param name="pageSize">The number of results to display on each page when creating paged results from a query. The maximum value is 200.</param>
+        /// <param name="pageSize"></param>
         /// <param name="startIndex"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static MozuUrl GetListUrl(int? pageSize, int? startIndex)
+        public static MozuUrl GetPropertyTypesUrl(int? pageSize, int? startIndex)
 		{
 			var url = "/api/content/propertytypes/?pageSize={pageSize}&startIndex={startIndex}";
 			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
@@ -34,13 +34,13 @@ namespace Mozu.Api.Urls.Content
 		}
 
 		/// <summary>
-        /// Get Resource Url for Get
+        /// Get Resource Url for GetPropertyType
         /// </summary>
-        /// <param name="propertyTypeName">The name of the content property type.</param>
+        /// <param name="propertyTypeName"></param>
         /// <returns>
         /// String - Resource Url
         /// </returns>
-        public static MozuUrl GetUrl(string propertyTypeName)
+        public static MozuUrl GetPropertyTypeUrl(string propertyTypeName)
 		{
 			var url = "/api/content/propertytypes/{propertyTypeName}";
 			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;

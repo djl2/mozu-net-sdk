@@ -32,14 +32,14 @@ namespace Mozu.Api.Test.Factories
 		/// Retrieve a site's general global settings.
 		/// <example> 
 		///  <code> 
-		/// var result = GeneralSettingsFactory.GetGeneralSettings(handler : handler,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = GeneralSettingsFactory.GetGeneralSettings(handler : handler,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<GeneralSettings/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.SiteSettings.General.GeneralSettings GetGeneralSettings(ServiceClientMessageHandler handler, 
- 		  AuthTicket authTicket = null, 
+ 		 
 		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
@@ -47,7 +47,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Commerce.Settings.GeneralSettingsClient.GetGeneralSettingsClient(
-				 authTicket : authTicket		);
+						);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
@@ -70,14 +70,14 @@ namespace Mozu.Api.Test.Factories
 		/// Updates a site's general global settings.
 		/// <example> 
 		///  <code> 
-		/// var result = GeneralSettingsFactory.UpdateGeneralSettings(handler : handler,  generalSettings :  generalSettings, authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = GeneralSettingsFactory.UpdateGeneralSettings(handler : handler,  generalSettings :  generalSettings,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<GeneralSettings/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.SiteSettings.General.GeneralSettings UpdateGeneralSettings(ServiceClientMessageHandler handler, 
- 		 Mozu.Api.Contracts.SiteSettings.General.GeneralSettings generalSettings, AuthTicket authTicket = null, 
+ 		 Mozu.Api.Contracts.SiteSettings.General.GeneralSettings generalSettings, 
 		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
@@ -85,7 +85,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Commerce.Settings.GeneralSettingsClient.UpdateGeneralSettingsClient(
-				 generalSettings :  generalSettings, authTicket : authTicket		);
+				 generalSettings :  generalSettings		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();

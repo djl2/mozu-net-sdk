@@ -9,32 +9,38 @@ namespace Mozu.Api.Sample.Web.Code
 {
     public class OrderEventHandler : IOrderEvents
     {
-        public void Opened(ApiContext apiContext, Event eventPayLoad)
+        public void Fulfilled(IApiContext apiContext, Event eventPayLoad)
         {
             throw new NotImplementedException();
         }
 
-        public void Closed(ApiContext apiContext, Event eventPayLoad)
+        public void Opened(IApiContext apiContext, Event eventPayLoad)
         {
             throw new NotImplementedException();
         }
 
-        public void Cancelled(ApiContext apiContext, Event eventPayLoad)
+        public void PendingReview(IApiContext apiContext, Event eventPayLoad)
         {
             throw new NotImplementedException();
         }
 
-        public void Shipped(ApiContext apiContext, Event eventPayLoad)
+        public void Closed(IApiContext apiContext, Event eventPayLoad)
         {
             throw new NotImplementedException();
         }
 
-        public void Updated(ApiContext apiContext, Event eventPayLoad)
+        public void Cancelled(IApiContext apiContext, Event eventPayLoad)
         {
             throw new NotImplementedException();
         }
 
-        public void All(ApiContext apiContext, Event eventPayLoad)
+
+        public void Updated(IApiContext apiContext, Event eventPayLoad)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void All(IApiContext apiContext, Event eventPayLoad)
         {
             throw new NotImplementedException();
         }

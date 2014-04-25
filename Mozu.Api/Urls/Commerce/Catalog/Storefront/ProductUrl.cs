@@ -9,7 +9,7 @@
 //------------------------------------------------------------------------------
 
 using System;
-
+using System.Collections.Generic;
 
 namespace Mozu.Api.Urls.Commerce.Catalog.Storefront
 {
@@ -108,6 +108,29 @@ namespace Mozu.Api.Urls.Commerce.Catalog.Storefront
 			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
 			mozuUrl.FormatUrl( "productCode", productCode);
 			mozuUrl.FormatUrl( "skipInventoryCheck", skipInventoryCheck);
+			return mozuUrl;
+		}
+
+		/// <summary>
+        /// Get Resource Url for ValidateDiscounts
+        /// </summary>
+        /// <param name="allowInactive"></param>
+        /// <param name="customerAccountId"></param>
+        /// <param name="productCode"></param>
+        /// <param name="skipInventoryCheck"></param>
+        /// <param name="variationProductCode"></param>
+        /// <returns>
+        /// String - Resource Url
+        /// </returns>
+        public static MozuUrl ValidateDiscountsUrl(bool? allowInactive, int? customerAccountId, string productCode, bool? skipInventoryCheck, string variationProductCode)
+		{
+			var url = "/api/commerce/catalog/storefront/products/{productCode}/validateDiscounts?variationProductCode={variationProductCode}&customerAccountId={customerAccountId}&allowInactive={allowInactive}&skipInventoryCheck={skipInventoryCheck}";
+			var mozuUrl = new MozuUrl(url, MozuUrl.UrlLocation.TENANT_POD, false) ;
+			mozuUrl.FormatUrl( "allowInactive", allowInactive);
+			mozuUrl.FormatUrl( "customerAccountId", customerAccountId);
+			mozuUrl.FormatUrl( "productCode", productCode);
+			mozuUrl.FormatUrl( "skipInventoryCheck", skipInventoryCheck);
+			mozuUrl.FormatUrl( "variationProductCode", variationProductCode);
 			return mozuUrl;
 		}
 

@@ -32,14 +32,14 @@ namespace Mozu.Api.Test.Factories
 		/// Retrieves the details of the order handling fee configured for the site.
 		/// <example> 
 		///  <code> 
-		/// var result = SiteShippingHandlingFeeFactory.GetOrderHandlingFee(handler : handler,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = SiteShippingHandlingFeeFactory.GetOrderHandlingFee(handler : handler,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<SiteShippingHandlingFee/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.SiteSettings.Shipping.SiteShippingHandlingFee GetOrderHandlingFee(ServiceClientMessageHandler handler, 
- 		  AuthTicket authTicket = null, 
+ 		 
 		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
@@ -47,7 +47,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Commerce.Settings.Shipping.SiteShippingHandlingFeeClient.GetOrderHandlingFeeClient(
-				 authTicket : authTicket		);
+						);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
@@ -70,14 +70,14 @@ namespace Mozu.Api.Test.Factories
 		/// Creates a new order handling fee for the site.
 		/// <example> 
 		///  <code> 
-		/// var result = SiteShippingHandlingFeeFactory.CreateOrderHandlingFee(handler : handler,  orderHandlingFee :  orderHandlingFee, authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = SiteShippingHandlingFeeFactory.CreateOrderHandlingFee(handler : handler,  orderHandlingFee :  orderHandlingFee,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<SiteShippingHandlingFee/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.SiteSettings.Shipping.SiteShippingHandlingFee CreateOrderHandlingFee(ServiceClientMessageHandler handler, 
- 		 Mozu.Api.Contracts.SiteSettings.Shipping.SiteShippingHandlingFee orderHandlingFee, AuthTicket authTicket = null, 
+ 		 Mozu.Api.Contracts.SiteSettings.Shipping.SiteShippingHandlingFee orderHandlingFee, 
 		 HttpStatusCode expectedCode = HttpStatusCode.Created, HttpStatusCode successCode = HttpStatusCode.Created)
 		{
 			SetSdKparameters();
@@ -85,7 +85,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Commerce.Settings.Shipping.SiteShippingHandlingFeeClient.CreateOrderHandlingFeeClient(
-				 orderHandlingFee :  orderHandlingFee, authTicket : authTicket		);
+				 orderHandlingFee :  orderHandlingFee		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
@@ -108,14 +108,14 @@ namespace Mozu.Api.Test.Factories
 		/// Updates the order handling fee amount for the site.
 		/// <example> 
 		///  <code> 
-		/// var result = SiteShippingHandlingFeeFactory.UpdateOrderHandlingFee(handler : handler,  orderHandlingFee :  orderHandlingFee, authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = SiteShippingHandlingFeeFactory.UpdateOrderHandlingFee(handler : handler,  orderHandlingFee :  orderHandlingFee,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<SiteShippingHandlingFee/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.SiteSettings.Shipping.SiteShippingHandlingFee UpdateOrderHandlingFee(ServiceClientMessageHandler handler, 
- 		 Mozu.Api.Contracts.SiteSettings.Shipping.SiteShippingHandlingFee orderHandlingFee, AuthTicket authTicket = null, 
+ 		 Mozu.Api.Contracts.SiteSettings.Shipping.SiteShippingHandlingFee orderHandlingFee, 
 		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
@@ -123,7 +123,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Commerce.Settings.Shipping.SiteShippingHandlingFeeClient.UpdateOrderHandlingFeeClient(
-				 orderHandlingFee :  orderHandlingFee, authTicket : authTicket		);
+				 orderHandlingFee :  orderHandlingFee		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();

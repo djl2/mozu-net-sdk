@@ -32,14 +32,14 @@ namespace Mozu.Api.Test.Factories
 		/// Retrieves the details of an item in a shopper wish list.
 		/// <example> 
 		///  <code> 
-		/// var result = WishlistItemFactory.GetWishlistItem(handler : handler,  wishlistId :  wishlistId,  wishlistItemId :  wishlistItemId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = WishlistItemFactory.GetWishlistItem(handler : handler,  wishlistId :  wishlistId,  wishlistItemId :  wishlistItemId,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<WishlistItem/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.CommerceRuntime.Wishlists.WishlistItem GetWishlistItem(ServiceClientMessageHandler handler, 
- 		 string wishlistId, string wishlistItemId,  AuthTicket authTicket = null, 
+ 		 string wishlistId, string wishlistItemId, 
 		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
@@ -47,7 +47,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Commerce.Wishlists.WishlistItemClient.GetWishlistItemClient(
-				 wishlistId :  wishlistId,  wishlistItemId :  wishlistItemId, authTicket : authTicket		);
+				 wishlistId :  wishlistId,  wishlistItemId :  wishlistItemId		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
@@ -70,14 +70,14 @@ namespace Mozu.Api.Test.Factories
 		/// Retrieves a list of items in a shopper wish list according to any specified filter and sort criteria.
 		/// <example> 
 		///  <code> 
-		/// var result = WishlistItemFactory.GetWishlistItems(handler : handler,  wishlistId :  wishlistId,  startIndex :  startIndex,  pageSize :  pageSize,  sortBy :  sortBy,  filter :  filter,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = WishlistItemFactory.GetWishlistItems(handler : handler,  wishlistId :  wishlistId,  startIndex :  startIndex,  pageSize :  pageSize,  sortBy :  sortBy,  filter :  filter,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<WishlistItemCollection/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.CommerceRuntime.Wishlists.WishlistItemCollection GetWishlistItems(ServiceClientMessageHandler handler, 
- 		 string wishlistId, int? startIndex = null, int? pageSize = null, string sortBy = null, string filter = null,  AuthTicket authTicket = null, 
+ 		 string wishlistId, int? startIndex = null, int? pageSize = null, string sortBy = null, string filter = null, 
 		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
@@ -85,7 +85,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Commerce.Wishlists.WishlistItemClient.GetWishlistItemsClient(
-				 wishlistId :  wishlistId,  startIndex :  startIndex,  pageSize :  pageSize,  sortBy :  sortBy,  filter :  filter, authTicket : authTicket		);
+				 wishlistId :  wishlistId,  startIndex :  startIndex,  pageSize :  pageSize,  sortBy :  sortBy,  filter :  filter		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
@@ -108,14 +108,14 @@ namespace Mozu.Api.Test.Factories
 		/// 
 		/// <example> 
 		///  <code> 
-		/// var result = WishlistItemFactory.GetWishlistItemsByWishlistName(handler : handler,  customerAccountId :  customerAccountId,  wishlistName :  wishlistName,  startIndex :  startIndex,  pageSize :  pageSize,  sortBy :  sortBy,  filter :  filter,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = WishlistItemFactory.GetWishlistItemsByWishlistName(handler : handler,  customerAccountId :  customerAccountId,  wishlistName :  wishlistName,  startIndex :  startIndex,  pageSize :  pageSize,  sortBy :  sortBy,  filter :  filter,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<WishlistItemCollection/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.CommerceRuntime.Wishlists.WishlistItemCollection GetWishlistItemsByWishlistName(ServiceClientMessageHandler handler, 
- 		 int customerAccountId, string wishlistName, int? startIndex = null, int? pageSize = null, string sortBy = null, string filter = null,  AuthTicket authTicket = null, 
+ 		 int customerAccountId, string wishlistName, int? startIndex = null, int? pageSize = null, string sortBy = null, string filter = null, 
 		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
@@ -123,7 +123,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Commerce.Wishlists.WishlistItemClient.GetWishlistItemsByWishlistNameClient(
-				 customerAccountId :  customerAccountId,  wishlistName :  wishlistName,  startIndex :  startIndex,  pageSize :  pageSize,  sortBy :  sortBy,  filter :  filter, authTicket : authTicket		);
+				 customerAccountId :  customerAccountId,  wishlistName :  wishlistName,  startIndex :  startIndex,  pageSize :  pageSize,  sortBy :  sortBy,  filter :  filter		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
@@ -146,14 +146,14 @@ namespace Mozu.Api.Test.Factories
 		/// Adds a product in a site's catalog as an item in a shopper wish list.
 		/// <example> 
 		///  <code> 
-		/// var result = WishlistItemFactory.AddItemToWishlist(handler : handler,  wishlistItem :  wishlistItem,  wishlistId :  wishlistId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = WishlistItemFactory.AddItemToWishlist(handler : handler,  wishlistItem :  wishlistItem,  wishlistId :  wishlistId,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<WishlistItem/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.CommerceRuntime.Wishlists.WishlistItem AddItemToWishlist(ServiceClientMessageHandler handler, 
- 		 Mozu.Api.Contracts.CommerceRuntime.Wishlists.WishlistItem wishlistItem, string wishlistId,  AuthTicket authTicket = null, 
+ 		 Mozu.Api.Contracts.CommerceRuntime.Wishlists.WishlistItem wishlistItem, string wishlistId, 
 		 HttpStatusCode expectedCode = HttpStatusCode.Created, HttpStatusCode successCode = HttpStatusCode.Created)
 		{
 			SetSdKparameters();
@@ -161,7 +161,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Commerce.Wishlists.WishlistItemClient.AddItemToWishlistClient(
-				 wishlistItem :  wishlistItem,  wishlistId :  wishlistId, authTicket : authTicket		);
+				 wishlistItem :  wishlistItem,  wishlistId :  wishlistId		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
@@ -184,14 +184,14 @@ namespace Mozu.Api.Test.Factories
 		/// Updates the details of an item in a shopper wish list.
 		/// <example> 
 		///  <code> 
-		/// var result = WishlistItemFactory.UpdateWishlistItem(handler : handler,  wishlistItem :  wishlistItem,  wishlistId :  wishlistId,  wishlistItemId :  wishlistItemId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = WishlistItemFactory.UpdateWishlistItem(handler : handler,  wishlistItem :  wishlistItem,  wishlistId :  wishlistId,  wishlistItemId :  wishlistItemId,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<WishlistItem/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.CommerceRuntime.Wishlists.WishlistItem UpdateWishlistItem(ServiceClientMessageHandler handler, 
- 		 Mozu.Api.Contracts.CommerceRuntime.Wishlists.WishlistItem wishlistItem, string wishlistId, string wishlistItemId,  AuthTicket authTicket = null, 
+ 		 Mozu.Api.Contracts.CommerceRuntime.Wishlists.WishlistItem wishlistItem, string wishlistId, string wishlistItemId, 
 		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
@@ -199,7 +199,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Commerce.Wishlists.WishlistItemClient.UpdateWishlistItemClient(
-				 wishlistItem :  wishlistItem,  wishlistId :  wishlistId,  wishlistItemId :  wishlistItemId, authTicket : authTicket		);
+				 wishlistItem :  wishlistItem,  wishlistId :  wishlistId,  wishlistItemId :  wishlistItemId		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
@@ -222,14 +222,14 @@ namespace Mozu.Api.Test.Factories
 		/// Updates the quantity of an item in a shopper wish list.
 		/// <example> 
 		///  <code> 
-		/// var result = WishlistItemFactory.UpdateWishlistItemQuantity(handler : handler,  wishlistId :  wishlistId,  wishlistItemId :  wishlistItemId,  quantity :  quantity,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = WishlistItemFactory.UpdateWishlistItemQuantity(handler : handler,  wishlistId :  wishlistId,  wishlistItemId :  wishlistItemId,  quantity :  quantity,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<WishlistItem/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.CommerceRuntime.Wishlists.WishlistItem UpdateWishlistItemQuantity(ServiceClientMessageHandler handler, 
- 		 string wishlistId, string wishlistItemId, int quantity,  AuthTicket authTicket = null, 
+ 		 string wishlistId, string wishlistItemId, int quantity, 
 		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
@@ -237,7 +237,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Commerce.Wishlists.WishlistItemClient.UpdateWishlistItemQuantityClient(
-				 wishlistId :  wishlistId,  wishlistItemId :  wishlistItemId,  quantity :  quantity, authTicket : authTicket		);
+				 wishlistId :  wishlistId,  wishlistItemId :  wishlistItemId,  quantity :  quantity		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
@@ -260,14 +260,14 @@ namespace Mozu.Api.Test.Factories
 		/// Removes all items associated with a shopper wish list.
 		/// <example> 
 		///  <code> 
-		/// var result = WishlistItemFactory.RemoveAllWishlistItems(handler : handler,  wishlistId :  wishlistId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = WishlistItemFactory.RemoveAllWishlistItems(handler : handler,  wishlistId :  wishlistId,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<Wishlist/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.CommerceRuntime.Wishlists.Wishlist RemoveAllWishlistItems(ServiceClientMessageHandler handler, 
- 		 string wishlistId,  AuthTicket authTicket = null, 
+ 		 string wishlistId, 
 		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
@@ -275,7 +275,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Commerce.Wishlists.WishlistItemClient.RemoveAllWishlistItemsClient(
-				 wishlistId :  wishlistId, authTicket : authTicket		);
+				 wishlistId :  wishlistId		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
@@ -298,14 +298,14 @@ namespace Mozu.Api.Test.Factories
 		/// Removes an item from the wish list specified in the request.
 		/// <example> 
 		///  <code> 
-		/// var result = WishlistItemFactory.DeleteWishlistItem(handler : handler,  wishlistId :  wishlistId,  wishlistItemId :  wishlistItemId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = WishlistItemFactory.DeleteWishlistItem(handler : handler,  wishlistId :  wishlistId,  wishlistItemId :  wishlistItemId,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<void/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static void DeleteWishlistItem(ServiceClientMessageHandler handler, 
- 		string wishlistId, string wishlistItemId,  AuthTicket authTicket = null, 
+ 		string wishlistId, string wishlistItemId, 
 		 HttpStatusCode expectedCode = HttpStatusCode.NoContent, HttpStatusCode successCode = HttpStatusCode.NoContent)
 		{
 			SetSdKparameters();
@@ -313,7 +313,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Commerce.Wishlists.WishlistItemClient.DeleteWishlistItemClient(
-				 wishlistId :  wishlistId,  wishlistItemId :  wishlistItemId, authTicket : authTicket		);
+				 wishlistId :  wishlistId,  wishlistItemId :  wishlistItemId		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();

@@ -8,7 +8,13 @@ namespace Mozu.Api.Test.Helpers
     {
         public static Exception GetCustomTestException(ApiException apiException, string currentClassName, string currentMethodName, HttpStatusCode expectedCode)
         {
-            var printableError = string.Format("{0} || {1}.{2} {3} Error: {4}", apiException.HttpStatusCode.ToString(), currentClassName, currentMethodName, apiException.ExceptionDetail.TargetSite ?? "", apiException.Message ?? "");
+            var correlationId = apiException.CorrelationId;
+            var printableError = string.Format("{0} || {1}.{2} {3} | Error: {4} | CorrelationId: {5}",
+                apiException.HttpStatusCode.ToString(),
+                currentClassName, currentMethodName,
+                apiException.ApplicationName ?? "", apiException.Message ?? "",
+                correlationId
+                );
             Debug.WriteLine(printableError);
             switch (apiException.HttpStatusCode)
             {
@@ -21,10 +27,10 @@ namespace Mozu.Api.Test.Helpers
                 case HttpStatusCode.Forbidden:
                     return new Exception("Forbidden Access To this API, Please check your SiteId settings and possibly re-install the application to this store.");
                 default:
-                    return new Exception(String.Format("Test Fails - [{0}:expected {1}] but the actual return code is {2}. {3}", 
-                        currentMethodName, 
-                        expectedCode.ToString(), 
-                        apiException.HttpStatusCode, 
+                    return new Exception(String.Format("Test Fails - [{0}:expected {1}] but the actual return code is {2}. {3}",
+                        currentMethodName,
+                        expectedCode.ToString(),
+                        apiException.HttpStatusCode,
                         printableError));
             }
         }

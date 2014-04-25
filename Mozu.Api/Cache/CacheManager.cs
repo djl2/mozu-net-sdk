@@ -41,6 +41,7 @@ namespace Mozu.Api.Cache
 
         public void Add<T>(T obj, string id)
         {
+            if (!MozuConfig.EnableCache) return;
             if (_cache.Contains(id))
                 _cache.Remove(id);
             var policy = new CacheItemPolicy();
@@ -51,6 +52,7 @@ namespace Mozu.Api.Cache
 
         public void Update<T>(T obj, string id)
         {
+            if (!MozuConfig.EnableCache) return;
             _cache.Remove(id);
             Add(obj, id);
         }

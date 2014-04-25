@@ -32,14 +32,14 @@ namespace Mozu.Api.Test.Factories
 		/// Retrieves the messages associated with the current shopper's cart.
 		/// <example> 
 		///  <code> 
-		/// var result = ChangeMessageFactory.GetMessages(handler : handler,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = ChangeMessageFactory.GetMessages(handler : handler,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<CartChangeMessageCollection/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.CommerceRuntime.Carts.CartChangeMessageCollection GetMessages(ServiceClientMessageHandler handler, 
- 		  AuthTicket authTicket = null, 
+ 		 
 		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
@@ -47,7 +47,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Commerce.Carts.ChangeMessageClient.GetMessagesClient(
-				 authTicket : authTicket		);
+						);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
@@ -70,14 +70,14 @@ namespace Mozu.Api.Test.Factories
 		/// Deletes all messages associated with the cart of the current shopper.
 		/// <example> 
 		///  <code> 
-		/// var result = ChangeMessageFactory.RemoveAllMessages(handler : handler,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = ChangeMessageFactory.RemoveAllMessages(handler : handler,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<void/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static void RemoveAllMessages(ServiceClientMessageHandler handler, 
- 		 AuthTicket authTicket = null, 
+ 		
 		 HttpStatusCode expectedCode = HttpStatusCode.NoContent, HttpStatusCode successCode = HttpStatusCode.NoContent)
 		{
 			SetSdKparameters();
@@ -85,7 +85,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Commerce.Carts.ChangeMessageClient.RemoveAllMessagesClient(
-				 authTicket : authTicket		);
+						);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
@@ -107,14 +107,14 @@ namespace Mozu.Api.Test.Factories
 		/// Removes a single message associated with the cart of the current shopper.
 		/// <example> 
 		///  <code> 
-		/// var result = ChangeMessageFactory.RemoveMessage(handler : handler,  messageId :  messageId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = ChangeMessageFactory.RemoveMessage(handler : handler,  messageId :  messageId,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<void/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static void RemoveMessage(ServiceClientMessageHandler handler, 
- 		string messageId,  AuthTicket authTicket = null, 
+ 		string messageId, 
 		 HttpStatusCode expectedCode = HttpStatusCode.NoContent, HttpStatusCode successCode = HttpStatusCode.NoContent)
 		{
 			SetSdKparameters();
@@ -122,7 +122,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Commerce.Carts.ChangeMessageClient.RemoveMessageClient(
-				 messageId :  messageId, authTicket : authTicket		);
+				 messageId :  messageId		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();

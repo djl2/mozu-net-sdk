@@ -16,6 +16,7 @@ using System.Net;
 using Mozu.Api;
 using Mozu.Api.Security;
 using Mozu.Api.Test.Helpers;
+using System.Diagnostics;
 
 #endregion
 
@@ -31,26 +32,33 @@ namespace Mozu.Api.Test.Factories
 		/// Retrieves a list of the fulfillment information for the specified order.
 		/// <example> 
 		///  <code> 
-		/// var result = FulfillmentInfoFactory.GetFulfillmentInfo(handler : handler,  orderId :  orderId,  draft :  draft,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = FulfillmentInfoFactory.GetFulfillmentInfo(handler : handler,  orderId :  orderId,  draft :  draft,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<FulfillmentInfo/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.CommerceRuntime.Fulfillment.FulfillmentInfo GetFulfillmentInfo(ServiceClientMessageHandler handler, 
- 		 string orderId, bool? draft = null,  AuthTicket authTicket = null, 
-		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
+ 		 string orderId, bool? draft = null, 
+		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
-			var apiClient = Mozu.Api.Clients.Commerce.Orders.FulfillmentInfoClient.GetFulfillmentInfoClient(
-				 orderId :  orderId,  draft :  draft, authTicket : authTicket		);
+			var currentClassName = System.Reflection.MethodInfo.GetCurrentMethod().DeclaringType.Name;
+			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
+			var apiClient = Mozu.Api.Clients.Commerce.Orders.FulfillmentInfo.FulfillmentInfoClient.GetFulfillmentInfoClient(
+				 orderId :  orderId,  draft :  draft		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
 			}
-			catch (Exception ex)
+			catch (ApiException ex)
 			{
-			 // Custom error handling for test cases can be placed here
+				// Custom error handling for test cases can be placed here
+				Exception customException = TestFailException.GetCustomTestException(ex, currentClassName, currentMethodName, expectedCode);
+				if (customException != null)
+					throw customException;
+				return null;
 			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 
@@ -62,26 +70,33 @@ namespace Mozu.Api.Test.Factories
 		/// Updates one or more properties of fulfillment information for the specified order.
 		/// <example> 
 		///  <code> 
-		/// var result = FulfillmentInfoFactory.SetFulFillmentInfo(handler : handler,  fulfillmentInfo :  fulfillmentInfo,  orderId :  orderId,  updateMode :  updateMode,  version :  version,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = FulfillmentInfoFactory.SetFulFillmentInfo(handler : handler,  fulfillmentInfo :  fulfillmentInfo,  orderId :  orderId,  updateMode :  updateMode,  version :  version,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<FulfillmentInfo/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.CommerceRuntime.Fulfillment.FulfillmentInfo SetFulFillmentInfo(ServiceClientMessageHandler handler, 
- 		 Mozu.Api.Contracts.CommerceRuntime.Fulfillment.FulfillmentInfo fulfillmentInfo, string orderId, string updateMode = null, string version = null,  AuthTicket authTicket = null, 
-		 int expectedCode = (int)HttpStatusCode.OK, int successCode = (int)HttpStatusCode.OK)
+ 		 Mozu.Api.Contracts.CommerceRuntime.Fulfillment.FulfillmentInfo fulfillmentInfo, string orderId, string updateMode = null, string version = null, 
+		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
-			var apiClient = Mozu.Api.Clients.Commerce.Orders.FulfillmentInfoClient.SetFulFillmentInfoClient(
-				 fulfillmentInfo :  fulfillmentInfo,  orderId :  orderId,  updateMode :  updateMode,  version :  version, authTicket : authTicket		);
+			var currentClassName = System.Reflection.MethodInfo.GetCurrentMethod().DeclaringType.Name;
+			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
+			var apiClient = Mozu.Api.Clients.Commerce.Orders.FulfillmentInfo.FulfillmentInfoClient.SetFulFillmentInfoClient(
+				 fulfillmentInfo :  fulfillmentInfo,  orderId :  orderId,  updateMode :  updateMode,  version :  version		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
 			}
-			catch (Exception ex)
+			catch (ApiException ex)
 			{
-			 // Custom error handling for test cases can be placed here
+				// Custom error handling for test cases can be placed here
+				Exception customException = TestFailException.GetCustomTestException(ex, currentClassName, currentMethodName, expectedCode);
+				if (customException != null)
+					throw customException;
+				return null;
 			}
 			return ResponseMessageFactory.CheckResponseCodes(apiClient.HttpResponse.StatusCode, expectedCode, successCode) 
 					 ? (apiClient.Result()) 

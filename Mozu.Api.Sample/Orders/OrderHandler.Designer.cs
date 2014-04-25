@@ -28,45 +28,56 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.getOrdersBtn = new System.Windows.Forms.Button();
-            this.ordersList = new System.Windows.Forms.ListBox();
+            this.dataGridViewOrders = new System.Windows.Forms.DataGridView();
+            this.btnGetOrders = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewOrders)).BeginInit();
             this.SuspendLayout();
             // 
-            // getOrdersBtn
+            // dataGridViewOrders
             // 
-            this.getOrdersBtn.Location = new System.Drawing.Point(37, 22);
-            this.getOrdersBtn.Name = "getOrdersBtn";
-            this.getOrdersBtn.Size = new System.Drawing.Size(141, 29);
-            this.getOrdersBtn.TabIndex = 0;
-            this.getOrdersBtn.Text = "Get Orders";
-            this.getOrdersBtn.UseVisualStyleBackColor = true;
-            this.getOrdersBtn.Click += new System.EventHandler(this.button1_Click);
+            this.dataGridViewOrders.AllowUserToAddRows = false;
+            this.dataGridViewOrders.AllowUserToDeleteRows = false;
+            this.dataGridViewOrders.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewOrders.Location = new System.Drawing.Point(2, 35);
+            this.dataGridViewOrders.Name = "dataGridViewOrders";
+            this.dataGridViewOrders.ReadOnly = true;
+            this.dataGridViewOrders.Size = new System.Drawing.Size(937, 396);
+            this.dataGridViewOrders.TabIndex = 2;
+            this.dataGridViewOrders.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewOrders_CellContentClick);
             // 
-            // ordersList
+            // btnGetOrders
             // 
-            this.ordersList.FormattingEnabled = true;
-            this.ordersList.Location = new System.Drawing.Point(37, 68);
-            this.ordersList.Name = "ordersList";
-            this.ordersList.Size = new System.Drawing.Size(462, 212);
-            this.ordersList.TabIndex = 1;
+            this.btnGetOrders.BackColor = System.Drawing.Color.Silver;
+            this.btnGetOrders.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.btnGetOrders.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.btnGetOrders.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gray;
+            this.btnGetOrders.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnGetOrders.Location = new System.Drawing.Point(5, 6);
+            this.btnGetOrders.Name = "btnGetOrders";
+            this.btnGetOrders.Size = new System.Drawing.Size(212, 23);
+            this.btnGetOrders.TabIndex = 6;
+            this.btnGetOrders.Text = "Get Orders";
+            this.btnGetOrders.UseVisualStyleBackColor = false;
+            this.btnGetOrders.Click += new System.EventHandler(this.btnGetOrders_Click);
             // 
             // Orders
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(524, 307);
-            this.Controls.Add(this.ordersList);
-            this.Controls.Add(this.getOrdersBtn);
+            this.BackColor = System.Drawing.Color.Black;
+            this.ClientSize = new System.Drawing.Size(941, 434);
+            this.Controls.Add(this.btnGetOrders);
+            this.Controls.Add(this.dataGridViewOrders);
             this.Name = "Orders";
-            this.Text = "Home";
-            this.Load += new System.EventHandler(this.Home_Load);
+            this.Text = "Order API Window";
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewOrders)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Button getOrdersBtn;
-        private System.Windows.Forms.ListBox ordersList;
+        private System.Windows.Forms.DataGridView dataGridViewOrders;
+        private System.Windows.Forms.Button btnGetOrders;
     }
 }

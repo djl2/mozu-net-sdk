@@ -32,14 +32,14 @@ namespace Mozu.Api.Test.Factories
 		/// Creates an authentication ticket for the supplied user to specify in API requests associated with the supplied tenant.
 		/// <example> 
 		///  <code> 
-		/// var result = TenantAdminUserAuthTicketFactory.CreateUserAuthTicket(handler : handler,  userAuthInfo :  userAuthInfo,  tenantId :  tenantId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = TenantAdminUserAuthTicketFactory.CreateUserAuthTicket(handler : handler,  userAuthInfo :  userAuthInfo,  tenantId :  tenantId,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<TenantAdminUserAuthTicket/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.AdminUser.TenantAdminUserAuthTicket CreateUserAuthTicket(ServiceClientMessageHandler handler, 
- 		 Mozu.Api.Contracts.Core.UserAuthInfo userAuthInfo, int? tenantId = null,  AuthTicket authTicket = null, 
+ 		 Mozu.Api.Contracts.Core.UserAuthInfo userAuthInfo, int? tenantId = null, 
 		 HttpStatusCode expectedCode = HttpStatusCode.Created, HttpStatusCode successCode = HttpStatusCode.Created)
 		{
 			SetSdKparameters();
@@ -47,7 +47,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Platform.Adminuser.TenantAdminUserAuthTicketClient.CreateUserAuthTicketClient(
-				 userAuthInfo :  userAuthInfo,  tenantId :  tenantId, authTicket : authTicket		);
+				 userAuthInfo :  userAuthInfo,  tenantId :  tenantId		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
@@ -70,14 +70,14 @@ namespace Mozu.Api.Test.Factories
 		/// Generates a new user authentication ticket for the specified tenant by supplying the user's existing refresh token information.
 		/// <example> 
 		///  <code> 
-		/// var result = TenantAdminUserAuthTicketFactory.RefreshAuthTicket(handler : handler,  existingAuthTicket :  existingAuthTicket,  tenantId :  tenantId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = TenantAdminUserAuthTicketFactory.RefreshAuthTicket(handler : handler,  existingAuthTicket :  existingAuthTicket,  tenantId :  tenantId,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<TenantAdminUserAuthTicket/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.AdminUser.TenantAdminUserAuthTicket RefreshAuthTicket(ServiceClientMessageHandler handler, 
- 		 Mozu.Api.Contracts.AdminUser.TenantAdminUserAuthTicket existingAuthTicket, int? tenantId = null,  AuthTicket authTicket = null, 
+ 		 Mozu.Api.Contracts.AdminUser.TenantAdminUserAuthTicket existingAuthTicket, int? tenantId = null, 
 		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
@@ -85,7 +85,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Platform.Adminuser.TenantAdminUserAuthTicketClient.RefreshAuthTicketClient(
-				 existingAuthTicket :  existingAuthTicket,  tenantId :  tenantId, authTicket : authTicket		);
+				 existingAuthTicket :  existingAuthTicket,  tenantId :  tenantId		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
@@ -108,14 +108,14 @@ namespace Mozu.Api.Test.Factories
 		/// Deletes the authentication ticket for the user by supplying the refresh token.
 		/// <example> 
 		///  <code> 
-		/// var result = TenantAdminUserAuthTicketFactory.DeleteUserAuthTicket(handler : handler,  refreshToken :  refreshToken,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = TenantAdminUserAuthTicketFactory.DeleteUserAuthTicket(handler : handler,  refreshToken :  refreshToken,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<void/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static void DeleteUserAuthTicket(ServiceClientMessageHandler handler, 
- 		string refreshToken,  AuthTicket authTicket = null, 
+ 		string refreshToken, 
 		 HttpStatusCode expectedCode = HttpStatusCode.NoContent, HttpStatusCode successCode = HttpStatusCode.NoContent)
 		{
 			SetSdKparameters();
@@ -123,7 +123,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Platform.Adminuser.TenantAdminUserAuthTicketClient.DeleteUserAuthTicketClient(
-				 refreshToken :  refreshToken, authTicket : authTicket		);
+				 refreshToken :  refreshToken		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();

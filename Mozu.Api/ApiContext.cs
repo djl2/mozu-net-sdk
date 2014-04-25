@@ -3,38 +3,48 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Net.Http.Headers;
+using System.Runtime.Remoting.Messaging;
 using Mozu.Api.Contracts.Tenant;
 using Mozu.Api.Security;
 using Mozu.Api.Utilities;
 
 namespace Mozu.Api
 {
+    
 	public interface IApiContext
 	{
-		int TenantId { get; }
-		int? SiteId { get; }
+		int TenantId { get; set; }
+		int? SiteId { get; set;  }
 		string TenantUrl { get; }
 		string SiteUrl { get; }
-		string CorrelationId { get; }
+		string CorrelationId { get; set; }
 		string HMACSha256 { get; }
         string AppAuthClaim { get; set; }
-		int? MasterCatalogId { get; }
-		int? CatalogId { get; }
+		int? MasterCatalogId { get; set; }
+		int? CatalogId { get; set; }
         Tenant Tenant { get; }
+	    string Date { get; }
+
+        AuthTicket UserAuthTicket { get; set; }
 	}
 
+    [Serializable]
     public class ApiContext : IApiContext
     {
-		public int TenantId { get; protected set; }
-		public int? SiteId { get; protected set; }
-		public string TenantUrl { get; protected set; }
+        public int TenantId {get; set;}
+        public int? SiteId { get;  set; }
+		public string TenantUrl { get; set; }
 		public string SiteUrl { get; protected set; }
-		public string CorrelationId { get; protected set; }
+		public string CorrelationId { get;  set; }
 		public string HMACSha256 { get; protected set; }
 		public string AppAuthClaim { get; set; }
-		public int? MasterCatalogId { get; protected set; }
-		public int? CatalogId { get; protected set; }
-        public Tenant Tenant { get; protected set; }
+        public int? MasterCatalogId{ get; set; }
+
+        public int? CatalogId { get;  set; }
+        public Tenant Tenant { get; set; }
+        public AuthTicket UserAuthTicket { get; set; }
+
+        public string Date { get; protected set; }
 
 		public ApiContext()
 		{
@@ -84,7 +94,9 @@ namespace Mozu.Api
 			SiteId = int.Parse(headers.Get(Headers.X_VOL_SITE));
 			CorrelationId = headers.Get(Headers.X_VOL_CORRELATION);
 			HMACSha256 = headers.Get(Headers.X_VOL_HMAC_SHA256);
+		    Date = headers.Get(Headers.DATE);
 			var masterCatalogStr = headers.Get(Headers.X_VOL_MASTER_CATALOG);
+
 			if (masterCatalogStr != null)
 			{
 				MasterCatalogId = int.Parse(masterCatalogStr);
@@ -117,6 +129,7 @@ namespace Mozu.Api
             SiteId = HttpHelper.ParseFirstValue(Headers.X_VOL_SITE, headers);
             CorrelationId = HttpHelper.GetHeaderValue(Headers.X_VOL_CORRELATION, headers);
             HMACSha256 = HttpHelper.GetHeaderValue(Headers.X_VOL_HMAC_SHA256, headers);
+		    Date = HttpHelper.GetHeaderValue(Headers.DATE, headers);
             MasterCatalogId = HttpHelper.ParseFirstValue(Headers.X_VOL_MASTER_CATALOG, headers);
             CatalogId = HttpHelper.ParseFirstValue(Headers.X_VOL_CATALOG, headers);
 			
@@ -143,42 +156,6 @@ namespace Mozu.Api
                 SiteUrl = site.Domain;
             }
         }
-
-       /* protected string GetHeaderValue(string header, HttpRequestHeaders headers)
-        {
-            var retVal = String.Empty;
-            IEnumerable<string> value = (headers.Contains(header) ? headers.GetValues(header) : null);
-
-            if (value != null && !Equals(value, Enumerable.Empty<string>()))
-            {
-                var str = value.FirstOrDefault();
-                return str ?? String.Empty;
-            }
-            return retVal;
-        }
-
-        protected int? ParseFirstValue(string header, HttpRequestHeaders headers)
-        {
-
-            IEnumerable<string> value = (headers.Contains(header) ? headers.GetValues(header) : null);
-            if (value != null)
-            {
-                var firstDataItem = value.FirstOrDefault();
-                if (firstDataItem != null)
-                {
-                    int intVal;
-                    if (int.TryParse(firstDataItem, out intVal))
-                    {
-                        if (intVal == 0)
-                            return null;
-                        return intVal;
-                    }
-                        
-                }
-            }
-
-            return null;
-        }*/
 
     }
 }

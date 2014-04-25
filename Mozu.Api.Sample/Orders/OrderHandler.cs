@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using Mozu.Api.Contracts.CommerceRuntime.Orders;
 using Mozu.Api.Resources.Commerce;
+using Mozu.Api.Resources.Commerce.Orders;
 
 namespace Mozu.Api.Sample.OrderHandler
 {
@@ -14,21 +15,18 @@ namespace Mozu.Api.Sample.OrderHandler
             _apiContext = apiContext;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnGetOrders_Click(object sender, EventArgs e)
         {
+            btnGetOrders.Text = "Getting Orders...";
             var orderResource = new OrderResource(_apiContext);
             OrderCollection orders = orderResource.GetOrders();
 
-            string orderInfo;
-
-            foreach (Order order in orders.Items)
-            {
-                orderInfo = "Order ID: " + order.Id + " - Order Total: " + order.Total;
-                ordersList.Items.Add(orderInfo);
-            }
+            if (orders != null && orders.Items.Count > 0)
+                dataGridViewOrders.DataSource = orders.Items;
+            btnGetOrders.Text = "Refresh Orders";
         }
 
-        private void Home_Load(object sender, EventArgs e)
+        private void dataGridViewOrders_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }

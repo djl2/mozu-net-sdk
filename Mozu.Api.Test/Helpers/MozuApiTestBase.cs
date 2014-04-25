@@ -34,7 +34,7 @@ namespace Mozu.Api.Test.Helpers
         public static ServiceClientMessageHandler ShopperMsgHandler;
         public static ServiceClientMessageHandler AnonShopperMsgHandler;
 
-        public static Mozu.Api.Security.AuthTicket ShopperAuthTicket = new Mozu.Api.Security.AuthTicket() { AuthenticationScope = AuthenticationScope.Customer, AccessTokenExpiration = (DateTime.UtcNow.AddDays(1)) };
+        public static Mozu.Api.Security.AuthTicket ShopperuserAuthTicket = new Mozu.Api.Security.AuthTicket() { AuthenticationScope = AuthenticationScope.Customer, AccessTokenExpiration = (DateTime.UtcNow.AddDays(1)) };
         
         public static int tenantId;
         //public static int siteGroupId;

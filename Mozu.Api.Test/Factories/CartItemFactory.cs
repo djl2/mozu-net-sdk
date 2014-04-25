@@ -32,14 +32,14 @@ namespace Mozu.Api.Test.Factories
 		/// Retrieves a list of cart items including the total number of items in the cart.
 		/// <example> 
 		///  <code> 
-		/// var result = CartItemFactory.GetCartItems(handler : handler,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = CartItemFactory.GetCartItems(handler : handler,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<CartItemCollection/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.CommerceRuntime.Carts.CartItemCollection GetCartItems(ServiceClientMessageHandler handler, 
- 		  AuthTicket authTicket = null, 
+ 		 
 		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
@@ -47,7 +47,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Commerce.Carts.CartItemClient.GetCartItemsClient(
-				 authTicket : authTicket		);
+						);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
@@ -70,14 +70,14 @@ namespace Mozu.Api.Test.Factories
 		/// Retrieves a particular cart item by providing the cart item ID.
 		/// <example> 
 		///  <code> 
-		/// var result = CartItemFactory.GetCartItem(handler : handler,  cartItemId :  cartItemId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = CartItemFactory.GetCartItem(handler : handler,  cartItemId :  cartItemId,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<CartItem/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.CommerceRuntime.Carts.CartItem GetCartItem(ServiceClientMessageHandler handler, 
- 		 string cartItemId,  AuthTicket authTicket = null, 
+ 		 string cartItemId, 
 		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
@@ -85,7 +85,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Commerce.Carts.CartItemClient.GetCartItemClient(
-				 cartItemId :  cartItemId, authTicket : authTicket		);
+				 cartItemId :  cartItemId		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
@@ -108,14 +108,14 @@ namespace Mozu.Api.Test.Factories
 		/// Adds a product to the current shopper's cart.
 		/// <example> 
 		///  <code> 
-		/// var result = CartItemFactory.AddItemToCart(handler : handler,  cartItem :  cartItem, authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = CartItemFactory.AddItemToCart(handler : handler,  cartItem :  cartItem,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<CartItem/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.CommerceRuntime.Carts.CartItem AddItemToCart(ServiceClientMessageHandler handler, 
- 		 Mozu.Api.Contracts.CommerceRuntime.Carts.CartItem cartItem, AuthTicket authTicket = null, 
+ 		 Mozu.Api.Contracts.CommerceRuntime.Carts.CartItem cartItem, 
 		 HttpStatusCode expectedCode = HttpStatusCode.Created, HttpStatusCode successCode = HttpStatusCode.Created)
 		{
 			SetSdKparameters();
@@ -123,7 +123,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Commerce.Carts.CartItemClient.AddItemToCartClient(
-				 cartItem :  cartItem, authTicket : authTicket		);
+				 cartItem :  cartItem		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
@@ -146,14 +146,14 @@ namespace Mozu.Api.Test.Factories
 		/// Update the product or product quantity of an item in the current shopper's cart.
 		/// <example> 
 		///  <code> 
-		/// var result = CartItemFactory.UpdateCartItem(handler : handler,  cartItem :  cartItem,  cartItemId :  cartItemId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = CartItemFactory.UpdateCartItem(handler : handler,  cartItem :  cartItem,  cartItemId :  cartItemId,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<CartItem/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.CommerceRuntime.Carts.CartItem UpdateCartItem(ServiceClientMessageHandler handler, 
- 		 Mozu.Api.Contracts.CommerceRuntime.Carts.CartItem cartItem, string cartItemId,  AuthTicket authTicket = null, 
+ 		 Mozu.Api.Contracts.CommerceRuntime.Carts.CartItem cartItem, string cartItemId, 
 		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
@@ -161,7 +161,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Commerce.Carts.CartItemClient.UpdateCartItemClient(
-				 cartItem :  cartItem,  cartItemId :  cartItemId, authTicket : authTicket		);
+				 cartItem :  cartItem,  cartItemId :  cartItemId		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
@@ -184,14 +184,14 @@ namespace Mozu.Api.Test.Factories
 		/// Update the quantity of an individual cart item in the cart of the current shopper.
 		/// <example> 
 		///  <code> 
-		/// var result = CartItemFactory.UpdateCartItemQuantity(handler : handler,  cartItemId :  cartItemId,  quantity :  quantity,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = CartItemFactory.UpdateCartItemQuantity(handler : handler,  cartItemId :  cartItemId,  quantity :  quantity,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<CartItem/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.CommerceRuntime.Carts.CartItem UpdateCartItemQuantity(ServiceClientMessageHandler handler, 
- 		 string cartItemId, int quantity,  AuthTicket authTicket = null, 
+ 		 string cartItemId, int quantity, 
 		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
@@ -199,7 +199,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Commerce.Carts.CartItemClient.UpdateCartItemQuantityClient(
-				 cartItemId :  cartItemId,  quantity :  quantity, authTicket : authTicket		);
+				 cartItemId :  cartItemId,  quantity :  quantity		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
@@ -222,14 +222,14 @@ namespace Mozu.Api.Test.Factories
 		/// Removes all items in the current shopper's active cart.
 		/// <example> 
 		///  <code> 
-		/// var result = CartItemFactory.RemoveAllCartItems(handler : handler,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = CartItemFactory.RemoveAllCartItems(handler : handler,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<Cart/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.CommerceRuntime.Carts.Cart RemoveAllCartItems(ServiceClientMessageHandler handler, 
- 		  AuthTicket authTicket = null, 
+ 		 
 		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
@@ -237,7 +237,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Commerce.Carts.CartItemClient.RemoveAllCartItemsClient(
-				 authTicket : authTicket		);
+						);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
@@ -260,14 +260,14 @@ namespace Mozu.Api.Test.Factories
 		/// Deletes a specific cart item by providing the cart item ID.
 		/// <example> 
 		///  <code> 
-		/// var result = CartItemFactory.DeleteCartItem(handler : handler,  cartItemId :  cartItemId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = CartItemFactory.DeleteCartItem(handler : handler,  cartItemId :  cartItemId,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<void/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static void DeleteCartItem(ServiceClientMessageHandler handler, 
- 		string cartItemId,  AuthTicket authTicket = null, 
+ 		string cartItemId, 
 		 HttpStatusCode expectedCode = HttpStatusCode.NoContent, HttpStatusCode successCode = HttpStatusCode.NoContent)
 		{
 			SetSdKparameters();
@@ -275,7 +275,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Commerce.Carts.CartItemClient.DeleteCartItemClient(
-				 cartItemId :  cartItemId, authTicket : authTicket		);
+				 cartItemId :  cartItemId		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();

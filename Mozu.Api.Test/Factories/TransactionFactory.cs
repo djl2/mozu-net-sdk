@@ -32,14 +32,14 @@ namespace Mozu.Api.Test.Factories
 		/// Retrieves a list of transactions associated with the customer account specified in the request.
 		/// <example> 
 		///  <code> 
-		/// var result = TransactionFactory.GetTransactions(handler : handler,  accountId :  accountId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = TransactionFactory.GetTransactions(handler : handler,  accountId :  accountId,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<List<Transaction>/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static List<Mozu.Api.Contracts.Customer.Transaction> GetTransactions(ServiceClientMessageHandler handler, 
- 		 int accountId,  AuthTicket authTicket = null, 
+ 		 int accountId, 
 		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
@@ -47,7 +47,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Commerce.Customer.Accounts.TransactionClient.GetTransactionsClient(
-				 accountId :  accountId, authTicket : authTicket		);
+				 accountId :  accountId		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
@@ -70,14 +70,14 @@ namespace Mozu.Api.Test.Factories
 		/// Creates a new transaction for the customer account specified in the request.
 		/// <example> 
 		///  <code> 
-		/// var result = TransactionFactory.AddTransaction(handler : handler,  transaction :  transaction,  accountId :  accountId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = TransactionFactory.AddTransaction(handler : handler,  transaction :  transaction,  accountId :  accountId,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<Transaction/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.Customer.Transaction AddTransaction(ServiceClientMessageHandler handler, 
- 		 Mozu.Api.Contracts.Customer.Transaction transaction, int accountId,  AuthTicket authTicket = null, 
+ 		 Mozu.Api.Contracts.Customer.Transaction transaction, int accountId, 
 		 HttpStatusCode expectedCode = HttpStatusCode.Created, HttpStatusCode successCode = HttpStatusCode.Created)
 		{
 			SetSdKparameters();
@@ -85,7 +85,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Commerce.Customer.Accounts.TransactionClient.AddTransactionClient(
-				 transaction :  transaction,  accountId :  accountId, authTicket : authTicket		);
+				 transaction :  transaction,  accountId :  accountId		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
@@ -108,14 +108,14 @@ namespace Mozu.Api.Test.Factories
 		/// Deletes a transaction from the customer account specified in the request.
 		/// <example> 
 		///  <code> 
-		/// var result = TransactionFactory.RemoveTransaction(handler : handler,  accountId :  accountId,  transactionId :  transactionId,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = TransactionFactory.RemoveTransaction(handler : handler,  accountId :  accountId,  transactionId :  transactionId,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<void/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static void RemoveTransaction(ServiceClientMessageHandler handler, 
- 		int accountId, string transactionId,  AuthTicket authTicket = null, 
+ 		int accountId, string transactionId, 
 		 HttpStatusCode expectedCode = HttpStatusCode.NoContent, HttpStatusCode successCode = HttpStatusCode.NoContent)
 		{
 			SetSdKparameters();
@@ -123,7 +123,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Commerce.Customer.Accounts.TransactionClient.RemoveTransactionClient(
-				 accountId :  accountId,  transactionId :  transactionId, authTicket : authTicket		);
+				 accountId :  accountId,  transactionId :  transactionId		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();

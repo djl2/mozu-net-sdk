@@ -32,14 +32,14 @@ namespace Mozu.Api.Test.Factories
 		/// 
 		/// <example> 
 		///  <code> 
-		/// var result = InStockNotificationSubscriptionFactory.GetInStockNotificationSubscriptions(handler : handler,  startIndex :  startIndex,  pageSize :  pageSize,  sortBy :  sortBy,  filter :  filter,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = InStockNotificationSubscriptionFactory.GetInStockNotificationSubscriptions(handler : handler,  startIndex :  startIndex,  pageSize :  pageSize,  sortBy :  sortBy,  filter :  filter,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<InStockNotificationSubscriptionCollection/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.Customer.InStockNotificationSubscriptionCollection GetInStockNotificationSubscriptions(ServiceClientMessageHandler handler, 
- 		 int? startIndex = null, int? pageSize = null, string sortBy = null, string filter = null,  AuthTicket authTicket = null, 
+ 		 int? startIndex = null, int? pageSize = null, string sortBy = null, string filter = null, 
 		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
@@ -47,7 +47,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Commerce.InStockNotificationSubscriptionClient.GetInStockNotificationSubscriptionsClient(
-				 startIndex :  startIndex,  pageSize :  pageSize,  sortBy :  sortBy,  filter :  filter, authTicket : authTicket		);
+				 startIndex :  startIndex,  pageSize :  pageSize,  sortBy :  sortBy,  filter :  filter		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
@@ -70,14 +70,14 @@ namespace Mozu.Api.Test.Factories
 		/// 
 		/// <example> 
 		///  <code> 
-		/// var result = InStockNotificationSubscriptionFactory.GetInStockNotificationSubscription(handler : handler,  id :  id,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = InStockNotificationSubscriptionFactory.GetInStockNotificationSubscription(handler : handler,  id :  id,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<InStockNotificationSubscription/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.Customer.InStockNotificationSubscription GetInStockNotificationSubscription(ServiceClientMessageHandler handler, 
- 		 int id,  AuthTicket authTicket = null, 
+ 		 int id, 
 		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
@@ -85,7 +85,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Commerce.InStockNotificationSubscriptionClient.GetInStockNotificationSubscriptionClient(
-				 id :  id, authTicket : authTicket		);
+				 id :  id		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
@@ -108,14 +108,14 @@ namespace Mozu.Api.Test.Factories
 		/// 
 		/// <example> 
 		///  <code> 
-		/// var result = InStockNotificationSubscriptionFactory.AddInStockNotificationSubscription(handler : handler,  inStockNotificationSubscription :  inStockNotificationSubscription, authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = InStockNotificationSubscriptionFactory.AddInStockNotificationSubscription(handler : handler,  inStockNotificationSubscription :  inStockNotificationSubscription,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<InStockNotificationSubscription/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static Mozu.Api.Contracts.Customer.InStockNotificationSubscription AddInStockNotificationSubscription(ServiceClientMessageHandler handler, 
- 		 Mozu.Api.Contracts.Customer.InStockNotificationSubscription inStockNotificationSubscription, AuthTicket authTicket = null, 
+ 		 Mozu.Api.Contracts.Customer.InStockNotificationSubscription inStockNotificationSubscription, 
 		 HttpStatusCode expectedCode = HttpStatusCode.Created, HttpStatusCode successCode = HttpStatusCode.Created)
 		{
 			SetSdKparameters();
@@ -123,7 +123,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Commerce.InStockNotificationSubscriptionClient.AddInStockNotificationSubscriptionClient(
-				 inStockNotificationSubscription :  inStockNotificationSubscription, authTicket : authTicket		);
+				 inStockNotificationSubscription :  inStockNotificationSubscription		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
@@ -146,14 +146,14 @@ namespace Mozu.Api.Test.Factories
 		/// 
 		/// <example> 
 		///  <code> 
-		/// var result = InStockNotificationSubscriptionFactory.DeleteInStockNotificationSubscription(handler : handler,  id :  id,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = InStockNotificationSubscriptionFactory.DeleteInStockNotificationSubscription(handler : handler,  id :  id,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<void/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static void DeleteInStockNotificationSubscription(ServiceClientMessageHandler handler, 
- 		int id,  AuthTicket authTicket = null, 
+ 		int id, 
 		 HttpStatusCode expectedCode = HttpStatusCode.NoContent, HttpStatusCode successCode = HttpStatusCode.NoContent)
 		{
 			SetSdKparameters();
@@ -161,7 +161,7 @@ namespace Mozu.Api.Test.Factories
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
 			var apiClient = Mozu.Api.Clients.Commerce.InStockNotificationSubscriptionClient.DeleteInStockNotificationSubscriptionClient(
-				 id :  id, authTicket : authTicket		);
+				 id :  id		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();

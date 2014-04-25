@@ -32,22 +32,22 @@ namespace Mozu.Api.Test.Factories
 		/// Retrieves the value of a record in the Mozu database.
 		/// <example> 
 		///  <code> 
-		/// var result = UserDataFactory.GetDBValue(handler : handler,  dbEntryQuery :  dbEntryQuery,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = UserDataFactory.GetDBValue(handler : handler,  dbEntryQuery :  dbEntryQuery,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<string/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static string GetDBValue(ServiceClientMessageHandler handler, 
- 		 string dbEntryQuery,  AuthTicket authTicket = null, 
+ 		 string dbEntryQuery, 
 		 HttpStatusCode expectedCode = HttpStatusCode.OK, HttpStatusCode successCode = HttpStatusCode.OK)
 		{
 			SetSdKparameters();
 			var currentClassName = System.Reflection.MethodInfo.GetCurrentMethod().DeclaringType.Name;
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
-			var apiClient = Mozu.Api.Clients.Platform.UserDataClient.GetDBValueClient(
-				 dbEntryQuery :  dbEntryQuery, authTicket : authTicket		);
+			var apiClient = Mozu.Api.Clients.Platform.UserData.UserDataClient.GetDBValueClient(
+				 dbEntryQuery :  dbEntryQuery		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
@@ -70,22 +70,22 @@ namespace Mozu.Api.Test.Factories
 		/// Creates a new record in the Mozu database based on the information supplied in the request.
 		/// <example> 
 		///  <code> 
-		/// var result = UserDataFactory.CreateDBValue(handler : handler,  value :  value,  dbEntryQuery :  dbEntryQuery,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = UserDataFactory.CreateDBValue(handler : handler,  value :  value,  dbEntryQuery :  dbEntryQuery,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<void/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static void CreateDBValue(ServiceClientMessageHandler handler, 
- 		string value, string dbEntryQuery,  AuthTicket authTicket = null, 
+ 		string value, string dbEntryQuery, 
 		 HttpStatusCode expectedCode = HttpStatusCode.NoContent, HttpStatusCode successCode = HttpStatusCode.NoContent)
 		{
 			SetSdKparameters();
 			var currentClassName = System.Reflection.MethodInfo.GetCurrentMethod().DeclaringType.Name;
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
-			var apiClient = Mozu.Api.Clients.Platform.UserDataClient.CreateDBValueClient(
-				 value :  value,  dbEntryQuery :  dbEntryQuery, authTicket : authTicket		);
+			var apiClient = Mozu.Api.Clients.Platform.UserData.UserDataClient.CreateDBValueClient(
+				 value :  value,  dbEntryQuery :  dbEntryQuery		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
@@ -107,22 +107,22 @@ namespace Mozu.Api.Test.Factories
 		/// Updates a record in the Mozu database based on the information supplied in the request.
 		/// <example> 
 		///  <code> 
-		/// var result = UserDataFactory.UpdateDBValue(handler : handler,  value :  value,  dbEntryQuery :  dbEntryQuery,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = UserDataFactory.UpdateDBValue(handler : handler,  value :  value,  dbEntryQuery :  dbEntryQuery,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<void/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static void UpdateDBValue(ServiceClientMessageHandler handler, 
- 		string value, string dbEntryQuery,  AuthTicket authTicket = null, 
+ 		string value, string dbEntryQuery, 
 		 HttpStatusCode expectedCode = HttpStatusCode.NoContent, HttpStatusCode successCode = HttpStatusCode.NoContent)
 		{
 			SetSdKparameters();
 			var currentClassName = System.Reflection.MethodInfo.GetCurrentMethod().DeclaringType.Name;
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
-			var apiClient = Mozu.Api.Clients.Platform.UserDataClient.UpdateDBValueClient(
-				 value :  value,  dbEntryQuery :  dbEntryQuery, authTicket : authTicket		);
+			var apiClient = Mozu.Api.Clients.Platform.UserData.UserDataClient.UpdateDBValueClient(
+				 value :  value,  dbEntryQuery :  dbEntryQuery		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
@@ -144,22 +144,22 @@ namespace Mozu.Api.Test.Factories
 		/// Removes a previously defined record in the Mozu database.
 		/// <example> 
 		///  <code> 
-		/// var result = UserDataFactory.DeleteDBValue(handler : handler,  dbEntryQuery :  dbEntryQuery,  authTicket : authTicket,  expectedCode: expectedCode, successCode: successCode); 
+		/// var result = UserDataFactory.DeleteDBValue(handler : handler,  dbEntryQuery :  dbEntryQuery,  expectedCode: expectedCode, successCode: successCode); 
 		/// var optionalCasting = ConvertClass<void/>(result); 
 		/// return optionalCasting;
 		///  </code> 
 		/// </example> 
 		/// </summary>
 		public static void DeleteDBValue(ServiceClientMessageHandler handler, 
- 		string dbEntryQuery,  AuthTicket authTicket = null, 
+ 		string dbEntryQuery, 
 		 HttpStatusCode expectedCode = HttpStatusCode.NoContent, HttpStatusCode successCode = HttpStatusCode.NoContent)
 		{
 			SetSdKparameters();
 			var currentClassName = System.Reflection.MethodInfo.GetCurrentMethod().DeclaringType.Name;
 			var currentMethodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
 			Debug.WriteLine(currentMethodName  + '.' + currentMethodName );
-			var apiClient = Mozu.Api.Clients.Platform.UserDataClient.DeleteDBValueClient(
-				 dbEntryQuery :  dbEntryQuery, authTicket : authTicket		);
+			var apiClient = Mozu.Api.Clients.Platform.UserData.UserDataClient.DeleteDBValueClient(
+				 dbEntryQuery :  dbEntryQuery		);
 			try
 			{
 				apiClient.WithContext(handler.ApiContext).Execute();
