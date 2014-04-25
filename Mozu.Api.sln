@@ -13,6 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mozu.Api.Sample.Web", "Mozu
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Config", "Config", "{64855AF6-99D9-4AAE-A3DC-979799DF010C}"
 	ProjectSection(SolutionItems) = preProject
+		ChangeLog.txt = ChangeLog.txt
 		sdkTest.config = sdkTest.config
 	EndProjectSection
 EndProject
