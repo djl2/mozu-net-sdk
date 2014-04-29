@@ -122,6 +122,8 @@ namespace Mozu.Api.Contracts.CommerceRuntime.Orders
 			///
 			public Product Product { get; set; }
 
+			public AppliedProductDiscount ProductDiscount { get; set; }
+
 			///
 			///List of product discounts that apply to the item in the order.
 			///
