@@ -122,6 +122,8 @@ namespace Mozu.Api.Contracts.CommerceRuntime.Wishlists
 			///
 			public Product Product { get; set; }
 
+			public AppliedProductDiscount ProductDiscount { get; set; }
+
 			///
 			///Array of product discounts applicable to an item in a wish list. This property is not used at this time and is reserved for future functionality.
 			///

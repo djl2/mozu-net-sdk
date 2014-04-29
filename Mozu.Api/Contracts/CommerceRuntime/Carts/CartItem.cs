@@ -117,6 +117,8 @@ namespace Mozu.Api.Contracts.CommerceRuntime.Carts
 			///
 			public Product Product { get; set; }
 
+			public AppliedProductDiscount ProductDiscount { get; set; }
+
 			///
 			///List of product-level discounts projected to apply to the cart item at checkout.
 			///
