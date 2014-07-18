@@ -21,8 +21,8 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="bin\Release\Mozu.Api.dll" target="lib\45" />
-    <file src="bin\Release\Mozu.Api.XML" target="lib\45" />
-    <file src="bin\Release\Mozu.Api.pdb" target="lib\45" />
+    <file src="bin\Release\Mozu.Api.dll" target="lib\net45" />
+    <file src="bin\Release\Mozu.Api.XML" target="lib\net45" />
+    <file src="bin\Release\Mozu.Api.pdb" target="lib\net45" />
   </files>
 </package>
